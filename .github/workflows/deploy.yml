@@ -8,8 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Stage files into astrology101 subfolder
+        run: |
+          mkdir -p staging/astrology101
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='staging' \
+            --exclude='README.md' \
+            ./ staging/astrology101/
+
       - name: Deploy to Static.app
         uses: designmodo/static-app-deploy-action@v1.0.0
         with:
           api-key: ${{ secrets.STATIC_APP_API_KEY }}
-          build-dir: './'
+          pid: 'jp3a5h2e8x'
+          build-dir: 'staging'
