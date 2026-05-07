@@ -465,7 +465,6 @@
     flex-direction: column;
     align-items: stretch;
     gap: 3px;
-    margin-top: auto;
   }
   .chamber-empty-note {
     font-family: var(--display);
@@ -473,9 +472,8 @@
     font-size: 10px;
     color: var(--muted);
     text-align: center;
-    padding: 4px 0 0;
+    padding: 8px 0;
     opacity: .55;
-    margin-top: auto;
     animation: pill-in .35s cubic-bezier(.4,0,.2,1) backwards .1s;
   }
 
@@ -651,6 +649,9 @@
     gap: 14px;
     margin: 14px 0 8px;
   }
+  /* Required because .story-controls sets display:flex which would otherwise
+     override the [hidden] attribute's default display:none. */
+  .story-controls[hidden] { display: none; }
   .story-counter {
     font-family: var(--display);
     font-style: italic;
