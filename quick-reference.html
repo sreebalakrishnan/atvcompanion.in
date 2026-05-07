@@ -286,8 +286,8 @@
     margin-top: 8px;
     line-height: 1.4;
   }
-  /* v4.27.0 — Rāśi Chakra centre: compact pill + tap-to-open popover.
-     Fixes v4.27.0 overflow when a long Vikram quote + 3 jumps spilled into adjacent cells on phones. */
+  /* v4.28.0 — Rāśi Chakra centre: compact pill + tap-to-open popover.
+     Fixes v4.28.0 overflow when a long Vikram quote + 3 jumps spilled into adjacent cells on phones. */
   .cell.center .center-tap {
     appearance: none;
     background: var(--surface);
@@ -435,7 +435,7 @@
   }
   .vw-close:hover { color: var(--saffron); }
 
-  /* ---------- WHATSAPP FAB (v4.27.0) ---------- */
+  /* ---------- WHATSAPP FAB (v4.28.0) ---------- */
   .wa-fab {
     position: fixed;
     bottom: 24px;
@@ -2746,6 +2746,89 @@
   }
   .chant-next:hover { background: var(--saffron); color: var(--surface); border-color: var(--saffron); }
 
+  /* ---------- WELCOME CARD (v4.28.0) ---------- */
+  /* Shown once on first visit. Persisted via localStorage 'astro-welcomed'.
+     Hidden by default (no flash on first paint); JS reveals it if the flag isn't set. */
+  .welcome-card {
+    display: none;
+    margin: 24px auto 18px;
+    max-width: 640px;
+    padding: 18px 22px 16px;
+    background: linear-gradient(180deg, rgba(184,65,14,.06), rgba(184,65,14,.02));
+    border: 1px solid var(--saffron);
+    border-radius: 10px;
+    position: relative;
+  }
+  .welcome-card.is-shown { display: block; }
+  .welcome-card .wc-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 8px;
+  }
+  .welcome-card .wc-h {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 12px;
+    letter-spacing: -.005em;
+  }
+  .welcome-card .wc-list {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+  }
+  .welcome-card .wc-list li {
+    font-family: var(--display);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    padding: 6px 0 6px 24px;
+    position: relative;
+  }
+  .welcome-card .wc-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    color: var(--saffron);
+    font-size: 14px;
+    line-height: 1;
+  }
+  .welcome-card .wc-list a {
+    color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+    font-style: italic;
+  }
+  .welcome-card .wc-list a:hover { text-decoration-color: var(--saffron); }
+  .welcome-card .wc-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .welcome-card .wc-dismiss {
+    appearance: none;
+    background: var(--ink);
+    color: var(--surface);
+    border: 0;
+    border-radius: 999px;
+    padding: 7px 18px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .welcome-card .wc-dismiss:hover { background: var(--saffron); }
+
   /* ---------- DAILY GEM ---------- */
   .gem-card {
     margin: 22px 0 18px;
@@ -3837,7 +3920,7 @@
     .avatar-table3 { font-size: 12.5px; }
   }
 
-  /* ---------- WORKBOOK SECTION (v4.27.0) ---------- */
+  /* ---------- WORKBOOK SECTION (v4.28.0) ---------- */
   .wb-modules { display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }
   .wb-module {
     border: 1px solid var(--rule);
@@ -4690,13 +4773,28 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.27.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.28.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
   </header>
+
+  <!-- ====================== WELCOME CARD (v4.28.0) ====================== -->
+  <!-- Shown once on first visit; dismissed permanently via localStorage. -->
+  <aside class="welcome-card" id="welcomeCard" aria-label="Welcome — three places to start">
+    <div class="wc-eyebrow">New here?</div>
+    <p class="wc-h">Three places to start</p>
+    <ul class="wc-list">
+      <li>Tap any tile in <a href="#signs">the wheel of signs</a> — a drawer opens showing how that sign connects to its planet, element, and house.</li>
+      <li>Open <a href="#cabinet">the Planetary Cabinet</a> — a story version of how the planets relate, in Vikram's voice.</li>
+      <li>Try <a href="#practice">the Trace exercise in Practice</a> — embodied recall, draw the planet glyphs by hand.</li>
+    </ul>
+    <div class="wc-actions">
+      <button class="wc-dismiss" type="button" id="welcomeDismiss">Got it →</button>
+    </div>
+  </aside>
 
   <!-- ====================== OPENING BOOKEND ====================== -->
   <div class="chant-bookend chant-bookend-open">
@@ -4780,7 +4878,7 @@
     </div>
     <div class="avatar-grid" id="avatarGrid"></div>
 
-    <!-- Table 3 — Cross-cutting view from the Companion Workbook (v4.27.0) -->
+    <!-- Table 3 — Cross-cutting view from the Companion Workbook (v4.28.0) -->
     <h3 style="font-family:var(--display);font-weight:500;font-size:22px;margin:32px 0 6px;letter-spacing:-.005em;">The cross-cutting view <em style="color:var(--saffron);font-weight:500">— planet · brain · trauma · expression</em></h3>
     <p style="font-family:var(--display);font-style:italic;font-size:13px;color:var(--ink-soft);margin:0 0 12px;letter-spacing:.02em;">From the Companion Workbook (drafted by Marie · Sudha · Mannat · Spandana with Vikram · Megha · Neha). Each avatar mapped to the planet it carries, the brain region the trauma lives in, the trauma type itself, and how it tends to show up in life.</p>
     <div class="cab-table-wrap">
@@ -5306,7 +5404,7 @@
     </div>
   </section>
 
-  <!-- ====================== WORKBOOK OVERVIEW (v4.27.0) ====================== -->
+  <!-- ====================== WORKBOOK OVERVIEW (v4.28.0) ====================== -->
   <section id="workbook" data-level="foundations" data-family="practice">
     <div class="section-head">
       <div class="num">§ Sixteen</div>
@@ -5341,7 +5439,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.27.0 · updated 7 May 2026</span>
+      <span>v4.28.0 · updated 7 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -5354,7 +5452,7 @@
 
 </div>
 
-<!-- ====================== WHATSAPP FEEDBACK FAB (v4.27.0) ====================== -->
+<!-- ====================== WHATSAPP FEEDBACK FAB (v4.28.0) ====================== -->
 <button class="wa-fab" type="button" id="waFab" aria-label="Send feedback via WhatsApp">
   <span aria-hidden="true">💬</span>
 </button>
@@ -6976,7 +7074,7 @@ function wireCenterTap() {
   });
 }
 
-// ---- VIKRAM WISDOM POPOVER (v4.27.0) ----
+// ---- VIKRAM WISDOM POPOVER (v4.28.0) ----
 // Modal that opens when the centre pill is tapped.
 // Reuses the same backdrop pattern as the drawer for visual consistency.
 
@@ -8736,7 +8834,7 @@ updateActiveSection();
 
 /* ====================================================================
    TRACE THE SYMBOLS — drawing exercise (Phase A: 9 planets only)
-   Sudha's idea, v4.27.0. Plain canvas + faded glyph as guide.
+   Sudha's idea, v4.28.0. Plain canvas + faded glyph as guide.
    Done-set persists in localStorage as 'astro-trace-done'.
 ==================================================================== */
 const TRACE_PLANETS = [
@@ -8883,7 +8981,46 @@ function initTraceExercise() {
 initTraceExercise();
 
 /* ====================================================================
-   WHATSAPP FEEDBACK (v4.25.0; simplified in v4.27.0)
+   WELCOME CARD (v4.28.0)
+   Soft nudge for first-time visitors. Card shown once; dismissal persists
+   in localStorage. Returning users see nothing.
+==================================================================== */
+const WELCOME_KEY = 'astro-welcomed';
+
+(function initWelcomeCard() {
+  const card = document.getElementById('welcomeCard');
+  if (!card) return;
+
+  // Has the user already seen + dismissed it? Bail silently.
+  let alreadySeen = false;
+  try { alreadySeen = localStorage.getItem(WELCOME_KEY) === 'true'; } catch (e) {}
+  if (alreadySeen) return;
+
+  // First visit — reveal the card.
+  card.classList.add('is-shown');
+
+  // Wire the dismiss button.
+  const dismiss = document.getElementById('welcomeDismiss');
+  if (dismiss) {
+    dismiss.addEventListener('click', () => {
+      card.classList.remove('is-shown');
+      try { localStorage.setItem(WELCOME_KEY, 'true'); } catch (e) {}
+    });
+  }
+
+  // Tapping any of the three suggested links also counts as "got it" —
+  // user has begun exploring, no need to greet them again next visit.
+  card.querySelectorAll('.wc-list a').forEach(a => {
+    a.addEventListener('click', () => {
+      try { localStorage.setItem(WELCOME_KEY, 'true'); } catch (e) {}
+      // Hide the card after a tiny delay so the link click animation completes.
+      setTimeout(() => card.classList.remove('is-shown'), 250);
+    });
+  });
+})();
+
+/* ====================================================================
+   WHATSAPP FEEDBACK (v4.25.0; simplified in v4.28.0)
    One predictable click: opens WhatsApp at +91 9880337337 with prefilled
    context (version + which section the learner is on). The earlier
    two-path approach (html2canvas screenshot + Web Share API) was removed
@@ -8913,7 +9050,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.27.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.28.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -9162,7 +9299,7 @@ const REFLECT_NOTES_KEY = 'astro_reflect_notes';
 const A11Y_KEY = 'astro_a11y';
 
 // Default mode for first-time visitors: 'reference' (everything visible, study tools optional).
-// Returning users keep whatever they last chose. Changed from 'learning' in v4.27.0.
+// Returning users keep whatever they last chose. Changed from 'learning' in v4.28.0.
 let MODE = 'reference';
 let QUIZ_STATE = {}; // {sectionId: {seen:[idx...], correct:[idx...], choices:{idx:opt}, complete:bool}}
 let REFLECT_NOTES = {}; // {sectionId: 'user text'}
@@ -10292,7 +10429,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.27.0';
+  const PAGE_VERSION = '4.28.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
