@@ -293,7 +293,7 @@
   }
   .contrib-status .contrib-clear:hover { text-decoration-color: var(--saffron); }
 
-  /* V0 origin block (v4.26.0) — image figure + caption inside the V0 release */
+  /* V0 origin block (v4.27.0) — image figure + caption inside the V0 release */
   .v0-figure {
     margin: 22px auto 8px;
     max-width: 480px;
@@ -470,10 +470,33 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.27.0 ====================== -->
+  <section class="release" data-credits="Arpitha (first-time confusion) · Sree (default flip)">
+    <header>
+      <h2>v4.27.0 <em>· current</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">First-time visitors now land on <strong>Reference + All</strong> instead of Learning + Foundations. Direct response to user testing — Arpitha (cohort) opened the page from a deep link to <code>#practice</code>, saw locked sections, and messaged: <em>"I don't understand Anna · Everything is locked for me."</em> The Learning-mode default put her behind hard locks she hadn't earned yet, and the Foundations level filter further hid most content. Reference mode + All filter shows the whole page open from the first tap. Returning users keep whatever they last picked.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li>Mode default — <code>'reference'</code> instead of <code>'learning'</code>. The eyebrow now reads <em>"all things vedic · the companion app · v4.27.0"</em> with the right-side hint <em>"— everything available, study tools optional"</em> instead of <em>"— quizzes unlock as you go."</em></li>
+      <li>Level default — <code>'all'</code> instead of <code>'foundations'</code>. The full set of sections is visible from load.</li>
+      <li>Safety fallback in <code>setMode()</code> — if a stored value gets corrupted somehow, it now lands on Reference rather than Learning. Same direction as the new defaults.</li>
+      <li>Returning users with a saved preference are unchanged. Only first-time visitors and anyone with a corrupt localStorage get the new defaults.</li>
+    </ul>
+
+    <h3>Why this is right</h3>
+    <ul>
+      <li>The cohort comes in via deep links from WhatsApp ("check the practice section", "look at the cabinet"). They need to land on the destination, not on a locked screen that requires them to first complete checks they don't yet know exist.</li>
+      <li>Learning mode is still one tap away for anyone who wants the structured walk.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.26.0 ====================== -->
   <section class="release" data-credits="Sanchi · Sree (the kitchen-table origin)">
     <header>
-      <h2>v4.26.0 <em>· current</em></h2>
+      <h2>v4.26.0</h2>
       <span class="date">7 May 2026</span>
     </header>
     <p class="summary">A retroactive entry at the very bottom of these release notes — <strong>V0 · how it started</strong>. The page has had twenty-five-some releases now, but it began before any of them: as a stack of paper flashcards that Sanchi and Sree built during their annual year-planning ritual. Until now there was no record of that. This release adds it — a short narrative section at the foot of the changelog, plus a placeholder for the photograph of the original cards (Sree to share next; will be embedded at ~640px wide).</p>
@@ -2017,7 +2040,7 @@
     </ul>
   </section>
 
-  <!-- ====================== V0 — origin story (v4.26.0) ====================== -->
+  <!-- ====================== V0 — origin story (v4.27.0) ====================== -->
   <section class="release" data-credits="Sanchi · Sree (the annual year-planning ritual)">
     <header>
       <h2>V0 <em>· how it started</em></h2>
@@ -2030,7 +2053,7 @@
     <p class="summary" style="font-size:16px;">Sree started building flashcards. Just a deck. Sanskrit names on one side, English meanings on the other. A few dozen cards.</p>
 
     <figure class="v0-figure">
-      <!-- v4.26.0: image goes here once Sree shares it. Will be resized to ~640px wide and embedded. -->
+      <!-- v4.27.0: image goes here once Sree shares it. Will be resized to ~640px wide and embedded. -->
       <span class="v0-placeholder">[ photo of the original paper flashcards — to be added ]</span>
       <figcaption>The original deck. The annual-year-planning sit-down where this began. Image to be added by Sree.</figcaption>
     </figure>
@@ -2059,7 +2082,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.26.0 · updated 7 May 2026</span>
+      <span style="color:var(--muted);">v4.27.0 · updated 7 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2275,7 +2298,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.26.0';
+  const PAGE_VERSION = '4.27.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
