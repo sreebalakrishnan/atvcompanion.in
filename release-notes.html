@@ -475,10 +475,56 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.32.2 ====================== -->
+  <section class="release" data-credits="Meera · Rashmi · Sudha · Sathvi · Apri · Anil · Kanika · Shashank · Aditya · Kiron · Shobhana · Sanchi · Suraj · Megha · Aysha · Marie · Shweta · Sarika · Kajal · Surbhi · Divya · Siva · Shivangi · Shruthi (the cohort)">
+    <header>
+      <h2>v4.32.2 <em>· current — naming the cohort</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Sree replaced the placeholder names in the cohort lede on <a href="index.html">index.html</a> with the actual people — and once we started naming, the layers came through. Four groups instead of one inline list: <strong>in this picture</strong> (the eleven retreat attendees plus Sanchi), <strong>co-facilitating with Vikram</strong> (Suraj, Megha), <strong>the larger learning group</strong> (those not at this frame but in the conversations), and <strong>mentors who shaped the path</strong>. The honest acknowledgment: <em>"the list goes on."</em></p>
+
+    <h3>Who's named, by group</h3>
+    <ul>
+      <li><strong>In the photo</strong> — Meera, Rashmi, Sudha, Sathvi, Apri, Anil, Kanika, Shashank, Aditya, Kiron, Shobhana. Plus Sanchi (Sree's partner on this project).</li>
+      <li><strong>Co-facilitating with Vikram</strong> — Suraj, Megha.</li>
+      <li><strong>The larger learning group</strong> — Aysha, Marie, Shweta, Sarika, Kajal, Surbhi.</li>
+      <li><strong>Mentors</strong> — Divya, Siva, Shivangi, Shruthi.</li>
+    </ul>
+
+    <h3>How this lands in the contributor index</h3>
+    <ul>
+      <li>All 24 names in this release's <code>data-credits</code> — they all now appear as filter chips at the top of the release notes. Click any chip and you'll see this release (v4.32.2) where their name is on the page.</li>
+      <li>People who've also shaped specific earlier releases (Sudha, Sanchi, Marie, Mannat, Spandana, Megha, Neha, Arpitha, Vikram) keep all their existing chips — this is additive.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>The previous lede repurposed the eight workbook-author names from earlier releases. Honest, but inaccurate to what the photo actually shows. Naming the people <em>actually in the frame</em> — and the broader cohort layers — is the right kind of credit before the page goes wider.</li>
+      <li>If a name is missing or misspelled, ping the 💬 feedback button at the bottom of the page. Easy to add or correct.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.32.1 ====================== -->
+  <section class="release" data-credits="Sree (Shatakam alignment catch)">
+    <header>
+      <h2>v4.32.1 <em>· typography fix</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Sree noticed the Nirvāṇa Shatakam verses on <a href="ether.html">ether.html</a> were center-aligned, which created orphan-word wraps when English lines ran long (<em>"…nor the organs of generation and elimination"</em> wrapped with <em>"elimination"</em> alone on the next line). Switched the verse body to left-aligned with comfortable line-height. The refrain — <em>"I am pure consciousness and bliss. I am Shiva."</em> — stays centered and saffron, becoming the ceremonial beat that returns at the end of each verse instead of competing with the centred body. Cleaner reading, ritual still present.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><code>.shatakam-verse { text-align: left }</code> — was <code>center</code>.</li>
+      <li><code>.shatakam-verse .refrain { text-align: center }</code> — explicit center alignment now overrides the parent's left-align.</li>
+      <li>Line-height bumped from 1.7 to 1.8 for better breathing room with left-aligned italic text.</li>
+      <li>Max-width nudged from 50ch to 52ch — a touch more room before any English line needs to wrap at all.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.32.0 ====================== -->
   <section class="release" data-credits="Sree (Ether retreat reflections)">
     <header>
-      <h2>v4.32.0 <em>· current</em></h2>
+      <h2>v4.32.0</h2>
       <span class="date">7 May 2026</span>
     </header>
     <p class="summary">A new peer page — <a href="ether.html"><strong>ether.html</strong></a> — built from Sree's reflections after Vikram's Astrology 101 ether retreat in March 2026. Substantial: the five-elements core framework, an element-and-senses table, the practice of pratyahara and Neti Neti, the full Nirvāṇa Shatakam (six verses, beautifully laid out), and a deep dive into the Chidambaram temple — Naṭarāja, Apasmāra, Patañjali and Vyāghrapāda, the Chidambara Rahasyam (the great secret of the empty inner sanctum), the Dīkṣitar priesthood, and the five Pañca Bhūta Sthala temples in South India. Linked from the cohort section on the home page and added to the site nav across all pages.</p>
@@ -2337,7 +2383,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.32.0 · updated 7 May 2026</span>
+      <span style="color:var(--muted);">v4.32.2 · updated 7 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2560,7 +2606,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.32.0';
+  const PAGE_VERSION = '4.32.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
