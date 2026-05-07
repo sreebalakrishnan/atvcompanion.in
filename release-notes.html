@@ -471,10 +471,41 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.29.0 ====================== -->
+  <section class="release" data-credits="Sree (geek page)">
+    <header>
+      <h2>v4.29.0 <em>· current</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">A new peer page for the geek-out — <strong><a href="stats.html">stats.html</a></strong>. Big italic numbers under four headings: the source corpus (73 class decks · 58 transcripts · 553K words parsed), the build (7 HTML pages · 1.66 MB · 18,796 lines), the Quick Reference itself (16 sections · 15 quizzes · 14 Vikram quotes · 30 Court Call questions · 9 cabinet roles), and the cohort (53 release entries · 10 named contributors). Plus a per-page breakdown table showing where the bytes live. Linked from the site nav across all pages.</p>
+
+    <h3>What landed</h3>
+    <ul>
+      <li>New <code>stats.html</code> at the project root — peer page next to Kaalapurusha, Mercury Spectrum, Astronomy, Release Notes.</li>
+      <li>Four sections: <em>Source · the well we drew from</em>, <em>The build · what it became</em>, <em>The core · what's inside the page</em>, <em>The people · who showed up</em>. Each with a stat grid (big italic numbers in saffron / indigo / forest depending on family).</li>
+      <li>Per-page breakdown table with bytes / lines / words for all 7 HTML pages.</li>
+      <li>Contributor row at the bottom with chips that link to each person's most-credited release.</li>
+      <li>Honest mechanics callout: numbers are auto-counted by <code>tools/build-stats.py</code>. The script reads <code>version.json</code>, scans HTML, walks the knowledge base. Run it from the project root and the JSON output goes to stdout — bake the relevant numbers back into stats.html on the next ship.</li>
+    </ul>
+
+    <h3>Tools / build-stats.py</h3>
+    <ul>
+      <li>Single-file Python; no external deps. Uses regex + os.walk only.</li>
+      <li>Computes: total file count + size, knowledge-base counts (transcripts / extracted / decks / avatars + words), per-page HTML stats (bytes/lines/words), Quick Reference internal counts (sections / quizzes / Vikram quotes / Court Call questions / cabinet entries / avatars), cohort (releases + unique contributors).</li>
+      <li>Contributor parser handles the same edge cases as the JS in v4.22.0 — splits on <code>·</code> only outside parentheses, strips trailing parentheticals, filters out prose-token noise like <code>"Name"</code> / <code>"context"</code> from release-note examples.</li>
+      <li>Saved as <code>tools/build-stats.py</code> in the repo. Future maintenance: run when stats feel stale, copy numbers into stats.html.</li>
+    </ul>
+
+    <h3>Site nav</h3>
+    <ul>
+      <li>Quick Reference, Kaalapurusha, Mercury Spectrum, Astronomy, Release Notes — all five pages get a new <em>Stats</em> link in their site nav.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.28.2 ====================== -->
   <section class="release" data-credits="Sree (V0 anchor catch)">
     <header>
-      <h2>v4.28.2 <em>· current — fix</em></h2>
+      <h2>v4.28.2 <em>· fix</em></h2>
       <span class="date">7 May 2026</span>
     </header>
     <p class="summary">Sree noticed that the V0 entry didn't get a copy-link 🔗 button like every other release. Root cause: the deep-link script's <code>versionToId()</code> regex required three dot-separated digits (<code>v4.20.1</code>), so it skipped over <code>V0</code> and <code>v1</code> entirely. Patched the regex to also match no-dot and one-dot versions. V0 now resolves to <code>#v0</code>, v1 baseline to <code>#v1</code>, and both pick up their hover-revealed copy-link buttons. Send <code>release-notes.html#v0</code> to anyone who wants to land directly on the origin story.</p>
@@ -2178,7 +2209,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.28.2 · updated 7 May 2026</span>
+      <span style="color:var(--muted);">v4.29.0 · updated 7 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2401,7 +2432,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.28.2';
+  const PAGE_VERSION = '4.29.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
