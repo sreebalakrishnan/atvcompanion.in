@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5ecd9">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Stats — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --forest:    #4a5d2e;
+    --plum:      #7a3a5e;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 0 24px 120px; }
+
+  /* ---------- SITE NAV ---------- */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep {
+    color: var(--rule);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead {
+    padding: 56px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(36px, 7vw, 54px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 50ch;
+    line-height: 1.5;
+  }
+  .ornament {
+    color: var(--saffron);
+    margin-top: 22px;
+    opacity: .7;
+  }
+  .ornament svg { width: 14px; height: 14px; }
+
+  /* ---------- SECTION ---------- */
+  section.s {
+    padding: 48px 0 12px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  section.s:last-of-type { border-bottom: 0; }
+  section.s .s-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  section.s h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(28px, 5vw, 36px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+    letter-spacing: -.005em;
+  }
+  section.s h2 em { font-style: italic; color: var(--saffron); }
+  section.s .s-lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    max-width: 56ch;
+    line-height: 1.5;
+  }
+
+  /* ---------- STAT GRID ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px 24px;
+    margin: 14px 0 8px;
+  }
+  .stat {
+    padding: 12px 0 10px;
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 58px);
+    line-height: 1;
+    color: var(--saffron);
+    letter-spacing: -.01em;
+  }
+  .stat .num small {
+    font-size: 0.45em;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-left: 4px;
+    vertical-align: 8px;
+  }
+  .stat .label {
+    font-family: var(--display);
+    font-size: 14px;
+    color: var(--ink);
+    margin-top: 4px;
+    letter-spacing: .02em;
+  }
+  .stat .sub {
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  /* Family accents — tint the number colour subtly per section */
+  section.s.corpus      .stat .num { color: var(--saffron); }
+  section.s.build       .stat .num { color: var(--indigo); }
+  section.s.quickref    .stat .num { color: var(--saffron); }
+  section.s.cohort      .stat .num { color: var(--forest); }
+  section.s.cohort      .stat.is-name .num { color: var(--saffron); }
+
+  /* ---------- CONTRIBUTORS LIST ---------- */
+  .contrib-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .contrib-chip {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+  .contrib-chip a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .contrib-chip:hover { border-color: var(--saffron); }
+
+  /* ---------- CALLOUT ---------- */
+  .callout {
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 6px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .callout strong { font-style: normal; color: var(--ink); font-weight: 500; }
+
+  /* ---------- TABLE for HTML pages breakdown ---------- */
+  .pages-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-family: var(--body);
+    font-size: 13.5px;
+  }
+  .pages-table th, .pages-table td {
+    padding: 8px 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  .pages-table th {
+    text-align: right;
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--saffron);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+  }
+  .pages-table td:first-child, .pages-table th:first-child {
+    text-align: left;
+  }
+  .pages-table .pg-name {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--saffron);
+  }
+  .pages-table tr:hover td { background: rgba(184,65,14,.03); }
+  .pages-table tfoot td {
+    border-top: 1px solid var(--rule);
+    border-bottom: 0;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    max-width: 480px;
+    margin: 80px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer .ornament {
+    color: var(--saffron);
+    margin-bottom: 18px;
+  }
+  .footer p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .footer .meta {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="quick-reference.html">Quick Reference</a>
+    <span class="sep">·</span>
+    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <span class="sep">·</span>
+    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <span class="sep">·</span>
+    <a href="astronomy.html">Astronomy</a>
+    <span class="sep">·</span>
+    <a href="release-notes.html">Release Notes</a>
+    <span class="sep">·</span>
+    <span class="here">Stats</span>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · the companion app · v4.29.0</div>
+    <h1>By the <em>numbers</em></h1>
+    <p class="lede">A page just to trip on. The making-of: how much source material this companion app drew from, how big the build is, how much content sits inside the page, and who showed up.</p>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+  </header>
+
+  <!-- ====================== SOURCE CORPUS ====================== -->
+  <section class="s corpus">
+    <div class="s-eyebrow">Source · the well we drew from</div>
+    <h2>Vikram's <em>class</em></h2>
+    <p class="s-lede">Everything in this companion app is rooted in Vikram's Astrology 101 cohort at <em>allthingsvedic.in</em> — his slide decks, his spoken sessions, the conversations alongside.</p>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="num">73</div>
+        <div class="label">Class decks</div>
+        <div class="sub">PDFs ingested as the source corpus</div>
+      </div>
+      <div class="stat">
+        <div class="num">58</div>
+        <div class="label">Session transcripts</div>
+        <div class="sub">From the recorded class sessions</div>
+      </div>
+      <div class="stat">
+        <div class="num">553<small>K</small></div>
+        <div class="label">Words parsed</div>
+        <div class="sub">Across decks · transcripts · extracted text</div>
+      </div>
+      <div class="stat">
+        <div class="num">3.4<small>MB</small></div>
+        <div class="label">Knowledge base on disk</div>
+        <div class="sub">238 files in <code>astrology-101-knowledge-base/</code></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>The discipline:</strong> nothing in the page sources from outside Vikram's class material without explicit confirmation. When a yoga is named but undefined in the transcripts (Mahapurusha, Gajakesari), the page says so honestly rather than filling in from classical texts.
+    </div>
+  </section>
+
+  <!-- ====================== THE BUILD ====================== -->
+  <section class="s build">
+    <div class="s-eyebrow">The build · what it became</div>
+    <h2>Static <em>HTML</em> · 7 pages</h2>
+    <p class="s-lede">No framework, no build step. Single HTML files, each self-contained. The whole companion is ~1.6 MB of HTML / CSS / JS, roughly 18.7 K lines.</p>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="num">7</div>
+        <div class="label">HTML pages</div>
+        <div class="sub">Quick Reference + 4 peer pages + demo + V0 archive</div>
+      </div>
+      <div class="stat">
+        <div class="num">1.66<small>MB</small></div>
+        <div class="label">Total HTML</div>
+        <div class="sub">Across all pages combined</div>
+      </div>
+      <div class="stat">
+        <div class="num">18,796</div>
+        <div class="label">Lines</div>
+        <div class="sub">HTML · CSS · inline JS</div>
+      </div>
+      <div class="stat">
+        <div class="num">98,386</div>
+        <div class="label">Words / tokens</div>
+        <div class="sub">Counted across all 7 HTML pages</div>
+      </div>
+      <div class="stat">
+        <div class="num">256</div>
+        <div class="label">Files in repo</div>
+        <div class="sub">Source · pages · scripts · assets</div>
+      </div>
+      <div class="stat">
+        <div class="num">5.4<small>MB</small></div>
+        <div class="label">Repo size</div>
+        <div class="sub">Project total on disk</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--display);font-weight:500;font-size:18px;margin:36px 0 8px;color:var(--ink);">Per-page breakdown</h3>
+    <table class="pages-table">
+      <thead>
+        <tr><th>Page</th><th>Bytes</th><th>Lines</th><th>Words</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="pg-name">quick-reference.html</td><td>490 KB</td><td>10,491</td><td>52,825</td></tr>
+        <tr><td class="pg-name">kaalapurusha.html</td><td>750 KB</td><td>694</td><td>3,407</td></tr>
+        <tr><td class="pg-name">release-notes.html</td><td>171 KB</td><td>2,456</td><td>21,005</td></tr>
+        <tr><td class="pg-name">v0.html</td><td>151 KB</td><td>2,752</td><td>10,384</td></tr>
+        <tr><td class="pg-name">astronomy.html</td><td>43 KB</td><td>818</td><td>4,604</td></tr>
+        <tr><td class="pg-name">demo.html</td><td>41 KB</td><td>976</td><td>4,469</td></tr>
+        <tr><td class="pg-name">mercury-spectrum.html</td><td>18 KB</td><td>609</td><td>1,692</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td>Total</td><td>1.66 MB</td><td>18,796</td><td>98,386</td></tr>
+      </tfoot>
+    </table>
+  </section>
+
+  <!-- ====================== INSIDE QUICK REFERENCE ====================== -->
+  <section class="s quickref">
+    <div class="s-eyebrow">The core · what's inside the page</div>
+    <h2>Quick <em>Reference</em></h2>
+    <p class="s-lede">The main page — <em>Astrology 101</em> — is one HTML file with 16 sections, 15 quizzes, the planetary cabinet, the Vikram-quote rotation, the Court Call game, and a tracing exercise. All in 490 KB.</p>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="num">16</div>
+        <div class="label">Sections</div>
+        <div class="sub">From § One Signs to § Sixteen Workbook</div>
+      </div>
+      <div class="stat">
+        <div class="num">15</div>
+        <div class="label">Quizzes <em style="color:var(--ink-soft);font-style:italic;">/ check-ins</em></div>
+        <div class="sub">3 questions each — ~45 questions total</div>
+      </div>
+      <div class="stat">
+        <div class="num">14</div>
+        <div class="label">Vikram quotes</div>
+        <div class="sub">Rotated in the Rāśi Chakra centre</div>
+      </div>
+      <div class="stat">
+        <div class="num">30</div>
+        <div class="label">Court Call questions</div>
+        <div class="sub">5 per round, drawn at random</div>
+      </div>
+      <div class="stat">
+        <div class="num">9</div>
+        <div class="label">Cabinet roles</div>
+        <div class="sub">King · Queen · Commander · Prince · Princess · Priest · Servant · 2 outsiders</div>
+      </div>
+      <div class="stat">
+        <div class="num">12</div>
+        <div class="label">Signs · Houses</div>
+        <div class="sub">12 of each, fully cross-referenced</div>
+      </div>
+      <div class="stat">
+        <div class="num">9</div>
+        <div class="label">Avatar drawers</div>
+        <div class="sub">Matsya through Buddha (Kalki not yet in source)</div>
+      </div>
+      <div class="stat">
+        <div class="num">10,491</div>
+        <div class="label">Lines in one file</div>
+        <div class="sub">All HTML · CSS · inline JS, no build step</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== COHORT ====================== -->
+  <section class="s cohort">
+    <div class="s-eyebrow">The people · who showed up</div>
+    <h2>The <em>cohort</em></h2>
+    <p class="s-lede">53 release entries since V0. Ten named contributors whose feedback or content shaped a version. Names appear inside <em>"Heard from"</em> credits across the changelog.</p>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="num">53</div>
+        <div class="label">Release entries</div>
+        <div class="sub">In the changelog, V0 → v4.29.0</div>
+      </div>
+      <div class="stat">
+        <div class="num">10</div>
+        <div class="label">Named contributors</div>
+        <div class="sub">Whose feedback or content shaped a release</div>
+      </div>
+      <div class="stat">
+        <div class="num">7</div>
+        <div class="label">Workbook authors</div>
+        <div class="sub">Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha</div>
+      </div>
+      <div class="stat">
+        <div class="num">2</div>
+        <div class="label">Page builders</div>
+        <div class="sub">Sanchi &amp; Sree, alongside the class</div>
+      </div>
+    </div>
+
+    <div class="contrib-row" aria-label="Contributors">
+      <span class="contrib-chip"><a href="release-notes.html#v4-23-0">Marie</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Mannat</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Spandana</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-13-0">Sudha</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Megha</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Neha</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-17-0">Vikram</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-16-0">Sanchi</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-21-0">Sree</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-27-0">Arpitha</a></span>
+    </div>
+
+    <div class="callout" style="margin-top:30px;">
+      <strong>How the credits work:</strong> every release section in <a href="release-notes.html">release notes</a> can carry a <code>data-credits</code> attribute. The contributor index at the top of that page parses these on load and renders filter chips — click any name to see only the releases that came from that person's feedback.
+    </div>
+  </section>
+
+  <!-- ====================== HOW THIS PAGE STAYS HONEST ====================== -->
+  <section class="s">
+    <div class="s-eyebrow">Mechanics · how this stays honest</div>
+    <h2>Auto-counted, <em>not hand-counted</em></h2>
+    <p class="s-lede">All numbers on this page are computed by <code>tools/build-stats.py</code>. Run it from the project root and the script reads <code>version.json</code>, scans the HTML, walks the knowledge base, and prints the JSON. Numbers here get refreshed during meaningful releases.</p>
+
+    <div class="callout">
+      <strong>To recompute</strong> — open Terminal at the project root and run <code>python3 tools/build-stats.py</code>. The output is JSON; bake the relevant numbers back into this page on the next ship. Single-file Python, no external deps.
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="quick-reference.html">Back to the reference</a></p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.29.0 · regenerated 7 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+    </p>
+    <p class="meta" style="margin-top:8px;font-size:11.5px;color:var(--muted);opacity:.85;">
+      Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
+    </p>
+  </footer>
+
+</div>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.29.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+
+  function showToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f1a2e;color:#faf3e2;font-family:Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  check(true);
+  window.addEventListener('focus', () => check(true));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
+})();
+</script>
+</body>
+</html>
