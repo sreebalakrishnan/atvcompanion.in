@@ -17,6 +17,7 @@ jobs:
             --exclude='.github' \
             --exclude='staging' \
             --exclude='README.md' \
+            --exclude='astrology-101-knowledge-base' \
             ./ staging/astrology101/
 
       - name: Deploy to Static.app
