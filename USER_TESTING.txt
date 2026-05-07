@@ -1,0 +1,78 @@
+# User Testing — Astrology 101 Companion App
+
+A short guide for the first cohort of learners trying the page. Authored by Sree & Sanchi after Vikram's review on 7 May 2026.
+
+## Why this matters
+
+So far the page has been built in an echo chamber — Sree, Sanchi, occasionally Sudha. Vikram blessed continuing the build, *but* explicitly asked for structured user feedback before we go wider. Without it we're guessing at what helps the learner.
+
+This document holds the cohort, the questions, the synthesis cadence. Sanchi owns the loop.
+
+## The cohort
+
+Aim for **5 learners** for the first round. Mix of:
+
+- Someone already using it actively (Sudha — power user)
+- Someone using it lightly (Anil, Kajal — early triers)
+- Someone newer to the class who hasn't seen the page yet (TBD — Sanchi to nominate)
+- Someone older / less device-comfortable (Hiran or Meera — important for accessibility signal)
+- Someone Vikram suggests
+
+Each person gets **2 weeks** with the page. Open-ended use, not prescribed exercises. The goal is to see whether the page draws them back without nudging.
+
+## How we ask
+
+Send via WhatsApp:
+
+> *"Sree & Sanchi — we've been building a study companion for Vikram's class. Here it is: [link]. Could you spend 2 weeks with it (on phone or laptop, whatever you use), and then send back voice notes or written answers to the seven questions below? No right answers — we want your honest experience."*
+
+## The seven questions
+
+1. **What did you find difficult?** Anything confusing, hard to find, hard to read, or that didn't work the way you expected.
+2. **What did you learn that surprised you?** Anything the page made click for you that the class hadn't yet.
+3. **What did you expect that wasn't there?** A feature, a topic, a kind of help you went looking for and didn't find.
+4. **Would you come back to this in your study week? Yes / no, and why?** Honest read on whether the page earns a place in your routine.
+5. **What would bring you back?** If yes — what makes you return. If no — what would change that.
+6. **Did anything feel out of place?** Wording that didn't sound like Vikram, design that felt off, things that didn't fit the class's voice.
+7. **On a scale of 1-10, would you pay ₹500/month for this once it's polished?** Commercial signal. Not yet a real ask.
+
+## Format
+
+Voice notes are fine. Written is fine. Form is fine. We adapt to the learner. If they only answer 3 questions, that's still useful.
+
+Sanchi's role: light structuring on the way in (so people understand the seven questions), full structuring on the way out (synthesise themes weekly).
+
+## What we're listening for
+
+Three signal types:
+
+**Stop signals.** Someone explicitly says they won't come back, or finds the page actively confusing in a way that suggests we got the model wrong. These are urgent — pause, fix, re-test.
+
+**Resonance signals.** Someone uses a phrase Vikram used in class without prompting. Someone reads the cabinet story aloud. Someone references a section without thinking. These tell us the voice is landing.
+
+**Friction signals.** Someone stumbles over font size, button placement, language choices. These are the easy wins — fix and move on.
+
+## Synthesis cadence
+
+- **Weekly:** Sanchi reviews the responses received, identifies 1-2 themes, writes 5 lines of summary in this doc (append below).
+- **Monthly:** A synthesis sent to Vikram. One paragraph, three bullets. Not weekly chatter — he gets the punchline.
+- **Decision moments:** When themes are clear, Sanchi flags them in a 30-min Sree sync. We pick what to address in the next ship.
+
+## Pricing — what we're really asking with Q7
+
+We're not asking *will you pay this much?* We're asking *do you value this enough that the question makes sense?* Anyone who answers >5 is signal that this could be a real product. Anyone <5 is signal that the page needs more value before we go paid. No one is being charged today.
+
+## Round-1 deadlines
+
+- Cohort confirmed: by **Friday 9 May**
+- Page link sent: by **Saturday 10 May**
+- Two-week window: through **Friday 23 May**
+- First synthesis to Vikram: by **Monday 26 May**
+
+## Notes from rounds
+
+*(Append weekly synthesis here)*
+
+---
+
+*Sree & Sanchi · alongside Vikram's class · v4.26.0*

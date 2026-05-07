@@ -1,0 +1,305 @@
+{
+  "avatars": [
+    {
+      "id": "matsya",
+      "order": 1,
+      "name_english": "Matsya",
+      "name_sanskrit": "Matsya",
+      "form": "Fish",
+      "planet": "Ketu",
+      "yuga": "Satya Yuga",
+      "themes": [
+        "Protection and Foresight",
+        "Transformation",
+        "Preservation of knowledge",
+        "Divine intervention to restore balance"
+      ],
+      "keywords": [
+        "great flood",
+        "preservation of the Vedas",
+        "divine guidance",
+        "detachment",
+        "total reset",
+        "faith in the illogical",
+        "Manu / progenitor of an age",
+        "South Node energy"
+      ],
+      "primary_deck": 7,
+      "primary_deck_title": "Matsya Avatar",
+      "source_decks": [7, 44, 55],
+      "summary": "The first avatar of Vishnu — a fish who guides Satyavrata through the great flood and recovers the stolen Vedas, embodying Ketu's energy of detachment, divine guidance and total reset.",
+      "md_file": "01-matsya.md"
+    },
+    {
+      "id": "kurma",
+      "order": 2,
+      "name_english": "Kurma",
+      "name_sanskrit": "Kurma",
+      "form": "Tortoise",
+      "planet": "Saturn",
+      "yuga": "Satya Yuga",
+      "themes": [
+        "Emotional churning",
+        "Stability",
+        "Patience and perseverance",
+        "Mount Mandara"
+      ],
+      "keywords": [
+        "churning the ocean",
+        "stability under pressure",
+        "patient endurance",
+        "carrying the weight",
+        "duty without reward",
+        "retreat into the shell",
+        "humility",
+        "Saturn / Shani"
+      ],
+      "primary_deck": 11,
+      "primary_deck_title": "Samudra Manthan",
+      "source_decks": [11, 44, 55],
+      "summary": "The second avatar of Vishnu — a tortoise who supports Mount Mandara during the Churning of the Ocean of Milk, embodying Saturn's qualities of stability, patient endurance and duty that supports the work of others.",
+      "md_file": "02-kurma.md"
+    },
+    {
+      "id": "varaha",
+      "order": 3,
+      "name_english": "Varaha",
+      "name_sanskrit": "Varaha",
+      "form": "Boar",
+      "planet": "Rahu",
+      "yuga": "Satya Yuga",
+      "themes": [
+        "Going to the depth",
+        "Protector of the weak",
+        "Tilling the land"
+      ],
+      "keywords": [
+        "diving deep",
+        "rescue of Earth",
+        "courage in the unconscious",
+        "discernment / viveka",
+        "darkness to light",
+        "primal divine drive",
+        "depth work",
+        "Rahu energy"
+      ],
+      "primary_deck": 19,
+      "primary_deck_title": "Varaha Avatar",
+      "source_decks": [19, 44, 55],
+      "summary": "The third avatar of Vishnu — a boar who dives into the cosmic ocean to rescue Bhudevi from the asura Hiranyaksha, embodying Rahu's drive to go to the depth and rescue Dharma from darkness.",
+      "md_file": "03-varaha.md"
+    },
+    {
+      "id": "narasimha",
+      "order": 4,
+      "name_english": "Narasimha",
+      "name_sanskrit": "Narasimha",
+      "form": "Man-Lion",
+      "planet": "Mars",
+      "yuga": "Satya Yuga",
+      "themes": [
+        "Aggressive energy",
+        "Witnessed injustice",
+        "Stood up for someone/something"
+      ],
+      "keywords": [
+        "man-lion",
+        "breaks binary logic",
+        "pillar / hidden dimension",
+        "protection of the devotee",
+        "righteous fury",
+        "twilight / liminal",
+        "shades of grey",
+        "Mars / Mangala"
+      ],
+      "primary_deck": 23,
+      "primary_deck_title": "Narasimha Avatar",
+      "source_decks": [23, 44, 55],
+      "summary": "The fourth avatar of Vishnu — half-man, half-lion — emerging from a pillar at twilight to slay Hiranyakashipu and protect Prahlada, embodying Mars's aggressive energy directed by dharma.",
+      "md_file": "04-narasimha.md"
+    },
+    {
+      "id": "vamana",
+      "order": 5,
+      "name_english": "Vamana",
+      "name_sanskrit": "Vamana",
+      "form": "Dwarf-Brahmin",
+      "planet": "Jupiter",
+      "yuga": "Treta Yuga",
+      "themes": [
+        "Expansiveness",
+        "Wisdom, law, justice",
+        "Guardian"
+      ],
+      "keywords": [
+        "three steps / Trivikrama",
+        "the divine in small forms",
+        "surrender of identity",
+        "compassionate restraint",
+        "cosmic expansion",
+        "humility before the vaster",
+        "guardianship",
+        "Jupiter / Guru"
+      ],
+      "primary_deck": 32,
+      "primary_deck_title": "Vamana Avatar",
+      "source_decks": [32, 44, 55],
+      "summary": "The fifth avatar of Vishnu — a small Brahmin boy who asks Bali for three paces of land and grows to span the cosmos, embodying Jupiter's expansiveness, wisdom and compassionate guardianship.",
+      "md_file": "05-vamana.md"
+    },
+    {
+      "id": "parashurama",
+      "order": 6,
+      "name_english": "Parashurama",
+      "name_sanskrit": "Parashuram",
+      "form": "Axe-wielding Brahmin-warrior",
+      "planet": "Venus",
+      "yuga": "Treta Yuga",
+      "themes": [
+        "Devotion",
+        "Inner fulfillment",
+        "Perfection of knowledge"
+      ],
+      "keywords": [
+        "axe / Parashu",
+        "Brahmin-warrior",
+        "Surabhi / wish-fulfilling cow",
+        "jnana to karma to viveka",
+        "destruction as renewal",
+        "contextual dharma",
+        "balance of opposites",
+        "Venus / Shukra"
+      ],
+      "primary_deck": 38,
+      "primary_deck_title": "Parashuram Avatar",
+      "source_decks": [38, 44, 55],
+      "summary": "The sixth avatar of Vishnu — Rama with the axe, a Brahmin-warrior who resets corrupt rule, embodying Venus's themes of devotion, inner fulfilment and the perfection of lived knowledge.",
+      "md_file": "06-parashurama.md"
+    },
+    {
+      "id": "rama",
+      "order": 7,
+      "name_english": "Rama",
+      "name_sanskrit": "Rama",
+      "form": "Prince of Ayodhya",
+      "planet": "Sun",
+      "yuga": "Treta Yuga",
+      "themes": [
+        "Dharma and righteousness",
+        "Steadfastness and loyalty",
+        "Bravery and courage"
+      ],
+      "keywords": [
+        "ideal human",
+        "Ram Rajya",
+        "Ra-Ma / light within",
+        "exile as right action",
+        "soul-mind-ego map",
+        "Diwali / return of dharma",
+        "Solar dynasty",
+        "Sun / Surya"
+      ],
+      "primary_deck": 41,
+      "primary_deck_title": "Rama Avatar",
+      "source_decks": [41, 44, 55],
+      "summary": "The seventh avatar of Vishnu — Rama, prince of Ayodhya and hero of the Ramayana, embodying the Sun's dharma, steadfast loyalty and courage; the Ramayana mapped as the soul-mind-ego journey.",
+      "md_file": "07-rama.md"
+    },
+    {
+      "id": "krishna",
+      "order": 8,
+      "name_english": "Krishna",
+      "name_sanskrit": "Krishna",
+      "form": "Cowherd, prince, charioteer",
+      "planet": "Moon",
+      "yuga": "Dwapura Yuga",
+      "themes": [
+        "Nurtures and protects",
+        "Equanimous",
+        "Unconditional love"
+      ],
+      "keywords": [
+        "charioteer of the soul",
+        "Vishwarupam",
+        "Rasa Lila",
+        "Govardhan / defying Indra",
+        "Radha — highest love",
+        "end-in-mind strategy",
+        "engaging the world",
+        "Moon / Chandra"
+      ],
+      "primary_deck": 49,
+      "primary_deck_title": "Krishna",
+      "source_decks": [49, 44, 55],
+      "summary": "The eighth avatar of Vishnu — Krishna, charioteer of Arjuna in the Mahabharata, embodying the Moon's nurturing, equanimity and unconditional love; the wise strategist who engages the world.",
+      "md_file": "08-krishna.md"
+    },
+    {
+      "id": "buddha",
+      "order": 9,
+      "name_english": "Buddha",
+      "name_sanskrit": "Buddha",
+      "form": "Awakened one",
+      "planet": "Mercury",
+      "yuga": "Kali Yuga",
+      "themes": [
+        "Intelligence",
+        "Communication",
+        "Middle Path"
+      ],
+      "keywords": [
+        "awakening",
+        "Four Noble Truths",
+        "Eightfold Path",
+        "Middle Path",
+        "equanimity",
+        "detachment",
+        "letting go",
+        "Mercury / Budha"
+      ],
+      "primary_deck": 54,
+      "primary_deck_title": "Buddha Avatar",
+      "source_decks": [54, 44, 55],
+      "summary": "The ninth avatar of Vishnu — Shakyamuni Buddha, the awakened one, embodying Mercury's intelligence, clear communication and the Middle Path; teacher of the Four Noble Truths and the Eightfold Path.",
+      "md_file": "09-buddha.md"
+    },
+    {
+      "id": "kalki",
+      "order": 10,
+      "name_english": "Kalki",
+      "name_sanskrit": "Kalki",
+      "form": "Future avatar of Vishnu",
+      "planet": null,
+      "yuga": "Kali Yuga",
+      "themes": [],
+      "keywords": [
+        "future avatar",
+        "end of Kali Yuga",
+        "closing of the cycle",
+        "not yet manifest"
+      ],
+      "primary_deck": 44,
+      "primary_deck_title": "Cosmology of Time",
+      "source_decks": [44, 55],
+      "summary": "The tenth and future avatar of Vishnu — Kalki, the closing avatar of Kali Yuga (~428,078–428,899 AD per Deck #44). Not assigned a graha in the source decks; no dedicated Kalki deck exists in Vikram's curriculum.",
+      "md_file": "10-kalki.md"
+    }
+  ],
+  "yugas": {
+    "Satya Yuga": ["matsya", "kurma", "varaha", "narasimha"],
+    "Treta Yuga": ["vamana", "parashurama", "rama"],
+    "Dwapura Yuga": ["krishna"],
+    "Kali Yuga": ["buddha", "kalki"]
+  },
+  "graha_to_avatar": {
+    "Ketu": "matsya",
+    "Saturn": "kurma",
+    "Rahu": "varaha",
+    "Mars": "narasimha",
+    "Jupiter": "vamana",
+    "Venus": "parashurama",
+    "Sun": "rama",
+    "Moon": "krishna",
+    "Mercury": "buddha"
+  }
+}
