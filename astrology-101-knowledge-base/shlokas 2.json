@@ -1,0 +1,84 @@
+{
+  "source": "Shlokam.pdf — All Things Vedic (Vikram, allthingsvedic.in)",
+  "extracted": "2026-05-05",
+  "shlokas": [
+    {
+      "id": "ganapati",
+      "title": "Gananam Tva",
+      "deity": "Ganapati",
+      "devanagari": "गणानां त्वा गणपतिं हवामहे\nकविं कवीनामुपमश्रवस्तमम् ।\nज्येष्ठराजं ब्रह्मणां ब्रह्मणस्पत\nआ नः शृण्वन्नूतिभिः सीद सादनम् ॥\nश्री महा गणपतये नमः",
+      "transliteration": "Gannaanaam Tvaa Ganna-Patim Havaamahe\nKavim Kaviinaam-Upama-Shravastamam |\nJyessttha-Raajam Brahmannaam Brahmannaspata\nAa Nah Shrnnvann-Uutibhih Siida Saadanam ||\nSri Mahaa Gannapataye Namaha",
+      "english_meaning": "O Lord of the Ganas, we invoke you, the Poet of poets, the most celebrated one, the chief of the knowledgeable, the lord of the sacred word — be present in this place of thought and action. Salutations to Lord Ganapati.",
+      "source_text": "Rig Veda Mandala 2 · Sukta 23 · Mantra 1",
+      "use": "invocation"
+    },
+    {
+      "id": "saraswati",
+      "title": "Pranodevi Saraswati Mantra",
+      "deity": "Saraswati",
+      "mahashakti": "Mahasaraswathi",
+      "element": "earth",
+      "devanagari": "प्रणो देवी सरस्वती\nवाजेभिर्वाजिनीवती\nधीनामवित्र्यवतु\nवादेव्यै नमः ॥",
+      "transliteration": "Pranoo Devi Saraswati\nVaajebhir Vaajiniivati\nDhiinaam Avitryavatu\nVaagdevyai Namaha",
+      "english_meaning": "May the Divine Goddess Saraswati, source of strength and plenitude, protect our intellect, thoughts, and consciousness with her abundant grace. Salutations to the Goddess of speech.",
+      "source_text": "Rig Veda Mandala 1 · Sukta 3 · Mantras 10 to 12",
+      "use": "Mahashakti element mantra · Earth"
+    },
+    {
+      "id": "lakshmi",
+      "title": "Lakshmi Gayatri Mantra",
+      "deity": "Lakshmi",
+      "mahashakti": "Mahalakshmi",
+      "element": "water",
+      "devanagari": "ॐ महालक्ष्म्यै च विद्महे\nविष्णुपत्नी च धीमहि\nतन्नो लक्ष्मी प्रचोदयात् ॥",
+      "transliteration": "Om Mahālakshmyai cha vidmahe\nVishnu-patnyai cha dhīmahi\nTanno Lakshmīi pracodayāt",
+      "english_meaning": "Om, we seek to know and understand the great Goddess Mahalakshmi. We meditate upon the consort of Vishnu. May that Lakshmi inspire and guide our intellect.",
+      "source_text": "Taittiriya Aaranyaka 10.1.7",
+      "use": "Mahashakti element mantra · Water"
+    },
+    {
+      "id": "mahishasura-mardini",
+      "title": "Mahishasura Mardini",
+      "deity": "Durga / Mahishasura Mardini",
+      "mahashakti": "Mahakali",
+      "element": "fire",
+      "devanagari": "अयि गिरिनन्दिनि नन्दितमेदिनि विश्वविनोदिनि नन्दिनुते\nगिरिवरविन्ध्यशिरोऽधिनिवासिनि विष्णुविलासिनि जिष्णुनुते ।\nभगवति हे शितिकण्ठकुटुम्बिनि भूरिकुटुम्बिनि भूरिकृते\nजय जय हे महिषासुरमर्दिनि रम्यकपर्दिनि शैलसुते ॥ १ ॥",
+      "transliteration": "Ayi Giri-Nandini Nandita-Medini Vishva-Vinodini Nandi-Nute\nGiri-Vara-Vindhya-Shiro-(A)dhi-Nivaasini Vishnnu-Vilaasini Jissnnu-Nute |\nBhagavati He Shiti-Kannttha Kuttumbini Bhuuri Kuttumbini Bhuuri Krte\nJaya Jaya He Mahissaasura-Mardini Ramya Kapardini Shaila-Sute || 1 ||",
+      "english_meaning": "Salutations to the Divine Mother. I invoke You, who is the Daughter of the Mountain, by whose presence the whole World is filled with Joy. For Whom the whole World is a Divine Play and who is praised by Nandi, who dwell on the summit of the Vindhyas, the Best of the Mountains, who give Joy to Lord Vishnu (as His sister) and who is praised by Lord Indra. O Goddess Bhagavati, who is the Consort of the One with Blue Throat (Lord Shiva), who has Many Many Relations in this World (being the Cosmic Mother) and who has created Abundance in Creation. Victory to You, Victory to You, who Slay the Demon Mahishasura, who shine with Beautiful Locks of Hair, and who is the Daughter of the Mountain.",
+      "source_text": "Adi Shankara · Shivarahasya Purana 53.1",
+      "use": "Mahashakti element mantra · Fire"
+    },
+    {
+      "id": "maheshwari",
+      "title": "Maheshwari Gayatri Mantra",
+      "deity": "Maheshwari",
+      "mahashakti": "Maheshwari",
+      "element": "air",
+      "devanagari": "वृषारुढायै विद्महे शूलहस्तायै धीमहि ।\nतन्नो माहेश्वरी प्रचोदयात् ।",
+      "transliteration": "Vrisharudhayai Vidmahe\nShulahastayai Dheemahi |\nTanno Maheswari Prachodayat",
+      "english_meaning": "We meditate on Her who rides the bull, holding the trident. May the great Maheshwari enlighten us.",
+      "source_text": "Source unknown",
+      "use": "Mahashakti element mantra · Air"
+    },
+    {
+      "id": "kshama",
+      "title": "Kshama Prarthana",
+      "deity": "Narayana",
+      "devanagari": "यदक्षरपदभ्रष्टं मात्राहीनन्तु यद्भवेत् ।\nतत्सर्वं क्षम्यतां देव नारायण नमोऽस्तु ते ॥\nश्रीमते नारायणाय नमो नमः ॥",
+      "transliteration": "Yad aksharapada bhrastam\nmaatraa hinam tu yad bhavet |\nTat sarvam kshamyataam deva\nNaaraayana namostu te ||\nSrimate Naaraayanaaya namo namah ||",
+      "english_meaning": "Whatever letters or words I have mispronounced or spoken with missing measures, may all that be forgiven, O Lord Narayana, I offer my salutations to You. Salutations again to the blessed Naaraayana.",
+      "source_text": "Source unknown",
+      "use": "closing prayer · forgiveness"
+    },
+    {
+      "id": "mukundamala",
+      "title": "Mukundamala Stotra",
+      "deity": "Krishna / Narayana",
+      "devanagari": "कायेन वाचा मनसेन्द्रियैर्वा\nबुद्ध्यात्मना वा प्रकृतेः स्वभावात् ।\nकरोमि यद्यत्सकलं परस्मै\nनारायणायेति समर्पयामि ॥\nसर्वं श्रीकृष्णार्पणमस्तु ॥",
+      "transliteration": "Kāyena vāchā manasendriyair vā\nBuddhyātmanā vā prakrtteh svabhāvāt |\nKaromi yadyat sakalam parasmai\nNārāyanāyeti samarpayāmi ||\nSarvam Srī-Krishnaarpannam astu ||",
+      "english_meaning": "Whatever I do, with my body, speech, mind, senses, intellect, self, or by my natural disposition, I offer it all to the Supreme Narayana. May everything be an offering to Sri Krishna.",
+      "source_text": "Srimad Bhagavatam 11.2.36",
+      "use": "offering / dedication"
+    }
+  ]
+}

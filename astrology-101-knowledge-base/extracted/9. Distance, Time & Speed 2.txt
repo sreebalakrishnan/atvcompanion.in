@@ -1,0 +1,149 @@
+Distance, Time and Speed
+
+
+
+
+                           © www.allthingsvedic.in
+Distance                      Time                          Speed
+
+1 km = 1000 meters            1 hour = 60 min               Distance / Time
+
+1 meter = 100 centimeters     1 min = 60 seconds
+
+1 km = 1000 mt = 100,000 cm   1 hr = 60 min = 3600 sec
+
+
+
+Km b/w Bangalore & Mumbai     To drive from Blr to Mumbai
+
+via NH48 – 989 km             via NH48 – 17 hrs 19 min      via NH48 – 58 km/hr
+
+via NH50 – 1003 km            via NH50 – 18 hrs 18 min      via NH50 – 55 km/hr
+
+
+
+                                                                       © www.allthingsvedic.in
+https://www.britannica.com/science/latitude
+
+                                              © www.allthingsvedic.in
+Distance / Arc                  Time                          Speed
+
+1o degree = 60I minutes         1 hour = 60 min               Distance / Time
+
+1I minute = 60II seconds        1 min = 60 seconds
+
+                                1 hr = 60 min = 3600 sec
+
+
+
+Degree b/w Bangalore & Mumbai   To drive from Blr to Mumbai   360 degrees in 24 hours
+Bangalore = 77.6o East          via NH48 – 17 hrs 19 min      15o per hour
+Mumbai = 72.7o East             via NH50 – 18 hrs 18 min      15o in 60 min
+Distance = 4.9o                                               1o in 4 min
+0.9o = 0.9 x 60 = 54I                                         4.9O = 4.9 x 4 min = 19.6 min
+4.9o = 4o 54I
+
+                                                                              © www.allthingsvedic.in
+Individually
+
+1. The time at 0°W is 12:00 noon. What is the LMT at 30°E?
+
+2. LMT at 45°W is 3:00 PM. What is the LMT at 15°W?
+
+3. It is 6:00 AM at 90°E. What is the time at 60°E?
+
+4. LMT at 75°E is 9:00 AM. What is the LMT at 45°W?
+
+5. If it is 10:00 PM at 120°E, what is the time at 60°W?
+
+6. It is 4:00 PM at 20°N, 60°E. What is the time at 40°S, 60°E?
+
+7. If LMT is 6:15pm at 10oS 75oW, what will be LMT at 30oN 75oW?
+
+
+
+
+                                                                   © www.allthingsvedic.in
+Answers
+
+1. The time at 0° longitude is 12:00 noon. What is the time at 30°E?   45°W is west of 75°E → subtract 8 hours
+30°E is east, so ahead in time.                                        9:00 AM – 8 hours = 1:00 AM
+30° ÷ 15° = 2 hours
+12:00 noon + 2 hours = 2:00 PM                                         5. If it is 10:00 PM at 120°E, what is the time at 60°W?
+                                                                       120°E to 60°W = 120 + 60 = 180°
+2. The local time at 45°W is 3:00 PM. What is the time at 15°W?        180° ÷ 15° = 12 hours
+45°W to 15°W = difference of 30°                                       60°W is west of 120°E → subtract 12 hours
+30° ÷ 15° = 2 hours                                                    10:00 PM – 12 hours = 10:00 AM
+15°W is east of 45°W → add 2 hours
+3:00 PM + 2 hours = 5:00 PM                                            6. It is 4:00 PM at 20°N, 60°E. What is the time at 40°S, 60°E?
+                                                                       Same longitude → no time difference.
+3. It is 6:00 AM at 90°E. What is the time at 60°E?                    Latitude does not affect local time.
+90°E to 60°E = difference of 30°                                       Answer: 4:00 PM
+30° ÷ 15° = 2 hours
+60°E is west of 90°E → subtract 2 hours                                7. If the local mean time is 6:15 PM at 10°S 75°W, what will be the time at
+6:00 AM – 2 hours = 4:00 AM                                            30°N 75°W?
+                                                                       Same longitude → no time difference.
+4. The local mean time at 75°E is 9:00 AM. What is the time at 45°W?   Latitude does not affect local mean time.
+75°E to 45°W = 75 + 45 = 120°                                          Answer: 6:15 PM
+120° ÷ 15° = 8 hours
+
+
+
+                                                                                                                                  © www.allthingsvedic.in
+In pairs
+
+1. If the Earth stopped revolving at the next Solstice,
+   what would happen to
+          Energy consumption
+          Crime rate
+
+2. What if Earth revolved in the opposite direction
+   around the Sun? Would sunrise still be in the east?
+
+3. If humans could control the tilt of Earth, what might
+   different governments or business do with it?
+
+4. What can the length of a shadow tell you at
+   different times of the year?
+
+
+
+
+                                                           © www.allthingsvedic.in
+Answers
+
+If the Earth stopped revolving at the next Solstice...                               If humans could control the tilt of Earth...
+
+Energy consumption:                                                                  Governments/businesses might:
+One side would face the Sun constantly → permanent day                               Adjust tilt to make their region warmer or cooler → manipulate climate for
+Other side would face away → permanent night                                         crops/tourism
+People in dark zones would need 24/7 artificial light and heating → higher energy    The rich would try to avoid peak seasons, or extend cash-making seasons
+use                                                                                  Use it as political leverage (“Pay or we tilt away!”)
+People in sunlit zones might need cooling → again, high energy use                   Reduce extreme weather in disaster-prone zones
+Solar energy use would become regional — only possible on the lit side               Could create global conflicts over who controls the tilt
+
+Crime rate:
+Constant darkness in some areas could lead to more crime                             What can the length of a shadow tell you at different times of the year?
+But constant surveillance and adaptation might reduce that
+Human routines would change → social disruptions like migration, job changes, etc.   Short shadows → Sun is high → around noon or summer
+                                                                                     Long shadows → Sun is low → early morning, evening, or winter
+                                                                                     At Equinox → shadow lengths are balanced everywhere
+If Earth revolved in the opposite direction, would sunrise still be in the east?     At Solstices, shadows are longest or shortest, depending on your hemisphere
+
+No, sunrise direction depends on Earth’s rotation, not revolution
+Since rotation direction stays the same, sunrise would still be in the east
+But timing of seasons would change (e.g., seasons might not line up with current
+months)
+
+
+
+
+                                                                                                                                                   © www.allthingsvedic.in
+allthingsvedic.in
+vikram devatha
+
+
+
+
+                    © www.allthingsvedic.in
+

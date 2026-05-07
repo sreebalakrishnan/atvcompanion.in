@@ -1,0 +1,73 @@
+Live Lab Session – Stellarium
+
+
+Make sure you have downloaded the app, and installed it.. many features are not available in
+the web browser version
+
+Here are the answers. Let me know if this tallies with yours (I may have made a mitake as
+well)
+
+18. bulk of Scorpio/Scorpius, among others
+
+19. Ophiuchus among others
+
+20. Libra (also called Scales), with half to the North, and half to the South
+
+21. Libra is above the horizon
+
+22. Sagittarius is below the horizon
+
+23. On this date, Aries and Leo are to the north of the Ecliptic
+
+25. RA: 9h48m05.05s, Dec: +13°16’37.6”
+
+26. Az: +252°03’33.5”, Alt: +54°07’16.7”
+
+27 They are two different coorindate systems, each with a different starting point.
+
+28. Sun is neither north, nor south of the ecliptic because the Sun (the path of the Sun)
+determines the Ecliptic
+
+29. Its at the border between Cancer and Leo
+
+30. For the reminaing planets:
+Moon: RA: 4h27m17.07s, Dec: +26°30’56.3”, Az: +305°19’37.2”, Alt: -6°53’28.1”
+Mars: RA: 12h24m40.24s, Dec: -2°12’40.0”, Az: +171°51’48.7”, Alt: +58°54’21.0”
+Mercury: RA: 8h33m44.21s, Dec: +17°17’08.4”, Az: +269°10’49.1”, Alt: +39°49’27.4”
+Jupiter: RA: 7h05m31.68s, Dec: +22°31’39.5”, Az: +284°11’22.8”, Alt: +22°39’43.5”
+Venus: RA: 7h26m43.98s, Dec: +21°17’18.8”, Az: +280°51’10.1”, Alt: +26°43’43.5”
+Saturn: RA: 0h07m18.37s, Dec: -1°51’50.5”, Az: +019°29.2”, Alt: -63°14’32.3”
+
+31. Planets with positive altitude are above the horizon (Sun, Mars, Mercury, Jupiter, Venus)
+
+32. Planets with negative altitude are below the horizon (Moon, Saturn)
+
+33. Moon and Mars
+
+34. Mercury, Jupiter, Venus, Saturn are south of the ecliptic; Saturn is most south
+
+39. Planets with positive declination are to the north of the celestial equator – Sun, Moon,
+Mercury, Jupiter, Venus
+40. Planets with negative declination are to the south of the celestial equator – Mars and
+Saturn
+
+41. Yes, check the sign of declination; if it is positive then it is to the north, if the declination
+is negative, then south
+
+42. Leo
+
+43. Taurus
+
+45. Waning, as the Moon has passed Aquarius
+
+46. Sun RA = 9h48m05.02s ≈ 9.80h; Moon RA = 4h26m58.82s ≈ 4.45h
+Difference in RA = 9.80h − 4.45h = 5.35h
+1h RA = 15°,
+5.35×15°= approx 80°
+
+47. The closest stars to the two intersection points:
+HIP 118159: RA: 23h59m24.53s, Dec: +00°00’59.8”, Az: +004°25’04.5”, Alt: -61°17’24.9”
+HIP 58461: RA: 12h00m36.96s, Dec: -00°07’17.8”, Az: +183°46’41.1”, Alt: +61°12’15.7”
+
+49. HIP 118159 is in Pisces; HIP 58461 is in Virgo
+

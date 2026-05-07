@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5ecd9">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Release Notes — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --gold:      #a8843a;
+    --shadow:    0 1px 0 rgba(31,26,46,.04), 0 8px 28px -10px rgba(31,26,46,.18);
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+    --radius:  6px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 20px 120px; }
+  @media (min-width: 720px) { .page { padding: 0 32px 160px; } }
+
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep {
+    color: var(--rule);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+
+  .masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(34px, 7vw, 50px);
+    line-height: 1.05;
+    margin: 0 0 10px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); font-weight: 500; }
+  .sub {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 48ch;
+    margin: 0 auto;
+  }
+
+  .release {
+    padding: 36px 0 8px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .release:last-of-type { border-bottom: 0; }
+  .release header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .release h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(26px, 5vw, 32px);
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -.005em;
+  }
+  .release h2 em { font-style: italic; color: var(--saffron); }
+  .release .date {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Deep-link button per release (v4.21.0) */
+  .rel-link {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1;
+    transition: all .15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .rel-link:hover { color: var(--saffron); border-color: var(--saffron); }
+  .rel-link.copied {
+    color: #4a5d2e;
+    border-color: #4a5d2e;
+    background: rgba(74,93,46,.08);
+  }
+  .release[id] { scroll-margin-top: 24px; }
+  .release:target {
+    background: linear-gradient(180deg, rgba(184,65,14,0.05), transparent 80%);
+    border-radius: 8px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: -14px;
+    margin-right: -14px;
+  }
+
+  /* "Heard from" credits line */
+  .rel-credits {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+    letter-spacing: .02em;
+    padding: 6px 12px;
+    background: linear-gradient(90deg, rgba(184,65,14,0.06), transparent 70%);
+    border-left: 2px solid var(--saffron);
+    border-radius: 0 4px 4px 0;
+    display: inline-block;
+  }
+  .rel-credits .rel-credits-label {
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-right: 6px;
+    font-style: normal;
+    font-weight: 500;
+  }
+  .rel-credits .rel-credits-name {
+    color: var(--ink);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* Contributor filter panel (v4.22.0) */
+  .contrib-panel {
+    margin: 28px 0 12px;
+    padding: 16px 18px 14px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .contrib-panel-h {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin: 0 0 10px;
+  }
+  .contrib-panel-lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+    line-height: 1.5;
+  }
+  .contrib-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .contrib-chip {
+    appearance: none;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all .15s;
+    line-height: 1.2;
+  }
+  .contrib-chip .ct-count {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: 4px;
+    letter-spacing: .04em;
+  }
+  .contrib-chip:hover {
+    color: var(--saffron);
+    border-color: var(--saffron);
+  }
+  .contrib-chip.is-active {
+    background: var(--saffron);
+    color: var(--surface);
+    border-color: var(--saffron);
+  }
+  .contrib-chip.is-active .ct-count { color: var(--surface); opacity: .85; }
+
+  /* Filtered-out releases — hidden when a chip is active */
+  body[data-contrib-filter] section.release.is-filtered-out {
+    display: none;
+  }
+
+  /* Filter status line */
+  .contrib-status {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 14px 0 0;
+    text-align: center;
+    padding: 8px 0 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .contrib-status .contrib-clear {
+    color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-style: italic;
+  }
+  .contrib-status .contrib-clear:hover { text-decoration-color: var(--saffron); }
+
+  /* V0 origin block (v4.26.0) — image figure + caption inside the V0 release */
+  .v0-figure {
+    margin: 22px auto 8px;
+    max-width: 480px;
+    padding: 14px 14px 12px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .v0-figure img {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid var(--rule-soft);
+  }
+  .v0-figure .v0-placeholder {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 4 / 3;
+    margin: 0 auto;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(184,65,14,0.04),
+      rgba(184,65,14,0.04) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    padding: 20px;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .v0-figure figcaption {
+    margin-top: 10px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* Toast for copy confirmation */
+  .rel-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--surface);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 9999;
+  }
+  .rel-toast.is-showing {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .release .summary {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .release h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin: 18px 0 6px;
+  }
+  .release h3 .src {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--muted);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 4px;
+  }
+
+  .release ul {
+    margin: 0 0 8px;
+    padding-left: 20px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .release ul li { margin-bottom: 4px; }
+  .release ul li strong { color: var(--ink); font-weight: 600; }
+  .release ul li em { color: var(--saffron); font-style: italic; }
+
+  .release .note {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 14px 0 0;
+  }
+
+  .footer {
+    max-width: 480px;
+    margin: 80px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer .ornament {
+    color: var(--saffron);
+    margin-bottom: 18px;
+  }
+  .footer .ornament svg { width: 14px; height: 14px; }
+  .footer p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="quick-reference.html">Quick Reference</a>
+    <span class="sep">·</span>
+    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <span class="sep">·</span>
+    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <span class="sep">·</span>
+    <a href="astronomy.html">Astronomy</a>
+    <span class="sep">·</span>
+    <span class="here">Release Notes</span>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · changelog</div>
+    <h1>Release <em>Notes</em></h1>
+    <p class="sub">A running log of what's been added or changed in the Astrology 101 quick reference, freshest first.</p>
+  </header>
+
+  <!-- Contributor filter panel — auto-populated from data-credits attributes (v4.22.0) -->
+  <section class="contrib-panel" id="contribPanel" hidden aria-label="Filter releases by contributor">
+    <div class="contrib-panel-h">Heard from</div>
+    <p class="contrib-panel-lede">Click a name to see only the releases that came from their feedback.</p>
+    <div class="contrib-chips" id="contribChips"></div>
+    <div class="contrib-status" id="contribStatus" hidden></div>
+  </section>
+
+  <!-- ====================== v4.26.0 ====================== -->
+  <section class="release" data-credits="Sanchi · Sree (the kitchen-table origin)">
+    <header>
+      <h2>v4.26.0 <em>· current</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">A retroactive entry at the very bottom of these release notes — <strong>V0 · how it started</strong>. The page has had twenty-five-some releases now, but it began before any of them: as a stack of paper flashcards that Sanchi and Sree built during their annual year-planning ritual. Until now there was no record of that. This release adds it — a short narrative section at the foot of the changelog, plus a placeholder for the photograph of the original cards (Sree to share next; will be embedded at ~640px wide).</p>
+
+    <h3>What was added</h3>
+    <ul>
+      <li>A new <strong>V0 · how it started</strong> section anchored at <code>#v0</code>, the chronologically first entry in the changelog (visually at the bottom of the page).</li>
+      <li>Three short paragraphs covering: the annual year-planning ritual; the decision to build flashcards for Vikram's class; the path from paper deck → digital flashcards → quiz → section → page → companion app.</li>
+      <li>A figure block with a dashed-border placeholder where the photo of the original flashcards will land. Caption: <em>"The original deck. The annual-year-planning sit-down where this began."</em></li>
+      <li>A "What V0 was" / "What it became" pair so the contrast between then-and-now is on the page.</li>
+      <li>Credits on the section: <em>"Sanchi · Sree (the annual year-planning ritual)"</em> — picks up automatically into the contributor index at the top of the page.</li>
+    </ul>
+
+    <h3>Image, when it lands</h3>
+    <ul>
+      <li>Sree shares the photo → I resize to ≤640px on the long edge → embed inline (data URI or alongside as a small file). The placeholder swaps out automatically.</li>
+      <li>If you'd rather link to a hosted version (e.g. a Drive image), say so and I'll wire it that way instead.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.25.3 ====================== -->
+  <section class="release" data-credits="Sree (predictability over cleverness)">
+    <header>
+      <h2>v4.25.3 <em>· UX simplification</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Sree pointed out that the feedback FAB's two-path approach (auto-screenshot via html2canvas + Web Share on mobile, wa.me deep link on desktop) added friction. On mobile the user clicked, waited for a screenshot, then got a system share sheet — they expected WhatsApp. Now the click does exactly what the button promises: opens WhatsApp with prefilled context. One predictable behaviour everywhere — iPhone Safari, Android Chrome, Mac Safari, desktop Chrome. Learners attach a screenshot manually if they want to send one (one extra tap on mobile, drag-drop on desktop).</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li>The 80-line <code>sendFeedback()</code> function with capability detection, html2canvas loading, canvas capture, and <code>navigator.share()</code> orchestration is now a one-line call to <code>openWhatsAppDeepLink()</code>.</li>
+      <li>Removed the lazy <code>html2canvas</code> CDN dependency entirely (~50KB saved on first feedback click).</li>
+      <li>Removed the <code>HTML2CANVAS_CDN</code> constant and the <code>loadHtml2Canvas()</code> helper.</li>
+      <li>Tooltip on the button stays: <em>"Send feedback"</em>.</li>
+    </ul>
+
+    <h3>What stayed</h3>
+    <ul>
+      <li>The prefilled message context — version + section name — still goes through. Sree still gets <em>"Hi Sree, sharing feedback on Astrology 101 Companion App (v4.25.3 · section: Avatars):"</em> when a learner taps from the Avatars section.</li>
+      <li>Phone number constant (<code>WA_PHONE = '919880337337'</code>) unchanged. Single point to edit.</li>
+      <li>Section detection logic (<code>getCurrentSectionLabel()</code>) unchanged.</li>
+    </ul>
+
+    <h3>Why this is the right call</h3>
+    <ul>
+      <li>"Click button → button does what its label says" beats "click button → smart things happen, sometimes". The cohort doesn't need to discover what the FAB does on first try.</li>
+      <li>Most feedback won't need a screenshot. For the ones that do, mobile users tap-and-hold the screen for the system screenshot, then attach in WhatsApp — already a familiar gesture.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.25.2 ====================== -->
+  <section class="release" data-credits="Sree (popover background catch)">
+    <header>
+      <h2>v4.25.2 <em>· UX fix</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Sree spotted that the v4.25.1 popover was rendering with a transparent background — the page's lede text bled through the card, making the Vikram quote unreadable. Root cause: the CSS used <code>var(--cream)</code> in seven places, but <code>--cream</code> was never actually defined as a token in <code>:root</code>. CSS silently fell back to the initial value (transparent). Fix: add <code>--cream: #faf3e2</code> to the root token set as an alias for the existing <code>--surface</code>. The popover card now renders with an opaque cream surface; the <code>.ground-btn</code> and <code>.reflect-btn</code> hover states (which also referenced <code>--cream</code> for on-saffron text colour) also start rendering correctly. Backdrop opacity also bumped from .42 to .58 for cleaner separation between the popover and the page beneath.</p>
+
+    <h3>What was broken</h3>
+    <ul>
+      <li>The popover card (<code>.vw-card</code>) had <code>background: var(--cream)</code>. With the variable undefined, the property fell back to <code>initial</code> = transparent. The page text behind the card was visible through it.</li>
+      <li>Other latent breakages: <code>.ground-btn:hover</code>, <code>.reflect-btn:hover</code>, the Court Call <code>.court-opt</code> background, and a few other places had <code>var(--cream)</code> fallbacks. They've been silently broken for a while; this ship fixes them all.</li>
+    </ul>
+
+    <h3>The fix</h3>
+    <ul>
+      <li>Added <code>--cream: #faf3e2;</code> to the main <code>:root</code> token block, with a comment noting it as an alias for <code>--surface</code>.</li>
+      <li>Bumped the popover backdrop from <code>rgba(31,26,46,.42)</code> to <code>rgba(31,26,46,.58)</code> — darker, so the popover now visually pops off the page even on light viewport conditions.</li>
+    </ul>
+
+    <h3>Lesson</h3>
+    <ul>
+      <li>CSS custom properties fall back silently when undefined. Worth a sweep eventually for any other accidentally undefined tokens — but not urgent. The visible breakage is fixed.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.25.1 ====================== -->
+  <section class="release" data-credits="Sree (overflow catch on iPhone Safari)">
+    <header>
+      <h2>v4.25.1 <em>· UX fix</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">v4.25.0 stuffed the rotating Vikram quote and three jump pills directly into the Rāśi Chakra's 2×2 centre cell. On iPhone Safari (and any narrow viewport) the long quotes overflowed into Scorpio and Libra below — exactly the kind of UX paper-cut that makes a page feel unfinished. Fix: the centre cell now holds a compact <em>"✦ From the class — tap to read"</em> pill. Tapping it opens a centred popover (works identically on iPhone, Android, Safari, Chrome) with the full quote, attribution, <em>↻ another</em> reroll, and the three jump pills. No overflow ever; one interaction pattern across all devices.</p>
+
+    <h3>What changed in the centre cell</h3>
+    <ul>
+      <li>Removed the inline quote, citation, jump pills, and reroll button from inside the cell — they were the source of the overflow.</li>
+      <li>Cell now shows three lines: <em>Rāśi Chakra</em> (title), <em>the wheel of signs</em> (label), and a tappable saffron-bordered pill <em>"✦ From the class — tap to read"</em>. Three lines, all short, all guaranteed to fit on the smallest viewport.</li>
+    </ul>
+
+    <h3>The new popover ("Vikram wisdom card")</h3>
+    <ul>
+      <li>Tap the pill → backdrop fades in, card scales up from centre. Lives in a new <code>#vwBackdrop</code> + <code>#vwCard</code> pair injected into the body, separate from the existing drawer/chant overlays.</li>
+      <li>Card shows: small <em>"From the class"</em> eyebrow, the full Vikram quote in italic with saffron quote-marks, attribution line <em>"— Vikram, Session N · Title · Date"</em>, an <em>↻ another</em> reroll button, and the three jump pills (Mahāśaktis, Cabinet, Kālapurusha) along the bottom.</li>
+      <li>Closes on backdrop click, ESC, or the × in the top-right corner. Jump pills also close the popover before navigating, so the target section is visible immediately.</li>
+      <li>Card max-width is 520px and max-height 80vh with internal scroll — long quotes from any session fit cleanly.</li>
+    </ul>
+
+    <h3>Quote rotation (small extra)</h3>
+    <ul>
+      <li>The reroll now avoids picking the same quote twice in a row — it tracks the last shown quote in <code>sessionStorage</code> and excludes it from the random pool. Subtle but makes <em>↻ another</em> feel responsive instead of occasionally re-showing the same line.</li>
+      <li>Length filter (was 240 chars in v4.25.0) is gone — the popover scrolls if needed, so longer Vikram quotes are now in the rotation too.</li>
+    </ul>
+
+    <h3>Why the popover pattern</h3>
+    <ul>
+      <li>Hover doesn't exist on touch — so a hover-expand wouldn't work for the cohort, who'll mostly be on phones. A tap-to-open popover gives the same interaction model on iPhone, Android, Mac Safari, desktop Chrome.</li>
+      <li>The cell stays clean for browsing the wheel itself; the wisdom is one tap away when you want it. Same way macOS menu-bar items reveal richer content on click.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.25.0 ====================== -->
+  <section class="release" data-credits="Sree (Rasi Chakra centre + feedback channel)">
+    <header>
+      <h2>v4.25.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Two ideas Sree was thinking out loud about. (1) The four-grid centre of the Rāśi Chakra used to say <em>"the wheel of signs · tap any sign to expand"</em> — informational but inert. It now holds a <strong>rotating Vikram quote</strong> drawn at random from the existing VIKRAM_QUOTES const, with full attribution and a small <em>↻ another</em> reroll button. Below the quote, three jump pills — Mahāśaktis · Cabinet · Kālapurusha — link to related sections. The page comes alive every visit; voice stays Vikram's. (2) A new <strong>WhatsApp feedback FAB</strong> sits next to the floating ॐ button — one tap opens WhatsApp at +91 9880337337 with prefilled context (version + which section the learner is on). On modern mobile browsers it captures a screenshot via html2canvas + Web Share API and attaches it to the message; on desktop it falls back to the wa.me deep link.</p>
+
+    <h3>Rāśi Chakra centre · quote + jump links</h3>
+    <ul>
+      <li>The 2×2 centre cell that previously held the static title now renders a Vikram quote on every page load, randomised. Source: the existing <code>VIKRAM_QUOTES</code> const we baked in v4.8.0.</li>
+      <li>Each quote shows the body of the line, opening and closing italic quote marks (in saffron), and a small attribution: <em>"— Vikram, Session N · Title"</em>.</li>
+      <li>A subtle <em>↻ another</em> button below the quote rerolls the centre cell only — no full board re-render. Click it as many times as you like.</li>
+      <li>Three jump pills below the reroll: <em>↗ Mahāśaktis</em> (links to <code>#qualities</code>), <em>↗ Cabinet</em> (links to <code>#cabinet</code>), <em>↗ Kālapurusha</em> (links to <code>#kaalapurusha</code>). The three concepts most directly connected to the wheel of signs.</li>
+    </ul>
+
+    <h3>WhatsApp feedback · two-path FAB</h3>
+    <ul>
+      <li>New 💬 button sits 96px to the left of the chant ॐ FAB, in WhatsApp green (#25d366). Tooltip on hover: <em>"Send feedback"</em>.</li>
+      <li><strong>Mobile path</strong> — if the browser supports the Web Share API with file sharing (most modern Chrome / Safari on phones): the FAB lazy-loads <code>html2canvas</code> from CDN, captures the visible viewport, packages it with prefilled text, and opens the native share sheet. The learner picks WhatsApp from the share targets and sends. Screenshot is attached automatically.</li>
+      <li><strong>Desktop / unsupported path</strong> — the FAB opens <code>https://wa.me/919880337337?text=...</code> in a new tab with the prefilled context. The learner attaches a screenshot manually if they want to.</li>
+      <li>Prefilled text format: <em>"Hi Sree, sharing feedback on Astrology 101 Companion App (vX.Y.Z · section: [section name]):"</em>. Section is detected from the active TOC pill or the section currently in the viewport.</li>
+      <li>Phone number is hardcoded in the JS as <code>WA_PHONE = '919880337337'</code> — single point to change if it ever needs to.</li>
+      <li>html2canvas is fetched lazily — no impact on page load. Library is ~50KB minified and only requested on first feedback click.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>The cohort is about to start using the page (per <code>USER_TESTING.txt</code>). A frictionless feedback channel matters more than a perfect one. WhatsApp is where these conversations already live.</li>
+      <li>Auto-screenshot on mobile means a bug report or "this looks weird" moment is one tap away from being a real artefact for Sree — not a written description of something that's hard to picture.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.24.0 ====================== -->
+  <section class="release" data-credits="Sree (working name)">
+    <header>
+      <h2>v4.24.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">The project gets a working name — <strong>Astrology 101 Companion App</strong>. Small, reversible rebrand: the iconic <em>Astrology 101</em> h1 stays, but the eyebrow now reads <em>"all things vedic · the companion app · v4.24.0"</em> and the sub-line under the masthead now says <em>"The companion app for Vikram's class."</em> Page titles in browser tabs across all five HTML files updated. USER_TESTING.txt header rebranded. Footer line on the Quick Reference now reads: <em>"Astrology 101 Companion App — a pocket reference distilled from Vikram's class, alongside the Companion Workbook."</em></p>
+
+    <h3>Why this name (for now)</h3>
+    <ul>
+      <li>The shortlist that went out — Lagna, Smriti, Akasha, Sandhya, Antardrishti, Chitra, Sutra. All Jyothish-rooted. None chosen yet — Vikram and Sanchi haven't weighed in. This is a working name to use in the meantime, easy to revert when a final name lands.</li>
+      <li>"Companion" is honest about the project's role — it sits alongside Vikram's class and the cohort's workbook, neither replacing nor competing with them.</li>
+    </ul>
+
+    <h3>What didn't change</h3>
+    <ul>
+      <li>The h1 stays <em>Astrology 101</em> (with "101" in saffron italic). Iconic, memorable, working.</li>
+      <li>The favicon, the design palette, the section structure — all untouched.</li>
+      <li>When a final Sanskrit name lands, swapping it in is a 6-line edit (page titles, eyebrows, footers, demo deck, USER_TESTING).</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.23.0 ====================== -->
+  <section class="release" data-credits="Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha (Companion Workbook)">
+    <header>
+      <h2>v4.23.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">The cohort's Companion Workbook gets surfaced inside the page in three ways. (1) A new <strong>cross-cutting view</strong> table inside the Avatars section — Avatar / Planet / Brain region / Trauma / Life expression for the nine drafted avatars (Table 3 from the workbook). (2) A new <strong>§ Sixteen — Companion Workbook</strong> section at the bottom showing all six modules, each with its main goal, learning outcomes, and a link to the page section it maps to. (3) Inside the avatar drawer for the eight unfilled avatars (Kurma → Buddha), a small <em>"in progress"</em> block tells readers exactly what's coming and credits the drafting team — so Sudha sees her own name on the work in flight.</p>
+
+    <h3>1 · The cross-cutting view (Table 3)</h3>
+    <ul>
+      <li>Inside the Avatars section, below the existing tile grid: a 9-row table mapping each avatar to its planet, the brain region the trauma lives in, the trauma type, and how it tends to show up in life. Direct extract from the Companion Workbook draft.</li>
+      <li>Avatar names are clickable — opens the matching avatar drawer.</li>
+      <li>A small caveat below the table: <em>"Read these as patterns to recognise, not diagnoses."</em></li>
+      <li>Kalki is not in the source — table shows nine rows.</li>
+    </ul>
+
+    <h3>2 · The new Companion Workbook section</h3>
+    <ul>
+      <li>New § Sixteen at the bottom of the Quick Reference. Contains all six modules from <code>Learning Outcomes.docx</code>: <strong>Avatars of Vishnu</strong>, <strong>Building Blocks of Signs</strong>, <strong>Astronomy</strong>, <strong>Navagrahas</strong>, <strong>Chart Interpretation Basics</strong>, <strong>The 12 Houses</strong>.</li>
+      <li>Each module shows its main goal, four learning outcomes, and a status pill — <em>Drafted</em> (green) for Module 1 (Avatars), <em>Outcomes only</em> (plum) for Modules 2-6.</li>
+      <li>Each module also links to its corresponding page section: Module 1 → Avatars, Module 2 → Elements / Modes / Duality, Module 3 → Astronomy peer page, Module 4 → Planets, Module 5 → Cabinet, Module 6 → Houses.</li>
+      <li>Footnote acknowledges the workbook is being authored alongside Vikram's class — this section is a roadmap, not the workbook itself.</li>
+    </ul>
+
+    <h3>3 · "Workbook content — in progress" block in avatar drawers</h3>
+    <ul>
+      <li>For the eight avatars whose workbook drafts are still in flight (Kurma, Varaha, Narasimha, Vamana, Parashurama, Rama, Krishna, Buddha), each drawer now carries a small dashed-border note: <em>"Reflection clusters and embodied practice for [Avatar] are being drafted by Marie, Sudha, Mannat & Spandana with Vikram, Megha & Neha — due August 2026. Once landed, this drawer will hold the same depth as Matsya's."</em></li>
+      <li>Honest signaling. The team's names are visible to anyone using the page — including Sudha herself, who'll see her own name three places (Cabinet workbook authors, Module 1 coverage, and the per-avatar note).</li>
+      <li>Matsya remains the gold-standard exemplar from v4.18.0 — eleven reflection clusters and a full practice block. The pending block does not show on Matsya.</li>
+    </ul>
+
+    <h3>What's blocked and what isn't</h3>
+    <ul>
+      <li>The integration scaffolding is now ~95% in place. Once Marie / Sudha / Mannat / Spandana finish drafting an avatar's content, dropping it into the AVATAR_PRACTICE const surfaces it everywhere — drawer, table, no further code work.</li>
+      <li>Same for Modules 2-6 exercises. When activities are drafted, they extend the WORKBOOK_MODULES const without touching the rendering layer.</li>
+      <li>Source rule still holds: nothing in this page imports from outside the workbook + Vikram's transcripts. We wait on the cohort, we don't fill in for them.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.22.0 ====================== -->
+  <section class="release" data-credits="Sree (Cut C)">
+    <header>
+      <h2>v4.22.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">The contributor index that finishes Cut C from the planning conversation. A new "Heard from" panel sits between the masthead and the first release. It auto-extracts every name from <code>data-credits</code> across the page, shows them as filter chips with counts, and lets you click any name to see only the releases credited to that person. The <em>"All"</em> chip resets. Combined with v4.21.0's deep links, the trail is now fully self-evident — for Sudha, Vikram, Sanchi, the Companion Workbook authors, or anyone else whose feedback shaped a version.</p>
+
+    <h3>How it works</h3>
+    <ul>
+      <li>On page load the script scans every <code>section.release[data-credits]</code>, parses the credit string (handles <code>·</code> and parentheticals like <em>"Sudha (Light/Shadow catch)"</em>), tallies each name, and renders one chip per contributor with the release count.</li>
+      <li>Click <em>"Sudha"</em> → only the four Sudha-credited releases stay visible (v4.21.0, v4.20.0, v4.18.0, v4.13.0); everything else hides via a <code>.is-filtered-out</code> class. A status line below the chips shows <em>"Showing 4 releases credited to Sudha"</em> with a <em>"Show all releases"</em> link to reset.</li>
+      <li>Adding a contributor later requires zero code change — just set <code>data-credits="Name · context"</code> on the section element. The script re-tallies on next page load.</li>
+    </ul>
+
+    <h3>Resilience</h3>
+    <ul>
+      <li>Same parser handles compound credits — <em>"Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha (Companion Workbook authors)"</em> correctly attributes a release to all seven names while stripping the trailing parenthetical.</li>
+      <li>Releases that survived without external credit (most of v3.x and the solo Sree builds) are unchanged. They show in the "All" view and disappear when a name is selected — exactly what you'd expect.</li>
+    </ul>
+
+    <h3>What's still ahead</h3>
+    <ul>
+      <li>Project naming — separate decision. Shortlist sent: Lagna · Smriti · Akasha · Sandhya · Antardrishti · Chitra · Sutra. Once chosen, masthead, eyebrows, footers, demo deck, and USER_TESTING.txt all rebrand in one ship.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.21.0 ====================== -->
+  <section class="release" data-credits="Sudha (use case) · Sree (need to refer)">
+    <header>
+      <h2>v4.21.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Sree wanted to point Sudha at the specific releases that came from her feedback. So this page now does two things: (1) every release section gets an anchor ID and a small <em>🔗</em> button next to its heading — click to copy a deep link to the clipboard. (2) Releases that came from external feedback show a small <em>"Heard from: …"</em> credit line, so the trail is self-evident. Six versions credited so far — Sudha (v4.13.0, v4.20.0), Vikram (v4.10.0, v4.14.0, v4.15.0, v4.17.0), Sanchi (v4.16.0, v4.17.0), and the Companion Workbook authors (v4.18.0).</p>
+
+    <h3>Deep links</h3>
+    <ul>
+      <li>Each release section's <code>id</code> is now <code>v4-21-0</code>, <code>v4-20-1</code>, <code>v4-20-0</code>, etc. — derived from the version. The browser URL becomes <code>release-notes.html#v4-20-0</code> when you scroll to it.</li>
+      <li>Hover any release's heading and a small 🔗 button shows. Click it: the link is copied to your clipboard and a small toast confirms. Paste it anywhere — WhatsApp, Slack, an email — and the recipient lands directly on that release.</li>
+      <li>The targeted release picks up a soft saffron tint when its hash matches the URL — so the right one is visually obvious when someone follows the link.</li>
+    </ul>
+
+    <h3>Heard from</h3>
+    <ul>
+      <li>Releases that came from external input now display a small italic line below the header: <em>"Heard from: Sudha"</em> (or whoever the credit goes to). Lifted directly from <code>data-credits</code> attributes on the section element.</li>
+      <li>For Sudha specifically: v4.13.0 (Light/Shadow vocabulary catch), v4.20.0 (Yogas section + drawing exercise from her WhatsApp). For Vikram: v4.10.0 sign-drawer enrichment, v4.14.0 + v4.15.0 astronomy work, v4.17.0 Phase-1 from his post-call plan. For Sanchi: v4.16.0 (joining as PM, co-credit) and v4.17.0 (owns the user-testing loop). For the workbook authors: v4.18.0 (Matsya gold-standard pulled from the Companion Workbook draft).</li>
+      <li>Adding a credit later is a one-attribute change — just <code>data-credits="Name · context"</code> on the section element. The script picks it up automatically.</li>
+    </ul>
+
+    <h3>Why</h3>
+    <ul>
+      <li>From Sree: <em>"Sometimes I need to refer to a specific release — for example Sudha asked me for changes, I'd like to show her she was heard."</em> Now the page does the showcase work itself.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.20.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.20.1 <em>· hotfix</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Hotfix. Sree spotted that the Mode toggle ("Learning / Reference") and the level filter ("Show content for: Foundations / Beginner / …") were not clickable after v4.20.0 shipped. Root cause was a temporal-dead-zone error in v4.20.0's INIT block — <code>initTraceExercise()</code> was being called before its <code>const TRACE_PLANETS</code> and <code>const traceState</code> declarations executed, which threw a <code>ReferenceError</code> that killed the rest of the script and prevented the toggle handlers from binding. Fix: moved the <code>initTraceExercise()</code> call to immediately after its const declarations, with a code comment explaining why. Toggles work again. No content changes; v4.20.0 features (Yogas section, drawing exercise) all intact.</p>
+  </section>
+
+  <!-- ====================== v4.20.0 ====================== -->
+  <section class="release" data-credits="Sudha">
+    <header>
+      <h2>v4.20.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Two of Sudha's bigger asks land. A new <strong>Yogas</strong> section sits between Aspects and Houses (§ Nine — everything below shifts up one number), holding Parivartana with Vikram's verbatim framing and a placeholder note for the yogas he has named but not yet taught. A <strong>Trace the symbols</strong> drawing exercise sits at the bottom of Practice — nine planet glyphs, faded as a guide, draw on top with finger or mouse.</p>
+
+    <h3>Yogas section · Parivartana, sourced honestly</h3>
+    <ul>
+      <li>Audited the 41 Vikram transcripts before building. Across 38 sessions Vikram has explicitly defined exactly one yoga at beginner level — <strong>Parivartana Yoga</strong> (exchange of Lords). Mahapurusha, Gajakesari, Raja Yogas, Dhana Yogas, Vipareeta and the rest get named in passing or deferred to later planet study, but never worked.</li>
+      <li>Per source discipline ("only what Vikram says — public sources need a check first"), the section ships with just Parivartana fully built, plus a deferred-yogas note acknowledging what's coming. As Vikram covers more yogas, the YOGAS_DATA const is a one-place edit to add them.</li>
+      <li>The Parivartana card carries: the one-liner ("Two planets sit in each other's ruling signs. Both become important."), Vikram's "yoga means combination" definition, the conditions (two-planet loop, three-planet loop, why four-or-more loops are not Parivartana per Vikram), the effect on dispositorship and exalted-planet amplification, and Vikram's nuanced take on debilitation cancellation (read in shades, not binary). Citations to Sessions 24, 25, 26.</li>
+      <li>Quiz check-in (3 questions) added. Reflective prompt: <em>"Are there two areas of your life that keep referring back to each other — neither one finished without the other? That cyclical, mutual dependency is what Parivartana feels like."</em></li>
+      <li>Numbering: Yogas is § Nine. Houses → § Ten, Systems → § Eleven, Categories → § Twelve, Purusharthas → § Thirteen, Kālapurusha → § Fourteen, Practice → § Fifteen.</li>
+    </ul>
+
+    <h3>Trace the symbols · drawing exercise (Phase A)</h3>
+    <ul>
+      <li>Sudha's idea: <em>"As a fun exercise what if people could draw symbols of the planets or Houses and Signs."</em> Built. Sits at the bottom of the Practice section under the existing flashcards / quiz blocks.</li>
+      <li>Phase A is planets only — nine glyphs, ☉ through ☋. The current planet's glyph appears at low opacity behind a 240×240 canvas; trace over it with finger (touch) or mouse. Buttons: Previous, Clear, Hide / Show guide, Done → Next.</li>
+      <li>"Done" planets persist in localStorage. The little progress line shows <em>"3 of 9 traced"</em> so a learner can come back over multiple sittings.</li>
+      <li>Future phases: Phase B will add the 12 sign glyphs, Phase C the house numerals in Devanagari. Same scaffolding, just more entries in the TRACE_PLANETS array.</li>
+    </ul>
+
+    <h3>Why no Gajakesari, Raja Yogas, etc.</h3>
+    <ul>
+      <li>Sudha asked for a section of yogas at beginner level "those covered by Vikram for us." Honest finding from the transcript audit: the only one fully covered is Parivartana. Importing classical-text definitions (Brihat Parashara, Phala Deepika) for the rest would break our source rule.</li>
+      <li>The deferred-yogas footer in the section signals this to readers explicitly — and gives us a clean place to add them as Vikram teaches them.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.19.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.19.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">A recall-side audit caught what we'd been avoiding: most quizzes and flash cards were still riffing on the original v4.5 content, even after twelve versions of source material had landed (cabinet, vikram_story, astronomy → meaning, workbook). The Cabinet quiz was the only one that had been refreshed. v4.19.0 closes three of the worst gaps — Avatars quiz, Cabinet flash card deck, Planets quiz with astronomy content.</p>
+
+    <h3>Avatars quiz · refreshed for vikram_story content</h3>
+    <ul>
+      <li>The previous three questions were trivial planet-mappings ("Rama = Sun?", "Krishna = Moon?"). Replaced with three Vikram-grounded questions:</li>
+      <li><strong>Q1 — Matsya:</strong> what does the small fish ultimately do once it outgrows the sea? Hint quotes Vikram, Session 4 directly: <em>"There is a huge flood coming in seven days. The fish tells him: tie your boat to my horn."</em></li>
+      <li><strong>Q2 — Kurma:</strong> what is the turtle's role in the Samudra Manthan? Hint quotes Session 7: <em>"This turtle is still. Not moving. Swimming against the currents, not moving — just supporting the entire mountain as the churning continues."</em></li>
+      <li><strong>Q3 — Mapping:</strong> Matsya, with its themes of compassion, surrender to transformation, and the impossible becoming possible, maps to Ketu. Hint covers the wider Kurma → Saturn, Varaha → Rahu, Krishna → Moon, Rama → Sun set.</li>
+      <li>Reflective prompt rewritten to invite the reader into the specific stories tested — Matsya's <em>"danger first, then a strange blessing"</em>, Kurma's <em>"still in the storm"</em>.</li>
+    </ul>
+
+    <h3>Cabinet flash card deck · new</h3>
+    <ul>
+      <li>The Cabinet section had a quiz and a game (Court Call) but no flash cards. Added a new <strong>Cabinet</strong> deck programmatically generated from the CABINET const — 27 cards across the nine planetary roles.</li>
+      <li>Three card types per planet: <em>"What role does X play?"</em> (king, queen, commander, prince…), <em>"Where is X honoured?"</em> (in whose chambers — exaltation), and <em>"Where is X disgraced?"</em> (debilitation). Sign answers come with their Sanskrit names.</li>
+      <li>Sits in the deck picker between Avatars and Sanskrit. Beginner-tier. Same lenient front-of-card / back-of-card mechanics as everything else.</li>
+    </ul>
+
+    <h3>Planets quiz · astronomy → meaning</h3>
+    <ul>
+      <li>Replaced the third Planets question (the generic "Jupiter exalts in Cancer" recall) with a Vikram astronomy → meaning question on Mars: <em>"Why is Mars red, fast-rotating, and bordered by an asteroid belt — and what does the chart inherit from this?"</em></li>
+      <li>Hint surfaces the chain Vikram teaches in the v4.14 callouts: red → anger / blood / fire; fast rotation → strength; asteroid belt between Mars & Jupiter → battle; throws asteroids at Earth → destruction.</li>
+      <li>The exaltation knowledge displaced from this quiz is still tested via the Planets flash card deck (which carries Uccha/Neecha cards for every graha).</li>
+    </ul>
+
+    <h3>Avatars deck · vikram_story themes card</h3>
+    <ul>
+      <li>While we were in there: the Avatars deck (which was only 3 cards per avatar — name, planet, English meaning) gained a fourth card per avatar that surfaces the v4.12 vikram_story themes: <em>"Which avatar carries these themes: 'compassion, surrender to transformation, the impossible becomes possible'?"</em></li>
+      <li>30 new cards total (3 per avatar × 10 avatars). Same lenient mechanics.</li>
+    </ul>
+
+    <h3>What's still on the list</h3>
+    <ul>
+      <li>Sign drawer enrichment recall (v4.10's 5 modules + year-rhythm) — not yet in any quiz or deck.</li>
+      <li>AVATAR_PRACTICE recall (the workbook material we shipped in v4.18) — Matsya is the only one populated; we'll add deck/quiz coverage as Marie/Sudha/Mannat/Spandana land the other nine.</li>
+      <li>Practice quiz refresh — still generic; needs grounding in real session/workbook material.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.18.0 ====================== -->
+  <section class="release" data-credits="Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha (Companion Workbook authors)">
+    <header>
+      <h2>v4.18.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">A four-part build directly informed by the Companion Workbook draft (Marie, Sudha, Mannat, Spandana — with Vikram, Megha, Neha) and the cabinet section's deferred Phase B. Matsya becomes the gold-standard avatar drawer with eleven reflection clusters and a full embodied-practice block; the same scaffolding is now ready for the other nine avatars as workbook content lands. The Cabinet section grows a self-contained game called Court Call. Section eyebrows pick up subtle family colours so the page reads as four threads, not fourteen sections.</p>
+
+    <h3>1 · Matsya — the gold-standard drawer</h3>
+    <ul>
+      <li>The Matsya drawer now carries two new expandables built directly from the Companion Workbook's Matsya page: <em>"Sit with this — eleven reflection clusters"</em> and <em>"Practice with this — embodied & integration"</em>.</li>
+      <li>The eleven clusters each open with a Vikram quote (lifted verbatim from the workbook draft, which itself draws from Session 26 onwards) followed by 2–3 prompts. Themes range from <em>"Loss and renewal — letting go of what defines you"</em> through <em>"Patience as a path to insight"</em> to <em>"Service is part of healing"</em>.</li>
+      <li>The Practice block introduces three skill tiers — beginner, intermediate, advanced — with subtly coloured borders (forest, saffron, ink). It carries chart-application prompts ("look at where Ketu is in your chart") at all three tiers, the Fish Pose with chart-aware modifications, an extended-exhale pranayama, and a threshold-crossing ritual.</li>
+      <li>Why Matsya only, for now: this is the template. Marie/Sudha/Mannat/Spandana are still drafting the others. As workbook content arrives, each avatar drawer will pick up the same two expandables — no further code work needed, just data.</li>
+      <li>Source: <code>/Users/sreeb/Downloads/Companion Workbook</code>.</li>
+    </ul>
+
+    <h3>2 · Court Call — a game inside the Cabinet</h3>
+    <ul>
+      <li>At the bottom of the Cabinet section, a new module: <em>"Court Call — a game"</em>. Press <em>"✦ Play a round →"</em> and you get five questions drawn at random from a 30-question bank: role identification (king, queen, commander, prince…), office (moola trikona), honour (exaltation), dishonour (debilitation), and story logic.</li>
+      <li>Every wrong answer reveals Vikram's exact framing — e.g., <em>"Saturn, the servant, is on his knees in front of the commander of the army." (Session 23)</em>. Right answers get the same gloss, just with a different opening.</li>
+      <li>End-of-round summary lists each question with a tick or cross and your score (<em>"3 of 5 — better than last time"</em>). Best round persists in <code>localStorage</code>. No timer, no leaderboard. Replay reshuffles.</li>
+      <li>This was Phase B of the Cabinet, promised in v4.11. Now it's in.</li>
+    </ul>
+
+    <h3>3 · Section family colour coding</h3>
+    <ul>
+      <li>Every section now carries a <code>data-family</code> attribute that places it in one of four threads: <strong>map</strong> (signs, qualities, planets, signature, houses, kaalapurusha — indigo), <strong>story</strong> (avatars, cabinet — saffron, the existing accent), <strong>mechanics</strong> (relationships, aspects, systems, categories, purusharthas — forest), and <strong>practice</strong> (the practice section — plum).</li>
+      <li>The eyebrow text (<em>§ One</em>, <em>§ Two</em>, etc.) and the small horizontal rule under each section heading now pick up the family colour. The rule also widens slightly (38px → 56px) for visibility. Everything else stays saffron.</li>
+      <li>Goal: at-a-glance grouping without redrawing the navigation. The page reads as four threads now, not fourteen sections.</li>
+    </ul>
+
+    <h3>4 · Workbook-block CSS (reusable scaffolding)</h3>
+    <ul>
+      <li>Added shared CSS for <code>.workbook-block</code>, <code>.workbook-cluster</code>, <code>.workbook-quote</code>, <code>.workbook-prompts</code>, <code>.practice-block</code>, and <code>.practice-tier[data-tier]</code>. The same primitives will hold every avatar's reflection clusters and practice content as the workbook expands.</li>
+      <li>Practice-tier accents: beginner gets a forest border, intermediate saffron, advanced ink — visually consistent with the family colour coding above.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.17.0 ====================== -->
+  <section class="release" data-credits="Vikram · Sudha · Sanchi">
+    <header>
+      <h2>v4.17.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Phase 1 from the post-call plan. Four items shipped together: rename "Test yourself" to "A check-in" everywhere; add a writeable reflection space inside every section's check-in (the workbook gap Vikram pointed at); a single accessibility toggle for larger text + higher contrast; and a <code>USER_TESTING.md</code> doc with the seven questions for the first cohort. This is the version we'd ship to user testing next.</p>
+
+    <h3>Rename · "Test yourself" → "A check-in"</h3>
+    <ul>
+      <li>Sudha and Vikram both flagged that "test" doesn't match the class's pedagogy. Sanchi suggested check-in. The summary line now reads <em>"✦ A check-in — 3 questions, no score"</em>. Same lenient mechanics, gentler register.</li>
+      <li>14 quiz blocks renamed; the global click handler in the demo deck's slide 12 also updated.</li>
+    </ul>
+
+    <h3>Reflection space — the workbook gap closed</h3>
+    <ul>
+      <li>Below the existing reflective prompt at the bottom of each check-in, every section now carries a small <em>"Sit with this — write what comes"</em> textarea. Type freely. The text persists in <code>localStorage</code> per section, restored on every visit.</li>
+      <li>Two actions below the textarea: <strong>Copy to clipboard</strong> (formats the section title + check-in date + prompt + your note for pasting into a journal, WhatsApp, anywhere) and <strong>Clear</strong>.</li>
+      <li>Why this lands: from the call, Vikram said <em>"the only thing making this different from the workbook is space for reflection. The moment you bring that in, this completely replaces the workbook."</em> So we did.</li>
+      <li>No server. Notes live on the device for now. Phase 2 (login + sync) is the obvious next step.</li>
+    </ul>
+
+    <h3>Accessibility — larger text + higher contrast</h3>
+    <ul>
+      <li>A small <em>Aa</em> button next to the mode toggle. Tap it to flip the page into accessibility mode. Persists in <code>localStorage</code>.</li>
+      <li>When on: root font size scales up, headings and prompts grow proportionally, muted greys shift toward higher-contrast ink, border lines thicken. Quiz options get more padding; reflection textarea gets larger.</li>
+      <li>Targeted at our senior learners — Hiran, Meera, anyone who has flagged the page as too tight. One toggle, no granular controls; we want the simplest mental model.</li>
+    </ul>
+
+    <h3>USER_TESTING.md — for the cohort</h3>
+    <ul>
+      <li>New file at the project root: <code>USER_TESTING.md</code>. Contains the seven cohort questions (Vikram's three + Sree's three + Sanchi's contextualisation lens) plus a deadline schedule for the first round (cohort confirmed by 9 May, page out by 10 May, two-week window through 23 May, first synthesis to Vikram by 26 May).</li>
+      <li>Sanchi owns the synthesis loop. Voice notes accepted. Three signal types we listen for: stop signals (urgent), resonance signals (good), friction signals (easy wins).</li>
+    </ul>
+
+    <h3>What's deferred from Phase 1</h3>
+    <ul>
+      <li>Color coding (Vikram's suggestion to differentiate sections by accent colour) — deferred. Lower urgency than reflection.</li>
+      <li>Subtle visuals/images per section — deferred. Wait for cohort feedback before adding visual elements.</li>
+      <li>Quiz rewrite against learning outcomes — blocked on Vikram's Google Drive folder. Coming when it lands.</li>
+      <li>Brief reading pass over decks — Vikram acknowledged typos/duplicates exist. Larger conversation for Phase 2.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>Two new <code>localStorage</code> keys: <code>astro_reflect_notes</code> (per-section reflection text) and <code>astro_a11y</code> (accessibility-mode preference).</li>
+      <li>Reflection textarea uses debounced auto-save (350ms) — no save button needed. Tiny <em>"✓ saved"</em> confirms.</li>
+      <li>Accessibility toggle is plain CSS body-class — no layout reflow surprises.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.16.0 ====================== -->
+  <section class="release" data-credits="Sanchi (joining as PM)">
+    <header>
+      <h2>v4.16.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Co-credit. Every page footer now reads: <em>"Content © All Things Vedic · Vikram. The page itself is built by Sree &amp; Sanchi alongside the class."</em> Sanchi joining as product owner this week — the page is a project we're building together. The demo deck's title slide updated to match.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li>Small italic credit line added to the footers of all five pages: Quick Reference, Kaalapurusha, Mercury Spectrum, Astronomy, Release Notes.</li>
+      <li>Demo deck (<code>demo.html</code>) title slide meta updated from <em>"Sree · for Vikram"</em> to <em>"Sree &amp; Sanchi · for Vikram."</em></li>
+      <li>Content attribution unchanged — All Things Vedic / Vikram remains the author of the source material. The line distinguishes <em>content</em> (Vikram's) from <em>page build</em> (Sree &amp; Sanchi's).</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.15.0 ====================== -->
+  <section class="release" data-credits="Vikram (decks · transcripts)">
+    <header>
+      <h2>v4.15.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Phase B of the astronomy work — a new <strong>astronomy.html</strong> peer page sitting alongside Kaalapurusha and Mercury Spectrum. Eight foundations covering Solar System, Ecliptic, Coordinate Systems, Celestial Equator, Eclipses, Apparent Motions, Ayanamsha, and the Stellarium Lab. All material from Vikram's transcripts and decks; nothing borrowed from elsewhere.</p>
+
+    <h3>Eight sections</h3>
+    <ul>
+      <li><strong>The Earth in the Solar System</strong> — seven visible navagrahas, cosmic scale exercise from Deck 10</li>
+      <li><strong>The Ecliptic &amp; the Zodiac</strong> — Sun's path, 360° / 12 × 30°, the Rigveda 1.164.48 quote</li>
+      <li><strong>Coordinate Systems</strong> — Az/Alt and RA/Dec, with Vikram's "go outside, face the direction, be still" instruction from Deck 22</li>
+      <li><strong>The Celestial Equator</strong> — 23½° tilt, the equinox intersections</li>
+      <li><strong>Eclipses &amp; the Lunar Nodes</strong> — Moon's tilted orbit, Rahu and Ketu as the two crossings, the two conditions for an eclipse</li>
+      <li><strong>Apparent Motions &amp; Retrograde</strong> — the eight motions of BPHS 29.21–23 (Sama, Manda, Vakra, etc.)</li>
+      <li><strong>Ayanamsha &amp; Precession</strong> — Earth's wobble, ~50 arc-seconds per year, Lahiri default</li>
+      <li><strong>The Stellarium Lab</strong> — the hands-on prompts that bring it together</li>
+    </ul>
+
+    <h3>Each section has</h3>
+    <ul>
+      <li>A Vikram quote callout at the top, attributed to the session and deck</li>
+      <li>Body explanation drawn from Vikram's deck (markdown summary) and the relevant transcript</li>
+      <li>A custom saffron line-drawing diagram (no borrowed images)</li>
+      <li>A cross-reference back to where this lands in Quick Reference</li>
+    </ul>
+
+    <h3>Site nav</h3>
+    <ul>
+      <li>All four existing pages updated. Site nav now reads: <em>Quick Reference · Kaalapurusha · Mercury Spectrum · <strong>Astronomy</strong> · Release Notes</em>.</li>
+      <li>Astronomy is a peer page like Kaalapurusha and Mercury Spectrum — no Learning-mode frontier integration; available always.</li>
+    </ul>
+
+    <h3>Source discipline</h3>
+    <ul>
+      <li>Every section is sourced from Vikram's transcripts (Sessions 5, 11, 13, 14, 15, 17, 18, 19, 25, 26) and decks (4, 8, 10, 20, 22, 24, 27, 28, 29, 31, 36, 47).</li>
+      <li>Where I needed words to bridge Vikram's framings I used the deck summary's phrasing, which is itself a faithful summary of the slide content.</li>
+      <li>Diagrams are custom SVG line-drawings — no borrowed images. The decks' original diagrams reference public sources (scienceabc.com, timeanddate.com); I drew minimal saffron equivalents to keep the page's design language honest.</li>
+      <li>If anything in the page reads as off-doctrine or borrowed, flag the section and I'll revise.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.14.0 ====================== -->
+  <section class="release" data-credits="Vikram (decks · transcripts)">
+    <header>
+      <h2>v4.14.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Phase A of the astronomy work — the science under the symbolism, surfaced inside the Quick Reference. The astronomy mappings already baked into the page (which were buried inside an "intermediate" classical block) are now first-class. Plus small Vikram-quote ledes in §1 Signs and §10 House Systems explaining the astronomy under the structure.</p>
+
+    <h3>Per-planet "From the sky" section</h3>
+    <ul>
+      <li>Promoted <code>PLANET_CLASSICAL.astronomy[]</code> to its own labelled section in the planet drawer: <em>"From the sky · why this graha feels the way it does."</em> Now visible at all learning levels (was hidden under "intermediate" before).</li>
+      <li>Currently displays for Sun, Moon, Mercury, Mars (the four planet-decks ingested so far). Each shows physical fact → karaka mapping in Vikram's framing — e.g., Mars: <em>"Red in colour → anger, blood, fire" · "Asteroid belt between Mars and Jupiter → battle" · "Has asteroids in its own orbit → commander."</em></li>
+      <li>Venus, Jupiter, Saturn, Rahu, Ketu will gain the same when their dedicated decks are ingested. The render gracefully omits the section where data isn't yet present.</li>
+    </ul>
+
+    <h3>Astronomy ledes in §1 and §10</h3>
+    <ul>
+      <li><strong>§1 Signs</strong> — small italic line under the lede: <em>"From the sky — 'the path that the Sun takes along the Earth — that is the ecliptic. The ecliptic is a very important concept for us; we will be using this a lot.' The 360° wheel of signs is this ecliptic, divided into twelve 30° slices." (Vikram, Session 13)</em></li>
+      <li><strong>§10 House Systems</strong> — small italic line under the lede: <em>"From the sky — 'At the equator, the Medium Coeli and the Zenith are the same. But if I go north — or south — it moves away from the zenith. That's what brings us to Sripathi Paddhathi.' The differences between systems are latitude effects on the geometry of the ecliptic." (Vikram, Session 37)</em></li>
+    </ul>
+
+    <h3>What's next — Phase B</h3>
+    <ul>
+      <li>A dedicated <strong>astronomy.html</strong> peer page (alongside Kaalapurusha and Mercury Spectrum) — eight sections covering the Earth in the Solar System, the Ecliptic & Zodiac, Coordinate Systems, Celestial Equator, Eclipses & Lunar Nodes, Apparent Motions, Ayanamsha & Precession, and Stellarium Lab notes.</li>
+      <li>All material restricted to Vikram's transcripts and decks. No public sources without explicit confirmation. Coming next as v4.15.0.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.13.0 ====================== -->
+  <section class="release" data-credits="Sudha (Light/Shadow catch) · Vikram (demo audience)">
+    <header>
+      <h2>v4.13.0</h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">Light / Shadow vocabulary fix in §2 (Elements · Modes · Duality), caught by Sudha. The subheading on every element / modality / duality card was reading <em>"Qualities"</em>; Vikram\'s actual pair across the transcripts is <em>"Light" and "Shadow"</em>. Also aligns the Quick Reference vocabulary with the Mercury Spectrum sister page, which was already using <em>Shadow</em> and <em>Light</em>.</p>
+
+    <h3>Sourced in Vikram\'s words</h3>
+    <ul>
+      <li>Multiple direct transcript quotes confirm the pair: <em>"I have separated this list of keywords into 2. The top is the light and the bottom is the shadow."</em> &nbsp;·&nbsp; <em>"We could discuss the light and shadow exactly."</em> &nbsp;·&nbsp; <em>"From the shadow to the positive to the light."</em></li>
+      <li>He uses "positive" and "light" interchangeably; "light" is the cleaner default.</li>
+    </ul>
+
+    <h3>What changed</h3>
+    <ul>
+      <li>The subheading on each of the nine quality cards (4 elements + 3 modalities + 2 dualities) now reads <strong>Light</strong> instead of <strong>Qualities</strong>.</li>
+      <li>The §2 lede was updated: <em>"Each shows positive expression and shadow tendencies"</em> → <em>"In Vikram\'s framing — each carries a light side and a shadow side, the two faces every sign holds."</em></li>
+      <li>No layout changes. No data shape changes. Two strings.</li>
+    </ul>
+
+    <h3>What\'s intentionally unchanged</h3>
+    <ul>
+      <li>The section anchor <code>#qualities</code> stays — changing it would break the demo deck\'s live-link buttons, the search index, learning-mode frontier, and any deep-links you\'ve already shared. The visible section title is <em>"Elements · Modes · Duality"</em> regardless.</li>
+      <li>Classical citations that contain the word "qualities" (Phala Deepika, Sarvartha Chintamani) stay verbatim — we don\'t paraphrase classical texts.</li>
+      <li>General English usage of "qualities" elsewhere on the page (Avatars lede, Trikonas description) stays.</li>
+    </ul>
+
+    <h3>Credit</h3>
+    <ul>
+      <li>Caught by Sudha (a power user) as a vocabulary mismatch with what Vikram says in class. Confirmed against transcripts before changing. The kind of catch that keeps the page honest to its source.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.12.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.12.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">"How Vikram tells it" — every avatar drawer now opens an expandable with Vikram's actual scene-by-scene narrative from class. Sourced verbatim from Sessions 4, 7, 10, 12, 16, 18a, 20–22, 27, and 31, with light editing only for grammar and flow.</p>
+
+    <h3>What's new in each avatar drawer</h3>
+    <ul>
+      <li>A new "<em>✦ How Vikram tells it</em>" expandable below the existing structured story.</li>
+      <li>Each story is broken into 5–7 named scenes — for example Matsya: <em>Satyavrata at the river → A fish that speaks → The fish outgrows → And then a horn → The flood, the boat, the horn → The themes.</em></li>
+      <li>Session attribution at the top of every expandable (e.g., <em>"From Vamana Avatar &amp; Signature — Session 16 · August 31, 2025."</em>) and a closing citation line.</li>
+      <li>Light edits only for grammar and reading flow where the spoken Teams transcript was choppy. Substance verbatim — including Vikram's asides like the grandmother's teaching during Narasimha (<em>"Treat everything with respect — even in something as insignificant as a pillar of your house, there is something significant"</em>) and the flute farewell in Krishna (<em>"I will not play this for anyone else. This is something I have played only for you"</em>).</li>
+    </ul>
+
+    <h3>Coverage</h3>
+    <ul>
+      <li>Nine avatars covered: Matsya, Kurma, Varaha, Narasimha, Vamana, Parashuram, Rama, Krishna, Buddha.</li>
+      <li>Kalki is omitted — he is the avatar yet to come, and Vikram does not narrate his story in class.</li>
+      <li>Existing structured <code>story</code> field is preserved on every avatar — the at-a-glance summary on the avatar grid and at the top of the drawer is unchanged. The new expandable is a deeper second layer for learners who want the actual classroom telling.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>New <code>AVATAR_STORIES</code> data const baked next to AVATARS — keyed by avatar id, each with session metadata + an array of scene objects (label + text).</li>
+      <li><code>drawerForAvatar()</code> renders the expandable using the same <code>.cab-story</code> CSS as the cabinet story expandable in §4 — consistent typography, scene labels, citation footer.</li>
+      <li>No layout changes to the avatar grid, the planet drawer, or any other page surface.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>Avatars are the mythological backbone of the course — Vikram returns to them across the year. Until now the page summarised each avatar in encyclopedic prose; the actual classroom telling was nowhere on the page.</li>
+      <li>This is the second layer of "From the class" content (after the cabinet story in v4.11) that turns the page from a reference of facts into a vessel for Vikram's voice. Tap any avatar, expand the story, and the page reads as if you're back in his Tuesday class.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.11.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.11.1</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Android rendering fix for the zodiac and planet glyphs. They were rendering as colour emoji on Android (oversized squircles overflowing the chakra cells), where they should render as plain saffron text. Caught by a learner using Android.</p>
+
+    <h3>Root cause</h3>
+    <ul>
+      <li>Unicode characters like ♈ ♉ ♂ ☉ ♄ have <em>both</em> text and emoji presentations. Without an explicit hint, the browser/OS picks whichever its default font supplies. iOS/macOS render them as small monochrome text glyphs (correct for our layout); Android falls through to Noto Color Emoji and renders them as oversized colour squircles that overflow the chakra cell layout.</li>
+      <li>This was probably present since the Rāśi Chakra first shipped — only became visible when an Android user looked at it.</li>
+    </ul>
+
+    <h3>The fix</h3>
+    <ul>
+      <li>Appended Variation Selector-15 (U+FE0E) to every astrological glyph in the data — the standard Unicode mechanism to force text presentation. <code>♈</code> → <code>♈︎</code>, <code>☉</code> → <code>☉︎</code>, etc. Applied to all 12 zodiac signs and all 9 planets.</li>
+      <li>Added belt-and-suspenders CSS: <code>font-variant-emoji: text</code> + an explicit serif fallback chain on the <code>.cell .glyph</code> and <code>.cell .ruler</code> elements.</li>
+      <li>Visible result: on Android, the chakra glyphs now render as small saffron-coloured text glyphs that fit cleanly inside each cell — matching iOS/macOS.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.11.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.11.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">A new top-level section: <em>The Planetary Cabinet</em>. Vikram tells the cabinet as a story across Sessions 23–25 — a wise old king, his queen, the prince, the princess, the commander, the priest, the servant, and the outsiders. The page now honours that story with a dedicated section between Avatars and Planets.</p>
+
+    <h3>What's in the new section</h3>
+    <ul>
+      <li><strong>Vikram quote callout</strong> — pinned to the section: <em>"Even debilitation, you can explain it with the story… It is not given in the scriptures. There is no hard and fast rule. Make the story yours."</em></li>
+      <li><strong>The Royal Court</strong> — nine cards arranged by tier: royal (Sun, Moon, Saturn), inner-circle (Mars, Mercury, Venus, Jupiter), outsiders (Rahu, Ketu, dashed border). Each card shows the role, Sanskrit name, office, where the planet is honoured, where dishonoured. Tap any card to open the planet drawer.</li>
+      <li><strong>Read the cabinet story</strong> — an expandable panel containing Vikram's full narrative from Session 23, sectioned by character: <em>The wise old king · The queen's wisdom · The crown prince · The princess · The commander of the army · The royal priest · The servant · The outsiders · How exaltation and debilitation work.</em> Light edits for flow; substance verbatim.</li>
+      <li><strong>Wheel of Honour</strong> — a 12-row table, sign-side view: Sign · Lives here · Honoured here · Dishonoured here. Click any sign or planet to drill into its drawer.</li>
+      <li><strong>Quick Reference</strong> — a 9-row table, planet-side view: Planet · Role · Office · Honoured in · Dishonoured in.</li>
+      <li><strong>Test yourself</strong> — three cabinet questions: who is the king, why Saturn debilitates in Aries (story logic), where Jupiter exalts (the priest in the queen's chambers).</li>
+    </ul>
+
+    <h3>Drawer enrichments</h3>
+    <ul>
+      <li><strong>Planet drawer</strong> — a new "Role in the cabinet" chip at the top of every planet drawer, with the planet's Sanskrit role title and a one-line cabinet quote. Sun → <em>King · Rāja</em>. Mars → <em>Commander of the Army · Senāpati</em>. Saturn → <em>Servant · Bhṛtya</em>.</li>
+      <li><strong>Sign drawer</strong> — the exalt/debil "why" lines now prefer the cabinet's story-logic explanation over the generic framings introduced in v4.10.0. Sun in Aries reads <em>"The king at his glory in the chambers of the commander of the army."</em> Saturn in Aries reads <em>"The servant on his knees in front of the commander of the army." (Vikram, Session 23).</em></li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>New <code>CABINET</code> data const baked next to PURUSHARTHAS — single source of truth for role, office, honour, dishonour, and the story-logic "why" for each planet.</li>
+      <li>Section numbering updated: Cabinet is § Four; everything from old § Four (Planets) onward shifts +1. Practice is now § Fourteen.</li>
+      <li>SECTION_ORDER, SECTION_TITLES, TOC, QUIZZES, VIKRAM_QUOTES — all updated with cabinet entries. Learning-mode frontier respects the new ordering: Cabinet unlocks after Avatars quiz is complete.</li>
+      <li>Coming next (v4.12.0): <em>Court Call</em> — a game inside the Cabinet section to test cabinet understanding.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>The cabinet is one of Vikram's load-bearing pedagogical frames — he says <em>"we will be using the planetary cabinet even for the next topic."</em> It explains <em>why</em> exaltations and debilitations land where they do, which previously had to be memorised.</li>
+      <li>Two complementary visuals (court hierarchy = planet-side, wheel of honour = sign-side) let learners see <em>the dance</em> between the two — the system clicks when you can flip between them.</li>
+      <li>Everything in the section either quotes Vikram directly, follows his story logic, or surfaces existing KB data. No invented per-planet personality content.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.10.0 ====================== -->
+  <section class="release" data-credits="Vikram (decks)">
+    <header>
+      <h2>v4.10.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Sign drawers, enriched. Five new modules per sign — year rhythm, anatomy, exalt/debilitate "why", nakshatras, and a resonant avatar — surface KB material that was already there but never reached the drawer. The drawer reads as a body-mapped artefact now, not a label table.</p>
+
+    <h3>What's new in each Sign drawer</h3>
+    <ul>
+      <li><strong>Year rhythm.</strong> Small italic line at the top of the drawer placing the sign in the seasonal arc Vikram references in class — e.g., Aries: <em>"the start of spring — the impulse that initiates the wheel"</em>; Pisces: <em>"end of winter — dissolution, return to source, the wheel closing"</em>. Cardinal signs get the start-of-season framings; mutables get the cusp framings.</li>
+      <li><strong>Anatomy · Kālapurusha House N.</strong> Body part name (English + Sanskrit), the classical <em>includes</em> description ("eyes, brain, skull..."), and the source citation (BPHS / Saravali / Phaladeepika). Sourced from <code>anatomical-map.json</code>, which the page already had baked in but wasn't surfacing in the sign drawer.</li>
+      <li><strong>Exalt/Debilitate "why".</strong> Each exaltation and debilitation pill now carries a short italic line explaining the reasoning. E.g., Sun in Aries — <em>"The king rises with spring's first fire."</em>; Mars in Cancer — <em>"The warrior softened by the tides of feeling."</em> Drawn in the spirit of Vikram's Session 23 framing: <em>"Look at where a planet exalts and you'll understand the sign."</em></li>
+      <li><strong>Nakshatras.</strong> Static pills listing the 2.25 nakshatras each sign holds, with ¼/½/¾ pada annotations for the ones that span sign boundaries (Krittika ¼ in Aries, Krittika ¾ in Taurus, etc.).</li>
+      <li><strong>Resonant avatar.</strong> Each sign now links to its primary daśāvatāra correspondence via the ruler-to-avatar mapping. A clickable pill plus a short why-line — e.g., Cancer → <em>Krishna · Cowherd</em> with <em>"Moon rules Cancer — Krishna, lunar, nurturing, full of feeling."</em> Tap opens the avatar drawer.</li>
+    </ul>
+
+    <h3>What stayed the same</h3>
+    <ul>
+      <li>All existing modules (Element/Modality/Duality, Ruler, Moola Trikona, Exaltation, Debilitation, Kālapurusha House) are unchanged in content. The drawer just got six new sections layered in.</li>
+      <li>No data migration. New <code>SIGN_LORE</code> const baked into the page next to <code>SIGNS_DATA</code>.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>The sign drawer used to read like a structural label — Fire Cardinal Yang, ruled by Mars, Sun exalts here. Correct, but flat. Now you tap into a sign and it tells you <em>where in the year you are, what part of the body it owns, why exaltations land where they do, the nakshatra slices, and which avatar it resonates with</em>. Reads as a living slice of the wheel.</li>
+      <li>All sourced material is either from the existing KB (anatomical map, avatar profiles) or composed faithfully from Vikram's structural teaching — no per-sign quotes invented out of thin air.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.9.2 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.9.2</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Visibility fix for the Grounding overlay (and Chant Mode by extension). The modal was reading as cream-on-cream — the page bled through too much.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Backdrop darker.</strong> Both the Grounding and Chant overlays now use a deeper ink-toned backdrop (rgba 0.55 → 0.82) with a stronger blur (5px → 8px). The page underneath drops away properly.</li>
+      <li><strong>Grounding modal lifts off.</strong> Background switched from <code>--cream</code> (same as page) to <code>--surface</code> (brighter), border tinted faint saffron, and a much stronger drop-shadow. Reads as a raised paper card now, not part of the page.</li>
+      <li>No layout or content changes — purely contrast.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.9.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.9.1</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Two small fixes from learner feedback.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Spelling.</strong> Yin's Sanskrit name corrected from <em>Sthri</em> → <em>Stri</em> (स्त्री). Updated in three places: the dualities data, the search index, and the Sanskrit-term jump map.</li>
+      <li><strong>Daily Gem randomises on every load.</strong> Previously the gem was date-seeded — same one all day across reloads — which could feel stale. Now a fresh gem appears each time the page loads (with a small guard against the same gem repeating back-to-back). The "Show another" reroll button is unchanged.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.9.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.9.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Grounding replaces Ganapati invocation as the page opener — Vikram begins every class with a short grounding (settle, notice, synchronise breathing, set intention), and now the page does too. The Ganapati shloka stays one tap away in the chant tray; nothing is lost.</p>
+
+    <h3>Top bookend</h3>
+    <ul>
+      <li><em>"✦ Begin with the Ganapati invocation →"</em> becomes <em>"✦ Begin with grounding →"</em>. Tap opens a dedicated Grounding overlay.</li>
+      <li>Once you've completed a grounding today, the bookend gains a small "<em>— grounded today ✓</em>" stamp. Resets the next calendar day.</li>
+      <li>Inside the Grounding overlay there's a quiet "<em>Or open the Ganapati invocation instead →</em>" link for when you want the shloka first.</li>
+    </ul>
+
+    <h3>The grounding script (verbatim from class)</h3>
+    <ul>
+      <li>Vikram opens every session with the same arc — Settle → Notice → Synchronise → Release → Ready. Pulled directly from sessions 1, 2, 4, 9, 13, 18a, 19, 22, etc., with light touches only for punctuation.</li>
+      <li><strong>Settle:</strong> <em>"Find your feet on the floor. Sense if your back is straight. Chin parallel to the floor. You're comfortable. You can close your eyes and bring your attention to your breathing."</em></li>
+      <li><strong>Notice:</strong> <em>"Just notice. Just become aware of how you are breathing today."</em></li>
+      <li><strong>Synchronise:</strong> <em>"Now let's synchronise our breathing. I will tell you what I am doing. See if you can follow along."</em></li>
+      <li><strong>Release:</strong> <em>"Back to normal breathing. Set an intention — not just to learn this subject, but to discover yourself."</em></li>
+      <li><strong>Ready:</strong> <em>"Take a moment. When you're ready, begin."</em></li>
+    </ul>
+
+    <h3>The breath circle</h3>
+    <ul>
+      <li>Centre of the overlay: a saffron breath circle. During the Synchronise phase it expands on inhale (4 sec) and contracts on exhale (4 sec), with quiet "in" / "out" cues. During settling and release it rests still. On the final Ready phase it fades.</li>
+      <li>Text-only — no audio, no autoplay. Silent and private.</li>
+    </ul>
+
+    <h3>Pacing — auto with a Next pill</h3>
+    <ul>
+      <li>By default the overlay auto-advances through phases — you don't need to do anything.</li>
+      <li>If you want to move faster, tap "<em>Next →</em>" to skip ahead. The final phase ("Ready") waits for your tap on "<em>Ready — begin study</em>".</li>
+      <li>Two duration presets at the bottom of the overlay: <strong>Short · 90 sec</strong> and <strong>Full · 3 min</strong>. Persists in <code>localStorage</code>.</li>
+    </ul>
+
+    <h3>What stays the same</h3>
+    <ul>
+      <li><strong>Chant Mode is unchanged.</strong> Same overlay, same 7 shlokas, same 108-bead mala. Tap the floating ॐ button (bottom-right) and the Ganapati invocation is right there in the <em>Invocation</em> group.</li>
+      <li><strong>Closing bookend is unchanged.</strong> Kshama Prarthana → Mukundamala still close the page.</li>
+      <li>No data migration needed. New <code>astro_grounding_preset</code> and <code>astro_grounded_today</code> keys in localStorage.</li>
+    </ul>
+
+    <h3>Why this change</h3>
+    <ul>
+      <li>Grounding is what Vikram <em>actually</em> does at the start of class — every session, the same arc, in his own words. Putting it at the top of the page mirrors how a learner would arrive in his Teams meeting.</li>
+      <li>The Ganapati invocation is still revered and one tap away — but the page's primary opening is now the body-first practice that comes before any Sanskrit.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.8.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.8.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">"From the class" — Vikram's actual voice, threaded through the page. Each of the 13 sections now opens with a short, exact-as-spoken Vikram quote drawn from the class transcripts, attributed to the session it's from. Plus two source-grounding fixes: the Modality quiz hint now reflects Vikram's Brahma/Vishnu/Shiva framing (with the breath analogy), and the Mahāśakti element pairing is properly credited to Sri Aurobindo's <em>The Mother</em>.</p>
+
+    <h3>Vikram quotes — one per section</h3>
+    <ul>
+      <li>A small saffron-bordered "From the class" callout sits below each section heading. The quote, the topical context, and the session attribution (e.g., "<em>Vikram, Session 9 · Roadmap, Dualities &amp; Modalities · June 29, 2025</em>").</li>
+      <li>Quotes drawn from the freshly-imported transcript layer — actual classroom recordings, not paraphrases. Light edits only for grammar/punctuation flow where the spoken Teams transcript was choppy; substance is faithful.</li>
+      <li>Examples: on the modes — <em>"The impulse to breathe is Brahma — Cardinal. When I am sustaining the breath... it is Vishnu — Fixed. When I reach the full breath and there is a full reversal... that reversal is Shiva — Mutable."</em> On the daśāvatāra — <em>"Notice how the life form is evolving with each avatar. From the fish came the turtle, and then came the boar — life is gradually moving on to land."</em> On Lagna — <em>"Ascendant means something that has risen. Which are the stars that are rising in the east at that moment?"</em></li>
+      <li>Sourced from sessions 9, 16, 23, 24, 25, 30, 32, 33, 35, 37 — across the year, with the right session topically matched to each quick-reference section.</li>
+    </ul>
+
+    <h3>Quiz hint — Modality (Q5)</h3>
+    <ul>
+      <li>Replaced the dry "<em>Cardinal initiates, Fixed sustains, Mutable adapts</em>" hint with Vikram's own framing: <strong>Cardinal = Brahma, Fixed = Vishnu, Mutable = Shiva</strong>, illustrated through the breath cycle.</li>
+      <li>Cited to Session 9 (Roadmap, Dualities &amp; Modalities · June 29, 2025).</li>
+    </ul>
+
+    <h3>Sri Aurobindo attribution on the Mahāśakti element pairing</h3>
+    <ul>
+      <li>The four-Devi-to-element mapping (Mahasaraswati Earth, Mahalakshmi Water, Mahakali Fire, Maheshwari Air) is from Sri Aurobindo's <em>The Mother</em>, not a generic Vedic frame. Vikram explicitly says so in Session 13.</li>
+      <li>A small italic attribution line now sits under the "Elements &amp; Mahāśaktis" subhead in §2 (Elements, Modes &amp; Duality).</li>
+    </ul>
+
+    <h3>What stays the same</h3>
+    <ul>
+      <li>Quotes are visible in both Learning and Reference modes — they read as reference too. In hard-locked sections they're hidden along with the rest of the section's content (the existing lock rule already covers this).</li>
+      <li>No data shape changes. Returning users just see the new callouts when sections open.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>Earlier feedback (v4.5.1, v4.6.1) caught two cases where the page had drifted from class material — the gunas mapping and the "(movable)" parenthetical. Adding direct Vikram voice throughout makes that drift much harder, because the page now <em>speaks</em> in the class's own register, not a generic-Vedic-astrology composite.</li>
+      <li>Fellow learners reading this page should now feel Vikram is in the room with them.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.7.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.7.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">New page: Mercury Spectrum. A 21-pair self-reflection slider tool, ported from a separate dark-mode prototype into the project's cream-and-saffron design system. Linked from the site nav alongside Kaalapurusha so it's a peer page, not a standalone.</p>
+
+    <h3>What it is</h3>
+    <ul>
+      <li>21 sliders across 5 sections — <em>Mind, Communication, Action &amp; Expression, Relationships, Dharma &amp; Purpose</em> — each a Shadow ↔ Light pair like <em>Distraction ↔ Presence</em>, <em>Reacting ↔ Responding</em>, <em>Knowing the teaching ↔ Living the teaching</em>.</li>
+      <li>A live average across all 21 spectrums updates as you slide. A wise-note textarea for private reflection. Copy-results button packages everything into a clipboard-friendly text block.</li>
+      <li>No data stored. Reset wipes the slate. Designed as a daily / weekly check-in.</li>
+    </ul>
+
+    <h3>Design — port from dark to cream</h3>
+    <ul>
+      <li>Original prototype was dark navy + gold, EB Garamond + Cinzel. Restyled to cream + saffron, Cormorant Garamond + Spectral, matching Quick Reference and Kaalapurusha exactly.</li>
+      <li>Slider gradient now reads Shadow (saffron) → midpoint (rule) → Light (sage), keeping the two-pole language without breaking the page palette.</li>
+      <li>Card vocabulary, button shapes, masthead pattern, and footer all mirror Quick Reference. Drops cleanly into the suite.</li>
+    </ul>
+
+    <h3>Wired into the suite</h3>
+    <ul>
+      <li>Site nav on every page now reads: <em>Quick Reference · Kaalapurusha · Mercury Spectrum · Release Notes</em>.</li>
+      <li>Mercury Spectrum bakes in the same <code>PAGE_VERSION</code> + <code>version.json</code> update-checker as the others — returning users will see the banner when a new version ships.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.6.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.6.1</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Quiz wording fix. Removed an inaccurate "(movable)" parenthetical from the Cardinal-signs question and tightened the hint to match the deck's own language.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><em>"Which set lists the four Cardinal (movable) signs?"</em> → <em>"Which set lists the four Cardinal signs?"</em>. Cardinal in the decks means <em>initiating</em>, not "movable" — and "movable" doesn't appear anywhere in the source PDFs.</li>
+      <li>Hint now cites deck #73 Moon's exact phrasing: <em>"Initiates, sustains, or changes."</em></li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.6.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.6.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Hard locks for Learning mode. Sections beyond your current frontier no longer just dim — they show only their heading and a "🔒 Locked" poster. The next section opens after you complete the current section's quiz, one at a time. The page now has a real pace.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Soft dim → hard hide.</strong> A locked section's content is no longer readable. The section heading stays visible (so the TOC and the page rhythm read normally), and the body is replaced by a centred "Locked · Sit with [previous] first · Take me there →" poster card.</li>
+      <li><strong>Tighter frontier.</strong> Previously the section just past the frontier was pre-unlocked as a preview. Now only sections through the last-completed one are open. Sit with Signs → complete its quiz → Elements opens. Then Avatars. Then Planets. One at a time.</li>
+      <li><strong>"Peek anyway" removed.</strong> The escape hatch that briefly let learners see ahead is gone in Learning mode. The pace is enforced. Switch to Reference mode when you want everything available — a one-click toggle in the masthead area.</li>
+      <li><strong>TOC pills show a 🔒</strong> next to locked sections and dim to ~45% opacity. Clicking still scrolls to the section so the learner can see what's coming, but lands on the locked poster, not the content.</li>
+      <li><strong>Frontier strip wording</strong> updated: "<em>Now: Elements · 11 more to open</em>" — clearer signal that locks are real.</li>
+    </ul>
+
+    <h3>Reroute logic — search, jump pills, glossary, daily gem</h3>
+    <ul>
+      <li><strong>Search results</strong> for content in locked sections now show a small <em>🔒 locked</em> badge. Clicking the result scrolls to the locked poster instead of the deep target.</li>
+      <li><strong>Jump pills</strong> from inside drawers (e.g., a sign drawer's "● Water · Mahalakshmi ↗" jump) reroute the same way — they take you to the locked poster if the destination section isn't open yet.</li>
+      <li><strong>Drawers stay fully populated.</strong> Drawers are cross-references — gutting them based on lock state would break the page as a reference. Sign drawers still mention their planet, modality, element, etc., even if those sections aren't open yet. The lock applies to <em>section as destination</em>, not to <em>information about a section appearing elsewhere</em>.</li>
+      <li><strong>Daily Gem</strong> tidbits can still surface from any section; tapping a gem-link opens the relevant drawer (drawers are unlocked) — consistent with the rule above.</li>
+    </ul>
+
+    <h3>Reference mode is unaffected</h3>
+    <ul>
+      <li>The mode toggle is unchanged. Reference mode shows the original level switcher, has no dimming, no locks, no frontier — everything is available, quizzes available for revision.</li>
+      <li>You and Vikram can flip to Reference mode any time as a kind of "show-me-everything" override without losing your Learning-mode progress.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>New helpers in JS: <code>isSectionLocked(sectionId)</code>, <code>sectionIdForTarget(targetId)</code>, <code>resolveLockedTarget(targetId)</code>. The reroute logic is centralised so all click paths behave consistently.</li>
+      <li>CSS uses <code>display: none !important</code> on all direct children of a locked section, with reverts for <code>.section-head</code> and the new <code>.section-locked-poster</code>. No JS micromanagement of inner elements.</li>
+      <li>Frontier formula: section[N] is open iff <code>N === 0</code> OR <code>SECTION_ORDER[N-1]</code>'s quiz is complete.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.5.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.5.1</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Quiz content fix — pulled a question that imported a mapping from outside the knowledge base. Aligned the Modality (Cardinal/Fixed/Mutable) question to the language Vikram actually uses in the decks, and corrected a Sanskrit spelling.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Modality question rewritten.</strong> The previous Cardinal/Fixed/Mutable → Gunas (rajas/tamas/sattva) question implied a mapping that, while a common framework in some streams of Vedic astrology, does not appear in the class decks. Replaced with a question grounded in deck #43 and deck #73's "Building Blocks of the Signs" framing — Modality describes <em>how</em> a sign acts: initiates, sustains, or adapts.</li>
+      <li><strong>Sanskrit spelling.</strong> Vrshchika → <em>Vrishchika</em>, matching the spelling in <code>HOUSES_DATA</code>.</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <ul>
+      <li>The page is meant to reflect Vikram's class material, not generic Vedic-astrology content. When a quiz question asserts a mapping that's not in the source, it muddles what's <em>in your training</em> versus what's a general framework. This fix keeps the quizzes inside the world of the decks.</li>
+      <li>If something in a future quiz question doesn't ring true to the class, point it out — happy to do another KB pass.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.5.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.5.0</h2>
+      <span class="date">6 May 2026</span>
+    </header>
+    <p class="summary">Two modes — Learning and Reference — and a soft quiz at the end of every section. The page now has a built-in pace for first-time learners while staying a forever-reference for the rest of us. Driven by ideation with Vikram on how to make the page less overwhelming for new students.</p>
+
+    <h3>Learning ↔ Reference mode</h3>
+    <ul>
+      <li>A small mode pill in the top strip — <em>◉ Learning · ○ Reference</em>. Persists in localStorage. First-time visitors land in Learning mode by default.</li>
+      <li><strong>Learning mode</strong>: the level switcher disappears (the frontier drives visibility instead), a "Now: Signs · 12 to go" frontier strip appears at the top, and sections beyond the next-to-cover are softly dimmed with a "<em>opens after you sit with [previous]</em>" veil. Curious learners can still tap "peek anyway →" to see ahead.</li>
+      <li><strong>Reference mode</strong>: the original level switcher returns, no dimming, no frontier strip, no progressive locks. Everything is available — quizzes too, just collapsed by default for revision.</li>
+    </ul>
+
+    <h3>Soft quizzes — three per section</h3>
+    <ul>
+      <li>At the end of every section, a "<em>✦ Test yourself — 3 questions, no score</em>" disclosure. Tap to expand.</li>
+      <li>Multiple choice. Tap an answer → it's marked correct or struck through, the right answer lights saffron, and a small explanation appears with a "see this on the page →" deep-link where helpful.</li>
+      <li><strong>No score, no fail</strong>. Completion is engagement-based: once you've answered all three questions (right or wrong), the section ticks. Wrong answers are learning moments, not punishments.</li>
+      <li>Each quiz closes with a reflective prompt that bridges objective recall ("which signs are Cardinal?") into subjective integration ("where in your life do you tend to be cardinal?").</li>
+      <li>Section ticks appear on the TOC pill; the quiz block itself turns saffron-bordered when complete. State persists in <code>localStorage</code> so you can come back tomorrow.</li>
+    </ul>
+
+    <h3>Frontier-driven progression (Learning mode)</h3>
+    <ul>
+      <li>The "frontier" advances every time a section's quiz is completed. By default Signs and Elements/Modes/Duality are open; the rest are softly dimmed.</li>
+      <li>13 sections · 39 questions in total. Sit with one section, complete its quiz, the next opens.</li>
+      <li>"Full circle" message appears once all 13 are sat with — with a gentle nudge to try Reference mode.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li><code>QUIZZES</code> data const baked in next to the other data — easy to extend or revise. <code>SECTION_ORDER</code> mirrors the TOC and drives the frontier.</li>
+      <li>Two new localStorage keys: <code>astro_mode</code> (learning/reference) and <code>astro_quiz_state</code> (per-section seen/correct/choices/complete).</li>
+      <li>Learning mode overrides level-class CSS so that nothing inside a visible section is hidden — the frontier is the only gate.</li>
+      <li>Existing search jumps still work; deep-linking into a locked section softens it for the duration of the visit.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.4.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.4.1</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Patch fix. Search and jump pills now land cleanly below the sticky table of contents — section headers and inner cards are no longer clipped when you deep-link to them.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li>Inner deep-link targets (<code>.qt-card</code>, <code>.cat-card</code>, <code>.purush-card</code>, <code>.anat-card</code>, <code>.avatar-card</code>) now carry their own <code>scroll-margin-top</code> so the sticky TOC doesn't overlap the top of the target.</li>
+      <li>Section-level <code>scroll-margin-top</code> increased from 64 px to 80 px to account for the level switcher row.</li>
+      <li>Behaviour: searching for <em>water</em> and clicking the result now scrolls so the Water element card sits below the TOC pill bar — its title and "qualities" line are fully visible.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.4.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.4.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Chant Mode. The page becomes a sacred reading session — open with the Ganapati invocation, sit with the study, close with the prayer of forgiveness. A focused chant overlay supports any of the seven shlokas with Devanagari, transliteration, meaning, an optional karaoke line-highlight, and a tap-to-count 108-bead mala.</p>
+
+    <h3>Bookend the page</h3>
+    <ul>
+      <li>A small italic line just under the masthead — <em>"✦ Begin with the Ganapati invocation →"</em>. Tap it to enter Chant Mode with <em>Gananam Tva</em>.</li>
+      <li>A matching line just above the footer — <em>"✦ Close with the prayer of forgiveness →"</em>. Opens <em>Kshama Prarthana</em>; the overlay then offers a <em>Next: Mukundamala (offering)</em> step so the closing flows naturally.</li>
+      <li>Both are opt-in micro-copy. A learner who doesn't chant won't even notice them.</li>
+    </ul>
+
+    <h3>Floating ॐ button + tray</h3>
+    <ul>
+      <li>A small saffron <em>ॐ</em> button bottom-right of the viewport, always reachable.</li>
+      <li>Tap it → a tray opens listing all seven shlokas grouped by purpose: <em>Invocation</em> (Ganapati), <em>Mahāśakti element mantras</em> (Saraswati, Lakshmi, Mahishasura Mardini, Maheshwari), <em>Closing</em> (Kshama Prarthana, Mukundamala Stotra).</li>
+    </ul>
+
+    <h3>Chant Mode overlay</h3>
+    <ul>
+      <li><strong>Devanagari</strong> centred and large, <strong>transliteration</strong> below in italic, <strong>English meaning</strong> in body type, <strong>source</strong> as a quiet attribution.</li>
+      <li><strong>108-bead mala</strong> — tap the saffron <em>ॐ</em> button to count one repetition. The bead ring fills bead-by-bead, with subtle quartile markers every 27 beads. A small visual celebration when the full mala completes; counter resets if you continue tapping.</li>
+      <li><strong>Highlight as I chant</strong> — toggle on, set tempo (2–10 seconds per line), and the Devanagari highlights one line at a time at that pace. Off by default; tempo preference persists in <code>localStorage</code>.</li>
+      <li><strong>Reset</strong> button to start the mala over. <strong>Close</strong> with the × button or <kbd>Esc</kbd>. Backdrop click also closes.</li>
+    </ul>
+
+    <h3>Sanskrit-term search bug fix</h3>
+    <ul>
+      <li>Previous behaviour: searching for <em>water</em> surfaced Sanskrit terms like <em>Mahalakshmi · Deity of Water element</em> with <em>action: null</em> — clicks did nothing.</li>
+      <li>Now: every Sanskrit term in the index has a sensible jump target. Tapping <em>Mahalakshmi</em> → scrolls to and pulses the Water element card; tapping <em>Trikona</em> → pulses the Trikonas category card; tapping <em>Lagna</em> → opens the 1H drawer; etc. 31 terms mapped.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>All seven shlokas baked into the page as a <code>CHANT_SHLOKAS</code> JS const, mirroring <code>astrology-101-knowledge-base/shlokas.json</code>.</li>
+      <li>No external libs. CSS-only mala bead grid. Karaoke via <code>setInterval</code>; pure CSS pulse on the active line.</li>
+      <li>Section IDs unchanged. Existing deep-links continue to resolve.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.3.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.3.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Devi mantras land on the four element cards. Each Mahāśakti card now carries the matching shloka — Devanagari, transliteration, English meaning, and source — folded behind a tap-to-reveal disclosure so the card stays clean by default.</p>
+
+    <h3>What's new</h3>
+    <ul>
+      <li><strong>Fire / Mahakali</strong> → <em>Mahishasura Mardini</em> (Adi Shankara, Shivarahasya Purana 53.1) — Durga slaying the buffalo demon, in Mahakali's iconic form.</li>
+      <li><strong>Earth / Mahasaraswathi</strong> → <em>Pranodevi Saraswati Mantra</em> (Rig Veda 1.3.10–12) — invocation of Saraswati as source of strength and intellect.</li>
+      <li><strong>Air / Maheshwari</strong> → <em>Maheshwari Gayatri Mantra</em> — She who rides the bull, holding the trident.</li>
+      <li><strong>Water / Mahalakshmi</strong> → <em>Lakshmi Gayatri Mantra</em> (Taittiriya Aranyaka 10.1.7) — meditation upon the consort of Vishnu.</li>
+    </ul>
+
+    <h3>How it shows up</h3>
+    <ul>
+      <li>Inside the Elements & Mahāśaktis section (§ 2), each element card has a new italic-saffron "ॐ {Mantra title} · tap to reveal" line at the bottom.</li>
+      <li>Tapping reveals a soft saffron-tinted block: Devanagari (centred, larger), transliteration (italic), English meaning, and the source citation.</li>
+      <li>Closed by default to keep the four-card grid scannable.</li>
+    </ul>
+
+    <h3>Source &amp; mechanics</h3>
+    <ul>
+      <li>Sourced from <code>Shlokam.pdf</code> by Vikram (allthingsvedic.in). The PDF is image-based; pages were rendered and read visually.</li>
+      <li>Full extraction lives at <code>astrology-101-knowledge-base/shlokas.json</code> — all 7 shlokas including Ganapati invocation, Kshama Prarthana (forgiveness), and Mukundamala Stotra (offering). Only the four Devi mantras surface in the UI for now; the others are kept for future use.</li>
+      <li>Baked into the page as <code>MAHASHAKTI_SHLOKAS</code> JS const. <code>renderQualityCard</code> emits the disclosure block when <code>idType === 'element'</code>.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.2.x ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.2.x</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Global search. Press <kbd>/</kbd> or <kbd>Cmd+K</kbd> (or tap the new <em>Search</em> pill in the level row) to open a command palette that searches every sign, planet, house, avatar, section, Sanskrit term, classical signification, anatomical region, and reflective prompt on the page. <em>v4.2.1</em> patches a click-handler bug on result rows.</p>
+
+    <h3>How it works</h3>
+    <ul>
+      <li><strong>Open</strong> with <kbd>/</kbd>, <kbd>Cmd</kbd>+<kbd>K</kbd>, or the visible <em>Search · /</em> pill next to the level switcher.</li>
+      <li><strong>Navigate</strong> with <kbd>↑</kbd> <kbd>↓</kbd>; <strong>select</strong> with <kbd>Enter</kbd>; <strong>close</strong> with <kbd>Esc</kbd> or by clicking the backdrop.</li>
+      <li>Results group by type: Signs · Planets · Houses · Avatars · Sections · Sanskrit · Anatomical · Classical significations · Reflective prompts.</li>
+      <li>Token-based substring match (case-insensitive). Score boosts: exact label hits beat prefix hits beat substring hits, and primary entities (signs/planets/houses/avatars) outrank deeper content.</li>
+    </ul>
+
+    <h3>Level-aware</h3>
+    <ul>
+      <li>Results above the user's current level still appear, tagged with a small <em>beginner</em> / <em>intermediate</em> / <em>advanced</em> pill.</li>
+      <li>Selecting one auto-bumps the level switcher so the page is in the right state when the result lands.</li>
+    </ul>
+
+    <h3>What gets indexed</h3>
+    <ul>
+      <li><strong>Primary entities</strong> — signs, planets, houses, avatars by name + Sanskrit + key fields.</li>
+      <li><strong>Sections</strong> — section title + lede.</li>
+      <li><strong>Sanskrit glossary</strong> — every term + definition from the practice deck.</li>
+      <li><strong>Classical significations</strong> — every item across BPHS (Parashara), Phala Deepika, Uttara Kalamrita, Sarvartha Chintamani, Hora Sara, both for houses (deck #67) and for the four planets so far (Sun, Moon, Mars, Mercury).</li>
+      <li><strong>Anatomical map</strong> — Sanskrit angas + organs from the kaalapurusha consolidation.</li>
+      <li><strong>Reflective prompts</strong> — peer-distilled set, lower-ranked, label truncated to 70 chars.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>All in-page JS, no external libs. Search index built once at boot from the same data structures everything else uses — when more decks land, the index grows automatically.</li>
+      <li>Modal lives at the document root so it overlays everything, with backdrop blur. Pure CSS aesthetic match to the cream-and-saffron design system.</li>
+      <li>Click delegation handles result clicks, pill taps, backdrop clicks, and the close button via a single listener.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.1.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.1.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Two ambient delights. A <em>Daily Gem</em> surfaces a tidbit from the knowledge base on every visit — a planet karaka, an avatar one-liner, a Sanskrit term, an Uttara Kalamrita signification, an astronomy → meaning pairing. And italic Sanskrit terms inside drawers now reveal a tiny gloss popover on hover.</p>
+
+    <h3>Daily Gem</h3>
+    <ul>
+      <li>A small saffron-tinted card appears just below the masthead with <em>Today's gem · {date}</em>.</li>
+      <li>Sources baked from existing data: planet karakas, avatar one-liners, Sanskrit terms (with definitions), Uttara Kalamrita house significations, astronomy → meaning pairings (Mars: <em>red colour → anger, blood, fire</em>), and anatomical map snippets.</li>
+      <li><strong>Date-seeded</strong> — the same gem stays put for that calendar day. <em>Show another</em> rerolls without changing the seed; <em>Open [thing]</em> deep-links to the relevant drawer.</li>
+      <li><strong>Level-aware</strong> — only pulls gems from content visible at the current learner level. Switching from Foundations to Beginner reroots the gem onto a fresh date-seeded pick from the larger pool.</li>
+      <li>Total pool size is around ~120 gems pre-seeded; will grow as more deck content lands.</li>
+    </ul>
+
+    <h3>Glossary popovers</h3>
+    <ul>
+      <li>Sanskrit terms inside any drawer now carry a dotted-saffron underline and reveal a small ink-on-cream popover on hover or focus, with the one-line gloss pulled from the existing Sanskrit terms practice deck.</li>
+      <li>Covers Pati, Drishti, Karaka, Tanu, Sahaja, Lagna, Kendra, Trikona, Panapara, Apoklima, Upachaya, Dushtana, Maraka, Naisargika, Nara, Sthri, Mahakali / Mahasaraswathi / Maheshwari / Mahalakshmi, Brahma / Vishnu / Shiva, Kaalapurusha, plus the Purushartha quartet.</li>
+      <li>Implementation: a <code>glossify(html)</code> wrapper monkey-patches <code>openDrawer</code>, scanning text-between-tags for known terms and wrapping them in <code>.gloss</code> spans with <code>data-gloss</code>. Pure CSS popover. Skipped on terms shorter than 4 characters to avoid false positives.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>No new file. Both features live entirely inside <code>quick-reference.html</code>.</li>
+      <li>Section IDs unchanged. Deep-links continue to work.</li>
+      <li>Gem refreshes on level change; clicking the gem's <em>Open</em> link opens the relevant drawer (planet, sign, house, avatar) via the existing click delegation.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v4.0.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v4.0.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Staged learning. The Quick Reference now adapts to where you are in the curriculum — Foundations, Beginner, Intermediate, Advanced, or All. Following Vikram's suggestion that the full page is overwhelming for someone just starting out, content unlocks as the learner progresses through his roadmap (Deck #16).</p>
+
+    <h3>The level switcher</h3>
+    <ul>
+      <li>A new pill bar sits above the masthead: <em>Show content for: Foundations · Beginner · Intermediate · Advanced · All</em>.</li>
+      <li>Default level on first visit is <strong>Foundations</strong>. Selection persists in <code>localStorage</code> (<code>astro101.level</code>).</li>
+      <li>Sections, drawer blocks, and Practice decks above the chosen level are hidden entirely; the <em>All</em> level shows everything (the previous v3.9 experience).</li>
+      <li>The sticky TOC pill nav also filters — pills for hidden sections disappear so the nav reflects what's actually on the page.</li>
+    </ul>
+
+    <h3>What unlocks at each level</h3>
+    <ul>
+      <li><strong>Foundations</strong> — Signs · Elements/Modes/Duality · Avatars · Kaalapurusha (sign-to-house band) · Practice (Signs &amp; Avatars decks). Foundational vocabulary, gentle on first contact.</li>
+      <li><strong>Beginner adds</strong> — Planets · Signature · Relationships (Mitra/Shatru/Sama) · Aspects · Houses · Purusharthas · the deck-native Reflect prompts (Vikram's voice). Practice unlocks more decks: Planets, Houses, Avatars, Relationships, Aspects, Signature, Sanskrit.</li>
+      <li><strong>Intermediate adds</strong> — House Systems · House Categories · the <em>Classical significations</em> blocks in Houses and Planets drawers (BPHS, Phala Deepika, Uttara Kalamrita, Sarvartha Chintamani, Hora Sara, Brihat Jataka) · the Anatomical Map block inside Kaalapurusha · the Compound matrix · Practice unlocks the House Systems deck.</li>
+      <li><strong>Advanced</strong> — reserved for what's coming as more decks land (yogas applied, dashas, predictive techniques).</li>
+      <li><strong>All</strong> — every section, every block, every deck, all visible. The previous v3.9 experience.</li>
+    </ul>
+
+    <h3>How sections were assigned (per Vikram's roadmap, Deck #16)</h3>
+    <ul>
+      <li><strong>Foundations</strong>: <code>signs</code>, <code>qualities</code>, <code>avatars</code>, <code>kaalapurusha</code>, <code>practice</code></li>
+      <li><strong>Beginner</strong>: <code>planets</code>, <code>signature</code>, <code>relationships</code>, <code>aspects</code>, <code>houses</code>, <code>purusharthas</code></li>
+      <li><strong>Intermediate</strong>: <code>systems</code>, <code>categories</code>; plus the in-section Anatomical Map and the Classical significations drawer blocks across Houses and Planets, and the deck-native Reflect prompts.</li>
+      <li>If the mapping needs nudging based on Vikram's feedback, every assignment is a single <code>data-level</code> attribute — easy to revise.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>Section IDs unchanged. Existing deep-links (<code>#qt-element-fire</code>, <code>#cat-kendra</code>, etc.) continue to work, with the caveat that the target section may be hidden at the user's current level (the deep-link still scrolls; the user can change level to see it).</li>
+      <li>Each major surface carries a <code>data-level</code> attribute: sections, in-section blocks (anatomical map, classical significations), Reflect groups, Practice deck chips.</li>
+      <li>CSS rules on <code>body.level-foundations</code> / <code>body.level-beginner</code> / etc. drive visibility — pure CSS, no re-render needed when toggling.</li>
+      <li>First major version bump because the experience changes for every learner on first visit. Returning users will see the update banner; selecting <em>All</em> recovers the previous full reference.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.9.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.9.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Convergence — the body-silhouette diagram and the Anatomical Map cards now live inside the Quick Reference. The Kaalapurusha peer page slims down to The Journey only — a focused design-diary deep-dive.</p>
+
+    <h3>What's new in the Quick Reference</h3>
+    <ul>
+      <li>§ Twelve Kaalapurusha now ends with a new <strong>Anatomical Map</strong> block, separated by a thin rule.</li>
+      <li><strong>Body silhouette diagram</strong> — the same 4×4 South-Indian kundali grid with Vishnu's body skeleton overlay that used to live on kaalapurusha.html. Hover or tap any house cell to reveal the organs and systems classical texts associate with it. Saffron skeleton on the cream background.</li>
+      <li><strong>Twelve anatomical cards</strong> below the diagram — each carrying the Sanskrit anga name (<em>Shira / Mukha / Bhuja / Hridaya / Udara / Kati / Vasti / Guhya / Uru / Janu / Jangha / Pada</em>), the sign and ruling planet, the organ list, and the classical citation.</li>
+      <li>The existing sign-to-house band stays above the body diagram. They're complementary — the band is the index, the body is the picture.</li>
+      <li>A "↗ See the design journey" link points at the slimmed kaalapurusha.html for users who want the design-diary story.</li>
+    </ul>
+
+    <h3>What's left on kaalapurusha.html</h3>
+    <ul>
+      <li>The page now contains <strong>only The Journey</strong> — Vikram's red-pen sketch, the iteration steps, the houses-vs-signs correction, the dedication, and the Key Learning callout.</li>
+      <li>Site-nav, masthead, palette, typography, footer all preserved.</li>
+      <li>URL stable: <code>kaalapurusha.html</code> still resolves; tab-bar, body silhouette, and the Anatomical Map cards are removed (they now live in the Quick Reference).</li>
+      <li>File size came down from ~756 KB to ~732 KB (the page weight is dominated by the design-iteration imagery in The Journey, which stays).</li>
+    </ul>
+
+    <h3>Source &amp; mechanics</h3>
+    <ul>
+      <li>Per-house anatomical data extracted into <code>astrology-101-knowledge-base/anatomical-map.json</code> — same shape as <code>houses-classical.json</code> and <code>planets-classical.json</code>, ready for downstream features.</li>
+      <li>Baked into the Quick Reference as an <code>ANATOMICAL_MAP</code> JS const so no runtime fetch is needed.</li>
+      <li>The body overlay SVG paths and the per-cell geometric icon SVGs port over verbatim from the kaalapurusha page; only the colour tokens are remapped to the Quick Reference's cream + saffron palette.</li>
+      <li>Section IDs unchanged. Existing deep-links (<code>#kaalapurusha</code>) still land on the same section; cards inside the new block are tap-routed to their corresponding house drawer.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.8.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.8.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">The Kaalapurusha page now reads as a chapter of the same project. Same fonts, same warm cream palette, same masthead pattern as the Quick Reference — but every distinctive thing about that page (the body silhouette, the three-tab structure, the design-journey story, the dedication at the centre) is preserved.</p>
+
+    <h3>What changed on the Kaalapurusha page</h3>
+    <ul>
+      <li><strong>Typography</strong> — Cormorant Garamond (display) + Spectral (body) replace Noto Serif + Manrope. Italic accents in saffron throughout.</li>
+      <li><strong>Palette</strong> — cream background with paper-grain noise and soft radial accents (matches Quick Reference). Ink, ink-soft, muted, saffron tokens replace the previous warm-brown palette.</li>
+      <li><strong>Masthead</strong> — added at the top: italic eyebrow ("all things vedic · v4.2.0"), <em>Kāla<em>purusha</em></em> title in Cormorant, italic sub-line, and the same star-ornament divider used on the Quick Reference.</li>
+      <li><strong>Tab-bar</strong> — restyled from uppercase tab labels to italic Cormorant pills matching the sticky TOC of the Quick Reference. Active tab is ink-on-cream; hover is saffron.</li>
+      <li><strong>Anatomical Map cards</strong> — saffron number badges, cream surfaces, soft drop shadows, italic citations. Reads as the same family as the Quick Reference's drawer cards.</li>
+      <li><strong>The Journey timeline</strong> — same content, retypeset in the Cormorant + Spectral system. Numbered markers in saffron.</li>
+      <li><strong>Body silhouette + dedication</strong> — preserved exactly. The cosmic body, the kundali grid, and the line at the centre stay as the page's heart.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>Tailwind config left intact; harmonization is layered on top as a single CSS block at the end of the existing style block, using <code>!important</code> overrides on body / fonts / colors. Easy to revert if needed.</li>
+      <li>No structural HTML changes inside the tab content — only the masthead block was inserted between the site-nav and the tab-bar.</li>
+      <li>Two font families now load (Noto Serif + Manrope kept as fallbacks; Cormorant Garamond + Spectral added as primary).</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.7.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.7.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Section order reshuffled to match Vikram's pedagogical flow. Building blocks (Signs, Elements/Modes/Duality, Avatars) now sit at the top; Planets follow; the dynamics (Signature, Relationships, Aspects) come next; Houses and the framing sections close the page. No copy or data changes — purely structural.</p>
+
+    <h3>New section order</h3>
+    <ul>
+      <li><strong>§ 1 Signs</strong>, <strong>§ 2 Elements · Modes · Duality</strong>, <strong>§ 3 Avatars</strong> — the foundational vocabulary, top of page.</li>
+      <li><strong>§ 4 Planets</strong> — the grahas arrive carrying both rulership and avatar.</li>
+      <li><strong>§ 5 Signature</strong>, <strong>§ 6 Relationships</strong>, <strong>§ 7 Aspects</strong> — how the grahas interact.</li>
+      <li><strong>§ 8 Houses</strong>, <strong>§ 9 House Systems</strong>, <strong>§ 10 House Categories</strong> — where they land.</li>
+      <li><strong>§ 11 Purusharthas</strong>, <strong>§ 12 Kaalapurusha</strong>, <strong>§ 13 Practice</strong> — framing and study.</li>
+    </ul>
+
+    <h3>What stayed the same</h3>
+    <ul>
+      <li>Section IDs unchanged (<code>signs</code>, <code>qualities</code>, <code>avatars</code>, …) — every existing deep-link, bookmark, and cross-reference pill keeps working.</li>
+      <li>No copy was touched. No data changed. Reflect panels, Classical significations, Drishti rules — all identical.</li>
+      <li>Sticky pill TOC, scroll-tracked active state, and all jumps continue to function.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.6.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.6.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Planet drawers caught up with house drawers. Sun, Moon, Mars, and Mercury now carry the same kind of <em>Classical significations</em> block — Parashara, Phala Deepika, Uttara Kalamrita, plus Vikram's signature astronomy → meaning mappings. Reflect prompts now also surface deck-native versions in Vikram's wording, alongside the friendlier peer-distilled set.</p>
+
+    <h3>Planet drawer · Classical significations</h3>
+    <ul>
+      <li>For each of <strong>Sun, Moon, Mars, Mercury</strong> the drawer now ends with a Classical significations block (mirrors the house drawer pattern):
+        <ul>
+          <li><strong>Astronomy → meaning</strong> — the deck's own pairings (e.g. Mars: "Red colour → Anger, blood, fire"; Mercury: "Iron core → Nervous system").</li>
+          <li><strong>Parashara · BPHS</strong> — the cohesive Brihat Parashara Hora Shastra signification line.</li>
+          <li><strong>Phala Deepika</strong> — the comma-separated list (e.g. Sun has 30 items, Mars 38, Mercury 20).</li>
+          <li><strong>Uttara Kalamrita · Kalidasa</strong> — the long encyclopaedic list (Mars: 98 items, Moon: 77).</li>
+        </ul>
+      </li>
+      <li>Venus, Jupiter, Saturn, Rahu, Ketu gracefully omit the block until their decks arrive.</li>
+    </ul>
+
+    <h3>Reflect panel · deck-native prompts now surface</h3>
+    <ul>
+      <li>Mars (→ Narasimha), Sun (→ Rama), Moon (→ Krishna), and Mercury (→ Buddha) drawers now show <strong>two</strong> prompt sources side-by-side: <em>Friendly framing</em> (peer-distilled) and <em>From the deck</em> (Vikram's own wording).</li>
+      <li><strong>Mercury / Buddha gap is filled</strong> — the peer set had no Buddha prompts, so the drawer was previously empty. Now it carries Vikram's four prompts straight from Deck #77 Mercury.</li>
+      <li>Each source is attributed in the panel so it's clear which is which.</li>
+    </ul>
+
+    <h3>Two new decks ingested</h3>
+    <ul>
+      <li>Deck <strong>#76 Mars</strong> and Deck <strong>#77 Mercury</strong> joined the knowledge base — extracted text, per-deck markdown summaries, INDEX.md / THEMES.md updated, manifest extended.</li>
+      <li>New companion file: <code>astrology-101-knowledge-base/planets-classical.json</code> — same shape as <code>houses-classical.json</code>, ready for downstream features.</li>
+      <li>Existing <code>reflective-prompts.json</code> extended with <code>deck_prompts</code> + <code>deck_prompts_source</code> fields on the four affected avatars (Rama, Krishna, Narasimha, Buddha). Peer-distilled prompts kept untouched.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.5.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.5.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">House drawers got dramatically deeper. Every house now carries the classical significations from four of the source texts Vikram cites — straight from Deck #67 (The Houses ver 2).</p>
+
+    <h3>What's new in the house drawer</h3>
+    <ul>
+      <li>A new <strong>Classical significations</strong> block at the bottom of the drawer, separated by a thin rule. Five sources, each in its own attributed sub-block:
+        <ul>
+          <li><strong>BPHS · Parashara</strong> — the one-line English translation of the Brihat Parashara Hora Shastra Chapter 11 verse for that house.</li>
+          <li><strong>Uttara Kalamrita · Kalidasa</strong> — the encyclopaedic comma-separated list (some houses carry 30+ items).</li>
+          <li><strong>Sarvartha Chintamani · Venkata Sharma</strong> — supplementary list.</li>
+          <li><strong>Hora Sara · Prithuyasas</strong> — short, often a single phrase.</li>
+          <li><strong>Brihat Jataka · Varahamihira</strong> — the two alternate-name schemes (e.g. for 4H: <em>kinsman</em> · <em>home</em>).</li>
+        </ul>
+      </li>
+      <li>The drawer eyebrow now lists alternate Sanskrit names where the deck has them: 6H reads <em>Rog / Ari</em>, 7H reads <em>Kalatra / Yuvati / Jaya</em>, 8H reads <em>Aayur / Randhra</em>, 9H reads <em>Bhagya / Dharma</em>.</li>
+      <li>Every block is attributed to its source so you can tell which tradition you're reading.</li>
+    </ul>
+
+    <h3>Source &amp; mechanics</h3>
+    <ul>
+      <li>Data extracted from <code>extracted/67. The Houses ver 2.txt</code> by a subagent, saved as <code>astrology-101-knowledge-base/houses-classical.json</code>.</li>
+      <li>Baked into the page as a <code>HOUSE_CLASSICAL</code> JS const — no runtime fetch.</li>
+      <li>Devanagari source verses are kept out of the UI (extraction was garbled); only the clean English translation is shown.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.4.1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.4.1</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Drawers gained a contemplative tail. Planet and Avatar drawers now end with a <em>Reflect</em> panel — peer-distilled journaling prompts pulled straight from the knowledge base. The Quick Reference is no longer just a lookup tool; it's a place to sit with a question.</p>
+
+    <h3>What you'll see</h3>
+    <ul>
+      <li><strong>Planet drawer</strong> — a soft saffron-tinted Reflect panel that surfaces the prompts associated with that planet's avatar (open Sun → Rama-themed prompts; open Ketu → Matsya-themed prompts; and so on).</li>
+      <li><strong>Avatar drawer</strong> — that avatar's prompts, directly.</li>
+      <li>Mercury (→ Buddha) and Kalki are not in the peer-distilled set yet, so their drawers gracefully omit the panel rather than show empty.</li>
+      <li>Sign drawer is intentionally left as-is — element/modality/duality reflect prompts felt diluted there. The path from a sign to a prompt now flows through the planet (sign → ruler planet pill → planet drawer with Reflect).</li>
+    </ul>
+
+    <h3>Source &amp; what's next</h3>
+    <ul>
+      <li>Prompts come from <code>astrology-101-knowledge-base/reflective-prompts.json</code> — peer-distilled by another agent and stored alongside the rest of the knowledge slice.</li>
+      <li>Baked into the page as a <code>REFLECT</code> JS const at build time, so no runtime fetch is needed (works on file:// too).</li>
+      <li>Stage 2 — the <em>Mercury exercise</em>, guided 7-minute writing rounds inside the Practice section — is parked, ready to build when this lands well.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.3.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.3.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Drawer pills now deep-link into the page. Tap Fire / Cardinal / Yang / Kendra / Dharma — anything informational — and the drawer closes, the page scrolls to the right card, and the card pulses saffron so the eye lands.</p>
+
+    <h3>What jumps where</h3>
+    <ul>
+      <li><strong>Sign drawer</strong> — Element / Modality / Duality pills jump to that card in the <em>Elements, Modes &amp; Duality</em> section.</li>
+      <li><strong>House drawer</strong> — Category pills (Kendras, Trikonas, Panaparas, Apoklimas, Upachayas, Dushtanas, Marakas) jump to that card in <em>House Categories</em>. The Purushartha pill jumps to the right card in <em>Purusharthas</em>.</li>
+      <li><strong>Planet drawer</strong> — the Special Aspect block now has a <em>"See full Drishti rules"</em> jump to the <em>Aspects</em> section. The Avatar block has an <em>"Open avatar"</em> pill that opens the avatar drawer with story + keywords.</li>
+    </ul>
+
+    <h3>Shareable deep links</h3>
+    <ul>
+      <li>Every jump updates the URL hash (<code>#qt-element-fire</code>, <code>#cat-kendra</code>, <code>#pur-dharma</code>, etc.).</li>
+      <li>Visiting a deep-link URL on first load auto-scrolls and pulses the target card.</li>
+    </ul>
+
+    <h3>Visual signal</h3>
+    <ul>
+      <li>Jump pills carry a small <em>↗</em> arrow at the end and a saffron underline on hover, so they're distinct from the existing sign / planet / house cross-link pills (which open another drawer).</li>
+      <li>The pulse animation runs once per jump (saffron glow that fades over 1.6s).</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v3.2.0 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v3.2.0</h2>
+      <span class="date">5 May 2026</span>
+    </header>
+    <p class="summary">Major content expansion: Sanskrit names everywhere, three new sections, and a substantially deeper Avatars area.</p>
+
+    <h3>Terminology</h3>
+    <ul>
+      <li><strong>Polarity → Duality</strong> across the page (heading, drawer labels, flashcard prompts).</li>
+      <li><strong>Descendant → Partnerships</strong> for the 7th house.</li>
+      <li><strong>"Natural sign" → "Kaalapurusha sign"</strong> in the house drawer.</li>
+      <li><em>Rasi Chakra</em> (the wheel of signs) clarified vs. <em>Rasi Chart</em> (a person's chart laid into that wheel) in the Signs lede.</li>
+    </ul>
+
+    <h3>Signs <span class="src">§ One</span></h3>
+    <ul>
+      <li>Sanskrit name on every sign tile — Mesha, Vrishabha, Mithuna, Karkataka, Simha, Kanya, Tula, Vrischika, Dhanus, Makara, Kumbha, Meena.</li>
+      <li>Element legend gives a one-line descriptor for each Mahāśakti (Mahakali — fierce, transformative; Mahasaraswathi — skill, organisation; etc.).</li>
+      <li>Lede now anchor-links to "Mahāśaktis" so they're easy to find.</li>
+    </ul>
+
+    <h3>Planets <span class="src">§ Two</span></h3>
+    <ul>
+      <li>Sanskrit name (Sūrya, Chandra, Budha, Shukra, Mangala, Guru, Shani, Rāhu, Ketu) and a one-line karaka ("what the planet stands for") on every tile.</li>
+      <li>Planet drawer adds a Karaka section and a Natural Relationships block.</li>
+    </ul>
+
+    <h3>Houses <span class="src">§ Three</span></h3>
+    <ul>
+      <li>Sanskrit name on every row (Lagna, Dhana, Sahaja, Sukha, Putra, Ari, Yuvati, Randhra, Dharma, Karma, Labha, Vyaya).</li>
+      <li>Expanded keyword sets — every house now carries 4–6 significations rather than 1.</li>
+      <li><strong>7H</strong> name changed to "Partnerships". <strong>12H</strong> name changed to "Moksha Sthana" with "Liberation, expenses, foreign, solitude".</li>
+    </ul>
+
+    <h3>House Systems <span class="src">§ Four — new</span></h3>
+    <ul>
+      <li>Brand new section explaining Full Sign (default), Equal House, and Sripati Paddhathi.</li>
+      <li>Includes a small SVG of the North Indian chart layout with a mnemonic for drawing it ("diamond on top, square outside; Lagna in the top diamond; houses stay put, signs rotate").</li>
+    </ul>
+
+    <h3>Elements, Modes &amp; Duality <span class="src">§ Six</span></h3>
+    <ul>
+      <li>Heading subsection renamed from "Polarity" to "Duality".</li>
+      <li>Elements heading now reads "Elements &amp; Mahāśaktis".</li>
+    </ul>
+
+    <h3>Signature <span class="src">§ Seven — new</span></h3>
+    <ul>
+      <li>New section with the four-step recipe for computing a chart's signature (Duality × Modality × Element across the nine grahas) and a short note on why it's useful.</li>
+    </ul>
+
+    <h3>Aspects <span class="src">§ Eight</span></h3>
+    <ul>
+      <li>Fuller Drishti copy: rationale for special aspects, orb-of-influence note.</li>
+      <li>Cardinal / Fixed / Mutable now anchor-link to the Qualities section.</li>
+    </ul>
+
+    <h3>Relationships <span class="src">§ Nine — new</span></h3>
+    <ul>
+      <li>New section covering Natural, Temporary, and Compound planetary relationships.</li>
+      <li>Five compound grades pill row — Great Friend, Friend, Neutral, Enemy, Great Enemy.</li>
+      <li>5-step rule from the deck for determining a Natural Relationship (BPHS 3:55).</li>
+      <li>Compound matrix table from the deck (Natural × Temporary → Compound, BPHS 3:57–58).</li>
+      <li>Tappable planet tiles open the planet drawer with friends/enemies/neutrals listed.</li>
+    </ul>
+
+    <h3>Avatars <span class="src">§ Ten</span></h3>
+    <ul>
+      <li>Each card now shows the story (2–4 sentences), themes, and keyword pills inline.</li>
+      <li>Tapping opens a dedicated Avatar drawer with story, keywords, themes, and a clickable planet pill.</li>
+    </ul>
+
+    <h3>Kaalapurusha <span class="src">§ Twelve</span></h3>
+    <ul>
+      <li>Tighter lede explaining its role anchoring the "Kaalapurusha sign" references in the Houses section.</li>
+    </ul>
+
+    <h3>Practice <span class="src">§ Thirteen</span></h3>
+    <ul>
+      <li>290 cards across 9 decks (was ~180 in v2).</li>
+      <li>New decks: <em>House Systems</em>, <em>Signature</em>, <em>Relationships</em>.</li>
+      <li>New cards: Sanskrit names for signs / planets / houses, planet karakas, avatar English meanings.</li>
+    </ul>
+
+    <h3>Project structure <span class="src">— new</span></h3>
+    <ul>
+      <li>The project is now a small three-page set: <strong>Quick Reference</strong>, <strong><a href="kaalapurusha.html">Kaalapurusha</a></strong> (the full anatomical-map deep-dive), and <strong>Release Notes</strong> (you're reading it).</li>
+      <li>A site nav at the top of every page connects all three.</li>
+      <li>The Kaalapurusha section of the Quick Reference now links out to the deep-dive page.</li>
+      <li><code>index_3.html</code> renamed to <code>quick-reference.html</code>.</li>
+    </ul>
+
+    <h3>Update mechanism <span class="src">— new</span></h3>
+    <ul>
+      <li><code>version.json</code> sits next to the HTML pages as the single source of truth for the current version.</li>
+      <li>Each page bakes in its own <code>PAGE_VERSION</code> constant (currently <strong>3.4.0</strong>) and silently fetches <code>version.json</code> on load (and on tab focus, throttled to 30s).</li>
+      <li>If the manifest reports a newer version, a saffron banner slides in at the top of the page: <em>"A newer version is available — Refresh now / Later / What changed?"</em>. Tapping <em>Refresh now</em> reloads with a cache-busting query string.</li>
+      <li>A manual <em>"Check for updates"</em> link in each page's footer triggers the same check on demand and shows a quick toast either way.</li>
+      <li>Cache-control meta tags in every <code>&lt;head&gt;</code> as a belt-and-braces measure for caches that respect them.</li>
+      <li><strong>Future-me, when shipping a new version:</strong> bump <code>version.json</code>; bump <code>PAGE_VERSION</code> in each page's update-checker; bump the visible badges (eyebrow line in <code>quick-reference.html</code>, footer line in all three pages); add a release-notes entry. Returning users will see the banner on their next visit.</li>
+    </ul>
+
+    <div class="note">
+      Some Sanskrit terms in v3 use IAST diacritics (e.g. <em>Bhāva</em>, <em>Rāśi</em>, <em>Sūrya</em>) where the decks use plain transliteration (<em>Bhava</em>, <em>Rasi</em>, <em>Surya</em>). Flagged for future normalisation.
+    </div>
+  </section>
+
+  <!-- ====================== v2 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v2</h2>
+      <span class="date">prior to 5 May 2026</span>
+    </header>
+    <p class="summary">Added active recall — the reference became something you could study with, not just look up.</p>
+
+    <h3>What was new in v2</h3>
+    <ul>
+      <li><strong>Practice section</strong> — brand new. Two modes:
+        <ul style="margin-top:4px;">
+          <li><em>Flashcards</em> — flip-to-reveal, with "Got it" / "Review again" buttons that mark cards as known.</li>
+          <li><em>Quiz</em> — multiple choice, scored, with best-score saved per topic and length (5 / 10 / 20).</li>
+        </ul>
+      </li>
+      <li>Six study decks — Signs, Planets, Houses, Avatars, Sanskrit, Aspects — plus an "Everything" shuffle.</li>
+      <li>Progress persisted in <code>localStorage</code> (best scores per topic, learned cards, total reviews).</li>
+      <li>Wrong-answer review on the quiz result screen, with a one-tap "open in reference" link back to the relevant drawer.</li>
+      <li>Reset-progress button.</li>
+      <li><strong>Footer with credits</strong> — first time the page acknowledged Vikram and the peer group as the source of the material.</li>
+      <li>Small correction: the Signs board lede was changed from "North-Indian style chart" (which was a slip) to "South-Indian style chart" — the 4×4 layout always was South-Indian; the wording finally caught up.</li>
+    </ul>
+
+    <h3>Carried over from v1</h3>
+    <ul>
+      <li>All nine reference sections, all data, the drawer, the design language.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== v1 ====================== -->
+  <section class="release">
+    <header>
+      <h2>v1 <em>· baseline</em></h2>
+      <span class="date">first version</span>
+    </header>
+    <p class="summary">The original quick-reference. Set the design language and the cross-reference drawer pattern that everything since has built on.</p>
+
+    <h3>Reference sections</h3>
+    <ul>
+      <li><strong>The Twelve Signs</strong> <span class="src">§ One</span> — 4×4 South-Indian style board, sign tiles with element badge and ruler glyph, central Rāśi Chakra cell.</li>
+      <li><strong>The Nine Planets</strong> <span class="src">§ Two</span> — nine-tile grid (Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Rahu, Ketu) with rulership shown.</li>
+      <li><strong>The Twelve Houses</strong> <span class="src">§ Three</span> — 12-row list with house number, name, one-line keyword, and karaka planet glyph.</li>
+      <li><strong>House Categories</strong> <span class="src">§ Four</span> — seven classifications: Kendras, Trikonas, Panaparas, Apoklimas, Upachayas, Dushtanas, Marakas, each with a description and the houses it covers.</li>
+      <li><strong>Elements, Modes &amp; Polarity</strong> <span class="src">§ Five</span> — quality cards (Fire/Earth/Air/Water, Cardinal/Fixed/Mutable, Yang/Yin) with positive and shadow expressions, and clickable sign &amp; planet chips at the foot of each card.</li>
+      <li><strong>Aspects — Drishti</strong> <span class="src">§ Six</span> — Rāśi Drishti (sign aspects, BPHS 8:1–5) and Graha Drishti (planetary aspects, BPHS 26:2–5) including the Mars / Jupiter / Saturn special aspects.</li>
+      <li><strong>The Avatars</strong> <span class="src">§ Seven</span> — nine-card grid mapping each avatar to its planet with a few themes per card.</li>
+      <li><strong>Purusharthas — Aims of Life</strong> <span class="src">§ Eight</span> — Dharma / Artha / Kama / Moksha and the three houses each governs.</li>
+      <li><strong>Kaalapurusha</strong> <span class="src">§ Nine</span> — sign-to-house default mapping band, with each cell tappable.</li>
+    </ul>
+
+    <h3>Cross-reference drawer</h3>
+    <ul>
+      <li>Universal drawer triggered by tapping any sign, planet, or house anywhere on the page.</li>
+      <li><em>Sign drawer</em> — Element · Modality · Polarity, Ruler (Pati), Moola Trikona · office, Exaltation (Uccha), Debilitation (Neecha), Natural house (Kaalapurusha).</li>
+      <li><em>Planet drawer</em> — Rules (Pati), Moola Trikona, Uccha, Neecha, Karaka of houses, Avatar with themes.</li>
+      <li><em>House drawer</em> — Areas of life, Karaka, Categories, Purushartha, Natural sign (Kaalapurusha).</li>
+      <li>Pills inside drawers are themselves clickable — Sun in a sign drawer takes you straight to the Sun's drawer, and so on.</li>
+      <li>Slides up from the bottom on mobile; in from the right on desktop.</li>
+    </ul>
+
+    <h3>Design language</h3>
+    <ul>
+      <li>Cormorant Garamond (display) + Spectral (body) on a warm cream background, saffron accents.</li>
+      <li>Sticky pill-nav TOC across the top, scroll-tracked active state.</li>
+      <li>Hand-drawn ornament dividers, italic eyebrows, small section numbers (§ One, § Two…).</li>
+      <li>Subtle paper-grain noise on the body, soft radial accents top-left and bottom-right.</li>
+      <li>Custom favicon — the cream tile with italic "101" in saffron.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== V0 — origin story (v4.26.0) ====================== -->
+  <section class="release" data-credits="Sanchi · Sree (the annual year-planning ritual)">
+    <header>
+      <h2>V0 <em>· how it started</em></h2>
+      <span class="date">before the changelog</span>
+    </header>
+    <p class="summary">Before the page, before the cabinet and the avatars and the trace exercise, before any of the modules — there were paper flashcards. A small stack, on a kitchen table.</p>
+
+    <p class="summary" style="font-size:16px;">Sanchi and Sree were doing their <em>annual year-planning ritual</em> — the practice of sitting down at the start of the year to map intentions, projects, what to keep doing, what to set down. One thread that kept surfacing: how do we hold what Vikram's Astrology 101 class is teaching us? The material was rich; the cohort was warm; the recall was hard.</p>
+
+    <p class="summary" style="font-size:16px;">Sree started building flashcards. Just a deck. Sanskrit names on one side, English meanings on the other. A few dozen cards.</p>
+
+    <figure class="v0-figure">
+      <!-- v4.26.0: image goes here once Sree shares it. Will be resized to ~640px wide and embedded. -->
+      <span class="v0-placeholder">[ photo of the original paper flashcards — to be added ]</span>
+      <figcaption>The original deck. The annual-year-planning sit-down where this began. Image to be added by Sree.</figcaption>
+    </figure>
+
+    <p class="summary" style="font-size:16px;">The flashcards became digital. The digital flashcards became a quiz. The quiz became one section of a single HTML page. That page added drawers, then planets, then houses, then avatars. Then peer pages — Kaalapurusha, Mercury Spectrum, Astronomy. Then a Cabinet, with a Court Call game inside it. Then a Companion Workbook integration with Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha. Then a feedback channel that goes back to the same kitchen table over WhatsApp.</p>
+
+    <p class="summary" style="font-size:16px;">Twenty-five-some releases later, this is where it began.</p>
+
+    <h3>What V0 was</h3>
+    <ul>
+      <li>A stack of paper flashcards. Maybe forty cards. Sign Sanskrit names, planet rulerships, house keywords.</li>
+      <li>One side of a notebook page mapped <em>"what we want to remember from each session"</em>. The other side was Sanchi and Sree's actual year plan — projects, learnings, retreats, this one project among them.</li>
+      <li>No code. No release notes. No version numbers.</li>
+    </ul>
+
+    <h3>What it became</h3>
+    <ul>
+      <li>An <em>Astrology 101 Companion App</em>: 16 sections, 4 peer pages, a workbook overview, a planetary cabinet with its own game, an embodied-practice block (Matsya as gold standard), reflection space per section, a tracing exercise, an accessibility toggle, deep-linkable release notes with contributor attribution, and a feedback channel that returns to the originating kitchen table.</li>
+      <li>The annual-year-planning ritual is still ongoing — Sanchi and Sree will sit down again at the start of next year. This page will probably be on the table again, slightly transformed, alongside whatever's next.</li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="quick-reference.html">Back to the reference</a></p>
+    <p style="margin-top:10px;">
+      <span style="color:var(--muted);">v4.26.0 · updated 7 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+    </p>
+    <p style="margin-top:8px;font-size:11.5px;color:var(--muted);opacity:.85;">
+      Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
+    </p>
+  </footer>
+
+</div>
+
+<!-- ====================== DEEP LINKS + ATTRIBUTION (v4.21.0) ====================== -->
+<script>
+(function() {
+  // Process every <section class="release">:
+  //   1. Read the version from the h2 (e.g., "v4.20.1") → build anchor id "v4-20-1"
+  //   2. Add a 🔗 copy-link button to the header
+  //   3. If data-credits is set, render a "Heard from: ..." line right after the header
+  // No external dependencies; runs on DOMContentLoaded.
+
+  function versionToId(versionText) {
+    // "v4.20.1 · current — hotfix" → "v4-20-1"
+    const m = versionText.match(/v(\d+)\.(\d+)\.(\d+)/);
+    if (!m) return null;
+    return 'v' + m[1] + '-' + m[2] + '-' + m[3];
+  }
+
+  function showToast(msg) {
+    let toast = document.getElementById('relToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'relToast';
+      toast.className = 'rel-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('is-showing');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('is-showing'), 1800);
+  }
+
+  function copyLink(href, btn) {
+    const url = window.location.origin + window.location.pathname + href;
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).catch(fallback);
+    } else { fallback(); }
+    btn.classList.add('copied');
+    btn.textContent = '✓';
+    showToast('Link copied — paste anywhere');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '🔗';
+    }, 1800);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const releases = document.querySelectorAll('section.release');
+    releases.forEach(rel => {
+      const h2 = rel.querySelector('header h2');
+      if (!h2) return;
+      const id = versionToId(h2.textContent);
+      if (id && !rel.id) rel.id = id;
+
+      // Copy-link button — appended into the header so it sits next to the h2
+      if (id) {
+        const headerEl = rel.querySelector('header');
+        if (headerEl && !headerEl.querySelector('.rel-link')) {
+          const btn = document.createElement('button');
+          btn.className = 'rel-link';
+          btn.type = 'button';
+          btn.textContent = '🔗';
+          btn.setAttribute('aria-label', 'Copy link to this release');
+          btn.title = 'Copy link to this release';
+          btn.addEventListener('click', () => copyLink('#' + id, btn));
+          // Insert right after the h2
+          h2.insertAdjacentElement('afterend', btn);
+        }
+      }
+
+      // "Heard from:" line — only if data-credits is set
+      const credits = rel.dataset.credits;
+      if (credits && !rel.querySelector('.rel-credits')) {
+        const p = document.createElement('p');
+        p.className = 'rel-credits';
+        p.innerHTML = '<span class="rel-credits-label">Heard from</span><span class="rel-credits-name">' + credits + '</span>';
+        const headerEl = rel.querySelector('header');
+        if (headerEl) headerEl.insertAdjacentElement('afterend', p);
+      }
+    });
+
+    // Contributor index (v4.22.0) — extract names from data-credits, build filter chips
+    buildContribIndex();
+
+    // If page loads with a hash (e.g. #v4-20-1), scroll-into-view on the matched release
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+    }
+  });
+
+  // ---------- CONTRIBUTOR INDEX ----------
+  // Parse "Sudha (use case) · Sree (need to refer)" → ["Sudha", "Sree"]
+  // The negative lookahead `(?![^(]*\))` prevents splitting on a `·` that lives
+  // INSIDE a parenthetical — so "Vikram (decks · transcripts)" stays as one name.
+  function extractNames(creditsStr) {
+    return creditsStr
+      .split(/[·,](?![^(]*\))/)
+      .map(s => s.replace(/\s*\(.*?\)\s*$/, '').trim())
+      .filter(Boolean);
+  }
+
+  function buildContribIndex() {
+    const panel  = document.getElementById('contribPanel');
+    const chips  = document.getElementById('contribChips');
+    const status = document.getElementById('contribStatus');
+    if (!panel || !chips) return;
+
+    // Tally names across all credited releases.
+    // Also tag each section with data-contrib-names="Sudha|Vikram|..." for fast filtering.
+    const counts = new Map();
+    const releases = document.querySelectorAll('section.release[data-credits]');
+    releases.forEach(rel => {
+      const names = extractNames(rel.dataset.credits || '');
+      rel.dataset.contribNames = names.join('|');
+      names.forEach(n => counts.set(n, (counts.get(n) || 0) + 1));
+    });
+
+    if (counts.size === 0) {
+      panel.hidden = true;
+      return;
+    }
+    panel.hidden = false;
+
+    // Sort: count desc, then alpha
+    const sorted = Array.from(counts.entries())
+      .sort((a, b) => (b[1] - a[1]) || a[0].localeCompare(b[0]));
+
+    // Render: "All" chip first, then one per name
+    const totalReleases = document.querySelectorAll('section.release').length;
+    chips.innerHTML = '';
+
+    const allBtn = document.createElement('button');
+    allBtn.type = 'button';
+    allBtn.className = 'contrib-chip is-active';
+    allBtn.dataset.name = '';
+    allBtn.innerHTML = 'All <span class="ct-count">' + totalReleases + '</span>';
+    chips.appendChild(allBtn);
+
+    sorted.forEach(([name, count]) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'contrib-chip';
+      b.dataset.name = name;
+      b.innerHTML = name + ' <span class="ct-count">' + count + '</span>';
+      chips.appendChild(b);
+    });
+
+    chips.addEventListener('click', (ev) => {
+      const btn = ev.target.closest('.contrib-chip');
+      if (!btn) return;
+      applyContribFilter(btn.dataset.name);
+    });
+  }
+
+  function applyContribFilter(name) {
+    const chips  = document.getElementById('contribChips');
+    const status = document.getElementById('contribStatus');
+    const releases = document.querySelectorAll('section.release');
+
+    // Update active chip state
+    chips.querySelectorAll('.contrib-chip').forEach(c => {
+      c.classList.toggle('is-active', c.dataset.name === name);
+    });
+
+    if (!name) {
+      // Show all
+      document.body.removeAttribute('data-contrib-filter');
+      releases.forEach(r => r.classList.remove('is-filtered-out'));
+      if (status) { status.hidden = true; status.innerHTML = ''; }
+      return;
+    }
+
+    document.body.setAttribute('data-contrib-filter', name);
+    let visible = 0;
+    releases.forEach(r => {
+      const names = (r.dataset.contribNames || '').split('|').filter(Boolean);
+      if (names.includes(name)) {
+        r.classList.remove('is-filtered-out');
+        visible++;
+      } else {
+        r.classList.add('is-filtered-out');
+      }
+    });
+
+    if (status) {
+      status.hidden = false;
+      status.innerHTML = 'Showing <strong>' + visible + '</strong> release' + (visible === 1 ? '' : 's') +
+        ' credited to <em>' + name + '</em>. ' +
+        '<button type="button" class="contrib-clear">Show all releases</button>';
+      const clearBtn = status.querySelector('.contrib-clear');
+      if (clearBtn) clearBtn.addEventListener('click', () => applyContribFilter(''));
+    }
+  }
+})();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.26.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+
+  function bustCache() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('v', Date.now());
+    window.location.href = url.toString();
+  }
+  function showBanner(latestVer) {
+    if (document.getElementById('upd-banner')) return;
+    const b = document.createElement('div');
+    b.id = 'upd-banner';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#b8410e;color:#faf3e2;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
+      + ' <a href="release-notes.html" style="color:#faf3e2;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
+      + ' <button id="upd-refresh" style="background:#faf3e2;color:#b8410e;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-dismiss" style="background:transparent;color:#faf3e2;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
+    document.body.appendChild(b);
+    document.getElementById('upd-refresh').onclick = bustCache;
+    document.getElementById('upd-dismiss').onclick = () => b.remove();
+  }
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;background:#1f1a2e;color:#faf3e2;padding:9px 20px;border-radius:100px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => { t.style.transition = 'opacity .25s'; t.style.opacity = '0'; }, 2000);
+    setTimeout(() => t.remove(), 2400);
+  }
+  function check(silent) {
+    lastChecked = Date.now();
+    fetch(VERSION_URL + '?_=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data || !data.version) {
+          if (!silent) showToast('Could not reach version manifest');
+          return;
+        }
+        if (data.version !== PAGE_VERSION) showBanner(data.version);
+        else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+      })
+      .catch(() => { if (!silent) showToast('Update check unavailable on file:// — open via http(s)://'); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => check(true));
+  else check(true);
+  window.addEventListener('focus', () => { if (Date.now() - lastChecked > FOCUS_THROTTLE_MS) check(true); });
+  window.__checkForUpdates = () => check(false);
+  window.__pageVersion = PAGE_VERSION;
+})();
+</script>
+
+</body>
+</html>
