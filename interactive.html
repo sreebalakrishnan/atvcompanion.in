@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5ecd9">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="An experimental, interactive space for visual / spatial learning. First experiment: the Planetary Cabinet as a stage.">
+<title>Interactive · beta — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --forest:    #4a5d2e;
+    --plum:      #7a3a5e;
+    --shadow-sm: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    --shadow-md: 0 1px 0 rgba(31,26,46,.04), 0 14px 36px -14px rgba(31,26,46,.22);
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 820px; margin: 0 auto; padding: 0 18px 80px; }
+
+  /* ---------- SITE NAV ---------- */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead {
+    padding: 48px 0 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(36px, 7vw, 52px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 52ch;
+    line-height: 1.5;
+  }
+
+  /* ---------- BETA NOTE ---------- */
+  .beta-note {
+    margin: 28px auto 36px;
+    max-width: 580px;
+    padding: 14px 18px;
+    background: linear-gradient(180deg, rgba(184,65,14,.05), rgba(243,233,210,.4));
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 8px 8px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .beta-note strong {
+    font-style: normal;
+    color: var(--saffron);
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    font-size: 11px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .beta-note em { color: var(--ink); font-style: italic; }
+
+  /* ---------- EXPERIMENT BLOCK ---------- */
+  .experiment { margin: 40px 0 0; padding: 4px 0 12px; }
+  .experiment-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .experiment h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(28px, 5vw, 36px);
+    margin: 0 0 8px;
+    letter-spacing: -.005em;
+    line-height: 1.1;
+  }
+  .experiment h2 em { font-style: italic; color: var(--saffron); }
+  .experiment-lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+    max-width: 56ch;
+    line-height: 1.55;
+  }
+
+  /* ---------- MODE PILLS ---------- */
+  .modes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin: 0 0 10px;
+  }
+  .mode-pill {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all .15s;
+    line-height: 1.2;
+  }
+  .mode-pill:hover { color: var(--saffron); border-color: var(--saffron); }
+  .mode-pill.active {
+    background: var(--ink);
+    color: var(--surface);
+    border-color: var(--ink);
+  }
+  .mode-hint {
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 18px;
+    line-height: 1.5;
+    min-height: 1.2em;
+  }
+
+  /* ---------- STAGE GRID ---------- */
+  .stage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    max-width: 720px;
+    margin: 0 auto 18px;
+  }
+  @media (max-width: 540px) {
+    .stage { grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  }
+
+  .chamber {
+    aspect-ratio: 1 / 1;
+    padding: 8px 8px 6px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color .18s, box-shadow .18s, transform .18s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .chamber:hover {
+    border-color: var(--saffron);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+  .chamber.is-active {
+    border-color: var(--saffron);
+    background: linear-gradient(180deg, rgba(184,65,14,.06), rgba(184,65,14,.02));
+    box-shadow: var(--shadow-md);
+  }
+  .chamber.is-empty .chamber-planets { opacity: .25; }
+  .chamber-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .chamber-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -.005em;
+  }
+  .chamber-sanskrit {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.1;
+  }
+  .chamber-element {
+    display: inline-block;
+    margin-top: 4px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 999px;
+    line-height: 1.2;
+    width: max-content;
+  }
+  .chamber-element.fire   { background: rgba(184,65,14,.10); color: var(--saffron); }
+  .chamber-element.earth  { background: rgba(74,93,46,.12);  color: var(--forest); }
+  .chamber-element.air    { background: rgba(42,50,112,.10); color: var(--indigo); }
+  .chamber-element.water  { background: rgba(122,58,94,.10); color: var(--plum); }
+
+  .chamber-planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: flex-end;
+    justify-content: flex-start;
+    min-height: 28px;
+    transition: opacity .25s;
+  }
+  .chamber-planet {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-family: var(--display), 'Times New Roman', serif;
+    font-size: clamp(20px, 5vw, 26px);
+    color: var(--saffron);
+    cursor: pointer;
+    line-height: 1;
+    transition: transform .15s, color .15s;
+    font-variant-emoji: text;
+    /* tighter than line-height to prevent overflow */
+  }
+  .chamber-planet:hover { transform: scale(1.18); }
+  .chamber-planet.is-active {
+    color: var(--ink);
+    transform: scale(1.18);
+  }
+  .chamber-planet .role-tip {
+    /* unused — info goes in info card */
+  }
+
+  /* Mode-specific: visual hint that planets moved */
+  .stage[data-mode="honour"] .chamber-planet,
+  .stage[data-mode="disgrace"] .chamber-planet {
+    /* placeholder for mode-specific styling */
+  }
+
+  /* ---------- INFO CARD ---------- */
+  .info-card {
+    margin: 6px auto 12px;
+    max-width: 720px;
+    padding: 18px 20px 16px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    min-height: 120px;
+  }
+  .info-card .info-default {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--muted);
+    text-align: center;
+    display: block;
+    padding: 18px 8px;
+  }
+  .info-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .info-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -.005em;
+  }
+  .info-title .info-glyph {
+    font-size: 22px;
+    color: var(--saffron);
+    margin-right: 6px;
+    vertical-align: -2px;
+    font-variant-emoji: text;
+  }
+  .info-title em { font-style: italic; color: var(--saffron); }
+  .info-meta {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    letter-spacing: .03em;
+  }
+  .info-row {
+    font-family: var(--body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 6px 0;
+  }
+  .info-row strong { color: var(--saffron); font-weight: 500; font-style: italic; }
+  .info-quote {
+    margin: 10px 0 4px;
+    padding: 10px 14px;
+    background: rgba(184,65,14,.04);
+    border-left: 2px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .info-cite {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: .04em;
+    font-style: italic;
+  }
+
+  /* ---------- STORY CONTROLS ---------- */
+  .story-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 14px 0 8px;
+  }
+  .story-counter {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--saffron);
+    letter-spacing: .06em;
+  }
+
+  /* ---------- FUTURE / WHAT'S NEXT ---------- */
+  .future {
+    margin: 56px 0 12px;
+    padding: 24px 24px 18px;
+    background: var(--surface);
+    border: 1px dashed var(--rule);
+    border-radius: 10px;
+  }
+  .future-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .future h3 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 14px;
+    letter-spacing: -.005em;
+  }
+  .future ul { list-style: none; padding: 0; margin: 0; }
+  .future li {
+    font-family: var(--body);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    padding: 6px 0 6px 22px;
+    position: relative;
+  }
+  .future li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: var(--saffron);
+    font-size: 11px;
+  }
+  .future li strong { color: var(--saffron); font-weight: 500; font-style: italic; }
+  .future-note {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 14px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    max-width: 480px;
+    margin: 56px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer-ornament { color: var(--saffron); margin-bottom: 18px; }
+  .footer-ornament svg { width: 14px; height: 14px; }
+  .footer p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .footer .meta { margin-top: 10px; font-size: 12px; }
+  .footer .credits { margin-top: 10px; font-size: 11.5px; opacity: .85; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="quick-reference.html">Quick Reference</a>
+    <span class="sep">·</span>
+    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <span class="sep">·</span>
+    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <span class="sep">·</span>
+    <a href="astronomy.html">Astronomy</a>
+    <span class="sep">·</span>
+    <a href="ether.html">Ether</a>
+    <span class="sep">·</span>
+    <span class="here">Interactive · beta</span>
+    <span class="sep">·</span>
+    <a href="release-notes.html">Release Notes</a>
+    <span class="sep">·</span>
+    <a href="stats.html">Stats</a>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · the companion app · v4.34.0</div>
+    <h1>Interactive <em>· beta</em></h1>
+    <p class="lede">An experimental space for visual / spatial learning. First experiment: the Planetary Cabinet as a stage. Tap a planet, change the mode, watch the drama.</p>
+  </header>
+
+  <div class="beta-note">
+    <strong>Beta · feedback wanted</strong>
+    Built in response to <em>Sathvika's</em> feedback that text-heavy reference doesn't always land. If you're someone who learns visually, spatially, through stories — this page is for you. Help us iterate: tap the 💬 button on any page to share what works, what doesn't, what's missing.
+  </div>
+
+  <!-- ====================== EXPERIMENT 1 — CABINET STAGE ====================== -->
+  <section class="experiment">
+    <div class="experiment-eyebrow">Experiment 01</div>
+    <h2>The Planetary <em>Cabinet</em></h2>
+    <p class="experiment-lede">Vikram's story of the planets as a royal court. Each sign is a chamber; each planet has a role. Switch modes to see where the planets sit, where they're honoured, where they're disgraced — or run the story scene by scene.</p>
+
+    <div class="modes" id="modePills" role="tablist" aria-label="Cabinet view modes">
+      <button class="mode-pill active" data-mode="office" role="tab">Office</button>
+      <button class="mode-pill" data-mode="honour" role="tab">Honour</button>
+      <button class="mode-pill" data-mode="disgrace" role="tab">Disgrace</button>
+      <button class="mode-pill" data-mode="story" role="tab">Story</button>
+    </div>
+    <p class="mode-hint" id="modeHint">Each planet at its <em>natural office</em> — where it does its work.</p>
+
+    <div class="stage" id="stage" data-mode="office" role="region" aria-label="The cabinet stage"></div>
+
+    <div class="info-card" id="infoCard">
+      <em class="info-default">Tap any planet glyph or chamber to see what's happening.</em>
+    </div>
+
+    <div class="story-controls" id="storyControls" hidden>
+      <button class="mode-pill" id="storyPrev" type="button">← Previous</button>
+      <span class="story-counter" id="storyCounter">Scene 1 of 8</span>
+      <button class="mode-pill" id="storyNext" type="button">Next →</button>
+    </div>
+  </section>
+
+  <!-- ====================== WHAT'S COMING ====================== -->
+  <section class="future">
+    <div class="future-eyebrow">Next in the lab</div>
+    <h3>What's coming</h3>
+    <ul>
+      <li><strong>Aspects</strong> — planetary gaze visualised as arrows on a chart wheel.</li>
+      <li><strong>House categories</strong> — kendras, trikonas, dushtanas as overlays you can toggle.</li>
+      <li><strong>Planetary relationships</strong> — friends and enemies as a small network.</li>
+      <li><strong>Avatar journey</strong> — a guided walk through the daśāvatāra arc.</li>
+    </ul>
+    <p class="future-note">The order depends on what lands with the cohort. Tell us what to build next via the 💬 button.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="index.html">Back to home</a> · <a href="quick-reference.html">Quick Reference</a></p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.34.0 · updated 7 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+    </p>
+    <p class="credits">
+      Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class. Cabinet narrative: Vikram, Sessions 23–25.
+    </p>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   DATA — copied from quick-reference.html for self-containment.
+   When the data needs to evolve, single source of truth lives there.
+============================================================ */
+
+const SIGNS = {
+  aries:       { name: 'Aries',       sanskrit: 'Mesha',       element: 'fire'  },
+  taurus:      { name: 'Taurus',      sanskrit: 'Vrishabha',   element: 'earth' },
+  gemini:      { name: 'Gemini',      sanskrit: 'Mithuna',     element: 'air'   },
+  cancer:      { name: 'Cancer',      sanskrit: 'Karkataka',   element: 'water' },
+  leo:         { name: 'Leo',         sanskrit: 'Simha',       element: 'fire'  },
+  virgo:       { name: 'Virgo',       sanskrit: 'Kanya',       element: 'earth' },
+  libra:       { name: 'Libra',       sanskrit: 'Tula',        element: 'air'   },
+  scorpio:     { name: 'Scorpio',     sanskrit: 'Vrishchika',  element: 'water' },
+  sagittarius: { name: 'Sagittarius', sanskrit: 'Dhanu',       element: 'fire'  },
+  capricorn:   { name: 'Capricorn',   sanskrit: 'Makara',      element: 'earth' },
+  aquarius:    { name: 'Aquarius',    sanskrit: 'Kumbha',      element: 'air'   },
+  pisces:      { name: 'Pisces',      sanskrit: 'Meena',       element: 'water' }
+};
+
+const PLANETS = {
+  sun:     { name: 'Sun',     sanskrit: 'Sūrya',     glyph: '☉︎' },
+  moon:    { name: 'Moon',    sanskrit: 'Chandra',   glyph: '☽︎' },
+  mars:    { name: 'Mars',    sanskrit: 'Maṅgala',   glyph: '♂︎' },
+  mercury: { name: 'Mercury', sanskrit: 'Budha',     glyph: '☿︎' },
+  jupiter: { name: 'Jupiter', sanskrit: 'Bṛhaspati', glyph: '♃︎' },
+  venus:   { name: 'Venus',   sanskrit: 'Śukra',     glyph: '♀︎' },
+  saturn:  { name: 'Saturn',  sanskrit: 'Śani',      glyph: '♄︎' },
+  rahu:    { name: 'Rahu',    sanskrit: 'Rāhu',      glyph: '☊︎' },
+  ketu:    { name: 'Ketu',    sanskrit: 'Ketu',      glyph: '☋︎' }
+};
+
+const CABINET = {
+  sun:     { role: 'King',                  role_sk: 'Rāja',           office: 'leo',          honoured: 'aries',     dishonoured: 'libra',
+             office_why: 'The wise old king takes his throne in his own hall.',
+             honoured_why: 'The king at his glory in the chambers of the commander of the army — Aries.',
+             dishonoured_why: 'The king on his knees in the chambers of the princess — Libra. He is mellow, at his weakest.' },
+  moon:    { role: 'Queen',                 role_sk: 'Rājñī',          office: 'taurus',       honoured: 'taurus',    dishonoured: 'scorpio',
+             office_why: 'The queen at her office, where she does her work — Taurus.',
+             honoured_why: 'The Moon is at her glory in the chambers of the daughter-in-law — Venus rules Taurus.',
+             dishonoured_why: 'Emotion drowns in intensity — the queen overwhelmed in the depths.' },
+  mars:    { role: 'Commander of the Army', role_sk: 'Senāpati',       office: 'aries',        honoured: 'capricorn', dishonoured: 'cancer',
+             office_why: 'The commander leads from his hall — Aries.',
+             honoured_why: 'The commander in his power in the servant\'s quarters — Saturn rules Capricorn.',
+             dishonoured_why: 'The commander softened in the queen\'s chambers — at his lowest, not imposing his authority.' },
+  mercury: { role: 'Crown Prince',          role_sk: 'Yuvarāja',       office: 'virgo',        honoured: 'virgo',     dishonoured: 'pisces',
+             office_why: 'The prince in his study — Virgo. Both his home and his honour.',
+             honoured_why: 'The prince in his own hall — Virgo is doubly his.',
+             dishonoured_why: 'The prince in the priest\'s chambers — clarity dissolves into dream.' },
+  jupiter: { role: 'Royal Priest',          role_sk: 'Guru / Amātya', office: 'sagittarius',  honoured: 'cancer',    dishonoured: 'capricorn',
+             office_why: 'The priest at his counsel — Sagittarius.',
+             honoured_why: 'When the priest comes to the chambers of the queen, he is in all his glory in Cancer. The queen listens to the priest.',
+             dishonoured_why: 'The priest in front of the servant — the servant doesn\'t care about the priest. No respect for the priest.' },
+  venus:   { role: 'Princess',              role_sk: 'Rājakanyā',      office: 'libra',        honoured: 'pisces',    dishonoured: 'virgo',
+             office_why: 'The princess at her place of justice and beauty — Libra.',
+             honoured_why: 'The princess at her glory in the priest\'s chambers — love dissolves into the universal.',
+             dishonoured_why: 'The princess in the chambers of her brother (Mercury rules Virgo) — beauty under audit.' },
+  saturn:  { role: 'Servant',               role_sk: 'Bhṛtya / Vṛddha', office: 'aquarius',    honoured: 'libra',     dishonoured: 'aries',
+             office_why: 'The servant at his quarters — Aquarius.',
+             honoured_why: 'The servant honoured in the princess\'s office of justice — Libra. Discipline meets balance.',
+             dishonoured_why: 'The servant on his knees in front of the commander of the army — Aries.' },
+  rahu:    { role: 'Outsider',              role_sk: 'Rāhu',           office: null,           honoured: 'taurus',    dishonoured: 'scorpio',
+             office_why: 'No own office. An outsider in Vikram\'s telling — added to the original story.',
+             honoured_why: 'Rahu thrives where the senses bloom — Venus\'s home of beauty.',
+             dishonoured_why: 'Rahu drowned in the depth — Mars\'s house of intensity.' },
+  ketu:    { role: 'Outsider',              role_sk: 'Ketu',           office: null,           honoured: 'scorpio',   dishonoured: 'taurus',
+             office_why: 'No own office. The shadow that bears the past — added to the story.',
+             honoured_why: 'Ketu finds its detachment in the depth — where the senses are seen for what they are.',
+             dishonoured_why: 'Ketu denied in the realm of pleasures — Venus\'s home of beauty.' }
+};
+
+/* The 12 chambers, in South-Indian-style spatial order matching the existing board.
+   Pisces top-left, going clockwise around the edge. */
+const BOARD_LAYOUT = [
+  ['pisces',      'aries',       'taurus',     'gemini'],
+  ['aquarius',    null,          null,         'cancer'],
+  ['capricorn',   null,          null,         'leo'],
+  ['sagittarius', 'scorpio',     'libra',      'virgo']
+];
+
+/* The 8-scene story walkthrough.
+   Each scene tells a moment from Vikram's cabinet narrative.
+   `placements` overrides which planet goes where for that scene; everything else is empty. */
+const STORY_SCENES = [
+  {
+    title: 'The kingdom is at peace',
+    narration: 'Twelve chambers. The court is empty. Vikram begins.',
+    placements: {}
+  },
+  {
+    title: 'The king takes his throne',
+    narration: 'The Sun, the wise old king, takes his throne in Leo. The kingdom is prosperous.',
+    placements: { sun: 'leo' }
+  },
+  {
+    title: 'The queen joins',
+    narration: 'The Moon — a very wise woman — goes to her office in Taurus. She asks the king to slow down, and to ask the others what they want.',
+    placements: { sun: 'leo', moon: 'taurus' }
+  },
+  {
+    title: 'The commander leads from Aries',
+    narration: 'Mars steps forward. "There is no doubt — let me lead the army. Anything that initiates, that starts something new, let them come to me first."',
+    placements: { sun: 'leo', moon: 'taurus', mars: 'aries' }
+  },
+  {
+    title: 'The prince in his study',
+    narration: 'Mercury, the crown prince, takes Virgo. "Let me govern trade, commerce, and all of education — let me make sure people think the way I want."',
+    placements: { sun: 'leo', moon: 'taurus', mars: 'aries', mercury: 'virgo' }
+  },
+  {
+    title: 'The priest, princess, servant — the inner circle',
+    narration: 'Jupiter to Sagittarius — the priest. Venus to Libra — the princess of beauty and balance. Saturn to Aquarius — the servant who carries the weight.',
+    placements: { sun: 'leo', moon: 'taurus', mars: 'aries', mercury: 'virgo', jupiter: 'sagittarius', venus: 'libra', saturn: 'aquarius' }
+  },
+  {
+    title: 'And then the drama — the king walks into the commander\'s hall',
+    narration: 'Look at where the planets exalt. The Sun walks into Aries — the commander\'s hall. He is in all his glory. Saturn the servant kneels in Aries before the commander. Mars softens in Cancer in front of the queen.',
+    placements: 'honour-mode'
+  },
+  {
+    title: 'The disgrace — when each is in the wrong chamber',
+    narration: 'And where each is at their lowest. The king mellow in the princess\'s chambers (Libra). The commander softened before the queen (Cancer). Jupiter on his knees in front of the servant (Capricorn).',
+    placements: 'disgrace-mode'
+  }
+];
+
+/* ============================================================
+   STATE
+============================================================ */
+let currentMode = 'office';
+let storyIdx = 0;
+let activePlanetId = null;
+let activeSignId = null;
+
+/* ============================================================
+   RENDER FUNCTIONS
+============================================================ */
+
+/* Determine where each planet sits given the current mode + (optional) story scene */
+function getPlanetPlacements() {
+  if (currentMode === 'office') {
+    const out = {};
+    Object.entries(CABINET).forEach(([pid, c]) => { if (c.office) out[pid] = c.office; });
+    return out;
+  }
+  if (currentMode === 'honour') {
+    const out = {};
+    Object.entries(CABINET).forEach(([pid, c]) => { if (c.honoured) out[pid] = c.honoured; });
+    return out;
+  }
+  if (currentMode === 'disgrace') {
+    const out = {};
+    Object.entries(CABINET).forEach(([pid, c]) => { if (c.dishonoured) out[pid] = c.dishonoured; });
+    return out;
+  }
+  if (currentMode === 'story') {
+    const scene = STORY_SCENES[storyIdx];
+    if (scene.placements === 'honour-mode') {
+      const out = {};
+      Object.entries(CABINET).forEach(([pid, c]) => { if (c.honoured) out[pid] = c.honoured; });
+      return out;
+    }
+    if (scene.placements === 'disgrace-mode') {
+      const out = {};
+      Object.entries(CABINET).forEach(([pid, c]) => { if (c.dishonoured) out[pid] = c.dishonoured; });
+      return out;
+    }
+    return scene.placements || {};
+  }
+  return {};
+}
+
+function renderStage() {
+  const stage = document.getElementById('stage');
+  const placements = getPlanetPlacements();
+
+  // Build a map: signId -> [planetIds in this chamber]
+  const signPlanets = {};
+  Object.keys(SIGNS).forEach(sid => signPlanets[sid] = []);
+  Object.entries(placements).forEach(([pid, sid]) => {
+    if (sid && signPlanets[sid]) signPlanets[sid].push(pid);
+  });
+
+  // Render chambers in BOARD_LAYOUT order, skipping nulls.
+  // Use grid-area positioning to keep visual layout consistent.
+  // For the 4×4 layout we use a flat 12-cell grid; the inner 2×2 stays empty visually,
+  // but on mobile we collapse to a denser 3×4 arrangement.
+  // Simpler: render all 12 chambers in a flat sequence.
+  const sequence = [];
+  BOARD_LAYOUT.forEach(row => row.forEach(sid => { if (sid) sequence.push(sid); }));
+
+  let html = '';
+  sequence.forEach(sid => {
+    const s = SIGNS[sid];
+    const planets = signPlanets[sid];
+    const isEmpty = planets.length === 0;
+    const isActive = sid === activeSignId;
+    const planetsHtml = planets.map(pid => {
+      const p = PLANETS[pid];
+      const cabRole = CABINET[pid].role;
+      const isActivePlanet = pid === activePlanetId;
+      return `<button class="chamber-planet ${isActivePlanet ? 'is-active' : ''}" data-planet="${pid}" type="button" aria-label="${p.name} — ${cabRole} — in ${s.name}" title="${p.name} · ${cabRole}">${p.glyph}</button>`;
+    }).join('');
+
+    html += `
+      <button class="chamber ${isEmpty ? 'is-empty' : ''} ${isActive ? 'is-active' : ''}" data-sign="${sid}" type="button">
+        <div class="chamber-head">
+          <div class="chamber-name">${s.name}</div>
+          <div class="chamber-sanskrit">${s.sanskrit}</div>
+          <span class="chamber-element ${s.element}">${s.element}</span>
+        </div>
+        <div class="chamber-planets">${planetsHtml}</div>
+      </button>
+    `;
+  });
+
+  stage.innerHTML = html;
+  stage.dataset.mode = currentMode;
+
+  // Bind delegated click listeners
+  stage.querySelectorAll('.chamber-planet').forEach(b => {
+    b.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const pid = b.dataset.planet;
+      activePlanetId = pid;
+      activeSignId = b.closest('.chamber').dataset.sign;
+      renderStage();
+      renderInfoCard();
+    });
+  });
+  stage.querySelectorAll('.chamber').forEach(c => {
+    c.addEventListener('click', (ev) => {
+      // chamber clicked when not on a planet
+      activeSignId = c.dataset.sign;
+      activePlanetId = null;
+      renderStage();
+      renderInfoCard();
+    });
+  });
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  storyIdx = 0;
+
+  // Update mode-pill UI
+  document.querySelectorAll('.mode-pill[data-mode]').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+
+  // Update mode hint
+  const hint = document.getElementById('modeHint');
+  const hints = {
+    office:   'Each planet at its <em>natural office</em> — where it does its work.',
+    honour:   'Each planet at its <em>exaltation</em> — where it shines, in story terms.',
+    disgrace: 'Each planet at its <em>debilitation</em> — where it kneels, weakens, dissolves.',
+    story:    'A scene-by-scene walk through Vikram\'s cabinet narrative.'
+  };
+  hint.innerHTML = hints[mode] || '';
+
+  // Story controls
+  const storyEl = document.getElementById('storyControls');
+  if (mode === 'story') {
+    storyEl.hidden = false;
+    renderStoryControls();
+  } else {
+    storyEl.hidden = true;
+  }
+
+  // Reset active selection on mode change
+  activePlanetId = null;
+  activeSignId = null;
+
+  renderStage();
+
+  // Show story narration in info card if in story mode, otherwise reset
+  if (mode === 'story') renderStoryNarration();
+  else renderInfoCard();
+}
+
+function renderStoryControls() {
+  const counter = document.getElementById('storyCounter');
+  const prev = document.getElementById('storyPrev');
+  const next = document.getElementById('storyNext');
+  counter.textContent = `Scene ${storyIdx + 1} of ${STORY_SCENES.length}`;
+  prev.disabled = storyIdx === 0;
+  next.disabled = storyIdx === STORY_SCENES.length - 1;
+  prev.style.opacity = storyIdx === 0 ? '.4' : '1';
+  next.style.opacity = storyIdx === STORY_SCENES.length - 1 ? '.4' : '1';
+}
+
+function renderStoryNarration() {
+  const card = document.getElementById('infoCard');
+  const scene = STORY_SCENES[storyIdx];
+  card.innerHTML = `
+    <div class="info-eyebrow">Scene ${storyIdx + 1}</div>
+    <div class="info-title">${scene.title}</div>
+    <p class="info-row" style="font-style:italic;">${scene.narration}</p>
+  `;
+}
+
+function nextScene() {
+  if (storyIdx < STORY_SCENES.length - 1) {
+    storyIdx++;
+    renderStoryControls();
+    renderStage();
+    renderStoryNarration();
+  }
+}
+
+function prevScene() {
+  if (storyIdx > 0) {
+    storyIdx--;
+    renderStoryControls();
+    renderStage();
+    renderStoryNarration();
+  }
+}
+
+/* ============================================================
+   INFO CARD
+============================================================ */
+
+function renderInfoCard() {
+  if (currentMode === 'story') return; // story narration handled separately
+  const card = document.getElementById('infoCard');
+
+  if (activePlanetId) {
+    const p = PLANETS[activePlanetId];
+    const c = CABINET[activePlanetId];
+    const officeS = c.office ? SIGNS[c.office] : null;
+    const honourS = c.honoured ? SIGNS[c.honoured] : null;
+    const disgrS  = c.dishonoured ? SIGNS[c.dishonoured] : null;
+
+    // Pick the most relevant story-line for the current mode
+    const why = currentMode === 'office'   ? c.office_why
+              : currentMode === 'honour'   ? c.honoured_why
+              : currentMode === 'disgrace' ? c.dishonoured_why
+              : '';
+
+    card.innerHTML = `
+      <div class="info-eyebrow">${c.role} · ${c.role_sk}</div>
+      <div class="info-title"><span class="info-glyph">${p.glyph}</span>${p.name} <em>· ${p.sanskrit}</em></div>
+      <div class="info-meta">${officeS ? 'Office: ' + officeS.name + ' · ' : ''}${honourS ? 'Honour: ' + honourS.name + ' · ' : ''}${disgrS ? 'Disgrace: ' + disgrS.name : ''}</div>
+      ${why ? `<div class="info-quote">${why}<div class="info-cite">— Vikram, Sessions 23–25 · The Planetary Cabinet</div></div>` : ''}
+    `;
+    return;
+  }
+
+  if (activeSignId) {
+    const s = SIGNS[activeSignId];
+    // Find planets currently in this sign
+    const placements = getPlanetPlacements();
+    const inhere = Object.entries(placements).filter(([_, sid]) => sid === activeSignId).map(([pid]) => pid);
+    // Honour / disgrace lookups
+    const exaltsHere = Object.entries(CABINET).filter(([_, c]) => c.honoured === activeSignId).map(([pid]) => pid);
+    const debilHere  = Object.entries(CABINET).filter(([_, c]) => c.dishonoured === activeSignId).map(([pid]) => pid);
+    const officeHere = Object.entries(CABINET).filter(([_, c]) => c.office === activeSignId).map(([pid]) => pid);
+
+    const planetsRowHtml = (ids) => ids.length
+      ? ids.map(pid => `<span style="color:var(--saffron);font-size:18px;margin-right:6px;font-variant-emoji:text;" title="${PLANETS[pid].name} — ${CABINET[pid].role}">${PLANETS[pid].glyph}</span><em style="font-style:italic;color:var(--ink-soft);font-size:13px;margin-right:10px;">${PLANETS[pid].name} (${CABINET[pid].role})</em>`).join('')
+      : '<em style="color:var(--muted);font-style:italic;">—</em>';
+
+    card.innerHTML = `
+      <div class="info-eyebrow">Chamber · ${s.element}</div>
+      <div class="info-title">${s.name} <em>· ${s.sanskrit}</em></div>
+      <p class="info-row"><strong>Currently in this chamber:</strong><br>${planetsRowHtml(inhere)}</p>
+      ${officeHere.length ? `<p class="info-row"><strong>Office of:</strong><br>${planetsRowHtml(officeHere)}</p>` : ''}
+      ${exaltsHere.length ? `<p class="info-row"><strong>Honoured here:</strong><br>${planetsRowHtml(exaltsHere)}</p>` : ''}
+      ${debilHere.length  ? `<p class="info-row"><strong>Disgraced here:</strong><br>${planetsRowHtml(debilHere)}</p>`  : ''}
+    `;
+    return;
+  }
+
+  card.innerHTML = '<em class="info-default">Tap any planet glyph or chamber to see what\'s happening.</em>';
+}
+
+/* ============================================================
+   INIT + EVENT WIRING
+============================================================ */
+
+document.querySelectorAll('.mode-pill[data-mode]').forEach(b => {
+  b.addEventListener('click', () => setMode(b.dataset.mode));
+});
+document.getElementById('storyPrev').addEventListener('click', prevScene);
+document.getElementById('storyNext').addEventListener('click', nextScene);
+
+renderStage();
+renderInfoCard();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.34.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f1a2e;color:#faf3e2;font-family:Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  check(true);
+  window.addEventListener('focus', () => check(true));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
+})();
+</script>
+</body>
+</html>
