@@ -165,7 +165,84 @@
     line-height: 1.55;
   }
 
+  /* ---------- ROSTER (cast of characters) ---------- */
+  .roster {
+    margin: 0 0 22px;
+    padding: 16px 18px 14px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .roster-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    text-align: center;
+    margin: 0 0 10px;
+  }
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px 12px;
+  }
+  @media (max-width: 540px) { .roster-grid { grid-template-columns: repeat(2, 1fr); } }
+  .roster-item {
+    appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    text-align: left;
+    transition: background .15s, border-color .15s;
+    font-family: var(--display);
+  }
+  .roster-item:hover { background: rgba(184,65,14,.05); border-color: var(--rule); }
+  .roster-item.is-active {
+    background: rgba(184,65,14,.10);
+    border-color: var(--saffron);
+  }
+  .roster-glyph {
+    font-size: 22px;
+    color: var(--saffron);
+    width: 22px;
+    text-align: center;
+    line-height: 1;
+    font-variant-emoji: text;
+    font-family: var(--display), 'Times New Roman', serif;
+    flex-shrink: 0;
+  }
+  .roster-text { line-height: 1.15; }
+  .roster-name {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 13.5px;
+    display: block;
+  }
+  .roster-role {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 12px;
+    display: block;
+  }
+
   /* ---------- MODE PILLS ---------- */
+  .modes-wrap { margin: 0 0 8px; }
+  .modes-cta {
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  .modes-cta strong { color: var(--saffron); font-weight: 500; font-style: normal; }
   .modes {
     display: flex;
     flex-wrap: wrap;
@@ -193,6 +270,10 @@
     color: var(--surface);
     border-color: var(--ink);
   }
+  .mode-pill.recommended:not(.active) {
+    border-color: var(--saffron);
+    color: var(--saffron);
+  }
   .mode-hint {
     text-align: center;
     font-family: var(--display);
@@ -203,45 +284,47 @@
     line-height: 1.5;
     min-height: 1.2em;
   }
+  .mode-hint em { color: var(--saffron); font-style: italic; }
 
   /* ---------- STAGE GRID ---------- */
   .stage {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    max-width: 720px;
+    gap: 8px;
+    max-width: 760px;
     margin: 0 auto 18px;
   }
-  @media (max-width: 540px) {
-    .stage { grid-template-columns: repeat(3, 1fr); gap: 5px; }
-  }
+  @media (max-width: 720px) { .stage { grid-template-columns: repeat(3, 1fr); gap: 7px; } }
+  @media (max-width: 460px) { .stage { grid-template-columns: repeat(2, 1fr); gap: 6px; } }
 
+  /* Chamber is a div with role="button" so we can nest real <button> planet pills inside.
+     Native <button> can't contain another <button> — that bug used to break the layout. */
   .chamber {
-    aspect-ratio: 1 / 1;
-    padding: 8px 8px 6px;
+    min-height: 138px;
+    padding: 9px 9px 8px;
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: 8px;
     cursor: pointer;
-    transition: border-color .18s, box-shadow .18s, transform .18s;
+    transition: border-color .18s, box-shadow .18s, transform .18s, background .18s;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 6px;
     text-align: left;
     position: relative;
-    overflow: hidden;
   }
   .chamber:hover {
     border-color: var(--saffron);
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
   }
+  .chamber:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
   .chamber.is-active {
     border-color: var(--saffron);
-    background: linear-gradient(180deg, rgba(184,65,14,.06), rgba(184,65,14,.02));
+    background: linear-gradient(180deg, rgba(184,65,14,.07), rgba(184,65,14,.02));
     box-shadow: var(--shadow-md);
   }
-  .chamber.is-empty .chamber-planets { opacity: .25; }
+  .chamber.is-empty { background: var(--surface); }
   .chamber-head {
     display: flex;
     flex-direction: column;
@@ -250,7 +333,7 @@
   .chamber-name {
     font-family: var(--display);
     font-weight: 500;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--ink);
     line-height: 1.1;
     letter-spacing: -.005em;
@@ -258,21 +341,21 @@
   .chamber-sanskrit {
     font-family: var(--display);
     font-style: italic;
-    font-size: 11px;
+    font-size: 11.5px;
     color: var(--ink-soft);
     line-height: 1.1;
   }
   .chamber-element {
     display: inline-block;
-    margin-top: 4px;
+    margin-top: 3px;
     font-family: var(--display);
     font-style: italic;
     font-size: 9px;
     letter-spacing: .08em;
     text-transform: uppercase;
-    padding: 1px 6px;
+    padding: 1px 7px;
     border-radius: 999px;
-    line-height: 1.2;
+    line-height: 1.3;
     width: max-content;
   }
   .chamber-element.fire   { background: rgba(184,65,14,.10); color: var(--saffron); }
@@ -280,43 +363,69 @@
   .chamber-element.air    { background: rgba(42,50,112,.10); color: var(--indigo); }
   .chamber-element.water  { background: rgba(122,58,94,.10); color: var(--plum); }
 
+  .chamber-divider {
+    height: 1px;
+    background: var(--rule-soft);
+    margin: 2px -3px 0;
+  }
   .chamber-planets {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
     gap: 4px;
-    align-items: flex-end;
-    justify-content: flex-start;
-    min-height: 28px;
-    transition: opacity .25s;
+    margin-top: auto;
   }
-  .chamber-planet {
-    appearance: none;
-    background: transparent;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    font-family: var(--display), 'Times New Roman', serif;
-    font-size: clamp(20px, 5vw, 26px);
-    color: var(--saffron);
-    cursor: pointer;
-    line-height: 1;
-    transition: transform .15s, color .15s;
-    font-variant-emoji: text;
-    /* tighter than line-height to prevent overflow */
-  }
-  .chamber-planet:hover { transform: scale(1.18); }
-  .chamber-planet.is-active {
-    color: var(--ink);
-    transform: scale(1.18);
-  }
-  .chamber-planet .role-tip {
-    /* unused — info goes in info card */
+  .chamber-empty-note {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    padding: 6px 0 2px;
+    opacity: .7;
   }
 
-  /* Mode-specific: visual hint that planets moved */
-  .stage[data-mode="honour"] .chamber-planet,
-  .stage[data-mode="disgrace"] .chamber-planet {
-    /* placeholder for mode-specific styling */
+  /* Planet "pill" — glyph + role label inside the chamber. Real <button>. */
+  .chamber-planet-pill {
+    appearance: none;
+    background: rgba(184,65,14,.06);
+    border: 1px solid rgba(184,65,14,.20);
+    border-radius: 6px;
+    padding: 3px 7px 3px 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all .15s;
+    width: 100%;
+    text-align: left;
+    line-height: 1.05;
+  }
+  .chamber-planet-pill:hover {
+    background: rgba(184,65,14,.14);
+    border-color: var(--saffron);
+  }
+  .chamber-planet-pill.is-active {
+    background: var(--saffron);
+    border-color: var(--saffron);
+  }
+  .chamber-planet-pill.is-active .pill-glyph,
+  .chamber-planet-pill.is-active .pill-role { color: var(--surface); }
+  .pill-glyph {
+    font-family: var(--display), 'Times New Roman', serif;
+    font-size: 17px;
+    color: var(--saffron);
+    font-variant-emoji: text;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+  }
+  .pill-role {
+    font-family: var(--display);
+    font-size: 11.5px;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: .005em;
   }
 
   /* ---------- INFO CARD ---------- */
@@ -528,13 +637,22 @@
     <h2>The Planetary <em>Cabinet</em></h2>
     <p class="experiment-lede">Vikram's story of the planets as a royal court. Each sign is a chamber; each planet has a role. Switch modes to see where the planets sit, where they're honoured, where they're disgraced — or run the story scene by scene.</p>
 
-    <div class="modes" id="modePills" role="tablist" aria-label="Cabinet view modes">
-      <button class="mode-pill active" data-mode="office" role="tab">Office</button>
-      <button class="mode-pill" data-mode="honour" role="tab">Honour</button>
-      <button class="mode-pill" data-mode="disgrace" role="tab">Disgrace</button>
-      <button class="mode-pill" data-mode="story" role="tab">Story</button>
+    <!-- Cast of characters — establishes who the planets are before any drama starts. -->
+    <div class="roster" id="roster" aria-label="The cast of characters in Vikram's planetary cabinet">
+      <div class="roster-eyebrow">The cast of characters</div>
+      <div class="roster-grid" id="rosterGrid"></div>
     </div>
-    <p class="mode-hint" id="modeHint">Each planet at its <em>natural office</em> — where it does its work.</p>
+
+    <div class="modes-wrap">
+      <p class="modes-cta">New here? Start with <strong>Story</strong> — Vikram builds the cabinet scene by scene.</p>
+      <div class="modes" id="modePills" role="tablist" aria-label="Cabinet view modes">
+        <button class="mode-pill active" data-mode="office" role="tab" type="button">Office</button>
+        <button class="mode-pill recommended" data-mode="story" role="tab" type="button">▶ Story</button>
+        <button class="mode-pill" data-mode="honour" role="tab" type="button">Honour</button>
+        <button class="mode-pill" data-mode="disgrace" role="tab" type="button">Disgrace</button>
+      </div>
+      <p class="mode-hint" id="modeHint">Each planet at its <em>natural office</em> — where it does its work. Tap any pill to read why.</p>
+    </div>
 
     <div class="stage" id="stage" data-mode="office" role="region" aria-label="The cabinet stage"></div>
 
@@ -651,14 +769,31 @@ const CABINET = {
              dishonoured_why: 'Ketu denied in the realm of pleasures — Venus\'s home of beauty.' }
 };
 
-/* The 12 chambers, in South-Indian-style spatial order matching the existing board.
-   Pisces top-left, going clockwise around the edge. */
-const BOARD_LAYOUT = [
-  ['pisces',      'aries',       'taurus',     'gemini'],
-  ['aquarius',    null,          null,         'cancer'],
-  ['capricorn',   null,          null,         'leo'],
-  ['sagittarius', 'scorpio',     'libra',      'virgo']
+/* The 12 chambers in zodiac order, rendered into a 4×3 grid (4 cols on desktop,
+   3 on tablet, 2 on phone). Aries first because that's where Vikram starts the
+   journey, and because the cabinet quotes lean on the King-Queen-Commander trio
+   visible in the first row. */
+const ZODIAC_ORDER = [
+  'aries','taurus','gemini','cancer',
+  'leo','virgo','libra','scorpio',
+  'sagittarius','capricorn','aquarius','pisces'
 ];
+
+/* Short role labels that fit comfortably inside chamber pills. */
+const SHORT_ROLE = {
+  sun:     'King',
+  moon:    'Queen',
+  mars:    'Commander',
+  mercury: 'Prince',
+  jupiter: 'Priest',
+  venus:   'Princess',
+  saturn:  'Servant',
+  rahu:    'Outsider',
+  ketu:    'Outsider'
+};
+
+/* Roster order — keeps the inner court together, then the two outsiders. */
+const ROSTER_ORDER = ['sun','moon','mars','mercury','jupiter','venus','saturn','rahu','ketu'];
 
 /* The 8-scene story walkthrough.
    Each scene tells a moment from Vikram's cabinet narrative.
@@ -752,6 +887,39 @@ function getPlanetPlacements() {
   return {};
 }
 
+function renderRoster() {
+  const grid = document.getElementById('rosterGrid');
+  let html = '';
+  ROSTER_ORDER.forEach(pid => {
+    const p = PLANETS[pid];
+    const role = SHORT_ROLE[pid];
+    const isActive = pid === activePlanetId;
+    html += `
+      <button class="roster-item ${isActive ? 'is-active' : ''}" data-planet="${pid}" type="button" aria-label="${p.name} — ${role}">
+        <span class="roster-glyph">${p.glyph}</span>
+        <span class="roster-text">
+          <span class="roster-name">${p.name}</span>
+          <span class="roster-role">${role}</span>
+        </span>
+      </button>
+    `;
+  });
+  grid.innerHTML = html;
+
+  grid.querySelectorAll('.roster-item').forEach(b => {
+    b.addEventListener('click', () => {
+      const pid = b.dataset.planet;
+      activePlanetId = pid;
+      // If the planet has a placement in the current mode, highlight that chamber.
+      const placements = getPlanetPlacements();
+      activeSignId = placements[pid] || null;
+      renderRoster();
+      renderStage();
+      renderInfoCard();
+    });
+  });
+}
+
 function renderStage() {
   const stage = document.getElementById('stage');
   const placements = getPlanetPlacements();
@@ -763,60 +931,69 @@ function renderStage() {
     if (sid && signPlanets[sid]) signPlanets[sid].push(pid);
   });
 
-  // Render chambers in BOARD_LAYOUT order, skipping nulls.
-  // Use grid-area positioning to keep visual layout consistent.
-  // For the 4×4 layout we use a flat 12-cell grid; the inner 2×2 stays empty visually,
-  // but on mobile we collapse to a denser 3×4 arrangement.
-  // Simpler: render all 12 chambers in a flat sequence.
-  const sequence = [];
-  BOARD_LAYOUT.forEach(row => row.forEach(sid => { if (sid) sequence.push(sid); }));
-
   let html = '';
-  sequence.forEach(sid => {
+  ZODIAC_ORDER.forEach(sid => {
     const s = SIGNS[sid];
     const planets = signPlanets[sid];
     const isEmpty = planets.length === 0;
     const isActive = sid === activeSignId;
+
     const planetsHtml = planets.map(pid => {
       const p = PLANETS[pid];
-      const cabRole = CABINET[pid].role;
+      const role = SHORT_ROLE[pid];
+      const fullRole = CABINET[pid].role;
       const isActivePlanet = pid === activePlanetId;
-      return `<button class="chamber-planet ${isActivePlanet ? 'is-active' : ''}" data-planet="${pid}" type="button" aria-label="${p.name} — ${cabRole} — in ${s.name}" title="${p.name} · ${cabRole}">${p.glyph}</button>`;
+      return `<button class="chamber-planet-pill ${isActivePlanet ? 'is-active' : ''}" data-planet="${pid}" type="button" aria-label="${p.name} — ${fullRole} — in ${s.name}" title="${p.name} · ${fullRole}">
+        <span class="pill-glyph">${p.glyph}</span>
+        <span class="pill-role">${role}</span>
+      </button>`;
     }).join('');
 
+    const planetsBlock = isEmpty
+      ? `<div class="chamber-empty-note">— empty —</div>`
+      : `<div class="chamber-planets">${planetsHtml}</div>`;
+
+    // Chamber is a div with role="button" so we can validly nest <button> planet pills inside.
     html += `
-      <button class="chamber ${isEmpty ? 'is-empty' : ''} ${isActive ? 'is-active' : ''}" data-sign="${sid}" type="button">
+      <div class="chamber ${isEmpty ? 'is-empty' : ''} ${isActive ? 'is-active' : ''}" data-sign="${sid}" role="button" tabindex="0" aria-label="${s.name} chamber">
         <div class="chamber-head">
           <div class="chamber-name">${s.name}</div>
           <div class="chamber-sanskrit">${s.sanskrit}</div>
           <span class="chamber-element ${s.element}">${s.element}</span>
         </div>
-        <div class="chamber-planets">${planetsHtml}</div>
-      </button>
+        <div class="chamber-divider"></div>
+        ${planetsBlock}
+      </div>
     `;
   });
 
   stage.innerHTML = html;
   stage.dataset.mode = currentMode;
 
-  // Bind delegated click listeners
-  stage.querySelectorAll('.chamber-planet').forEach(b => {
+  // Planet pills: select that planet, light up its chamber.
+  stage.querySelectorAll('.chamber-planet-pill').forEach(b => {
     b.addEventListener('click', (ev) => {
       ev.stopPropagation();
       const pid = b.dataset.planet;
       activePlanetId = pid;
       activeSignId = b.closest('.chamber').dataset.sign;
+      renderRoster();
       renderStage();
       renderInfoCard();
     });
   });
+
+  // Chamber click: select chamber, clear active planet.
   stage.querySelectorAll('.chamber').forEach(c => {
-    c.addEventListener('click', (ev) => {
-      // chamber clicked when not on a planet
+    c.addEventListener('click', () => {
       activeSignId = c.dataset.sign;
       activePlanetId = null;
+      renderRoster();
       renderStage();
       renderInfoCard();
+    });
+    c.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); c.click(); }
     });
   });
 }
@@ -833,10 +1010,10 @@ function setMode(mode) {
   // Update mode hint
   const hint = document.getElementById('modeHint');
   const hints = {
-    office:   'Each planet at its <em>natural office</em> — where it does its work.',
-    honour:   'Each planet at its <em>exaltation</em> — where it shines, in story terms.',
-    disgrace: 'Each planet at its <em>debilitation</em> — where it kneels, weakens, dissolves.',
-    story:    'A scene-by-scene walk through Vikram\'s cabinet narrative.'
+    office:   'Each planet at its <em>natural office</em> — where it lives, where it does its work. Tap any pill to read why.',
+    honour:   'Each planet at its <em>exaltation</em> — where it walks in and is at its most glorious. Tap to read the scene.',
+    disgrace: 'Each planet at its <em>debilitation</em> — where it kneels, softens, dissolves. The opposite end of the throne.',
+    story:    'Use ← and → below to walk Vikram\'s cabinet narrative scene by scene.'
   };
   hint.innerHTML = hints[mode] || '';
 
@@ -853,6 +1030,7 @@ function setMode(mode) {
   activePlanetId = null;
   activeSignId = null;
 
+  renderRoster();
   renderStage();
 
   // Show story narration in info card if in story mode, otherwise reset
@@ -885,6 +1063,7 @@ function nextScene() {
   if (storyIdx < STORY_SCENES.length - 1) {
     storyIdx++;
     renderStoryControls();
+    renderRoster();
     renderStage();
     renderStoryNarration();
   }
@@ -894,6 +1073,7 @@ function prevScene() {
   if (storyIdx > 0) {
     storyIdx--;
     renderStoryControls();
+    renderRoster();
     renderStage();
     renderStoryNarration();
   }
@@ -967,6 +1147,7 @@ document.querySelectorAll('.mode-pill[data-mode]').forEach(b => {
 document.getElementById('storyPrev').addEventListener('click', prevScene);
 document.getElementById('storyNext').addEventListener('click', nextScene);
 
+renderRoster();
 renderStage();
 renderInfoCard();
 </script>
