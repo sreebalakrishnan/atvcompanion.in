@@ -293,10 +293,12 @@
   }
   .contrib-status .contrib-clear:hover { text-decoration-color: var(--saffron); }
 
-  /* V0 origin block (v4.27.0) — image figure + caption inside the V0 release */
+  /* V0 origin block — figure + caption inside the V0 release.
+     Updated v4.28.1: now embeds the actual V0 prototype as a live iframe,
+     not a static image. Caption stays. */
   .v0-figure {
     margin: 22px auto 8px;
-    max-width: 480px;
+    max-width: 720px;
     padding: 14px 14px 12px;
     background: var(--surface);
     border: 1px solid var(--rule);
@@ -306,38 +308,35 @@
   .v0-figure img {
     display: block;
     width: 100%;
-    max-width: 440px;
+    max-width: 680px;
     margin: 0 auto;
     height: auto;
     border-radius: 4px;
     border: 1px solid var(--rule-soft);
   }
-  .v0-figure .v0-placeholder {
+  /* Live iframe of the V0 prototype — scrollable, styled to feel like a frame */
+  .v0-figure iframe {
     display: block;
     width: 100%;
-    max-width: 440px;
-    aspect-ratio: 4 / 3;
+    max-width: 680px;
+    height: 480px;
     margin: 0 auto;
-    background: repeating-linear-gradient(
-      45deg,
-      rgba(184,65,14,0.04),
-      rgba(184,65,14,0.04) 8px,
-      transparent 8px,
-      transparent 16px
-    );
-    border: 1px dashed var(--rule);
+    border: 1px solid var(--rule-soft);
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--ink-soft);
+    background: #0d1224;  /* matches V0's dark theme so the iframe feels seamless before it loads */
+  }
+  .v0-figure .v0-link {
+    display: inline-block;
+    margin-top: 8px;
     font-family: var(--display);
     font-style: italic;
-    font-size: 14px;
-    padding: 20px;
-    text-align: center;
-    line-height: 1.4;
+    font-size: 12.5px;
+    color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
   }
+  .v0-figure .v0-link:hover { text-decoration-color: var(--saffron); }
   .v0-figure figcaption {
     margin-top: 10px;
     font-family: var(--display);
@@ -470,10 +469,41 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.28.1 ====================== -->
+  <section class="release" data-credits="Sree (V0 archive)">
+    <header>
+      <h2>v4.28.1 <em>· current</em></h2>
+      <span class="date">7 May 2026</span>
+    </header>
+    <p class="summary">The V0 origin block at the bottom of these release notes finally has its visual. Sree shared the original prototype — <em>"Vedic Astrology Explorer"</em>, a single dark-themed HTML file from before the cream-and-saffron rebuild — and rather than embed a static screenshot, we copied the actual file into the repo as <code>v0.html</code> and dropped it into the V0 entry as a live <code>&lt;iframe&gt;</code>. Lighter than an image, scrollable, and fully interactive: tap a chart cell, change the ascendant, watch the houses rotate. The V0 narrative was rewritten to match what the iframe actually shows — first digital build (after the kitchen-table flashcards), 73 class decks + 50 sessions, no avatars or cabinet yet, just chart geometry and a flashcard tab.</p>
+
+    <h3>What landed</h3>
+    <ul>
+      <li>Copied the V0 HTML (~150 KB, self-contained, zero external deps) into the project as <code>v0.html</code>.</li>
+      <li>V0 figure block now renders an <code>&lt;iframe src="v0.html"&gt;</code> with <code>loading="lazy"</code> and a <code>sandbox</code> scope that allows scripts + same-origin (so the chart works) but nothing else.</li>
+      <li>A small <em>"↗ Open V0 standalone"</em> link below the iframe opens the prototype in a new tab for full-screen exploration.</li>
+      <li>Caption updated to acknowledge the iframe is live and scrollable.</li>
+      <li>iframe styled with a dark default background (<code>#0d1224</code>) so the frame feels seamless before the V0 content paints.</li>
+    </ul>
+
+    <h3>V0 narrative — rewritten</h3>
+    <ul>
+      <li>Was: <em>"Sree started building flashcards. A few dozen cards. The flashcards became digital."</em></li>
+      <li>Now: that line plus the actual V0 description — <em>"Vedic Astrology Explorer, a dark-themed prototype drawn from 73 of Vikram's class decks and 50+ session notes. South Indian chart layout: signs fixed in the grid, houses rotating with the chosen ascendant. A side panel with the four element groupings — Agni, Prithvi, Vayu, Jala. Tabs across the top: Chart, Flashcards, Deep Dive, Planets. No avatars yet, no cabinet, no reflection prompts."</em></li>
+      <li>The "What V0 was" list expanded to call out the maths line (<code>House = ((Sign − ASC + 12) mod 12) + 1</code>), the four element groupings, the four tabs, and the original footer credit (<em>"Created from 73 class decks &amp; 50+ sessions of Astrology 101 — A study in BPHS"</em>).</li>
+    </ul>
+
+    <h3>Why iframe over image</h3>
+    <ul>
+      <li>An image would've been ~500 KB after compression and lost the geometry interaction.</li>
+      <li>The iframe is 150 KB, lazy-loaded (no impact on page load until scrolled to), and lets readers actually use V0 — change the ascendant, see the houses move. The contrast with the current Companion App is more felt than told.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.28.0 ====================== -->
   <section class="release" data-credits="Arpitha (orientation gap) · Sree (welcome nudge)">
     <header>
-      <h2>v4.28.0 <em>· current</em></h2>
+      <h2>v4.28.0</h2>
       <span class="date">7 May 2026</span>
     </header>
     <p class="summary">v4.27.0 fixed Arpitha's first-time pain about locked sections. Then she asked a second question: <em>"Now what do I need to check Anna?"</em> — even with everything visible, she didn't know where to start. v4.28.0 answers that with a soft nudge: a small <strong>welcome card</strong> appears once on the first visit, offering three concrete places to begin (the wheel of signs, the Cabinet, the Trace exercise). Once dismissed (or once a learner taps any of the three), the card never shows again. Returning users see nothing. Plus a small refresh of the masthead sub-line to invite first-timers in.</p>
@@ -2094,23 +2124,27 @@
 
     <p class="summary" style="font-size:16px;">Sanchi and Sree were doing their <em>annual year-planning ritual</em> — the practice of sitting down at the start of the year to map intentions, projects, what to keep doing, what to set down. One thread that kept surfacing: how do we hold what Vikram's Astrology 101 class is teaching us? The material was rich; the cohort was warm; the recall was hard.</p>
 
-    <p class="summary" style="font-size:16px;">Sree started building flashcards. Just a deck. Sanskrit names on one side, English meanings on the other. A few dozen cards.</p>
+    <p class="summary" style="font-size:16px;">Sree started building flashcards. Just a deck. Sanskrit names on one side, English meanings on the other. A few dozen cards. Then those cards went digital — and the first build came together as <em>Vedic Astrology Explorer</em>, a dark-themed prototype drawn from 73 of Vikram's class decks and 50+ session notes. South Indian chart layout: signs fixed in the grid, houses rotating with the chosen ascendant. A side panel with the four element groupings — Agni, Prithvi, Vayu, Jala. Tabs across the top: Chart, Flashcards, Deep Dive, Planets. No avatars yet, no cabinet, no reflection prompts. Just chart geometry and a flashcard tab — the recall instinct that started everything.</p>
 
     <figure class="v0-figure">
-      <!-- v4.27.0: image goes here once Sree shares it. Will be resized to ~640px wide and embedded. -->
-      <span class="v0-placeholder">[ photo of the original paper flashcards — to be added ]</span>
-      <figcaption>The original deck. The annual-year-planning sit-down where this began. Image to be added by Sree.</figcaption>
+      <!-- v4.28.1: live iframe of the actual V0 prototype, served from /v0.html in this repo. -->
+      <iframe src="v0.html" loading="lazy" title="V0 — Vedic Astrology Explorer prototype" sandbox="allow-scripts allow-same-origin"></iframe>
+      <a class="v0-link" href="v0.html" target="_blank" rel="noopener">↗ Open V0 standalone</a>
+      <figcaption>V0 — the original <em>Vedic Astrology Explorer</em>. Self-contained HTML, dark theme, South Indian chart with rotating houses. Live and scrollable here; opens standalone in a new tab if you'd like more room.</figcaption>
     </figure>
 
-    <p class="summary" style="font-size:16px;">The flashcards became digital. The digital flashcards became a quiz. The quiz became one section of a single HTML page. That page added drawers, then planets, then houses, then avatars. Then peer pages — Kaalapurusha, Mercury Spectrum, Astronomy. Then a Cabinet, with a Court Call game inside it. Then a Companion Workbook integration with Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha. Then a feedback channel that goes back to the same kitchen table over WhatsApp.</p>
+    <p class="summary" style="font-size:16px;">From this seed grew the cream-and-saffron companion app you're reading the changelog of now. The flashcard tab became a full quiz system. One HTML page added drawers, then planets, then houses, then avatars. Then peer pages — Kaalapurusha, Mercury Spectrum, Astronomy. Then a Cabinet, with a Court Call game inside it. Then a Companion Workbook integration with Marie · Sudha · Mannat · Spandana · Vikram · Megha · Neha. Then a feedback channel that goes back to the same kitchen table over WhatsApp.</p>
 
     <p class="summary" style="font-size:16px;">Twenty-five-some releases later, this is where it began.</p>
 
     <h3>What V0 was</h3>
     <ul>
-      <li>A stack of paper flashcards. Maybe forty cards. Sign Sanskrit names, planet rulerships, house keywords.</li>
-      <li>One side of a notebook page mapped <em>"what we want to remember from each session"</em>. The other side was Sanchi and Sree's actual year plan — projects, learnings, retreats, this one project among them.</li>
-      <li>No code. No release notes. No version numbers.</li>
+      <li>A single self-contained HTML file. ~150 KB. Dark theme.</li>
+      <li>A South Indian chart with the 12 signs fixed in their grid positions and the 12 houses rotating based on a dropdown-selected ascendant. Tap a cell, see the sign details. The maths line at the top: <code>House = ((Sign − ASC + 12) mod 12) + 1</code>.</li>
+      <li>A side panel listing the four element groupings — Agni (Fire), Prithvi (Earth), Vayu (Air), Jala (Water).</li>
+      <li>Four tabs across the top: Chart, Flashcards, Deep Dive, Planets. The flashcard tab carried the recall instinct from the kitchen-table deck.</li>
+      <li>Footer: <em>"Created from 73 class decks &amp; 50+ sessions of Astrology 101 — A study in BPHS"</em>. Honest about its source.</li>
+      <li>No avatars. No planetary cabinet. No reflection prompts. No release notes. No version numbers.</li>
     </ul>
 
     <h3>What it became</h3>
@@ -2126,7 +2160,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.28.0 · updated 7 May 2026</span>
+      <span style="color:var(--muted);">v4.28.1 · updated 7 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2342,7 +2376,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.28.0';
+  const PAGE_VERSION = '4.28.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

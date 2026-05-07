@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<!-- saved from url=(0249)file:///Users/sreeb/Library/Application%20Support/Claude/local-agent-mode-sessions/99af4996-ea73-46d8-abbf-f87be7f8b998/3e809b50-9433-4e41-9fa5-f20608ec75ed/agent/local_ditto_3e809b50-9433-4e41-9fa5-f20608ec75ed/outputs/vedic_astrology_explorer.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.5, maximum-scale=5.0">
+<title>Vedic Astrology Explorer — Astrology 101</title>
+<style>
+  :root {
+    --bg: #0d1b2a;
+    --bg2: #122236;
+    --bg3: #1a3050;
+    --gold: #c9a84c;
+    --gold-light: #e8c96b;
+    --cream: #f0e6d3;
+    --cream-dim: #c8b99a;
+    --fire: #e8442a;
+    --earth: #6b8f3e;
+    --air: #c9a84c;
+    --water: #2e7fbf;
+    --fire-bg: rgba(232,68,42,0.15);
+    --earth-bg: rgba(107,143,62,0.15);
+    --air-bg: rgba(201,168,76,0.15);
+    --water-bg: rgba(46,127,191,0.15);
+    --border: rgba(201,168,76,0.3);
+    --radius: 10px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.4);
+    --cell-size: 110px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Georgia', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  header {
+    text-align: center;
+    padding: 22px 16px 14px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, transparent 100%);
+  }
+  header h1 {
+    font-size: clamp(1.3rem, 5vw, 2rem);
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  }
+  header p { color: var(--cream-dim); font-size: clamp(0.7rem, 2.5vw, 0.85rem); margin-top: 6px; letter-spacing: 1px; }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    padding: 12px 12px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    color: var(--cream-dim);
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: clamp(0.78rem, 2.5vw, 0.95rem);
+    font-family: Georgia, serif;
+    border-radius: var(--radius) var(--radius) 0 0;
+    transition: all 0.2s;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .tab-btn:hover, .tab-btn:active { color: var(--gold); background: rgba(201,168,76,0.05); }
+  .tab-btn.active {
+    color: var(--gold);
+    border-color: var(--border);
+    background: var(--bg2);
+    font-weight: bold;
+  }
+  .tab-content { display: none; padding: 20px 14px; flex: 1; }
+  .tab-content.active { display: block; }
+
+  /* ── SHARED ── */
+  .element-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-fire { background: var(--fire-bg); color: var(--fire); border: 1px solid var(--fire); }
+  .badge-earth { background: var(--earth-bg); color: var(--earth); border: 1px solid var(--earth); }
+  .badge-air { background: var(--air-bg); color: var(--air); border: 1px solid var(--air); }
+  .badge-water { background: var(--water-bg); color: var(--water); border: 1px solid var(--water); }
+
+  /* ════════════════════════════════════
+     TAB 1 — CHART EXPLORER
+  ════════════════════════════════════ */
+  .chart-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .chart-controls label { color: var(--gold); font-size: 0.85rem; white-space: nowrap; }
+  .chart-controls select {
+    background: var(--bg2);
+    color: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.88rem;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+    touch-action: manipulation;
+  }
+  .chart-controls button {
+    background: var(--bg2);
+    color: var(--gold);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s;
+  }
+  .chart-controls button:active { background: rgba(201,168,76,0.2); }
+
+  /* Grid wrapper — horizontal scroll on tiny screens */
+  .grid-scroll-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .south-indian-grid {
+    display: grid;
+    grid-template-columns: repeat(4, var(--cell-size));
+    grid-template-rows: repeat(4, var(--cell-size));
+    gap: 2px;
+    background: var(--border);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    min-width: calc(4 * var(--cell-size) + 8px);
+  }
+
+  .grid-cell {
+    background: var(--bg2);
+    padding: 7px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid transparent;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+  }
+  .grid-cell.fire-cell { border-color: rgba(232,68,42,0.3); }
+  .grid-cell.earth-cell { border-color: rgba(107,143,62,0.3); }
+  .grid-cell.air-cell { border-color: rgba(201,168,76,0.3); }
+  .grid-cell.water-cell { border-color: rgba(46,127,191,0.3); }
+  .grid-cell:hover, .grid-cell:active { background: var(--bg3); }
+  .grid-cell.center { background: var(--bg); cursor: default; pointer-events: none; }
+  .cell-sign-num { font-size: 0.58rem; color: var(--cream-dim); position: absolute; top: 3px; left: 4px; }
+  .cell-house-num { font-size: 0.72rem; color: var(--gold); font-weight: bold; position: absolute; top: 3px; right: 5px; }
+  .cell-sign-name { font-size: 0.68rem; color: var(--cream); margin-top: 20px; line-height: 1.3; }
+  .cell-sanskrit { font-size: 0.62rem; color: var(--cream-dim); }
+  .cell-symbol { font-size: 1.3rem; position: absolute; bottom: 5px; right: 7px; opacity: 0.7; }
+  .cell-element-dot { width: 7px; height: 7px; border-radius: 50%; position: absolute; bottom: 7px; left: 7px; }
+  .grid-cell.asc-cell { background: rgba(201,168,76,0.12) !important; }
+
+  /* ── TOOLTIP — desktop hover (not mobile) ── */
+  .desktop-tooltip {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    background: var(--bg);
+    border: 1px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 14px;
+    width: 260px;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+  }
+  .desktop-tooltip.visible { display: block; }
+  .desktop-tooltip h3 { color: var(--gold); font-size: 0.95rem; margin-bottom: 8px; }
+  .tt-row { display: flex; justify-content: space-between; font-size: 0.77rem; margin: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 3px; }
+  .tt-label { color: var(--cream-dim); flex-shrink: 0; margin-right: 6px; }
+  .tt-value { color: var(--cream); font-weight: bold; text-align: right; }
+
+  /* ── BOTTOM SHEET (mobile tap) ── */
+  .bottom-sheet-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 500;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .bottom-sheet-overlay.open {
+    display: flex;
+    animation: fadeIn 0.15s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .bottom-sheet {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 18px 18px 0 0;
+    padding: 20px 18px 32px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: slideUp 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    position: relative;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .sheet-handle {
+    width: 40px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+  .sheet-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--cream-dim);
+    border-radius: 50%;
+    width: 30px; height: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sheet-title { color: var(--gold); font-size: 1.05rem; margin-bottom: 14px; }
+  .sheet-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 0.82rem;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    gap: 12px;
+  }
+  .sheet-label { color: var(--cream-dim); flex-shrink: 0; }
+  .sheet-value { color: var(--cream); font-weight: bold; text-align: right; }
+  .sheet-desc {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--cream-dim);
+    line-height: 1.7;
+    padding: 12px;
+    background: rgba(201,168,76,0.05);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }
+  .sheet-keywords {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+  }
+  .sheet-keyword {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3px 10px;
+    font-size: 0.74rem;
+    color: var(--cream-dim);
+  }
+
+  /* Show All grid */
+  .show-all-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .show-all-grid.visible { display: grid; }
+  .mini-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s;
+  }
+  .mini-card:active { background: var(--bg3); }
+  .mini-card h4 { color: var(--gold); margin-bottom: 6px; font-size: 0.85rem; }
+  .mini-card p { color: var(--cream-dim); font-size: 0.75rem; line-height: 1.6; }
+
+  /* Chart legend */
+  .chart-layout { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .chart-legend {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    flex: 1;
+    min-width: 220px;
+    max-width: 340px;
+  }
+  .chart-legend h4 { color: var(--gold); margin-bottom: 10px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+  .chart-legend p { color: var(--cream-dim); font-size: 0.8rem; line-height: 1.7; }
+  .legend-el { display: flex; align-items: center; gap: 8px; font-size: 0.76rem; margin-top: 6px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ════════════════════════════════════
+     TAB 2 — FLASHCARDS
+  ════════════════════════════════════ */
+  .flashcard-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .fc-btn {
+    background: var(--bg2);
+    color: var(--gold);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+  .fc-btn:active { background: rgba(201,168,76,0.2); }
+  .progress-wrap { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 4px; }
+  .progress-bar-container {
+    background: var(--bg2);
+    border-radius: 20px;
+    height: 8px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .progress-bar { height: 100%; background: var(--gold); transition: width 0.4s; border-radius: 20px; }
+  .progress-text { color: var(--cream-dim); font-size: 0.78rem; text-align: right; }
+
+  .flashcards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 14px;
+  }
+
+  /* Cards taller on mobile to accommodate back content */
+  .flashcard { height: 220px; perspective: 1000px; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .flashcard-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+  .flashcard-front, .flashcard-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .flashcard-front {
+    background: var(--bg2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 14px; text-align: center;
+  }
+  .flashcard-back {
+    background: var(--bg3);
+    transform: rotateY(180deg);
+    display: flex; flex-direction: column;
+    padding: 10px 12px;
+    overflow: hidden;
+  }
+
+  .card-symbol { font-size: 2.5rem; margin-bottom: 7px; }
+  .card-sanskrit { color: var(--gold); font-size: 1rem; font-weight: bold; margin-bottom: 3px; }
+  .card-english { color: var(--cream-dim); font-size: 0.78rem; }
+  .card-num { color: rgba(201,168,76,0.4); font-size: 0.68rem; position: absolute; top: 7px; left: 9px; }
+  .card-hint { margin-top: 9px; font-size: 0.67rem; color: rgba(201,168,76,0.45); }
+
+  .card-back-title {
+    color: var(--gold); font-size: 0.78rem; font-weight: bold;
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  /* Each attribute row on the back */
+  .cbr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    margin: 3px 0;
+    gap: 6px;
+    min-height: 0;
+    flex-shrink: 0;
+  }
+  .cbr-label { color: var(--cream-dim); flex-shrink: 0; font-size: 0.67rem; }
+  .cbr-val { color: var(--cream); font-weight: bold; text-align: right; font-size: 0.67rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 110px; }
+  .card-mastered-btn {
+    margin-top: auto;
+    padding-top: 6px;
+    display: flex;
+    justify-content: center;
+  }
+  .mastered-btn {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    border-radius: 4px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-family: Georgia, serif;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ════════════════════════════════════
+     TAB 3 — DEEP DIVE
+  ════════════════════════════════════ */
+  .deep-dive-layout { display: flex; gap: 18px; align-items: flex-start; }
+
+  /* Desktop: sidebar */
+  .sign-sidebar {
+    width: 150px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: sticky;
+    top: 70px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .sign-sidebar::-webkit-scrollbar { display: none; }
+
+  .sign-sidebar-btn {
+    background: var(--bg2);
+    border: 1px solid transparent;
+    color: var(--cream-dim);
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-family: Georgia, serif;
+    font-size: 0.8rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+  }
+  .sign-sidebar-btn:hover, .sign-sidebar-btn:active { color: var(--cream); background: var(--bg3); }
+  .sign-sidebar-btn.active { color: var(--gold); border-color: var(--border); background: var(--bg3); }
+
+  .sign-detail-panel { flex: 1; min-width: 0; }
+  .sign-detail-card { display: none; }
+  .sign-detail-card.active { display: block; }
+
+  .sign-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .sign-big-symbol { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1; }
+  .sign-header-text h2 { color: var(--gold); font-size: clamp(1.2rem, 4vw, 1.7rem); }
+  .sign-header-text h3 { color: var(--cream-dim); font-size: clamp(0.85rem, 3vw, 1.05rem); margin: 3px 0; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+
+  .sign-attrs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .attr-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .attr-box-label { color: var(--cream-dim); font-size: 0.67rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  .attr-box-value { color: var(--cream); font-size: 0.9rem; font-weight: bold; }
+
+  .sign-description {
+    background: rgba(201,168,76,0.04);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 18px;
+    line-height: 1.8;
+    font-size: 0.88rem;
+    color: var(--cream);
+  }
+  .sign-description h4 { color: var(--gold); margin-bottom: 9px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+  .keywords-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .keyword-tag { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 3px 10px; font-size: 0.76rem; color: var(--cream-dim); }
+
+  /* ════════════════════════════════════
+     TAB 4 — PLANETS
+  ════════════════════════════════════ */
+  .planets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .planet-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .planet-card:hover, .planet-card:active { border-color: var(--gold); background: var(--bg3); }
+  .planet-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .planet-symbol { font-size: 2.2rem; }
+  .planet-header-text h3 { color: var(--gold); font-size: 1.05rem; }
+  .planet-header-text p { color: var(--cream-dim); font-size: 0.78rem; margin-top: 2px; }
+  .planet-attrs { display: flex; flex-direction: column; gap: 7px; }
+  .planet-row { display: flex; justify-content: space-between; font-size: 0.8rem; align-items: flex-start; gap: 8px; }
+  .planet-label { color: var(--cream-dim); flex-shrink: 0; }
+  .planet-value { color: var(--cream); text-align: right; font-weight: bold; font-size: 0.78rem; }
+  .cabinet-role {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px; padding: 7px 12px;
+    font-size: 0.8rem; color: var(--gold);
+    margin-top: 10px; text-align: center; font-style: italic;
+  }
+  .planet-nature-badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 0.7rem; margin-left: 5px; }
+  .benefic { background: rgba(107,143,62,0.2); color: #8bc34a; border: 1px solid #6b8f3e; }
+  .malefic { background: rgba(232,68,42,0.2); color: #ff7043; border: 1px solid var(--fire); }
+  .neutral { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--border); }
+  .planet-desc {
+    margin-top: 12px; padding: 10px 12px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 6px; font-size: 0.76rem;
+    color: var(--cream-dim); line-height: 1.7;
+    border-left: 2px solid var(--border);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 18px 16px;
+    border-top: 1px solid var(--border);
+    color: var(--cream-dim); font-size: 0.75rem;
+    letter-spacing: 0.5px; margin-top: auto;
+  }
+  footer span { color: var(--gold); }
+
+  /* ════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+  ════════════════════════════════════ */
+
+  /* Mobile: cells scale down */
+  @media (max-width: 520px) {
+    :root { --cell-size: 80px; }
+    .cell-symbol { font-size: 1rem; bottom: 4px; right: 4px; }
+    .cell-sign-name { font-size: 0.6rem; margin-top: 18px; }
+    .cell-sanskrit { font-size: 0.56rem; }
+    .cell-house-num { font-size: 0.65rem; }
+  }
+
+  /* Deep Dive: mobile switch to horizontal scroll sidebar */
+  @media (max-width: 600px) {
+    .deep-dive-layout { flex-direction: column; gap: 12px; }
+    .sign-sidebar {
+      width: 100%;
+      flex-direction: row;
+      position: static;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-height: none;
+      padding-bottom: 4px;
+      gap: 4px;
+    }
+    .sign-sidebar-btn {
+      flex-shrink: 0;
+      padding: 7px 10px;
+      font-size: 0.75rem;
+    }
+
+    .flashcards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .flashcard { height: 200px; }
+
+    /* Chart legend collapses on mobile */
+    .chart-legend { max-width: 100%; }
+  }
+
+  @media (min-width: 601px) {
+    /* Desktop: use mouse hover for tooltips only */
+    .grid-cell:hover { background: var(--bg3); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🪐 Vedic Astrology Explorer</h1>
+  <p>South Indian Chart · 12 Rashis · 9 Navagrahas · BPHS Reference</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab(&#39;chart&#39;, this)">🪐 Chart</button>
+  <button class="tab-btn" onclick="showTab(&#39;flashcards&#39;, this)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab(&#39;deepdive&#39;, this)">🔍 Deep Dive</button>
+  <button class="tab-btn" onclick="showTab(&#39;planets&#39;, this)">✨ Planets</button>
+</div>
+
+<!-- ── TAB 1: CHART EXPLORER ── -->
+<div id="tab-chart" class="tab-content active">
+  <div class="chart-controls">
+    <label for="asc-select">Ascendant:</label>
+    <select id="asc-select" onchange="updateChart()">
+      <option value="0">Mesha / Aries ♈</option>
+      <option value="1">Vrishabha / Taurus ♉</option>
+      <option value="2">Mithuna / Gemini ♊</option>
+      <option value="3">Karka / Cancer ♋</option>
+      <option value="4">Simha / Leo ♌</option>
+      <option value="5">Kanya / Virgo ♍</option>
+      <option value="6">Tula / Libra ♎</option>
+      <option value="7">Vrischika / Scorpio ♏</option>
+      <option value="8">Dhanu / Sagittarius ♐</option>
+      <option value="9">Makara / Capricorn ♑</option>
+      <option value="10">Kumbha / Aquarius ♒</option>
+      <option value="11">Meena / Pisces ♓</option>
+    </select>
+    <button onclick="toggleShowAll()">📋 All Signs</button>
+  </div>
+
+  <div class="chart-layout">
+    <div class="grid-scroll-wrapper">
+      <div class="south-indian-grid" id="si-grid"><div class="grid-cell water-cell">
+        <span class="cell-sign-num">12</span>
+        <span class="cell-house-num">H12</span>
+        <div class="cell-sign-name">Pisces</div>
+        <div class="cell-sanskrit">Meena</div>
+        
+        <span class="cell-symbol">♓</span>
+        <span class="cell-element-dot" style="background:var(--water)"></span>
+      </div><div class="grid-cell fire-cell asc-cell">
+        <span class="cell-sign-num">1</span>
+        <span class="cell-house-num">H1</span>
+        <div class="cell-sign-name">Aries</div>
+        <div class="cell-sanskrit">Mesha</div>
+        <div style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:0.52rem;color:var(--gold);letter-spacing:0.5px;white-space:nowrap;">ASC ▲</div>
+        <span class="cell-symbol">♈</span>
+        <span class="cell-element-dot" style="background:var(--fire)"></span>
+      </div><div class="grid-cell earth-cell">
+        <span class="cell-sign-num">2</span>
+        <span class="cell-house-num">H2</span>
+        <div class="cell-sign-name">Taurus</div>
+        <div class="cell-sanskrit">Vrishabha</div>
+        
+        <span class="cell-symbol">♉</span>
+        <span class="cell-element-dot" style="background:var(--earth)"></span>
+      </div><div class="grid-cell air-cell">
+        <span class="cell-sign-num">3</span>
+        <span class="cell-house-num">H3</span>
+        <div class="cell-sign-name">Gemini</div>
+        <div class="cell-sanskrit">Mithuna</div>
+        
+        <span class="cell-symbol">♊</span>
+        <span class="cell-element-dot" style="background:var(--air)"></span>
+      </div><div class="grid-cell air-cell">
+        <span class="cell-sign-num">11</span>
+        <span class="cell-house-num">H11</span>
+        <div class="cell-sign-name">Aquarius</div>
+        <div class="cell-sanskrit">Kumbha</div>
+        
+        <span class="cell-symbol">♒</span>
+        <span class="cell-element-dot" style="background:var(--air)"></span>
+      </div><div class="grid-cell center"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><span style="font-size:1.4rem;opacity:0.15;color:var(--gold)">🪐</span></div></div><div class="grid-cell center"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><span style="font-size:1.4rem;opacity:0.15;color:var(--gold)">🪐</span></div></div><div class="grid-cell water-cell">
+        <span class="cell-sign-num">4</span>
+        <span class="cell-house-num">H4</span>
+        <div class="cell-sign-name">Cancer</div>
+        <div class="cell-sanskrit">Karka</div>
+        
+        <span class="cell-symbol">♋</span>
+        <span class="cell-element-dot" style="background:var(--water)"></span>
+      </div><div class="grid-cell earth-cell">
+        <span class="cell-sign-num">10</span>
+        <span class="cell-house-num">H10</span>
+        <div class="cell-sign-name">Capricorn</div>
+        <div class="cell-sanskrit">Makara</div>
+        
+        <span class="cell-symbol">♑</span>
+        <span class="cell-element-dot" style="background:var(--earth)"></span>
+      </div><div class="grid-cell center"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><span style="font-size:1.4rem;opacity:0.15;color:var(--gold)">🪐</span></div></div><div class="grid-cell center"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><span style="font-size:1.4rem;opacity:0.15;color:var(--gold)">🪐</span></div></div><div class="grid-cell fire-cell">
+        <span class="cell-sign-num">5</span>
+        <span class="cell-house-num">H5</span>
+        <div class="cell-sign-name">Leo</div>
+        <div class="cell-sanskrit">Simha</div>
+        
+        <span class="cell-symbol">♌</span>
+        <span class="cell-element-dot" style="background:var(--fire)"></span>
+      </div><div class="grid-cell fire-cell">
+        <span class="cell-sign-num">9</span>
+        <span class="cell-house-num">H9</span>
+        <div class="cell-sign-name">Sagittarius</div>
+        <div class="cell-sanskrit">Dhanu</div>
+        
+        <span class="cell-symbol">♐</span>
+        <span class="cell-element-dot" style="background:var(--fire)"></span>
+      </div><div class="grid-cell water-cell">
+        <span class="cell-sign-num">8</span>
+        <span class="cell-house-num">H8</span>
+        <div class="cell-sign-name">Scorpio</div>
+        <div class="cell-sanskrit">Vrischika</div>
+        
+        <span class="cell-symbol">♏</span>
+        <span class="cell-element-dot" style="background:var(--water)"></span>
+      </div><div class="grid-cell air-cell">
+        <span class="cell-sign-num">7</span>
+        <span class="cell-house-num">H7</span>
+        <div class="cell-sign-name">Libra</div>
+        <div class="cell-sanskrit">Tula</div>
+        
+        <span class="cell-symbol">♎</span>
+        <span class="cell-element-dot" style="background:var(--air)"></span>
+      </div><div class="grid-cell earth-cell">
+        <span class="cell-sign-num">6</span>
+        <span class="cell-house-num">H6</span>
+        <div class="cell-sign-name">Virgo</div>
+        <div class="cell-sanskrit">Kanya</div>
+        
+        <span class="cell-symbol">♍</span>
+        <span class="cell-element-dot" style="background:var(--earth)"></span>
+      </div></div>
+    </div>
+    <div class="chart-legend">
+      <h4>South Indian Chart</h4>
+      <p>Signs are <span style="color:var(--gold)">fixed</span> — Aries always top-row. Houses rotate based on your Ascendant. <span style="color:var(--gold)">Tap</span> any cell for full details.</p>
+      <p style="margin-top:10px;font-size:0.76rem;color:rgba(201,168,76,0.6)">House = ((Sign − ASC + 12) mod 12) + 1</p>
+      <div style="margin-top:12px;">
+        <div class="legend-el"><span class="legend-dot" style="background:var(--fire-bg);border:1px solid var(--fire)"></span><span style="color:var(--cream-dim)">Agni (Fire) — Aries, Leo, Sagittarius</span></div>
+        <div class="legend-el"><span class="legend-dot" style="background:var(--earth-bg);border:1px solid var(--earth)"></span><span style="color:var(--cream-dim)">Prithvi (Earth) — Taurus, Virgo, Capricorn</span></div>
+        <div class="legend-el"><span class="legend-dot" style="background:var(--air-bg);border:1px solid var(--air)"></span><span style="color:var(--cream-dim)">Vayu (Air) — Gemini, Libra, Aquarius</span></div>
+        <div class="legend-el"><span class="legend-dot" style="background:var(--water-bg);border:1px solid var(--water)"></span><span style="color:var(--cream-dim)">Jala (Water) — Cancer, Scorpio, Pisces</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="show-all-grid" id="show-all-grid"></div>
+</div>
+
+<!-- ── TAB 2: FLASHCARDS ── -->
+<div id="tab-flashcards" class="tab-content">
+  <div class="flashcard-controls">
+    <button class="fc-btn" onclick="flipAllCards()">🔄 Flip All</button>
+    <button class="fc-btn" onclick="resetCards()">↺ Reset</button>
+    <button class="fc-btn" onclick="shuffleCards()">🔀 Shuffle</button>
+    <div class="progress-wrap">
+      <div class="progress-bar-container"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+      <div class="progress-text" id="progress-text">0 / 12 mastered</div>
+    </div>
+  </div>
+  <div class="flashcards-grid" id="flashcards-grid"><div class="flashcard" data-idx="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--fire)">
+          <span class="card-num">1</span>
+          <div class="card-symbol">♈</div>
+          <div class="card-sanskrit">Mesha</div>
+          <div class="card-english">Aries</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--fire)">
+          <div class="card-back-title">Mesha ♈ — Aries</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--fire)">Fire</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Chara</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Mangala</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Surya at 10°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Shani</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Head &amp; Face</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Red Coral</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(0, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="1">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--earth)">
+          <span class="card-num">2</span>
+          <div class="card-symbol">♉</div>
+          <div class="card-sanskrit">Vrishabha</div>
+          <div class="card-english">Taurus</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--earth)">
+          <div class="card-back-title">Vrishabha ♉ — Taurus</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--earth)">Earth</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Sthira</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Shukra</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Chandra at 3°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Rahu</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Throat, Neck &amp; Voice</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Diamond</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(1, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="2">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--air)">
+          <span class="card-num">3</span>
+          <div class="card-symbol">♊</div>
+          <div class="card-sanskrit">Mithuna</div>
+          <div class="card-english">Gemini</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--air)">
+          <div class="card-back-title">Mithuna ♊ — Gemini</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--air)">Air</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Dwiswabhava</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Budha</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Rahu (nodal)</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Ketu</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Arms, Shoulders &amp; Lungs</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Emerald</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(2, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="3">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--water)">
+          <span class="card-num">4</span>
+          <div class="card-symbol">♋</div>
+          <div class="card-sanskrit">Karka</div>
+          <div class="card-english">Cancer</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--water)">
+          <div class="card-back-title">Karka ♋ — Cancer</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--water)">Water</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Chara</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Chandra</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Guru at 5°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Mangala</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Chest, Breasts &amp; Stomach</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Pearl</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(3, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="4">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--fire)">
+          <span class="card-num">5</span>
+          <div class="card-symbol">♌</div>
+          <div class="card-sanskrit">Simha</div>
+          <div class="card-english">Leo</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--fire)">
+          <div class="card-back-title">Simha ♌ — Leo</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--fire)">Fire</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Sthira</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Surya</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">None (Sun rules this sign)</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">None</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Heart, Upper Back &amp; Spine</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Ruby</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(4, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="5">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--earth)">
+          <span class="card-num">6</span>
+          <div class="card-symbol">♍</div>
+          <div class="card-sanskrit">Kanya</div>
+          <div class="card-english">Virgo</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--earth)">
+          <div class="card-back-title">Kanya ♍ — Virgo</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--earth)">Earth</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Dwiswabhava</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Budha</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Budha at 15°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Shukra</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Digestive System &amp; Abdomen</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Emerald</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(5, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="6">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--air)">
+          <span class="card-num">7</span>
+          <div class="card-symbol">♎</div>
+          <div class="card-sanskrit">Tula</div>
+          <div class="card-english">Libra</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--air)">
+          <div class="card-back-title">Tula ♎ — Libra</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--air)">Air</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Chara</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Shukra</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Shani at 20°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Surya</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Kidneys, Lower Back &amp; Pelvis</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Diamond</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(6, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="7">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--water)">
+          <span class="card-num">8</span>
+          <div class="card-symbol">♏</div>
+          <div class="card-sanskrit">Vrischika</div>
+          <div class="card-english">Scorpio</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--water)">
+          <div class="card-back-title">Vrischika ♏ — Scorpio</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--water)">Water</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Sthira</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Mangala + Ketu</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">(Moon debilitated here)</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Chandra</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Reproductive Organs &amp; Elimination</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Red Coral</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(7, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="8">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--fire)">
+          <span class="card-num">9</span>
+          <div class="card-symbol">♐</div>
+          <div class="card-sanskrit">Dhanu</div>
+          <div class="card-english">Sagittarius</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--fire)">
+          <div class="card-back-title">Dhanu ♐ — Sagittarius</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--fire)">Fire</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Dwiswabhava</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Guru</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Ketu (nodal, some texts)</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Rahu</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Thighs, Hips &amp; Liver</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Yellow Sapphire</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(8, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="9">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--earth)">
+          <span class="card-num">10</span>
+          <div class="card-symbol">♑</div>
+          <div class="card-sanskrit">Makara</div>
+          <div class="card-english">Capricorn</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--earth)">
+          <div class="card-back-title">Makara ♑ — Capricorn</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--earth)">Earth</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Chara</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Shani</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Mangala at 28°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Guru</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Knees &amp; Skeletal System</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Blue Sapphire</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(9, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="10">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--air)">
+          <span class="card-num">11</span>
+          <div class="card-symbol">♒</div>
+          <div class="card-sanskrit">Kumbha</div>
+          <div class="card-english">Aquarius</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--air)">
+          <div class="card-back-title">Kumbha ♒ — Aquarius</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--air)">Air</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Sthira</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Shani + Rahu</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">None (classical)</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">None</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Ankles, Calves &amp; Circulation</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Blue Sapphire / Hessonite</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(10, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div><div class="flashcard" data-idx="11">
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:var(--water)">
+          <span class="card-num">12</span>
+          <div class="card-symbol">♓</div>
+          <div class="card-sanskrit">Meena</div>
+          <div class="card-english">Pisces</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:var(--water)">
+          <div class="card-back-title">Meena ♓ — Pisces</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:var(--water)">Water</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">Dwiswabhava</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">Guru</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">Shukra at 27°</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">Budha</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">Feet &amp; Lymphatic System</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">Yellow Sapphire</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(11, event)">Mark mastered</button>
+          </div>
+        </div>
+      </div></div></div>
+</div>
+
+<!-- ── TAB 3: DEEP DIVE ── -->
+<div id="tab-deepdive" class="tab-content">
+  <div class="deep-dive-layout">
+    <div class="sign-sidebar" id="sign-sidebar"><button class="sign-sidebar-btn active"><span>♈</span><span>Mesha</span></button><button class="sign-sidebar-btn"><span>♉</span><span>Vrishabha</span></button><button class="sign-sidebar-btn"><span>♊</span><span>Mithuna</span></button><button class="sign-sidebar-btn"><span>♋</span><span>Karka</span></button><button class="sign-sidebar-btn"><span>♌</span><span>Simha</span></button><button class="sign-sidebar-btn"><span>♍</span><span>Kanya</span></button><button class="sign-sidebar-btn"><span>♎</span><span>Tula</span></button><button class="sign-sidebar-btn"><span>♏</span><span>Vrischika</span></button><button class="sign-sidebar-btn"><span>♐</span><span>Dhanu</span></button><button class="sign-sidebar-btn"><span>♑</span><span>Makara</span></button><button class="sign-sidebar-btn"><span>♒</span><span>Kumbha</span></button><button class="sign-sidebar-btn"><span>♓</span><span>Meena</span></button></div>
+    <div class="sign-detail-panel" id="sign-detail-panel"><div class="sign-detail-card active" id="detail-0">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♈</div>
+        <div class="sign-header-text">
+          <h2>Mesha</h2>
+          <h3>Aries — Rashi 1</h3>
+          <div class="badges">
+            <span class="element-badge badge-fire">fire</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Chara</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Male (Purusha)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Mangala (Mars)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Surya at 10°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Shani at 20°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Head &amp; Face</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">East</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Tuesday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Blood Red</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Red Coral</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Fiery, Aggressive, Dynamic</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Mesha is ruled by Mangala (Mars) — the warrior-pioneer of the zodiac. Bold, decisive, self-starting. In BPHS, Mesha is a quadruped sign, active by day, strong when rising. Embodies courage, leadership, and the initiation of new cycles. Those with strong Mesha influence are known for vitality and independent action, though prone to impulsiveness.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Courage</span><span class="keyword-tag">Action</span><span class="keyword-tag">Pioneer</span><span class="keyword-tag">Leadership</span><span class="keyword-tag">Self</span><span class="keyword-tag">Vitality</span><span class="keyword-tag">Initiative</span><span class="keyword-tag">Warrior</span><span class="keyword-tag">Independence</span><span class="keyword-tag">Aggression</span></div>
+      </div></div><div class="sign-detail-card" id="detail-1">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♉</div>
+        <div class="sign-header-text">
+          <h2>Vrishabha</h2>
+          <h3>Taurus — Rashi 2</h3>
+          <div class="badges">
+            <span class="element-badge badge-earth">earth</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Sthira</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Female (Stri)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Shukra (Venus)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Chandra at 3°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Rahu (some traditions)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Throat, Neck &amp; Voice</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">South</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Friday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">White / Pink</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Diamond</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Stable, Sensual, Patient</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Vrishabha is ruled by Shukra (Venus), the sign of the cosmic bull — grounded, steadfast, and pleasure-oriented. The Moon's exaltation here reflects the sign's capacity for emotional nourishment and sensory delight. In BPHS, Vrishabha is prishtodaya (rises from the back). Values stability, luxury, artistic expression, and tends toward persistence.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Stability</span><span class="keyword-tag">Beauty</span><span class="keyword-tag">Wealth</span><span class="keyword-tag">Patience</span><span class="keyword-tag">Senses</span><span class="keyword-tag">Luxury</span><span class="keyword-tag">Art</span><span class="keyword-tag">Persistence</span><span class="keyword-tag">Nature</span><span class="keyword-tag">Nourishment</span></div>
+      </div></div><div class="sign-detail-card" id="detail-2">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♊</div>
+        <div class="sign-header-text">
+          <h2>Mithuna</h2>
+          <h3>Gemini — Rashi 3</h3>
+          <div class="badges">
+            <span class="element-badge badge-air">air</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Dwiswabhava</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Male (Purusha)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Budha (Mercury)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Rahu (nodal)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Ketu (nodal)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Arms, Shoulders &amp; Lungs</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">West</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Wednesday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Green</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Emerald</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Intellectual, Communicative, Dual</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Mithuna, symbolized by a couple (man with mace and woman with lute in classical texts), is the sign of duality and intellect. Ruled by Budha (Mercury), it governs the mind's agility, language, trade. As a shirshodaya sign (rises head-first), strength when rising. Gifted communicators, curious, versatile, thriving in environments requiring quick thinking.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Communication</span><span class="keyword-tag">Intellect</span><span class="keyword-tag">Duality</span><span class="keyword-tag">Curiosity</span><span class="keyword-tag">Adaptability</span><span class="keyword-tag">Trade</span><span class="keyword-tag">Wit</span><span class="keyword-tag">Learning</span><span class="keyword-tag">Siblings</span><span class="keyword-tag">Youthfulness</span></div>
+      </div></div><div class="sign-detail-card" id="detail-3">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♋</div>
+        <div class="sign-header-text">
+          <h2>Karka</h2>
+          <h3>Cancer — Rashi 4</h3>
+          <div class="badges">
+            <span class="element-badge badge-water">water</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Chara</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Female (Stri)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Chandra (Moon)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Guru at 5°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Mangala at 28°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Chest, Breasts &amp; Stomach</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">North</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Monday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Milky White / Silver</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Pearl</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Nurturing, Emotional, Protective</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Karka is the sign of the cosmic mother — ruled by the Moon. Governs home, family, emotional security, and ancestral roots. Jupiter's exaltation reflects wisdom expressed through the heart. In BPHS, Karka has a hard outer shell like the crab — protective outside, deeply sensitive within. Intuitive, empathetic, deeply attached to family.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Mother</span><span class="keyword-tag">Home</span><span class="keyword-tag">Emotion</span><span class="keyword-tag">Intuition</span><span class="keyword-tag">Nurturing</span><span class="keyword-tag">Memory</span><span class="keyword-tag">Roots</span><span class="keyword-tag">Imagination</span><span class="keyword-tag">Tenacity</span><span class="keyword-tag">Protection</span></div>
+      </div></div><div class="sign-detail-card" id="detail-4">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♌</div>
+        <div class="sign-header-text">
+          <h2>Simha</h2>
+          <h3>Leo — Rashi 5</h3>
+          <div class="badges">
+            <span class="element-badge badge-fire">fire</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Sthira</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Male (Purusha)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Surya (Sun)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">None (Sun rules this sign)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">None</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Heart, Upper Back &amp; Spine</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">East</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Sunday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Golden Yellow</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Ruby</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Royal, Creative, Authoritative</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Simha is the royal sign, ruled by the Sun — King of the planetary cabinet. Represents authority, creativity, self-expression, and the solar principle of individuality. As a fixed fire sign it creates a commanding presence. In BPHS, Simha is a forest-dweller, strong by day, shirshodaya. Natural authority, generosity, and a need for recognition.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Royalty</span><span class="keyword-tag">Authority</span><span class="keyword-tag">Creativity</span><span class="keyword-tag">Pride</span><span class="keyword-tag">Self-expression</span><span class="keyword-tag">Leadership</span><span class="keyword-tag">Generosity</span><span class="keyword-tag">Drama</span><span class="keyword-tag">Loyalty</span><span class="keyword-tag">Dignity</span></div>
+      </div></div><div class="sign-detail-card" id="detail-5">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♍</div>
+        <div class="sign-header-text">
+          <h2>Kanya</h2>
+          <h3>Virgo — Rashi 6</h3>
+          <div class="badges">
+            <span class="element-badge badge-earth">earth</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Dwiswabhava</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Female (Stri)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Budha (Mercury)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Budha at 15°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Shukra at 27°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Digestive System &amp; Abdomen</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">South</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Wednesday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Grey / Variegated</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Emerald</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Analytical, Discriminating, Service-oriented</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Kanya is where Mercury finds its highest expression through exaltation — the sign of discernment and service. Symbolized by a virgin holding grain and a lamp, governing skill, craft, and refinement. In BPHS, a dual earth sign, shirshodaya. Kanya individuals possess a keen eye for detail, a drive for perfection, and natural aptitude for healing and writing.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Analysis</span><span class="keyword-tag">Discrimination</span><span class="keyword-tag">Service</span><span class="keyword-tag">Health</span><span class="keyword-tag">Perfection</span><span class="keyword-tag">Craftsmanship</span><span class="keyword-tag">Detail</span><span class="keyword-tag">Purification</span><span class="keyword-tag">Humility</span><span class="keyword-tag">Skill</span></div>
+      </div></div><div class="sign-detail-card" id="detail-6">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♎</div>
+        <div class="sign-header-text">
+          <h2>Tula</h2>
+          <h3>Libra — Rashi 7</h3>
+          <div class="badges">
+            <span class="element-badge badge-air">air</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Chara</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Male (Purusha)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Shukra (Venus)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Shani at 20°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Surya at 10°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Kidneys, Lower Back &amp; Pelvis</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">West</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Friday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Black / Dark Blue</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Diamond</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Diplomatic, Aesthetic, Relationship-oriented</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Tula, the cosmic scales, represents balance, justice, and relationships. Ruled by Shukra (Venus) and the exaltation sign of Saturn, it combines the aesthetic with the ethical. The Sun's debilitation here shows that ego-assertion is tempered. In BPHS, Tula is a marketplace — the arena of exchange and partnership. Excellent in arts, law, and diplomacy.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Balance</span><span class="keyword-tag">Justice</span><span class="keyword-tag">Partnership</span><span class="keyword-tag">Diplomacy</span><span class="keyword-tag">Beauty</span><span class="keyword-tag">Harmony</span><span class="keyword-tag">Marriage</span><span class="keyword-tag">Fairness</span><span class="keyword-tag">Aesthetics</span><span class="keyword-tag">Cooperation</span></div>
+      </div></div><div class="sign-detail-card" id="detail-7">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♏</div>
+        <div class="sign-header-text">
+          <h2>Vrischika</h2>
+          <h3>Scorpio — Rashi 8</h3>
+          <div class="badges">
+            <span class="element-badge badge-water">water</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Sthira</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Female (Stri)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Mangala + Ketu</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">(Moon debilitated here)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Chandra at 3°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Reproductive Organs &amp; Elimination</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">North</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Tuesday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Deep Red / Brown</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Red Coral</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Intense, Transformative, Occult</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Vrischika is the most intense sign of the zodiac — co-ruled by Mars and Ketu. Governs death, rebirth, secrets, the occult, and profound transformation. The Moon's debilitation reveals the difficulty of emotional peace in such depths. In BPHS, a water sign prishtodaya, associated with underground places. Penetrating insight and a relentless drive to uncover truth.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Transformation</span><span class="keyword-tag">Occult</span><span class="keyword-tag">Intensity</span><span class="keyword-tag">Mystery</span><span class="keyword-tag">Death/Rebirth</span><span class="keyword-tag">Secrets</span><span class="keyword-tag">Power</span><span class="keyword-tag">Depth</span><span class="keyword-tag">Research</span><span class="keyword-tag">Healing</span></div>
+      </div></div><div class="sign-detail-card" id="detail-8">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♐</div>
+        <div class="sign-header-text">
+          <h2>Dhanu</h2>
+          <h3>Sagittarius — Rashi 9</h3>
+          <div class="badges">
+            <span class="element-badge badge-fire">fire</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Dwiswabhava</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Male (Purusha)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Guru (Jupiter)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Ketu (nodal, some texts)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Rahu (nodal)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Thighs, Hips &amp; Liver</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">East</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Thursday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Yellow / Saffron</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Yellow Sapphire</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Philosophical, Expansive, Truth-seeking</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Dhanu, the cosmic archer, is the sign of higher wisdom, philosophy, dharma, and long journeys. Ruled by Guru (Jupiter), the priestly minister. As a dual fire sign, it combines inspiration with constant seeking. In BPHS, Dhanu is half-human, half-horse — integrating animal and divine natures. Naturally optimistic and driven by a quest for meaning.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Philosophy</span><span class="keyword-tag">Dharma</span><span class="keyword-tag">Higher Learning</span><span class="keyword-tag">Travel</span><span class="keyword-tag">Optimism</span><span class="keyword-tag">Expansion</span><span class="keyword-tag">Truth</span><span class="keyword-tag">Religion</span><span class="keyword-tag">Freedom</span><span class="keyword-tag">Wisdom</span></div>
+      </div></div><div class="sign-detail-card" id="detail-9">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♑</div>
+        <div class="sign-header-text">
+          <h2>Makara</h2>
+          <h3>Capricorn — Rashi 10</h3>
+          <div class="badges">
+            <span class="element-badge badge-earth">earth</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Chara</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Female (Stri)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Shani (Saturn)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Mangala at 28°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Guru at 5°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Knees &amp; Skeletal System</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">South</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Saturday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Dark Blue / Black</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Blue Sapphire</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Disciplined, Ambitious, Structured</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Makara is the sign of karma, discipline, and worldly achievement. Ruled by Shani (Saturn), the servant-teacher. Governs institutions, career, and social status. Mars's exaltation here reflects that disciplined action reaches peak expression in this sign. In BPHS, Makara is a water-quadruped, prishtodaya. Patient, systematic, and capable of remarkable achievements through sustained effort.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Karma</span><span class="keyword-tag">Discipline</span><span class="keyword-tag">Ambition</span><span class="keyword-tag">Structure</span><span class="keyword-tag">Authority</span><span class="keyword-tag">Patience</span><span class="keyword-tag">Mastery</span><span class="keyword-tag">Career</span><span class="keyword-tag">Legacy</span><span class="keyword-tag">Responsibility</span></div>
+      </div></div><div class="sign-detail-card" id="detail-10">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♒</div>
+        <div class="sign-header-text">
+          <h2>Kumbha</h2>
+          <h3>Aquarius — Rashi 11</h3>
+          <div class="badges">
+            <span class="element-badge badge-air">air</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Sthira</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Male (Purusha)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Shani + Rahu</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">None (classical)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">None (classical)</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Ankles, Calves &amp; Circulation</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">West</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Saturday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Dark Blue / Electric Blue</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Blue Sapphire / Hessonite</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Humanitarian, Unconventional, Visionary</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Kumbha, the cosmic water-bearer, is the sign of community, idealism, and innovation. Co-ruled by Saturn and Rahu, it combines discipline with disruption. As a fixed air sign it brings conviction to ideas serving the collective. In BPHS, Kumbha is shirshodaya, associated with deep wells. Often ahead of their time — humanitarian, independent, and driven by a vision of a better society.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Humanity</span><span class="keyword-tag">Innovation</span><span class="keyword-tag">Community</span><span class="keyword-tag">Independence</span><span class="keyword-tag">Idealism</span><span class="keyword-tag">Rebellion</span><span class="keyword-tag">Networking</span><span class="keyword-tag">Futurism</span><span class="keyword-tag">Altruism</span><span class="keyword-tag">Eccentricity</span></div>
+      </div></div><div class="sign-detail-card" id="detail-11">
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">♓</div>
+        <div class="sign-header-text">
+          <h2>Meena</h2>
+          <h3>Pisces — Rashi 12</h3>
+          <div class="badges">
+            <span class="element-badge badge-water">water</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Dwiswabhava</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">Female (Stri)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        
+          <div class="attr-box">
+            <div class="attr-box-label">Ruling Planet</div>
+            <div class="attr-box-value">Guru (Jupiter) + Shukra</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Exaltation (Uccha)</div>
+            <div class="attr-box-value">Shukra at 27°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Debilitation (Neecha)</div>
+            <div class="attr-box-value">Budha at 15°</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Body Part (Sharira)</div>
+            <div class="attr-box-value">Feet &amp; Lymphatic System</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Direction (Dik)</div>
+            <div class="attr-box-value">North</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Day (Vara)</div>
+            <div class="attr-box-value">Thursday</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Color (Varna)</div>
+            <div class="attr-box-value">Sea Green / Indigo</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Gemstone (Ratna)</div>
+            <div class="attr-box-value">Yellow Sapphire</div>
+          </div>
+          <div class="attr-box">
+            <div class="attr-box-label">Nature</div>
+            <div class="attr-box-value">Spiritual, Compassionate, Transcendent</div>
+          </div>
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        Meena, the last sign, represents dissolution of individual identity into universal consciousness. The two fish swimming in opposite directions symbolize the pull between material and spiritual worlds. In BPHS, Meena is ubhayodaya (both-way rising). Mercury's debilitation reflects how rationality dissolves in mystical experience. Deeply empathetic, intuitive, and spiritually oriented.
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list"><span class="keyword-tag">Moksha</span><span class="keyword-tag">Spirituality</span><span class="keyword-tag">Compassion</span><span class="keyword-tag">Imagination</span><span class="keyword-tag">Dissolution</span><span class="keyword-tag">Empathy</span><span class="keyword-tag">Dreams</span><span class="keyword-tag">Liberation</span><span class="keyword-tag">Sacrifice</span><span class="keyword-tag">Transcendence</span></div>
+      </div></div></div>
+  </div>
+</div>
+
+<!-- ── TAB 4: PLANETS ── -->
+<div id="tab-planets" class="tab-content">
+  <div class="planets-grid" id="planets-grid"><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">🌞</div>
+        <div class="planet-header-text">
+          <h3>Surya <span class="planet-nature-badge malefic">malefic</span></h3>
+          <p>Sun · ☉ · Sunday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Simha (Leo)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Mesha 10°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Tula 10°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Simha 0–20°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Chandra, Mangala, Guru</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Shani, Shukra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Soul (Atma), Father, Government, Authority, Vitality, Ego</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Fire · Deep Orange / Gold</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Ruby (Manikya)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: King (Raja)</div>
+      <div class="planet-desc">King of the planetary cabinet. Surya represents the eternal soul and self-authority. A strong Sun bestows confidence, dignity, and leadership; afflicted, it can cause ego inflation. Surya's light reveals truth and burns away illusion.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">🌙</div>
+        <div class="planet-header-text">
+          <h3>Chandra <span class="planet-nature-badge benefic">benefic</span></h3>
+          <p>Moon · ☽ · Monday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Karka (Cancer)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Vrishabha 3°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Vrischika 3°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Vrishabha 4–30°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Surya, Mangala</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">None (traditionally)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Mind (Manas), Mother, Emotions, Intuition, Public, Nourishment, Memory</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Water · White / Silver</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Pearl (Moti)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Queen (Rani)</div>
+      <div class="planet-desc">Queen of the planetary cabinet. Chandra governs mind, emotions, and the fluctuating nature of consciousness. A strong Moon bestows emotional intelligence and intuition; a weak Moon causes mental instability. Waxes and wanes — reflecting the cyclical nature of all experience.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">♂️</div>
+        <div class="planet-header-text">
+          <h3>Mangala <span class="planet-nature-badge malefic">malefic</span></h3>
+          <p>Mars · ♂ · Tuesday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Mesha, Vrischika</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Makara 28°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Karka 28°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Mesha 0–12°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Surya, Chandra, Guru</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Budha</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Energy, Courage, Siblings, Land, Military, Action, Vitality, Desire</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Fire · Red / Blood Red</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Red Coral (Moonga)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Commander-in-Chief (Senapati)</div>
+      <div class="planet-desc">Commander-in-Chief. Mangala is the warrior planet — dynamic, courageous, action-oriented. Strong Mars gives courage and physical vitality; afflicted, aggression and accidents. Exaltation in Capricorn reflects disciplined, strategic action as its highest expression.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">☿</div>
+        <div class="planet-header-text">
+          <h3>Budha <span class="planet-nature-badge neutral">neutral</span></h3>
+          <p>Mercury · ☿ · Wednesday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Mithuna, Kanya</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Kanya 15°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Meena 15°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Kanya 16–20°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Surya, Shukra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Chandra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Intelligence, Communication, Commerce, Education, Skill, Nephew, Discrimination</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Earth/Air · Green</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Emerald (Panna)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Crown Prince (Yuvaraja)</div>
+      <div class="planet-desc">Crown Prince of the planetary cabinet. Budha is the planet of intellect and communication. Strong Mercury gives sharp wit, eloquence, and business acumen. Exaltation in Virgo reflects perfect alignment between intellect and practical application.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">🔱</div>
+        <div class="planet-header-text">
+          <h3>Guru <span class="planet-nature-badge benefic">benefic</span></h3>
+          <p>Jupiter · ♃ · Thursday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Dhanu, Meena</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Karka 5°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Makara 5°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Dhanu 0–10°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Surya, Chandra, Mangala</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Shukra, Budha</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Wisdom, Children, Guru/Teacher, Dharma, Wealth, Expansion, Grace</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Ether (Akasha) · Yellow / Saffron</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Yellow Sapphire (Pukhraj)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Prime Minister / Divine Adviser (Mantri)</div>
+      <div class="planet-desc">Prime Minister of the planetary cabinet and the great benefic. Guru governs dharma, philosophy, and the blessings of the gods. Strong Jupiter bestows prosperity and wisdom; afflicted, overindulgence or false beliefs. Exaltation in Cancer — divine wisdom expressed through compassion.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">✨</div>
+        <div class="planet-header-text">
+          <h3>Shukra <span class="planet-nature-badge benefic">benefic</span></h3>
+          <p>Venus · ♀ · Friday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Vrishabha, Tula</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Meena 27°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Kanya 27°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Tula 0–15°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Budha, Shani</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Surya, Chandra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Desires, Beauty, Spouse (men), Art, Luxury, Pleasure, Vehicles, Diplomacy</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Water/Earth · White / Pastel</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Diamond (Heera)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Finance Minister / Treasurer</div>
+      <div class="planet-desc">Finance Minister of the planetary cabinet. Shukra governs beauty, pleasure, and luxury. Strong Venus gives charm, artistic talent, and relationship harmony; afflicted, overindulgence or vanity. Exaltation in Pisces — unconditional, devotional love is its highest state.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">⏳</div>
+        <div class="planet-header-text">
+          <h3>Shani <span class="planet-nature-badge malefic">malefic</span></h3>
+          <p>Saturn · ♄ · Saturday</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Makara, Kumbha</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Tula 20°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Mesha 20°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Kumbha 0–20°</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Budha, Shukra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Surya, Chandra, Mangala</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Karma, Discipline, Longevity, Delays, Servants, Old Age, Disease, Justice, Moksha</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Air · Dark Blue / Black</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Blue Sapphire (Neelam)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Servant / Taskmaster (Dasa)</div>
+      <div class="planet-desc">The Servant — yet the most powerful teacher in BPHS. Shani governs karma, discipline, and time. Sade Sati (7.5-year transit) is deeply transformative. Strong Saturn gives endurance and hard-won wisdom; afflicted, chronic delays and suffering. Exaltation in Libra — justice and balance as the highest karmic expression.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">🐍</div>
+        <div class="planet-header-text">
+          <h3>Rahu <span class="planet-nature-badge malefic">malefic</span></h3>
+          <p>North Node · ☊ · None</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Co-ruler Kumbha (some traditions)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Vrishabha / Mithuna (varies)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Vrischika / Dhanu (varies)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Mithuna (some traditions)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Budha, Shukra, Shani</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Surya, Chandra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Worldly ambitions, Obsessions, Foreign lands, Materialism, Illusion (Maya), Paternal grandfather</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Smoke / Air · Smoky / Dark</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Hessonite Garnet (Gomed)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Shadow / Outcaste (Mleccha)</div>
+      <div class="planet-desc">Shadow planet — the North Node of the Moon, a headless force of insatiable desire. Rahu amplifies and obsesses wherever it sits. Associated with foreign cultures, technology, and unconventional paths. Rahu Dasha (18 years) is marked by intense worldly experience and sudden changes.</div></div><div class="planet-card">
+      <div class="planet-header">
+        <div class="planet-symbol">🔥</div>
+        <div class="planet-header-text">
+          <h3>Ketu <span class="planet-nature-badge malefic">malefic</span></h3>
+          <p>South Node · ☋ · None</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        
+          <div class="planet-row">
+            <span class="planet-label">Owns (Swakshetra)</span>
+            <span class="planet-value">Co-ruler Vrischika (some traditions)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Exaltation (Uccha)</span>
+            <span class="planet-value">Vrischika / Dhanu (varies)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Debilitation (Neecha)</span>
+            <span class="planet-value">Vrishabha / Mithuna (varies)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Moolatrikona</span>
+            <span class="planet-value">Dhanu (some traditions)</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Friends (Mitra)</span>
+            <span class="planet-value">Mangala, Shukra, Shani</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Enemies (Shatru)</span>
+            <span class="planet-value">Surya, Chandra</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Karaka For</span>
+            <span class="planet-value">Moksha, Past-life karmas, Spiritual liberation, Psychic abilities, Isolation, Loss, Maternal grandfather</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Element / Color</span>
+            <span class="planet-value">Fire / Spiritual · Variegated / Smoky</span>
+          </div>
+          <div class="planet-row">
+            <span class="planet-label">Gemstone</span>
+            <span class="planet-value">Cat's Eye (Lahsuniya)</span>
+          </div>
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: Moksha / Spiritual Renunciation</div>
+      <div class="planet-desc">The South Node — representing what we have already mastered in past lives. Where Rahu pulls toward worldly experience, Ketu pushes toward liberation. Dissolves ego and creates experiences of detachment and ultimately enlightenment. Associated with mysticism, healing, mathematics, and sudden spiritual insights.</div></div></div>
+</div>
+
+<!-- ── BOTTOM SHEET (mobile tooltip) ── -->
+<div class="bottom-sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)">
+  <div class="bottom-sheet" id="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet(null)">✕</button>
+    <div id="sheet-content"></div>
+  </div>
+</div>
+
+<!-- ── DESKTOP TOOLTIP ── -->
+<div class="desktop-tooltip" id="desktop-tooltip"></div>
+
+<footer>
+  Created from <span>73 class decks</span> &amp; <span>50+ sessions</span> of Astrology 101 — A study in BPHS
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════
+const RASHIS = [
+  { num:1, sanskrit:"Mesha", english:"Aries", symbol:"♈", glyph:"🐏",
+    element:"fire", modality:"Chara", modalityEn:"Cardinal",
+    ruler:"Mangala (Mars)", exaltation:"Surya at 10°", debilitation:"Shani at 20°",
+    bodyPart:"Head & Face", nature:"Fiery, Aggressive, Dynamic",
+    gender:"Male (Purusha)", direction:"East", day:"Tuesday", color:"Blood Red", gem:"Red Coral",
+    description:"Mesha is ruled by Mangala (Mars) — the warrior-pioneer of the zodiac. Bold, decisive, self-starting. In BPHS, Mesha is a quadruped sign, active by day, strong when rising. Embodies courage, leadership, and the initiation of new cycles. Those with strong Mesha influence are known for vitality and independent action, though prone to impulsiveness.",
+    keywords:["Courage","Action","Pioneer","Leadership","Self","Vitality","Initiative","Warrior","Independence","Aggression"] },
+  { num:2, sanskrit:"Vrishabha", english:"Taurus", symbol:"♉", glyph:"🐂",
+    element:"earth", modality:"Sthira", modalityEn:"Fixed",
+    ruler:"Shukra (Venus)", exaltation:"Chandra at 3°", debilitation:"Rahu (some traditions)",
+    bodyPart:"Throat, Neck & Voice", nature:"Stable, Sensual, Patient",
+    gender:"Female (Stri)", direction:"South", day:"Friday", color:"White / Pink", gem:"Diamond",
+    description:"Vrishabha is ruled by Shukra (Venus), the sign of the cosmic bull — grounded, steadfast, and pleasure-oriented. The Moon's exaltation here reflects the sign's capacity for emotional nourishment and sensory delight. In BPHS, Vrishabha is prishtodaya (rises from the back). Values stability, luxury, artistic expression, and tends toward persistence.",
+    keywords:["Stability","Beauty","Wealth","Patience","Senses","Luxury","Art","Persistence","Nature","Nourishment"] },
+  { num:3, sanskrit:"Mithuna", english:"Gemini", symbol:"♊", glyph:"👯",
+    element:"air", modality:"Dwiswabhava", modalityEn:"Mutable/Dual",
+    ruler:"Budha (Mercury)", exaltation:"Rahu (nodal)", debilitation:"Ketu (nodal)",
+    bodyPart:"Arms, Shoulders & Lungs", nature:"Intellectual, Communicative, Dual",
+    gender:"Male (Purusha)", direction:"West", day:"Wednesday", color:"Green", gem:"Emerald",
+    description:"Mithuna, symbolized by a couple (man with mace and woman with lute in classical texts), is the sign of duality and intellect. Ruled by Budha (Mercury), it governs the mind's agility, language, trade. As a shirshodaya sign (rises head-first), strength when rising. Gifted communicators, curious, versatile, thriving in environments requiring quick thinking.",
+    keywords:["Communication","Intellect","Duality","Curiosity","Adaptability","Trade","Wit","Learning","Siblings","Youthfulness"] },
+  { num:4, sanskrit:"Karka", english:"Cancer", symbol:"♋", glyph:"🦀",
+    element:"water", modality:"Chara", modalityEn:"Cardinal",
+    ruler:"Chandra (Moon)", exaltation:"Guru at 5°", debilitation:"Mangala at 28°",
+    bodyPart:"Chest, Breasts & Stomach", nature:"Nurturing, Emotional, Protective",
+    gender:"Female (Stri)", direction:"North", day:"Monday", color:"Milky White / Silver", gem:"Pearl",
+    description:"Karka is the sign of the cosmic mother — ruled by the Moon. Governs home, family, emotional security, and ancestral roots. Jupiter's exaltation reflects wisdom expressed through the heart. In BPHS, Karka has a hard outer shell like the crab — protective outside, deeply sensitive within. Intuitive, empathetic, deeply attached to family.",
+    keywords:["Mother","Home","Emotion","Intuition","Nurturing","Memory","Roots","Imagination","Tenacity","Protection"] },
+  { num:5, sanskrit:"Simha", english:"Leo", symbol:"♌", glyph:"🦁",
+    element:"fire", modality:"Sthira", modalityEn:"Fixed",
+    ruler:"Surya (Sun)", exaltation:"None (Sun rules this sign)", debilitation:"None",
+    bodyPart:"Heart, Upper Back & Spine", nature:"Royal, Creative, Authoritative",
+    gender:"Male (Purusha)", direction:"East", day:"Sunday", color:"Golden Yellow", gem:"Ruby",
+    description:"Simha is the royal sign, ruled by the Sun — King of the planetary cabinet. Represents authority, creativity, self-expression, and the solar principle of individuality. As a fixed fire sign it creates a commanding presence. In BPHS, Simha is a forest-dweller, strong by day, shirshodaya. Natural authority, generosity, and a need for recognition.",
+    keywords:["Royalty","Authority","Creativity","Pride","Self-expression","Leadership","Generosity","Drama","Loyalty","Dignity"] },
+  { num:6, sanskrit:"Kanya", english:"Virgo", symbol:"♍", glyph:"👧",
+    element:"earth", modality:"Dwiswabhava", modalityEn:"Mutable/Dual",
+    ruler:"Budha (Mercury)", exaltation:"Budha at 15°", debilitation:"Shukra at 27°",
+    bodyPart:"Digestive System & Abdomen", nature:"Analytical, Discriminating, Service-oriented",
+    gender:"Female (Stri)", direction:"South", day:"Wednesday", color:"Grey / Variegated", gem:"Emerald",
+    description:"Kanya is where Mercury finds its highest expression through exaltation — the sign of discernment and service. Symbolized by a virgin holding grain and a lamp, governing skill, craft, and refinement. In BPHS, a dual earth sign, shirshodaya. Kanya individuals possess a keen eye for detail, a drive for perfection, and natural aptitude for healing and writing.",
+    keywords:["Analysis","Discrimination","Service","Health","Perfection","Craftsmanship","Detail","Purification","Humility","Skill"] },
+  { num:7, sanskrit:"Tula", english:"Libra", symbol:"♎", glyph:"⚖️",
+    element:"air", modality:"Chara", modalityEn:"Cardinal",
+    ruler:"Shukra (Venus)", exaltation:"Shani at 20°", debilitation:"Surya at 10°",
+    bodyPart:"Kidneys, Lower Back & Pelvis", nature:"Diplomatic, Aesthetic, Relationship-oriented",
+    gender:"Male (Purusha)", direction:"West", day:"Friday", color:"Black / Dark Blue", gem:"Diamond",
+    description:"Tula, the cosmic scales, represents balance, justice, and relationships. Ruled by Shukra (Venus) and the exaltation sign of Saturn, it combines the aesthetic with the ethical. The Sun's debilitation here shows that ego-assertion is tempered. In BPHS, Tula is a marketplace — the arena of exchange and partnership. Excellent in arts, law, and diplomacy.",
+    keywords:["Balance","Justice","Partnership","Diplomacy","Beauty","Harmony","Marriage","Fairness","Aesthetics","Cooperation"] },
+  { num:8, sanskrit:"Vrischika", english:"Scorpio", symbol:"♏", glyph:"🦂",
+    element:"water", modality:"Sthira", modalityEn:"Fixed",
+    ruler:"Mangala + Ketu", exaltation:"(Moon debilitated here)", debilitation:"Chandra at 3°",
+    bodyPart:"Reproductive Organs & Elimination", nature:"Intense, Transformative, Occult",
+    gender:"Female (Stri)", direction:"North", day:"Tuesday", color:"Deep Red / Brown", gem:"Red Coral",
+    description:"Vrischika is the most intense sign of the zodiac — co-ruled by Mars and Ketu. Governs death, rebirth, secrets, the occult, and profound transformation. The Moon's debilitation reveals the difficulty of emotional peace in such depths. In BPHS, a water sign prishtodaya, associated with underground places. Penetrating insight and a relentless drive to uncover truth.",
+    keywords:["Transformation","Occult","Intensity","Mystery","Death/Rebirth","Secrets","Power","Depth","Research","Healing"] },
+  { num:9, sanskrit:"Dhanu", english:"Sagittarius", symbol:"♐", glyph:"🏹",
+    element:"fire", modality:"Dwiswabhava", modalityEn:"Mutable/Dual",
+    ruler:"Guru (Jupiter)", exaltation:"Ketu (nodal, some texts)", debilitation:"Rahu (nodal)",
+    bodyPart:"Thighs, Hips & Liver", nature:"Philosophical, Expansive, Truth-seeking",
+    gender:"Male (Purusha)", direction:"East", day:"Thursday", color:"Yellow / Saffron", gem:"Yellow Sapphire",
+    description:"Dhanu, the cosmic archer, is the sign of higher wisdom, philosophy, dharma, and long journeys. Ruled by Guru (Jupiter), the priestly minister. As a dual fire sign, it combines inspiration with constant seeking. In BPHS, Dhanu is half-human, half-horse — integrating animal and divine natures. Naturally optimistic and driven by a quest for meaning.",
+    keywords:["Philosophy","Dharma","Higher Learning","Travel","Optimism","Expansion","Truth","Religion","Freedom","Wisdom"] },
+  { num:10, sanskrit:"Makara", english:"Capricorn", symbol:"♑", glyph:"🐊",
+    element:"earth", modality:"Chara", modalityEn:"Cardinal",
+    ruler:"Shani (Saturn)", exaltation:"Mangala at 28°", debilitation:"Guru at 5°",
+    bodyPart:"Knees & Skeletal System", nature:"Disciplined, Ambitious, Structured",
+    gender:"Female (Stri)", direction:"South", day:"Saturday", color:"Dark Blue / Black", gem:"Blue Sapphire",
+    description:"Makara is the sign of karma, discipline, and worldly achievement. Ruled by Shani (Saturn), the servant-teacher. Governs institutions, career, and social status. Mars's exaltation here reflects that disciplined action reaches peak expression in this sign. In BPHS, Makara is a water-quadruped, prishtodaya. Patient, systematic, and capable of remarkable achievements through sustained effort.",
+    keywords:["Karma","Discipline","Ambition","Structure","Authority","Patience","Mastery","Career","Legacy","Responsibility"] },
+  { num:11, sanskrit:"Kumbha", english:"Aquarius", symbol:"♒", glyph:"🏺",
+    element:"air", modality:"Sthira", modalityEn:"Fixed",
+    ruler:"Shani + Rahu", exaltation:"None (classical)", debilitation:"None (classical)",
+    bodyPart:"Ankles, Calves & Circulation", nature:"Humanitarian, Unconventional, Visionary",
+    gender:"Male (Purusha)", direction:"West", day:"Saturday", color:"Dark Blue / Electric Blue", gem:"Blue Sapphire / Hessonite",
+    description:"Kumbha, the cosmic water-bearer, is the sign of community, idealism, and innovation. Co-ruled by Saturn and Rahu, it combines discipline with disruption. As a fixed air sign it brings conviction to ideas serving the collective. In BPHS, Kumbha is shirshodaya, associated with deep wells. Often ahead of their time — humanitarian, independent, and driven by a vision of a better society.",
+    keywords:["Humanity","Innovation","Community","Independence","Idealism","Rebellion","Networking","Futurism","Altruism","Eccentricity"] },
+  { num:12, sanskrit:"Meena", english:"Pisces", symbol:"♓", glyph:"🐟",
+    element:"water", modality:"Dwiswabhava", modalityEn:"Mutable/Dual",
+    ruler:"Guru (Jupiter) + Shukra", exaltation:"Shukra at 27°", debilitation:"Budha at 15°",
+    bodyPart:"Feet & Lymphatic System", nature:"Spiritual, Compassionate, Transcendent",
+    gender:"Female (Stri)", direction:"North", day:"Thursday", color:"Sea Green / Indigo", gem:"Yellow Sapphire",
+    description:"Meena, the last sign, represents dissolution of individual identity into universal consciousness. The two fish swimming in opposite directions symbolize the pull between material and spiritual worlds. In BPHS, Meena is ubhayodaya (both-way rising). Mercury's debilitation reflects how rationality dissolves in mystical experience. Deeply empathetic, intuitive, and spiritually oriented.",
+    keywords:["Moksha","Spirituality","Compassion","Imagination","Dissolution","Empathy","Dreams","Liberation","Sacrifice","Transcendence"] }
+];
+
+const PLANETS = [
+  { name:"Surya", english:"Sun", symbol:"☉", glyph:"🌞", nature:"malefic",
+    cabinet:"King (Raja)", element:"Fire", gender:"Male", day:"Sunday",
+    owns:"Simha (Leo)", exaltation:"Mesha 10°", debilitation:"Tula 10°",
+    moolatrikona:"Simha 0–20°", friends:"Chandra, Mangala, Guru", enemies:"Shani, Shukra", neutral:"Budha",
+    karakaFor:"Soul (Atma), Father, Government, Authority, Vitality, Ego",
+    color:"Deep Orange / Gold", gem:"Ruby (Manikya)",
+    description:"King of the planetary cabinet. Surya represents the eternal soul and self-authority. A strong Sun bestows confidence, dignity, and leadership; afflicted, it can cause ego inflation. Surya's light reveals truth and burns away illusion." },
+  { name:"Chandra", english:"Moon", symbol:"☽", glyph:"🌙", nature:"benefic",
+    cabinet:"Queen (Rani)", element:"Water", gender:"Female", day:"Monday",
+    owns:"Karka (Cancer)", exaltation:"Vrishabha 3°", debilitation:"Vrischika 3°",
+    moolatrikona:"Vrishabha 4–30°", friends:"Surya, Mangala", enemies:"None (traditionally)", neutral:"All others",
+    karakaFor:"Mind (Manas), Mother, Emotions, Intuition, Public, Nourishment, Memory",
+    color:"White / Silver", gem:"Pearl (Moti)",
+    description:"Queen of the planetary cabinet. Chandra governs mind, emotions, and the fluctuating nature of consciousness. A strong Moon bestows emotional intelligence and intuition; a weak Moon causes mental instability. Waxes and wanes — reflecting the cyclical nature of all experience." },
+  { name:"Mangala", english:"Mars", symbol:"♂", glyph:"♂️", nature:"malefic",
+    cabinet:"Commander-in-Chief (Senapati)", element:"Fire", gender:"Male", day:"Tuesday",
+    owns:"Mesha, Vrischika", exaltation:"Makara 28°", debilitation:"Karka 28°",
+    moolatrikona:"Mesha 0–12°", friends:"Surya, Chandra, Guru", enemies:"Budha", neutral:"Shani, Shukra",
+    karakaFor:"Energy, Courage, Siblings, Land, Military, Action, Vitality, Desire",
+    color:"Red / Blood Red", gem:"Red Coral (Moonga)",
+    description:"Commander-in-Chief. Mangala is the warrior planet — dynamic, courageous, action-oriented. Strong Mars gives courage and physical vitality; afflicted, aggression and accidents. Exaltation in Capricorn reflects disciplined, strategic action as its highest expression." },
+  { name:"Budha", english:"Mercury", symbol:"☿", glyph:"☿", nature:"neutral",
+    cabinet:"Crown Prince (Yuvaraja)", element:"Earth/Air", gender:"Neutral", day:"Wednesday",
+    owns:"Mithuna, Kanya", exaltation:"Kanya 15°", debilitation:"Meena 15°",
+    moolatrikona:"Kanya 16–20°", friends:"Surya, Shukra", enemies:"Chandra", neutral:"Mangala, Guru, Shani",
+    karakaFor:"Intelligence, Communication, Commerce, Education, Skill, Nephew, Discrimination",
+    color:"Green", gem:"Emerald (Panna)",
+    description:"Crown Prince of the planetary cabinet. Budha is the planet of intellect and communication. Strong Mercury gives sharp wit, eloquence, and business acumen. Exaltation in Virgo reflects perfect alignment between intellect and practical application." },
+  { name:"Guru", english:"Jupiter", symbol:"♃", glyph:"🔱", nature:"benefic",
+    cabinet:"Prime Minister / Divine Adviser (Mantri)", element:"Ether (Akasha)", gender:"Male", day:"Thursday",
+    owns:"Dhanu, Meena", exaltation:"Karka 5°", debilitation:"Makara 5°",
+    moolatrikona:"Dhanu 0–10°", friends:"Surya, Chandra, Mangala", enemies:"Shukra, Budha", neutral:"Shani",
+    karakaFor:"Wisdom, Children, Guru/Teacher, Dharma, Wealth, Expansion, Grace",
+    color:"Yellow / Saffron", gem:"Yellow Sapphire (Pukhraj)",
+    description:"Prime Minister of the planetary cabinet and the great benefic. Guru governs dharma, philosophy, and the blessings of the gods. Strong Jupiter bestows prosperity and wisdom; afflicted, overindulgence or false beliefs. Exaltation in Cancer — divine wisdom expressed through compassion." },
+  { name:"Shukra", english:"Venus", symbol:"♀", glyph:"✨", nature:"benefic",
+    cabinet:"Finance Minister / Treasurer", element:"Water/Earth", gender:"Female", day:"Friday",
+    owns:"Vrishabha, Tula", exaltation:"Meena 27°", debilitation:"Kanya 27°",
+    moolatrikona:"Tula 0–15°", friends:"Budha, Shani", enemies:"Surya, Chandra", neutral:"Mangala, Guru",
+    karakaFor:"Desires, Beauty, Spouse (men), Art, Luxury, Pleasure, Vehicles, Diplomacy",
+    color:"White / Pastel", gem:"Diamond (Heera)",
+    description:"Finance Minister of the planetary cabinet. Shukra governs beauty, pleasure, and luxury. Strong Venus gives charm, artistic talent, and relationship harmony; afflicted, overindulgence or vanity. Exaltation in Pisces — unconditional, devotional love is its highest state." },
+  { name:"Shani", english:"Saturn", symbol:"♄", glyph:"⏳", nature:"malefic",
+    cabinet:"Servant / Taskmaster (Dasa)", element:"Air", gender:"Neutral/Male", day:"Saturday",
+    owns:"Makara, Kumbha", exaltation:"Tula 20°", debilitation:"Mesha 20°",
+    moolatrikona:"Kumbha 0–20°", friends:"Budha, Shukra", enemies:"Surya, Chandra, Mangala", neutral:"Guru",
+    karakaFor:"Karma, Discipline, Longevity, Delays, Servants, Old Age, Disease, Justice, Moksha",
+    color:"Dark Blue / Black", gem:"Blue Sapphire (Neelam)",
+    description:"The Servant — yet the most powerful teacher in BPHS. Shani governs karma, discipline, and time. Sade Sati (7.5-year transit) is deeply transformative. Strong Saturn gives endurance and hard-won wisdom; afflicted, chronic delays and suffering. Exaltation in Libra — justice and balance as the highest karmic expression." },
+  { name:"Rahu", english:"North Node", symbol:"☊", glyph:"🐍", nature:"malefic",
+    cabinet:"Shadow / Outcaste (Mleccha)", element:"Smoke / Air", gender:"Male", day:"None",
+    owns:"Co-ruler Kumbha (some traditions)", exaltation:"Vrishabha / Mithuna (varies)", debilitation:"Vrischika / Dhanu (varies)",
+    moolatrikona:"Mithuna (some traditions)", friends:"Budha, Shukra, Shani", enemies:"Surya, Chandra", neutral:"Mangala, Guru",
+    karakaFor:"Worldly ambitions, Obsessions, Foreign lands, Materialism, Illusion (Maya), Paternal grandfather",
+    color:"Smoky / Dark", gem:"Hessonite Garnet (Gomed)",
+    description:"Shadow planet — the North Node of the Moon, a headless force of insatiable desire. Rahu amplifies and obsesses wherever it sits. Associated with foreign cultures, technology, and unconventional paths. Rahu Dasha (18 years) is marked by intense worldly experience and sudden changes." },
+  { name:"Ketu", english:"South Node", symbol:"☋", glyph:"🔥", nature:"malefic",
+    cabinet:"Moksha / Spiritual Renunciation", element:"Fire / Spiritual", gender:"Neutral", day:"None",
+    owns:"Co-ruler Vrischika (some traditions)", exaltation:"Vrischika / Dhanu (varies)", debilitation:"Vrishabha / Mithuna (varies)",
+    moolatrikona:"Dhanu (some traditions)", friends:"Mangala, Shukra, Shani", enemies:"Surya, Chandra", neutral:"Budha, Guru",
+    karakaFor:"Moksha, Past-life karmas, Spiritual liberation, Psychic abilities, Isolation, Loss, Maternal grandfather",
+    color:"Variegated / Smoky", gem:"Cat's Eye (Lahsuniya)",
+    description:"The South Node — representing what we have already mastered in past lives. Where Rahu pulls toward worldly experience, Ketu pushes toward liberation. Dissolves ego and creates experiences of detachment and ultimately enlightenment. Associated with mysticism, healing, mathematics, and sudden spiritual insights." }
+];
+
+// South Indian grid layout (0-based Rashi index)
+const GRID_LAYOUT = [
+  [11, 0, 1, 2],
+  [10, -1, -1, 3],
+  [9, -1, -1, 4],
+  [8, 7, 6, 5]
+];
+
+// ══════════════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════════════
+const isTouchDevice = () => ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+const elColors = { fire:'var(--fire)', earth:'var(--earth)', air:'var(--air)', water:'var(--water)' };
+const elNames  = { fire:'Agni (Fire)', earth:'Prithvi (Earth)', air:'Vayu (Air)', water:'Jala (Water)' };
+
+function getTooltipHTML(sign, houseNum) {
+  return `
+    <div class="sheet-title">${sign.symbol} ${sign.sanskrit} / ${sign.english}</div>
+    <div class="sheet-row"><span class="sheet-label">House (this Lagna)</span><span class="sheet-value" style="color:var(--gold)">House ${houseNum}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Element</span><span class="sheet-value" style="color:${elColors[sign.element]}">${elNames[sign.element]}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Modality</span><span class="sheet-value">${sign.modality} (${sign.modalityEn})</span></div>
+    <div class="sheet-row"><span class="sheet-label">Ruler</span><span class="sheet-value">${sign.ruler}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Exaltation</span><span class="sheet-value">${sign.exaltation}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Debilitation</span><span class="sheet-value">${sign.debilitation}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Body Part</span><span class="sheet-value">${sign.bodyPart}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Gender</span><span class="sheet-value">${sign.gender}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Direction</span><span class="sheet-value">${sign.direction}</span></div>
+    <div class="sheet-row"><span class="sheet-label">Gem</span><span class="sheet-value">${sign.gem}</span></div>
+    <div class="sheet-desc">${sign.description}</div>
+    <div class="sheet-keywords">${sign.keywords.map(k=>`<span class="sheet-keyword">${k}</span>`).join('')}</div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════
+// CHART EXPLORER
+// ══════════════════════════════════════════════════════
+let ascIndex = 0;
+let showAllVisible = false;
+
+function buildGrid() {
+  const grid = document.getElementById('si-grid');
+  grid.innerHTML = '';
+
+  for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 4; c++) {
+      const signIdx = GRID_LAYOUT[r][c];
+      const cell = document.createElement('div');
+
+      if (signIdx === -1) {
+        cell.className = 'grid-cell center';
+        cell.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><span style="font-size:1.4rem;opacity:0.15;color:var(--gold)">🪐</span></div>';
+        grid.appendChild(cell);
+        continue;
+      }
+
+      const sign = RASHIS[signIdx];
+      const houseNum = ((signIdx - ascIndex + 12) % 12) + 1;
+      const isAsc = (signIdx === ascIndex);
+      cell.className = `grid-cell ${sign.element}-cell${isAsc ? ' asc-cell' : ''}`;
+
+      const dotColor = elColors[sign.element];
+      cell.innerHTML = `
+        <span class="cell-sign-num">${sign.num}</span>
+        <span class="cell-house-num">H${houseNum}</span>
+        <div class="cell-sign-name">${sign.english}</div>
+        <div class="cell-sanskrit">${sign.sanskrit}</div>
+        ${isAsc ? `<div style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:0.52rem;color:var(--gold);letter-spacing:0.5px;white-space:nowrap;">ASC ▲</div>` : ''}
+        <span class="cell-symbol">${sign.symbol}</span>
+        <span class="cell-element-dot" style="background:${dotColor}"></span>
+      `;
+
+      // Touch: bottom sheet; Mouse: floating tooltip
+      if (isTouchDevice()) {
+        cell.addEventListener('click', () => showBottomSheet(sign, houseNum));
+      } else {
+        cell.addEventListener('mouseenter', (e) => showDesktopTooltip(e, sign, houseNum));
+        cell.addEventListener('mousemove', (e) => positionDesktopTooltip(e));
+        cell.addEventListener('mouseleave', hideDesktopTooltip);
+        cell.addEventListener('click', () => showBottomSheet(sign, houseNum)); // click also works on desktop
+      }
+
+      grid.appendChild(cell);
+    }
+  }
+}
+
+// ── Desktop floating tooltip ──
+const dtip = document.getElementById('desktop-tooltip');
+function showDesktopTooltip(e, sign, houseNum) {
+  dtip.innerHTML = `<h3>${sign.symbol} ${sign.sanskrit} / ${sign.english}</h3>
+    <div class="tt-row"><span class="tt-label">House</span><span class="tt-value" style="color:var(--gold)">H${houseNum}</span></div>
+    <div class="tt-row"><span class="tt-label">Element</span><span class="tt-value" style="color:${elColors[sign.element]}">${elNames[sign.element]}</span></div>
+    <div class="tt-row"><span class="tt-label">Modality</span><span class="tt-value">${sign.modality} (${sign.modalityEn})</span></div>
+    <div class="tt-row"><span class="tt-label">Ruler</span><span class="tt-value">${sign.ruler}</span></div>
+    <div class="tt-row"><span class="tt-label">Exaltation</span><span class="tt-value">${sign.exaltation}</span></div>
+    <div class="tt-row"><span class="tt-label">Debilitation</span><span class="tt-value">${sign.debilitation}</span></div>
+    <div class="tt-row"><span class="tt-label">Body Part</span><span class="tt-value">${sign.bodyPart}</span></div>
+    <div class="tt-row"><span class="tt-label">Gem</span><span class="tt-value">${sign.gem}</span></div>`;
+  dtip.classList.add('visible');
+  positionDesktopTooltip(e);
+}
+function positionDesktopTooltip(e) {
+  const tw = 260, th = 280;
+  let x = e.clientX + 14;
+  let y = e.clientY + 14;
+  if (x + tw > window.innerWidth - 10) x = e.clientX - tw - 14;
+  if (y + th > window.innerHeight - 10) y = e.clientY - th - 14;
+  dtip.style.left = x + 'px';
+  dtip.style.top = y + 'px';
+}
+function hideDesktopTooltip() {
+  dtip.classList.remove('visible');
+}
+
+// ── Bottom sheet ──
+function showBottomSheet(sign, houseNum) {
+  document.getElementById('sheet-content').innerHTML = getTooltipHTML(sign, houseNum);
+  document.getElementById('sheet-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSheet(e) {
+  if (e && e.target !== document.getElementById('sheet-overlay')) return;
+  document.getElementById('sheet-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateChart() {
+  ascIndex = parseInt(document.getElementById('asc-select').value);
+  buildGrid();
+}
+
+function buildShowAllGrid() {
+  const container = document.getElementById('show-all-grid');
+  container.innerHTML = '';
+  RASHIS.forEach(sign => {
+    const card = document.createElement('div');
+    card.className = 'mini-card';
+    card.style.borderColor = elColors[sign.element];
+    card.innerHTML = `<h4>${sign.symbol} ${sign.sanskrit}</h4>
+      <p><strong style="color:var(--cream)">${sign.english}</strong><br>
+      ${sign.element.charAt(0).toUpperCase()+sign.element.slice(1)} · ${sign.modality} · ${sign.ruler.split('(')[0].trim()}<br>
+      Exalt: ${sign.exaltation} · Body: ${sign.bodyPart}</p>`;
+    card.addEventListener('click', () => {
+      const houseNum = ((RASHIS.indexOf(sign) - ascIndex + 12) % 12) + 1;
+      showBottomSheet(sign, houseNum);
+    });
+    container.appendChild(card);
+  });
+}
+
+function toggleShowAll() {
+  showAllVisible = !showAllVisible;
+  const g = document.getElementById('show-all-grid');
+  if (showAllVisible) { g.classList.add('visible'); buildShowAllGrid(); }
+  else g.classList.remove('visible');
+}
+
+// ══════════════════════════════════════════════════════
+// FLASHCARDS
+// ══════════════════════════════════════════════════════
+let masteredSet = new Set();
+let cardOrder = RASHIS.map((_,i) => i);
+let allFlipped = false;
+
+function buildFlashcards() {
+  const container = document.getElementById('flashcards-grid');
+  container.innerHTML = '';
+
+  cardOrder.forEach(signIdx => {
+    const sign = RASHIS[signIdx];
+    const card = document.createElement('div');
+    card.className = `flashcard${masteredSet.has(signIdx) ? ' flipped' : ''}`;
+    card.dataset.idx = signIdx;
+
+    card.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front" style="border-color:${elColors[sign.element]}">
+          <span class="card-num">${sign.num}</span>
+          <div class="card-symbol">${sign.symbol}</div>
+          <div class="card-sanskrit">${sign.sanskrit}</div>
+          <div class="card-english">${sign.english}</div>
+          <div class="card-hint">Tap to reveal →</div>
+        </div>
+        <div class="flashcard-back" style="border-color:${elColors[sign.element]}">
+          <div class="card-back-title">${sign.sanskrit} ${sign.symbol} — ${sign.english}</div>
+          <div class="cbr"><span class="cbr-label">Element</span><span class="cbr-val" style="color:${elColors[sign.element]}">${sign.element.charAt(0).toUpperCase()+sign.element.slice(1)}</span></div>
+          <div class="cbr"><span class="cbr-label">Modality</span><span class="cbr-val">${sign.modality}</span></div>
+          <div class="cbr"><span class="cbr-label">Ruler</span><span class="cbr-val">${sign.ruler.split('(')[0].trim()}</span></div>
+          <div class="cbr"><span class="cbr-label">Exaltation</span><span class="cbr-val">${sign.exaltation}</span></div>
+          <div class="cbr"><span class="cbr-label">Debilitation</span><span class="cbr-val">${sign.debilitation.split(' at')[0].split('(')[0].trim()}</span></div>
+          <div class="cbr"><span class="cbr-label">Body Part</span><span class="cbr-val">${sign.bodyPart}</span></div>
+          <div class="cbr"><span class="cbr-label">Gem</span><span class="cbr-val">${sign.gem}</span></div>
+          <div class="card-mastered-btn">
+            <button class="mastered-btn" onclick="toggleMastered(${signIdx}, event)">${masteredSet.has(signIdx) ? '✓ Mastered' : 'Mark mastered'}</button>
+          </div>
+        </div>
+      </div>`;
+
+    card.addEventListener('click', e => {
+      if (e.target.classList.contains('mastered-btn')) return;
+      card.classList.toggle('flipped');
+    });
+
+    container.appendChild(card);
+  });
+  updateProgress();
+}
+
+function toggleMastered(idx, e) {
+  e.stopPropagation();
+  masteredSet.has(idx) ? masteredSet.delete(idx) : masteredSet.add(idx);
+  buildFlashcards();
+}
+
+function updateProgress() {
+  const pct = (masteredSet.size / 12) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${masteredSet.size} / 12 mastered`;
+}
+
+function flipAllCards() {
+  allFlipped = !allFlipped;
+  document.querySelectorAll('.flashcard').forEach(c => {
+    allFlipped ? c.classList.add('flipped') : c.classList.remove('flipped');
+  });
+}
+function resetCards() {
+  masteredSet.clear(); allFlipped = false; buildFlashcards();
+}
+function shuffleCards() {
+  for (let i = cardOrder.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [cardOrder[i],cardOrder[j]] = [cardOrder[j],cardOrder[i]];
+  }
+  buildFlashcards();
+}
+
+// ══════════════════════════════════════════════════════
+// DEEP DIVE
+// ══════════════════════════════════════════════════════
+function buildDeepDive() {
+  const sidebar = document.getElementById('sign-sidebar');
+  const panel = document.getElementById('sign-detail-panel');
+  sidebar.innerHTML = ''; panel.innerHTML = '';
+
+  RASHIS.forEach((sign, idx) => {
+    const btn = document.createElement('button');
+    btn.className = `sign-sidebar-btn${idx===0?' active':''}`;
+    btn.innerHTML = `<span>${sign.symbol}</span><span>${sign.sanskrit}</span>`;
+    btn.onclick = () => selectSign(idx);
+    sidebar.appendChild(btn);
+
+    const card = document.createElement('div');
+    card.className = `sign-detail-card${idx===0?' active':''}`;
+    card.id = `detail-${idx}`;
+    card.innerHTML = `
+      <div class="sign-detail-header">
+        <div class="sign-big-symbol">${sign.symbol}</div>
+        <div class="sign-header-text">
+          <h2>${sign.sanskrit}</h2>
+          <h3>${sign.english} — Rashi ${sign.num}</h3>
+          <div class="badges">
+            <span class="element-badge badge-${sign.element}">${sign.element}</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">${sign.modality}</span>
+            <span class="element-badge" style="background:var(--bg3);color:var(--cream-dim);border:1px solid var(--border)">${sign.gender}</span>
+          </div>
+        </div>
+      </div>
+      <div class="sign-attrs-grid">
+        ${[['Ruling Planet','ruler'],['Exaltation (Uccha)','exaltation'],['Debilitation (Neecha)','debilitation'],
+           ['Body Part (Sharira)','bodyPart'],['Direction (Dik)','direction'],['Day (Vara)','day'],
+           ['Color (Varna)','color'],['Gemstone (Ratna)','gem'],['Nature','nature']].map(([label,key])=>`
+          <div class="attr-box">
+            <div class="attr-box-label">${label}</div>
+            <div class="attr-box-value">${sign[key]}</div>
+          </div>`).join('')}
+      </div>
+      <div class="sign-description">
+        <h4>📜 BPHS Description</h4>
+        ${sign.description}
+      </div>
+      <div>
+        <div style="color:var(--cream-dim);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">Keywords</div>
+        <div class="keywords-list">${sign.keywords.map(k=>`<span class="keyword-tag">${k}</span>`).join('')}</div>
+      </div>`;
+    panel.appendChild(card);
+  });
+}
+
+function selectSign(idx) {
+  document.querySelectorAll('.sign-sidebar-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+  document.querySelectorAll('.sign-detail-card').forEach((c,i) => c.classList.toggle('active', i===idx));
+  // On mobile, scroll detail panel into view
+  if (window.innerWidth <= 600) {
+    document.getElementById(`detail-${idx}`).scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// PLANETS
+// ══════════════════════════════════════════════════════
+function buildPlanets() {
+  const container = document.getElementById('planets-grid');
+  container.innerHTML = '';
+
+  PLANETS.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'planet-card';
+    const natClass = p.nature === 'benefic' ? 'benefic' : p.nature === 'malefic' ? 'malefic' : 'neutral';
+    card.innerHTML = `
+      <div class="planet-header">
+        <div class="planet-symbol">${p.glyph || p.symbol}</div>
+        <div class="planet-header-text">
+          <h3>${p.name} <span class="planet-nature-badge ${natClass}">${p.nature}</span></h3>
+          <p>${p.english} · ${p.symbol} · ${p.day}</p>
+        </div>
+      </div>
+      <div class="planet-attrs">
+        ${[['Owns (Swakshetra)','owns'],['Exaltation (Uccha)','exaltation'],['Debilitation (Neecha)','debilitation'],
+           ['Moolatrikona','moolatrikona'],['Friends (Mitra)','friends'],['Enemies (Shatru)','enemies'],
+           ['Karaka For','karakaFor'],['Element / Color','element'],['Gemstone','gem']].map(([label,key])=>`
+          <div class="planet-row">
+            <span class="planet-label">${label}</span>
+            <span class="planet-value">${key==='element'?`${p.element} · ${p.color}`:p[key]}</span>
+          </div>`).join('')}
+      </div>
+      <div class="cabinet-role">⚜️ BPHS Cabinet: ${p.cabinet}</div>
+      <div class="planet-desc">${p.description}</div>`;
+    container.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// TAB SWITCHING
+// ══════════════════════════════════════════════════════
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  // Scroll tabs into view if needed
+  if (btn) btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+buildGrid();
+buildFlashcards();
+buildDeepDive();
+buildPlanets();
+</script>
+
+
+</body></html>
