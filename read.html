@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.55.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.55.1) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -578,7 +578,7 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Two anchors before you write (v4.55.0 — Vikram's craft principles).
+  /* Two anchors before you write (v4.55.1 — Vikram's craft principles).
      Inline expander immediately above the exercise textarea; self-check
      panel immediately below it. Persist open/closed in localStorage. */
   .walk-anchors,
@@ -718,7 +718,7 @@
     margin-bottom: 3px;
   }
 
-  /* Two-door entry on the chart view (v4.55.0). Replaces the single
+  /* Two-door entry on the chart view (v4.55.1). Replaces the single
      "Begin walk-through" button — Path A (house) and Path B (planet)
      are now equal first-class choices. */
   .chart-doors {
@@ -785,7 +785,7 @@
     margin: 0;
   }
 
-  /* Path-intro card content (v4.55.0). Sits in walkCard when walkIdx === 0 —
+  /* Path-intro card content (v4.55.1). Sits in walkCard when walkIdx === 0 —
      shows the procedure, a worked example, a class transcript quote, and
      deck citations before the user enters the per-item cards. */
   .path-intro-section {
@@ -875,7 +875,7 @@
     line-height: 1.55;
   }
 
-  /* Sticky writing pad (v4.55.0). Fixed-position bottom banner that holds
+  /* Sticky writing pad (v4.55.1). Fixed-position bottom banner that holds
      the per-house exercise textarea. Visible only on walk-through houses
      1-12; hidden on synthesis, setup, and chart views. Coexists with the
      WhatsApp FAB via right-side padding. */
@@ -986,7 +986,7 @@
     body.walk-pad-active.walk-pad-expanded { padding-bottom: 240px; }
   }
 
-  /* Inline procedure block (v4.55.0). Native <details> with custom styling
+  /* Inline procedure block (v4.55.1). Native <details> with custom styling
      that holds the 8-step + 3-step procedure right inside the page — no
      external links, no MD navigation. Tap-to-expand. */
   .walk-procedure-inline {
@@ -1078,7 +1078,7 @@
   }
   .walk-procedure-table tr:last-child td { border-bottom: 0; }
 
-  /* Subject-of-analysis 8-billion-people rule (v4.55.0). Sits below the
+  /* Subject-of-analysis 8-billion-people rule (v4.55.1). Sits below the
      "writing pad lives below" pointer to make Vikram's combination rule
      visible at the writing moment. */
   .walk-subject-rule {
@@ -1111,7 +1111,7 @@
   }
   .walk-exercise-pointer em { color: var(--saffron); font-style: italic; }
 
-  /* Synthesis card (v4.55.0 — Step 8 from Vikram's guidance: emphasized
+  /* Synthesis card (v4.55.1 — Step 8 from Vikram's guidance: emphasized
      repeated patterns across the user's placed planets, after all 12
      houses walked). Bars show frequency of each building block. */
   .syn-bars {
@@ -1185,7 +1185,7 @@
   }
   .walk-progress .syn-dot.is-current { color: var(--saffron); background: transparent; }
 
-  /* Worked-example card (v4.55.0). Sits inside the "Two anchors" expander
+  /* Worked-example card (v4.55.1). Sits inside the "Two anchors" expander
      after the Parts of Speech and Intention cards. Tabs toggle between
      Vikram's teaching example and Sree's own-chart example. */
   .we-tabs {
@@ -1345,7 +1345,7 @@
   }
   .selfcheck-warning.is-visible { display: block; }
 
-  /* Walk-through framing line (v4.55.0 — Vikram's principle: system gives
+  /* Walk-through framing line (v4.55.1 — Vikram's principle: system gives
      references, learner writes the sentence). Sits between toolbar and
      progress bar, visible on every house. */
   .walk-frame {
@@ -1362,7 +1362,7 @@
   }
   .walk-frame em { color: var(--saffron); font-style: italic; font-weight: 500; }
 
-  /* Per-planet QR jump link (v4.55.0). */
+  /* Per-planet QR jump link (v4.55.1). */
   .walk-planet-link {
     display: inline-block;
     margin-top: 4px;
@@ -1376,7 +1376,7 @@
   }
   .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
 
-  /* Pati / Ruler block jump (v4.55.0). Tap takes you to that house's walk-through card. */
+  /* Pati / Ruler block jump (v4.55.1). Tap takes you to that house's walk-through card. */
   .walk-pati-jump {
     color: var(--saffron);
     text-decoration: none;
@@ -1394,7 +1394,7 @@
     margin: 6px 0 0;
   }
 
-  /* Quick-reference drawer (v4.55.0) — collapsible cheat sheet inside the walk-through. */
+  /* Quick-reference drawer (v4.55.1) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -1809,7 +1809,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.55.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.55.1</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1849,7 +1849,7 @@
 
     <p class="chart-foot" id="chartFoot"></p>
 
-    <!-- v4.55.0 — Two-door entry: choose your interpretation path. -->
+    <!-- v4.55.1 — Two-door entry: choose your interpretation path. -->
     <div class="chart-doors">
       <div class="chart-doors-eyebrow">Two paths to read your chart</div>
       <div class="chart-doors-grid">
@@ -1880,9 +1880,7 @@
       <span class="walk-counter" id="walkCounter">House 1 of 12</span>
       <button class="btn" type="button" id="walkExitBtn">← Back to chart</button>
     </div>
-    <p class="walk-frame">
-      <strong style="color:var(--saffron);font-weight:500;">📍 Subject:</strong> you are <em>analysing this house</em> — keep every sentence about <em>this house</em>. <em>Reference is given</em> in the drawer; <em>interpretation is yours</em> in the box. The Lord's other house, the Karaka's other placement — those are <em>different analyses</em>, not extras to fold in here.
-    </p>
+    <p class="walk-frame" id="walkFrame"></p>
     <div class="walk-progress" id="walkProgress" role="tablist" aria-label="Walk-through progress"></div>
     <div id="walkDrawer" class="walk-drawer"></div>
     <div id="walkCard"></div>
@@ -1915,7 +1913,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.55.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.55.1 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -2067,7 +2065,7 @@
 
   // Sign rulers — Pati of each rāśi. Mercury and Mars get co-rulers per
   // Vikram's framing (Rahu for Virgo; Ketu for Scorpio). Used by the
-  // "Pati of the House" block on each walk-through card (v4.55.0 — Sudha's ask).
+  // "Pati of the House" block on each walk-through card (v4.55.1 — Sudha's ask).
   const SIGN_RULERS = {
     aries:       { primary: 'mars',    co: null },
     taurus:      { primary: 'venus',   co: null },
@@ -2102,7 +2100,7 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // v4.55.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // v4.55.1: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
   // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
   // surfaces. The `light` field maps to QR's `positive` field. Shadow side
   // stays out of the drawer by design (year-1 framing).
@@ -2407,7 +2405,7 @@
   }
 
   // ---- WALK-THROUGH (Cut 2) ------------------------------------------------
-  // v4.55.0: notes are now path-aware.
+  // v4.55.1: notes are now path-aware.
   //   astro-mychart-notes-v1     — Path A house notes (existing key, kept).
   //   astro-mychart-notes-planet-v1 — Path B planet notes (new key).
   const NOTES_KEY        = 'astro-mychart-notes-v1';
@@ -2437,7 +2435,7 @@
 
   const walkView    = document.getElementById('walkView');
 
-  // v4.55.0 — Walk path state. 'house' = Path A (12 houses, 8 steps each),
+  // v4.55.1 — Walk path state. 'house' = Path A (12 houses, 8 steps each),
   // 'planet' = Path B (9 planets, 3 steps each). walkIdx 0 = path-intro card,
   // 1..12 (or 1..9) = per-item, last+1 = synthesis.
   let walkPath = 'house';
@@ -2458,7 +2456,7 @@
   function showHouseWalk()  { showWalk({ path: 'house',  idx: 0 }); }
   function showPlanetWalk() { showWalk({ path: 'planet', idx: 0 }); }
 
-  // v4.55.0 — Sticky writing pad helpers.
+  // v4.55.1 — Sticky writing pad helpers.
   // The pad is a single fixed-position element at body level (so it can
   // overlay the viewport). It's shown/hidden based on view + walkIdx.
   // The textarea's value is reloaded from notes when the user navigates
@@ -2519,7 +2517,7 @@
     pad.hidden = false;
     document.body.classList.add('walk-pad-active');
     document.body.classList.toggle('walk-pad-expanded', pad.classList.contains('is-expanded'));
-    // v4.55.0 — pad tag is path-aware.
+    // v4.55.1 — pad tag is path-aware.
     let tagHtml;
     if (walkPath === 'planet') {
       const p = PLANETS[h - 1];
@@ -2545,6 +2543,16 @@
     const len = pathLength();          // 12 (house) or 9 (planet)
     const synthIdx = len + 1;
     const isHouse  = walkPath === 'house';
+
+    // v4.55.1 — walk-frame copy adapts to the active path.
+    const frameEl = document.getElementById('walkFrame');
+    if (frameEl) {
+      if (isHouse) {
+        frameEl.innerHTML = `<strong style="color:var(--saffron);font-weight:500;">📍 Subject:</strong> you are <em>analysing this house</em> — keep every sentence about <em>this house</em>. The Lord's other house, the Karaka's other placement — those are <em>different analyses</em>, not extras to fold in here.`;
+      } else {
+        frameEl.innerHTML = `<strong style="color:var(--saffron);font-weight:500;">📍 Subject:</strong> you are <em>analysing this planet</em> — keep every sentence about the <em>planet</em>, not its house. The house it sits in is reference for placement only — not the subject of these sentences.`;
+      }
+    }
 
     // PATH INTRO CARD (walkIdx === 0).
     if (walkIdx === 0) {
@@ -2586,7 +2594,7 @@
     nextBtn.textContent = walkIdx === len ? 'See synthesis ✦' : (isHouse ? 'Next house →' : 'Next planet →');
   }
 
-  // v4.55.0 — Path intro card. Surfaces the procedure, a worked example,
+  // v4.55.1 — Path intro card. Surfaces the procedure, a worked example,
   // a class transcript quote, and deck citations — all inline, all from Vikram.
   function renderWalkPathIntro() {
     const card = document.getElementById('walkCard');
@@ -2708,7 +2716,7 @@
     if (goBtn) goBtn.addEventListener('click', () => { walkIdx = 1; renderWalk(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
   }
 
-  // v4.55.0 — Path B planet card. Surfaces the 3 steps from Vikram's planet
+  // v4.55.1 — Path B planet card. Surfaces the 3 steps from Vikram's planet
   // procedure, sourced strictly from the user's chart + naisargika friendships.
   function renderWalkPlanetCard() {
     const card = document.getElementById('walkCard');
@@ -2931,7 +2939,7 @@
     syncWarning();
   }
 
-  // Quick-reference drawer (v4.55.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.55.1) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -2944,7 +2952,7 @@
     try { localStorage.setItem(DRAWER_KEY, v ? '1' : '0'); } catch (e) {}
   }
 
-  // v4.55.0 — Two anchors expander + Self-check persistence.
+  // v4.55.1 — Two anchors expander + Self-check persistence.
   // Open/closed state is global (one preference for the whole walk-through).
   // Self-check answers are per-house (object keyed by 'h{n}').
   const ANCHORS_KEY    = 'astro-mychart-anchors-v1';
@@ -2953,7 +2961,7 @@
   function loadAnchorsOpen()   { try { return localStorage.getItem(ANCHORS_KEY) === '1'; } catch (e) { return false; } }
   function saveAnchorsOpen(v)  { try { localStorage.setItem(ANCHORS_KEY, v ? '1' : '0'); } catch (e) {} }
 
-  // v4.55.0 — Worked-example tab choice. 'vikram' = teaching example,
+  // v4.55.1 — Worked-example tab choice. 'vikram' = teaching example,
   // 'sree' = own-chart example. Default to Vikram's since that's the
   // class-canonical reference; learners can toggle to Sree's to see
   // what the framework yields on a real chart.
@@ -2988,9 +2996,26 @@
     const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
     if (lagnaIdx < 0) { drawer.innerHTML = ''; return; }
 
-    const sid = SIGN_ORDER[(lagnaIdx + walkIdx - 1) % 12];
+    // v4.55.1 — drawer adapts to walk path. On Path A (house), the "current sign"
+    // is the sign sitting in the current house (Whole Sign). On Path B (planet),
+    // the "current sign" is the sign the current planet sits in.
+    let sid, planetsForAvatars;
+    if (walkPath === 'planet') {
+      const currentPlanet = PLANETS[walkIdx - 1];
+      const placedH = currentPlanet ? myChart.planets[currentPlanet.id] : null;
+      if (currentPlanet && placedH) {
+        sid = SIGN_ORDER[(lagnaIdx + placedH - 1) % 12];
+        planetsForAvatars = [currentPlanet];
+      } else {
+        sid = myChart.lagna; // fallback for unplaced planet
+        planetsForAvatars = [];
+      }
+    } else {
+      sid = SIGN_ORDER[(lagnaIdx + walkIdx - 1) % 12];
+      planetsForAvatars = PLANETS.filter(p => myChart.planets[p.id] === walkIdx);
+    }
     const attrs = SIGN_ATTR[sid];
-    const planetsHere = PLANETS.filter(p => myChart.planets[p.id] === walkIdx);
+    const planetsHere = planetsForAvatars;
 
     const isOpen = loadDrawerOpen();
     drawer.className = 'walk-drawer' + (isOpen ? ' is-open' : '');
@@ -3019,16 +3044,21 @@
     // is explicit even at a glance. If no planets sit here, show a small note.
     const planetIdsHere = new Set(planetsHere.map(p => p.id));
     const avatarsForHouse = AVATAR_LIGHT.filter(a => planetIdsHere.has(a.planet));
+    const avatarSectionLabel = walkPath === 'planet'
+      ? 'Avatar of this planet'
+      : 'Avatars in this house';
+    const avatarsEmptyMsg = walkPath === 'planet'
+      ? '— place this planet in your chart to see its avatar.'
+      : '— no planets placed in this house, so no avatar surfaces here.';
     const avatarsHtml = avatarsForHouse.length
       ? avatarsForHouse.map(a => {
           const planetObj = PLANETS.find(p => p.id === a.planet);
           const planetName = planetObj ? planetObj.name : '';
           const subTag = `${planetName} · ${a.english}`;
           const keywordLine = a.keywords.join(', ');
-          // Always relevant, since these are the avatars of THIS house's planets.
           return tileHtml(a.name, subTag, keywordLine, true);
         }).join('')
-      : `<div class="walk-ref-empty">— no planets placed in this house, so no avatar surfaces here.</div>`;
+      : `<div class="walk-ref-empty">${avatarsEmptyMsg}</div>`;
 
     drawer.innerHTML = `
       <button class="walk-drawer-toggle" type="button" id="walkDrawerToggle" aria-expanded="${isOpen}">
@@ -3050,7 +3080,7 @@
           <div class="walk-ref-grid cols-4">${elementsHtml}</div>
         </div>
         <div class="walk-ref-section">
-          <div class="walk-ref-eyebrow">Avatars in this house</div>
+          <div class="walk-ref-eyebrow">${avatarSectionLabel}</div>
           <div class="walk-ref-grid cols-avatars">${avatarsHtml}</div>
         </div>
       </div>
@@ -3110,7 +3140,7 @@
     // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
     const isLagnaCard = h === 1;
 
-    // v4.55.0 — Vikram's principle: system gives references, learner writes
+    // v4.55.1 — Vikram's principle: system gives references, learner writes
     // the sentence. The per-planet pill is now factual only — placement +
     // a jump to QR for Vikram's classical material on that planet. No
     // pre-formed "Moon in Aries — energized initiating bold changes" line.
@@ -3126,7 +3156,7 @@
           </div>`;
         }).join('');
 
-    // v4.55.0 — Pati of the House (Sudha's ask). Factual surfacing of the
+    // v4.55.1 — Pati of the House (Sudha's ask). Factual surfacing of the
     // sign's ruler(s) and where each ruler is placed in the user's chart.
     // No per-pair interpretation — that's the learner's work.
     const rulers = SIGN_RULERS[sid] || { primary: null, co: null };
@@ -3157,7 +3187,7 @@
       </div>
     `;
 
-    // v4.55.0 — Karaka block per Step 5 of Vikram's interpretation guidance.
+    // v4.55.1 — Karaka block per Step 5 of Vikram's interpretation guidance.
     // Surfaces the natural significator of this house, which sign its planet
     // sits in, and an explicit reminder of the combination rule (Karaka keyword
     // + sign building blocks; never Karaka keyword + house keyword).
@@ -3186,11 +3216,11 @@
     const notes = loadNotes();
     const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-    // v4.55.0 — open/closed state for the two anchors expander + the self-check.
+    // v4.55.1 — open/closed state for the two anchors expander + the self-check.
     const anchorsOpen   = loadAnchorsOpen();
     const selfcheckOpen = loadSelfcheckOpen();
     const selfcheckState = loadSelfcheckState(h);
-    // v4.55.0 — worked-example tab choice (Vikram's teaching vs Sree's chart).
+    // v4.55.1 — worked-example tab choice (Vikram's teaching vs Sree's chart).
     const weTab = loadWeTab();
 
     const exercisePrompt = isLagnaCard
@@ -3229,93 +3259,12 @@
           <div class="walk-label">The exercise · Vikram's frame</div>
           <p class="walk-exercise-prompt">${exercisePrompt}</p>
 
-          <!-- v4.55.0 — Two anchors before you write (Vikram's craft principles). -->
-          <div class="walk-anchors ${anchorsOpen ? 'is-open' : ''}" id="walkAnchors">
-            <button class="walk-anchors-toggle" type="button" id="walkAnchorsToggle" aria-expanded="${anchorsOpen}">
-              <span class="chev">▶</span>
-              <span class="label"><span class="icon">📐</span>Two anchors before you write</span>
-            </button>
-            <div class="walk-anchors-body">
-              <div class="anchor-card">
-                <div class="anchor-eyebrow">Anchor 1</div>
-                <div class="anchor-h"><em>Parts of Speech</em> — build the line as a sentence</div>
-                <ul class="anchor-grammar">
-                  <li><strong>Noun · Planet</strong> — what is acting <em>(the core function)</em></li>
-                  <li><strong>Verb · Duality</strong> (Yang / Yin) — direction of expression <em>(outward / inward)</em></li>
-                  <li><strong>Adverb · Modality</strong> (Cardinal / Fixed / Mutable) — how it happens <em>(initiates / sustains / changes)</em></li>
-                  <li><strong>Adjective · Element</strong> (Fire / Earth / Air / Water) — the kind / quality</li>
-                  <li><strong>Area of life · House</strong> — where it shows up</li>
-                </ul>
-                <div class="anchor-example">
-                  <span class="label">Worked example · Sun in Aries 2H</span>
-                  The self shines by leading the family with warmth.
-                </div>
-              </div>
-
-              <div class="anchor-card">
-                <div class="anchor-eyebrow">Anchor 2</div>
-                <div class="anchor-h"><em>The Intention</em> — choose the framing</div>
-                <ul class="anchor-intent">
-                  <li class="is-not">To predict the future</li>
-                  <li>To <strong>initiate a conversation</strong> — open question</li>
-                  <li>To <strong>invite a course of action</strong> — offered invitation</li>
-                  <li>To <strong>remedy the planet</strong> — suggested remedy</li>
-                </ul>
-                <div class="anchor-example">
-                  <span class="label">Same fact · three voicings</span>
-                  "Have you ever spoken to an audience?" · "Can you try presenting what you know?" · "Consider presenting what you know."
-                </div>
-              </div>
-
-              <!-- v4.55.0 — relabelled. These are SYNTHESIS examples (advanced form
-                   that combines planet + sign + house in one sentence), not Path A
-                   or Path B step-by-step examples. Each path's intro card carries
-                   its own strict step-by-step worked example. -->
-              <div class="anchor-card">
-                <div class="anchor-eyebrow">📝 Synthesis examples · advanced form</div>
-                <div class="anchor-h"><em>Two charts</em> — what the line looks like once Path A or Path B is mastered</div>
-
-                <div class="we-tabs" role="tablist" aria-label="Worked example chart">
-                  <button class="we-tab ${weTab === 'vikram' ? 'is-active' : ''}" data-we-tab="vikram" type="button" role="tab" aria-selected="${weTab === 'vikram'}">Vikram's teaching</button>
-                  <button class="we-tab ${weTab === 'sree' ? 'is-active' : ''}" data-we-tab="sree" type="button" role="tab" aria-selected="${weTab === 'sree'}">Sree's chart</button>
-                </div>
-
-                <div class="we-pane ${weTab === 'vikram' ? 'is-active' : ''}" data-we-pane="vikram" role="tabpanel">
-                  <table class="we-table">
-                    <thead><tr><th>Part</th><th>Element</th><th>Chart</th><th>Quality</th></tr></thead>
-                    <tbody>
-                      <tr><td><strong>Noun</strong></td><td>Planet</td><td>Sun</td><td>Self</td></tr>
-                      <tr><td><strong>Verb</strong></td><td>Duality</td><td>Aries</td><td>Yang · Outward</td></tr>
-                      <tr><td><strong>Adverb</strong></td><td>Modality</td><td>Cardinal</td><td>Initiates · Leads</td></tr>
-                      <tr><td><strong>Adjective</strong></td><td>Element</td><td>Fire</td><td>Warmth</td></tr>
-                      <tr><td><strong>Area</strong></td><td>House</td><td>2H · Family</td><td>Wealth · Speech</td></tr>
-                    </tbody>
-                  </table>
-                  <div class="we-synth">"The self shines by leading the family with warmth."</div>
-                  <div class="we-attr">— Vikram, deck 72 (Sun) · teaching example</div>
-                </div>
-
-                <div class="we-pane ${weTab === 'sree' ? 'is-active' : ''}" data-we-pane="sree" role="tabpanel">
-                  <table class="we-table">
-                    <thead><tr><th>Part</th><th>Element</th><th>Chart</th><th>Quality</th></tr></thead>
-                    <tbody>
-                      <tr><td><strong>Noun</strong></td><td>Planet</td><td>Sun</td><td>Self</td></tr>
-                      <tr><td><strong>Verb</strong></td><td>Duality</td><td>Sagittarius</td><td>Yang · Outward</td></tr>
-                      <tr><td><strong>Adverb</strong></td><td>Modality</td><td>Mutable</td><td>Spontaneous · Adaptable</td></tr>
-                      <tr><td><strong>Adjective</strong></td><td>Element</td><td>Fire</td><td>Transformative · Expansive</td></tr>
-                      <tr><td><strong>Area</strong></td><td>House</td><td>11H · Recognition</td><td>Community · Gains</td></tr>
-                    </tbody>
-                  </table>
-                  <div class="we-synth">"The self expresses outwardly, spontaneously and transformatively, in the area of recognition and community."</div>
-                  <div class="we-synth-or">or</div>
-                  <div class="we-synth">"The self shines transformatively by spontaneously seeking recognition and vision."</div>
-                  <div class="we-attr">— Sree's chart · Aquarius Lagna · Sun in Sagittarius 11H</div>
-                </div>
-
-                <p class="we-frame">Same framework, two charts, two voicings each. Your sentence will be different again — that's the room Vikram protects.</p>
-              </div>
-            </div>
-          </div>
+          <!-- v4.55.1 — Path A cleanup: Two-anchors expander, Synthesis Examples,
+               and the inline 8-step procedure all REMOVED from house cards.
+               Parts of Speech is Path B's grammar; the 8-step procedure already
+               sits in the Path A intro card; Synthesis Examples relocated to the
+               Synthesis destination after House 12. Path A keeps just the
+               writing-pad pointer + the 8-billion-people test + a focused self-check. -->
 
           <p class="walk-exercise-pointer">
             <em>↓ Your reflection lives in the writing pad</em> at the bottom of the screen — always visible, even while you scroll up to read references. Tap "⌄ Collapse" to hide it; tap "⤢ Expand" to write.
@@ -3324,77 +3273,22 @@
             <strong style="color:var(--saffron);">📍 The 8-billion-people test.</strong> If your line is true for everyone with this Lagna — it's universal, not yours. Specifics come from <em>your</em> sign + <em>your</em> Lord's placement + <em>your</em> Karaka's placement, never from the Karaka keyword combined with the house keyword.
           </p>
 
-          <details class="walk-procedure-inline">
-            <summary>📋 <em>Vikram's 8-step procedure for analysing a house</em> — tap to expand</summary>
-            <div class="walk-procedure-body">
-              <p class="walk-procedure-intro">From Vikram's house-interpretation guidance. Decide first whether you're analysing a <strong>house</strong> or a <strong>planet</strong> — different procedures, different combination rules.</p>
-
-              <div class="walk-procedure-section">
-                <div class="walk-procedure-eyebrow">Path A · analysing a HOUSE — eight steps</div>
-                <ol class="walk-procedure-list">
-                  <li><strong>Sign + House.</strong> One keyword for the house + each sign building block, separately. <em>One sentence per building block. No planets here.</em></li>
-                  <li><strong>Planet(s) in this house.</strong> Planet keyword + house keyword <strong>only</strong>. <em>No sign building blocks.</em></li>
-                  <li><strong>Relationship between planets in the house.</strong> Only if conjunct, in each other's signs, or aspecting. Compound permanent + temporary friendship.</li>
-                  <li><strong>Ruler of the house in sign.</strong> Ruler keyword + sign building blocks. <em>No house keyword.</em></li>
-                  <li><strong>Karaka in sign.</strong> Karaka keyword (overlapping with house keyword) + sign building blocks. <strong>Never</strong> Karaka keyword + house keyword — same for all 8 billion people.</li>
-                  <li><strong>Aspects on the house</strong> or on the Karaka. Apply the friendship twist.</li>
-                  <li><strong>Parivartana (exchanges)</strong> between the ruler and another planet — bring in at the Karaka step.</li>
-                  <li><strong>Repeated patterns.</strong> Look across building blocks. If Yang or Mutable or Water (etc.) recurs across multiple steps — that's the emphasised quality.</li>
-                </ol>
-              </div>
-
-              <div class="walk-procedure-section">
-                <div class="walk-procedure-eyebrow">Path B · analysing a PLANET — three steps</div>
-                <ol class="walk-procedure-list">
-                  <li><strong>Planet in sign.</strong> Planet keyword + each sign building block, one sentence per block.</li>
-                  <li><strong>Relationship between planet and owner of that sign.</strong> Compound friendship. Colors how the planet performs.</li>
-                  <li><strong>Conjunctions / aspects / mutual reception</strong> — only if the connection exists.</li>
-                </ol>
-              </div>
-
-              <div class="walk-procedure-section">
-                <div class="walk-procedure-eyebrow">What goes with what — the combination rules</div>
-                <table class="walk-procedure-table">
-                  <thead><tr><th>Step</th><th>Combine</th><th>Never bring in</th></tr></thead>
-                  <tbody>
-                    <tr><td>Sign + House</td><td>Sign building blocks + House keyword</td><td>Planets</td></tr>
-                    <tr><td>Planet in House</td><td>Planet keyword + House keyword</td><td>Sign building blocks</td></tr>
-                    <tr><td>Ruler / Karaka in Sign</td><td>Planet keyword + Sign building blocks</td><td>House keyword</td></tr>
-                    <tr><td>Karaka + House keyword</td><td colspan="2"><strong style="color:var(--saffron);">❌ Never — same for everyone</strong></td></tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="walk-procedure-section">
-                <div class="walk-procedure-eyebrow">Golden rules</div>
-                <ul class="walk-procedure-list" style="list-style:disc;padding-left:22px;">
-                  <li><strong>One building block per sentence</strong> — never combine two in one sentence.</li>
-                  <li><strong>Write a sentence at every step</strong> — don't just list, analyse.</li>
-                  <li><strong>Show sources in brackets</strong> after each word.</li>
-                  <li><strong>Never chase rulerships in circles</strong> — stop and write a sentence.</li>
-                  <li><strong>Always ask:</strong> <em>"is this true for all 8 billion people?"</em> If yes, you're doing it wrong.</li>
-                  <li><strong>Analyse your relationship</strong> with house significations — not other people directly.</li>
-                  <li><strong>Exaltation, debilitation, sign archetypes</strong> — comes later, don't use yet.</li>
-                </ul>
-              </div>
-            </div>
-          </details>
-
-          <!-- v4.55.0 — Self-check below the textarea. The user judges; the system asks. -->
+          <!-- v4.55.1 — Self-check rewritten for Path A. The questions ask whether
+               the user's sentence followed Vikram's house-interpretation procedure
+               specifically — not the Parts of Speech grammar (which is Path B). -->
           <div class="walk-selfcheck ${selfcheckOpen ? 'is-open' : ''}" id="walkSelfcheck">
             <button class="walk-selfcheck-toggle" type="button" id="walkSelfcheckToggle" aria-expanded="${selfcheckOpen}">
               <span class="chev">▶</span>
-              <span class="label"><span class="icon">🪞</span>Self-check — verify your line against the two anchors</span>
+              <span class="label"><span class="icon">🪞</span>Self-check — Path A discipline</span>
             </button>
             <div class="walk-selfcheck-body">
               <div class="selfcheck-section">
-                <div class="selfcheck-eyebrow">Parts of speech · all five present?</div>
+                <div class="selfcheck-eyebrow">Path A discipline · is your line clean?</div>
                 <ul class="selfcheck-list" id="selfcheckParts">
-                  <li><label><input type="checkbox" data-sc-key="noun"> Noun — named the planet / function</label></li>
-                  <li><label><input type="checkbox" data-sc-key="verb"> Verb — outward / inward (the duality)</label></li>
-                  <li><label><input type="checkbox" data-sc-key="adverb"> Adverb — how it happens (the modality)</label></li>
-                  <li><label><input type="checkbox" data-sc-key="adjective"> Adjective — the kind / quality (the element)</label></li>
-                  <li><label><input type="checkbox" data-sc-key="area"> Area — where in life (the house)</label></li>
+                  <li><label><input type="checkbox" data-sc-key="subject"> My sentence stayed about <strong>this house</strong> — not the Lord's other house, not the Karaka's other placement.</label></li>
+                  <li><label><input type="checkbox" data-sc-key="onerule"> I used <strong>one building block per sentence</strong> — didn't combine two.</label></li>
+                  <li><label><input type="checkbox" data-sc-key="karaka"> I did <strong>not combine the Karaka keyword with the house keyword</strong> — that's universal, not personal.</label></li>
+                  <li><label><input type="checkbox" data-sc-key="specific"> My line passes the <strong>8-billion-people test</strong> — it's specific to me, not true for everyone with this Lagna.</label></li>
                 </ul>
               </div>
               <div class="selfcheck-section">
@@ -3415,13 +3309,13 @@
       </div>
     `;
 
-    // v4.55.0 — textarea now lives in the fixed sticky pad at the bottom of
+    // v4.55.1 — textarea now lives in the fixed sticky pad at the bottom of
     // the viewport, not inline. Sync the pad's tag/prompt/value for THIS
     // house. Pad event wiring is set up once in showWalk(); it reads the
     // current walkIdx at save time so navigation Just Works.
     syncWalkPadForHouse(h, exercisePrompt);
 
-    // v4.55.0 — Pati jump links: tap takes the user straight to the house
+    // v4.55.1 — Pati jump links: tap takes the user straight to the house
     // where the ruler is placed.
     card.querySelectorAll('.walk-pati-jump[data-jump-h]').forEach(el => {
       el.addEventListener('click', (ev) => {
@@ -3438,7 +3332,7 @@
       });
     });
 
-    // v4.55.0 — Two anchors expander toggle.
+    // v4.55.1 — Two anchors expander toggle.
     const anchorsToggle = document.getElementById('walkAnchorsToggle');
     if (anchorsToggle) {
       anchorsToggle.addEventListener('click', () => {
@@ -3449,7 +3343,7 @@
       });
     }
 
-    // v4.55.0 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
+    // v4.55.1 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
     card.querySelectorAll('.we-tab[data-we-tab]').forEach(btn => {
       btn.addEventListener('click', () => {
         const which = btn.dataset.weTab;
@@ -3466,7 +3360,7 @@
       });
     });
 
-    // v4.55.0 — Self-check expander toggle.
+    // v4.55.1 — Self-check expander toggle.
     const selfcheckToggle = document.getElementById('walkSelfcheckToggle');
     if (selfcheckToggle) {
       selfcheckToggle.addEventListener('click', () => {
@@ -3477,7 +3371,7 @@
       });
     }
 
-    // v4.55.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
+    // v4.55.1 — Self-check parts-of-speech checkboxes (per-house, persisted).
     const partsBoxes = card.querySelectorAll('#selfcheckParts input[data-sc-key]');
     partsBoxes.forEach(cb => {
       const key = cb.dataset.scKey;
@@ -3490,7 +3384,7 @@
       });
     });
 
-    // v4.55.0 — Intention radio + "not for prediction" warning.
+    // v4.55.1 — Intention radio + "not for prediction" warning.
     const intentRadios = card.querySelectorAll('#selfcheckIntent input[data-sc-intent]');
     const warningEl    = document.getElementById('selfcheckWarning');
     function syncWarning() {
@@ -3511,7 +3405,7 @@
   }
 
   function nextWalk() {
-    // v4.55.0 — path-aware. 0 (intro) → 1 → ... → len → len+1 (synthesis) → exit.
+    // v4.55.1 — path-aware. 0 (intro) → 1 → ... → len → len+1 (synthesis) → exit.
     const len = pathLength();
     if (walkIdx === len + 1) { exitWalk(); return; }
     walkIdx++;
@@ -3525,7 +3419,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // v4.55.0 — Synthesis card (Step 8: emphasized repeated patterns).
+  // v4.55.1 — Synthesis card (Step 8: emphasized repeated patterns).
   // Tallies each placed planet's sign attributes — duality, modality, element —
   // and surfaces frequencies. If a single quality leads, it's emphasized;
   // ties = no emphasis. Pure fact-surfacing — interpretation is the learner's.
@@ -3610,11 +3504,75 @@
         </div>
 
         <p class="walk-pati-frame">This is what Vikram's Step 8 surfaces — the qualities that show up repeatedly across your placements. The interpretation of <em>what that emphasis means</em> is yours to make.</p>
+
+        <!-- v4.55.1 — Synthesis Examples relocated here (from the Two-anchors expander
+             on per-house cards). They belong at the destination: the advanced sentence
+             form learners are working toward, after Path A or Path B is mastered. -->
+        <div class="walk-block">
+          <div class="walk-label">📝 What an advanced line looks like</div>
+          <p class="walk-text" style="font-style:italic;color:var(--ink-soft);font-size:14px;">
+            Once Path A or Path B is mastered, the strict step-by-step gives way to a single sentence that combines planet + sign + house — Vikram's <em>"Parts of Speech"</em> synthesis. Two charts, two voicings each, to show the room for your voice within the structure.
+          </p>
+
+          <div class="we-tabs" role="tablist" aria-label="Synthesis example chart">
+            <button class="we-tab is-active" data-syn-tab="vikram" type="button" role="tab" aria-selected="true">Vikram's teaching · Sun in Aries 2H</button>
+            <button class="we-tab" data-syn-tab="sree" type="button" role="tab" aria-selected="false">Sree's chart · Sun in Sagittarius 11H</button>
+          </div>
+
+          <div class="we-pane is-active" data-syn-pane="vikram" role="tabpanel">
+            <table class="we-table">
+              <thead><tr><th>Part</th><th>Element</th><th>Chart</th><th>Quality</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Noun</strong></td><td>Planet</td><td>Sun</td><td>Self</td></tr>
+                <tr><td><strong>Verb</strong></td><td>Duality</td><td>Aries</td><td>Yang · Outward</td></tr>
+                <tr><td><strong>Adverb</strong></td><td>Modality</td><td>Cardinal</td><td>Initiates · Leads</td></tr>
+                <tr><td><strong>Adjective</strong></td><td>Element</td><td>Fire</td><td>Warmth</td></tr>
+                <tr><td><strong>Area</strong></td><td>House</td><td>2H · Family</td><td>Wealth · Speech</td></tr>
+              </tbody>
+            </table>
+            <div class="we-synth">"The self shines by leading the family with warmth."</div>
+            <div class="we-attr">— Vikram, deck 72 (Sun) · teaching example</div>
+          </div>
+
+          <div class="we-pane" data-syn-pane="sree" role="tabpanel">
+            <table class="we-table">
+              <thead><tr><th>Part</th><th>Element</th><th>Chart</th><th>Quality</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Noun</strong></td><td>Planet</td><td>Sun</td><td>Self</td></tr>
+                <tr><td><strong>Verb</strong></td><td>Duality</td><td>Sagittarius</td><td>Yang · Outward</td></tr>
+                <tr><td><strong>Adverb</strong></td><td>Modality</td><td>Mutable</td><td>Spontaneous · Adaptable</td></tr>
+                <tr><td><strong>Adjective</strong></td><td>Element</td><td>Fire</td><td>Transformative · Expansive</td></tr>
+                <tr><td><strong>Area</strong></td><td>House</td><td>11H · Recognition</td><td>Community · Gains</td></tr>
+              </tbody>
+            </table>
+            <div class="we-synth">"The self expresses outwardly, spontaneously and transformatively, in the area of recognition and community."</div>
+            <div class="we-synth-or">or</div>
+            <div class="we-synth">"The self shines transformatively by spontaneously seeking recognition and vision."</div>
+            <div class="we-attr">— Sree's chart · Aquarius Lagna · Sun in Sagittarius 11H</div>
+          </div>
+
+          <p class="we-frame">Same framework, two charts, two voicings each. Your sentence will be different again — that's the room Vikram protects.</p>
+        </div>
       </div>
     `;
 
     const synEdit = document.getElementById('synEdit');
     if (synEdit) synEdit.addEventListener('click', (ev) => { ev.preventDefault(); showSetup(); });
+
+    // v4.55.1 — wire the relocated Synthesis Examples tabs.
+    card.querySelectorAll('.we-tab[data-syn-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const which = btn.dataset.synTab;
+        card.querySelectorAll('.we-tab[data-syn-tab]').forEach(b => {
+          const isActive = b.dataset.synTab === which;
+          b.classList.toggle('is-active', isActive);
+          b.setAttribute('aria-selected', String(isActive));
+        });
+        card.querySelectorAll('.we-pane[data-syn-pane]').forEach(p => {
+          p.classList.toggle('is-active', p.dataset.synPane === which);
+        });
+      });
+    });
   }
   function exitWalk() {
     walkView.hidden = true;
@@ -3637,7 +3595,7 @@
     if (!confirm('Start over? This clears your Lagna and planet placements from this browser.')) return;
     clearChart(); showSetup();
   });
-  // v4.55.0 — two-door entry replaces single walkBtn.
+  // v4.55.1 — two-door entry replaces single walkBtn.
   wireButton('walkHouseBtn',  showHouseWalk);
   wireButton('walkPlanetBtn', showPlanetWalk);
   wireButton('walkPrevBtn', prevWalk);
@@ -3653,7 +3611,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.55.0';
+  const PAGE_VERSION = '4.55.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3691,7 +3649,7 @@
 </script>
 
 
-<!-- ====================== STICKY WRITING PAD (v4.55.0 — bottom banner) ====================== -->
+<!-- ====================== STICKY WRITING PAD (v4.55.1 — bottom banner) ====================== -->
 <!-- Lives at body level so it can be position:fixed across the viewport.
      Shown by JS only when the walk-through view is active and walkIdx is 1-12.
      Default state: expanded (per Sree's preference). -->
@@ -3772,7 +3730,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

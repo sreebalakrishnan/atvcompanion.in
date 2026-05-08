@@ -483,10 +483,71 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.55.1 ====================== -->
+  <section class="release" data-credits="Sree (deep-scan call — Path A overcrowded, Parts of Speech is Path B's grammar)">
+    <header>
+      <h2>v4.55.1 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">A focused cleanup pass on the Path A (house) walk-through after Sree's deep-scan review of <a href="read.html">Read · beta</a>. The per-house card was carrying material that belongs to Path B (Parts of Speech grammar) or duplicated material the new intro card already carries (the inline 8-step procedure). v4.55.1 strips both, rewrites the self-check to ask Path-A-relevant questions, makes the page-level subject frame path-aware, relocates the Synthesis Examples to the Synthesis destination, and adapts the drawer's avatar section header per path. The per-house card now collapses from ≈8 elements below the prompt to ≈3.</p>
+
+    <h3>What was removed from per-house cards (Path A)</h3>
+    <ul>
+      <li><strong>📐 "Two anchors before you write" expander</strong> — three sub-cards (Parts of Speech, Intention, Synthesis Examples) all gone from house cards. Parts of Speech is Path B's grammar map (Planet=Noun, Duality=Verb, Modality=Adverb, Element=Adjective, House=Area) — it doesn't model Path A's procedure (Sign+House → Planet+House → Ruler+Sign → Karaka+Sign). The Intention principles are still surfaced via the self-check's prediction warning.</li>
+      <li><strong>📋 Inline 8-step procedure <code>&lt;details&gt;</code></strong> — duplicated material now in the Path A intro card (v4.55.0 walkIdx === 0). Cohort sees it once on entry; per-house cards no longer carry the full procedure inline.</li>
+    </ul>
+
+    <h3>Self-check rewritten for Path A</h3>
+    <ul>
+      <li>Old self-check asked Parts-of-Speech questions (Noun · Verb · Adverb · Adjective · Area) — wrong framework for Path A.</li>
+      <li>New self-check asks <strong>Path A discipline questions</strong> the cohort actually needs to verify:
+        <ul>
+          <li><em>"My sentence stayed about <strong>this house</strong> — not the Lord's other house, not the Karaka's other placement."</em></li>
+          <li><em>"I used <strong>one building block per sentence</strong> — didn't combine two."</em></li>
+          <li><em>"I did <strong>not combine the Karaka keyword with the house keyword</strong> — that's universal, not personal."</em></li>
+          <li><em>"My line passes the <strong>8-billion-people test</strong> — specific to me, not true for everyone with this Lagna."</em></li>
+        </ul>
+      </li>
+      <li>Intention radio (Conversation / Invitation / Remedy / ❌ Prediction) stays — the principle applies to both paths.</li>
+      <li>Path B self-check (4 boxes — Noun · Verb · Adverb · Adjective) stays as is. Parts of Speech is Path B's framework.</li>
+    </ul>
+
+    <h3>Walk-frame is path-aware</h3>
+    <ul>
+      <li>The "📍 Subject" frame at the top of every walk-through card was hardcoded to <em>"you are analysing this house"</em>. Now adapts:
+        <ul>
+          <li><strong>Path A:</strong> <em>"📍 Subject: you are analysing this house — keep every sentence about this house. The Lord's other house, the Karaka's other placement — those are different analyses, not extras to fold in here."</em></li>
+          <li><strong>Path B:</strong> <em>"📍 Subject: you are analysing this planet — keep every sentence about the planet, not its house. The house it sits in is reference for placement only — not the subject of these sentences."</em></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Synthesis Examples relocated</h3>
+    <ul>
+      <li>The two-tab Synthesis Examples card (Vikram's Sun in Aries 2H · Sree's Sun in Sagittarius 11H) moved <em>out</em> of the per-house card and <em>into</em> the Synthesis destination card (after House 12 / Planet 9). It belongs at the destination — that's the advanced sentence form learners are working toward, after Path A or Path B is mastered.</li>
+      <li>New label inside the Synthesis card: <em>"📝 What an advanced line looks like — Once Path A or Path B is mastered, the strict step-by-step gives way to a single sentence that combines planet + sign + house — Vikram's 'Parts of Speech' synthesis."</em></li>
+    </ul>
+
+    <h3>Drawer Avatars section adapts per path</h3>
+    <ul>
+      <li><strong>Path A</strong>: drawer's avatar section header reads <em>"Avatars in this house"</em> (existing), shows avatars of all planets sitting in the current walk-through house.</li>
+      <li><strong>Path B</strong>: header reads <em>"Avatar of this planet"</em>, shows the single avatar of the current walk-through planet. Empty state copy adapts too: <em>"— place this planet in your chart to see its avatar."</em></li>
+      <li>Drawer's contextual highlighting (Dualities/Modalities/Elements) also adapts — on Path B it tracks the sign of the current planet; on Path A it tracks the sign of the current house.</li>
+    </ul>
+
+    <h3>Net effect</h3>
+    <ul>
+      <li>Per-house card collapses from ≈8 elements below the exercise prompt to ≈3 — pointer + 8-billion-people test + self-check. The card breathes.</li>
+      <li>Per-planet card unchanged — Path B genuinely uses Parts of Speech.</li>
+      <li>Synthesis card is now a richer destination — frequency dashboards plus the advanced-form examples.</li>
+      <li>The two paths feel more distinct. Each surface carries only what its path needs.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.55.0 ====================== -->
   <section class="release" data-credits="Sree (rearchitecture call — keep house and planet reading separate) · Vikram (Sessions 35/39/40/41/42/43 + house-interpretation guidance PDF)">
     <header>
-      <h2>v4.55.0 <em>· current</em></h2>
+      <h2>v4.55.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">A two-path rearchitecture of <a href="read.html">Read · beta</a>. Vikram teaches <strong>two distinct interpretation procedures</strong> — Path A for analysing a house (8 steps), Path B for analysing a planet (3 steps) — with different combination rules for each. The page now offers them as two equal first-class doors from the chart view. Each path has its own intro card with a step-by-step worked example, a class transcript quote with timestamp, and deck citations. All inline. All sourced from Vikram. No public internet.</p>
@@ -3297,7 +3358,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.55.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.55.1 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3520,7 +3581,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.55.0';
+  const PAGE_VERSION = '4.55.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3634,7 +3695,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
