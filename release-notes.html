@@ -483,10 +483,58 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.56.0 ====================== -->
+  <section class="release" data-credits="Vikram (deck 61 · house keyword map) · Sree (catch — Lagna anchors House 1 in user's chart, only Kaalapurusha defaults H1=Aries)">
+    <header>
+      <h2>v4.56.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">The South Indian chart on <a href="read.html">Read · beta</a> now <strong>speaks</strong>. Vikram's per-house keyword map from deck 61 (<em>Kinds of Houses, continued</em>) lands inside each chamber and as a legend grid below the chart. Each chamber gains a single short keyword on a new line under the sanskrit (<em>Self · Resources · Hobbies · Home · …</em>). Below the chart, a 12-card legend shows the full keyword strings verbatim from class — and a frame line clarifies that keywords attach to the <strong>house number</strong>, not the sign: in your chart, House 1 is your Lagna; only the Kāla­purusha cosmic chart defaults House 1 = Aries.</p>
+
+    <h3>What landed</h3>
+    <ul>
+      <li>New data const <code>HOUSE_KEYWORDS</code> baked into <code>read.html</code>, keyed by house number 1–12, sourced verbatim from Vikram's deck 61 chart slide. Each entry has a <code>short</code> form (one word) and a <code>full</code> form (Vikram's complete keyword string).</li>
+      <li><strong>Inside each chamber</strong> on the chart visualization: a small italic saffron-coloured keyword line below the sanskrit, computed from the chamber's house number (which depends on the user's Lagna via Whole Sign).
+        <ul>
+          <li>For your Aquarius Lagna chart: Aquarius chamber shows <em>"Self"</em>; Pisces chamber shows <em>"Resources"</em>; Aries chamber shows <em>"Hobbies"</em>; etc.</li>
+          <li>For an Aries Lagna chart: Aries chamber shows <em>"Self"</em>; Taurus chamber shows <em>"Resources"</em>; etc.</li>
+          <li>Same word on House 1 across all charts; different chamber position depending on Lagna.</li>
+        </ul>
+      </li>
+      <li><strong>House meanings legend below the chart.</strong> A 12-card grid with header <em>"📜 House meanings · from Vikram's class (deck 61)"</em>. Each card shows house number + computed sign + the full keyword string. The card for House 1 gets a saffron border to mark it as the user's Lagna chamber.</li>
+      <li><strong>Lagna-vs-Kāla­purusha framing line</strong> above the legend grid: <em>"Keywords attach to the house number. For your chart, House 1 is your Lagna · [Sign]. (In the cosmic Kāla­purusha chart, House 1 is always Aries — that's a different teaching frame.)"</em> Makes the rule that confused students at Vikram's class explicit.</li>
+      <li><strong>Inside each Path A walk-through card:</strong> the existing <em>"What this house means"</em> block now leads with Vikram's deck 61 keyword line in saffron italic — <em>"Vikram's keywords (deck 61): Resources, Family, my support."</em> — followed by the existing full-sentence house meaning. Two registers, same source, walk-through cohort sees the keywords inline at the writing moment too.</li>
+    </ul>
+
+    <h3>The full keyword map (deck 61)</h3>
+    <ul>
+      <li><strong>1H · Myself</strong></li>
+      <li><strong>2H · Resources, Family, my support</strong></li>
+      <li><strong>3H · My hobbies, siblings, effort</strong></li>
+      <li><strong>4H · My home, mother, emotions, fixed assets</strong></li>
+      <li><strong>5H · My creations, children, romance, entertainment</strong></li>
+      <li><strong>6H · My health, competitors, diseases, uncle</strong></li>
+      <li><strong>7H · My commitments, spouse, business</strong></li>
+      <li><strong>8H · My challenges, obstacles &amp; hurdles, longevity</strong></li>
+      <li><strong>9H · My learning, teacher, higher education, long distance travel</strong></li>
+      <li><strong>10H · Government, Father, Boss, my work</strong></li>
+      <li><strong>11H · Awards, Recognition, Friends, my status</strong></li>
+      <li><strong>12H · Expenses, Subconscious, my morning practice</strong></li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The chart was reading as signs + planets — abstract. With each chamber labelled <em>Self · Home · Partner · Career</em>, the chart maps directly to life areas at a glance. The cohort no longer has to mentally translate "this is the 7th from Aquarius" into "this is partnership".</li>
+      <li>The Lagna-vs-Kāla­purusha framing prevents the standard novice confusion: assuming House 1 always equals Aries because that's how Kāla­purusha is drawn. The legend names the rule directly, with the user's actual Lagna sign in the saffron text.</li>
+      <li>Single source of truth: <code>HOUSE_KEYWORDS</code> feeds three surfaces (chart chamber · legend grid · walk-through card). Update once, ripple to all three.</li>
+      <li>All content is from Vikram's class deck 61 — no public-internet sources, no paraphrase. The principle from v4.54.1 holds.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.55.3 ====================== -->
   <section class="release" data-credits="Sree (two catches — undefined element + remove personal-chart reference)">
     <header>
-      <h2>v4.55.3 <em>· current</em></h2>
+      <h2>v4.55.3</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Two corrections on Read · beta. <strong>One:</strong> the Path B Step 1 line was rendering <em>"undefined · mutable · yang"</em> — a code bug where <code>SIGNS[sid].element</code> was read instead of the correct <code>SIGN_ATTR[sid].element</code>. Fixed; now reads <em>"fire · mutable · yang"</em>. <strong>Two:</strong> Sree's-chart references (Sun in Sagittarius 11H · Aquarius Lagna) removed from in-page surfaces. The page now leans entirely on Vikram's class material — deck 72 Sun in Aries 2H, deck 73 Moon in Taurus 2H — for worked examples. Per-planet cards already carry Vikram's deck-sourced examples.</p>
@@ -3416,7 +3464,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.55.3 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.56.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3639,7 +3687,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.55.3';
+  const PAGE_VERSION = '4.56.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3753,7 +3801,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.3';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.56.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
