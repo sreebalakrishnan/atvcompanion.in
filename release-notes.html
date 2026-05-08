@@ -483,10 +483,51 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.46.0 ====================== -->
+  <section class="release" data-credits="Sudha (chart layout catch + walk-through pedagogy) · Vikram (per-planet one-liners · class decks 72/73/76/77) · Sree (build)">
+    <header>
+      <h2>v4.46.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Two changes on <a href="read.html">Read · beta</a>. <strong>One:</strong> Sudha caught that the chart was rotating per-Lagna (her Virgo Lagna landed in the top-left corner). The South Indian chart format is canonical — signs sit fixed in their positions; only the house numbers move with the Lagna. Restored to match Quick Reference + Interactive. <strong>Two:</strong> Cut 2 of the chart-interpretation arc — the <strong>per-house walk-through</strong>. Twelve cards, navigated one at a time, each carrying Vikram's deck-sourced one-liner for the planets present, plus his <em>"My ___ is X. Three characteristics. I am ___"</em> exercise with an auto-saving textarea.</p>
+
+    <h3>Cut 1 — South Indian chart layout fix</h3>
+    <ul>
+      <li>The chart's <code>grid-template-areas</code> was rotating by Lagna. Now signs are pinned to their canonical positions: Pisces top-left, Aries / Taurus / Gemini across the top, Cancer / Leo down the right, Virgo bottom-right, Libra / Scorpio / Sagittarius across the bottom (right-to-left visually), Capricorn / Aquarius up the left.</li>
+      <li>House numbers (1H · 2H · ...) are now <strong>labels inside each chamber</strong>, computed via Whole Sign from the Lagna pick. The Lagna chamber gets the saffron border + "Asc" tag — wherever it sits.</li>
+      <li>Match with Quick Reference and Interactive Lab: same chart shape across the whole site, no surprises.</li>
+    </ul>
+
+    <h3>Cut 2 — The per-house walk-through</h3>
+    <ul>
+      <li>New "📖 Begin the walk-through →" button on the Chart view. Opens a third view: twelve cards, navigated with Previous / Next, with a 12-dot progress bar at the top that lets you jump to any house and shows which houses you've already written notes for.</li>
+      <li>Each card shows: <strong>What this house means</strong> (Vikram-flavored one-liner per house) → <strong>Your sign here</strong> (Whole Sign computed; the 1H card uses a Lagna-character description from classical attributes) → <strong>Planets in this house</strong> (with Vikram's per-sign one-liner from his class decks) → <strong>The exercise</strong>.</li>
+      <li><strong>Vikram's per-planet × per-sign one-liners</strong> baked from class decks 72 (Sun), 73 (Moon), 76 (Mars), 77 (Mercury) — 48 lines, in his exact wording. Examples: <em>"Sun in Leo — enthusiastically focus on passion"</em>; <em>"Mars in Capricorn — act strategically and build with discipline"</em>; <em>"Mercury in Pisces — think peacefully while communicating my emotions"</em>. Whole Sign math means the right line surfaces for each placement automatically.</li>
+      <li><strong>Placeholders</strong> for Jupiter · Venus · Saturn · Rahu · Ketu — Vikram's decks for these planets aren't drafted yet. The walk-through shows a soft "coming as Vikram's class material lands" line where their interpretations will go. Sree drops them in as the decks arrive.</li>
+      <li><strong>The exercise</strong> — Vikram's frame from Sudha's voice note: <em>"My [house word] is X. Three characteristics. I am ___."</em> with a textarea below. Auto-saves to <code>localStorage</code> (key <code>astro-mychart-notes-v1</code>) on input, debounced 280ms — same pattern as Reflect. A small "✓ saved" tag fades in beside the textarea after each save. The 12-dot progress bar marks dots dark for houses you've written in.</li>
+      <li><strong>Notes persistence is independent of the chart</strong> — clearing the chart doesn't wipe your reflections, and vice-versa.</li>
+    </ul>
+
+    <h3>What's still coming — Cut 3</h3>
+    <ul>
+      <li><strong>Signature card</strong> — Lagna · Moon · Sun trio assembled into a single short reading at the end of the walk-through.</li>
+      <li><strong>📋 Copy my reading</strong> — exports the full house-by-house with your typed answers as plain text, the same shape as Reflect's copy button.</li>
+      <li>Per-planet one-liners for Jupiter / Venus / Saturn / Rahu / Ketu as Vikram's class material arrives.</li>
+      <li>Lagna character paragraphs in Vikram's voice (the current 1H copy is interim, derived from classical duality / modality / element / ruler attributes).</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>Sudha's catch on the chart layout was right — the South Indian format is canonical, the rotation was a regression. Restoring it keeps consistency across the page and matches what she's seen in class.</li>
+      <li>Cut 2 turns the chart from a static rendering into a <em>guided reading</em>. The cohort can now sit with each house in turn, in Vikram's voice, with a place to write.</li>
+      <li>Surfacing Vikram's deck-sourced one-liners as 48 ready-to-use lines (instead of asking him to draft from scratch) means Phase B shipped without waiting on new content. The placeholders for the remaining five planets make the gap visible without faking it.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.45.0 ====================== -->
   <section class="release" data-credits="Sudha (chart-interpretation pedagogy · voice note) · Sree (build)">
     <header>
-      <h2>v4.45.0 <em>· current</em></h2>
+      <h2>v4.45.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">A new beta peer page — <a href="read.html"><strong>Read · beta</strong></a> — opens the chart-interpretation arc Sudha sketched in her voice note. Phase A ships the <strong>shell</strong>: pick your Lagna, place your nine planets, and see your South Indian chart with sign labels computed via Whole Sign. The walk-through (house by house, "I am ___" exercise, Signature, full reading) lands in Phase B. Cohort can use Phase A immediately to render the chart Vikram cast for them.</p>
@@ -2819,7 +2860,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.45.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.46.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3042,7 +3083,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.45.0';
+  const PAGE_VERSION = '4.46.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3156,7 +3197,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.45.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.46.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

@@ -214,18 +214,20 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
+    /* All rows the same height so wrapping in one card doesn't shove the next out of line. */
+    grid-auto-rows: minmax(54px, auto);
   }
-  @media (min-width: 540px) { .planets-grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 800px) { .planets-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  @media (min-width: 600px) { .planets-grid { grid-template-columns: 1fr 1fr; } }
 
   .planet-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 10px;
+    padding: 8px 12px;
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: 8px;
+    min-height: 54px;
   }
   .planet-row .pl-glyph {
     font-size: 18px;
@@ -237,17 +239,28 @@
   }
   .planet-row .pl-name {
     font-family: var(--display);
+    flex: 1;
+    line-height: 1.15;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .planet-row .pl-name-en {
     font-size: 14px;
     color: var(--ink);
-    flex: 1;
-    line-height: 1.2;
-    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .planet-row .pl-name em {
+  .planet-row .pl-name-sk {
     font-style: italic;
     color: var(--muted);
     font-size: 11.5px;
-    margin-left: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
   }
   .planet-row select {
     font-family: var(--body);
@@ -324,15 +337,19 @@
     color: var(--saffron);
   }
 
+  /* South Indian chart — signs stay fixed in canonical positions (Pisces top-left,
+     proceeding clockwise around the perimeter). Same layout as Quick Reference
+     and Interactive Lab. House numbers are computed per-Lagna and rendered as
+     labels inside each chamber; the chamber positions themselves never rotate. */
   .stage {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-template-areas:
-      "h1 h2 h3 h4"
-      "h12 cc cc h5"
-      "h11 cc cc h6"
-      "h10 h9 h8 h7";
+      "pi ar ta ge"
+      "aq cc cc ca"
+      "cp cc cc le"
+      "sa sc li vi";
     gap: 6px;
     aspect-ratio: 1 / 1;
     max-width: 720px;
@@ -342,20 +359,19 @@
   @media (max-width: 720px) { .stage { gap: 5px; max-width: 96vw; } }
   @media (max-width: 420px) { .stage { gap: 4px; } }
 
-  /* House grid-area mapping. Whole Sign + South Indian: 1H is top-left,
-     proceeding clockwise around the perimeter. */
-  .chamber.house-1  { grid-area: h1; }
-  .chamber.house-2  { grid-area: h2; }
-  .chamber.house-3  { grid-area: h3; }
-  .chamber.house-4  { grid-area: h4; }
-  .chamber.house-5  { grid-area: h5; }
-  .chamber.house-6  { grid-area: h6; }
-  .chamber.house-7  { grid-area: h7; }
-  .chamber.house-8  { grid-area: h8; }
-  .chamber.house-9  { grid-area: h9; }
-  .chamber.house-10 { grid-area: h10; }
-  .chamber.house-11 { grid-area: h11; }
-  .chamber.house-12 { grid-area: h12; }
+  /* Map each sign id to its grid-area in the South Indian chart. */
+  .chamber.sign-pisces      { grid-area: pi; }
+  .chamber.sign-aries       { grid-area: ar; }
+  .chamber.sign-taurus      { grid-area: ta; }
+  .chamber.sign-gemini      { grid-area: ge; }
+  .chamber.sign-cancer      { grid-area: ca; }
+  .chamber.sign-leo         { grid-area: le; }
+  .chamber.sign-virgo       { grid-area: vi; }
+  .chamber.sign-libra       { grid-area: li; }
+  .chamber.sign-scorpio     { grid-area: sc; }
+  .chamber.sign-sagittarius { grid-area: sa; }
+  .chamber.sign-capricorn   { grid-area: cp; }
+  .chamber.sign-aquarius    { grid-area: aq; }
   .stage-center { grid-area: cc; }
 
   .stage-center {
@@ -522,6 +538,215 @@
     flex-wrap: wrap;
   }
 
+  /* ---------- WALK-THROUGH (Phase B · v4.46.0) ---------- */
+  .walk-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .walk-counter {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .05em;
+    color: var(--muted);
+  }
+  .walk-counter strong { color: var(--saffron); font-weight: 500; font-style: normal; }
+
+  .walk-progress {
+    display: flex;
+    gap: 4px;
+    margin: 0 0 16px;
+    flex-wrap: wrap;
+  }
+  .walk-progress button {
+    flex: 1;
+    min-width: 22px;
+    height: 6px;
+    padding: 0;
+    border: 0;
+    background: var(--rule);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background .15s, transform .15s;
+  }
+  .walk-progress button:hover { transform: scaleY(1.4); }
+  .walk-progress button.is-current { background: var(--saffron); }
+  .walk-progress button.has-note { background: var(--ink-soft); }
+  .walk-progress button.has-note.is-current { background: var(--saffron); }
+
+  .walk-card {
+    margin: 0 0 18px;
+    padding: 24px 22px 22px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    animation: viewIn .4s cubic-bezier(.4,0,.2,1) backwards;
+  }
+  .walk-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .walk-h {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(24px, 4vw, 30px);
+    line-height: 1.15;
+    letter-spacing: -.005em;
+    margin: 0 0 14px;
+  }
+  .walk-h em { font-style: italic; color: var(--saffron); }
+
+  .walk-block {
+    margin: 16px 0;
+    padding: 12px 0 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .walk-block:first-of-type { border-top: 0; padding-top: 0; }
+  .walk-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .walk-text {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .walk-text em { color: var(--saffron); font-style: italic; }
+  .walk-text strong { font-weight: 500; font-style: normal; color: var(--ink); }
+  .walk-hint-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 0;
+  }
+  .walk-pill {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .04em;
+    padding: 3px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink-soft);
+  }
+  .walk-pill em { font-style: italic; color: var(--saffron); margin-right: 3px; }
+
+  .walk-planet-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    margin-top: 8px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+  }
+  .walk-planet-glyph {
+    font-size: 22px;
+    color: var(--saffron);
+    line-height: 1;
+    flex-shrink: 0;
+    font-variant-emoji: text;
+    margin-top: 2px;
+  }
+  .walk-planet-body { flex: 1; min-width: 0; }
+  .walk-planet-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .walk-planet-name em { font-style: italic; color: var(--muted); font-weight: 400; margin-left: 4px; font-size: 12px; }
+  .walk-planet-line {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .walk-planet-line .placeholder {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .walk-exercise {
+    margin: 18px 0 0;
+    padding: 16px 18px;
+    background: linear-gradient(180deg, rgba(184,65,14,.04), rgba(243,233,210,.3));
+    border: 1px solid rgba(184,65,14,.18);
+    border-radius: 10px;
+  }
+  .walk-exercise-prompt {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0 0 10px;
+  }
+  .walk-exercise-prompt em { color: var(--saffron); }
+  .walk-textarea {
+    width: 100%;
+    min-height: 96px;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    font-family: var(--body);
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    resize: vertical;
+    transition: border-color .15s;
+  }
+  .walk-textarea:focus { outline: 2px solid rgba(184,65,14,.25); outline-offset: 1px; border-color: var(--saffron); }
+  .walk-saved {
+    display: inline-block;
+    margin-left: 6px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .walk-saved.is-visible { opacity: 1; }
+
+  .walk-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .walk-nav .btn { flex: 1; min-width: 130px; }
+  .walk-nav .btn.middle { flex: 0; }
+  @media (max-width: 480px) {
+    .walk-nav .btn { flex: 1 1 100%; }
+  }
+
   /* ---------- ROADMAP "WHAT'S COMING" ---------- */
   .future {
     margin: 48px 0 16px;
@@ -640,7 +865,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.45.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.46.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -681,8 +906,23 @@
     <p class="chart-foot" id="chartFoot"></p>
 
     <div class="chart-actions">
+      <button class="btn primary" type="button" id="walkBtn">📖 Begin the walk-through →</button>
       <button class="btn" type="button" id="editBtn2">✏ Edit my chart</button>
       <button class="btn" type="button" id="resetBtn2">↻ Start over</button>
+    </div>
+  </div>
+
+  <!-- ====================== WALK-THROUGH VIEW (Cut 2) ====================== -->
+  <div class="view" id="walkView" hidden>
+    <div class="walk-toolbar">
+      <span class="walk-counter" id="walkCounter">House 1 of 12</span>
+      <button class="btn" type="button" id="walkExitBtn">← Back to chart</button>
+    </div>
+    <div class="walk-progress" id="walkProgress" role="tablist" aria-label="Walk-through progress"></div>
+    <div id="walkCard"></div>
+    <div class="walk-nav">
+      <button class="btn" type="button" id="walkPrevBtn">← Previous house</button>
+      <button class="btn primary" type="button" id="walkNextBtn">Next house →</button>
     </div>
   </div>
 
@@ -709,7 +949,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.45.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.46.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -771,6 +1011,116 @@
     10: 'Career · Karma',
     11: 'Gains · Lābha',
     12: 'Release · Vyaya'
+  };
+
+  // Short Vikram-flavored description of each house.
+  const HOUSE_DESC = {
+    1:  'Body, vitality, the container in which everything else unfolds. <em>Tanu, Lagna.</em>',
+    2:  'Speech, wealth, family, food. What you accumulate and what comes out of your mouth. <em>Dhana.</em>',
+    3:  'Siblings, courage, short journeys, will. The push to act. <em>Sahaja.</em>',
+    4:  'Mother, home, vehicles, the heart. The seat of comfort and rest. <em>Sukha.</em>',
+    5:  'Children, creativity, intelligence, mantra. What your devotion bears. <em>Putra.</em>',
+    6:  'Enemies, debts, illness, daily work. The resistance you grow through. <em>Ari, Roga.</em>',
+    7:  'Partner, the other, marriage, business. What completes the half. <em>Yuvati, Kalatra.</em>',
+    8:  'Hidden, longevity, the unseen, sudden change. Where transformation enters. <em>Randhra, Āyur.</em>',
+    9:  'Father, dharma, fortune, distant travel. The stream of grace. <em>Bhāgya, Dharma.</em>',
+    10: 'Career, action, public role, the high noon of the chart. <em>Karma.</em>',
+    11: 'Gains, friends, networks, fulfilment of desire. What flows in. <em>Lābha.</em>',
+    12: 'Release, loss, foreign lands, liberation, sleep. What dissolves. <em>Vyaya, Moksha.</em>'
+  };
+
+  // Short prompt phrases per house — used in the "I am ___" exercise.
+  const HOUSE_PROMPT_NOUN = {
+    1: 'Self', 2: 'Wealth and speech', 3: 'Drive', 4: 'Home', 5: 'Creativity', 6: 'Daily work',
+    7: 'Partnership', 8: 'Hidden life', 9: 'Fortune', 10: 'Career', 11: 'Gains', 12: 'Release'
+  };
+
+  // Lagna character — a short line per Lagna sign for the 1H card.
+  // Beta copy from classical attributes (duality + modality + element + ruler);
+  // to be replaced with Vikram's voice when the Lagna deck lands.
+  const SIGN_ON_LAGNA = {
+    aries:       'cardinal · fire · masculine — a body that initiates, a quick start, a temper that flares and cools. Ruled by Mars.',
+    taurus:      'fixed · earth · feminine — a body that endures, builds slowly, holds what it values. Ruled by Venus.',
+    gemini:      'mutable · air · masculine — a body alive in conversation, quick to adapt, twin-natured. Ruled by Mercury.',
+    cancer:      'cardinal · water · feminine — a body that protects, tides of feeling, home is everywhere it goes. Ruled by the Moon.',
+    leo:         'fixed · fire · masculine — a body that draws the eye, warm-hearted, generous, expects to lead. Ruled by the Sun.',
+    virgo:       'mutable · earth · feminine — a body that perfects, attentive to detail, useful before showy. Ruled by Mercury.',
+    libra:       'cardinal · air · masculine — a body that weighs, seeks balance, comes alive in relation. Ruled by Venus.',
+    scorpio:     'fixed · water · feminine — a body that goes deep, intense, holds what others release. Ruled by Mars.',
+    sagittarius: 'mutable · fire · masculine — a body that ranges far, philosophic, optimistic at root. Ruled by Jupiter.',
+    capricorn:   'cardinal · earth · feminine — a body that climbs, patient with the long game, structured. Ruled by Saturn.',
+    aquarius:    'fixed · air · masculine — a body that thinks differently, stands apart, friend to all. Ruled by Saturn.',
+    pisces:      'mutable · water · feminine — a body that dissolves into feeling, intuitive, hard to pin down. Ruled by Jupiter.'
+  };
+
+  // Vikram's one-liner for each planet in each sign — sourced from his class decks.
+  // 72-sun.md, 73-moon.md, 76-mars.md, 77-mercury.md.
+  // null marks "deck not yet drafted" — placeholder copy is shown until then.
+  const VIKRAM_PLANET_BY_SIGN = {
+    sun: {
+      aries:       'confident in leading transformations',
+      taurus:      'grounded in commitments',
+      gemini:      'proactively adapt communication',
+      cancer:      'peacefully assert emotions',
+      leo:         'enthusiastically focus on passion',
+      virgo:       'gently and patiently collaborate',
+      libra:       'confident and assertive in communicating',
+      scorpio:     'grounded and resilient in emotions',
+      sagittarius: 'ambitious and adaptable in creativity',
+      capricorn:   'patiently set practical and grounded goals',
+      aquarius:    'proactively persevere towards freedom',
+      pisces:      'intuitively respond to truth'
+    },
+    moon: {
+      aries:       'energized initiating bold changes',
+      taurus:      'needs stability and comfort to feel safe',
+      gemini:      'emotionally balanced expressing thoughts',
+      cancer:      'connected when nurturing and protecting',
+      leo:         'fulfilled when recognized and appreciated',
+      virgo:       'secure when organizing, analyzing, helping',
+      libra:       'at peace with harmony and fairness',
+      scorpio:     'alive in deep emotional transformation',
+      sagittarius: 'free when exploring, learning, expanding',
+      capricorn:   'in control with long-term goals',
+      aquarius:    'myself with unconventional ideas',
+      pisces:      'connected when trusting intuition and emotions'
+    },
+    mars: {
+      aries:       'act boldly and initiate with courage',
+      taurus:      'patiently walk towards my goals',
+      gemini:      'act dynamically and adapt my words',
+      cancer:      'act protectively and nurture my emotions',
+      leo:         'act passionately and persevere with confidence',
+      virgo:       'act patiently and improve through discipline',
+      libra:       'act from clarity and assert my freedom',
+      scorpio:     'act consistently for my inner truth',
+      sagittarius: 'act spontaneously in power',
+      capricorn:   'act strategically and build with discipline',
+      aquarius:    'act courageously and focus on play',
+      pisces:      'act intuitively and softly collaborate'
+    },
+    mercury: {
+      aries:       'think ambitiously about initiating creative ideas',
+      taurus:      'think patiently about persevering in practical matters',
+      gemini:      'think courageously in responding to intellectual topics',
+      cancer:      'think creatively in leading intense spaces',
+      leo:         'think ambitiously in focusing on my passion',
+      virgo:       'think peacefully for collaborating in practical matters',
+      libra:       'think enthusiastically in asserting my freedom',
+      scorpio:     'think compassionately in persevering to the truth',
+      sagittarius: 'think optimistically to collaborate for transformation',
+      capricorn:   'think calmly in setting practical goals',
+      aquarius:    'think innovatively to sustain my freedom',
+      pisces:      'think peacefully while communicating my emotions'
+    },
+    // Below — Vikram's decks for these planets haven't been drafted yet.
+    // Sree will upload as they arrive; until then the walk-through shows a
+    // placeholder line so the cohort sees the shape without false copy.
+    jupiter: null,
+    venus:   null,
+    saturn:  null,
+    rahu:    null,
+    ketu:    null
   };
 
   // ---- STATE ---------------------------------------------------------------
@@ -864,7 +1214,10 @@
       }
       return `<label class="planet-row">
         <span class="pl-glyph">${p.glyph}</span>
-        <span class="pl-name">${p.name} <em>· ${p.sanskrit}</em></span>
+        <span class="pl-name">
+          <span class="pl-name-en">${p.name}</span>
+          <span class="pl-name-sk">${p.sanskrit}</span>
+        </span>
         <select data-planet="${p.id}" aria-label="House for ${p.name}">${opts}</select>
       </label>`;
     }).join('');
@@ -887,27 +1240,36 @@
   }
 
   // ---- CHART RENDERER ------------------------------------------------------
+  // South Indian chart: signs stay fixed in their canonical grid positions
+  // (Pisces top-left, clockwise). House numbers are computed per-Lagna via
+  // Whole Sign and rendered as labels INSIDE each chamber — the chambers
+  // themselves never rotate. Same shape as Quick Reference + Interactive.
   function renderChart() {
     const stage = document.getElementById('stage');
     const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
     if (lagnaIdx < 0) { stage.innerHTML = ''; return; }
 
-    // Build map house# → planets in that house.
-    const housePlanets = {};
-    for (let h = 1; h <= 12; h++) housePlanets[h] = [];
+    // Map house number → planets in that house, then translate to sign.
+    const signPlanets = {};
+    SIGN_ORDER.forEach(sid => signPlanets[sid] = []);
     PLANETS.forEach(p => {
       const h = myChart.planets[p.id];
-      if (h) housePlanets[h].push(p);
+      if (!h) return;
+      // Whole Sign: house h contains the sign at SIGN_ORDER[(lagnaIdx + h - 1) % 12].
+      const sid = SIGN_ORDER[(lagnaIdx + h - 1) % 12];
+      signPlanets[sid].push(p);
     });
 
-    // Build chambers in house order; for each house compute sign via Whole Sign
-    // — house h contains the sign at SIGN_ORDER[(lagnaIdx + h - 1) % 12].
+    // Build one chamber per sign. CSS grid-template-areas places each sign
+    // at its canonical perimeter position via the .sign-{sid} class.
     let html = '';
-    for (let h = 1; h <= 12; h++) {
-      const sid = SIGN_ORDER[(lagnaIdx + h - 1) % 12];
+    SIGN_ORDER.forEach(sid => {
       const s = SIGNS[sid];
-      const planets = housePlanets[h];
-      const isLagnaCh = h === 1;
+      const sIdx = SIGN_ORDER.indexOf(sid);
+      // House number this sign occupies for the user's Lagna.
+      const h = ((sIdx - lagnaIdx + 12) % 12) + 1;
+      const planets = signPlanets[sid];
+      const isLagnaCh = sid === myChart.lagna;
       const isEmpty = planets.length === 0;
       const planetPills = isEmpty
         ? `<div class="chamber-empty-note">— empty —</div>`
@@ -915,9 +1277,9 @@
             `<span class="planet-pill" title="${p.name} · ${p.sanskrit}" aria-label="${p.name}">${p.glyph}</span>`
           ).join('')}</div>`;
       html += `
-        <div class="chamber house-${h} ${isEmpty ? 'is-empty' : ''} ${isLagnaCh ? 'is-lagna' : ''}"
+        <div class="chamber sign-${sid} ${isEmpty ? 'is-empty' : ''} ${isLagnaCh ? 'is-lagna' : ''}"
              style="animation-delay: ${(h * .03).toFixed(2)}s"
-             aria-label="House ${h}, ${s.name}">
+             aria-label="${s.name} chamber, House ${h}">
           <div class="chamber-head">
             <span class="chamber-house-num">${h}H</span>
             <div class="chamber-sign-block">
@@ -929,7 +1291,7 @@
           ${planetPills}
         </div>
       `;
-    }
+    });
     stage.innerHTML = html;
 
     // Centre cell (rendered separately so the grid template area picks it up).
@@ -958,6 +1320,176 @@
     if (footEdit) footEdit.addEventListener('click', (ev) => { ev.preventDefault(); showSetup(); });
   }
 
+  // ---- WALK-THROUGH (Cut 2) ------------------------------------------------
+  // Notes per house live in their own localStorage entry so clearing the chart
+  // doesn't have to wipe the user's reflections (and vice-versa).
+  const NOTES_KEY = 'astro-mychart-notes-v1';
+  let walkIdx = 1; // 1..12
+
+  function loadNotes() {
+    try {
+      const raw = localStorage.getItem(NOTES_KEY);
+      if (!raw) return {};
+      const data = JSON.parse(raw) || {};
+      return (typeof data === 'object') ? data : {};
+    } catch (e) { return {}; }
+  }
+  function saveNote(houseN, text) {
+    try {
+      const all = loadNotes();
+      if (text && text.trim()) all['h' + houseN] = text;
+      else delete all['h' + houseN];
+      localStorage.setItem(NOTES_KEY, JSON.stringify(all));
+    } catch (e) {}
+  }
+
+  const walkView    = document.getElementById('walkView');
+  function showWalk(startAt) {
+    setupView.hidden = true;
+    chartView.hidden = true;
+    walkView.hidden  = false;
+    walkIdx = Math.max(1, Math.min(12, startAt || 1));
+    renderWalk();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderWalk() {
+    renderWalkProgress();
+    renderWalkCard();
+    document.getElementById('walkCounter').innerHTML = `House <strong>${walkIdx}</strong> of 12 · <em>${HOUSE_PROMPT_NOUN[walkIdx]}</em>`;
+    document.getElementById('walkPrevBtn').disabled = walkIdx === 1;
+    const nextBtn = document.getElementById('walkNextBtn');
+    nextBtn.textContent = walkIdx === 12 ? 'Finish ✓' : 'Next house →';
+  }
+
+  function renderWalkProgress() {
+    const wrap = document.getElementById('walkProgress');
+    const notes = loadNotes();
+    let html = '';
+    for (let h = 1; h <= 12; h++) {
+      const hasNote = !!(notes['h' + h] && notes['h' + h].trim());
+      const cur = h === walkIdx;
+      html += `<button type="button" data-jump-h="${h}" role="tab"
+                 aria-selected="${cur}"
+                 class="${cur ? 'is-current' : ''} ${hasNote ? 'has-note' : ''}"
+                 title="House ${h}${hasNote ? ' · note saved' : ''}"></button>`;
+    }
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('button[data-jump-h]').forEach(b => {
+      b.addEventListener('click', () => {
+        walkIdx = parseInt(b.dataset.jumpH, 10);
+        renderWalk();
+        document.getElementById('walkCard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function renderWalkCard() {
+    const card = document.getElementById('walkCard');
+    const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
+    if (lagnaIdx < 0) { card.innerHTML = ''; return; }
+
+    const h = walkIdx;
+    const sid = SIGN_ORDER[(lagnaIdx + h - 1) % 12];
+    const s = SIGNS[sid];
+
+    // Planets in this house (Whole Sign).
+    const planetsHere = PLANETS.filter(p => myChart.planets[p.id] === h);
+
+    // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
+    const isLagnaCard = h === 1;
+
+    const planetsHtml = planetsHere.length === 0
+      ? `<p class="walk-text" style="color:var(--muted);font-size:14.5px;"><em>— no planets placed here. If a planet sits here, edit your chart and add it.</em></p>`
+      : planetsHere.map(p => {
+          const oneLiner = (VIKRAM_PLANET_BY_SIGN[p.id] && VIKRAM_PLANET_BY_SIGN[p.id][sid]) || null;
+          const lineHtml = oneLiner
+            ? `<p class="walk-planet-line"><em style="color:var(--saffron);">${p.name} in ${s.name}</em> — ${oneLiner}.</p>`
+            : `<p class="walk-planet-line"><span class="placeholder">— ${p.name} interpretation coming as Vikram's class material lands. Sun · Moon · Mars · Mercury are drafted; Jupiter · Venus · Saturn · Rahu · Ketu pending.</span></p>`;
+          return `<div class="walk-planet-row">
+            <span class="walk-planet-glyph">${p.glyph}</span>
+            <div class="walk-planet-body">
+              <div class="walk-planet-name">${p.name} <em>· ${p.sanskrit}</em></div>
+              ${lineHtml}
+            </div>
+          </div>`;
+        }).join('');
+
+    const notes = loadNotes();
+    const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+    const exercisePrompt = isLagnaCard
+      ? `<em>My Lagna is ${s.name} (${s.sanskrit}). Three characteristics. I am ___.</em>`
+      : `<em>My ${HOUSE_PROMPT_NOUN[h].toLowerCase()} is in ${s.name} (${s.sanskrit}). Three characteristics. I am ___.</em>`;
+
+    const signLine = isLagnaCard
+      ? SIGN_ON_LAGNA[sid]
+      : `<em>${s.name}</em> · ${s.sanskrit}. The energy of this house, for you, runs in ${s.name}'s register.`;
+
+    card.innerHTML = `
+      <div class="walk-card">
+        <div class="walk-eyebrow">House ${h} of 12</div>
+        <h2 class="walk-h">${HOUSE_PROMPT_NOUN[h]} · <em>${HOUSE_WORD[h].split(' · ').slice(-1)[0]}</em></h2>
+
+        <div class="walk-block">
+          <div class="walk-label">What this house means</div>
+          <p class="walk-text">${HOUSE_DESC[h]}</p>
+        </div>
+
+        <div class="walk-block">
+          <div class="walk-label">Your sign here</div>
+          <p class="walk-text">${signLine}</p>
+        </div>
+
+        <div class="walk-block">
+          <div class="walk-label">Planets in this house</div>
+          ${planetsHtml}
+        </div>
+
+        <div class="walk-exercise">
+          <div class="walk-label">The exercise · Vikram's frame</div>
+          <p class="walk-exercise-prompt">${exercisePrompt}</p>
+          <textarea class="walk-textarea"
+                    id="walkAnswer"
+                    placeholder="Three characteristics. Start with one. Saved automatically as you type."
+                    aria-label="Your reflection for House ${h}">${savedAnswer}</textarea>
+          <span class="walk-saved" id="walkSaved" aria-live="polite">✓ saved</span>
+        </div>
+      </div>
+    `;
+
+    // Wire textarea auto-save (debounced 280ms — matches Reflect's pattern).
+    const ta = document.getElementById('walkAnswer');
+    const savedTag = document.getElementById('walkSaved');
+    let saveTimer = null;
+    ta.addEventListener('input', () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        saveNote(h, ta.value);
+        renderWalkProgress();         // refresh dot state
+        savedTag.classList.add('is-visible');
+        setTimeout(() => savedTag.classList.remove('is-visible'), 900);
+      }, 280);
+    });
+  }
+
+  function nextWalk() {
+    if (walkIdx >= 12) { exitWalk(); return; }
+    walkIdx++;
+    renderWalk();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function prevWalk() {
+    if (walkIdx <= 1) return;
+    walkIdx--;
+    renderWalk();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function exitWalk() {
+    walkView.hidden = true;
+    showChart();
+  }
+
   // ---- BUTTON WIRING -------------------------------------------------------
   function wireButton(id, fn) {
     const el = document.getElementById(id);
@@ -974,6 +1506,10 @@
     if (!confirm('Start over? This clears your Lagna and planet placements from this browser.')) return;
     clearChart(); showSetup();
   });
+  wireButton('walkBtn',     () => showWalk(1));
+  wireButton('walkPrevBtn', prevWalk);
+  wireButton('walkNextBtn', nextWalk);
+  wireButton('walkExitBtn', exitWalk);
 
   // ---- INITIAL VIEW --------------------------------------------------------
   if (myChart.lagna) showChart();
@@ -984,7 +1520,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.45.0';
+  const PAGE_VERSION = '4.46.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1081,7 +1617,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.45.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.46.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
