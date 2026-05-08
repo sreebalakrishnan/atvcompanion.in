@@ -483,10 +483,48 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.48.0 ====================== -->
+  <section class="release" data-credits="Sree (catch — use Vikram's keywords + contextual avatars) · Vikram (class keyword lists · QR data)">
+    <header>
+      <h2>v4.48.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Two refinements to the v4.47 quick-reference drawer on <a href="read.html">Read · beta</a>, both from Sree's reviewing eye. <strong>One:</strong> the duality / modality / element descriptions are now Vikram's exact keyword lists pulled verbatim from Quick Reference — no drafted paraphrase. Same words on both surfaces. <strong>Two:</strong> the Avatars section is now <em>contextual-only</em> — it shows only the avatars of planets actually placed in the current house, with explicit <em>"Avatar · Planet · English"</em> tagging, instead of all ten regardless of placement.</p>
+
+    <h3>Cut 1 — QR-sourced keywords</h3>
+    <ul>
+      <li>The drawer's Dualities, Modalities, and Elements tiles now carry the same keyword lists shown in Quick Reference — Vikram's class lists, copied verbatim from QR's <code>ELEMENTS</code> / <code>MODALITIES</code> / <code>POLARITIES</code> constants (only the <code>positive</code> field, since the drawer is light-only).</li>
+      <li>Each tile carries the deity pairing the way Vikram introduces them: <em>Fire · Mahakali</em>, <em>Earth · Mahasaraswathi</em>, <em>Air · Maheshwari</em>, <em>Water · Mahalakshmi</em>; <em>Cardinal · Brahma</em>, <em>Fixed · Vishnu</em>, <em>Mutable · Shiva</em>; <em>Yang · Nara</em>, <em>Yin · Stri</em>.</li>
+      <li>Examples of the new lines (all from QR / class):
+        <ul>
+          <li><strong>Fire · Mahakali</strong> — <em>"Forceful, passionate, dynamic, transformative, confident, brave, visionary, fierce love, fearless, unstoppable, victorious, decisive."</em></li>
+          <li><strong>Cardinal · Brahma</strong> — <em>"Leader, initiates, decisive, innovative, motivated, action-oriented, sets goals, assertive, strategic, pioneer, confident, dynamic, proactive, ambitious, visionary."</em></li>
+          <li><strong>Yin · Stri</strong> — <em>"Intuitive, nurturing, empathetic, receptive, compassionate, peaceful, harmonious, reflective, sensitive, gentle, creative, calming, supportive, grounding, patient."</em></li>
+        </ul>
+      </li>
+      <li>Drawer header pill updated to "<em>light only · from class</em>" so the source is visible without clicking through.</li>
+    </ul>
+
+    <h3>Cut 2 — Contextual avatars</h3>
+    <ul>
+      <li>The Avatars section header now reads <strong>"Avatars in this house"</strong> and renders only the avatars of planets actually placed in the current walk-through house. Empty house → small note: <em>"— no planets placed in this house, so no avatar surfaces here."</em></li>
+      <li>Each avatar tile is tagged explicitly: <strong>Matsya · Ketu · Fish</strong>, <strong>Krishna · Moon · Cowherd</strong>, etc. So the planet-avatar mapping is visible in the tile itself — no need to remember it separately.</li>
+      <li>Avatar tiles carry the keyword list directly from QR's <code>AVATARS.keywords</code> array — <em>"flood, preservation of knowledge, beginning, divine warning, intuition, first sign"</em> for Matsya, etc. Same words as the avatar drawer in QR.</li>
+      <li>Kalki removed from the data — QR's <code>AVATARS</code> is 9 entries (Matsya through Buddha), one per classical planet. Kalki is the future avatar with no planetary correspondence in this teaching, so it never had a place to surface.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The drawer's purpose is to support the cohort with material they already recognise. Drafted one-liners — even Vikram-flavored ones — introduced subtle word drift between this page and Quick Reference. Pulling QR's exact keyword lists removes that drift entirely.</li>
+      <li>Contextual avatars match how the walk-through reads. The user is reading about <em>this</em> house, with <em>these</em> planets in it — the avatars they need are the ones whose planets sit here, not all ten unprioritised.</li>
+      <li>Maintenance: when Vikram updates a keyword list in the future, the change goes once into QR's <code>ELEMENTS</code>/<code>MODALITIES</code>/<code>POLARITIES</code>/<code>AVATARS</code> constants, and we re-paste the same lines into read.html. Single source of truth, two surfaces.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.47.0 ====================== -->
   <section class="release" data-credits="Sree (drawer ask + light-only framing) · Vikram (avatar mappings · class material)">
     <header>
-      <h2>v4.47.0 <em>· current</em></h2>
+      <h2>v4.47.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">A <strong>quick-reference drawer</strong> lives inside the walk-through on <a href="read.html">Read · beta</a>. Collapsible. Shows the four foundational grids — Dualities, Modalities, Elements, Avatars — in <strong>light-only descriptions</strong>, matching year-1 of Vikram's class. As you walk through your houses, the drawer adapts: tiles for the current sign's <em>duality · modality · element</em> get a saffron border, and the avatars of any planets in this house light up too. So general look-up and contextual learning happen in the same surface.</p>
@@ -2892,7 +2930,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.47.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.48.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3115,7 +3153,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.47.0';
+  const PAGE_VERSION = '4.48.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3229,7 +3267,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.47.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.48.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

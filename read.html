@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.47.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.48.0) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -578,7 +578,7 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Quick-reference drawer (v4.47.0) — collapsible cheat sheet inside the walk-through. */
+  /* Quick-reference drawer (v4.48.0) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -698,6 +698,13 @@
     margin: 0;
   }
   .walk-ref-line .placeholder { color: var(--muted); }
+  .walk-ref-empty {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 8px 4px;
+  }
 
   .walk-card {
     margin: 0 0 18px;
@@ -986,7 +993,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.47.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.48.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1071,7 +1078,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.47.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.48.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -1194,35 +1201,39 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // Shadow side stays out of the drawer by design.
+  // v4.48.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
+  // surfaces. The `light` field maps to QR's `positive` field. Shadow side
+  // stays out of the drawer by design (year-1 framing).
   const DUALITY_LIGHT = {
-    yang: { name: 'Yang · Masculine', line: 'Outward, active, expressive. The doing pole.' },
-    yin:  { name: 'Yin · Feminine',   line: 'Inward, receptive, quiet. The being pole.' }
+    yang: { name: 'Yang', deity: 'Nara',  light: 'Dynamic, assertive, confident, decisive, courageous, energetic, focused, proactive, ambitious, optimistic, driven, innovative, enthusiastic, competitive' },
+    yin:  { name: 'Yin',  deity: 'Stri',  light: 'Intuitive, nurturing, empathetic, receptive, compassionate, peaceful, harmonious, reflective, sensitive, gentle, creative, calming, supportive, grounding, patient' }
   };
   const MODALITY_LIGHT = {
-    cardinal: { name: 'Cardinal', line: 'Initiates. The first push. Starts something new.' },
-    fixed:    { name: 'Fixed',    line: 'Sustains. Holds the form. Keeps it going.' },
-    mutable:  { name: 'Mutable',  line: 'Adapts. Transitions. Responds to change.' }
+    cardinal: { name: 'Cardinal', deity: 'Brahma', light: 'Leader, initiates, decisive, innovative, motivated, action-oriented, sets goals, assertive, strategic, pioneer, confident, dynamic, proactive, ambitious, visionary' },
+    fixed:    { name: 'Fixed',    deity: 'Vishnu', light: 'Stable, perseveres, reliable, loyal, determined, steadfast, consistent, patient, resilient, committed, strong-will, grounded, dependable, focused' },
+    mutable:  { name: 'Mutable',  deity: 'Shiva',  light: 'Adaptable, flexible, versatile, resourceful, open-minded, curious, quick-thinking, innovative, responsive, creativity, communicative, collaborative, spontaneous, fluid' }
   };
   const ELEMENT_LIGHT = {
-    fire:  { name: 'Fire',  line: 'Spark, vision, will. Acts from passion.' },
-    earth: { name: 'Earth', line: 'Body, ground, structure. Acts patiently.' },
-    air:   { name: 'Air',   line: 'Thought, voice, connection. Acts through ideas.' },
-    water: { name: 'Water', line: 'Feeling, intuition, depth. Acts from emotion.' }
+    fire:  { name: 'Fire',  deity: 'Mahakali',       light: 'Forceful, passionate, dynamic, transformative, confident, brave, visionary, fierce love, fearless, unstoppable, victorious, decisive' },
+    earth: { name: 'Earth', deity: 'Mahasaraswathi', light: 'Practical, grounded, stable, rooted, steadfast, patient, resilient, skillful, meticulous, persistent, supportive, sustaining' },
+    air:   { name: 'Air',   deity: 'Maheshwari',     light: 'Light, free, effortless, spacious, clear-minded, vast, wise, open-hearted, luminous, all-seeing, compassionate, truth-centered' },
+    water: { name: 'Water', deity: 'Mahalakshmi',    light: 'Softness, emotional depth, sweetness, grace, tenderness, blissful, harmony, flowing, sensual, intuitive, nurturing, beauty' }
   };
-  // Standard Vedic avatar ↔ planet mapping (Parashara-cited; verified by the
-  // workbook quiz answer Matsya → Ketu). If Vikram's class differs, override here.
+  // Avatar ↔ planet — copied verbatim from QR's AVATARS constant. The 9 classical
+  // avatars each pair with one of the 9 planets; Kalki isn't in the mapping and
+  // therefore doesn't surface in any house. Keywords are Vikram's class lists
+  // (the AVATARS.keywords array in QR), shown here as a comma-separated line.
   const AVATAR_LIGHT = [
-    { id: 'matsya',      name: 'Matsya',      sanskrit: 'fish',          planet: 'ketu',    line: 'The first listening. Awareness before form.' },
-    { id: 'kurma',       name: 'Kūrma',       sanskrit: 'tortoise',      planet: 'saturn',  line: 'Patient support. The foundation that holds the churning.' },
-    { id: 'varaha',      name: 'Varāha',      sanskrit: 'boar',          planet: 'rahu',    line: 'Lifts what was sunk. Carries us out of the depths.' },
-    { id: 'narasimha',   name: 'Narasimha',   sanskrit: 'man-lion',      planet: 'mars',    line: 'Fierce protection. Courage to stand for the right.' },
-    { id: 'vamana',      name: 'Vāmana',      sanskrit: 'dwarf',         planet: 'jupiter', line: 'The small that grows vast. Wisdom that expands.' },
-    { id: 'parashurama', name: 'Paraśurāma',  sanskrit: 'rāma with axe', planet: 'venus',   line: 'Skill perfected. Devotion that cuts to truth.' },
-    { id: 'rama',        name: 'Rāma',        sanskrit: 'the prince',    planet: 'sun',     line: 'Dharma made flesh. The just and noble ruler.' },
-    { id: 'krishna',     name: 'Krishna',     sanskrit: 'the dark one',  planet: 'moon',    line: 'Love and play. The teacher in the heart.' },
-    { id: 'buddha',      name: 'Buddha',      sanskrit: 'the awakened',  planet: 'mercury', line: 'The middle path. Clarity through awareness.' },
-    { id: 'kalki',       name: 'Kalki',       sanskrit: 'the future',    planet: null,      line: "What's coming. The next turn of the wheel." }
+    { id: 'matsya',     name: 'Matsya',     english: 'Fish',         planet: 'ketu',    keywords: ['flood','preservation of knowledge','beginning','divine warning','intuition','first sign'] },
+    { id: 'kurma',      name: 'Kurma',      english: 'Tortoise',     planet: 'saturn',  keywords: ['churning','stability','patience','foundation','endurance','holding form'] },
+    { id: 'varaha',     name: 'Varaha',     english: 'Boar',         planet: 'rahu',    keywords: ['rescue','depths','tilling','recovery','protection','primal force'] },
+    { id: 'narasimha',  name: 'Narasimha',  english: 'Lion-man',     planet: 'mars',    keywords: ['breaking binaries','fierce protection','threshold','aggressive energy','justice','breakthrough'] },
+    { id: 'vamana',     name: 'Vamana',     english: 'Dwarf',        planet: 'jupiter', keywords: ['surrender','three steps','expansion','wisdom','small to vast','justice'] },
+    { id: 'parashuram', name: 'Parashuram', english: 'Warrior-sage', planet: 'venus',   keywords: ['axe','warrior-Brahmin','renewal','perfection','devotion','dharma'] },
+    { id: 'rama',       name: 'Rama',       english: 'Prince',       planet: 'sun',     keywords: ['dharma','steadfast','noble king','soul','loyalty','righteousness'] },
+    { id: 'krishna',    name: 'Krishna',    english: 'Cowherd',      planet: 'moon',    keywords: ['unconditional love','equanimity','play','wisdom','nurture','flute'] },
+    { id: 'buddha',     name: 'Buddha',     english: 'Awakened',     planet: 'mercury', keywords: ['middle path','awakening','intelligence','speech','compassion','letting go'] }
   ];
 
   // Vikram's one-liner for each planet in each sign — sourced from his class decks.
@@ -1535,7 +1546,7 @@
     nextBtn.textContent = walkIdx === 12 ? 'Finish ✓' : 'Next house →';
   }
 
-  // Quick-reference drawer (v4.47.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.48.0) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -1556,43 +1567,50 @@
     const sid = SIGN_ORDER[(lagnaIdx + walkIdx - 1) % 12];
     const attrs = SIGN_ATTR[sid];
     const planetsHere = PLANETS.filter(p => myChart.planets[p.id] === walkIdx);
-    const relevantAvatars = new Set();
-    planetsHere.forEach(p => {
-      const a = AVATAR_LIGHT.find(av => av.planet === p.id);
-      if (a) relevantAvatars.add(a.id);
-    });
 
     const isOpen = loadDrawerOpen();
     drawer.className = 'walk-drawer' + (isOpen ? ' is-open' : '');
 
-    function tileHtml(name, sub, line, isRelevant) {
-      const subHtml = sub ? ` <em>· ${sub}</em>` : '';
+    // Tile helper — name (+ optional deity sub-tag) + light keyword line.
+    function tileHtml(name, deity, light, isRelevant) {
+      const subHtml = deity ? ` <em>· ${deity}</em>` : '';
       return `<div class="walk-ref-tile ${isRelevant ? 'is-relevant' : ''}">
         <div class="walk-ref-name">${name}${subHtml}</div>
-        <p class="walk-ref-line">${line}</p>
+        <p class="walk-ref-line">${light}</p>
       </div>`;
     }
 
     const dualitiesHtml = Object.entries(DUALITY_LIGHT).map(([k, v]) =>
-      tileHtml(v.name, '', v.line, k === attrs.duality)
+      tileHtml(v.name, v.deity, v.light, k === attrs.duality)
     ).join('');
     const modalitiesHtml = Object.entries(MODALITY_LIGHT).map(([k, v]) =>
-      tileHtml(v.name, '', v.line, k === attrs.modality)
+      tileHtml(v.name, v.deity, v.light, k === attrs.modality)
     ).join('');
     const elementsHtml = Object.entries(ELEMENT_LIGHT).map(([k, v]) =>
-      tileHtml(v.name, '', v.line, k === attrs.element)
+      tileHtml(v.name, v.deity, v.light, k === attrs.element)
     ).join('');
-    const avatarsHtml = AVATAR_LIGHT.map(a => {
-      const planetObj = a.planet ? PLANETS.find(p => p.id === a.planet) : null;
-      const sub = planetObj ? `${planetObj.name} · ${a.sanskrit}` : a.sanskrit;
-      return tileHtml(a.name, sub, a.line, relevantAvatars.has(a.id));
-    }).join('');
+
+    // Avatars — contextual: only the avatars of planets currently in this house.
+    // Each tile tagged "Avatar · Planet · English" so the planet-avatar mapping
+    // is explicit even at a glance. If no planets sit here, show a small note.
+    const planetIdsHere = new Set(planetsHere.map(p => p.id));
+    const avatarsForHouse = AVATAR_LIGHT.filter(a => planetIdsHere.has(a.planet));
+    const avatarsHtml = avatarsForHouse.length
+      ? avatarsForHouse.map(a => {
+          const planetObj = PLANETS.find(p => p.id === a.planet);
+          const planetName = planetObj ? planetObj.name : '';
+          const subTag = `${planetName} · ${a.english}`;
+          const keywordLine = a.keywords.join(', ');
+          // Always relevant, since these are the avatars of THIS house's planets.
+          return tileHtml(a.name, subTag, keywordLine, true);
+        }).join('')
+      : `<div class="walk-ref-empty">— no planets placed in this house, so no avatar surfaces here.</div>`;
 
     drawer.innerHTML = `
       <button class="walk-drawer-toggle" type="button" id="walkDrawerToggle" aria-expanded="${isOpen}">
         <span class="chev">▶</span>
         <span class="label"><span class="icon">📖</span>Quick reference</span>
-        <span class="light-tag">light only</span>
+        <span class="light-tag">light only · from class</span>
       </button>
       <div class="walk-drawer-body">
         <div class="walk-ref-section">
@@ -1608,7 +1626,7 @@
           <div class="walk-ref-grid cols-4">${elementsHtml}</div>
         </div>
         <div class="walk-ref-section">
-          <div class="walk-ref-eyebrow">Avatars · daśāvatāra</div>
+          <div class="walk-ref-eyebrow">Avatars in this house</div>
           <div class="walk-ref-grid cols-avatars">${avatarsHtml}</div>
         </div>
       </div>
@@ -1779,7 +1797,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.47.0';
+  const PAGE_VERSION = '4.48.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1876,7 +1894,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.47.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.48.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
