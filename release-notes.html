@@ -479,10 +479,32 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.38.0 ====================== -->
+  <section class="release" data-credits="Sree (moon in the chart)">
+    <header>
+      <h2>v4.38.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">The <strong>Moon today</strong> block moves into the Rāśi Chakra centre itself — <em>visible without a tap</em>. Below the "Do you know? — tap" pill, the chart's centre cell now shows today's <em>paksha</em>, approximate <em>tithi</em>, and the English phase name with a small lunar glyph. The page now feels different every day, even before you've interacted with anything.</p>
+
+    <h3>What landed</h3>
+    <ul>
+      <li>New Moon block inside the centre cell of the Rāśi Chakra. Layout matches Variant A from the design pass: a small <em>"— Moon today —"</em> eyebrow, the moon glyph, and two lines of text — <em>Paksha · ~Tithi N</em> on top, <em>Phase Name</em> below.</li>
+      <li>The popover that opens when you tap "Do you know?" keeps its content as it was in v4.37 — including its own moon footer. Moon now lives in two places: ambient (in the chart centre) and contextual (inside the popover, alongside the curated insight).</li>
+      <li>Sizing uses <code>clamp()</code> so the moon block stays legible from desktop down to a constrained iPhone viewport without crowding the centre square.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The Moon footer inside the popover required a tap to discover. For a daily-changing surface, hiding it behind an interaction defeats most of the point — visitors who don't tap never see it. Pulling the block out into the chart centre means today's lunar state is part of the page on first paint.</li>
+      <li>The chart centre is the natural home — it's already the temporal/oracular spot of the page, and the Moon is the planet of time and rhythm in Vikram's teaching. The Queen sits at the heart of the cabinet anyway.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.37.0 ====================== -->
   <section class="release" data-credits="Sree (do-you-know + moon today)">
     <header>
-      <h2>v4.37.0 <em>· current</em></h2>
+      <h2>v4.37.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">The Rāśi Chakra centre — the popover that used to read <em>"From the class — tap to read"</em> — becomes a richer surface, <strong>"Do you know?"</strong> Thirty curated insights drawn entirely from Vikram's class corpus (decks, transcripts, retreat notes, peer-group threads), each wearing a small badge that says where it came from. Below the card sits a second always-visible surface: <strong>Moon today</strong> — paksha, approximate tithi, and English phase name, with a one-line note rooted in Vikram's framing of the Moon as Queen.</p>
@@ -2530,7 +2552,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.37.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.38.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2753,7 +2775,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.37.0';
+  const PAGE_VERSION = '4.38.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

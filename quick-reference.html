@@ -307,6 +307,56 @@
   .cell.center .center-tap:hover { background: var(--saffron); color: var(--surface); }
   .cell.center .center-tap .ct-mark { font-style: normal; margin-right: 4px; }
 
+  /* Centre-cell Moon today block (v4.38.0) — always visible inside the chart. */
+  .cell.center .center-moon {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--rule);
+    width: 100%;
+    text-align: center;
+  }
+  .cell.center .cm-divider {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(8.5px, 1.6vw, 10px);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+    opacity: .85;
+  }
+  .cell.center .cm-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+  .cell.center .cm-glyph {
+    font-size: clamp(14px, 3.2vw, 19px);
+    line-height: 1;
+    color: var(--saffron);
+    font-variant-emoji: text;
+    flex-shrink: 0;
+  }
+  .cell.center .cm-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    text-align: left;
+  }
+  .cell.center .cm-line {
+    font-family: var(--display);
+    font-size: clamp(10px, 1.9vw, 12px);
+    color: var(--ink);
+    letter-spacing: .01em;
+  }
+  .cell.center .cm-phase {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(9px, 1.7vw, 11px);
+    color: var(--ink-soft);
+  }
+
   /* Popover (modal) — backdrop + card */
   .vw-backdrop {
     position: fixed;
@@ -4860,7 +4910,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.37.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.38.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5526,7 +5576,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.37.0 · updated 8 May 2026</span>
+      <span>v4.38.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -7306,15 +7356,34 @@ const DYK_BADGES = {
 };
 
 // Compact centre cell — fits cleanly on iPhone Safari and any other constrained viewport.
-// Tap the pill to open the "Do you know?" popover with one curated insight + today's moon.
+// Tap the pill to open the "Do you know?" popover. Below the pill, today's moon
+// is rendered into the centre itself so paksha + tithi + phase are visible
+// without a tap (v4.38.0). The popover keeps its own moon footer too.
 function buildCenterCellHTML() {
+  let moonBlock = '';
+  if (typeof moonToday === 'function') {
+    const m = moonToday();
+    const glyph = (typeof MOON_GLYPHS !== 'undefined' && MOON_GLYPHS[m.glyphKey]) || '☾';
+    moonBlock = `
+      <div class="center-moon" aria-label="Today's moon">
+        <div class="cm-divider">— Moon today —</div>
+        <div class="cm-row">
+          <span class="cm-glyph" aria-hidden="true">${glyph}</span>
+          <span class="cm-text">
+            <span class="cm-line">${m.paksha} · ~Tithi ${m.tithi}</span>
+            <span class="cm-phase">${m.phaseName}</span>
+          </span>
+        </div>
+      </div>`;
+  }
   return `
     <div class="cell center">
       <div class="center-title">Rāśi Chakra</div>
       <div class="label">the wheel of signs</div>
-      <button class="center-tap" type="button" id="centerTap" aria-label="Open Do You Know? — a note from Vikram and today's moon">
+      <button class="center-tap" type="button" id="centerTap" aria-label="Open Do You Know? — a note from Vikram">
         <span class="ct-mark">✦</span>Do you know? — tap
       </button>
+      ${moonBlock}
     </div>`;
 }
 
@@ -9366,7 +9435,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.37.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.38.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10746,7 +10815,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.37.0';
+  const PAGE_VERSION = '4.38.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
