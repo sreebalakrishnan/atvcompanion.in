@@ -483,10 +483,57 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.50.0 ====================== -->
+  <section class="release" data-credits="Vikram (Parts of Speech + Intention craft anchors · class deck 72) · Sree (surface them above + below the writing surface)">
+    <header>
+      <h2>v4.50.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Two craft anchors from Vikram's class now sit with the writing surface on <a href="read.html">Read · beta</a>. Above each per-house exercise textarea: a small expander — <strong>"📐 Two anchors before you write"</strong> — opens to show his <em>Parts of Speech</em> grammar map and the four <em>Intentions</em> (with prediction explicitly struck out, since year-1 of the class doesn't read for prediction). Below the textarea: a <strong>"🪞 Self-check"</strong> panel that asks the learner to verify their own line against both anchors — five tick-boxes for the grammar, a four-radio for the intention, with a saffron warning if the learner picks "Prediction." The system asks the questions; the learner answers — same Vikram principle as v4.49, deepened.</p>
+
+    <h3>Anchor 1 — Parts of Speech</h3>
+    <ul>
+      <li>Vikram's grammar-as-interpretation map. Each chart factor maps to a part of speech: <strong>Noun · Planet</strong> (what is acting); <strong>Verb · Duality</strong> (outward / inward — the direction of expression); <strong>Adverb · Modality</strong> (initiates / sustains / changes — how the action happens); <strong>Adjective · Element</strong> (the kind / quality); <strong>Area of life · House</strong> (where it shows up).</li>
+      <li>Carries Vikram's worked example from deck 72 — for Sun in Aries 2H: <em>"The self shines by leading the family with warmth."</em> Learners can build sentences for any placement by walking the five roles.</li>
+    </ul>
+
+    <h3>Anchor 2 — The Intention</h3>
+    <ul>
+      <li>Four framings the same fact can land in. Three are right for year-1 of the class; one is explicitly excluded: <em>~~To predict the future~~</em>. The other three:
+        <ul>
+          <li><strong>To initiate a conversation</strong> — open question. <em>"Have you ever spoken to an audience?"</em></li>
+          <li><strong>To invite a course of action</strong> — offered invitation. <em>"Can you try presenting what you know, and see how you feel?"</em></li>
+          <li><strong>To remedy the planet</strong> — suggested re-orientation. <em>"Consider presenting what you know."</em></li>
+        </ul>
+      </li>
+      <li>The principle: the chart is not a forecast tool. Prediction-framing closes possibility; the other three open it.</li>
+    </ul>
+
+    <h3>The self-check</h3>
+    <ul>
+      <li><strong>Parts of speech check</strong> — five tick-boxes the learner ticks themselves: did your line name the planet? the direction? the how? the quality? the area of life? No grading. The user judges. State persists per-house in <code>localStorage</code>.</li>
+      <li><strong>Intention check</strong> — radio with four options. Prediction is rendered with a strikethrough so the visual frame is unambiguous. If the learner selects "Prediction" anyway, a small saffron warning appears: <em>"Vikram's class: not for prediction. Re-frame your line as a conversation, an invitation, or a remedy."</em></li>
+      <li>The system asks; the learner answers — same as v4.49's principle, but operationalised into a small feedback loop. The page never grades or rewrites; it scaffolds the learner's own check.</li>
+    </ul>
+
+    <h3>Other</h3>
+    <ul>
+      <li>Both expanders persist open/closed state per browser (<code>astro-mychart-anchors-v1</code>, <code>astro-mychart-selfcheck-open-v1</code>). Closed by default — a learner who already internalises the anchors isn't crowded by them. Self-check answers persist per-house under <code>astro-mychart-selfcheck-v1</code>.</li>
+      <li>New canonical reference file in the knowledge base — <code>astrology-101-knowledge-base/interpretation-framework.md</code> — captures both anchors with the worked example in one place. Future surfaces (Quick Reference, Interactive, future workbook integrations) can link to this single source rather than re-stating it.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>v4.49 honored Vikram's principle by removing the system-generated interpretation. v4.50 goes further: it teaches the learner the craft of writing their own. Both anchors come from Vikram's class — the page just surfaces them at the moment they're useful.</li>
+      <li>The self-check is the most direct expression of <em>"Just don't let the computer take away the human"</em>: it's the human checking the human, with the system holding the questions. No grading, no rewriting, no nudging beyond the prediction warning that Vikram explicitly named.</li>
+      <li>Closed-by-default means experienced cohort members aren't burdened. Open-when-needed means the anchors are one tap away during the writing moment.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.49.0 ====================== -->
   <section class="release" data-credits="Vikram (pedagogical principle — system gives references, learner writes the sentence) · Sudha (Pati of the House sketch) · Sree (build)">
     <header>
-      <h2>v4.49.0 <em>· current</em></h2>
+      <h2>v4.49.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Vikram reviewed Read · beta and sent a clear principle: <em>"Just don't let the computer take away the human. We need to make sure people use their mind and intellect to do the interpretation."</em> He flagged the per-planet line on each walk-through card — <em>"Moon in Aries — energized initiating bold changes"</em> — and asked whether it was learner-written or system-generated. It was system-generated, baked from his class decks 72–77. v4.49 corrects this. The system now <strong>only surfaces references</strong>; the learner writes the sentence. Plus Sudha's earlier "Pati of the House" sketch lands in the same release — it fits the same principle, surfacing facts not interpretations.</p>
@@ -2979,7 +3026,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.49.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.50.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3202,7 +3249,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.49.0';
+  const PAGE_VERSION = '4.50.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3316,7 +3363,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.49.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.50.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

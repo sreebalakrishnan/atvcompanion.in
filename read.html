@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.49.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.50.0) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -578,7 +578,209 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Walk-through framing line (v4.49.0 — Vikram's principle: system gives
+  /* Two anchors before you write (v4.50.0 — Vikram's craft principles).
+     Inline expander immediately above the exercise textarea; self-check
+     panel immediately below it. Persist open/closed in localStorage. */
+  .walk-anchors,
+  .walk-selfcheck {
+    margin: 12px 0 8px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .walk-anchors-toggle,
+  .walk-selfcheck-toggle {
+    width: 100%;
+    padding: 9px 12px;
+    background: transparent;
+    border: 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+  }
+  .walk-anchors-toggle:hover,
+  .walk-selfcheck-toggle:hover { color: var(--saffron); }
+  .walk-anchors-toggle .chev,
+  .walk-selfcheck-toggle .chev {
+    transition: transform .18s;
+    color: var(--saffron);
+    font-size: 11px;
+    flex-shrink: 0;
+    width: 12px;
+    text-align: center;
+  }
+  .walk-anchors.is-open .walk-anchors-toggle .chev,
+  .walk-selfcheck.is-open .walk-selfcheck-toggle .chev { transform: rotate(90deg); }
+  .walk-anchors-toggle .label,
+  .walk-selfcheck-toggle .label { flex: 1; }
+  .walk-anchors-toggle .icon,
+  .walk-selfcheck-toggle .icon { color: var(--saffron); margin-right: 4px; }
+  .walk-anchors-body,
+  .walk-selfcheck-body {
+    display: none;
+    padding: 4px 14px 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .walk-anchors.is-open .walk-anchors-body,
+  .walk-selfcheck.is-open .walk-selfcheck-body {
+    display: block;
+    animation: viewIn .25s cubic-bezier(.4,0,.2,1) backwards;
+  }
+
+  .anchor-card {
+    margin: 12px 0 0;
+    padding: 12px 14px 11px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 7px;
+  }
+  .anchor-card:first-child { margin-top: 6px; }
+  .anchor-card .anchor-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .anchor-card .anchor-h {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .anchor-card .anchor-h em { font-style: italic; color: var(--saffron); }
+  .anchor-card .anchor-grammar,
+  .anchor-card .anchor-intent {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .anchor-card .anchor-grammar li,
+  .anchor-card .anchor-intent li {
+    font-family: var(--display);
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    padding: 3px 0;
+  }
+  .anchor-card .anchor-grammar li strong {
+    color: var(--ink);
+    font-weight: 500;
+    font-style: normal;
+    margin-right: 4px;
+  }
+  .anchor-card .anchor-grammar li em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+  .anchor-card .anchor-intent li.is-not {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+  .anchor-card .anchor-intent li.is-not::after {
+    content: ' — not what we\'re doing';
+    text-decoration: none;
+    font-style: italic;
+    color: var(--saffron);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  .anchor-card .anchor-example {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: rgba(184,65,14,.05);
+    border-left: 2px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .anchor-card .anchor-example .label {
+    display: block;
+    font-style: normal;
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 3px;
+  }
+
+  /* Self-check — small panel below the textarea. */
+  .selfcheck-section {
+    margin: 12px 0 0;
+  }
+  .selfcheck-section:first-of-type { margin-top: 8px; }
+  .selfcheck-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .selfcheck-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .selfcheck-list li {
+    padding: 4px 0;
+  }
+  .selfcheck-list label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    font-family: var(--display);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .selfcheck-list input[type="checkbox"],
+  .selfcheck-list input[type="radio"] {
+    margin-top: 4px;
+    accent-color: var(--saffron);
+    flex-shrink: 0;
+  }
+  .selfcheck-list label em {
+    font-style: italic;
+    color: var(--muted);
+    margin-left: 4px;
+    font-size: 12.5px;
+  }
+  .selfcheck-list label.is-not {
+    color: var(--muted);
+  }
+  .selfcheck-warning {
+    margin: 10px 0 0;
+    padding: 8px 11px;
+    background: rgba(184,65,14,.06);
+    border-left: 2px solid var(--saffron);
+    border-radius: 0 5px 5px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--saffron);
+    line-height: 1.45;
+    display: none;
+  }
+  .selfcheck-warning.is-visible { display: block; }
+
+  /* Walk-through framing line (v4.50.0 — Vikram's principle: system gives
      references, learner writes the sentence). Sits between toolbar and
      progress bar, visible on every house. */
   .walk-frame {
@@ -595,7 +797,7 @@
   }
   .walk-frame em { color: var(--saffron); font-style: italic; font-weight: 500; }
 
-  /* Per-planet QR jump link (v4.49.0). */
+  /* Per-planet QR jump link (v4.50.0). */
   .walk-planet-link {
     display: inline-block;
     margin-top: 4px;
@@ -609,7 +811,7 @@
   }
   .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
 
-  /* Pati / Ruler block jump (v4.49.0). Tap takes you to that house's walk-through card. */
+  /* Pati / Ruler block jump (v4.50.0). Tap takes you to that house's walk-through card. */
   .walk-pati-jump {
     color: var(--saffron);
     text-decoration: none;
@@ -627,7 +829,7 @@
     margin: 6px 0 0;
   }
 
-  /* Quick-reference drawer (v4.49.0) — collapsible cheat sheet inside the walk-through. */
+  /* Quick-reference drawer (v4.50.0) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -1042,7 +1244,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.49.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.50.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1130,7 +1332,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.49.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.50.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -1236,7 +1438,7 @@
 
   // Sign rulers — Pati of each rāśi. Mercury and Mars get co-rulers per
   // Vikram's framing (Rahu for Virgo; Ketu for Scorpio). Used by the
-  // "Pati of the House" block on each walk-through card (v4.49.0 — Sudha's ask).
+  // "Pati of the House" block on each walk-through card (v4.50.0 — Sudha's ask).
   const SIGN_RULERS = {
     aries:       { primary: 'mars',    co: null },
     taurus:      { primary: 'venus',   co: null },
@@ -1271,7 +1473,7 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // v4.49.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // v4.50.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
   // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
   // surfaces. The `light` field maps to QR's `positive` field. Shadow side
   // stays out of the drawer by design (year-1 framing).
@@ -1616,7 +1818,7 @@
     nextBtn.textContent = walkIdx === 12 ? 'Finish ✓' : 'Next house →';
   }
 
-  // Quick-reference drawer (v4.49.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.50.0) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -1627,6 +1829,37 @@
   }
   function saveDrawerOpen(v) {
     try { localStorage.setItem(DRAWER_KEY, v ? '1' : '0'); } catch (e) {}
+  }
+
+  // v4.50.0 — Two anchors expander + Self-check persistence.
+  // Open/closed state is global (one preference for the whole walk-through).
+  // Self-check answers are per-house (object keyed by 'h{n}').
+  const ANCHORS_KEY    = 'astro-mychart-anchors-v1';
+  const SELFCHECK_KEY  = 'astro-mychart-selfcheck-v1';
+  const SELFCHECK_OPEN_KEY = 'astro-mychart-selfcheck-open-v1';
+  function loadAnchorsOpen()   { try { return localStorage.getItem(ANCHORS_KEY) === '1'; } catch (e) { return false; } }
+  function saveAnchorsOpen(v)  { try { localStorage.setItem(ANCHORS_KEY, v ? '1' : '0'); } catch (e) {} }
+  function loadSelfcheckOpen() { try { return localStorage.getItem(SELFCHECK_OPEN_KEY) === '1'; } catch (e) { return false; } }
+  function saveSelfcheckOpen(v){ try { localStorage.setItem(SELFCHECK_OPEN_KEY, v ? '1' : '0'); } catch (e) {} }
+  function loadAllSelfcheck() {
+    try {
+      const raw = localStorage.getItem(SELFCHECK_KEY);
+      if (!raw) return {};
+      const data = JSON.parse(raw) || {};
+      return (typeof data === 'object') ? data : {};
+    } catch (e) { return {}; }
+  }
+  function loadSelfcheckState(houseN) {
+    const all = loadAllSelfcheck();
+    const k = 'h' + houseN;
+    return all[k] || { parts: {}, intent: null };
+  }
+  function saveSelfcheckState(houseN, state) {
+    try {
+      const all = loadAllSelfcheck();
+      all['h' + houseN] = state;
+      localStorage.setItem(SELFCHECK_KEY, JSON.stringify(all));
+    } catch (e) {}
   }
   function renderWalkDrawer() {
     const drawer = document.getElementById('walkDrawer');
@@ -1746,7 +1979,7 @@
     // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
     const isLagnaCard = h === 1;
 
-    // v4.49.0 — Vikram's principle: system gives references, learner writes
+    // v4.50.0 — Vikram's principle: system gives references, learner writes
     // the sentence. The per-planet pill is now factual only — placement +
     // a jump to QR for Vikram's classical material on that planet. No
     // pre-formed "Moon in Aries — energized initiating bold changes" line.
@@ -1762,7 +1995,7 @@
           </div>`;
         }).join('');
 
-    // v4.49.0 — Pati of the House (Sudha's ask). Factual surfacing of the
+    // v4.50.0 — Pati of the House (Sudha's ask). Factual surfacing of the
     // sign's ruler(s) and where each ruler is placed in the user's chart.
     // No per-pair interpretation — that's the learner's work.
     const rulers = SIGN_RULERS[sid] || { primary: null, co: null };
@@ -1795,6 +2028,11 @@
 
     const notes = loadNotes();
     const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+    // v4.50.0 — open/closed state for the two anchors expander + the self-check.
+    const anchorsOpen   = loadAnchorsOpen();
+    const selfcheckOpen = loadSelfcheckOpen();
+    const selfcheckState = loadSelfcheckState(h);
 
     const exercisePrompt = isLagnaCard
       ? `<em>My Lagna is ${s.name} (${s.sanskrit}). Three characteristics. I am ___.</em>`
@@ -1829,11 +2067,84 @@
         <div class="walk-exercise">
           <div class="walk-label">The exercise · Vikram's frame</div>
           <p class="walk-exercise-prompt">${exercisePrompt}</p>
+
+          <!-- v4.50.0 — Two anchors before you write (Vikram's craft principles). -->
+          <div class="walk-anchors ${anchorsOpen ? 'is-open' : ''}" id="walkAnchors">
+            <button class="walk-anchors-toggle" type="button" id="walkAnchorsToggle" aria-expanded="${anchorsOpen}">
+              <span class="chev">▶</span>
+              <span class="label"><span class="icon">📐</span>Two anchors before you write</span>
+            </button>
+            <div class="walk-anchors-body">
+              <div class="anchor-card">
+                <div class="anchor-eyebrow">Anchor 1</div>
+                <div class="anchor-h"><em>Parts of Speech</em> — build the line as a sentence</div>
+                <ul class="anchor-grammar">
+                  <li><strong>Noun · Planet</strong> — what is acting <em>(the core function)</em></li>
+                  <li><strong>Verb · Duality</strong> (Yang / Yin) — direction of expression <em>(outward / inward)</em></li>
+                  <li><strong>Adverb · Modality</strong> (Cardinal / Fixed / Mutable) — how it happens <em>(initiates / sustains / changes)</em></li>
+                  <li><strong>Adjective · Element</strong> (Fire / Earth / Air / Water) — the kind / quality</li>
+                  <li><strong>Area of life · House</strong> — where it shows up</li>
+                </ul>
+                <div class="anchor-example">
+                  <span class="label">Worked example · Sun in Aries 2H</span>
+                  The self shines by leading the family with warmth.
+                </div>
+              </div>
+
+              <div class="anchor-card">
+                <div class="anchor-eyebrow">Anchor 2</div>
+                <div class="anchor-h"><em>The Intention</em> — choose the framing</div>
+                <ul class="anchor-intent">
+                  <li class="is-not">To predict the future</li>
+                  <li>To <strong>initiate a conversation</strong> — open question</li>
+                  <li>To <strong>invite a course of action</strong> — offered invitation</li>
+                  <li>To <strong>remedy the planet</strong> — suggested remedy</li>
+                </ul>
+                <div class="anchor-example">
+                  <span class="label">Same fact · three voicings</span>
+                  "Have you ever spoken to an audience?" · "Can you try presenting what you know?" · "Consider presenting what you know."
+                </div>
+              </div>
+            </div>
+          </div>
+
           <textarea class="walk-textarea"
                     id="walkAnswer"
                     placeholder="Three characteristics. Start with one. Saved automatically as you type."
                     aria-label="Your reflection for House ${h}">${savedAnswer}</textarea>
           <span class="walk-saved" id="walkSaved" aria-live="polite">✓ saved</span>
+
+          <!-- v4.50.0 — Self-check below the textarea. The user judges; the system asks. -->
+          <div class="walk-selfcheck ${selfcheckOpen ? 'is-open' : ''}" id="walkSelfcheck">
+            <button class="walk-selfcheck-toggle" type="button" id="walkSelfcheckToggle" aria-expanded="${selfcheckOpen}">
+              <span class="chev">▶</span>
+              <span class="label"><span class="icon">🪞</span>Self-check — verify your line against the two anchors</span>
+            </button>
+            <div class="walk-selfcheck-body">
+              <div class="selfcheck-section">
+                <div class="selfcheck-eyebrow">Parts of speech · all five present?</div>
+                <ul class="selfcheck-list" id="selfcheckParts">
+                  <li><label><input type="checkbox" data-sc-key="noun"> Noun — named the planet / function</label></li>
+                  <li><label><input type="checkbox" data-sc-key="verb"> Verb — outward / inward (the duality)</label></li>
+                  <li><label><input type="checkbox" data-sc-key="adverb"> Adverb — how it happens (the modality)</label></li>
+                  <li><label><input type="checkbox" data-sc-key="adjective"> Adjective — the kind / quality (the element)</label></li>
+                  <li><label><input type="checkbox" data-sc-key="area"> Area — where in life (the house)</label></li>
+                </ul>
+              </div>
+              <div class="selfcheck-section">
+                <div class="selfcheck-eyebrow">Intention · what framing did your line land in?</div>
+                <ul class="selfcheck-list" id="selfcheckIntent">
+                  <li><label class="is-not"><input type="radio" name="walkIntent" data-sc-intent="predict"> Prediction</label></li>
+                  <li><label><input type="radio" name="walkIntent" data-sc-intent="conversation"> Conversation — an open question</label></li>
+                  <li><label><input type="radio" name="walkIntent" data-sc-intent="invitation"> Invitation — offered course of action</label></li>
+                  <li><label><input type="radio" name="walkIntent" data-sc-intent="remedy"> Remedy — suggested re-orientation</label></li>
+                </ul>
+                <div class="selfcheck-warning" id="selfcheckWarning" role="alert">
+                  Vikram's class: not for prediction. Re-frame your line as a <em>conversation</em>, an <em>invitation</em>, or a <em>remedy</em>.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -1852,7 +2163,7 @@
       }, 280);
     });
 
-    // v4.49.0 — Pati jump links: tap takes the user straight to the house
+    // v4.50.0 — Pati jump links: tap takes the user straight to the house
     // where the ruler is placed.
     card.querySelectorAll('.walk-pati-jump[data-jump-h]').forEach(el => {
       el.addEventListener('click', (ev) => {
@@ -1868,6 +2179,60 @@
         if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); el.click(); }
       });
     });
+
+    // v4.50.0 — Two anchors expander toggle.
+    const anchorsToggle = document.getElementById('walkAnchorsToggle');
+    if (anchorsToggle) {
+      anchorsToggle.addEventListener('click', () => {
+        const newOpen = !loadAnchorsOpen();
+        saveAnchorsOpen(newOpen);
+        document.getElementById('walkAnchors').classList.toggle('is-open', newOpen);
+        anchorsToggle.setAttribute('aria-expanded', String(newOpen));
+      });
+    }
+
+    // v4.50.0 — Self-check expander toggle.
+    const selfcheckToggle = document.getElementById('walkSelfcheckToggle');
+    if (selfcheckToggle) {
+      selfcheckToggle.addEventListener('click', () => {
+        const newOpen = !loadSelfcheckOpen();
+        saveSelfcheckOpen(newOpen);
+        document.getElementById('walkSelfcheck').classList.toggle('is-open', newOpen);
+        selfcheckToggle.setAttribute('aria-expanded', String(newOpen));
+      });
+    }
+
+    // v4.50.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
+    const partsBoxes = card.querySelectorAll('#selfcheckParts input[data-sc-key]');
+    partsBoxes.forEach(cb => {
+      const key = cb.dataset.scKey;
+      cb.checked = !!(selfcheckState.parts && selfcheckState.parts[key]);
+      cb.addEventListener('change', () => {
+        const cur = loadSelfcheckState(h);
+        cur.parts = cur.parts || {};
+        cur.parts[key] = cb.checked;
+        saveSelfcheckState(h, cur);
+      });
+    });
+
+    // v4.50.0 — Intention radio + "not for prediction" warning.
+    const intentRadios = card.querySelectorAll('#selfcheckIntent input[data-sc-intent]');
+    const warningEl    = document.getElementById('selfcheckWarning');
+    function syncWarning() {
+      const picked = Array.from(intentRadios).find(r => r.checked);
+      const isPredict = picked && picked.dataset.scIntent === 'predict';
+      if (warningEl) warningEl.classList.toggle('is-visible', !!isPredict);
+    }
+    intentRadios.forEach(r => {
+      if (selfcheckState.intent && r.dataset.scIntent === selfcheckState.intent) r.checked = true;
+      r.addEventListener('change', () => {
+        const cur = loadSelfcheckState(h);
+        cur.intent = r.dataset.scIntent;
+        saveSelfcheckState(h, cur);
+        syncWarning();
+      });
+    });
+    syncWarning();
   }
 
   function nextWalk() {
@@ -1917,7 +2282,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.49.0';
+  const PAGE_VERSION = '4.50.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -2014,7 +2379,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.49.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.50.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
