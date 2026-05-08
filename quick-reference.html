@@ -4968,7 +4968,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.43.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.44.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5634,7 +5634,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.43.0 · updated 8 May 2026</span>
+      <span>v4.44.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -7967,6 +7967,13 @@ function renderAvatarTable3() {
 }
 
 // WORKBOOK MODULES — six-module overview surfaced from Learning Outcomes.docx
+//
+// v4.44.0 (Cut C — Sudha's bug report): Modules 4–6 link to sections marked
+// data-level="beginner" (planets, cabinet, houses). On the default Foundations
+// level filter those sections are CSS-hidden, so the hash jump lands on an
+// invisible target. We intercept module-link clicks below: when the target
+// section is hidden by the current level filter, we bump the level filter to
+// the section's own level before letting the jump happen.
 function renderWorkbook() {
   const wrap = $('wbModules');
   if (!wrap) return;
@@ -7994,6 +8001,33 @@ function renderWorkbook() {
       </article>
     `;
   }).join('');
+
+  // Cut C (v4.44.0) — fix Sudha's "Modules 4–6 links don't open" report.
+  // If the target section is hidden by the current level filter, bump the
+  // level filter to the section's own level before the hash jump scrolls.
+  // Modules 4–6 point at planets/cabinet/houses, all data-level="beginner";
+  // on default Foundations they're CSS-hidden until we lift the filter.
+  wrap.querySelectorAll('.wb-module-link a').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      const href = a.getAttribute('href') || '';
+      // Only handle in-page anchor jumps; cross-page links (e.g. astronomy.html) work as-is.
+      if (!href.startsWith('#')) return;
+      const targetId = href.slice(1);
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const targetLevel = target.dataset.level;
+      if (!targetLevel || targetLevel === 'foundations') return;
+      const isHiddenNow = target.offsetParent === null;
+      if (!isHiddenNow) return;
+      ev.preventDefault();
+      if (typeof setLevel === 'function') setLevel(targetLevel);
+      // Allow the level switch to repaint, then jump.
+      requestAnimationFrame(() => {
+        history.replaceState(null, '', '#' + targetId);
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
 }
 
 // PURUSHARTHAS
@@ -9632,7 +9666,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.44.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -11012,7 +11046,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.43.0';
+  const PAGE_VERSION = '4.44.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11071,7 +11105,7 @@ document.addEventListener('keydown', (e) => {
 })();
 </script>
 
-<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<!-- ====================== FIRST-VISIT TIP CARD (v4.44.0 — Layer 2 onboarding) ====================== -->
 <style>
   .first-visit-tip {
     position: relative;

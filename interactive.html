@@ -970,7 +970,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.43.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.44.0</div>
     <h1>Interactive <em>· beta</em></h1>
     <p class="lede">An experimental space for visual / spatial learning. First experiment: the Planetary Cabinet as a stage. Tap a planet, change the mode, watch the drama.</p>
   </header>
@@ -1044,6 +1044,7 @@
     <div class="future-eyebrow">Next in the lab</div>
     <h3>What's coming</h3>
     <ul>
+      <li><strong>Per-scene content slicing</strong> <em style="color:var(--saffron);font-style:italic;font-size:.85em;">· coming soon</em> — only the active scene's chamber and detail card highlight; everything else dims. Sudha's feedback after v4.44.</li>
       <li><strong>Aspects</strong> — planetary gaze visualised as arrows on a chart wheel.</li>
       <li><strong>House categories</strong> — kendras, trikonas, dushtanas as overlays you can toggle.</li>
       <li><strong>Planetary relationships</strong> — friends and enemies as a small network.</li>
@@ -1058,7 +1059,7 @@
     </div>
     <p>← <a href="index.html">Back to home</a> · <a href="quick-reference.html">Quick Reference</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.43.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.44.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -1283,21 +1284,92 @@ function _persistStoryPrefs() {
   } catch (e) {}
 }
 
-/* Web Speech API — narration for the current scene if read-aloud is on. */
+/* Web Speech API — narration for the current scene if read-aloud is on.
+ *
+ * v4.44.0 (Cut D + E — Sudha's feedback):
+ *   • Continuous mode: when read-aloud is on, scenes auto-advance the moment
+ *     the utterance finishes (chained via onend) — no taps needed, and the
+ *     chamber highlight + narration card stay in sync because each render
+ *     pass uses the new storyIdx.
+ *   • Voice tonality: pick a richer voice if the platform offers one
+ *     (preferring an Indian-English natural voice over the default), and
+ *     give each scene a tiny rate/pitch nudge so the cabinet doesn't feel
+ *     like a single monotone read-through.
+ *
+ * NOTE: speechSynthesis.getVoices() can be empty until the engine has loaded;
+ * we cache the best pick lazily via _pickedVoice so we don't keep recomputing.
+ */
+let _pickedVoice = null;
+function _pickPreferredVoice() {
+  if (_pickedVoice) return _pickedVoice;
+  if (!('speechSynthesis' in window)) return null;
+  const voices = speechSynthesis.getVoices() || [];
+  if (!voices.length) return null;
+  // Preference order: Indian English natural/neural → other natural English → en-IN → first English.
+  const score = (v) => {
+    let s = 0;
+    const lang = (v.lang || '').toLowerCase();
+    const name = (v.name || '').toLowerCase();
+    if (lang.startsWith('en-in')) s += 6;
+    else if (lang.startsWith('en')) s += 2;
+    if (/(natural|neural|premium|enhanced|google|microsoft.*online)/.test(name)) s += 4;
+    if (/(rishi|veena|isha|raveena|priya|aditi|kalpana)/.test(name)) s += 3;
+    if (v.localService === false) s += 1; // online voices tend to be richer
+    return s;
+  };
+  const sorted = voices.slice().sort((a,b) => score(b) - score(a));
+  _pickedVoice = sorted[0] || null;
+  return _pickedVoice;
+}
+if ('speechSynthesis' in window && typeof speechSynthesis.addEventListener === 'function') {
+  // Voices arrive asynchronously on Chrome — refresh the pick when the list lands.
+  try { speechSynthesis.addEventListener('voiceschanged', () => { _pickedVoice = null; _pickPreferredVoice(); }); } catch (e) {}
+}
+
+/* Tracks whether the most-recent cancel was user-initiated. If true, the
+ * queued utterance.onend handler should NOT auto-advance the story. */
+let _speechCancelled = false;
+
 function speakSceneNarration(text) {
   if (!storyReadAloud) return;
   if (!('speechSynthesis' in window)) return;
   try {
+    _speechCancelled = false;
     speechSynthesis.cancel();  // stop any in-flight utterance
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.92;             // a touch slower than default
-    u.pitch = 1.0;
-    u.lang = 'en-IN';          // prefer Indian English voice if available
+    // Cut E — gentle per-scene variation so it doesn't feel like one flat take.
+    // Even-numbered scenes lean a little slower + lower; odd-numbered scenes a hair brighter.
+    const evenScene = storyIdx % 2 === 0;
+    u.rate  = evenScene ? 0.90 : 0.95;
+    u.pitch = evenScene ? 0.97 : 1.04;
+    u.lang  = 'en-IN';
+    const v = _pickPreferredVoice();
+    if (v) u.voice = v;
+
+    // Cut D — continuous narration: when an utterance finishes naturally and
+    // read-aloud is still on, advance to the next scene. This drives the
+    // chamber-highlight sync because nextScene() re-renders the stage with
+    // the new placements. Skipped if the user manually advanced or cancelled.
+    u._sceneIdx = storyIdx;
+    u.onend = function() {
+      if (_speechCancelled) return;
+      if (!storyReadAloud) return;
+      if (u._sceneIdx !== storyIdx) return; // user moved on already
+      if (storyIdx < STORY_SCENES.length - 1) {
+        nextScene();
+      } else if (storyIsPlaying) {
+        stopStoryAutoplay();
+      }
+    };
     speechSynthesis.speak(u);
   } catch (e) {}
 }
+
+/* Cancel any pending narration — used when the user steps the story manually
+ * or toggles read-aloud off, so a queued onend doesn't auto-advance further. */
 function cancelSpeech() {
-  if ('speechSynthesis' in window) try { speechSynthesis.cancel(); } catch (e) {}
+  _speechCancelled = true;
+  try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) {}
 }
 
 /* Sync the prefs-bar UI to the current storySpeed / storyView / storyReadAloud state. */
@@ -1342,12 +1414,22 @@ function toggleReadAloud() {
   storyReadAloud = !storyReadAloud;
   _persistStoryPrefs();
   syncStoryPrefsUI();
+  // v4.44.0 (Cut D) — when toggling mid-autoplay, swap the driver:
+  //   • turning ON  → cancel the timer so speech-onend drives advancement
+  //   • turning OFF → start a timer so autoplay continues at the chosen speed
+  // This avoids the timer + speech-chain racing each other.
   if (storyReadAloud) {
-    // Speak the current scene immediately when toggled on.
+    if (storyIsPlaying && storyAutoInterval) {
+      clearInterval(storyAutoInterval);
+      storyAutoInterval = null;
+    }
     const scene = STORY_SCENES[storyIdx];
     if (scene) speakSceneNarration(scene.title + '. ' + scene.narration);
   } else {
     cancelSpeech();
+    if (storyIsPlaying && !storyAutoInterval) {
+      storyAutoInterval = setInterval(() => { nextScene(); }, STORY_SPEED_MS[storySpeed] || 9000);
+    }
   }
 }
 
@@ -1766,12 +1848,19 @@ function renderStoryNarration() {
 function nextScene() {
   if (storyIdx < STORY_SCENES.length - 1) {
     storyIdx++;
+    // Cut A (v4.44) — clear stale active selection from a prior scene so the
+    // "Pati / Ruler" highlight always matches the current scene's placements.
+    // Without this, clicking Venus on the Inner Circle scene and then stepping
+    // back to the Prince scene would leave Libra highlighted instead of Virgo.
+    activeSignId = null;
+    activePlanetId = null;
     renderStoryControls();
     renderRoster();
     renderStage();
     renderStoryNarration();
     if (storyView === 'storybook') renderStorybook();
-    // Read aloud the new scene if toggle is on.
+    // Read aloud the new scene if toggle is on. Continuous mode (Cut D) chains
+    // utterance.onend to advance scenes automatically.
     const sc = STORY_SCENES[storyIdx];
     if (storyReadAloud && sc) speakSceneNarration(sc.title + '. ' + sc.narration);
   } else if (storyIsPlaying) {
@@ -1782,6 +1871,8 @@ function nextScene() {
 function prevScene() {
   if (storyIdx > 0) {
     storyIdx--;
+    activeSignId = null;
+    activePlanetId = null;
     renderStoryControls();
     renderRoster();
     renderStage();
@@ -1792,7 +1883,13 @@ function prevScene() {
   }
 }
 
-/* Cut A — cinematic auto-play for Story mode. */
+/* Cut A — cinematic auto-play for Story mode.
+ *
+ * v4.44.0 (Cut D): when read-aloud is ON, the speech utterance.onend chain
+ * drives scene advancement (so chamber highlights sync to the voice). The
+ * fixed-interval timer would race the speech chain, so we skip it in that
+ * case. When read-aloud is OFF, the timer continues to drive autoplay.
+ */
 function startStoryAutoplay() {
   if (storyIsPlaying) return;
   storyIsPlaying = true;
@@ -1809,9 +1906,13 @@ function startStoryAutoplay() {
   renderRoster();
   renderStage();
   renderStoryNarration();
-  // Read the first scene aloud if toggle is on.
+  // Read the first scene aloud if toggle is on. The onend chain inside
+  // speakSceneNarration will advance subsequent scenes in sync with the voice.
   const sc0 = STORY_SCENES[storyIdx];
-  if (storyReadAloud && sc0) speakSceneNarration(sc0.title + '. ' + sc0.narration);
+  if (storyReadAloud && sc0) {
+    speakSceneNarration(sc0.title + '. ' + sc0.narration);
+    return; // speech-driven advancement; no timer.
+  }
   storyAutoInterval = setInterval(() => { nextScene(); }, STORY_SPEED_MS[storySpeed] || 9000);
 }
 function stopStoryAutoplay() {
@@ -1890,13 +1991,27 @@ function renderInfoCard() {
       ? ids.map(pid => `<span style="color:var(--saffron);font-size:18px;margin-right:6px;font-variant-emoji:text;" title="${PLANETS[pid].name} — ${CABINET[pid].role}">${PLANETS[pid].glyph}</span><em style="font-style:italic;color:var(--ink-soft);font-size:13px;margin-right:10px;">${PLANETS[pid].name} (${CABINET[pid].role})</em>`).join('')
       : '<em style="color:var(--muted);font-style:italic;">—</em>';
 
+    // Cut B (v4.44 — Sudha's vocabulary feedback):
+    // Top row uses Sanskrit "Pati / Ruler" framing in Office mode, and stays
+    // descriptive in other modes so the label always matches what's actually
+    // shown. The row below it is suppressed when it would duplicate the top.
+    let topLabel;
+    if (currentMode === 'office')           topLabel = 'Pati / Ruler';
+    else if (currentMode === 'exalted')     topLabel = 'Exalted here (uchcha)';
+    else if (currentMode === 'debilitated') topLabel = 'Debilitated here (neecha)';
+    else                                    topLabel = 'Pati / Ruler in this chamber';
+
+    const showOfficeRow      = currentMode !== 'office'      && officeHere.length;
+    const showExaltedRow     = currentMode !== 'exalted'     && exaltsHere.length;
+    const showDebilitatedRow = currentMode !== 'debilitated' && debilHere.length;
+
     card.innerHTML = `
       <div class="info-eyebrow">Chamber · ${s.element}</div>
       <div class="info-title">${s.name} <em>· ${s.sanskrit}</em></div>
-      <p class="info-row"><strong>Currently in this chamber:</strong><br>${planetsRowHtml(inhere)}</p>
-      ${officeHere.length ? `<p class="info-row"><strong>Office of (mūla-trikoṇa):</strong><br>${planetsRowHtml(officeHere)}</p>` : ''}
-      ${exaltsHere.length ? `<p class="info-row"><strong>Exalted here (uchcha):</strong><br>${planetsRowHtml(exaltsHere)}</p>` : ''}
-      ${debilHere.length  ? `<p class="info-row"><strong>Debilitated here (neecha):</strong><br>${planetsRowHtml(debilHere)}</p>`  : ''}
+      <p class="info-row"><strong>${topLabel}:</strong><br>${planetsRowHtml(inhere)}</p>
+      ${showOfficeRow      ? `<p class="info-row"><strong>Pati / Ruler (Office · mūla-trikoṇa):</strong><br>${planetsRowHtml(officeHere)}</p>` : ''}
+      ${showExaltedRow     ? `<p class="info-row"><strong>Exalted here (uchcha):</strong><br>${planetsRowHtml(exaltsHere)}</p>` : ''}
+      ${showDebilitatedRow ? `<p class="info-row"><strong>Debilitated here (neecha):</strong><br>${planetsRowHtml(debilHere)}</p>`  : ''}
     `;
     return;
   }
@@ -1949,7 +2064,7 @@ renderInfoCard();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.43.0';
+  const PAGE_VERSION = '4.44.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1985,7 +2100,7 @@ renderInfoCard();
 })();
 </script>
 
-<!-- ====================== WHATSAPP FEEDBACK FAB (v4.43.0 — site-wide) ====================== -->
+<!-- ====================== WHATSAPP FEEDBACK FAB (v4.44.0 — site-wide) ====================== -->
 <style>
   .wa-fab-global {
     position: fixed;
@@ -2045,7 +2160,7 @@ renderInfoCard();
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.44.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -2055,7 +2170,7 @@ renderInfoCard();
 </script>
 
 
-<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<!-- ====================== FIRST-VISIT TIP CARD (v4.44.0 — Layer 2 onboarding) ====================== -->
 <style>
   .first-visit-tip {
     position: relative;

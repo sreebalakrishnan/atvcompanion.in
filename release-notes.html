@@ -481,10 +481,60 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.44.0 ====================== -->
+  <section class="release" data-credits="Sudha (interactive feedback · 5 asks) · Sree (build)">
+    <header>
+      <h2>v4.44.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Sudha tested the Interactive Lab on her phone and sent five precise WhatsApp notes — voice felt mono, audio wasn't continuous, "Currently in this chamber" should read in Sanskrit, the Prince scene was highlighting Libra instead of Virgo, and the Workbook overview's Module 4–6 links weren't opening. v4.44 closes all five. Plus visible <strong>"coming soon"</strong> placeholders for the bigger asks she sketched — per-scene content slicing, an Elements page, and a chart-interpretation mode — so the cohort can see what's queued.</p>
+
+    <h3>Cut A — Prince → Virgo highlight bug</h3>
+    <ul>
+      <li>The Prince scene was leaking the previous scene's <em>active</em> selection. If you'd tapped Venus on the Inner Circle scene (where Venus sits in Libra) and then stepped back to the Prince, Libra stayed lit instead of Virgo. Fix: <code>nextScene()</code> / <code>prevScene()</code> now clear <code>activeSignId</code> + <code>activePlanetId</code> before re-rendering. Highlights always match the current scene.</li>
+    </ul>
+
+    <h3>Cut B — "Pati / Ruler" Sanskrit relabel</h3>
+    <ul>
+      <li>The chamber detail card now uses Sudha's preferred Sanskrit framing. In Office mode the top row reads <strong>"Pati / Ruler:"</strong> and the duplicate "Office of (mūla-trikoṇa)" row is suppressed (it was redundant). In Exalted / Debilitated modes the top label adapts ("Exalted here (uchcha)" / "Debilitated here (neecha)") so it always describes what's actually shown. In Story mode it reads "Pati / Ruler in this chamber".</li>
+    </ul>
+
+    <h3>Cut C — Workbook Modules 4–6 broken jumps</h3>
+    <ul>
+      <li>Modules 4 (Navagrahas → <code>#planets</code>), 5 (Chart Interpretation → <code>#cabinet</code>) and 6 (Houses → <code>#houses</code>) all link to sections marked <code>data-level="beginner"</code>. On the default Foundations level filter those sections are CSS-hidden, so the hash jump landed on an invisible target — looked like the link was dead. Fix: workbook-module link clicks now check the target's <code>data-level</code> and, if it's hidden by the current filter, bump the filter to that level before scrolling.</li>
+    </ul>
+
+    <h3>Cut D — Continuous narration</h3>
+    <ul>
+      <li>When 🔊 read-aloud is on, scenes now <strong>auto-advance the moment the voice finishes</strong> — no taps needed. The chamber-highlight + narration-card stay in sync because each scene transition re-renders the stage with the new placements. Implementation: chains <code>utterance.onend</code> to <code>nextScene()</code> with a <code>_speechCancelled</code> flag so manual prev/next/toggle doesn't accidentally double-advance.</li>
+      <li>If both autoplay and read-aloud are on, the speech chain takes over and the fixed-interval timer is suspended (otherwise they'd race each other). Toggling read-aloud OFF mid-play hands control back to the timer at the chosen Slow / Normal / Fast speed.</li>
+    </ul>
+
+    <h3>Cut E — Less-mono voice</h3>
+    <ul>
+      <li>Best-available voice picker — preferring Indian-English natural / neural voices (e.g. iOS's Rishi, Android's Veena) over the default flat one. Falls back gracefully on platforms where richer voices aren't installed.</li>
+      <li>Gentle per-scene rate + pitch variation (even-numbered scenes lean a touch slower / lower; odd-numbered scenes a hair brighter) so the cabinet doesn't feel like one monotone read-through. Capped subtle so it stays Vikram's voice, not a performance.</li>
+    </ul>
+
+    <h3>Coming soon — visible placeholders</h3>
+    <ul>
+      <li><strong>Per-scene content slicing</strong> on the Interactive Lab — listed in the page's "What's coming" section. Sudha's broader UX ask (only the active scene's chamber + detail show; everything else dims) so reading + listening sync without overwhelm.</li>
+      <li><strong>Elements page</strong> — added as a subtle <em>coming soon</em> tile on the Where-to-start map. Five element doors with one or two practices Vikram recommends per element (pending Vikram's input on the practice list).</li>
+      <li><strong>Chart Interpretation</strong> — also as a <em>coming soon</em> tile on the Where-to-start map. Sudha sketched a pedagogy in her voice note: per-house meaning → per-Lagna description → identify via duality / elements → fill-in exercise → Signature → full house-by-house reading. Queued as the v5.0 chapter-marker because of scope.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>Sudha's notes were precise, fast, and three-of-five were small bugs. Shipping them inside 24 hours respects the rhythm she sent them in.</li>
+      <li>The "coming soon" placeholders make the bigger asks visible to the rest of the cohort without committing to a delivery date — they signal direction while keeping flexibility.</li>
+      <li>The "Pati / Ruler" rename is a small change with a big pedagogical effect — it pulls the cabinet section into Vikram's classical vocabulary, the way Sudha intuitively reads it.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.43.0 ====================== -->
   <section class="release" data-credits="Sree (integrated onboarding · map + per-page tips)">
     <header>
-      <h2>v4.43.0 <em>· current</em></h2>
+      <h2>v4.43.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">As the page has grown — Quick Reference, Interactive, Reflect, Kāla­purusha, Mercury Spectrum, Astronomy, Ether, Layers, Release Notes, Stats — finding the right door has gotten harder for someone arriving fresh. v4.43 keeps the help <strong>integrated</strong> rather than building a separate guide. Two layers: a <strong>"Where to start" map</strong> on the home page that routes by intent, and a <strong>first-visit tip card</strong> on every peer page that says, in one line, what this page does and how to use it.</p>
@@ -2730,7 +2780,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.43.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.44.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2953,7 +3003,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.43.0';
+  const PAGE_VERSION = '4.44.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3067,7 +3117,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.44.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
