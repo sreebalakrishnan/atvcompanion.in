@@ -483,10 +483,45 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.55.2 ====================== -->
+  <section class="release" data-credits="Vikram (deck 72 Sun + deck 73 Moon · Parts of Speech worked examples) · Sree (catch — quote these per planet)">
+    <header>
+      <h2>v4.55.2 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Each planet card on Path B (<a href="read.html">Read · beta</a>) now carries Vikram's deck-sourced <strong>Parts of Speech worked example</strong> for that specific planet. Sun's card surfaces deck 72's <em>"Sun in Aries 2H"</em> example with both Vikram synthesis sentences. Moon's card surfaces deck 73's <em>"Moon in Taurus 2H"</em> example. Cohort members reading the Sun see Vikram's Sun example; reading the Moon see his Moon example. Same framework, different planets — the room for the learner's voice within each.</p>
+
+    <h3>What landed</h3>
+    <ul>
+      <li>New data const <code>PLANET_PARTS_EXAMPLE</code> baked into <code>read.html</code> with verbatim Parts of Speech mappings + synthesis sentences from Vikram's class decks.</li>
+      <li>New per-planet card block (after Step 3) titled <strong>"📖 Vikram's example · Parts of Speech"</strong>. Renders a small five-row table (Noun · Verb · Adverb · Adjective · Area) plus the two synthesis sentences plus deck attribution.</li>
+      <li><strong>Sun</strong> · deck 72 · <em>Sun in Aries 2H</em>:
+        <ul>
+          <li><em>"The self expresses outwardly by leading warmly the family"</em></li>
+          <li><em>"The self shines by leading the family with warmth"</em></li>
+        </ul>
+      </li>
+      <li><strong>Moon</strong> · deck 73 · <em>Moon in Taurus 2H</em>:
+        <ul>
+          <li><em>"Emotions inward, fixed and grounded, family"</em></li>
+          <li><em>"Reflecting on my emotions supports me"</em></li>
+        </ul>
+      </li>
+      <li>Mars (deck 76), Mercury (deck 77), Jupiter, Venus, Saturn, Rahu, Ketu — placeholder shown until Sree captures their deck slides: <em>"Vikram's worked example for this planet hasn't been captured from class yet. Will land here when the deck arrives."</em></li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The Synthesis Examples relocated to the Synthesis destination card in v4.55.1 are universal (Sun in Aries 2H — Vikram's general teaching example). Per-planet examples are <strong>contextual</strong>: when walking the Sun, Vikram's Sun example is right there; when walking the Moon, his Moon example. Right reference, right moment.</li>
+      <li>The two synthesis sentences per planet show the room for voice within the framework — same five parts, different phrasings. Cohort sees Vikram modelling the very thing he protects: <em>"the framework structures the line; the learner phrases it."</em></li>
+      <li>Placeholder pattern keeps the gap visible. As more class decks are captured, examples drop in without restructuring.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.55.1 ====================== -->
   <section class="release" data-credits="Sree (deep-scan call — Path A overcrowded, Parts of Speech is Path B's grammar)">
     <header>
-      <h2>v4.55.1 <em>· current</em></h2>
+      <h2>v4.55.1</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">A focused cleanup pass on the Path A (house) walk-through after Sree's deep-scan review of <a href="read.html">Read · beta</a>. The per-house card was carrying material that belongs to Path B (Parts of Speech grammar) or duplicated material the new intro card already carries (the inline 8-step procedure). v4.55.1 strips both, rewrites the self-check to ask Path-A-relevant questions, makes the page-level subject frame path-aware, relocates the Synthesis Examples to the Synthesis destination, and adapts the drawer's avatar section header per path. The per-house card now collapses from ≈8 elements below the prompt to ≈3.</p>
@@ -3358,7 +3393,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.55.1 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.55.2 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3581,7 +3616,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.55.1';
+  const PAGE_VERSION = '4.55.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3695,7 +3730,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.2';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
