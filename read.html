@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5ecd9">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="Read · beta — pick your Lagna, place your planets, see your South Indian chart. The first step toward a guided house-by-house reading.">
+<title>Read · beta — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --shadow-sm: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    --shadow-md: 0 1px 0 rgba(31,26,46,.04), 0 14px 36px -14px rgba(31,26,46,.22);
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(184,65,14,.05), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* ---------- SITE NAV ---------- */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead {
+    padding: 48px 0 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 60px);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  h1 .beta-tag {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--saffron);
+    font-size: 0.42em;
+    font-weight: 400;
+    letter-spacing: .04em;
+    vertical-align: middle;
+    opacity: .85;
+    margin-left: 6px;
+  }
+  .lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 50ch;
+    line-height: 1.5;
+  }
+
+  /* ---------- VIEW SWITCHER ---------- */
+  .view { padding: 28px 0 16px; animation: viewIn .4s cubic-bezier(.4,0,.2,1) backwards; }
+  @keyframes viewIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  [hidden] { display: none !important; }
+
+  /* ---------- SETUP — Lagna picker ---------- */
+  .setup-section {
+    margin: 0 0 28px;
+    padding: 22px 22px 18px;
+    background: linear-gradient(180deg, rgba(243,233,210,.5), rgba(250,243,226,.4));
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+  .setup-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .setup-h {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 0 6px;
+    letter-spacing: -.005em;
+  }
+  .setup-h em { font-style: italic; color: var(--saffron); }
+  .setup-help {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+
+  .lagna-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  @media (min-width: 480px) { .lagna-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 720px) { .lagna-grid { grid-template-columns: repeat(6, 1fr); } }
+
+  .lagna-tile {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 10px 6px 8px;
+    cursor: pointer;
+    transition: border-color .15s, transform .15s, background .15s, box-shadow .15s;
+    text-align: center;
+    font-family: inherit;
+  }
+  .lagna-tile:hover {
+    border-color: var(--saffron);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+  .lagna-tile.is-picked {
+    border-color: var(--saffron);
+    background: rgba(184,65,14,.07);
+    box-shadow: 0 0 0 2px rgba(184,65,14,.12);
+  }
+  .lagna-glyph {
+    font-size: 20px;
+    color: var(--saffron);
+    line-height: 1;
+    margin-bottom: 4px;
+    font-variant-emoji: text;
+  }
+  .lagna-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .lagna-tile.is-picked .lagna-name { color: var(--saffron); }
+  .lagna-sanskrit {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.1;
+  }
+
+  /* ---------- SETUP — Planet placements ---------- */
+  .planets-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  @media (min-width: 540px) { .planets-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 800px) { .planets-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+  .planet-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+  }
+  .planet-row .pl-glyph {
+    font-size: 18px;
+    color: var(--saffron);
+    width: 22px;
+    text-align: center;
+    font-variant-emoji: text;
+    flex-shrink: 0;
+  }
+  .planet-row .pl-name {
+    font-family: var(--display);
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.2;
+    min-width: 0;
+  }
+  .planet-row .pl-name em {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 11.5px;
+    margin-left: 2px;
+  }
+  .planet-row select {
+    font-family: var(--body);
+    font-size: 13.5px;
+    padding: 5px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--ink);
+    min-width: 105px;
+    cursor: pointer;
+  }
+  .planet-row select:focus { outline: 2px solid var(--saffron); outline-offset: 1px; }
+
+  .setup-actions {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s, transform .15s;
+    letter-spacing: .02em;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn:hover {
+    border-color: var(--saffron);
+    color: var(--saffron);
+    transform: translateY(-1px);
+  }
+  .btn.primary {
+    background: var(--ink);
+    color: var(--surface);
+    border-color: var(--ink);
+  }
+  .btn.primary:hover {
+    background: var(--saffron);
+    border-color: var(--saffron);
+    color: var(--surface);
+  }
+  .btn[disabled] {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  /* ---------- CHART VIEW — South Indian layout ---------- */
+  .chart-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .chart-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "h1 h2 h3 h4"
+      "h12 cc cc h5"
+      "h11 cc cc h6"
+      "h10 h9 h8 h7";
+    gap: 6px;
+    aspect-ratio: 1 / 1;
+    max-width: 720px;
+    margin: 0 auto 18px;
+    position: relative;
+  }
+  @media (max-width: 720px) { .stage { gap: 5px; max-width: 96vw; } }
+  @media (max-width: 420px) { .stage { gap: 4px; } }
+
+  /* House grid-area mapping. Whole Sign + South Indian: 1H is top-left,
+     proceeding clockwise around the perimeter. */
+  .chamber.house-1  { grid-area: h1; }
+  .chamber.house-2  { grid-area: h2; }
+  .chamber.house-3  { grid-area: h3; }
+  .chamber.house-4  { grid-area: h4; }
+  .chamber.house-5  { grid-area: h5; }
+  .chamber.house-6  { grid-area: h6; }
+  .chamber.house-7  { grid-area: h7; }
+  .chamber.house-8  { grid-area: h8; }
+  .chamber.house-9  { grid-area: h9; }
+  .chamber.house-10 { grid-area: h10; }
+  .chamber.house-11 { grid-area: h11; }
+  .chamber.house-12 { grid-area: h12; }
+  .stage-center { grid-area: cc; }
+
+  .stage-center {
+    background: linear-gradient(180deg, rgba(243,233,210,.6), rgba(234,217,180,.4));
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    text-align: center;
+    color: var(--ink-soft);
+    overflow: hidden;
+  }
+  .stage-center-mark {
+    color: var(--saffron);
+    font-size: 22px;
+    line-height: 1;
+    opacity: .6;
+    margin-bottom: 8px;
+  }
+  .stage-center-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .stage-center-lagna {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .stage-center-lagna em { font-style: italic; color: var(--saffron); }
+  .stage-center-sub {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  .chamber {
+    padding: 7px 7px 6px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    animation: chamberIn .45s cubic-bezier(.4,0,.2,1) backwards;
+  }
+  @keyframes chamberIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+  .chamber.is-empty { background: rgba(250,243,226,.55); }
+  .chamber.is-lagna {
+    border-color: var(--saffron);
+    box-shadow: 0 0 0 2px rgba(184,65,14,.12);
+  }
+  .chamber-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px;
+    line-height: 1.1;
+  }
+  .chamber-house-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .chamber-sign-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.1;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .chamber-sign-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(11px, 1.5vw, 13px);
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .chamber-sign-sanskrit {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(10px, 1.3vw, 11.5px);
+    color: var(--muted);
+    line-height: 1.1;
+  }
+  .chamber-divider {
+    height: 1px;
+    background: var(--rule-soft);
+    margin: 2px -2px;
+  }
+  .chamber-planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+  .planet-pill {
+    font-size: clamp(13px, 1.7vw, 16px);
+    color: var(--saffron);
+    line-height: 1;
+    padding: 2px 5px;
+    border: 1px solid rgba(184,65,14,.15);
+    background: rgba(184,65,14,.04);
+    border-radius: 4px;
+    font-variant-emoji: text;
+    cursor: default;
+  }
+  .planet-pill[title] { cursor: help; }
+  .chamber-empty-note {
+    color: var(--muted);
+    font-size: 10.5px;
+    font-style: italic;
+    opacity: .6;
+  }
+
+  /* Lagna marker — a small ASC tag in the 1H chamber. */
+  .chamber.is-lagna::after {
+    content: 'Asc';
+    position: absolute;
+    bottom: 4px;
+    right: 5px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10px;
+    color: var(--saffron);
+    letter-spacing: .04em;
+  }
+
+  .chart-foot {
+    margin-top: 8px;
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .chart-foot strong { color: var(--ink); font-weight: 500; font-style: normal; }
+  .chart-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 22px 0 6px;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- ROADMAP "WHAT'S COMING" ---------- */
+  .future {
+    margin: 48px 0 16px;
+    padding: 22px 22px 16px;
+    background: linear-gradient(180deg, rgba(42,50,112,.04), rgba(243,233,210,.4));
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .future-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .future h3 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    text-align: center;
+    letter-spacing: -.005em;
+  }
+  .future ul {
+    margin: 0 0 8px;
+    padding-left: 22px;
+    list-style: '✦  ';
+  }
+  .future li {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .future li strong { font-style: normal; font-weight: 500; color: var(--ink); }
+  .future-note {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin: 12px 0 0;
+  }
+
+  /* ---------- PRIVACY CALLOUT ---------- */
+  .privacy {
+    margin: 28px auto 0;
+    max-width: 56ch;
+    padding: 12px 18px;
+    border-left: 3px solid var(--saffron);
+    background: rgba(184,65,14,.04);
+    border-radius: 0 8px 8px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .privacy strong { color: var(--ink); font-weight: 500; font-style: normal; }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    max-width: 480px;
+    margin: 60px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .footer .meta { margin-top: 10px; font-size: 12px; }
+  .footer .credits { margin-top: 10px; font-size: 11.5px; opacity: .85; }
+  .footer .credits em { font-style: italic; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ====================== SITE NAV ====================== -->
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="quick-reference.html">Quick Reference</a>
+    <span class="sep">·</span>
+    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <span class="sep">·</span>
+    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <span class="sep">·</span>
+    <a href="astronomy.html">Astronomy</a>
+    <span class="sep">·</span>
+    <a href="ether.html">Ether</a>
+    <span class="sep">·</span>
+    <a href="layers.html">Layers</a>
+    <span class="sep">·</span>
+    <a href="reflect.html">Reflect</a>
+    <span class="sep">·</span>
+    <a href="interactive.html">Interactive · beta</a>
+    <span class="sep">·</span>
+    <span class="here">Read · beta</span>
+    <span class="sep">·</span>
+    <a href="release-notes.html">Release Notes</a>
+    <span class="sep">·</span>
+    <a href="stats.html">Stats</a>
+  </nav>
+
+  <!-- ====================== MASTHEAD ====================== -->
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · the companion app · v4.45.0</div>
+    <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
+    <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
+  </header>
+
+  <!-- ====================== SETUP VIEW ====================== -->
+  <div class="view" id="setupView">
+
+    <section class="setup-section" aria-label="Pick your Lagna">
+      <div class="setup-eyebrow">§ One</div>
+      <h2 class="setup-h">Your <em>Lagna</em> — the rising sign</h2>
+      <p class="setup-help">Tap the sign that was rising on the eastern horizon at your birth. (You'll find this on the chart Vikram cast for you, or any Vedic chart from Astrosage / Drik Panchang. It's also called <em>Ascendant</em>.)</p>
+      <div class="lagna-grid" id="lagnaGrid" role="radiogroup" aria-label="Lagna sign"></div>
+    </section>
+
+    <section class="setup-section" aria-label="Place your planets" id="planetsSection" hidden>
+      <div class="setup-eyebrow">§ Two</div>
+      <h2 class="setup-h">Your <em>nine planets</em> — which house each is in</h2>
+      <p class="setup-help">For each Graha, pick the house number from your chart. If you don't know yet, leave it blank — you can come back and fill it in later. Vikram's nine: Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, plus the lunar nodes Rahu &amp; Ketu.</p>
+      <div class="planets-grid" id="planetsGrid"></div>
+    </section>
+
+    <div class="setup-actions" id="setupActions" hidden>
+      <button class="btn" type="button" id="resetBtn">↻ Start over</button>
+      <button class="btn primary" type="button" id="saveBtn">See my chart →</button>
+    </div>
+  </div>
+
+  <!-- ====================== CHART VIEW ====================== -->
+  <div class="view" id="chartView" hidden>
+
+    <div class="chart-toolbar">
+      <div class="chart-eyebrow" id="chartEyebrow">Your chart</div>
+      <button class="btn" type="button" id="editBtn">✏ Edit my chart</button>
+    </div>
+
+    <div class="stage" id="stage" aria-label="Your South Indian rāśi chakra"></div>
+
+    <p class="chart-foot" id="chartFoot"></p>
+
+    <div class="chart-actions">
+      <button class="btn" type="button" id="editBtn2">✏ Edit my chart</button>
+      <button class="btn" type="button" id="resetBtn2">↻ Start over</button>
+    </div>
+  </div>
+
+  <!-- ====================== WHAT'S COMING ====================== -->
+  <section class="future">
+    <div class="future-eyebrow">Next on Read</div>
+    <h3>What's coming</h3>
+    <ul>
+      <li><strong>The walk-through</strong> — house by house, Vikram's frame: <em>"My [house word] is X. Three characteristics. I am ___."</em> With a textarea under every prompt — your notes save in this browser. Sketched by Sudha in her voice note.</li>
+      <li><strong>The Signature</strong> — your Lagna · Moon · Sun trio assembled into a single short reading. The line Vikram opens every chart conversation with.</li>
+      <li><strong>📋 Copy my reading</strong> — export the full house-by-house with your answers as plain text. Same pattern as Reflect's copy button.</li>
+      <li><strong>Compute from birth details</strong> — date, time, place → automatic chart. So a friend who's never had one cast can still try the page.</li>
+      <li><strong>Aspects · Yogas · Dashas</strong> — beyond the basics, in time.</li>
+    </ul>
+    <p class="future-note">v4.45 ships the shell so the cohort can place their charts. Walk-through copy lands next, drafted from Vikram's class. Tell us what's most useful via the 💬 button.</p>
+  </section>
+
+  <!-- ====================== PRIVACY CALLOUT ====================== -->
+  <p class="privacy">
+    <strong>Privacy.</strong> Your chart and notes are saved <em>only in this browser's local storage</em>. Nothing leaves your device. Clearing browser data will clear your chart — that's by design. There is no account, no server, no log.
+  </p>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.45.0 · updated 8 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+      &nbsp;·&nbsp;
+      <a href="release-notes.html" style="color:var(--saffron);">Release notes</a>
+    </p>
+    <p class="credits">
+      Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
+    </p>
+  </footer>
+
+</div>
+
+<!-- ====================== READ · BETA — DATA + LOGIC ====================== -->
+<script>
+(function() {
+  // ---- DATA ----------------------------------------------------------------
+  // 12 signs in order, starting at Aries. Whole-Sign math walks this list
+  // mod 12 starting at the Lagna sign to fill houses 1..12.
+  const SIGN_ORDER = [
+    'aries','taurus','gemini','cancer','leo','virgo',
+    'libra','scorpio','sagittarius','capricorn','aquarius','pisces'
+  ];
+  const SIGNS = {
+    aries:       { name: 'Aries',       sanskrit: 'Mesha',       glyph: '♈︎' },
+    taurus:      { name: 'Taurus',      sanskrit: 'Vrishabha',   glyph: '♉︎' },
+    gemini:      { name: 'Gemini',      sanskrit: 'Mithuna',     glyph: '♊︎' },
+    cancer:      { name: 'Cancer',      sanskrit: 'Karkataka',   glyph: '♋︎' },
+    leo:         { name: 'Leo',         sanskrit: 'Simha',       glyph: '♌︎' },
+    virgo:       { name: 'Virgo',       sanskrit: 'Kanya',       glyph: '♍︎' },
+    libra:       { name: 'Libra',       sanskrit: 'Tula',        glyph: '♎︎' },
+    scorpio:     { name: 'Scorpio',     sanskrit: 'Vrishchika',  glyph: '♏︎' },
+    sagittarius: { name: 'Sagittarius', sanskrit: 'Dhanu',       glyph: '♐︎' },
+    capricorn:   { name: 'Capricorn',   sanskrit: 'Makara',      glyph: '♑︎' },
+    aquarius:    { name: 'Aquarius',    sanskrit: 'Kumbha',      glyph: '♒︎' },
+    pisces:      { name: 'Pisces',      sanskrit: 'Meena',       glyph: '♓︎' }
+  };
+  // Vikram's nine — in the order he introduces them in class.
+  const PLANETS = [
+    { id: 'sun',     name: 'Sun',     sanskrit: 'Sūrya',     glyph: '☉︎', short: 'Su' },
+    { id: 'moon',    name: 'Moon',    sanskrit: 'Chandra',   glyph: '☽︎', short: 'Mo' },
+    { id: 'mars',    name: 'Mars',    sanskrit: 'Maṅgala',   glyph: '♂︎', short: 'Ma' },
+    { id: 'mercury', name: 'Mercury', sanskrit: 'Budha',     glyph: '☿︎', short: 'Me' },
+    { id: 'jupiter', name: 'Jupiter', sanskrit: 'Bṛhaspati', glyph: '♃︎', short: 'Ju' },
+    { id: 'venus',   name: 'Venus',   sanskrit: 'Śukra',     glyph: '♀︎', short: 'Ve' },
+    { id: 'saturn',  name: 'Saturn',  sanskrit: 'Śani',      glyph: '♄︎', short: 'Sa' },
+    { id: 'rahu',    name: 'Rahu',    sanskrit: 'Rāhu',      glyph: '☊︎', short: 'Ra' },
+    { id: 'ketu',    name: 'Ketu',    sanskrit: 'Ketu',      glyph: '☋︎', short: 'Ke' }
+  ];
+  const HOUSE_WORD = {
+    1: 'Self · Lagna · Tanu',
+    2: 'Wealth · Dhana',
+    3: 'Siblings · Sahaja',
+    4: 'Home · Sukha',
+    5: 'Children · Putra',
+    6: 'Enemies · Ari',
+    7: 'Partner · Yuvati',
+    8: 'Hidden · Randhra',
+    9: 'Fortune · Bhāgya',
+    10: 'Career · Karma',
+    11: 'Gains · Lābha',
+    12: 'Release · Vyaya'
+  };
+
+  // ---- STATE ---------------------------------------------------------------
+  const STORAGE_KEY = 'astro-mychart-v1';
+  // myChart shape: { lagna: 'aries' | null, planets: { sun: 1..12 | null, ... } }
+  let myChart = loadChart();
+
+  function emptyChart() {
+    const planets = {};
+    PLANETS.forEach(p => { planets[p.id] = null; });
+    return { lagna: null, planets, version: 1 };
+  }
+  function loadChart() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return emptyChart();
+      const data = JSON.parse(raw);
+      if (!data || typeof data !== 'object') return emptyChart();
+      const out = emptyChart();
+      if (typeof data.lagna === 'string' && SIGNS[data.lagna]) out.lagna = data.lagna;
+      if (data.planets && typeof data.planets === 'object') {
+        PLANETS.forEach(p => {
+          const v = data.planets[p.id];
+          if (Number.isInteger(v) && v >= 1 && v <= 12) out.planets[p.id] = v;
+        });
+      }
+      return out;
+    } catch (e) { return emptyChart(); }
+  }
+  function saveChart() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(myChart)); } catch (e) {}
+  }
+  function clearChart() {
+    myChart = emptyChart();
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  }
+
+  // ---- VIEW SWITCHER -------------------------------------------------------
+  const setupView = document.getElementById('setupView');
+  const chartView = document.getElementById('chartView');
+  function showSetup() {
+    setupView.hidden = false;
+    chartView.hidden = true;
+    renderSetup();
+  }
+  function showChart() {
+    setupView.hidden = true;
+    chartView.hidden = false;
+    renderChart();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ---- SETUP RENDERERS -----------------------------------------------------
+  function renderSetup() {
+    renderLagnaGrid();
+    renderPlanetsGrid();
+    syncSetupActions();
+  }
+
+  function renderLagnaGrid() {
+    const grid = document.getElementById('lagnaGrid');
+    grid.innerHTML = SIGN_ORDER.map(sid => {
+      const s = SIGNS[sid];
+      const picked = myChart.lagna === sid;
+      return `<button class="lagna-tile ${picked ? 'is-picked' : ''}" type="button"
+                data-sign="${sid}" role="radio" aria-checked="${picked}">
+        <div class="lagna-glyph">${s.glyph}</div>
+        <div class="lagna-name">${s.name}</div>
+        <div class="lagna-sanskrit">${s.sanskrit}</div>
+      </button>`;
+    }).join('');
+    grid.querySelectorAll('.lagna-tile').forEach(b => {
+      b.addEventListener('click', () => {
+        myChart.lagna = b.dataset.sign;
+        saveChart();
+        renderLagnaGrid();
+        // Reveal planet placements + actions once a Lagna is picked.
+        document.getElementById('planetsSection').hidden = false;
+        syncSetupActions();
+      });
+    });
+  }
+
+  function renderPlanetsGrid() {
+    const grid = document.getElementById('planetsGrid');
+    grid.innerHTML = PLANETS.map(p => {
+      const cur = myChart.planets[p.id];
+      let opts = '<option value="">—  not yet</option>';
+      for (let h = 1; h <= 12; h++) {
+        opts += `<option value="${h}" ${cur === h ? 'selected' : ''}>House ${h} · ${HOUSE_WORD[h].split(' · ')[0]}</option>`;
+      }
+      return `<label class="planet-row">
+        <span class="pl-glyph">${p.glyph}</span>
+        <span class="pl-name">${p.name} <em>· ${p.sanskrit}</em></span>
+        <select data-planet="${p.id}" aria-label="House for ${p.name}">${opts}</select>
+      </label>`;
+    }).join('');
+    grid.querySelectorAll('select[data-planet]').forEach(sel => {
+      sel.addEventListener('change', () => {
+        const pid = sel.dataset.planet;
+        const v = sel.value === '' ? null : parseInt(sel.value, 10);
+        myChart.planets[pid] = v;
+        saveChart();
+      });
+    });
+    // Show planets section if Lagna already picked (from prior session).
+    document.getElementById('planetsSection').hidden = !myChart.lagna;
+  }
+
+  function syncSetupActions() {
+    const actions = document.getElementById('setupActions');
+    actions.hidden = !myChart.lagna;
+    document.getElementById('saveBtn').disabled = !myChart.lagna;
+  }
+
+  // ---- CHART RENDERER ------------------------------------------------------
+  function renderChart() {
+    const stage = document.getElementById('stage');
+    const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
+    if (lagnaIdx < 0) { stage.innerHTML = ''; return; }
+
+    // Build map house# → planets in that house.
+    const housePlanets = {};
+    for (let h = 1; h <= 12; h++) housePlanets[h] = [];
+    PLANETS.forEach(p => {
+      const h = myChart.planets[p.id];
+      if (h) housePlanets[h].push(p);
+    });
+
+    // Build chambers in house order; for each house compute sign via Whole Sign
+    // — house h contains the sign at SIGN_ORDER[(lagnaIdx + h - 1) % 12].
+    let html = '';
+    for (let h = 1; h <= 12; h++) {
+      const sid = SIGN_ORDER[(lagnaIdx + h - 1) % 12];
+      const s = SIGNS[sid];
+      const planets = housePlanets[h];
+      const isLagnaCh = h === 1;
+      const isEmpty = planets.length === 0;
+      const planetPills = isEmpty
+        ? `<div class="chamber-empty-note">— empty —</div>`
+        : `<div class="chamber-planets">${planets.map(p =>
+            `<span class="planet-pill" title="${p.name} · ${p.sanskrit}" aria-label="${p.name}">${p.glyph}</span>`
+          ).join('')}</div>`;
+      html += `
+        <div class="chamber house-${h} ${isEmpty ? 'is-empty' : ''} ${isLagnaCh ? 'is-lagna' : ''}"
+             style="animation-delay: ${(h * .03).toFixed(2)}s"
+             aria-label="House ${h}, ${s.name}">
+          <div class="chamber-head">
+            <span class="chamber-house-num">${h}H</span>
+            <div class="chamber-sign-block">
+              <span class="chamber-sign-name">${s.name}</span>
+              <span class="chamber-sign-sanskrit">${s.sanskrit}</span>
+            </div>
+          </div>
+          <div class="chamber-divider"></div>
+          ${planetPills}
+        </div>
+      `;
+    }
+    stage.innerHTML = html;
+
+    // Centre cell (rendered separately so the grid template area picks it up).
+    const center = document.createElement('div');
+    center.className = 'stage-center';
+    const lagnaSign = SIGNS[myChart.lagna];
+    center.innerHTML = `
+      <div class="stage-center-mark">✦</div>
+      <div class="stage-center-label">— your chart —</div>
+      <div class="stage-center-lagna">Lagna · <em>${lagnaSign.name}</em></div>
+      <div class="stage-center-sub">${lagnaSign.sanskrit}</div>
+    `;
+    stage.appendChild(center);
+
+    // Eyebrow + foot summary.
+    const placedCount = PLANETS.filter(p => myChart.planets[p.id]).length;
+    document.getElementById('chartEyebrow').textContent =
+      `Your chart · Lagna ${lagnaSign.name} (${lagnaSign.sanskrit})`;
+    const foot = document.getElementById('chartFoot');
+    foot.innerHTML = placedCount === 0
+      ? `<em>You haven't placed any planets yet.</em> <strong><a href="#" id="footEdit">Add them →</a></strong>`
+      : placedCount === 9
+        ? `All <strong>9 planets placed</strong>. The walk-through is next — landing in the next release.`
+        : `<strong>${placedCount} of 9</strong> planets placed. <em>You can come back and add the rest any time.</em>`;
+    const footEdit = document.getElementById('footEdit');
+    if (footEdit) footEdit.addEventListener('click', (ev) => { ev.preventDefault(); showSetup(); });
+  }
+
+  // ---- BUTTON WIRING -------------------------------------------------------
+  function wireButton(id, fn) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', fn);
+  }
+  wireButton('saveBtn', () => { saveChart(); showChart(); });
+  wireButton('resetBtn', () => {
+    if (!confirm('Start over? This clears your Lagna and planet placements from this browser.')) return;
+    clearChart(); renderSetup();
+  });
+  wireButton('editBtn',  () => showSetup());
+  wireButton('editBtn2', () => showSetup());
+  wireButton('resetBtn2', () => {
+    if (!confirm('Start over? This clears your Lagna and planet placements from this browser.')) return;
+    clearChart(); showSetup();
+  });
+
+  // ---- INITIAL VIEW --------------------------------------------------------
+  if (myChart.lagna) showChart();
+  else showSetup();
+})();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.45.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+
+  function showToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f1a2e;color:#faf3e2;font-family:Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  check(true);
+  window.addEventListener('focus', () => check(true));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
+})();
+</script>
+
+
+<!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
+<style>
+  .wa-fab-global {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0 4px 12px -2px rgba(31,26,46,.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .wa-fab-global:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px -4px rgba(31,26,46,.3);
+  }
+  .wa-fab-global::after {
+    content: 'Send feedback';
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    background: #1f1a2e;
+    color: #faf3e2;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s;
+  }
+  .wa-fab-global:hover::after { opacity: 1; }
+  @media (max-width: 480px) {
+    .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; }
+  }
+</style>
+<button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
+  <span aria-hidden="true">💬</span>
+</button>
+<script>
+(function() {
+  const WA_PHONE = '919880337337';
+  function pageLabel() {
+    const t = document.title || '';
+    const i = t.indexOf('—');
+    return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
+  }
+  function pageVersion() {
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.45.0';
+  }
+  document.getElementById('waFabGlobal').addEventListener('click', function() {
+    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
+    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  });
+})();
+</script>
+
+<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<style>
+  .first-visit-tip {
+    position: relative;
+    margin: 18px auto 8px;
+    max-width: 640px;
+    padding: 14px 92px 14px 18px;
+    background: #faf3e2;
+    border: 1px solid #d4c39a;
+    border-left: 3px solid #b8410e;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    color: #1f1a2e;
+    animation: fvtIn .3s ease-out;
+    z-index: 5;
+  }
+  @keyframes fvtIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .first-visit-tip .fvt-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b8410e;
+    margin-bottom: 4px;
+  }
+  .first-visit-tip .fvt-text {
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .first-visit-tip .fvt-dismiss {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #d4c39a;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #4a4055;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .first-visit-tip .fvt-dismiss:hover {
+    border-color: #b8410e;
+    color: #b8410e;
+    background: rgba(184,65,14,.05);
+  }
+  @media (max-width: 480px) {
+    .first-visit-tip { padding: 14px 18px 14px 18px; }
+    .first-visit-tip .fvt-dismiss {
+      position: static;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+</style>
+<script>
+(function() {
+  var PAGE_KEY = 'read';
+  var TIP_TEXT = 'Pick your Lagna, then place your nine planets in their houses. Your chart and notes save only in this browser. The walk-through (Sudha\'s pedagogy — house by house) lands next.';
+  var KEY = 'astro-tip-seen-' + PAGE_KEY;
+  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
+  function build() {
+    var card = document.createElement('div');
+    card.className = 'first-visit-tip';
+    card.setAttribute('role', 'note');
+    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
+                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
+                   + '<button class="fvt-dismiss" type="button">Got it</button>';
+    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-6px)';
+      setTimeout(function(){ card.remove(); }, 280);
+    });
+    var firstHeader = document.querySelector('header');
+    if (firstHeader && firstHeader.parentElement) {
+      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
+      return;
+    }
+    var target = document.querySelector('.page, main') || document.body;
+    target.insertBefore(card, target.firstChild);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+</script>
+
+</body>
+</html>

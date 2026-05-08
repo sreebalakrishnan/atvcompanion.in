@@ -462,6 +462,8 @@
     <span class="sep">·</span>
     <a href="interactive.html">Interactive · beta</a>
     <span class="sep">·</span>
+    <a href="read.html">Read · beta</a>
+    <span class="sep">·</span>
     <span class="here">Release Notes</span>
     <span class="sep">·</span>
     <a href="stats.html">Stats</a>
@@ -481,10 +483,47 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.45.0 ====================== -->
+  <section class="release" data-credits="Sudha (chart-interpretation pedagogy · voice note) · Sree (build)">
+    <header>
+      <h2>v4.45.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">A new beta peer page — <a href="read.html"><strong>Read · beta</strong></a> — opens the chart-interpretation arc Sudha sketched in her voice note. Phase A ships the <strong>shell</strong>: pick your Lagna, place your nine planets, and see your South Indian chart with sign labels computed via Whole Sign. The walk-through (house by house, "I am ___" exercise, Signature, full reading) lands in Phase B. Cohort can use Phase A immediately to render the chart Vikram cast for them.</p>
+
+    <h3>What landed in Phase A</h3>
+    <ul>
+      <li>New file <code>read.html</code>. Two views: <strong>Setup</strong> (Lagna picker + nine planet dropdowns) and <strong>Chart</strong> (the South Indian rendering with the user's planets in their houses). Auto-switches: first visit shows Setup; once a Lagna is saved, return visits land on the Chart with an Edit button.</li>
+      <li><strong>Lagna picker</strong> — a 12-tile grid (Mesha → Meena), one tap to select. Sanskrit + English names, planetary glyphs.</li>
+      <li><strong>Nine planet placements</strong> — Sun · Moon · Mars · Mercury · Jupiter · Venus · Saturn · Rahu · Ketu, each a dropdown of houses 1–12 with house words ("Self · Lagna", "Wealth · Dhana", ...). Optional <em>"— not yet"</em> for any planet you don't know yet, so the page works with partial data.</li>
+      <li><strong>Whole Sign math</strong> — once a Lagna is picked, the 12 chambers are labeled automatically (Lagna sign in 1H, next sign in 2H, etc.). The 1H chamber is highlighted with a saffron border + "Asc" tag.</li>
+      <li><strong>localStorage persistence</strong> — chart saves to <code>astro-mychart-v1</code> on every change. Load on next visit. Clearing browser data clears the chart — by design. ↻ Start over button with confirmation.</li>
+      <li><strong>Privacy callout</strong> — <em>"Your chart and notes are saved only in this browser's local storage. Nothing leaves your device. There is no account, no server, no log."</em></li>
+      <li><strong>Wired into the site</strong> — Read replaces the "I want to read my own chart · coming soon" tile on the index where-to-start map; added as a peer card; "Read · beta" added to the site nav of all 11 other pages; first-visit tip card; WhatsApp FAB; update checker.</li>
+      <li><strong>Roadmap visible inside the page</strong> — the "What's coming" section lists Phase B (walk-through), Phase C (Signature + full reading), 📋 Copy export, the birth-detail compute path, and aspects/yogas/dashas as future layers.</li>
+    </ul>
+
+    <h3>What's next — Phase B</h3>
+    <ul>
+      <li>Walk-through copy for all 12 houses, drafted from Vikram's class transcripts. The pattern Sudha sketched: <em>"My [house word] is X. Three characteristics. I am ___."</em> with a textarea under every prompt.</li>
+      <li>Twelve sign-on-1st descriptions (the Lagna pass) — sourced from Vikram's voice, classical references as scaffolding.</li>
+      <li>Sun / Moon / Lagna-lord per-house lines (≈36 lines) for the planet-in-house interpretation. Wider grid (108 lines) follows.</li>
+      <li>Signature card — Lagna · Moon · Sun trio, the line Vikram opens every chart conversation with.</li>
+      <li>📋 Copy my reading — same pattern as Reflect's plain-text export.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>Most cohort members already have their chart from Vikram. Phase A turns "I have a piece of paper from Vikram" into "I have a live chart on the page", in two minutes of setup. The walk-through then makes that chart legible.</li>
+      <li>Manual entry was chosen over birth-detail computation deliberately — Vikram's pedagogy is <em>you should know your Lagna</em>, and the act of typing it in reinforces that. The compute path is queued for later, primarily for non-cohort visitors.</li>
+      <li>Shipping Phase A on its own (no interpretation copy yet) lets the chart-rendering UX get cohort feedback before we invest in 100+ paragraphs of per-sign-per-house copy. If the picker or Whole Sign math feels off, we hear about it now.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.44.0 ====================== -->
   <section class="release" data-credits="Sudha (interactive feedback · 5 asks) · Sree (build)">
     <header>
-      <h2>v4.44.0 <em>· current</em></h2>
+      <h2>v4.44.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Sudha tested the Interactive Lab on her phone and sent five precise WhatsApp notes — voice felt mono, audio wasn't continuous, "Currently in this chamber" should read in Sanskrit, the Prince scene was highlighting Libra instead of Virgo, and the Workbook overview's Module 4–6 links weren't opening. v4.44 closes all five. Plus visible <strong>"coming soon"</strong> placeholders for the bigger asks she sketched — per-scene content slicing, an Elements page, and a chart-interpretation mode — so the cohort can see what's queued.</p>
@@ -2780,7 +2819,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.44.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.45.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3003,7 +3042,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.44.0';
+  const PAGE_VERSION = '4.45.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3117,7 +3156,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.44.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.45.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
