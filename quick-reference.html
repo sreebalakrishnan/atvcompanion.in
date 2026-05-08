@@ -380,9 +380,12 @@
   .vw-actions {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
     margin-top: 16px;
+    flex-wrap: wrap;
   }
-  .vw-reroll {
+  .vw-reroll, .vw-reset {
     appearance: none;
     background: transparent;
     border: 1px solid var(--rule);
@@ -395,7 +398,81 @@
     cursor: pointer;
     transition: all .15s;
   }
-  .vw-reroll:hover { color: var(--saffron); border-color: var(--saffron); }
+  .vw-reset { font-size: 12px; padding: 5px 12px; opacity: .8; }
+  .vw-reroll:hover, .vw-reset:hover { color: var(--saffron); border-color: var(--saffron); }
+  /* Category badge + counter row, sits between the quote and the cite. */
+  .vw-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px 0 4px;
+    flex-wrap: wrap;
+  }
+  .vw-badge {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    padding: 2px 10px;
+    border: 1px solid rgba(184,65,14,.30);
+    border-radius: 999px;
+    background: rgba(184,65,14,.05);
+    line-height: 1.3;
+  }
+  .vw-counter {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+  /* Moon-today footer — always present, refreshes each open. */
+  .vw-moon {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--rule);
+  }
+  .vw-moon-divider {
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 8px;
+    opacity: .85;
+  }
+  .vw-moon-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+  }
+  .vw-moon-glyph {
+    font-size: 24px;
+    line-height: 1;
+    color: var(--saffron);
+    font-variant-emoji: text;
+    flex-shrink: 0;
+  }
+  .vw-moon-text { display: flex; flex-direction: column; line-height: 1.35; }
+  .vw-moon-line {
+    font-family: var(--display);
+    font-size: 13.5px;
+    color: var(--ink);
+    letter-spacing: .01em;
+  }
+  .vw-moon-note {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
   .vw-jumps {
     display: flex;
     flex-wrap: wrap;
@@ -4783,7 +4860,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.36.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.37.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5449,7 +5526,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.36.0 · updated 8 May 2026</span>
+      <span>v4.37.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -6959,6 +7036,179 @@ const VIKRAM_QUOTES = {
   }
 };
 
+/* ====================================================================
+   DID_YOU_KNOW — Rāśi-chakra-centre "Do you know?" deck (v4.37.0)
+
+   Every entry is rooted in Vikram's class — his decks, his transcripts,
+   his retreat sessions, his peer-group threads. Nothing pulled from the
+   open internet. If a fact ever needs an external source, it would carry
+   a [outside the class] badge — no such entry currently exists.
+
+   Categories:
+     from-the-class — direct Vikram quotes from a session (migrated from VIKRAM_QUOTES)
+     etymology      — Sanskrit roots Vikram unpacks in class
+     classical      — BPHS / Uttara Kalamrita lines that Vikram has explicitly taught
+     cross-ref      — connections drawn between two pieces of his teaching
+     shloka         — verses / mantras he has shared (Nirvāṇa Shatakam, element mantras…)
+     observed       — astronomy facts from his Astronomy session (Session 30 etc.)
+==================================================================== */
+const DID_YOU_KNOW = [
+  // ============ from-the-class (14 — migrated from VIKRAM_QUOTES) ============
+  { category: 'from-the-class',
+    text: 'Ascendant means something that has risen. What we are saying is — which are the stars that are rising in the east at that moment? Which are the ascending stars?',
+    cite: 'Vikram, Session 30 · Astronomy of Houses · 4 Jan 2026' },
+  { category: 'from-the-class',
+    text: 'The impulse to breathe is Brahma — Cardinal. When I am sustaining the breath, breathing in, breathing in — it is Vishnu — Fixed. When I reach the full breath and there is a full reversal, going from in-breath to out-breath — that reversal is Shiva — Mutable.',
+    cite: 'Vikram, Session 9 · Roadmap, Dualities & Modalities · 29 Jun 2025' },
+  { category: 'from-the-class',
+    text: 'Notice how the life form is evolving with each avatar. From the fish came the turtle, and then came the boar — life is gradually moving on to land. Varaha was about digging deep; the boar\'s tusks till the land, preparing it for agriculture.',
+    cite: 'Vikram, Session 32 · Avatars & my story · 25 Jan 2026' },
+  { category: 'from-the-class',
+    text: 'Look at the story I shared — it is known as the story of the planetary cabinet. Remember the story, and look at where a planet exalts. Tell me what you notice.',
+    cite: 'Vikram, Session 23 · Planetary Cabinet · 9 Nov 2025' },
+  { category: 'from-the-class',
+    text: 'Even debilitation, you can explain it with the story. Saturn, the servant, is on his knees in front of the commander of the army — Saturn debilitation, Aries. Mars debilitates in front of the queen, at the service of the queen, at his lowest. It is not given in the scriptures. There is no hard and fast rule. Make the story yours.',
+    cite: 'Vikram, Session 23 · Planetary Cabinet · 9 Nov 2025' },
+  { category: 'from-the-class',
+    text: 'What we do is something called signature. We take the predominant element and the predominant modality. Make a count of only the grahas — not the ascendant. Mutable fire means Sagittarius — that\'s the only sign that is mutable and fire. Mutable air means Gemini.',
+    cite: 'Vikram, Session 16 · Vamana Avatar & Signature · 31 Aug 2025' },
+  { category: 'from-the-class',
+    text: 'When two planets exchange signs — Venus in Jupiter\'s sign, Jupiter in Venus\'s sign — there\'s no final dispositor. We say it\'s a Parivartana yoga. Both become important. We don\'t use the word ruler. We don\'t use the word final dispositor.',
+    cite: 'Vikram, Session 24 · Cabinet & Natural Relationships · 16 Nov 2025' },
+  { category: 'from-the-class',
+    text: 'Mars has the 4th and 8th aspect. Jupiter has the 5th and 9th. Saturn has the 3rd and 10th. Rahu and Ketu — like Saturn — also have these special aspects.',
+    cite: 'Vikram, Session 24 · Cabinet & Natural Relationships · 16 Nov 2025' },
+  { category: 'from-the-class',
+    text: 'It is clear to understand that the house is like a location in space, and then the planets and the stars are the ones that seem to be moving — because of the rotation of the Earth.',
+    cite: 'Vikram, Session 30 · Astronomy of Houses · 4 Jan 2026' },
+  { category: 'from-the-class',
+    text: 'At the equator, the Medium Coeli and the Zenith are the same. But if I go north — or south — it moves away from the zenith. That\'s what brings us to Sripathi Paddhathi.',
+    cite: 'Vikram, Session 37 · Sripathi Paddhathi & Houses · 1 Mar 2026' },
+  { category: 'from-the-class',
+    text: 'Many times when we study transits, we see that what is transiting the 5th and the 9th — it is as though it is transiting the ascendant itself. 1, 5 and 9 — very important houses.',
+    cite: 'Vikram, Session 37 · Sripathi Paddhathi & Houses · 1 Mar 2026' },
+  { category: 'from-the-class',
+    text: 'These aims of life are not hierarchical. There are distinct aims, all at the same footing — dharma, artha, kama, moksha. The houses are also associated with one or the other aim of life. Dharma houses are the three trikonas — 1, 5, and 9.',
+    cite: 'Vikram, Session 33 · Intro to Houses · 1 Feb 2026' },
+  { category: 'from-the-class',
+    text: 'The moment you say Aries is rising, you are referring to the chart of Kāla Puruṣa. Kāla is time, Puruṣa is person. If Aries is the first house, then Taurus is the second house, Gemini the third, Cancer the fourth — and so on. That is the chart of Kāla Puruṣa.',
+    cite: 'Vikram, Session 35 · Kinds of Houses & House Systems · 15 Feb 2026' },
+  { category: 'from-the-class',
+    text: 'I don\'t know — we need to sit with this. Keep a journal of learnings, and you will continue to apply this on your own chart.',
+    cite: 'Vikram, Session 25 · Relationships & Apparent Motions · 23 Nov 2025' },
+
+  // ============ etymology (4) ============
+  { category: 'etymology',
+    text: 'Mercury is <em>Budha</em> — the same Sanskrit root as <em>Buddhi</em>, awakened intelligence. The Crown Prince\'s role in the cabinet is exactly that: the discerning mind.',
+    cite: 'Vikram, Mercury session · cabinet narrative' },
+  { category: 'etymology',
+    text: '<em>Senāpati</em> — Mars\'s role in the cabinet. Senā = army. Pati = lord. Commander of the army. Vikram\'s planetary court keeps every role bilingual: King · Rāja, Queen · Rājñī, Commander · Senāpati, Crown Prince · Yuvarāja.',
+    cite: 'Vikram, Cabinet sessions · Sessions 23–25' },
+  { category: 'etymology',
+    text: '<em>Mūla-trikoṇa</em> — Mūla means root, trikoṇa means triangle. The seat of root strength — where a planet does its work. Distinct from svakshetra (own house) and from uchcha (exaltation).',
+    cite: 'Vikram, Planet sessions' },
+  { category: 'etymology',
+    text: '<em>Kāla Puruṣa</em> — Kāla is time, Puruṣa is person. The cosmic body laid into the chart. Aries the head, Taurus the throat, Pisces the feet — and time turning through it all.',
+    cite: 'Vikram, Session 35 · Kinds of Houses & House Systems · 15 Feb 2026' },
+
+  // ============ classical (3 — only what Vikram has explicitly taught) ============
+  { category: 'classical',
+    text: 'The 1st, 5th, and 9th — the trikonas. Vikram says transits to the 5th and 9th feel almost like transits to the ascendant itself. Three angles of dharma in a single triangle.',
+    cite: 'Vikram, Session 37 · Sripathi Paddhathi & Houses · 1 Mar 2026' },
+  { category: 'classical',
+    text: 'The lagna — the 1st house — is called <em>Tanu</em>, the body. BPHS lists complexion, appearance, character, strength and longevity all judged from it. Vikram\'s introduction to houses begins here.',
+    cite: 'Vikram, Session 33 · Intro to Houses · 1 Feb 2026 · BPHS as taught in class' },
+  { category: 'classical',
+    text: 'The 8th house is called <em>Aayur</em> or <em>Randhra</em>. BPHS gives it longevity, battle, the wealth of the dead, and things that have happened and are to happen. The cleft house — what is hidden becomes visible.',
+    cite: 'Vikram, House sessions · BPHS as taught in class' },
+
+  // ============ cross-ref (5) ============
+  { category: 'cross-ref',
+    text: 'Saturn rules Capricorn but exalts in Libra. The Servant kneels in the Princess\'s chambers — discipline meets balance. The cabinet narrative makes the technical placement intuitive.',
+    cite: 'Vikram, Cabinet & Sign sessions' },
+  { category: 'cross-ref',
+    text: 'The Sun rules Leo but exalts in Aries. The King walks into the Commander\'s hall — and is at his most glorious. The cabinet\'s drama is in <em>who walks into whose chambers</em>.',
+    cite: 'Vikram, Cabinet sessions' },
+  { category: 'cross-ref',
+    text: 'The Moon rules Cancer, but her mūla-trikoṇa <em>and</em> her exaltation are both in Taurus. The Queen does her work in the earth sign that gathers — fitting, for the planet of the body and the heart.',
+    cite: 'Vikram, Cabinet & Sign sessions' },
+  { category: 'cross-ref',
+    text: 'Mars and Mercury are enemies in the cabinet — Senāpati and Yuvarāja, Commander and Crown Prince. Different temperaments. Mars wants to act; Mercury wants to think it through. The friendship table reflects what the metaphor already tells us.',
+    cite: 'Vikram, Cabinet & Relationships sessions · Sessions 23–24' },
+  { category: 'cross-ref',
+    text: 'Each avatar lifts the journey forward. Matsya the fish in water. Kūrma the turtle on the boundary. Varāha the boar on land. Life is gradually moving onto land — Vikram traces the daśāvatāra arc as evolution itself.',
+    cite: 'Vikram, Session 32 · Avatars & my story · 25 Jan 2026' },
+
+  // ============ shloka (2) ============
+  { category: 'shloka',
+    text: '<em>Nirvāṇa Shatakam</em> — six verses by Ādi Śaṅkara. Each begins <em>na</em> — "I am not." Mind, body, breath, identity, all peeled back, until only <em>Śivoham, Śivoham</em> — I am Śiva — remains. Recited at the Ether retreat.',
+    cite: 'Vikram, Ether retreat · March 2026' },
+  { category: 'shloka',
+    text: 'Each Mahāśakti has her mantra. Pārvatī for Earth — <em>Aim Hreem Kleem</em>. Lakṣmī for Water — <em>Sreem</em>. Sarasvatī for Air — <em>Aim</em>. Each goddess is the transformation of her element.',
+    cite: 'Vikram, Element sessions · Mahāśakti drawer' },
+
+  // ============ observed (2) ============
+  { category: 'observed',
+    text: 'Mercury never strays more than ~28° from the Sun in our sky. The Crown Prince is never far from the King — even astronomically. Vikram\'s astronomy session pulls these distances directly from the orbit.',
+    cite: 'Vikram, Astronomy session · Session 30 framing' },
+  { category: 'observed',
+    text: '<em>Atichāra</em> — <em>ati</em> means beyond, <em>chāra</em> means motion. When a planet (especially Jupiter) moves faster than its mean rate. Slower than mean is <em>vakra</em> — retrograde; the apparent reversal that Vikram traced through the planetary motion arcs.',
+    cite: 'Vikram, Session 25 · Relationships & Apparent Motions · 23 Nov 2025' }
+];
+
+/* ====================================================================
+   moonToday() — Vedic-style paksha + tithi + phase from today's date.
+
+   Uses the synodic month (29.530588 days) measured from a known new-moon
+   reference (2000-01-06 18:14 UTC). Pure client-side, no external API.
+   The tithi is approximate (±0.5 day vs. true ephemeris) — close enough
+   for a daily ambient surface, not for ritual timing.
+==================================================================== */
+const MOON_REF_NEW = Date.UTC(2000, 0, 6, 18, 14, 0);
+const SYNODIC_MS = 29.530588 * 24 * 60 * 60 * 1000;
+const MOON_GLYPHS = {
+  'new':       '🌑︎',  // 🌑
+  'wax-cres':  '🌒︎',  // 🌒
+  'first-q':   '🌓︎',  // 🌓
+  'wax-gib':   '🌔︎',  // 🌔
+  'full':      '🌕︎',  // 🌕
+  'wan-gib':   '🌖︎',  // 🌖
+  'last-q':    '🌗︎',  // 🌗
+  'wan-cres':  '🌘︎'   // 🌘
+};
+function moonToday(now) {
+  now = now || new Date();
+  const elapsed = now.getTime() - MOON_REF_NEW;
+  let phase = (elapsed % SYNODIC_MS) / SYNODIC_MS;
+  if (phase < 0) phase += 1;
+
+  let phaseName, glyphKey;
+  if (phase < 0.03 || phase >= 0.97)      { phaseName = 'New Moon';        glyphKey = 'new'; }
+  else if (phase < 0.22)                  { phaseName = 'Waxing Crescent'; glyphKey = 'wax-cres'; }
+  else if (phase < 0.28)                  { phaseName = 'First Quarter';   glyphKey = 'first-q'; }
+  else if (phase < 0.47)                  { phaseName = 'Waxing Gibbous';  glyphKey = 'wax-gib'; }
+  else if (phase < 0.53)                  { phaseName = 'Full Moon';       glyphKey = 'full'; }
+  else if (phase < 0.72)                  { phaseName = 'Waning Gibbous';  glyphKey = 'wan-gib'; }
+  else if (phase < 0.78)                  { phaseName = 'Last Quarter';    glyphKey = 'last-q'; }
+  else                                    { phaseName = 'Waning Crescent'; glyphKey = 'wan-cres'; }
+
+  const paksha = phase < 0.5 ? 'Shukla Paksha' : 'Krishna Paksha';
+  const tithi = Math.min(30, Math.max(1, Math.floor(phase * 30) + 1));
+
+  // Vikram-rooted note — Moon as Queen, building / fullness / gathering / dissolving.
+  let note;
+  if (phase < 0.03 || phase >= 0.97)     note = 'Amāvasyā — the queen withdraws. A turning point.';
+  else if (phase < 0.22)                  note = 'The crescent gathers. Beginning, intention, building.';
+  else if (phase < 0.28)                  note = 'Half-light. The queen finds her footing.';
+  else if (phase < 0.47)                  note = 'Building toward purṇimā — the queen gathering her fullness.';
+  else if (phase < 0.53)                  note = 'Purṇimā — the queen at her fullest. Celebration, completion.';
+  else if (phase < 0.72)                  note = 'After fullness, the long release. Reflection, integration.';
+  else if (phase < 0.78)                  note = 'Half-light again. The queen prepares to withdraw.';
+  else                                    note = 'Waning crescent — the queen approaches stillness. Letting go.';
+
+  return { phase, paksha, tithi, phaseName, glyphKey, note };
+}
+
 // SECTION_ORDER + SECTION_TITLES — drive both the Learning-mode frontier (locks/strip)
 // and the search-result labelling. Single source of truth, declared early.
 const SECTION_ORDER = ['signs','qualities','avatars','cabinet','planets','signature','relationships','aspects','yogas','houses','systems','categories','purusharthas','kaalapurusha','practice','workbook'];
@@ -7011,34 +7261,59 @@ const planetGlyph = (id) => PLANETS[id].glyph;
 const planetName  = (id) => PLANETS[id].name;
 const signName    = (id) => SIGNS_DATA[id].name;
 
-// Pick a Vikram quote at random for the popover.
-// No length filter now — the popover scrolls if needed.
-function pickCenterQuote() {
-  if (typeof VIKRAM_QUOTES === 'undefined') return null;
-  const quotes = Object.values(VIKRAM_QUOTES).filter(q => q && q.quote);
-  if (!quotes.length) return null;
-  // Prefer to NOT repeat the last quote — sessionStorage tracks last shown.
-  const lastKey = 'astro-vw-last';
-  let last = null;
-  try { last = sessionStorage.getItem(lastKey); } catch (e) {}
-  let pool = quotes;
-  if (last && quotes.length > 1) {
-    pool = quotes.filter(q => q.quote !== last);
+/* ====================================================================
+   pickDidYouKnow() — Cycle through DID_YOU_KNOW with no repeats until
+   all entries seen, then auto-reshuffle. Tracks seen indices in
+   localStorage so the deck persists across page reloads.
+   First open of any session lands on a random unseen entry.
+==================================================================== */
+const DYK_SEEN_KEY = 'astro-dyk-seen-v1';
+function _loadDykSeen() {
+  try {
+    const raw = localStorage.getItem(DYK_SEEN_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.filter(i => Number.isInteger(i)) : [];
+  } catch (e) { return []; }
+}
+function _saveDykSeen(arr) {
+  try { localStorage.setItem(DYK_SEEN_KEY, JSON.stringify(arr)); } catch (e) {}
+}
+function resetDidYouKnow() { _saveDykSeen([]); }
+function pickDidYouKnow() {
+  if (typeof DID_YOU_KNOW === 'undefined' || !DID_YOU_KNOW.length) return null;
+  let seen = _loadDykSeen();
+  // Auto-reshuffle if we've seen them all.
+  if (seen.length >= DID_YOU_KNOW.length) seen = [];
+  const candidates = [];
+  for (let i = 0; i < DID_YOU_KNOW.length; i++) {
+    if (!seen.includes(i)) candidates.push(i);
   }
-  const pick = pool[Math.floor(Math.random() * pool.length)];
-  try { sessionStorage.setItem(lastKey, pick.quote); } catch (e) {}
-  return pick;
+  const idx = candidates[Math.floor(Math.random() * candidates.length)];
+  seen.push(idx);
+  _saveDykSeen(seen);
+  return { entry: DID_YOU_KNOW[idx], idx, seen: seen.length, total: DID_YOU_KNOW.length };
 }
 
+// Category badge labels — what shows below each card.
+const DYK_BADGES = {
+  'from-the-class': 'from the class',
+  'etymology':      'etymology',
+  'classical':      'classical',
+  'cross-ref':      'cross-reference',
+  'shloka':         'shloka',
+  'observed':       'observed'
+};
+
 // Compact centre cell — fits cleanly on iPhone Safari and any other constrained viewport.
-// Tap the pill to open the wisdom popover with the full quote + jumps.
+// Tap the pill to open the "Do you know?" popover with one curated insight + today's moon.
 function buildCenterCellHTML() {
   return `
     <div class="cell center">
       <div class="center-title">Rāśi Chakra</div>
       <div class="label">the wheel of signs</div>
-      <button class="center-tap" type="button" id="centerTap" aria-label="Open a note from Vikram">
-        <span class="ct-mark">✦</span>From the class — tap to read
+      <button class="center-tap" type="button" id="centerTap" aria-label="Open Do You Know? — a note from Vikram and today's moon">
+        <span class="ct-mark">✦</span>Do you know? — tap
       </button>
     </div>`;
 }
@@ -7099,29 +7374,38 @@ function ensureVikramWisdomDOM() {
   card.id = 'vwCard';
   card.className = 'vw-card';
   card.setAttribute('role', 'dialog');
-  card.setAttribute('aria-label', 'A note from Vikram');
+  card.setAttribute('aria-label', 'Do you know? — a note from Vikram, plus today\'s moon');
   card.setAttribute('aria-hidden', 'true');
   card.innerHTML = `
     <button class="vw-close" type="button" id="vwClose" aria-label="Close">×</button>
-    <div class="vw-eyebrow">From the class</div>
+    <div class="vw-eyebrow">Do you know?</div>
     <p class="vw-quote" id="vwQuote"></p>
+    <div class="vw-meta-row">
+      <span class="vw-badge" id="vwBadge"></span>
+      <span class="vw-counter" id="vwCounter"></span>
+    </div>
     <div class="vw-cite" id="vwCite"></div>
     <div class="vw-actions">
-      <button class="vw-reroll" type="button" id="vwReroll">↻ another</button>
+      <button class="vw-reroll" type="button" id="vwReroll">↻ Tap for another</button>
+      <button class="vw-reset"  type="button" id="vwReset">Start over</button>
     </div>
     <div class="vw-jumps">
       <a class="vw-jump" href="#qualities" data-vw-jump>↗ Mahāśaktis</a>
       <a class="vw-jump" href="#cabinet" data-vw-jump>↗ Cabinet</a>
       <a class="vw-jump" href="#kaalapurusha" data-vw-jump>↗ Kālapurusha</a>
     </div>
+    <!-- Always-visible moon-today footer (refreshes on every open). -->
+    <div class="vw-moon" id="vwMoon" aria-label="Today's moon"></div>
   `;
   document.body.appendChild(card);
 
-  // Wire close behaviour
   backdrop.addEventListener('click', closeVikramWisdom);
   card.querySelector('#vwClose').addEventListener('click', closeVikramWisdom);
   card.querySelector('#vwReroll').addEventListener('click', () => populateVikramWisdom());
-  // Jump pills: close popover before navigating so the target section is visible.
+  card.querySelector('#vwReset').addEventListener('click', () => {
+    resetDidYouKnow();
+    populateVikramWisdom();
+  });
   card.querySelectorAll('[data-vw-jump]').forEach(a => {
     a.addEventListener('click', () => closeVikramWisdom());
   });
@@ -7131,17 +7415,39 @@ function ensureVikramWisdomDOM() {
 }
 
 function populateVikramWisdom() {
-  const q = pickCenterQuote();
+  const pick = pickDidYouKnow();
   const quoteEl = document.getElementById('vwQuote');
+  const badgeEl = document.getElementById('vwBadge');
+  const counterEl = document.getElementById('vwCounter');
   const citeEl  = document.getElementById('vwCite');
-  if (!quoteEl || !citeEl) return;
-  if (!q) {
+  if (!quoteEl) return;
+  if (!pick) {
     quoteEl.textContent = 'Rāśi Chakra — the wheel of signs.';
-    citeEl.textContent = '';
-    return;
+    if (badgeEl) badgeEl.textContent = '';
+    if (counterEl) counterEl.textContent = '';
+    if (citeEl) citeEl.textContent = '';
+  } else {
+    const e = pick.entry;
+    // Allow simple <em>…</em> tags in the data; everything else is plain.
+    quoteEl.innerHTML = `<span class="cq-mark">&#x275D;</span>${e.text}<span class="cq-mark">&#x275E;</span>`;
+    if (badgeEl) badgeEl.textContent = DYK_BADGES[e.category] || e.category;
+    if (counterEl) counterEl.textContent = `${pick.seen} of ${pick.total}`;
+    if (citeEl) citeEl.textContent = `— ${e.cite}`;
   }
-  quoteEl.innerHTML = `<span class="cq-mark">&#x275D;</span>${q.quote}<span class="cq-mark">&#x275E;</span>`;
-  citeEl.textContent = `— Vikram, ${q.session} · ${q.title} · ${q.date}`;
+  // Refresh the moon footer too.
+  const moonEl = document.getElementById('vwMoon');
+  if (moonEl) {
+    const m = moonToday();
+    moonEl.innerHTML = `
+      <div class="vw-moon-divider">— Moon today —</div>
+      <div class="vw-moon-row">
+        <span class="vw-moon-glyph" aria-hidden="true">${MOON_GLYPHS[m.glyphKey] || '☾'}</span>
+        <span class="vw-moon-text">
+          <span class="vw-moon-line">${m.paksha} · ~Tithi ${m.tithi} · ${m.phaseName}</span>
+          <span class="vw-moon-note">${m.note}</span>
+        </span>
+      </div>`;
+  }
 }
 
 function openVikramWisdom() {
@@ -9060,7 +9366,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.36.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.37.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10440,7 +10746,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.36.0';
+  const PAGE_VERSION = '4.37.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

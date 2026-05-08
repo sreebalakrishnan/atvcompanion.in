@@ -479,10 +479,43 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.37.0 ====================== -->
+  <section class="release" data-credits="Sree (do-you-know + moon today)">
+    <header>
+      <h2>v4.37.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">The Rāśi Chakra centre — the popover that used to read <em>"From the class — tap to read"</em> — becomes a richer surface, <strong>"Do you know?"</strong> Thirty curated insights drawn entirely from Vikram's class corpus (decks, transcripts, retreat notes, peer-group threads), each wearing a small badge that says where it came from. Below the card sits a second always-visible surface: <strong>Moon today</strong> — paksha, approximate tithi, and English phase name, with a one-line note rooted in Vikram's framing of the Moon as Queen.</p>
+
+    <h3>What landed — Do you know?</h3>
+    <ul>
+      <li>New <code>DID_YOU_KNOW</code> data array — 30 entries authored from Vikram's existing material in the app: the cabinet narrative, the planet sessions, the kāla<em>puruṣa</em> module, the Mercury Spectrum dualities, the Ether retreat, the Astronomy session. <strong>No internet sources.</strong> Anything that ever needs to come from outside Vikram's corpus would carry a small <em>[outside the class]</em> badge — no such entry exists today.</li>
+      <li>Six categories of fact, each shown as a small saffron italic badge: <em>from the class · etymology · classical · cross-reference · shloka · observed</em>. The category tells you the register before you read the line.</li>
+      <li><strong>Random start, no repeats.</strong> First open of any session lands on a random unseen entry. localStorage tracks the seen set across sessions; once all 30 have been read the deck reshuffles automatically. A small <em>Start over</em> button resets the set on demand.</li>
+      <li>A counter (<em>N of 30</em>) reminds the reader the set is curated and finite. The cite line carries the session and date for every entry — provenance is honest.</li>
+      <li>The centre pill on the chart now reads <em>"Do you know? — tap"</em> instead of <em>"From the class — tap to read."</em></li>
+    </ul>
+
+    <h3>What landed — Moon today</h3>
+    <ul>
+      <li>New <code>moonToday()</code> helper — pure client-side, no API. Computes the lunar phase from a known new-moon reference (2000-01-06 18:14 UTC) and the synodic month (29.530588 days). Derives <strong>paksha</strong> (Shukla / Krishna), <strong>approximate tithi</strong> (1–30, ±0.5 day vs true ephemeris), and <strong>English phase name</strong> (New Moon → Waxing Crescent → First Quarter → Waxing Gibbous → Full Moon → Waning Gibbous → Last Quarter → Waning Crescent).</li>
+      <li>Lives below the Do You Know? card in the same popover (Option β placement) — single tap from the Rāśi Chakra centre reveals both surfaces. A horizontal divider labelled <em>— Moon today —</em> separates them.</li>
+      <li>Each phase carries a one-line interpretive note rooted in Vikram's framing of the Moon as Queen — <em>"Building toward purṇimā — the queen gathering her fullness"</em> · <em>"After fullness, the long release. Reflection, integration"</em> · <em>"Amāvasyā — the queen withdraws. A turning point"</em>. Not generic moon-phase pop-talk; closer to how Vikram speaks of Chandra in class.</li>
+      <li>A small moon glyph (Unicode lunar phase, sized into the popover) reflects the current phase visually alongside the text.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The previous "From the class — tap to read" was good but one-note: only direct quotes, only one register. The cohort starts to feel they've seen all the quotes after a few opens. <em>Do you know?</em> opens the corpus wider while staying entirely faithful to Vikram's material — etymology, cross-references, shlokas, the cabinet's hidden symmetries.</li>
+      <li>The Moon footer makes the page <em>alive</em> day to day. Same URL, but the chart's centre tells you something different about today every visit. Pairs naturally with the curated insight above it: one fact about the cabinet, one fact about the sky right now.</li>
+      <li>Source discipline matters — Vikram's material is the only material on the page. The badge architecture lets us add to the deck later (more etymology, more cross-references, eventually entries derived from new sessions) while keeping that line bright.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.36.0 ====================== -->
   <section class="release" data-credits="Sree (the layers)">
     <header>
-      <h2>v4.36.0 <em>· current</em></h2>
+      <h2>v4.36.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">A new peer page — <a href="layers.html"><strong>Layers</strong></a> — that captures the longer arc of how this came to be. Eight months of milestones, in Sree's voice, named after Vikram's own line: <em>"we learn in layers."</em> Holds the dates that won't fit in release notes — the blue file, the Ether retreat, the V0 prototype on a kitchen table, the kāla<em>purusha</em> rounds with Vikram, the Mercury session that triggered something deeper, May 7's partnership with Sanchi, and the open ellipsis at the end.</p>
@@ -2497,7 +2530,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.36.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.37.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2720,7 +2753,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.36.0';
+  const PAGE_VERSION = '4.37.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
