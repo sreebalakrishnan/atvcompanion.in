@@ -479,10 +479,49 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.40.0 ====================== -->
+  <section class="release" data-credits="Vikram (workbook integration ask) · Marie · Sudha · Mannat · Spandana (workbook authors) · Sree (build)">
+    <header>
+      <h2>v4.40.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Vikram wrote in to ask how the <strong>Companion Workbook</strong> material can be folded into the learning tool. Most of the Matsya draft (drafted by Marie · Sudha · Mannat · Spandana with Vikram · Megha · Neha) was already integrated; v4.40 closes the remaining gap and lays a template for the other eight avatars when their drafts land. <strong>Plus a long-overdue affordance: every drawer is now deep-linkable</strong> — tap "🔗 Copy link" inside any open drawer to copy a URL that lands directly back at that drawer.</p>
+
+    <h3>Cut A — Matsya gap-fill</h3>
+    <ul>
+      <li>Two new quiz MCQs added to the Avatars quiz — <em>"Which planet did Parashara associate with Matsya?"</em> (Ketu) and <em>"Ketu is which node of the moon?"</em> (south, descending). Both pulled directly from the workbook.</li>
+      <li>New <strong>Check-in</strong> bookend at the top of the Matsya drawer — <em>"In the myth, Matsya first appears in a tiny jar, then a pond, then a river, outgrowing every container until he reaches the ocean. Where do you feel 'too big' for your current container?"</em></li>
+      <li>New <strong>Check-out</strong> bookend at the bottom of the Matsya drawer — invites the reader back to the Check-in container with intuition-led prompts.</li>
+      <li>The reflection clusters, Find-your-flood (3 tiers), Fish yoga pose, 4-count pranayama, listening-to-nature ritual, and Vikram-quote expandable were already integrated in earlier releases — credited again here for the full picture.</li>
+    </ul>
+
+    <h3>Cut B — Workbook authoring template</h3>
+    <ul>
+      <li>New file <code>workbook-avatar-template.md</code> at the project root. Documents the nine-section shape (Story · Planetary Link · Quiz · Check-in · Reflection · Chart Application · Yoga · Pranayama · Check-out) with Matsya as the worked example.</li>
+      <li>Lets the workbook team draft each future avatar (Kūrma → Buddha) into a known shape that integrates cleanly within ~24–48 hours per avatar, rather than as a re-design each time.</li>
+      <li>Includes a current-state table — which avatars are drafted, which are header-only.</li>
+    </ul>
+
+    <h3>Cut C — Deep-linkable drawers</h3>
+    <ul>
+      <li>Every drawer in <a href="quick-reference.html">Quick Reference</a> — sign · planet · house · avatar — now has a <strong>"🔗 Copy link" chip</strong> in its title. Tap it: copies a canonical URL like <code>quick-reference.html#avatar-matsya</code> to the clipboard, with a small <em>"Link copied"</em> toast.</li>
+      <li>URL hashes auto-open the drawer on page load: <code>#avatar-matsya</code>, <code>#planet-mercury</code>, <code>#sign-aries</code>, <code>#house-7</code>. Anyone the URL is shared with lands directly inside the open drawer — no more "scroll down and tap Matsya" instructions.</li>
+      <li>Closing a drawer strips the hash; opening one updates the hash via <code>history.replaceState</code> so a refresh preserves the drawer.</li>
+      <li>Practical use — Sree can now send Vikram <code>quick-reference.html#avatar-matsya</code> instead of a description.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>Vikram's invitation to "explore how the workbook can be part of the learning tool" deserved a concrete answer with a working example. Matsya is now the gold-standard avatar drawer — every future avatar plugs into the same shape.</li>
+      <li>The deep-linkable drawers fix a real friction Sree hit when trying to point Vikram at the existing Matsya drawer. Anyone in the cohort can now drop a single URL into a thread and have it open exactly where they meant.</li>
+      <li>The authoring template puts the workbook team in the driver's seat. Their drafts are the source of truth; Sree's job is integration. The template makes the contract explicit so neither side guesses.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.39.0 ====================== -->
   <section class="release" data-credits="Sathvika (engagement feedback) · Sree (build)">
     <header>
-      <h2>v4.39.0 <em>· current</em></h2>
+      <h2>v4.39.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Sathvika sent precise feedback on Story mode in the <a href="interactive.html">Interactive Lab</a> — <em>"It's moving fast before I finish reading. For me either sound or pictorial representations help me stay attentive. Too many letters, gets confusing."</em> Three direct asks. v4.39 answers all three: <strong>a Storybook view</strong> with one focused scene per card and no autoplay, <strong>a speed control</strong> for autoplay (Slow / Normal / Fast, default slowed from 5.5s → 9s), and <strong>read-aloud narration</strong> via the browser's Web Speech API.</p>
@@ -2578,7 +2617,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.39.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.40.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2801,7 +2840,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.39.0';
+  const PAGE_VERSION = '4.40.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

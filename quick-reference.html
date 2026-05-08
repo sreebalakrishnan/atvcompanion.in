@@ -4586,6 +4586,62 @@
   }
   .d-cabinet strong { font-style: normal; color: var(--saffron); font-weight: 500; }
 
+  /* ---------- WORKBOOK CHECK-IN / CHECK-OUT (v4.40) ---------- */
+  .workbook-check {
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 6px;
+    margin: 4px 0 8px;
+  }
+  .workbook-check-framing {
+    margin: 0 0 10px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .workbook-check .workbook-prompts { margin: 0; }
+
+  /* ---------- SHARE-CHIP (v4.40 — deep-link for any open drawer) ---------- */
+  .d-share-chip {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--saffron);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all .15s;
+    line-height: 1.3;
+    vertical-align: 2px;
+  }
+  .d-share-chip:hover { background: var(--saffron); color: var(--surface); border-color: var(--saffron); }
+  .d-share-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--surface);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .2s;
+    pointer-events: none;
+  }
+  .d-share-toast.is-visible { opacity: 1; }
+
   /* ---------- WORKBOOK BLOCKS (reflection clusters + practice) ---------- */
   .workbook-block summary { color: var(--saffron); }
   .workbook-cluster { padding-left: 14px; }
@@ -4910,7 +4966,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.39.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.40.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5576,7 +5632,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.39.0 · updated 8 May 2026</span>
+      <span>v4.40.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -6070,6 +6126,22 @@ const AVATAR_PRACTICE = {
   matsya: {
     intro: 'You don\'t need to journal. You don\'t need to write. You don\'t need to do anything. Just keep it at the back of your mind and see how that develops. Choose one prompt that lands. Keep it at the back of your mind for the week. Don\'t force an answer. Let the answer find you while you make tea, walk, sit under a tree. When something shows up in your life that feels like a parallel to the story — that is the learning.',
     intro_attribution: 'Vikram, opening to Matsya reflection',
+    // v4.40 — Check-in / Check-out bookends for the module, drafted by the workbook team.
+    check_in: {
+      framing: 'In the myth, Matsya first appears in a tiny jar, then a pond, then a river, outgrowing every container until he reaches the ocean.',
+      prompts: [
+        'Reflect on your current life. Where do you feel "too big" for your current container? Is there a project, a relationship, or a mindset that you once held but now feels restrictive?',
+        'Briefly describe how it is to be in this "shrinking jar." Are you resisting the growth, or are you waiting for something to take you to deeper waters?'
+      ]
+    },
+    check_out: {
+      framing: 'Matsya leads the boat through the cosmic flood, even when visibility is zero. Ketu, too, represents the headless navigator — the part of us that knows the way through intuition, not logic.',
+      prompts: [
+        'After exploring this module, look at that restrictive "container" you identified in the Check-in.',
+        'If you were to stop trying to "see" the path forward with your logical mind, what does your gut instinct — your inner Matsya — tell you to save for the next cycle?',
+        'What is the one "seed" (a core value or truth) you are bringing with you into the ocean? How has your sense changed now that you know a guide exists for the deep?'
+      ]
+    },
     clusters: [
       { theme: 'On listening — wisdom from unexpected sources',
         quote: 'We allow the higher to speak through anything. A fish, a crab, anything. Let him decide through what he wants to speak to us. Our only task is to listen.',
@@ -6681,6 +6753,20 @@ const QUIZZES = {
         options: ['Sun', 'Moon', 'Saturn', 'Ketu'],
         correct: 3,
         hint: 'Matsya → Ketu — dissolution, transformation, the great reset. Likewise Kurma → Saturn (patience, endurance), Varaha → Rahu, Krishna → Moon, Rama → Sun.'
+      },
+      // Two MCQs added for v4.40 from the Companion Workbook (Matsya section).
+      // Sourced from the workbook draft Vikram shared on 8 May 2026.
+      {
+        q: 'Which planet did Parashara associate with Matsya Avatar?',
+        options: ['Rahu', 'Ketu', 'Saturn', 'Moon'],
+        correct: 1,
+        hint: '"Parashara says Matsya Avatar is associated with Ketu. Descending node. Ketu is Matsya Avatar." — Companion Workbook · Matsya'
+      },
+      {
+        q: 'Ketu is which node of the moon?',
+        options: ['South node (descending node)', 'North node (ascending node)', 'East node', 'West node'],
+        correct: 0,
+        hint: 'Ketu is the south node — the descending node where the Moon\'s orbit crosses south of the ecliptic. Rahu is the corresponding north (ascending) node.'
       }
     ],
     reflect: 'Which avatar story is doing something real for you right now? Where in your life is Matsya\'s "danger first, then a strange blessing" — or Kurma\'s "still in the storm" — being asked of you?'
@@ -8020,9 +8106,16 @@ const dEyebrow  = $('dEyebrow');
 const dTitle    = $('dTitle');
 const dSub      = $('dSub');
 
-function openDrawer({ eyebrow, title, sub, html }) {
+// v4.40 — track the currently-open drawer so the share chip can compose a deep-link URL.
+let _currentDrawerKey = null;
+
+function openDrawer({ eyebrow, title, sub, html, deepLinkKey }) {
   dEyebrow.textContent = eyebrow;
-  dTitle.innerHTML = title;
+  // v4.40 — append a "🔗 Copy link" chip to the title when a deep-link key is provided.
+  const shareChip = deepLinkKey
+    ? ` <button class="d-share-chip" type="button" data-share="${deepLinkKey}" title="Copy a link to this drawer">🔗 Copy link</button>`
+    : '';
+  dTitle.innerHTML = title + shareChip;
   dSub.innerHTML = sub || '';
   drawerBody.innerHTML = html;
   drawer.classList.add('open');
@@ -8030,13 +8123,80 @@ function openDrawer({ eyebrow, title, sub, html }) {
   document.body.classList.add('drawer-open');
   drawer.setAttribute('aria-hidden', 'false');
   drawer.scrollTop = 0; drawerBody.scrollTop = 0;
+  _currentDrawerKey = deepLinkKey || null;
+  // Sync URL hash so refresh / share preserve the drawer.
+  if (deepLinkKey) {
+    try {
+      history.replaceState(null, '', '#' + deepLinkKey);
+    } catch (e) {}
+  }
 }
 function closeDrawer() {
   drawer.classList.remove('open');
   backdrop.classList.remove('open');
   document.body.classList.remove('drawer-open');
   drawer.setAttribute('aria-hidden', 'true');
+  _currentDrawerKey = null;
+  // Strip the hash without scroll-jumping.
+  if (location.hash) {
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  }
 }
+
+// v4.40 — share-chip click handler: copies the canonical deep-link URL + shows toast.
+document.addEventListener('click', (ev) => {
+  const t = ev.target.closest('.d-share-chip');
+  if (!t) return;
+  ev.stopPropagation();
+  const key = t.getAttribute('data-share') || _currentDrawerKey;
+  if (!key) return;
+  const url = `${location.origin}${location.pathname}#${key}`;
+  const showToast = (msg) => {
+    let el = document.getElementById('dShareToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'dShareToast';
+      el.className = 'd-share-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('is-visible');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('is-visible'), 1800);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(
+      () => showToast('Link copied'),
+      () => showToast(url)
+    );
+  } else {
+    // Fallback — show the URL so user can copy manually.
+    showToast(url);
+  }
+});
+
+// v4.40 — auto-open the right drawer when the page loads with a deep-link hash.
+//   #avatar-matsya · #planet-mercury · #sign-aries · #house-7
+function _openFromHash() {
+  const hash = (location.hash || '').replace(/^#/, '');
+  if (!hash) return;
+  const m = hash.match(/^(avatar|planet|sign|house)-(.+)$/);
+  if (!m) return;
+  const [, kind, id] = m;
+  // Defer until next tick so renders + DOM are settled.
+  setTimeout(() => {
+    try {
+      if (kind === 'avatar' && typeof drawerForAvatar === 'function' && AVATARS[id]) drawerForAvatar(id);
+      else if (kind === 'planet' && typeof drawerForPlanet === 'function' && PLANETS[id]) drawerForPlanet(id);
+      else if (kind === 'sign' && typeof drawerForSign === 'function' && SIGNS_DATA[id]) drawerForSign(id);
+      else if (kind === 'house' && typeof drawerForHouse === 'function') drawerForHouse(parseInt(id, 10));
+    } catch (e) {}
+  }, 80);
+}
+window.addEventListener('hashchange', _openFromHash);
+// Initial pass — once page is interactive.
+if (document.readyState === 'complete') _openFromHash();
+else window.addEventListener('load', _openFromHash);
 
 $('drawerClose').addEventListener('click', closeDrawer);
 backdrop.addEventListener('click', closeDrawer);
@@ -8169,7 +8329,8 @@ function drawerForSign(sid) {
     eyebrow: 'Sign · Rāśi',
     title: `<span class="glyph">${zodiacGlyph(sid)}</span>${s.name} <span style="font-style:italic;color:var(--saffron);font-weight:500;font-size:18px;">· ${s.sanskrit}</span>`,
     sub: `${ELEMENTS[s.element].name} · ${MODALITIES[s.modality].name} · ${POLARITIES[s.polarity].name}`,
-    html
+    html,
+    deepLinkKey: `sign-${sid}`
   });
 }
 
@@ -8304,7 +8465,8 @@ function drawerForPlanet(pid) {
     eyebrow: 'Planet · Graha',
     title: `<span class="glyph">${p.glyph}</span>${p.name} <span style="font-style:italic;color:var(--saffron);font-weight:500;font-size:18px;">· ${p.sanskrit}</span>`,
     sub: `${p.karaka}`,
-    html
+    html,
+    deepLinkKey: `planet-${pid}`
   });
 }
 
@@ -8314,6 +8476,30 @@ function drawerForAvatar(aid) {
   const p = PLANETS[a.planet];
   const story = (typeof AVATAR_STORIES !== 'undefined') ? AVATAR_STORIES[aid] : null;
   const wbk = (typeof AVATAR_PRACTICE !== 'undefined') ? AVATAR_PRACTICE[aid] : null;
+
+  // Check-in bookend (workbook-sourced — sits at the top of the drawer)
+  const checkInSection = (wbk && wbk.check_in) ? `
+    <div class="d-section">
+      <div class="d-h">Check-in</div>
+      <div class="workbook-check">
+        <p class="workbook-check-framing">${wbk.check_in.framing}</p>
+        <ul class="workbook-prompts">
+          ${wbk.check_in.prompts.map(p => `<li>${p}</li>`).join('')}
+        </ul>
+      </div>
+    </div>` : '';
+
+  // Check-out bookend (workbook-sourced — sits at the bottom of the drawer)
+  const checkOutSection = (wbk && wbk.check_out) ? `
+    <div class="d-section">
+      <div class="d-h">Check-out</div>
+      <div class="workbook-check">
+        <p class="workbook-check-framing">${wbk.check_out.framing}</p>
+        <ul class="workbook-prompts">
+          ${wbk.check_out.prompts.map(p => `<li>${p}</li>`).join('')}
+        </ul>
+      </div>
+    </div>` : '';
 
   // From-the-class expandable (Vikram's actual telling, scene by scene)
   const vikramStorySection = story ? `
@@ -8415,6 +8601,8 @@ function drawerForAvatar(aid) {
     </div>` : '';
 
   const html = `
+    ${checkInSection}
+
     <div class="d-section">
       <div class="d-h">Story</div>
       <div class="d-content" style="font-size:14.5px;line-height:1.65;color:var(--ink-soft);">${a.story}</div>
@@ -8425,6 +8613,8 @@ function drawerForAvatar(aid) {
     ${reflectionClustersSection}
 
     ${practiceSection}
+
+    ${checkOutSection}
 
     ${pendingSection}
 
@@ -8456,7 +8646,8 @@ function drawerForAvatar(aid) {
     eyebrow: 'Avatar · Daśāvatāra',
     title: `${a.name}`,
     sub: `${a.english} · ${p.name}`,
-    html
+    html,
+    deepLinkKey: `avatar-${aid}`
   });
 }
 
@@ -8537,7 +8728,8 @@ function drawerForHouse(n) {
     eyebrow: `House · Bhāva · ${altNames || h.sanskrit}`,
     title: `<span class="glyph">${n}H</span>${h.name}`,
     sub: h.short,
-    html
+    html,
+    deepLinkKey: `house-${n}`
   });
 }
 
@@ -9435,7 +9627,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.39.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.40.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10815,7 +11007,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.39.0';
+  const PAGE_VERSION = '4.40.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
