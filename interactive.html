@@ -302,6 +302,7 @@
     aspect-ratio: 1 / 1;
     max-width: 720px;
     margin: 0 auto 18px;
+    position: relative;     /* anchor for the absolutely-positioned court SVG overlay */
   }
   @media (max-width: 720px) { .stage { gap: 5px; max-width: 96vw; } }
   @media (max-width: 420px) { .stage { gap: 4px; } }
@@ -363,6 +364,45 @@
     line-height: 1.3;
     max-width: 14ch;
   }
+  /* Story-mode autoplay: chart centre fills with scene title + narration. */
+  .stage-center.is-playing {
+    padding: 18px 22px;
+    background: linear-gradient(180deg, rgba(184,65,14,.06), rgba(243,233,210,.6));
+    border-color: var(--saffron);
+    text-align: center;
+    justify-content: flex-start;
+    padding-top: 22px;
+    animation: chamber-in .45s cubic-bezier(.4,0,.2,1) backwards;
+  }
+  .stage-center-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .stage-center-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(15px, 2.2vw, 19px);
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 8px;
+    letter-spacing: -.005em;
+  }
+  .stage-center-narration {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(11.5px, 1.6vw, 13.5px);
+    color: var(--ink-soft);
+    line-height: 1.45;
+    overflow: hidden;
+  }
+  /* During autoplay the empty chambers dim slightly so the narration breathes
+     — but stay legible enough that the chart shape never disappears. */
+  .stage.is-playing .chamber.is-empty { opacity: .82; }
 
   /* Chamber is a div with role="button" so we can nest real <button> planet pills inside.
      Native <button> can't contain another <button> — that bug used to break the layout. */
@@ -380,21 +420,22 @@
     position: relative;
     overflow: hidden;
     min-width: 0;
-    animation: chamber-in .45s cubic-bezier(.4,0,.2,1) backwards;
   }
-  /* Stagger entry by perimeter position (clockwise from Pisces). */
-  .chamber.sign-pisces      { animation-delay: 0s; }
-  .chamber.sign-aries       { animation-delay: .035s; }
-  .chamber.sign-taurus      { animation-delay: .07s; }
-  .chamber.sign-gemini      { animation-delay: .105s; }
-  .chamber.sign-cancer      { animation-delay: .14s; }
-  .chamber.sign-leo         { animation-delay: .175s; }
-  .chamber.sign-virgo       { animation-delay: .21s; }
-  .chamber.sign-libra       { animation-delay: .245s; }
-  .chamber.sign-scorpio     { animation-delay: .28s; }
-  .chamber.sign-sagittarius { animation-delay: .315s; }
-  .chamber.sign-capricorn   { animation-delay: .35s; }
-  .chamber.sign-aquarius    { animation-delay: .385s; }
+  /* Clockwise perimeter reveal — fires only when mode changes (not on every render),
+     so story-scene transitions don't make the chart re-fade-in on every step. */
+  .stage.fresh-mode .chamber { animation: chamber-in .45s cubic-bezier(.4,0,.2,1) backwards; }
+  .stage.fresh-mode .chamber.sign-pisces      { animation-delay: 0s; }
+  .stage.fresh-mode .chamber.sign-aries       { animation-delay: .035s; }
+  .stage.fresh-mode .chamber.sign-taurus      { animation-delay: .07s; }
+  .stage.fresh-mode .chamber.sign-gemini      { animation-delay: .105s; }
+  .stage.fresh-mode .chamber.sign-cancer      { animation-delay: .14s; }
+  .stage.fresh-mode .chamber.sign-leo         { animation-delay: .175s; }
+  .stage.fresh-mode .chamber.sign-virgo       { animation-delay: .21s; }
+  .stage.fresh-mode .chamber.sign-libra       { animation-delay: .245s; }
+  .stage.fresh-mode .chamber.sign-scorpio     { animation-delay: .28s; }
+  .stage.fresh-mode .chamber.sign-sagittarius { animation-delay: .315s; }
+  .stage.fresh-mode .chamber.sign-capricorn   { animation-delay: .35s; }
+  .stage.fresh-mode .chamber.sign-aquarius    { animation-delay: .385s; }
   .chamber:hover {
     border-color: var(--saffron);
     transform: translateY(-1px);
@@ -537,6 +578,34 @@
     .chamber-element { font-size: 7.5px; padding: 1px 4px; }
   }
 
+  /* ---------- COURT OVERLAY (friendship lines) ---------- */
+  .court-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .35s cubic-bezier(.4,0,.2,1);
+    z-index: 5;
+  }
+  .stage[data-mode="court"] .court-overlay { opacity: 1; }
+  .court-overlay line {
+    transition: opacity .25s, stroke-width .2s;
+    stroke-linecap: round;
+    /* draw-in animation: lines stroke from one end to the other */
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: line-draw .8s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  .court-overlay line.l-friend  { stroke: var(--saffron); stroke-width: .6; opacity: .55; }
+  .court-overlay line.l-enemy   { stroke: var(--indigo);  stroke-width: .5; stroke-dasharray: 1.6 1.4; opacity: .45; animation: none; stroke-dashoffset: 0; }
+  .court-overlay line.l-neutral { stroke: var(--ink-soft); stroke-width: .25; opacity: .15; animation: none; stroke-dashoffset: 0; }
+  .court-overlay.is-focused line:not(.is-focused) { opacity: .07; }
+  .court-overlay line.is-focused.l-friend  { opacity: .9; stroke-width: .9; }
+  .court-overlay line.is-focused.l-enemy   { opacity: .8; stroke-width: .75; }
+  .court-overlay line.is-focused.l-neutral { opacity: .45; stroke-width: .4; }
+
   /* ---------- ANIMATION KEYFRAMES ---------- */
   @keyframes chamber-in {
     from { opacity: 0; transform: scale(.92); }
@@ -549,6 +618,19 @@
   @keyframes chamber-pulse {
     0%   { box-shadow: 0 0 0 0 rgba(184,65,14,.45); }
     100% { box-shadow: 0 0 0 10px rgba(184,65,14,0); }
+  }
+  @keyframes line-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes just-arrived {
+    0%   { box-shadow: 0 0 0 0 rgba(184,65,14,.65), inset 0 0 0 0 rgba(184,65,14,0); transform: scale(1); }
+    35%  { box-shadow: 0 0 0 8px rgba(184,65,14,.18), inset 0 0 0 1px rgba(184,65,14,.5); transform: scale(1.025); }
+    100% { box-shadow: 0 0 0 12px rgba(184,65,14,0), inset 0 0 0 0 rgba(184,65,14,0); transform: scale(1); }
+  }
+  /* Chambers that just received a planet on a story-scene change get this animation. */
+  .chamber.is-just-arrived {
+    animation: just-arrived 1.6s cubic-bezier(.4,0,.2,1) 1;
+    z-index: 3;
   }
   @keyframes roster-glow {
     0%, 100% { box-shadow: 0 0 0 0 rgba(184,65,14,0); }
@@ -757,7 +839,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.34.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.35.0</div>
     <h1>Interactive <em>· beta</em></h1>
     <p class="lede">An experimental space for visual / spatial learning. First experiment: the Planetary Cabinet as a stage. Tap a planet, change the mode, watch the drama.</p>
   </header>
@@ -784,6 +866,7 @@
       <div class="modes" id="modePills" role="tablist" aria-label="Cabinet view modes">
         <button class="mode-pill active" data-mode="office" role="tab" type="button">Office</button>
         <button class="mode-pill recommended" data-mode="story" role="tab" type="button">▶ Story</button>
+        <button class="mode-pill" data-mode="court" role="tab" type="button">Court <em style="opacity:.7;">· Mitra/Shatru</em></button>
         <button class="mode-pill" data-mode="exalted" role="tab" type="button">Exalted <em style="opacity:.7;">· Uchcha</em></button>
         <button class="mode-pill" data-mode="debilitated" role="tab" type="button">Debilitated <em style="opacity:.7;">· Neecha</em></button>
       </div>
@@ -798,6 +881,7 @@
 
     <div class="story-controls" id="storyControls" hidden>
       <button class="mode-pill" id="storyPrev" type="button">← Previous</button>
+      <button class="mode-pill recommended" id="storyPlay" type="button">▶ Play</button>
       <span class="story-counter" id="storyCounter">Scene 1 of 8</span>
       <button class="mode-pill" id="storyNext" type="button">Next →</button>
     </div>
@@ -822,7 +906,7 @@
     </div>
     <p>← <a href="index.html">Back to home</a> · <a href="quick-reference.html">Quick Reference</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.34.0 · updated 7 May 2026</span>
+      <span style="color:var(--muted);">v4.35.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -930,6 +1014,43 @@ const SHORT_ROLE = {
 /* Roster order — keeps the inner court together, then the two outsiders. */
 const ROSTER_ORDER = ['sun','moon','mars','mercury','jupiter','venus','saturn','rahu','ketu'];
 
+/* Naisargika (natural) friendships — BPHS standard.
+   F = mitra (friend) · E = shatru (enemy) · N = sama (neutral)
+   Symmetric — only declared on the lower-id side; lookup checks both. */
+const FRIENDSHIPS = {
+  sun:     { moon:'F', mars:'F', mercury:'N', jupiter:'F', venus:'E', saturn:'E', rahu:'E', ketu:'E' },
+  moon:    { mars:'N', mercury:'F', jupiter:'N', venus:'N', saturn:'N', rahu:'E', ketu:'E' },
+  mars:    { mercury:'E', jupiter:'F', venus:'N', saturn:'N', rahu:'E', ketu:'F' },
+  mercury: { jupiter:'E', venus:'F', saturn:'N', rahu:'F', ketu:'N' },
+  jupiter: { venus:'E', saturn:'N', rahu:'N', ketu:'N' },
+  venus:   { saturn:'F', rahu:'F', ketu:'F' },
+  saturn:  { rahu:'F', ketu:'F' },
+  rahu:    { ketu:'N' }
+};
+function relationship(p1, p2) {
+  if (p1 === p2) return null;
+  if (FRIENDSHIPS[p1] && FRIENDSHIPS[p1][p2]) return FRIENDSHIPS[p1][p2];
+  if (FRIENDSHIPS[p2] && FRIENDSHIPS[p2][p1]) return FRIENDSHIPS[p2][p1];
+  return null;
+}
+
+/* Approximate centre of each chamber on the South Indian board, in a 100×100 viewBox.
+   Used to lay friendship lines on top of the chart in Court mode. */
+const SIGN_COORDS = {
+  pisces:      { x: 12.5, y: 12.5 },
+  aries:       { x: 37.5, y: 12.5 },
+  taurus:      { x: 62.5, y: 12.5 },
+  gemini:      { x: 87.5, y: 12.5 },
+  aquarius:    { x: 12.5, y: 37.5 },
+  cancer:      { x: 87.5, y: 37.5 },
+  capricorn:   { x: 12.5, y: 62.5 },
+  leo:         { x: 87.5, y: 62.5 },
+  sagittarius: { x: 12.5, y: 87.5 },
+  scorpio:     { x: 37.5, y: 87.5 },
+  libra:       { x: 62.5, y: 87.5 },
+  virgo:       { x: 87.5, y: 87.5 }
+};
+
 /* The 8-scene story walkthrough.
    Each scene tells a moment from Vikram's cabinet narrative.
    `placements` overrides which planet goes where for that scene; everything else is empty. */
@@ -983,6 +1104,12 @@ let currentMode = 'office';
 let storyIdx = 0;
 let activePlanetId = null;
 let activeSignId = null;
+/* Track previous placements so we can pulse "just-arrived" chambers on scene changes. */
+let prevPlacements = {};
+/* Cinematic-story autoplay state. */
+let storyAutoInterval = null;
+let storyIsPlaying = false;
+const STORY_PLAY_MS = 5500;
 
 /* ============================================================
    RENDER FUNCTIONS
@@ -1007,6 +1134,12 @@ function getPlanetPlacements() {
     Object.entries(CABINET).forEach(([pid, c]) => { if (c.dishonoured) out[pid] = c.dishonoured; });
     return out;
   }
+  if (currentMode === 'court') {
+    // Court mode shows planets at their offices, with friendship lines overlaid.
+    const out = {};
+    Object.entries(CABINET).forEach(([pid, c]) => { if (c.office) out[pid] = c.office; });
+    return out;
+  }
   if (currentMode === 'story') {
     const scene = STORY_SCENES[storyIdx];
     if (scene.placements === 'exalted-mode') {
@@ -1022,6 +1155,70 @@ function getPlanetPlacements() {
     return scene.placements || {};
   }
   return {};
+}
+
+/* Cut C — friendship lines drawn over the chart in Court mode.
+   The SVG node is created once and survives stage re-renders, so lines
+   don't re-animate on every click — only when we (re-)enter court mode. */
+let _courtOverlayNode = null;
+let _courtOverlayDrawnFor = null;
+function ensureCourtOverlay() {
+  if (!_courtOverlayNode) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('id', 'courtOverlay');
+    svg.classList.add('court-overlay');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+    _courtOverlayNode = svg;
+  }
+  return _courtOverlayNode;
+}
+function renderCourtOverlay() {
+  const svg = ensureCourtOverlay();
+  if (currentMode !== 'court') {
+    if (_courtOverlayDrawnFor !== null) {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      _courtOverlayDrawnFor = null;
+    }
+    svg.classList.remove('is-focused');
+    return;
+  }
+  // (Re-)draw lines only when we just entered court mode.
+  if (_courtOverlayDrawnFor !== 'court') {
+    const NS = 'http://www.w3.org/2000/svg';
+    const placements = getPlanetPlacements();
+    const pids = Object.keys(placements);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    for (let i = 0; i < pids.length; i++) {
+      for (let j = i + 1; j < pids.length; j++) {
+        const p1 = pids[i], p2 = pids[j];
+        const rel = relationship(p1, p2);
+        if (!rel) continue;
+        const c1 = SIGN_COORDS[placements[p1]];
+        const c2 = SIGN_COORDS[placements[p2]];
+        if (!c1 || !c2) continue;
+        const cls = rel === 'F' ? 'l-friend' : rel === 'E' ? 'l-enemy' : 'l-neutral';
+        const line = document.createElementNS(NS, 'line');
+        line.setAttribute('class', cls);
+        line.setAttribute('x1', c1.x); line.setAttribute('y1', c1.y);
+        line.setAttribute('x2', c2.x); line.setAttribute('y2', c2.y);
+        line.setAttribute('data-p1', p1);
+        line.setAttribute('data-p2', p2);
+        svg.appendChild(line);
+      }
+    }
+    _courtOverlayDrawnFor = 'court';
+  }
+  // Update focus on existing lines (no re-render = no flicker).
+  svg.classList.toggle('is-focused', !!activePlanetId);
+  svg.querySelectorAll('line').forEach(line => {
+    const p1 = line.getAttribute('data-p1');
+    const p2 = line.getAttribute('data-p2');
+    const focused = activePlanetId && (p1 === activePlanetId || p2 === activePlanetId);
+    line.classList.toggle('is-focused', !!focused);
+  });
 }
 
 function renderRoster() {
@@ -1068,12 +1265,19 @@ function renderStage() {
     if (sid && signPlanets[sid]) signPlanets[sid].push(pid);
   });
 
+  // Detect chambers that just received a new planet (Cut A — cinematic story arrival pulse).
+  const justArrived = new Set();
+  Object.entries(placements).forEach(([pid, sid]) => {
+    if (prevPlacements[pid] !== sid) justArrived.add(sid);
+  });
+
   let html = '';
   PERIMETER_ORDER.forEach(sid => {
     const s = SIGNS[sid];
     const planets = signPlanets[sid];
     const isEmpty = planets.length === 0;
     const isActive = sid === activeSignId;
+    const isArrived = justArrived.has(sid) && !isEmpty;
 
     const planetsHtml = planets.map(pid => {
       const p = PLANETS[pid];
@@ -1093,7 +1297,7 @@ function renderStage() {
     // Chamber is a div with role="button" so we can validly nest <button> planet pills inside.
     // sign-{id} class hooks into grid-template-areas to place each chamber on the South Indian perimeter.
     html += `
-      <div class="chamber sign-${sid} ${isEmpty ? 'is-empty' : ''} ${isActive ? 'is-active' : ''}" data-sign="${sid}" role="button" tabindex="0" aria-label="${s.name} chamber">
+      <div class="chamber sign-${sid} ${isEmpty ? 'is-empty' : ''} ${isActive ? 'is-active' : ''} ${isArrived ? 'is-just-arrived' : ''}" data-sign="${sid}" role="button" tabindex="0" aria-label="${s.name} chamber">
         <div class="chamber-head">
           <div class="chamber-name">${s.name}</div>
           <div class="chamber-sanskrit">${s.sanskrit}</div>
@@ -1105,24 +1309,45 @@ function renderStage() {
     `;
   });
 
-  // Inner 2×2 — keeps the South Indian chart shape intact and shows mode label.
-  const centerLabels = {
-    office:      { label: 'Office',       sub: 'mūla-trikoṇa' },
-    exalted:     { label: 'Exalted',      sub: 'uchcha · उच्च' },
-    debilitated: { label: 'Debilitated',  sub: 'neecha · नीच' },
-    story:       { label: 'Story',        sub: `Scene ${storyIdx + 1} of ${STORY_SCENES.length}` }
-  };
-  const cl = centerLabels[currentMode] || centerLabels.office;
-  html += `
-    <div class="stage-center" aria-hidden="true">
-      <div class="stage-center-ornament">✦</div>
-      <div class="stage-center-label">${cl.label}</div>
-      <div class="stage-center-sub">${cl.sub}</div>
-    </div>
-  `;
+  // Remember placements for next render so we can detect arrivals.
+  prevPlacements = { ...placements };
+
+  // Inner 2×2 — keeps the South Indian chart shape intact.
+  // In Story mode while playing, the centre swaps to show the live scene title + narration.
+  let centerHtml = '';
+  if (currentMode === 'story' && storyIsPlaying) {
+    const scene = STORY_SCENES[storyIdx];
+    centerHtml = `
+      <div class="stage-center is-playing" aria-live="polite">
+        <div class="stage-center-eyebrow">Scene ${storyIdx + 1} of ${STORY_SCENES.length}</div>
+        <div class="stage-center-title">${scene.title}</div>
+        <div class="stage-center-narration">${scene.narration}</div>
+      </div>
+    `;
+  } else {
+    const centerLabels = {
+      office:      { label: 'Office',       sub: 'mūla-trikoṇa' },
+      exalted:     { label: 'Exalted',      sub: 'uchcha · उच्च' },
+      debilitated: { label: 'Debilitated',  sub: 'neecha · नीच' },
+      court:       { label: 'Court',        sub: 'mitra · shatru' },
+      story:       { label: 'Story',        sub: `Scene ${storyIdx + 1} of ${STORY_SCENES.length}` }
+    };
+    const cl = centerLabels[currentMode] || centerLabels.office;
+    centerHtml = `
+      <div class="stage-center" aria-hidden="true">
+        <div class="stage-center-ornament">✦</div>
+        <div class="stage-center-label">${cl.label}</div>
+        <div class="stage-center-sub">${cl.sub}</div>
+      </div>
+    `;
+  }
+  html += centerHtml;
 
   stage.innerHTML = html;
   stage.dataset.mode = currentMode;
+  // Re-attach the persistent SVG overlay (it survives stage re-renders).
+  stage.appendChild(ensureCourtOverlay());
+  renderCourtOverlay();
 
   // Planet pills: select that planet, light up its chamber.
   stage.querySelectorAll('.chamber-planet-pill').forEach(b => {
@@ -1153,8 +1378,21 @@ function renderStage() {
 }
 
 function setMode(mode) {
+  // If we're switching away from story mode mid-play, stop autoplay first.
+  if (storyIsPlaying && mode !== 'story') stopStoryAutoplay();
+  const isModeChange = currentMode !== mode;
   currentMode = mode;
   storyIdx = 0;
+  // Reset arrival tracking on mode change so we don't pulse stale chambers.
+  prevPlacements = {};
+  // Trigger the perimeter-reveal animation on mode change only (not on scene change).
+  if (isModeChange) {
+    const stage = document.getElementById('stage');
+    if (stage) {
+      stage.classList.add('fresh-mode');
+      setTimeout(() => stage.classList.remove('fresh-mode'), 900);
+    }
+  }
 
   // Update mode-pill UI
   document.querySelectorAll('.mode-pill[data-mode]').forEach(b => {
@@ -1167,7 +1405,8 @@ function setMode(mode) {
     office:      'Each planet at its <em>natural office</em> (mūla-trikoṇa) — where it lives, where it does its work. Tap any pill to read why.',
     exalted:     'Each planet at its <em>exaltation — uchcha</em> — where it walks in and is at its most glorious. Tap to read the scene.',
     debilitated: 'Each planet at its <em>debilitation — neecha</em> — where it kneels, softens, dissolves. The opposite end of the throne.',
-    story:       'Use ← and → below to walk Vikram\'s cabinet narrative scene by scene.'
+    story:       'Press ▶ <em>Play</em> to watch the cabinet assemble itself, or use ← and → to walk it scene by scene.',
+    court:       'Friendships across the cabinet — <em>saffron solid = mitra (friend)</em>, <em>indigo dashed = shatru (enemy)</em>, faint = neutral. Tap a planet to focus its alliances.'
   };
   hint.innerHTML = hints[mode] || '';
 
@@ -1220,6 +1459,9 @@ function nextScene() {
     renderRoster();
     renderStage();
     renderStoryNarration();
+  } else if (storyIsPlaying) {
+    // End of story while playing — auto-stop.
+    stopStoryAutoplay();
   }
 }
 
@@ -1231,6 +1473,39 @@ function prevScene() {
     renderStage();
     renderStoryNarration();
   }
+}
+
+/* Cut A — cinematic auto-play for Story mode. */
+function startStoryAutoplay() {
+  if (storyIsPlaying) return;
+  storyIsPlaying = true;
+  const btn = document.getElementById('storyPlay');
+  if (btn) btn.textContent = '⏸ Pause';
+  document.getElementById('stage')?.classList.add('is-playing');
+  // If we're on the last scene, restart from the beginning.
+  if (storyIdx >= STORY_SCENES.length - 1) {
+    storyIdx = 0;
+    prevPlacements = {};
+  }
+  // Re-render so the chart centre swaps into narration-during-play layout.
+  renderStoryControls();
+  renderRoster();
+  renderStage();
+  renderStoryNarration();
+  storyAutoInterval = setInterval(() => { nextScene(); }, STORY_PLAY_MS);
+}
+function stopStoryAutoplay() {
+  if (storyAutoInterval) { clearInterval(storyAutoInterval); storyAutoInterval = null; }
+  storyIsPlaying = false;
+  const btn = document.getElementById('storyPlay');
+  if (btn) btn.textContent = (storyIdx >= STORY_SCENES.length - 1) ? '↻ Replay' : '▶ Play';
+  document.getElementById('stage')?.classList.remove('is-playing');
+  // Re-render so the chart centre swaps back to mode-label layout.
+  renderStage();
+}
+function toggleStoryAutoplay() {
+  if (storyIsPlaying) stopStoryAutoplay();
+  else startStoryAutoplay();
 }
 
 /* ============================================================
@@ -1254,10 +1529,28 @@ function renderInfoCard() {
               : currentMode === 'debilitated' ? c.dishonoured_why
               : '';
 
+    // Court-mode extra: lists of friends, enemies, neutrals
+    let courtBlock = '';
+    if (currentMode === 'court') {
+      const friends = [], enemies = [], neutrals = [];
+      ROSTER_ORDER.forEach(other => {
+        if (other === activePlanetId) return;
+        const r = relationship(activePlanetId, other);
+        if (r === 'F') friends.push(other);
+        else if (r === 'E') enemies.push(other);
+        else if (r === 'N') neutrals.push(other);
+      });
+      const renderList = (ids, label) => ids.length
+        ? `<p class="info-row"><strong>${label}:</strong> ${ids.map(pid => `<span style="font-variant-emoji:text;color:var(--saffron);font-size:16px;margin:0 2px 0 6px;">${PLANETS[pid].glyph}</span><span style="font-style:italic;color:var(--ink-soft);">${PLANETS[pid].name}</span>`).join(' · ')}</p>`
+        : '';
+      courtBlock = renderList(friends, 'Friends · Mitra') + renderList(enemies, 'Enemies · Shatru') + renderList(neutrals, 'Neutral · Sama');
+    }
+
     card.innerHTML = `
       <div class="info-eyebrow">${c.role} · ${c.role_sk}</div>
       <div class="info-title"><span class="info-glyph">${p.glyph}</span>${p.name} <em>· ${p.sanskrit}</em></div>
       <div class="info-meta">${officeS ? 'Office: ' + officeS.name + ' · ' : ''}${honourS ? 'Exalted (Uchcha): ' + honourS.name + ' · ' : ''}${disgrS ? 'Debilitated (Neecha): ' + disgrS.name : ''}</div>
+      ${courtBlock}
       ${why ? `<div class="info-quote">${why}<div class="info-cite">— Vikram, Sessions 23–25 · The Planetary Cabinet</div></div>` : ''}
     `;
     return;
@@ -1298,10 +1591,17 @@ function renderInfoCard() {
 document.querySelectorAll('.mode-pill[data-mode]').forEach(b => {
   b.addEventListener('click', () => setMode(b.dataset.mode));
 });
-document.getElementById('storyPrev').addEventListener('click', prevScene);
-document.getElementById('storyNext').addEventListener('click', nextScene);
+document.getElementById('storyPrev').addEventListener('click', () => { if (storyIsPlaying) stopStoryAutoplay(); prevScene(); });
+document.getElementById('storyNext').addEventListener('click', () => { if (storyIsPlaying) stopStoryAutoplay(); nextScene(); });
+document.getElementById('storyPlay').addEventListener('click', toggleStoryAutoplay);
 
+// First render — give chambers the perimeter-reveal animation once.
 renderRoster();
+const _initStage = document.getElementById('stage');
+if (_initStage) {
+  _initStage.classList.add('fresh-mode');
+  setTimeout(() => _initStage.classList.remove('fresh-mode'), 900);
+}
 renderStage();
 renderInfoCard();
 </script>
@@ -1309,7 +1609,7 @@ renderInfoCard();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.34.0';
+  const PAGE_VERSION = '4.35.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
