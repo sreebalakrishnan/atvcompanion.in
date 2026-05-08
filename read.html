@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.46.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.47.0) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -577,6 +577,127 @@
   .walk-progress button.is-current { background: var(--saffron); }
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
+
+  /* Quick-reference drawer (v4.47.0) — collapsible cheat sheet inside the walk-through. */
+  .walk-drawer {
+    margin: 0 0 16px;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .walk-drawer-toggle {
+    width: 100%;
+    padding: 10px 14px;
+    background: transparent;
+    border: 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+  }
+  .walk-drawer-toggle:hover { color: var(--saffron); }
+  .walk-drawer-toggle .chev {
+    transition: transform .18s;
+    color: var(--saffron);
+    font-size: 11px;
+    flex-shrink: 0;
+    width: 12px;
+    text-align: center;
+  }
+  .walk-drawer.is-open .walk-drawer-toggle .chev { transform: rotate(90deg); }
+  .walk-drawer-toggle .label { flex: 1; }
+  .walk-drawer-toggle .label .icon { color: var(--saffron); margin-right: 6px; }
+  .walk-drawer-toggle .light-tag {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px dashed var(--rule);
+    padding: 1px 8px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .walk-drawer-body {
+    display: none;
+    padding: 6px 14px 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .walk-drawer.is-open .walk-drawer-body {
+    display: block;
+    animation: viewIn .25s cubic-bezier(.4,0,.2,1) backwards;
+  }
+
+  .walk-ref-section { margin: 14px 0 0; }
+  .walk-ref-section:first-of-type { margin-top: 10px; }
+  .walk-ref-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .walk-ref-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  @media (min-width: 480px) {
+    .walk-ref-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .walk-ref-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .walk-ref-grid.cols-avatars { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 720px) {
+    .walk-ref-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  }
+
+  .walk-ref-tile {
+    padding: 9px 11px 8px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 7px;
+    transition: border-color .18s, background .18s, box-shadow .18s;
+  }
+  .walk-ref-tile.is-relevant {
+    border-color: var(--saffron);
+    background: rgba(184,65,14,.06);
+    box-shadow: 0 0 0 2px rgba(184,65,14,.10);
+  }
+  .walk-ref-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .walk-ref-tile.is-relevant .walk-ref-name { color: var(--saffron); }
+  .walk-ref-name em {
+    font-style: italic;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 11.5px;
+    margin-left: 4px;
+  }
+  .walk-ref-tile.is-relevant .walk-ref-name em { color: var(--ink-soft); }
+  .walk-ref-line {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .walk-ref-line .placeholder { color: var(--muted); }
 
   .walk-card {
     margin: 0 0 18px;
@@ -865,7 +986,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.46.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.47.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -919,6 +1040,7 @@
       <button class="btn" type="button" id="walkExitBtn">← Back to chart</button>
     </div>
     <div class="walk-progress" id="walkProgress" role="tablist" aria-label="Walk-through progress"></div>
+    <div id="walkDrawer" class="walk-drawer"></div>
     <div id="walkCard"></div>
     <div class="walk-nav">
       <button class="btn" type="button" id="walkPrevBtn">← Previous house</button>
@@ -949,7 +1071,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.46.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.47.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -1052,6 +1174,56 @@
     aquarius:    'fixed · air · masculine — a body that thinks differently, stands apart, friend to all. Ruled by Saturn.',
     pisces:      'mutable · water · feminine — a body that dissolves into feeling, intuitive, hard to pin down. Ruled by Jupiter.'
   };
+
+  // Sign attributes — duality (yang/yin), modality (cardinal/fixed/mutable),
+  // element (fire/earth/air/water). Used to highlight the current sign's
+  // attributes in the quick-reference drawer (Cut B contextual highlighting).
+  const SIGN_ATTR = {
+    aries:       { duality: 'yang', modality: 'cardinal', element: 'fire'  },
+    taurus:      { duality: 'yin',  modality: 'fixed',    element: 'earth' },
+    gemini:      { duality: 'yang', modality: 'mutable',  element: 'air'   },
+    cancer:      { duality: 'yin',  modality: 'cardinal', element: 'water' },
+    leo:         { duality: 'yang', modality: 'fixed',    element: 'fire'  },
+    virgo:       { duality: 'yin',  modality: 'mutable',  element: 'earth' },
+    libra:       { duality: 'yang', modality: 'cardinal', element: 'air'   },
+    scorpio:     { duality: 'yin',  modality: 'fixed',    element: 'water' },
+    sagittarius: { duality: 'yang', modality: 'mutable',  element: 'fire'  },
+    capricorn:   { duality: 'yin',  modality: 'cardinal', element: 'earth' },
+    aquarius:    { duality: 'yang', modality: 'fixed',    element: 'air'   },
+    pisces:      { duality: 'yin',  modality: 'mutable',  element: 'water' }
+  };
+
+  // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
+  // Shadow side stays out of the drawer by design.
+  const DUALITY_LIGHT = {
+    yang: { name: 'Yang · Masculine', line: 'Outward, active, expressive. The doing pole.' },
+    yin:  { name: 'Yin · Feminine',   line: 'Inward, receptive, quiet. The being pole.' }
+  };
+  const MODALITY_LIGHT = {
+    cardinal: { name: 'Cardinal', line: 'Initiates. The first push. Starts something new.' },
+    fixed:    { name: 'Fixed',    line: 'Sustains. Holds the form. Keeps it going.' },
+    mutable:  { name: 'Mutable',  line: 'Adapts. Transitions. Responds to change.' }
+  };
+  const ELEMENT_LIGHT = {
+    fire:  { name: 'Fire',  line: 'Spark, vision, will. Acts from passion.' },
+    earth: { name: 'Earth', line: 'Body, ground, structure. Acts patiently.' },
+    air:   { name: 'Air',   line: 'Thought, voice, connection. Acts through ideas.' },
+    water: { name: 'Water', line: 'Feeling, intuition, depth. Acts from emotion.' }
+  };
+  // Standard Vedic avatar ↔ planet mapping (Parashara-cited; verified by the
+  // workbook quiz answer Matsya → Ketu). If Vikram's class differs, override here.
+  const AVATAR_LIGHT = [
+    { id: 'matsya',      name: 'Matsya',      sanskrit: 'fish',          planet: 'ketu',    line: 'The first listening. Awareness before form.' },
+    { id: 'kurma',       name: 'Kūrma',       sanskrit: 'tortoise',      planet: 'saturn',  line: 'Patient support. The foundation that holds the churning.' },
+    { id: 'varaha',      name: 'Varāha',      sanskrit: 'boar',          planet: 'rahu',    line: 'Lifts what was sunk. Carries us out of the depths.' },
+    { id: 'narasimha',   name: 'Narasimha',   sanskrit: 'man-lion',      planet: 'mars',    line: 'Fierce protection. Courage to stand for the right.' },
+    { id: 'vamana',      name: 'Vāmana',      sanskrit: 'dwarf',         planet: 'jupiter', line: 'The small that grows vast. Wisdom that expands.' },
+    { id: 'parashurama', name: 'Paraśurāma',  sanskrit: 'rāma with axe', planet: 'venus',   line: 'Skill perfected. Devotion that cuts to truth.' },
+    { id: 'rama',        name: 'Rāma',        sanskrit: 'the prince',    planet: 'sun',     line: 'Dharma made flesh. The just and noble ruler.' },
+    { id: 'krishna',     name: 'Krishna',     sanskrit: 'the dark one',  planet: 'moon',    line: 'Love and play. The teacher in the heart.' },
+    { id: 'buddha',      name: 'Buddha',      sanskrit: 'the awakened',  planet: 'mercury', line: 'The middle path. Clarity through awareness.' },
+    { id: 'kalki',       name: 'Kalki',       sanskrit: 'the future',    planet: null,      line: "What's coming. The next turn of the wheel." }
+  ];
 
   // Vikram's one-liner for each planet in each sign — sourced from his class decks.
   // 72-sun.md, 73-moon.md, 76-mars.md, 77-mercury.md.
@@ -1355,11 +1527,98 @@
 
   function renderWalk() {
     renderWalkProgress();
+    renderWalkDrawer();
     renderWalkCard();
     document.getElementById('walkCounter').innerHTML = `House <strong>${walkIdx}</strong> of 12 · <em>${HOUSE_PROMPT_NOUN[walkIdx]}</em>`;
     document.getElementById('walkPrevBtn').disabled = walkIdx === 1;
     const nextBtn = document.getElementById('walkNextBtn');
     nextBtn.textContent = walkIdx === 12 ? 'Finish ✓' : 'Next house →';
+  }
+
+  // Quick-reference drawer (v4.47.0) — collapsible cheat sheet inside the
+  // walk-through. Light-only by design (year-1 framing). Tiles for the
+  // current card's duality / modality / element + avatars-of-present-planets
+  // get a saffron-tinted "is-relevant" border so the user instantly sees what
+  // applies to this house.
+  const DRAWER_KEY = 'astro-mychart-drawer-v1';
+  function loadDrawerOpen() {
+    try { return localStorage.getItem(DRAWER_KEY) === '1'; } catch (e) { return false; }
+  }
+  function saveDrawerOpen(v) {
+    try { localStorage.setItem(DRAWER_KEY, v ? '1' : '0'); } catch (e) {}
+  }
+  function renderWalkDrawer() {
+    const drawer = document.getElementById('walkDrawer');
+    if (!drawer) return;
+    const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
+    if (lagnaIdx < 0) { drawer.innerHTML = ''; return; }
+
+    const sid = SIGN_ORDER[(lagnaIdx + walkIdx - 1) % 12];
+    const attrs = SIGN_ATTR[sid];
+    const planetsHere = PLANETS.filter(p => myChart.planets[p.id] === walkIdx);
+    const relevantAvatars = new Set();
+    planetsHere.forEach(p => {
+      const a = AVATAR_LIGHT.find(av => av.planet === p.id);
+      if (a) relevantAvatars.add(a.id);
+    });
+
+    const isOpen = loadDrawerOpen();
+    drawer.className = 'walk-drawer' + (isOpen ? ' is-open' : '');
+
+    function tileHtml(name, sub, line, isRelevant) {
+      const subHtml = sub ? ` <em>· ${sub}</em>` : '';
+      return `<div class="walk-ref-tile ${isRelevant ? 'is-relevant' : ''}">
+        <div class="walk-ref-name">${name}${subHtml}</div>
+        <p class="walk-ref-line">${line}</p>
+      </div>`;
+    }
+
+    const dualitiesHtml = Object.entries(DUALITY_LIGHT).map(([k, v]) =>
+      tileHtml(v.name, '', v.line, k === attrs.duality)
+    ).join('');
+    const modalitiesHtml = Object.entries(MODALITY_LIGHT).map(([k, v]) =>
+      tileHtml(v.name, '', v.line, k === attrs.modality)
+    ).join('');
+    const elementsHtml = Object.entries(ELEMENT_LIGHT).map(([k, v]) =>
+      tileHtml(v.name, '', v.line, k === attrs.element)
+    ).join('');
+    const avatarsHtml = AVATAR_LIGHT.map(a => {
+      const planetObj = a.planet ? PLANETS.find(p => p.id === a.planet) : null;
+      const sub = planetObj ? `${planetObj.name} · ${a.sanskrit}` : a.sanskrit;
+      return tileHtml(a.name, sub, a.line, relevantAvatars.has(a.id));
+    }).join('');
+
+    drawer.innerHTML = `
+      <button class="walk-drawer-toggle" type="button" id="walkDrawerToggle" aria-expanded="${isOpen}">
+        <span class="chev">▶</span>
+        <span class="label"><span class="icon">📖</span>Quick reference</span>
+        <span class="light-tag">light only</span>
+      </button>
+      <div class="walk-drawer-body">
+        <div class="walk-ref-section">
+          <div class="walk-ref-eyebrow">Dualities</div>
+          <div class="walk-ref-grid cols-2">${dualitiesHtml}</div>
+        </div>
+        <div class="walk-ref-section">
+          <div class="walk-ref-eyebrow">Modalities</div>
+          <div class="walk-ref-grid cols-3">${modalitiesHtml}</div>
+        </div>
+        <div class="walk-ref-section">
+          <div class="walk-ref-eyebrow">Elements</div>
+          <div class="walk-ref-grid cols-4">${elementsHtml}</div>
+        </div>
+        <div class="walk-ref-section">
+          <div class="walk-ref-eyebrow">Avatars · daśāvatāra</div>
+          <div class="walk-ref-grid cols-avatars">${avatarsHtml}</div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('walkDrawerToggle').addEventListener('click', () => {
+      const newOpen = !loadDrawerOpen();
+      saveDrawerOpen(newOpen);
+      renderWalkDrawer();
+    });
   }
 
   function renderWalkProgress() {
@@ -1520,7 +1779,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.46.0';
+  const PAGE_VERSION = '4.47.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1617,7 +1876,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.46.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.47.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
