@@ -28,8 +28,8 @@ Which graha does this avatar carry? One sentence in Vikram's voice if available.
 *Matsya example:* "Which planet did Parashara associate with Matsya?" → Ketu · "Ketu is which node of the moon?" → South.
 
 ### 4. Check-in
-A short framing (1–2 sentences from the myth) + 1–2 prompts that invite the reader into their current life *before* they read the module.
-*Matsya example:* "In the myth, Matsya first appears in a tiny jar, then a pond, then a river, outgrowing every container until he reaches the ocean. Reflect on your current life. Where do you feel 'too big' for your current container?"
+A short framing line that invites the reader into reflection + 1–2 prompts they sit with *before* they read the module. Keep the framing as an instruction (what to do), not a re-telling of the myth — the myth already lives in the Story section.
+*Matsya example:* "Before you read or hear the story, take a little time to reflect on these questions." → "Where do you feel 'too big' for your current container?"
 
 ### 5. Reflection clusters
 Each cluster is `theme + Vikram quote + 2 prompts`. As many as the team has — Matsya has eleven.
