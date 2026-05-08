@@ -483,10 +483,76 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.55.0 ====================== -->
+  <section class="release" data-credits="Sree (rearchitecture call — keep house and planet reading separate) · Vikram (Sessions 35/39/40/41/42/43 + house-interpretation guidance PDF)">
+    <header>
+      <h2>v4.55.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">A two-path rearchitecture of <a href="read.html">Read · beta</a>. Vikram teaches <strong>two distinct interpretation procedures</strong> — Path A for analysing a house (8 steps), Path B for analysing a planet (3 steps) — with different combination rules for each. The page now offers them as two equal first-class doors from the chart view. Each path has its own intro card with a step-by-step worked example, a class transcript quote with timestamp, and deck citations. All inline. All sourced from Vikram. No public internet.</p>
+
+    <h3>Two doors on the chart view</h3>
+    <ul>
+      <li>The single "📖 Begin the walk-through →" button is replaced by a two-card grid: <strong>📖 Read a house</strong> (12 cards · 8 steps each) and <strong>🪐 Read a planet</strong> (9 cards · 3 steps each). Equal weight, clear scope, separate flows.</li>
+      <li>Cohort members pick which procedure they're running before any sentences are written. The subject of analysis is named explicitly from the door onward.</li>
+    </ul>
+
+    <h3>Path intro cards · the procedure made visible before walking</h3>
+    <ul>
+      <li>A new <em>Path intro card</em> sits at <code>walkIdx === 0</code> at the start of each walk. Four sections per intro:
+        <ol>
+          <li><strong>The steps</strong> — Path A's 8 or Path B's 3, with combination rules and the explicit "never combine X with Y" constraints.</li>
+          <li><strong>A worked example</strong> — strict step-by-step, one building block per sentence. Path A uses the Cancer Ascendant case from deck 63, re-derived legally per the May 2026 procedure (with the deck's forbidden sentence flagged as a learning anti-pattern). Path B uses Sun in Sagittarius (Sree's own placement, deck 72-sourced) showing three Step 1 sentences plus Step 2 (friendship with Jupiter) and Step 3 (Budha-Aditya Yoga if Mercury joins).</li>
+          <li><strong>From Vikram's class</strong> — verbatim transcript quotes with timestamps. Path A surfaces Session 41 (Apr 19, 2026, 35:02): <em>"If you are analysing a house, what is the order? First sign and house. Then planets in that sign. Then ruler of the house in which sign… Then Karaka."</em> Plus Session 41 1:41:30 on the Step 2 / Step 4 boundary. Path B surfaces Session 39 (Apr 5, 2026, 1:49:30) on the Parts of Speech grammar.</li>
+          <li><strong>Sources from class</strong> — explicit deck and session citations: deck 63, deck 67/74, the May 2026 PDF for Path A; decks 72/73/76/77 plus Sessions 39/40/42/43 for Path B.</li>
+        </ol>
+      </li>
+    </ul>
+
+    <h3>Path B walk-through · 9 planet cards, 3 steps each</h3>
+    <ul>
+      <li>One card per planet (Sun · Moon · Mars · Mercury · Jupiter · Venus · Saturn · Rahu · Ketu) in Vikram's class order. The subject is the planet, never its house.</li>
+      <li><strong>Step 1 · Planet in Sign.</strong> Surfaces the planet's archetype (avatar pairing — Sun→Rāma, Moon→Krishna, etc., with QR-sourced keyword list) and the sign's building blocks (yang/yin · cardinal/fixed/mutable · fire/earth/air/water).</li>
+      <li><strong>Step 2 · Planet vs sign owner.</strong> Computes the naisargika (permanent) friendship between the planet and the ruler of the sign it sits in. Three outcomes: <em>"sees X as a permanent friend / enemy / neutral"</em>. Special case: planet in its own sign reads <em>"at home — rules where it sits."</em></li>
+      <li><strong>Step 3 · Conjunctions.</strong> Detects other planets sitting in the same sign in the user's chart. Surfaces the friendship with each. Empty-state: <em>"No other planets sit in [sign] (no conjunctions). Skip Step 3."</em></li>
+      <li><strong>Empty-state for unplaced planets:</strong> if a planet isn't in the user's chart, the card invites them to place it. Pad hides on empty-state cards.</li>
+      <li>Naisargika friendship table (BPHS standard) baked inline into <code>read.html</code> — the same table Interactive's Court mode uses.</li>
+    </ul>
+
+    <h3>Path-aware writing pad and notes</h3>
+    <ul>
+      <li>House notes save under <code>astro-mychart-notes-v1</code> (existing key). Planet notes save under <code>astro-mychart-notes-planet-v1</code> (new key). The two stores never collide.</li>
+      <li>Pad header adapts to path: <em>"Analysing House 5 · Children — write your line about this house"</em> vs <em>"Analysing Sun · Sūrya — write your line about this planet"</em>.</li>
+      <li>Exercise prompt adapts: <em>"My drive is in Aries. Three characteristics. I am ___."</em> (Path A, House 3) vs <em>"My Sun is in Sagittarius. Three characteristics. I am ___."</em> (Path B).</li>
+      <li>Self-check on Path B drops the "Area · House" tickbox (skipped in Path B per Vikram's rules) — just Noun, Verb, Adverb, Adjective.</li>
+    </ul>
+
+    <h3>Synthesis examples card relabelled</h3>
+    <ul>
+      <li>The v4.51.0 worked-examples card inside the "📐 Two anchors before you write" expander used to be labelled <em>"Worked examples — same framework, two charts"</em>, which mis-suggested it modeled the strict step-by-step procedure. Per Sree's rejig: those two examples (Sun in Aries 2H · Sun in Sagittarius 11H) actually combine planet + sign + house in one sentence — that's the <em>advanced synthesis form</em> Vikram says comes <em>after</em> mastering Path A or Path B.</li>
+      <li>Relabelled to: <em>"Synthesis examples · advanced form — two charts — what the line looks like once Path A or Path B is mastered."</em> The strict step-by-step worked examples now live inside each path's intro card, where they belong.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The agent read across six class transcripts (Sessions 35, 39, 40, 41, 42, 43) and confirmed: Vikram explicitly distinguishes Path A from Path B (Session 41, 35:02), and the cohort's most common confusion is collapsing them. v4.55 separates them at the architecture level — different doors, different procedures, different note stores, different pad copy.</li>
+      <li>Each path now declares its rules at the front (intro card), shows what a clean line looks like (worked example), points at the class material it came from (transcript quote + deck citation), then walks the cohort through the procedure step-by-step. Reference and discipline before writing.</li>
+      <li>Everything inline. Everything Vikram. The principle from v4.54.1 (no .md links from read.html) holds throughout — every quote, example, and citation is rendered inside the page.</li>
+    </ul>
+
+    <h3>What's next</h3>
+    <ul>
+      <li><strong>Compound friendship</strong> — Path B Step 2 currently surfaces permanent (naisargika) friendship only. Temporary friendship (whose-sign-each-other-is-in) lands in v4.56.</li>
+      <li><strong>Path A Step 6 (aspects)</strong> — Vedic drishti, including Mars 4/8, Jupiter 5/9, Saturn 3/10. Lands in v4.57.</li>
+      <li><strong>Path A Step 7 (Parivartana)</strong> — auto-detect mutual exchanges between sign rulers. Lands in v4.58.</li>
+      <li><strong>"Currently in"</strong> persistent tag — small toggle to switch between paths mid-walk without losing notes. Polish; lands when cohort feedback asks.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.54.1 ====================== -->
   <section class="release" data-credits="Sree (principle — no .md links from peer pages)">
     <header>
-      <h2>v4.54.1 <em>· current</em></h2>
+      <h2>v4.54.1</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Hotfix on top of v4.54.0. Sree caught that the new "↗ See Vikram's 8-step procedure" link inside <a href="read.html">Read · beta</a> pointed at a raw <code>.md</code> file in the knowledge base — wouldn't render in a browser, wrong artefact for users. The principle: any reference material from inside the page lives <em>inside</em> the page; no links to MD. v4.54.1 inlines the entire 8-step + 3-step procedure as a tap-to-expand <code>&lt;details&gt;</code> block right where the link used to be.</p>
@@ -3231,7 +3297,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.54.1 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.55.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3454,7 +3520,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.54.1';
+  const PAGE_VERSION = '4.55.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3568,7 +3634,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.54.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.55.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
