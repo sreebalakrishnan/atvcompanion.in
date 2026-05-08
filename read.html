@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.50.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.52.0) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -578,7 +578,7 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Two anchors before you write (v4.50.0 — Vikram's craft principles).
+  /* Two anchors before you write (v4.52.0 — Vikram's craft principles).
      Inline expander immediately above the exercise textarea; self-check
      panel immediately below it. Persist open/closed in localStorage. */
   .walk-anchors,
@@ -718,6 +718,178 @@
     margin-bottom: 3px;
   }
 
+  /* Synthesis card (v4.52.0 — Step 8 from Vikram's guidance: emphasized
+     repeated patterns across the user's placed planets, after all 12
+     houses walked). Bars show frequency of each building block. */
+  .syn-bars {
+    margin: 6px 0 8px;
+  }
+  .syn-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+  }
+  .syn-label {
+    font-family: var(--display);
+    font-size: 13.5px;
+    color: var(--ink);
+    width: 90px;
+    flex-shrink: 0;
+  }
+  .syn-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--rule-soft);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .syn-bar-fill {
+    height: 100%;
+    background: var(--saffron);
+    border-radius: 4px;
+    transition: width .35s cubic-bezier(.4,0,.2,1);
+  }
+  .syn-count {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+    min-width: 22px;
+    text-align: right;
+  }
+  .syn-emphasis {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: 4px 0 0;
+  }
+  .syn-emphasis strong {
+    color: var(--saffron);
+    font-weight: 500;
+    font-style: normal;
+  }
+  .syn-emphasis.is-none { color: var(--muted); }
+
+  /* Synthesis dot in the progress bar — shows up as a small star at the end. */
+  .walk-progress .syn-dot {
+    flex: 0 0 auto;
+    min-width: 22px;
+    height: 14px;
+    background: transparent;
+    color: var(--rule);
+    font-family: var(--display);
+    font-size: 11px;
+    line-height: 14px;
+    border-radius: 4px;
+    padding: 0;
+    margin-left: 4px;
+  }
+  .walk-progress .syn-dot:hover {
+    color: var(--saffron);
+    transform: scale(1.15);
+  }
+  .walk-progress .syn-dot.is-current { color: var(--saffron); background: transparent; }
+
+  /* Worked-example card (v4.52.0). Sits inside the "Two anchors" expander
+     after the Parts of Speech and Intention cards. Tabs toggle between
+     Vikram's teaching example and Sree's own-chart example. */
+  .we-tabs {
+    display: flex;
+    gap: 6px;
+    margin: 0 0 10px;
+  }
+  .we-tab {
+    flex: 1;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    text-align: center;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .we-tab.is-active {
+    background: rgba(184,65,14,.06);
+    border-color: var(--saffron);
+    color: var(--saffron);
+  }
+  .we-tab:hover { color: var(--saffron); border-color: var(--saffron); }
+  .we-pane { display: none; }
+  .we-pane.is-active {
+    display: block;
+    animation: viewIn .25s cubic-bezier(.4,0,.2,1) backwards;
+  }
+  .we-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 8px;
+    font-family: var(--display);
+    font-size: 12.5px;
+  }
+  .we-table th, .we-table td {
+    padding: 5px 7px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule-soft);
+    line-height: 1.35;
+    vertical-align: top;
+  }
+  .we-table th {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    font-weight: 500;
+  }
+  .we-table tr:last-child td { border-bottom: 0; }
+  .we-table td strong { color: var(--ink); font-weight: 500; font-style: normal; }
+  .we-synth {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: rgba(184,65,14,.05);
+    border-left: 2px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .we-synth-or {
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 4px 0;
+  }
+  .we-attr {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 8px;
+    text-align: right;
+  }
+  .we-frame {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 10px 0 0;
+    padding-top: 8px;
+    border-top: 1px dashed var(--rule);
+  }
+
   /* Self-check — small panel below the textarea. */
   .selfcheck-section {
     margin: 12px 0 0;
@@ -780,7 +952,7 @@
   }
   .selfcheck-warning.is-visible { display: block; }
 
-  /* Walk-through framing line (v4.50.0 — Vikram's principle: system gives
+  /* Walk-through framing line (v4.52.0 — Vikram's principle: system gives
      references, learner writes the sentence). Sits between toolbar and
      progress bar, visible on every house. */
   .walk-frame {
@@ -797,7 +969,7 @@
   }
   .walk-frame em { color: var(--saffron); font-style: italic; font-weight: 500; }
 
-  /* Per-planet QR jump link (v4.50.0). */
+  /* Per-planet QR jump link (v4.52.0). */
   .walk-planet-link {
     display: inline-block;
     margin-top: 4px;
@@ -811,7 +983,7 @@
   }
   .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
 
-  /* Pati / Ruler block jump (v4.50.0). Tap takes you to that house's walk-through card. */
+  /* Pati / Ruler block jump (v4.52.0). Tap takes you to that house's walk-through card. */
   .walk-pati-jump {
     color: var(--saffron);
     text-decoration: none;
@@ -829,7 +1001,7 @@
     margin: 6px 0 0;
   }
 
-  /* Quick-reference drawer (v4.50.0) — collapsible cheat sheet inside the walk-through. */
+  /* Quick-reference drawer (v4.52.0) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -1244,7 +1416,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.50.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.52.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1332,7 +1504,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.50.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.52.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -1436,9 +1608,30 @@
     pisces:      'mutable · water · feminine — a body that dissolves into feeling, intuitive, hard to pin down. Ruled by Jupiter.'
   };
 
+  // House Karakas — natural significators per BPHS, paired with a single
+  // light keyword that overlaps with the house's domain (per Vikram's Step 5
+  // guidance: choose a Karaka keyword that overlaps with the house keyword,
+  // and combine it ONLY with the sign's building blocks — never with the
+  // house keyword itself, since the Karaka is the same for all 8 billion
+  // people and that pairing would be universal, not personal).
+  const HOUSE_KARAKA = {
+    1:  { planet: 'sun',     keyword: 'vitality' },
+    2:  { planet: 'jupiter', keyword: 'abundance' },
+    3:  { planet: 'mars',    keyword: 'courage' },
+    4:  { planet: 'moon',    keyword: 'nurture' },
+    5:  { planet: 'jupiter', keyword: 'wisdom' },
+    6:  { planet: 'mars',    keyword: 'discipline' },
+    7:  { planet: 'venus',   keyword: 'love' },
+    8:  { planet: 'saturn',  keyword: 'depth' },
+    9:  { planet: 'jupiter', keyword: 'dharma' },
+    10: { planet: 'sun',     keyword: 'authority' },
+    11: { planet: 'jupiter', keyword: 'expansion' },
+    12: { planet: 'saturn',  keyword: 'release' }
+  };
+
   // Sign rulers — Pati of each rāśi. Mercury and Mars get co-rulers per
   // Vikram's framing (Rahu for Virgo; Ketu for Scorpio). Used by the
-  // "Pati of the House" block on each walk-through card (v4.50.0 — Sudha's ask).
+  // "Pati of the House" block on each walk-through card (v4.52.0 — Sudha's ask).
   const SIGN_RULERS = {
     aries:       { primary: 'mars',    co: null },
     taurus:      { primary: 'venus',   co: null },
@@ -1473,7 +1666,7 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // v4.50.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // v4.52.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
   // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
   // surfaces. The `light` field maps to QR's `positive` field. Shadow side
   // stays out of the drawer by design (year-1 framing).
@@ -1809,16 +2002,26 @@
   }
 
   function renderWalk() {
+    if (walkIdx === 13) {
+      // v4.52.0 — Synthesis card replaces the per-house card.
+      renderWalkProgress();
+      renderWalkDrawer();
+      renderWalkSynthesis();
+      document.getElementById('walkCounter').innerHTML = `<strong>Synthesis</strong> · ${'✨'} what your chart emphasizes`;
+      document.getElementById('walkPrevBtn').disabled = false;
+      document.getElementById('walkNextBtn').textContent = 'Done ✓';
+      return;
+    }
     renderWalkProgress();
     renderWalkDrawer();
     renderWalkCard();
     document.getElementById('walkCounter').innerHTML = `House <strong>${walkIdx}</strong> of 12 · <em>${HOUSE_PROMPT_NOUN[walkIdx]}</em>`;
     document.getElementById('walkPrevBtn').disabled = walkIdx === 1;
     const nextBtn = document.getElementById('walkNextBtn');
-    nextBtn.textContent = walkIdx === 12 ? 'Finish ✓' : 'Next house →';
+    nextBtn.textContent = walkIdx === 12 ? 'See synthesis ✦' : 'Next house →';
   }
 
-  // Quick-reference drawer (v4.50.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.52.0) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -1831,7 +2034,7 @@
     try { localStorage.setItem(DRAWER_KEY, v ? '1' : '0'); } catch (e) {}
   }
 
-  // v4.50.0 — Two anchors expander + Self-check persistence.
+  // v4.52.0 — Two anchors expander + Self-check persistence.
   // Open/closed state is global (one preference for the whole walk-through).
   // Self-check answers are per-house (object keyed by 'h{n}').
   const ANCHORS_KEY    = 'astro-mychart-anchors-v1';
@@ -1839,6 +2042,14 @@
   const SELFCHECK_OPEN_KEY = 'astro-mychart-selfcheck-open-v1';
   function loadAnchorsOpen()   { try { return localStorage.getItem(ANCHORS_KEY) === '1'; } catch (e) { return false; } }
   function saveAnchorsOpen(v)  { try { localStorage.setItem(ANCHORS_KEY, v ? '1' : '0'); } catch (e) {} }
+
+  // v4.52.0 — Worked-example tab choice. 'vikram' = teaching example,
+  // 'sree' = own-chart example. Default to Vikram's since that's the
+  // class-canonical reference; learners can toggle to Sree's to see
+  // what the framework yields on a real chart.
+  const WE_TAB_KEY = 'astro-mychart-we-tab-v1';
+  function loadWeTab()  { try { const v = localStorage.getItem(WE_TAB_KEY); return (v === 'sree' || v === 'vikram') ? v : 'vikram'; } catch (e) { return 'vikram'; } }
+  function saveWeTab(v) { try { localStorage.setItem(WE_TAB_KEY, v); } catch (e) {} }
   function loadSelfcheckOpen() { try { return localStorage.getItem(SELFCHECK_OPEN_KEY) === '1'; } catch (e) { return false; } }
   function saveSelfcheckOpen(v){ try { localStorage.setItem(SELFCHECK_OPEN_KEY, v ? '1' : '0'); } catch (e) {} }
   function loadAllSelfcheck() {
@@ -1954,6 +2165,12 @@
                  class="${cur ? 'is-current' : ''} ${hasNote ? 'has-note' : ''}"
                  title="House ${h}${hasNote ? ' · note saved' : ''}"></button>`;
     }
+    // v4.52.0 — synthesis dot at the end (✦), tappable from any house.
+    const synCur = walkIdx === 13;
+    html += `<button type="button" data-jump-h="13" role="tab"
+               aria-selected="${synCur}"
+               class="syn-dot ${synCur ? 'is-current' : ''}"
+               title="Synthesis — what your chart emphasizes">✦</button>`;
     wrap.innerHTML = html;
     wrap.querySelectorAll('button[data-jump-h]').forEach(b => {
       b.addEventListener('click', () => {
@@ -1979,7 +2196,7 @@
     // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
     const isLagnaCard = h === 1;
 
-    // v4.50.0 — Vikram's principle: system gives references, learner writes
+    // v4.52.0 — Vikram's principle: system gives references, learner writes
     // the sentence. The per-planet pill is now factual only — placement +
     // a jump to QR for Vikram's classical material on that planet. No
     // pre-formed "Moon in Aries — energized initiating bold changes" line.
@@ -1995,7 +2212,7 @@
           </div>`;
         }).join('');
 
-    // v4.50.0 — Pati of the House (Sudha's ask). Factual surfacing of the
+    // v4.52.0 — Pati of the House (Sudha's ask). Factual surfacing of the
     // sign's ruler(s) and where each ruler is placed in the user's chart.
     // No per-pair interpretation — that's the learner's work.
     const rulers = SIGN_RULERS[sid] || { primary: null, co: null };
@@ -2026,13 +2243,41 @@
       </div>
     `;
 
+    // v4.52.0 — Karaka block per Step 5 of Vikram's interpretation guidance.
+    // Surfaces the natural significator of this house, which sign its planet
+    // sits in, and an explicit reminder of the combination rule (Karaka keyword
+    // + sign building blocks; never Karaka keyword + house keyword).
+    const karakaInfo    = HOUSE_KARAKA[h] || null;
+    const karakaPlanet  = karakaInfo ? PLANETS.find(p => p.id === karakaInfo.planet) : null;
+    let karakaPlacedLine = '';
+    if (karakaPlanet) {
+      const placedH = myChart.planets[karakaPlanet.id];
+      if (placedH) {
+        const placedSid = SIGN_ORDER[(lagnaIdx + placedH - 1) % 12];
+        const placedSign = SIGNS[placedSid].name;
+        karakaPlacedLine = `<p class="walk-text">Your ${karakaPlanet.name} sits in your <a class="walk-pati-jump" data-jump-h="${placedH}" role="link" tabindex="0"><strong>${placedH}H · ${HOUSE_PROMPT_NOUN[placedH]}</strong></a> (${placedSign}).</p>`;
+      } else {
+        karakaPlacedLine = `<p class="walk-text">Place <em>${karakaPlanet.name}</em> in your chart to see where this house's natural significator sits.</p>`;
+      }
+    }
+    const karakaBlockHtml = karakaInfo ? `
+      <div class="walk-block">
+        <div class="walk-label">Karaka · Natural significator</div>
+        <p class="walk-text">The natural Karaka of this house is <strong>${karakaPlanet.name} · ${karakaPlanet.sanskrit}</strong>, holding the keyword <em style="color:var(--saffron);">${karakaInfo.keyword}</em>.</p>
+        ${karakaPlacedLine}
+        <p class="walk-pati-frame">Combine <em>${karakaInfo.keyword}</em> with the sign's building blocks — never with the house keyword. The Karaka is the same for all 8 billion people; that pairing would be universal, not yours.</p>
+      </div>
+    ` : '';
+
     const notes = loadNotes();
     const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-    // v4.50.0 — open/closed state for the two anchors expander + the self-check.
+    // v4.52.0 — open/closed state for the two anchors expander + the self-check.
     const anchorsOpen   = loadAnchorsOpen();
     const selfcheckOpen = loadSelfcheckOpen();
     const selfcheckState = loadSelfcheckState(h);
+    // v4.52.0 — worked-example tab choice (Vikram's teaching vs Sree's chart).
+    const weTab = loadWeTab();
 
     const exercisePrompt = isLagnaCard
       ? `<em>My Lagna is ${s.name} (${s.sanskrit}). Three characteristics. I am ___.</em>`
@@ -2064,11 +2309,13 @@
 
         ${patiBlockHtml}
 
+        ${karakaBlockHtml}
+
         <div class="walk-exercise">
           <div class="walk-label">The exercise · Vikram's frame</div>
           <p class="walk-exercise-prompt">${exercisePrompt}</p>
 
-          <!-- v4.50.0 — Two anchors before you write (Vikram's craft principles). -->
+          <!-- v4.52.0 — Two anchors before you write (Vikram's craft principles). -->
           <div class="walk-anchors ${anchorsOpen ? 'is-open' : ''}" id="walkAnchors">
             <button class="walk-anchors-toggle" type="button" id="walkAnchorsToggle" aria-expanded="${anchorsOpen}">
               <span class="chev">▶</span>
@@ -2105,6 +2352,51 @@
                   "Have you ever spoken to an audience?" · "Can you try presenting what you know?" · "Consider presenting what you know."
                 </div>
               </div>
+
+              <!-- v4.52.0 — Worked-example card with tab toggle. Two charts, same framework. -->
+              <div class="anchor-card">
+                <div class="anchor-eyebrow">📝 Worked examples</div>
+                <div class="anchor-h"><em>Two walk-throughs</em> — same framework, two charts</div>
+
+                <div class="we-tabs" role="tablist" aria-label="Worked example chart">
+                  <button class="we-tab ${weTab === 'vikram' ? 'is-active' : ''}" data-we-tab="vikram" type="button" role="tab" aria-selected="${weTab === 'vikram'}">Vikram's teaching</button>
+                  <button class="we-tab ${weTab === 'sree' ? 'is-active' : ''}" data-we-tab="sree" type="button" role="tab" aria-selected="${weTab === 'sree'}">Sree's chart</button>
+                </div>
+
+                <div class="we-pane ${weTab === 'vikram' ? 'is-active' : ''}" data-we-pane="vikram" role="tabpanel">
+                  <table class="we-table">
+                    <thead><tr><th>Part</th><th>Element</th><th>Chart</th><th>Quality</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Noun</strong></td><td>Planet</td><td>Sun</td><td>Self</td></tr>
+                      <tr><td><strong>Verb</strong></td><td>Duality</td><td>Aries</td><td>Yang · Outward</td></tr>
+                      <tr><td><strong>Adverb</strong></td><td>Modality</td><td>Cardinal</td><td>Initiates · Leads</td></tr>
+                      <tr><td><strong>Adjective</strong></td><td>Element</td><td>Fire</td><td>Warmth</td></tr>
+                      <tr><td><strong>Area</strong></td><td>House</td><td>2H · Family</td><td>Wealth · Speech</td></tr>
+                    </tbody>
+                  </table>
+                  <div class="we-synth">"The self shines by leading the family with warmth."</div>
+                  <div class="we-attr">— Vikram, deck 72 (Sun) · teaching example</div>
+                </div>
+
+                <div class="we-pane ${weTab === 'sree' ? 'is-active' : ''}" data-we-pane="sree" role="tabpanel">
+                  <table class="we-table">
+                    <thead><tr><th>Part</th><th>Element</th><th>Chart</th><th>Quality</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Noun</strong></td><td>Planet</td><td>Sun</td><td>Self</td></tr>
+                      <tr><td><strong>Verb</strong></td><td>Duality</td><td>Sagittarius</td><td>Yang · Outward</td></tr>
+                      <tr><td><strong>Adverb</strong></td><td>Modality</td><td>Mutable</td><td>Spontaneous · Adaptable</td></tr>
+                      <tr><td><strong>Adjective</strong></td><td>Element</td><td>Fire</td><td>Transformative · Expansive</td></tr>
+                      <tr><td><strong>Area</strong></td><td>House</td><td>11H · Recognition</td><td>Community · Gains</td></tr>
+                    </tbody>
+                  </table>
+                  <div class="we-synth">"The self expresses outwardly, spontaneously and transformatively, in the area of recognition and community."</div>
+                  <div class="we-synth-or">or</div>
+                  <div class="we-synth">"The self shines transformatively by spontaneously seeking recognition and vision."</div>
+                  <div class="we-attr">— Sree's chart · Aquarius Lagna · Sun in Sagittarius 11H</div>
+                </div>
+
+                <p class="we-frame">Same framework, two charts, two voicings each. Your sentence will be different again — that's the room Vikram protects.</p>
+              </div>
             </div>
           </div>
 
@@ -2114,7 +2406,7 @@
                     aria-label="Your reflection for House ${h}">${savedAnswer}</textarea>
           <span class="walk-saved" id="walkSaved" aria-live="polite">✓ saved</span>
 
-          <!-- v4.50.0 — Self-check below the textarea. The user judges; the system asks. -->
+          <!-- v4.52.0 — Self-check below the textarea. The user judges; the system asks. -->
           <div class="walk-selfcheck ${selfcheckOpen ? 'is-open' : ''}" id="walkSelfcheck">
             <button class="walk-selfcheck-toggle" type="button" id="walkSelfcheckToggle" aria-expanded="${selfcheckOpen}">
               <span class="chev">▶</span>
@@ -2163,7 +2455,7 @@
       }, 280);
     });
 
-    // v4.50.0 — Pati jump links: tap takes the user straight to the house
+    // v4.52.0 — Pati jump links: tap takes the user straight to the house
     // where the ruler is placed.
     card.querySelectorAll('.walk-pati-jump[data-jump-h]').forEach(el => {
       el.addEventListener('click', (ev) => {
@@ -2180,7 +2472,7 @@
       });
     });
 
-    // v4.50.0 — Two anchors expander toggle.
+    // v4.52.0 — Two anchors expander toggle.
     const anchorsToggle = document.getElementById('walkAnchorsToggle');
     if (anchorsToggle) {
       anchorsToggle.addEventListener('click', () => {
@@ -2191,7 +2483,24 @@
       });
     }
 
-    // v4.50.0 — Self-check expander toggle.
+    // v4.52.0 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
+    card.querySelectorAll('.we-tab[data-we-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const which = btn.dataset.weTab;
+        saveWeTab(which);
+        // Toggle classes locally without re-rendering the whole card.
+        card.querySelectorAll('.we-tab').forEach(b => {
+          const isActive = b.dataset.weTab === which;
+          b.classList.toggle('is-active', isActive);
+          b.setAttribute('aria-selected', String(isActive));
+        });
+        card.querySelectorAll('.we-pane').forEach(p => {
+          p.classList.toggle('is-active', p.dataset.wePane === which);
+        });
+      });
+    });
+
+    // v4.52.0 — Self-check expander toggle.
     const selfcheckToggle = document.getElementById('walkSelfcheckToggle');
     if (selfcheckToggle) {
       selfcheckToggle.addEventListener('click', () => {
@@ -2202,7 +2511,7 @@
       });
     }
 
-    // v4.50.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
+    // v4.52.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
     const partsBoxes = card.querySelectorAll('#selfcheckParts input[data-sc-key]');
     partsBoxes.forEach(cb => {
       const key = cb.dataset.scKey;
@@ -2215,7 +2524,7 @@
       });
     });
 
-    // v4.50.0 — Intention radio + "not for prediction" warning.
+    // v4.52.0 — Intention radio + "not for prediction" warning.
     const intentRadios = card.querySelectorAll('#selfcheckIntent input[data-sc-intent]');
     const warningEl    = document.getElementById('selfcheckWarning');
     function syncWarning() {
@@ -2236,7 +2545,9 @@
   }
 
   function nextWalk() {
-    if (walkIdx >= 12) { exitWalk(); return; }
+    // v4.52.0 — house 12 → synthesis (walkIdx === 13); synthesis → exit.
+    if (walkIdx === 13) { exitWalk(); return; }
+    if (walkIdx === 12) { walkIdx = 13; renderWalk(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     walkIdx++;
     renderWalk();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2246,6 +2557,98 @@
     walkIdx--;
     renderWalk();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // v4.52.0 — Synthesis card (Step 8: emphasized repeated patterns).
+  // Tallies each placed planet's sign attributes — duality, modality, element —
+  // and surfaces frequencies. If a single quality leads, it's emphasized;
+  // ties = no emphasis. Pure fact-surfacing — interpretation is the learner's.
+  function renderWalkSynthesis() {
+    const card = document.getElementById('walkCard');
+    if (!card) return;
+    const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
+    if (lagnaIdx < 0) { card.innerHTML = ''; return; }
+
+    const counts = {
+      duality:  { yang: 0, yin: 0 },
+      modality: { cardinal: 0, fixed: 0, mutable: 0 },
+      element:  { fire: 0, earth: 0, air: 0, water: 0 }
+    };
+    let placedCount = 0;
+    PLANETS.forEach(p => {
+      const ph = myChart.planets[p.id];
+      if (!ph) return;
+      placedCount++;
+      const sid = SIGN_ORDER[(lagnaIdx + ph - 1) % 12];
+      const attrs = SIGN_ATTR[sid];
+      if (!attrs) return;
+      counts.duality[attrs.duality]++;
+      counts.modality[attrs.modality]++;
+      counts.element[attrs.element]++;
+    });
+
+    function findEmphasis(catCounts) {
+      if (placedCount === 0) return null;
+      const entries = Object.entries(catCounts).slice().sort((a, b) => b[1] - a[1]);
+      if (entries[0][1] === 0) return null;
+      if (entries.length > 1 && entries[0][1] === entries[1][1]) return null; // tie = no emphasis
+      return entries[0];
+    }
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+    function barsHtml(catCounts) {
+      const max = Math.max.apply(null, Object.values(catCounts));
+      return Object.entries(catCounts).map(([name, count]) => {
+        const pct = max > 0 ? (count / max) * 100 : 0;
+        return `<div class="syn-row">
+          <span class="syn-label">${cap(name)}</span>
+          <div class="syn-bar"><div class="syn-bar-fill" style="width:${pct}%"></div></div>
+          <span class="syn-count">×${count}</span>
+        </div>`;
+      }).join('');
+    }
+    function emphasisLine(label, em) {
+      if (!em) return `<p class="syn-emphasis is-none">No single ${label.toLowerCase()} dominates — nothing emphasized.</p>`;
+      return `<p class="syn-emphasis">Emphasized: <strong>${cap(em[0])}</strong> · appears <strong>×${em[1]}</strong> across your placements.</p>`;
+    }
+
+    const dEm = findEmphasis(counts.duality);
+    const mEm = findEmphasis(counts.modality);
+    const eEm = findEmphasis(counts.element);
+
+    const intro = placedCount === 0
+      ? `<p class="walk-text" style="color:var(--muted);font-style:italic;">You haven't placed any planets yet. <a href="#" id="synEdit">Add them →</a> to see your chart's emphasis.</p>`
+      : `<p class="walk-text" style="font-style:italic;color:var(--ink-soft);">Across your <strong>${placedCount}</strong> placed planet${placedCount === 1 ? '' : 's'}, here is the frequency of each building block. If one quality dominates across multiple placements, that's emphasized. If no single quality leads — nothing is emphasized.</p>`;
+
+    card.innerHTML = `
+      <div class="walk-card">
+        <div class="walk-eyebrow">Synthesis · after 12 houses</div>
+        <h2 class="walk-h">What your chart <em>emphasizes</em></h2>
+        ${intro}
+
+        <div class="walk-block">
+          <div class="walk-label">Duality</div>
+          <div class="syn-bars">${barsHtml(counts.duality)}</div>
+          ${emphasisLine('Duality', dEm)}
+        </div>
+
+        <div class="walk-block">
+          <div class="walk-label">Modality</div>
+          <div class="syn-bars">${barsHtml(counts.modality)}</div>
+          ${emphasisLine('Modality', mEm)}
+        </div>
+
+        <div class="walk-block">
+          <div class="walk-label">Element</div>
+          <div class="syn-bars">${barsHtml(counts.element)}</div>
+          ${emphasisLine('Element', eEm)}
+        </div>
+
+        <p class="walk-pati-frame">This is what Vikram's Step 8 surfaces — the qualities that show up repeatedly across your placements. The interpretation of <em>what that emphasis means</em> is yours to make.</p>
+      </div>
+    `;
+
+    const synEdit = document.getElementById('synEdit');
+    if (synEdit) synEdit.addEventListener('click', (ev) => { ev.preventDefault(); showSetup(); });
   }
   function exitWalk() {
     walkView.hidden = true;
@@ -2282,7 +2685,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.50.0';
+  const PAGE_VERSION = '4.52.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -2379,7 +2782,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.50.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.52.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

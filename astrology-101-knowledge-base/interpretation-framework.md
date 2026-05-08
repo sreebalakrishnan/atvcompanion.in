@@ -50,3 +50,9 @@ Four framings the same fact can land in. Year-1 of the class uses three; one is 
 - **Surfaced in `read.html`** — inline expander above the per-house exercise textarea ("📐 Two anchors before you write"), plus a self-check panel below the textarea ("🪞 Self-check") that asks the learner to verify their own line against both anchors.
 - **Originally documented in:** `astrology-101-knowledge-base/decks/72-sun.md` under the "Parts of Speech interpretation framework" and "Four interpretive intents" sections.
 - **Cross-references:** Vikram's principle from v4.49.0 release notes — *"Just don't let the computer take away the human. We need to make sure people use their mind and intellect to do the interpretation."* The two anchors operationalise that principle: they don't generate the interpretation, they scaffold the learner's own.
+
+## Where to look next
+
+- **`house-planet-interpretation-guidance.md`** — Vikram's full 8-step procedure for analyzing a house, his 3-step procedure for analyzing a planet, the "what goes with what" combination table, and the seven Golden Rules. This document captures the *grammar of the line*; the guidance document captures the *order of factors* to walk through.
+- **`sources/House-interpretation-guidance-from-vikram.pdf`** — original PDF as Vikram authored / approved it.
+- **`worked-example-sun-in-sagittarius-11h.md`** — Sree's own walk-through using this framework (Sun in Sagittarius 11H · Aquarius Lagna). Pairs with Vikram's teaching example (Sun in Aries 2H, deck 72) — the two together show the pattern from both teacher's and student's side.
