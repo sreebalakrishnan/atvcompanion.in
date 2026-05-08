@@ -734,6 +734,133 @@
   /* Required because .story-controls sets display:flex which would otherwise
      override the [hidden] attribute's default display:none. */
   .story-controls[hidden] { display: none; }
+
+  /* ---------- STORY PREFS (v4.39) ---------- */
+  .story-prefs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .story-prefs[hidden] { display: none; }
+  .story-prefs-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .story-prefs-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-right: 6px;
+  }
+  .story-view-pill, .story-speed-pill { font-size: 13px; }
+  .story-view-pill.is-active, .story-speed-pill.is-active {
+    background: var(--ink);
+    color: var(--surface);
+    border-color: var(--ink);
+  }
+  .story-read-toggle {
+    font-size: 13px;
+    border-color: var(--rule);
+  }
+  .story-read-toggle.is-on {
+    background: var(--saffron);
+    color: var(--surface);
+    border-color: var(--saffron);
+  }
+  /* Speed row only matters in Stage view — hide it in Storybook. */
+  .story-prefs[data-view="storybook"] #storySpeedRow { display: none; }
+
+  /* ---------- STORYBOOK CARD (v4.39) ---------- */
+  .storybook {
+    margin: 0 auto 18px;
+    max-width: 720px;
+    padding: 36px 28px 30px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    text-align: center;
+    animation: chamber-in .4s cubic-bezier(.4,0,.2,1) backwards;
+  }
+  .storybook[hidden] { display: none; }
+  .storybook-emblem {
+    font-size: clamp(72px, 12vw, 96px);
+    line-height: 1;
+    color: var(--saffron);
+    font-variant-emoji: text;
+    font-family: var(--display), 'Times New Roman', serif;
+    margin-bottom: 14px;
+    display: block;
+    animation: chamber-in .55s cubic-bezier(.4,0,.2,1) backwards .1s;
+  }
+  .storybook-emblem.is-empty {
+    font-size: clamp(40px, 6vw, 56px);
+    color: var(--muted);
+    opacity: .55;
+  }
+  .storybook-emblem-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    line-height: 1.3;
+  }
+  .storybook-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 8px;
+  }
+  .storybook-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(22px, 3.6vw, 28px);
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 auto 14px;
+    max-width: 22ch;
+    letter-spacing: -.005em;
+  }
+  .storybook-narration {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(15px, 2.1vw, 17px);
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 auto 24px;
+    max-width: 36ch;
+  }
+  .storybook-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .storybook-counter {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--saffron);
+    letter-spacing: .06em;
+  }
   .story-counter {
     font-family: var(--display);
     font-style: italic;
@@ -841,7 +968,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.38.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.39.0</div>
     <h1>Interactive <em>· beta</em></h1>
     <p class="lede">An experimental space for visual / spatial learning. First experiment: the Planetary Cabinet as a stage. Tap a planet, change the mode, watch the drama.</p>
   </header>
@@ -881,12 +1008,33 @@
       <em class="info-default">Tap any planet glyph or chamber to see what's happening.</em>
     </div>
 
+    <!-- Story-mode preferences bar — view / speed / read-aloud (v4.39, from Sathvika's feedback). -->
+    <div class="story-prefs" id="storyPrefs" hidden>
+      <div class="story-prefs-row">
+        <span class="story-prefs-label">View</span>
+        <button class="mode-pill story-view-pill" data-view="stage" type="button">Stage</button>
+        <button class="mode-pill story-view-pill" data-view="storybook" type="button">Storybook</button>
+      </div>
+      <div class="story-prefs-row" id="storySpeedRow">
+        <span class="story-prefs-label">Speed</span>
+        <button class="mode-pill story-speed-pill" data-speed="slow" type="button">🐢 Slow</button>
+        <button class="mode-pill story-speed-pill" data-speed="normal" type="button">⏵ Normal</button>
+        <button class="mode-pill story-speed-pill" data-speed="fast" type="button">🐇 Fast</button>
+      </div>
+      <div class="story-prefs-row">
+        <button class="mode-pill story-read-toggle" id="storyReadToggle" type="button">🔊 Read aloud · off</button>
+      </div>
+    </div>
+
     <div class="story-controls" id="storyControls" hidden>
       <button class="mode-pill" id="storyPrev" type="button">← Previous</button>
       <button class="mode-pill recommended" id="storyPlay" type="button">▶ Play</button>
       <span class="story-counter" id="storyCounter">Scene 1 of 8</span>
       <button class="mode-pill" id="storyNext" type="button">Next →</button>
     </div>
+
+    <!-- Storybook card — one focused scene at a time, no autoplay. v4.39. -->
+    <div class="storybook" id="storybook" hidden></div>
   </section>
 
   <!-- ====================== WHAT'S COMING ====================== -->
@@ -908,7 +1056,7 @@
     </div>
     <p>← <a href="index.html">Back to home</a> · <a href="quick-reference.html">Quick Reference</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.38.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.39.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -1111,7 +1259,139 @@ let prevPlacements = {};
 /* Cinematic-story autoplay state. */
 let storyAutoInterval = null;
 let storyIsPlaying = false;
-const STORY_PLAY_MS = 5500;
+const STORY_SPEED_MS = { slow: 12000, normal: 9000, fast: 5000 };
+let storySpeed = 'normal';
+let storyView = 'stage';        // 'stage' | 'storybook' — Sathvika feedback
+let storyReadAloud = false;     // Web Speech API toggle
+
+/* Cut from v4.39 — load persisted prefs. */
+try {
+  const sp = localStorage.getItem('astro-story-speed-v1');
+  if (sp && STORY_SPEED_MS[sp]) storySpeed = sp;
+  const sv = localStorage.getItem('astro-story-view-v1');
+  if (sv === 'stage' || sv === 'storybook') storyView = sv;
+  const ra = localStorage.getItem('astro-story-readaloud-v1');
+  if (ra === '1') storyReadAloud = true;
+} catch (e) {}
+function _persistStoryPrefs() {
+  try {
+    localStorage.setItem('astro-story-speed-v1', storySpeed);
+    localStorage.setItem('astro-story-view-v1', storyView);
+    localStorage.setItem('astro-story-readaloud-v1', storyReadAloud ? '1' : '0');
+  } catch (e) {}
+}
+
+/* Web Speech API — narration for the current scene if read-aloud is on. */
+function speakSceneNarration(text) {
+  if (!storyReadAloud) return;
+  if (!('speechSynthesis' in window)) return;
+  try {
+    speechSynthesis.cancel();  // stop any in-flight utterance
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.92;             // a touch slower than default
+    u.pitch = 1.0;
+    u.lang = 'en-IN';          // prefer Indian English voice if available
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function cancelSpeech() {
+  if ('speechSynthesis' in window) try { speechSynthesis.cancel(); } catch (e) {}
+}
+
+/* Sync the prefs-bar UI to the current storySpeed / storyView / storyReadAloud state. */
+function syncStoryPrefsUI() {
+  document.querySelectorAll('.story-view-pill').forEach(b =>
+    b.classList.toggle('is-active', b.dataset.view === storyView));
+  document.querySelectorAll('.story-speed-pill').forEach(b =>
+    b.classList.toggle('is-active', b.dataset.speed === storySpeed));
+  const rt = document.getElementById('storyReadToggle');
+  if (rt) {
+    rt.classList.toggle('is-on', storyReadAloud);
+    rt.textContent = storyReadAloud ? '🔊 Read aloud · on' : '🔊 Read aloud · off';
+  }
+  const prefs = document.getElementById('storyPrefs');
+  if (prefs) prefs.dataset.view = storyView;
+}
+function setStoryView(v) {
+  if (v !== 'stage' && v !== 'storybook') return;
+  if (storyView === v) return;
+  // Switching view should stop any in-flight autoplay or speech.
+  if (storyIsPlaying) stopStoryAutoplay();
+  cancelSpeech();
+  storyView = v;
+  _persistStoryPrefs();
+  // Re-run the story-mode setup so the right surface is visible.
+  setMode('story');
+  // Render storybook content if we just switched to it.
+  if (v === 'storybook') renderStorybook();
+}
+function setStorySpeed(s) {
+  if (!STORY_SPEED_MS[s]) return;
+  storySpeed = s;
+  _persistStoryPrefs();
+  syncStoryPrefsUI();
+  // If autoplay is running, restart with the new tempo.
+  if (storyIsPlaying) {
+    if (storyAutoInterval) clearInterval(storyAutoInterval);
+    storyAutoInterval = setInterval(() => { nextScene(); }, STORY_SPEED_MS[storySpeed]);
+  }
+}
+function toggleReadAloud() {
+  storyReadAloud = !storyReadAloud;
+  _persistStoryPrefs();
+  syncStoryPrefsUI();
+  if (storyReadAloud) {
+    // Speak the current scene immediately when toggled on.
+    const scene = STORY_SCENES[storyIdx];
+    if (scene) speakSceneNarration(scene.title + '. ' + scene.narration);
+  } else {
+    cancelSpeech();
+  }
+}
+
+/* Render the Storybook card for the current scene — large emblem + title + narration + Continue. */
+function renderStorybook() {
+  const el = document.getElementById('storybook');
+  if (!el) return;
+  const scene = STORY_SCENES[storyIdx];
+  if (!scene) { el.innerHTML = ''; return; }
+
+  // Determine the emblem: pick the most recently-arrived planet, or a neutral mark.
+  const placements = getPlanetPlacements();
+  const placedIds = Object.keys(placements);
+  let emblemHtml = '<span class="storybook-emblem is-empty">✦</span><div class="storybook-emblem-label">— the cabinet at peace —</div>';
+  if (placedIds.length) {
+    // Find the planet that's "new" in this scene (not in prevPlacements).
+    let arrived = placedIds.find(pid => prevPlacements[pid] !== placements[pid]);
+    if (!arrived) arrived = placedIds[placedIds.length - 1];
+    const p = PLANETS[arrived];
+    const c = CABINET[arrived];
+    const role = SHORT_ROLE[arrived] || (c && c.role) || '';
+    emblemHtml = `<span class="storybook-emblem">${p.glyph}</span>
+                  <div class="storybook-emblem-label">${p.name} · <em style="color:var(--saffron);font-style:italic;">${role}</em></div>`;
+  }
+
+  el.innerHTML = `
+    <div class="storybook-eyebrow">Scene ${storyIdx + 1} of ${STORY_SCENES.length}</div>
+    ${emblemHtml}
+    <div class="storybook-title">${scene.title}</div>
+    <div class="storybook-narration">${scene.narration}</div>
+    <div class="storybook-controls">
+      <button class="mode-pill" id="storybookPrev" type="button" ${storyIdx === 0 ? 'disabled style="opacity:.4;"' : ''}>← Back</button>
+      <span class="storybook-counter">${storyIdx + 1} / ${STORY_SCENES.length}</span>
+      <button class="mode-pill recommended" id="storybookNext" type="button" ${storyIdx === STORY_SCENES.length - 1 ? 'disabled style="opacity:.4;"' : ''}>Continue →</button>
+    </div>
+  `;
+
+  // Wire Storybook nav buttons.
+  const prev = document.getElementById('storybookPrev');
+  const next = document.getElementById('storybookNext');
+  if (prev) prev.addEventListener('click', () => { cancelSpeech(); prevScene(); });
+  if (next) next.addEventListener('click', () => { cancelSpeech(); nextScene(); });
+
+  // Read-aloud the current scene if enabled.
+  if (storyReadAloud) speakSceneNarration(scene.title + '. ' + scene.narration);
+}
 
 /* ============================================================
    RENDER FUNCTIONS
@@ -1412,13 +1692,40 @@ function setMode(mode) {
   };
   hint.innerHTML = hints[mode] || '';
 
-  // Story controls
+  // Story controls + prefs (v4.39 — show prefs bar in Story mode only)
   const storyEl = document.getElementById('storyControls');
+  const prefsEl = document.getElementById('storyPrefs');
+  const storybookEl = document.getElementById('storybook');
+  const stageEl = document.getElementById('stage');
+  const infoCardEl = document.getElementById('infoCard');
   if (mode === 'story') {
-    storyEl.hidden = false;
-    renderStoryControls();
+    if (prefsEl) {
+      prefsEl.hidden = false;
+      prefsEl.dataset.view = storyView;
+      syncStoryPrefsUI();
+    }
+    if (storyView === 'storybook') {
+      // Hide chart + info card; show storybook in their place.
+      if (stageEl) stageEl.style.display = 'none';
+      if (infoCardEl) infoCardEl.style.display = 'none';
+      storyEl.hidden = true;
+      if (storybookEl) storybookEl.hidden = false;
+    } else {
+      // Stage view — chart is visible, storybook hidden.
+      if (stageEl) stageEl.style.display = '';
+      if (infoCardEl) infoCardEl.style.display = '';
+      storyEl.hidden = false;
+      if (storybookEl) storybookEl.hidden = true;
+      renderStoryControls();
+    }
   } else {
+    // Non-story mode — restore stage + info card, hide all story-specific UI.
+    if (stageEl) stageEl.style.display = '';
+    if (infoCardEl) infoCardEl.style.display = '';
     storyEl.hidden = true;
+    if (prefsEl) prefsEl.hidden = true;
+    if (storybookEl) storybookEl.hidden = true;
+    cancelSpeech();
   }
 
   // Reset active selection on mode change
@@ -1461,8 +1768,11 @@ function nextScene() {
     renderRoster();
     renderStage();
     renderStoryNarration();
+    if (storyView === 'storybook') renderStorybook();
+    // Read aloud the new scene if toggle is on.
+    const sc = STORY_SCENES[storyIdx];
+    if (storyReadAloud && sc) speakSceneNarration(sc.title + '. ' + sc.narration);
   } else if (storyIsPlaying) {
-    // End of story while playing — auto-stop.
     stopStoryAutoplay();
   }
 }
@@ -1474,6 +1784,9 @@ function prevScene() {
     renderRoster();
     renderStage();
     renderStoryNarration();
+    if (storyView === 'storybook') renderStorybook();
+    const sc = STORY_SCENES[storyIdx];
+    if (storyReadAloud && sc) speakSceneNarration(sc.title + '. ' + sc.narration);
   }
 }
 
@@ -1494,7 +1807,10 @@ function startStoryAutoplay() {
   renderRoster();
   renderStage();
   renderStoryNarration();
-  storyAutoInterval = setInterval(() => { nextScene(); }, STORY_PLAY_MS);
+  // Read the first scene aloud if toggle is on.
+  const sc0 = STORY_SCENES[storyIdx];
+  if (storyReadAloud && sc0) speakSceneNarration(sc0.title + '. ' + sc0.narration);
+  storyAutoInterval = setInterval(() => { nextScene(); }, STORY_SPEED_MS[storySpeed] || 9000);
 }
 function stopStoryAutoplay() {
   if (storyAutoInterval) { clearInterval(storyAutoInterval); storyAutoInterval = null; }
@@ -1597,6 +1913,26 @@ document.getElementById('storyPrev').addEventListener('click', () => { if (story
 document.getElementById('storyNext').addEventListener('click', () => { if (storyIsPlaying) stopStoryAutoplay(); nextScene(); });
 document.getElementById('storyPlay').addEventListener('click', toggleStoryAutoplay);
 
+// Story prefs (v4.39) — view / speed / read-aloud.
+// Reposition the prefs bar ABOVE the chart, and the storybook card right AFTER the chart,
+// so they sit in the natural visual flow (HTML ordering put them after info-card).
+(function relocateStoryUI() {
+  const stage = document.getElementById('stage');
+  const prefs = document.getElementById('storyPrefs');
+  const storybook = document.getElementById('storybook');
+  if (stage && prefs && stage.parentNode) stage.parentNode.insertBefore(prefs, stage);
+  if (stage && storybook && stage.parentNode) stage.parentNode.insertBefore(storybook, stage.nextSibling);
+})();
+document.querySelectorAll('.story-view-pill').forEach(b =>
+  b.addEventListener('click', () => setStoryView(b.dataset.view)));
+document.querySelectorAll('.story-speed-pill').forEach(b =>
+  b.addEventListener('click', () => setStorySpeed(b.dataset.speed)));
+const _readToggleBtn = document.getElementById('storyReadToggle');
+if (_readToggleBtn) _readToggleBtn.addEventListener('click', toggleReadAloud);
+syncStoryPrefsUI();
+// Stop speech if user navigates away.
+window.addEventListener('beforeunload', cancelSpeech);
+
 // First render — give chambers the perimeter-reveal animation once.
 renderRoster();
 const _initStage = document.getElementById('stage');
@@ -1611,7 +1947,7 @@ renderInfoCard();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.38.0';
+  const PAGE_VERSION = '4.39.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
