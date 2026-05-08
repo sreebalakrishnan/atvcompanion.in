@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5ecd9">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="A focused space to sit with the workbook reflection prompts for each avatar. Your notes are saved only in this browser.">
+<title>Reflect — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --shadow-md: 0 1px 0 rgba(31,26,46,.04), 0 14px 36px -14px rgba(31,26,46,.22);
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* ---------- SITE NAV ---------- */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead {
+    padding: 56px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(38px, 7vw, 56px);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 56ch;
+    line-height: 1.55;
+  }
+  .masthead-emblem {
+    font-size: clamp(56px, 9vw, 80px);
+    line-height: 1;
+    color: var(--saffron);
+    margin-bottom: 18px;
+    font-variant-emoji: text;
+    font-family: var(--display), 'Times New Roman', serif;
+  }
+
+  /* ---------- LANDING — pick an avatar ---------- */
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 36px 0 24px;
+  }
+  .avatar-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 20px 20px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .18s, box-shadow .18s, transform .18s;
+    cursor: pointer;
+    position: relative;
+  }
+  .avatar-tile:hover {
+    border-color: var(--saffron);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .avatar-tile.is-pending { opacity: .55; cursor: default; pointer-events: none; }
+  .avatar-tile.is-pending:hover { transform: none; box-shadow: none; border-color: var(--rule); }
+  .avatar-tile-glyph {
+    font-size: 32px;
+    color: var(--saffron);
+    line-height: 1;
+    margin-bottom: 4px;
+    font-variant-emoji: text;
+    font-family: var(--display), 'Times New Roman', serif;
+  }
+  .avatar-tile-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--ink);
+    letter-spacing: -.005em;
+  }
+  .avatar-tile-meta {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .avatar-tile-pending-badge {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .landing-source {
+    text-align: center;
+    margin-top: 28px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---------- REFLECT VIEW ---------- */
+  .reflect-vikram-intro {
+    margin: 30px auto;
+    max-width: 56ch;
+    padding: 22px 26px 18px;
+    background: var(--surface);
+    border: 1px solid var(--saffron);
+    border-radius: 10px;
+    text-align: center;
+  }
+  .reflect-vikram-intro p {
+    margin: 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .reflect-vikram-intro .attribution {
+    display: block;
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    font-style: normal;
+  }
+
+  .reflect-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 22px 0;
+  }
+  .btn {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all .15s;
+    line-height: 1.2;
+  }
+  .btn:hover { color: var(--saffron); border-color: var(--saffron); }
+  .btn.is-primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .btn.is-primary:hover { background: var(--saffron); border-color: var(--saffron); color: var(--surface); }
+  .btn.is-quiet { font-size: 13px; opacity: .85; }
+
+  /* ---------- CLUSTERS ---------- */
+  .clusters { margin: 24px 0; }
+  .cluster {
+    margin: 0 0 28px;
+    padding: 24px 26px 22px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .cluster-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 8px;
+  }
+  .cluster-theme {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    letter-spacing: -.005em;
+    color: var(--ink);
+  }
+  .cluster-quote {
+    margin: 0 0 18px;
+    padding: 8px 16px;
+    border-left: 2px solid var(--saffron);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: rgba(184,65,14,.04);
+    border-radius: 0 6px 6px 0;
+  }
+  .prompt {
+    margin: 16px 0 18px;
+  }
+  .prompt-q {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+  .prompt textarea {
+    width: 100%;
+    min-height: 70px;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: var(--body);
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.55;
+    resize: vertical;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .prompt textarea:focus { border-color: var(--saffron); }
+  .prompt textarea::placeholder { color: var(--muted); font-style: italic; opacity: .6; }
+  .prompt-saved {
+    display: inline-block;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--muted);
+    margin-top: 4px;
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .prompt-saved.is-visible { opacity: 1; }
+
+  /* ---------- PRIVACY ---------- */
+  .privacy {
+    margin: 36px auto 0;
+    max-width: 50ch;
+    padding: 14px 18px;
+    text-align: center;
+    background: rgba(184,65,14,.04);
+    border: 1px dashed var(--rule);
+    border-radius: 8px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ---------- TOAST ---------- */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--surface);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    padding: 9px 20px;
+    border-radius: 999px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .2s;
+    pointer-events: none;
+  }
+  .toast.is-visible { opacity: 1; }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    max-width: 480px;
+    margin: 60px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer-ornament { color: var(--saffron); margin-bottom: 16px; opacity: .7; }
+  .footer-ornament svg { width: 14px; height: 14px; }
+  .footer p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .footer .meta { margin-top: 10px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="quick-reference.html">Quick Reference</a>
+    <span class="sep">·</span>
+    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <span class="sep">·</span>
+    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <span class="sep">·</span>
+    <a href="astronomy.html">Astronomy</a>
+    <span class="sep">·</span>
+    <a href="ether.html">Ether</a>
+    <span class="sep">·</span>
+    <a href="layers.html">Layers</a>
+    <span class="sep">·</span>
+    <span class="here">Reflect</span>
+    <span class="sep">·</span>
+    <a href="interactive.html">Interactive · beta</a>
+    <span class="sep">·</span>
+    <a href="release-notes.html">Release Notes</a>
+    <span class="sep">·</span>
+    <a href="stats.html">Stats</a>
+  </nav>
+
+  <!-- =================================================================
+       LANDING — when no hash is set, show "pick an avatar"
+  ================================================================= -->
+  <div id="landingView" hidden>
+    <header class="masthead">
+      <div class="eyebrow">all things vedic · the companion app · v4.41.0</div>
+      <h1><em>Reflect</em></h1>
+      <p class="lede">Pick an avatar to sit with. Each set of prompts is sourced from the Companion Workbook — drafted by Marie, Sudha, Mannat &amp; Spandana with Vikram, Megha &amp; Neha. Your notes save automatically, only in this browser.</p>
+    </header>
+
+    <div class="avatar-grid" id="avatarGrid"></div>
+
+    <p class="landing-source">Eight more avatars (Kūrma → Buddha) are being drafted. They will appear here as their workbook drafts are ready. Kalki — the future avatar — is not in the source workbook.</p>
+  </div>
+
+  <!-- =================================================================
+       REFLECT — when a valid avatar hash is set
+  ================================================================= -->
+  <div id="reflectView" hidden>
+    <header class="masthead">
+      <div class="eyebrow">all things vedic · the companion app · v4.41.0</div>
+      <div class="masthead-emblem" id="reflectEmblem">✦</div>
+      <h1>Reflect on <em id="reflectAvatarName">Matsya</em></h1>
+      <p class="lede" id="reflectSubLede">Fish · Ketu · 11 reflection clusters · drafted by the workbook team.</p>
+    </header>
+
+    <div class="reflect-vikram-intro">
+      <p id="reflectIntroText"></p>
+      <span class="attribution" id="reflectIntroAttribution"></span>
+    </div>
+
+    <div class="reflect-actions">
+      <button class="btn is-primary" id="copyTopBtn" type="button">📋 Copy my reflections</button>
+      <button class="btn is-quiet" id="clearTopBtn" type="button">↻ Clear my notes</button>
+      <a class="btn" id="backToLanding" href="reflect.html">← Pick another avatar</a>
+    </div>
+
+    <div class="clusters" id="clusters"></div>
+
+    <div class="reflect-actions">
+      <button class="btn is-primary" id="copyBotBtn" type="button">📋 Copy my reflections</button>
+      <button class="btn is-quiet" id="clearBotBtn" type="button">↻ Clear my notes</button>
+    </div>
+
+    <div class="privacy">
+      Your notes are saved only in this browser. Nothing leaves your device unless you copy them out via the button above.
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="quick-reference.html">Back to Quick Reference</a> · <a href="layers.html">Layers</a></p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.41.0 · updated 8 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+    </p>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ============================================================
+   DATA — minimal subset needed for Reflect, sourced from the
+   same fields in quick-reference.html. quick-reference.html
+   remains the source of truth; this is a focused mirror.
+============================================================ */
+
+const AVATARS = {
+  matsya:     { name: 'Matsya',     english: 'Fish',           planet: 'ketu' },
+  kurma:      { name: 'Kūrma',      english: 'Tortoise',       planet: 'saturn' },
+  varaha:     { name: 'Varāha',     english: 'Boar',           planet: 'rahu' },
+  narasimha:  { name: 'Narasiṃha',  english: 'Man-Lion',       planet: 'mars' },
+  vamana:     { name: 'Vāmana',     english: 'Dwarf',          planet: 'jupiter' },
+  parashurama:{ name: 'Paraśurāma', english: 'Warrior-priest', planet: 'venus' },
+  rama:       { name: 'Rāma',       english: 'King',           planet: 'sun' },
+  krishna:    { name: 'Kṛṣṇa',      english: 'Cowherd-king',   planet: 'moon' },
+  buddha:     { name: 'Buddha',     english: 'Awakened one',   planet: 'mercury' }
+};
+
+const PLANETS = {
+  sun:     { name: 'Sun',     glyph: '☉︎' },
+  moon:    { name: 'Moon',    glyph: '☽︎' },
+  mars:    { name: 'Mars',    glyph: '♂︎' },
+  mercury: { name: 'Mercury', glyph: '☿︎' },
+  jupiter: { name: 'Jupiter', glyph: '♃︎' },
+  venus:   { name: 'Venus',   glyph: '♀︎' },
+  saturn:  { name: 'Saturn',  glyph: '♄︎' },
+  rahu:    { name: 'Rahu',    glyph: '☊︎' },
+  ketu:    { name: 'Ketu',    glyph: '☋︎' }
+};
+
+/* AVATAR_PRACTICE — only Matsya populated for v4.41. Other avatars surface in
+   the landing page as "Coming soon" until their workbook drafts are ready.
+   Mirrors AVATAR_PRACTICE in quick-reference.html (clusters subset). */
+const AVATAR_PRACTICE = {
+  matsya: {
+    intro: 'You don\'t need to journal. You don\'t need to write. You don\'t need to do anything. Just keep it at the back of your mind and see how that develops. Choose one prompt that lands. Keep it at the back of your mind for the week. Don\'t force an answer. Let the answer find you while you make tea, walk, sit under a tree. When something shows up in your life that feels like a parallel to the story — that is the learning.',
+    intro_attribution: 'Vikram, opening to Matsya reflection',
+    clusters: [
+      { theme: 'On listening — wisdom from unexpected sources',
+        quote: 'We allow the higher to speak through anything. A fish, a crab, anything. Let him decide through what he wants to speak to us. Our only task is to listen.',
+        prompts: [
+          'What "small fish" is speaking to you right now that you have been ignoring because it seems too small, too strange, or illogical?',
+          'Where in your life has wisdom come from an unexpected source — something or someone you would never have chosen as a messenger?'
+        ]
+      },
+      { theme: 'On letting go of the kingdom',
+        quote: 'Satyavrata lost his entire kingdom. Could save only one of each species. Look at the amount he had to let go of. And he did that because a fish was speaking to him.',
+        prompts: [
+          'What "kingdom" are you being asked to let go of right now? (A role, an identity, a possession, a relationship, a belief?)',
+          'If you could only save "one of each species" from your current life — what would that one thing be? What does that tell you about what truly matters?'
+        ]
+      },
+      { theme: 'On loss as hidden beginning',
+        quote: 'When we stay detached, maybe we need to lose something in order to find a new beginning.',
+        prompts: [
+          'What loss in your past later revealed itself as a hidden beginning?',
+          'What are you clinging to that might actually be the very thing keeping you from your next chapter?'
+        ]
+      },
+      { theme: 'On faith in the illogical',
+        quote: 'This story is not logical. A fish outgrowing its size. A fish pulling a boat. A fish speaking. Nothing is logical. But can we have faith in the illogical?',
+        prompts: [
+          'Where in your life is logic failing you? What situation cannot be solved by thinking, planning, or analyzing?',
+          'What would it mean — practically, in your daily life — to have "faith in the illogical" this week?'
+        ]
+      },
+      { theme: 'On going beyond logic',
+        quote: 'Beyond logic, not illogical. When one goes beyond logic, transformation becomes possible.',
+        prompts: [
+          'Recall a time when you made a decision that made no logical sense but turned out to be exactly right. What did that feel like in your body?',
+          'What is one area of your life where you are being called to move "beyond logic"?'
+        ]
+      },
+      { theme: 'On turning points',
+        quote: 'End of something and the start of something new. At that turning point, at that point of transformation, Matsya appears.',
+        prompts: [
+          'Where are you in a turning point right now? What is ending? What is struggling to be born?',
+          'Have you noticed any "fish" (unexpected help, strange signs, impossible coincidences) appearing at this turning point?'
+        ]
+      },
+      { theme: 'On relocating to the Himalayas',
+        quote: 'Satyavrata loses his kingdom for something else. He relocates to the Himalayas — a completely different place. But it is also the start of humanity as we know it.',
+        prompts: [
+          'What "Himalayas" might your current loss be leading you toward?',
+          'If your current struggle is actually the birthplace of your new self — what might that new self look like?'
+        ]
+      },
+      { theme: 'On independence & inner authority',
+        quote: 'Satyavrata does not hold on to his kingdom. He takes the decision to listen to a fish instead of his Council of Ministers. I choose who I want to listen to. I am not going to be swayed by anyone. I decide.',
+        prompts: [
+          'Whose "council of ministers" are you listening to right now (family, society, tradition, fear, experts)? Which voices have the loudest vote in your decisions?',
+          'What would it mean to trust your own listening — even if no one else agrees?'
+        ]
+      },
+      { theme: 'On the cosmos teaching through challenge',
+        quote: 'The cosmos trying to teach us through challenges. If Satyavrata had stayed back in the kingdom, it would have been flooded. He would have lost his life.',
+        prompts: [
+          'What current challenge, if you resisted or avoided it, might actually cost you more than facing it?',
+          'What is the flood trying to wash away in your life? What is it trying to save you from?'
+        ]
+      },
+      { theme: 'On danger & strange blessing',
+        quote: 'Danger first and strange blessing comes — more than what we imagined. Unexpected transformation in the form of a horn. Impossible becomes possible. We are saved. A new beginning.',
+        prompts: [
+          'Can you identify a time in your life when "danger first" was followed by a "strange blessing"?',
+          'What "horn" (an unexpected, illogical solution) has appeared in your life that you almost didn\'t notice?'
+        ]
+      },
+      { theme: 'On not knowing',
+        quote: 'You will not find closure. There will always be something you don\'t know. Can we be OK in not knowing?',
+        prompts: [
+          'Where are you desperately seeking closure or a final answer? What might shift if you made peace with "not knowing"?',
+          'What would it feel like to sit with a question — without needing to solve it — for one entire week?'
+        ]
+      }
+    ],
+    source: 'Companion Workbook · Matsya · drafted by Marie, Sudha, Mannat, Spandana with Vikram, Megha, Neha'
+  }
+};
+
+/* ============================================================
+   STORAGE — per-prompt notes in localStorage
+============================================================ */
+const STORAGE_PREFIX = 'astro-reflect-v1';
+function noteKey(aid, ci, pi) { return `${STORAGE_PREFIX}-${aid}-${ci}-${pi}`; }
+function loadNote(aid, ci, pi) { try { return localStorage.getItem(noteKey(aid, ci, pi)) || ''; } catch (e) { return ''; } }
+function saveNote(aid, ci, pi, value) {
+  try {
+    if (value && value.trim()) localStorage.setItem(noteKey(aid, ci, pi), value);
+    else localStorage.removeItem(noteKey(aid, ci, pi));
+  } catch (e) {}
+}
+function clearAvatarNotes(aid) {
+  try {
+    const prefix = `${STORAGE_PREFIX}-${aid}-`;
+    const toRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix)) toRemove.push(k);
+    }
+    toRemove.forEach(k => localStorage.removeItem(k));
+  } catch (e) {}
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+function showToast(msg, ms = 1800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.hidden = false;
+  t.classList.add('is-visible');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('is-visible'), ms);
+}
+
+/* ============================================================
+   RENDER — landing
+============================================================ */
+function renderLanding() {
+  const grid = document.getElementById('avatarGrid');
+  const order = ['matsya','kurma','varaha','narasimha','vamana','parashurama','rama','krishna','buddha'];
+  let html = '';
+  order.forEach(aid => {
+    const a = AVATARS[aid];
+    const p = PLANETS[a.planet];
+    const isReady = !!AVATAR_PRACTICE[aid];
+    const cls = `avatar-tile ${isReady ? '' : 'is-pending'}`;
+    const href = isReady ? `reflect.html#${aid}` : 'javascript:void(0)';
+    const badge = isReady ? '' : '<span class="avatar-tile-pending-badge">Coming soon</span>';
+    html += `
+      <a class="${cls}" href="${href}">
+        ${badge}
+        <span class="avatar-tile-glyph">${p.glyph}</span>
+        <span class="avatar-tile-name">${a.name}</span>
+        <span class="avatar-tile-meta">${a.english} · ${p.name}</span>
+      </a>
+    `;
+  });
+  grid.innerHTML = html;
+  document.getElementById('landingView').hidden = false;
+  document.getElementById('reflectView').hidden = true;
+}
+
+/* ============================================================
+   RENDER — reflect (one avatar)
+============================================================ */
+function renderReflect(aid) {
+  const a = AVATARS[aid];
+  const wbk = AVATAR_PRACTICE[aid];
+  if (!a || !wbk) {
+    // unknown or not-yet-drafted avatar — bounce to landing
+    location.hash = '';
+    renderLanding();
+    return;
+  }
+  const p = PLANETS[a.planet];
+
+  // Hero
+  document.getElementById('reflectEmblem').textContent = p.glyph;
+  document.getElementById('reflectAvatarName').textContent = a.name;
+  document.getElementById('reflectSubLede').textContent =
+    `${a.english} · ${p.name} · ${wbk.clusters.length} reflection clusters · drafted by the workbook team.`;
+
+  // Vikram intro
+  document.getElementById('reflectIntroText').textContent = wbk.intro;
+  document.getElementById('reflectIntroAttribution').textContent = '— ' + wbk.intro_attribution;
+
+  // Clusters
+  const clustersEl = document.getElementById('clusters');
+  let html = '';
+  wbk.clusters.forEach((c, ci) => {
+    html += `
+      <div class="cluster">
+        <div class="cluster-eyebrow">Cluster ${ci + 1} of ${wbk.clusters.length}</div>
+        <h2 class="cluster-theme">${c.theme}</h2>
+        <div class="cluster-quote">"${c.quote}"</div>
+        ${c.prompts.map((q, pi) => `
+          <div class="prompt">
+            <p class="prompt-q">${q}</p>
+            <textarea
+              data-aid="${aid}" data-ci="${ci}" data-pi="${pi}"
+              placeholder="Write your reflection here — saves automatically."
+              rows="3">${escapeHtml(loadNote(aid, ci, pi))}</textarea>
+            <div class="prompt-saved" data-saved="${ci}-${pi}">saved</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  });
+  clustersEl.innerHTML = html;
+
+  // Wire textareas — debounced save
+  clustersEl.querySelectorAll('textarea').forEach(ta => {
+    ta.addEventListener('input', () => {
+      const ci = ta.getAttribute('data-ci');
+      const pi = ta.getAttribute('data-pi');
+      clearTimeout(ta._t);
+      ta._t = setTimeout(() => {
+        saveNote(aid, parseInt(ci, 10), parseInt(pi, 10), ta.value);
+        const saved = clustersEl.querySelector(`[data-saved="${ci}-${pi}"]`);
+        if (saved) {
+          saved.classList.add('is-visible');
+          clearTimeout(saved._t);
+          saved._t = setTimeout(() => saved.classList.remove('is-visible'), 1100);
+        }
+      }, 280);
+    });
+  });
+
+  // Wire buttons (top + bottom)
+  ['copyTopBtn', 'copyBotBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.onclick = () => copyReflections(aid);
+  });
+  ['clearTopBtn', 'clearBotBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.onclick = () => clearAndConfirm(aid);
+  });
+
+  document.getElementById('landingView').hidden = true;
+  document.getElementById('reflectView').hidden = false;
+  document.title = `Reflect on ${a.name} — Astrology 101 Companion App`;
+  // Scroll to top on hash change
+  window.scrollTo(0, 0);
+}
+
+/* ============================================================
+   COPY — plain text export of all answered prompts
+============================================================ */
+function copyReflections(aid) {
+  const a = AVATARS[aid];
+  const wbk = AVATAR_PRACTICE[aid];
+  if (!a || !wbk) return;
+  const p = PLANETS[a.planet];
+  const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  const lines = [];
+  lines.push(`Reflections on ${a.name}`);
+  lines.push(`${a.english} · ${p.name}`);
+  lines.push(date);
+  lines.push('');
+  lines.push(`— ${wbk.intro_attribution}`);
+  lines.push(`"${wbk.intro}"`);
+  lines.push('');
+  lines.push('──────────────────────────────────');
+  lines.push('');
+
+  let any = false;
+  wbk.clusters.forEach((c, ci) => {
+    lines.push(`CLUSTER ${ci + 1} · ${c.theme}`);
+    lines.push(`"${c.quote}"`);
+    lines.push('');
+    c.prompts.forEach((q, pi) => {
+      const note = loadNote(aid, ci, pi).trim();
+      if (note) any = true;
+      lines.push(`Q: ${q}`);
+      lines.push(`A: ${note || '—'}`);
+      lines.push('');
+    });
+    lines.push('──────────────────────────────────');
+    lines.push('');
+  });
+
+  lines.push(`Source: ${wbk.source}`);
+
+  const text = lines.join('\n');
+
+  if (!any) {
+    if (!confirm('No notes yet. Copy the prompts anyway (without answers)?')) return;
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(
+      () => showToast('Reflections copied to clipboard'),
+      () => fallbackCopy(text)
+    );
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  // textarea trick for older browsers
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast('Reflections copied'); }
+  catch (e) { showToast('Copy failed — long-press to copy manually'); }
+  document.body.removeChild(ta);
+}
+
+/* ============================================================
+   CLEAR — wipe notes for one avatar
+============================================================ */
+function clearAndConfirm(aid) {
+  const a = AVATARS[aid];
+  if (!a) return;
+  if (!confirm(`Clear all your notes for ${a.name}? This cannot be undone.`)) return;
+  clearAvatarNotes(aid);
+  showToast(`Cleared notes for ${a.name}`);
+  // Re-render to flush textareas
+  renderReflect(aid);
+}
+
+/* ============================================================
+   ROUTE — hash-driven view selection
+============================================================ */
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function route() {
+  const aid = (location.hash || '').replace(/^#/, '').trim();
+  if (aid && AVATARS[aid] && AVATAR_PRACTICE[aid]) {
+    renderReflect(aid);
+  } else {
+    // No hash, unknown avatar, or not-yet-drafted — show landing
+    if (aid && !AVATAR_PRACTICE[aid]) {
+      // Don't strip the hash — let them know it's pending
+      location.hash = '';
+    }
+    renderLanding();
+  }
+}
+
+window.addEventListener('hashchange', route);
+route();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.41.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showVersionToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f1a2e;color:#faf3e2;font-family:Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showVersionToast('A newer version is available — reload to update.');
+      else if (!silent) showVersionToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  check(true);
+  window.addEventListener('focus', () => check(true));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
+})();
+</script>
+
+</body>
+</html>
