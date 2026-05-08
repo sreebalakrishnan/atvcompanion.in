@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.48.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.49.0) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -578,7 +578,56 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Quick-reference drawer (v4.48.0) — collapsible cheat sheet inside the walk-through. */
+  /* Walk-through framing line (v4.49.0 — Vikram's principle: system gives
+     references, learner writes the sentence). Sits between toolbar and
+     progress bar, visible on every house. */
+  .walk-frame {
+    margin: -8px 0 14px;
+    padding: 9px 14px;
+    background: rgba(184,65,14,.04);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .walk-frame em { color: var(--saffron); font-style: italic; font-weight: 500; }
+
+  /* Per-planet QR jump link (v4.49.0). */
+  .walk-planet-link {
+    display: inline-block;
+    margin-top: 4px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--saffron);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(184,65,14,.4);
+    line-height: 1.3;
+  }
+  .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
+
+  /* Pati / Ruler block jump (v4.49.0). Tap takes you to that house's walk-through card. */
+  .walk-pati-jump {
+    color: var(--saffron);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(184,65,14,.4);
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .walk-pati-jump:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
+  .walk-pati-frame {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 6px 0 0;
+  }
+
+  /* Quick-reference drawer (v4.49.0) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -993,7 +1042,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.48.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.49.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1046,6 +1095,9 @@
       <span class="walk-counter" id="walkCounter">House 1 of 12</span>
       <button class="btn" type="button" id="walkExitBtn">← Back to chart</button>
     </div>
+    <p class="walk-frame">
+      <em>Reference is given</em> — open the drawer for Vikram's keywords. <em>Interpretation is yours</em> — write your own line in the box.
+    </p>
     <div class="walk-progress" id="walkProgress" role="tablist" aria-label="Walk-through progress"></div>
     <div id="walkDrawer" class="walk-drawer"></div>
     <div id="walkCard"></div>
@@ -1078,7 +1130,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.48.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.49.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -1182,6 +1234,24 @@
     pisces:      'mutable · water · feminine — a body that dissolves into feeling, intuitive, hard to pin down. Ruled by Jupiter.'
   };
 
+  // Sign rulers — Pati of each rāśi. Mercury and Mars get co-rulers per
+  // Vikram's framing (Rahu for Virgo; Ketu for Scorpio). Used by the
+  // "Pati of the House" block on each walk-through card (v4.49.0 — Sudha's ask).
+  const SIGN_RULERS = {
+    aries:       { primary: 'mars',    co: null },
+    taurus:      { primary: 'venus',   co: null },
+    gemini:      { primary: 'mercury', co: null },
+    cancer:      { primary: 'moon',    co: null },
+    leo:         { primary: 'sun',     co: null },
+    virgo:       { primary: 'mercury', co: 'rahu' },
+    libra:       { primary: 'venus',   co: null },
+    scorpio:     { primary: 'mars',    co: 'ketu' },
+    sagittarius: { primary: 'jupiter', co: null },
+    capricorn:   { primary: 'saturn',  co: null },
+    aquarius:    { primary: 'saturn',  co: null },
+    pisces:      { primary: 'jupiter', co: null }
+  };
+
   // Sign attributes — duality (yang/yin), modality (cardinal/fixed/mutable),
   // element (fire/earth/air/water). Used to highlight the current sign's
   // attributes in the quick-reference drawer (Cut B contextual highlighting).
@@ -1201,7 +1271,7 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // v4.48.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // v4.49.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
   // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
   // surfaces. The `light` field maps to QR's `positive` field. Shadow side
   // stays out of the drawer by design (year-1 framing).
@@ -1546,7 +1616,7 @@
     nextBtn.textContent = walkIdx === 12 ? 'Finish ✓' : 'Next house →';
   }
 
-  // Quick-reference drawer (v4.48.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.49.0) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -1676,21 +1746,52 @@
     // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
     const isLagnaCard = h === 1;
 
+    // v4.49.0 — Vikram's principle: system gives references, learner writes
+    // the sentence. The per-planet pill is now factual only — placement +
+    // a jump to QR for Vikram's classical material on that planet. No
+    // pre-formed "Moon in Aries — energized initiating bold changes" line.
     const planetsHtml = planetsHere.length === 0
       ? `<p class="walk-text" style="color:var(--muted);font-size:14.5px;"><em>— no planets placed here. If a planet sits here, edit your chart and add it.</em></p>`
       : planetsHere.map(p => {
-          const oneLiner = (VIKRAM_PLANET_BY_SIGN[p.id] && VIKRAM_PLANET_BY_SIGN[p.id][sid]) || null;
-          const lineHtml = oneLiner
-            ? `<p class="walk-planet-line"><em style="color:var(--saffron);">${p.name} in ${s.name}</em> — ${oneLiner}.</p>`
-            : `<p class="walk-planet-line"><span class="placeholder">— ${p.name} interpretation coming as Vikram's class material lands. Sun · Moon · Mars · Mercury are drafted; Jupiter · Venus · Saturn · Rahu · Ketu pending.</span></p>`;
           return `<div class="walk-planet-row">
             <span class="walk-planet-glyph">${p.glyph}</span>
             <div class="walk-planet-body">
-              <div class="walk-planet-name">${p.name} <em>· ${p.sanskrit}</em></div>
-              ${lineHtml}
+              <div class="walk-planet-name">${p.name} <em>· ${p.sanskrit}</em> · in <em style="color:var(--saffron);">${s.name}</em></div>
+              <a class="walk-planet-link" href="quick-reference.html#planet-${p.id}" target="_blank" rel="noopener">↗ See ${p.name} in Quick Reference</a>
             </div>
           </div>`;
         }).join('');
+
+    // v4.49.0 — Pati of the House (Sudha's ask). Factual surfacing of the
+    // sign's ruler(s) and where each ruler is placed in the user's chart.
+    // No per-pair interpretation — that's the learner's work.
+    const rulers = SIGN_RULERS[sid] || { primary: null, co: null };
+    const primaryRuler = rulers.primary ? PLANETS.find(p => p.id === rulers.primary) : null;
+    const coRuler      = rulers.co      ? PLANETS.find(p => p.id === rulers.co)      : null;
+    function rulerLine(planet) {
+      if (!planet) return '';
+      const placedHouse = myChart.planets[planet.id];
+      if (!placedHouse) {
+        return `<p class="walk-text">Place <em>${planet.name}</em> in your chart to see where this house's energy plays out.</p>`;
+      }
+      const placedSid = SIGN_ORDER[(lagnaIdx + placedHouse - 1) % 12];
+      const placedSign = SIGNS[placedSid].name;
+      return `<p class="walk-text">Your ${planet.name} sits in your <a class="walk-pati-jump" data-jump-h="${placedHouse}" role="link" tabindex="0"><strong>${placedHouse}H · ${HOUSE_PROMPT_NOUN[placedHouse]}</strong></a> (${placedSign}).</p>`;
+    }
+    const rulerNamesHtml = primaryRuler
+      ? (coRuler
+          ? `<strong>${primaryRuler.name} · ${primaryRuler.sanskrit}</strong> (with <strong>${coRuler.name} · ${coRuler.sanskrit}</strong> as co-ruler).`
+          : `<strong>${primaryRuler.name} · ${primaryRuler.sanskrit}</strong>.`)
+      : '—';
+    const patiBlockHtml = `
+      <div class="walk-block">
+        <div class="walk-label">Pati · Ruler of this house</div>
+        <p class="walk-text">${s.name} is ruled by ${rulerNamesHtml}</p>
+        ${rulerLine(primaryRuler)}
+        ${coRuler ? rulerLine(coRuler) : ''}
+        <p class="walk-pati-frame">Where the lord lives is the next layer of the read — that connection is yours to make.</p>
+      </div>
+    `;
 
     const notes = loadNotes();
     const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -1723,6 +1824,8 @@
           ${planetsHtml}
         </div>
 
+        ${patiBlockHtml}
+
         <div class="walk-exercise">
           <div class="walk-label">The exercise · Vikram's frame</div>
           <p class="walk-exercise-prompt">${exercisePrompt}</p>
@@ -1747,6 +1850,23 @@
         savedTag.classList.add('is-visible');
         setTimeout(() => savedTag.classList.remove('is-visible'), 900);
       }, 280);
+    });
+
+    // v4.49.0 — Pati jump links: tap takes the user straight to the house
+    // where the ruler is placed.
+    card.querySelectorAll('.walk-pati-jump[data-jump-h]').forEach(el => {
+      el.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        const h2 = parseInt(el.dataset.jumpH, 10);
+        if (h2 >= 1 && h2 <= 12) {
+          walkIdx = h2;
+          renderWalk();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+      el.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); el.click(); }
+      });
     });
   }
 
@@ -1797,7 +1917,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.48.0';
+  const PAGE_VERSION = '4.49.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1894,7 +2014,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.48.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.49.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
