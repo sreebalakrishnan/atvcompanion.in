@@ -4968,7 +4968,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.42.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.43.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5634,7 +5634,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.42.0 · updated 8 May 2026</span>
+      <span>v4.43.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -9632,7 +9632,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.42.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -11012,7 +11012,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.42.0';
+  const PAGE_VERSION = '4.43.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11070,5 +11070,106 @@ document.addEventListener('keydown', (e) => {
   window.__pageVersion = PAGE_VERSION;
 })();
 </script>
+
+<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<style>
+  .first-visit-tip {
+    position: relative;
+    margin: 18px auto 8px;
+    max-width: 640px;
+    padding: 14px 92px 14px 18px;
+    background: #faf3e2;
+    border: 1px solid #d4c39a;
+    border-left: 3px solid #b8410e;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    color: #1f1a2e;
+    animation: fvtIn .3s ease-out;
+    z-index: 5;
+  }
+  @keyframes fvtIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .first-visit-tip .fvt-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b8410e;
+    margin-bottom: 4px;
+  }
+  .first-visit-tip .fvt-text {
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .first-visit-tip .fvt-dismiss {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #d4c39a;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #4a4055;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .first-visit-tip .fvt-dismiss:hover {
+    border-color: #b8410e;
+    color: #b8410e;
+    background: rgba(184,65,14,.05);
+  }
+  @media (max-width: 480px) {
+    .first-visit-tip { padding: 14px 18px 14px 18px; }
+    .first-visit-tip .fvt-dismiss {
+      position: static;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+</style>
+<script>
+(function() {
+  var PAGE_KEY = 'quickref';
+  var TIP_TEXT = 'Tap any tile — sign, planet, house, avatar — and a drawer opens. The toggle in the top-right switches Learning ↔ Reference.';
+  var KEY = 'astro-tip-seen-' + PAGE_KEY;
+  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
+  function build() {
+    var card = document.createElement('div');
+    card.className = 'first-visit-tip';
+    card.setAttribute('role', 'note');
+    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
+                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
+                   + '<button class="fvt-dismiss" type="button">Got it</button>';
+    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-6px)';
+      setTimeout(function(){ card.remove(); }, 280);
+    });
+    var firstHeader = document.querySelector('header');
+    if (firstHeader && firstHeader.parentElement) {
+      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
+      return;
+    }
+    var target = document.querySelector('.page, main') || document.body;
+    target.insertBefore(card, target.firstChild);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+</script>
+
 </body>
 </html>

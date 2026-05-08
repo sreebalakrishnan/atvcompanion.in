@@ -481,10 +481,53 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.43.0 ====================== -->
+  <section class="release" data-credits="Sree (integrated onboarding · map + per-page tips)">
+    <header>
+      <h2>v4.43.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">As the page has grown — Quick Reference, Interactive, Reflect, Kāla­purusha, Mercury Spectrum, Astronomy, Ether, Layers, Release Notes, Stats — finding the right door has gotten harder for someone arriving fresh. v4.43 keeps the help <strong>integrated</strong> rather than building a separate guide. Two layers: a <strong>"Where to start" map</strong> on the home page that routes by intent, and a <strong>first-visit tip card</strong> on every peer page that says, in one line, what this page does and how to use it.</p>
+
+    <h3>Layer 1 — Where-to-start map on the home page</h3>
+    <ul>
+      <li>New section between the origin paragraph and "How it started" — eight intent-based cards, each phrased as <em>"I want to…"</em>: <em>look something up</em>, <em>learn the cabinet as a story</em>, <em>sit with a reflection prompt</em>, <em>see my body in the chart</em>, <em>understand the science underneath</em>, <em>see one planet across its range</em>, <em>read about the retreat</em>, <em>know how this came to be</em>.</li>
+      <li>Each card carries a short detail line and routes to one peer page (Quick Reference, Interactive, Reflect, Kāla­purusha, Astronomy, Mercury Spectrum, Ether, Layers).</li>
+      <li>The existing "Three places to start" Quick Reference teaser is unchanged — it remains the QR-specific onboarding moment.</li>
+    </ul>
+
+    <h3>Layer 2 — Per-page first-visit tip card</h3>
+    <ul>
+      <li>A self-contained snippet (CSS + DOM injection + JS) drops a saffron-bordered card at the top of each peer page on first visit. One line of guidance, a "Got it" dismiss button, and <code>localStorage</code> persistence per page (key <code>astro-tip-seen-{page}</code>) — once dismissed, it never shows again on that browser.</li>
+      <li>Tip copy is page-specific:
+        <ul>
+          <li><strong>Quick Reference</strong> — <em>"Tap any tile — sign, planet, house, avatar — and a drawer opens. The toggle in the top-right switches Learning ↔ Reference."</em></li>
+          <li><strong>Interactive</strong> — <em>"Tap ▶ Story to watch Vikram's cabinet assemble. Or switch to Storybook for one card at a time. Speed and 🔊 read-aloud sit in the prefs row."</em></li>
+          <li><strong>Reflect</strong> — <em>"Pick an avatar, then write into the prompts. Notes save automatically in this browser. 📋 Copy my reflections to export them as plain text."</em></li>
+          <li><strong>Kāla­purusha</strong> — <em>"The kundali laid into Vishnu's body — head to feet. Tap any limb to see the sign and house mapped onto it."</em></li>
+          <li><strong>Mercury Spectrum</strong> — <em>"A single planet across its range — friend, neutral, enemy. Score yourself on each axis and the meaning emerges."</em></li>
+          <li><strong>Astronomy</strong> — <em>"The science under the symbolism — ecliptic, ayanamsha, eclipses. Read top-down, or jump via the section nav."</em></li>
+          <li><strong>Ether</strong> — <em>"Notes from the retreat — Chidambaram, Nirvana Shatakam, the great secret. Read at your own pace."</em></li>
+          <li><strong>Layers</strong> — <em>"Eight chapters mark how this page came to be. Skim the timeline, or read the longer arc inside each layer."</em></li>
+          <li><strong>Release Notes</strong> — <em>"Freshest at the top. Each entry credits whose feedback shaped it."</em></li>
+          <li><strong>Stats</strong> — <em>"By the numbers — source corpus, build size, contributors. A quick portrait of how this page is made."</em></li>
+        </ul>
+      </li>
+      <li>The card uses runtime DOM injection — it inserts itself after the first <code>&lt;header&gt;</code> on each page, so it sits between the page hero and the main content without disturbing existing layout.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The cohort grows in size and arrival pattern. Some land on the home page first; some are sent a deep link straight into Mercury Spectrum or Reflect. Both paths now get oriented — Layer 1 for the front-door arrival, Layer 2 for the deep-link arrival.</li>
+      <li>Integrated onboarding (rather than a separate help page) keeps the page itself the teacher. The tip dismisses in one tap and never returns; help is present exactly when needed and absent thereafter.</li>
+      <li>Layer 3 — gentle pulses on first-visit elements — is deliberately deferred to v4.44, pending a few rounds of cohort feedback on whether Layers 1 + 2 already do the work.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.42.0 ====================== -->
   <section class="release" data-credits="Sree (feedback FAB site-wide)">
     <header>
-      <h2>v4.42.0 <em>· current</em></h2>
+      <h2>v4.42.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">The 💬 feedback button — previously only on Quick Reference — now lives on <strong>every page</strong>. Whichever page someone is reading, they can fire a pre-filled WhatsApp message to Sree without losing their place. The pre-fill auto-detects the page (Layers, Mercury Spectrum, Reflect, Interactive, etc.) so feedback always arrives with context.</p>
@@ -2687,7 +2730,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.42.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.43.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -2910,7 +2953,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.42.0';
+  const PAGE_VERSION = '4.43.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3024,12 +3067,113 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.42.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
+})();
+</script>
+
+
+<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<style>
+  .first-visit-tip {
+    position: relative;
+    margin: 18px auto 8px;
+    max-width: 640px;
+    padding: 14px 92px 14px 18px;
+    background: #faf3e2;
+    border: 1px solid #d4c39a;
+    border-left: 3px solid #b8410e;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    color: #1f1a2e;
+    animation: fvtIn .3s ease-out;
+    z-index: 5;
+  }
+  @keyframes fvtIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .first-visit-tip .fvt-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b8410e;
+    margin-bottom: 4px;
+  }
+  .first-visit-tip .fvt-text {
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .first-visit-tip .fvt-dismiss {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #d4c39a;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #4a4055;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .first-visit-tip .fvt-dismiss:hover {
+    border-color: #b8410e;
+    color: #b8410e;
+    background: rgba(184,65,14,.05);
+  }
+  @media (max-width: 480px) {
+    .first-visit-tip { padding: 14px 18px 14px 18px; }
+    .first-visit-tip .fvt-dismiss {
+      position: static;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+</style>
+<script>
+(function() {
+  var PAGE_KEY = 'releases';
+  var TIP_TEXT = 'Freshest at the top. Each entry credits whose feedback shaped it.';
+  var KEY = 'astro-tip-seen-' + PAGE_KEY;
+  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
+  function build() {
+    var card = document.createElement('div');
+    card.className = 'first-visit-tip';
+    card.setAttribute('role', 'note');
+    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
+                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
+                   + '<button class="fvt-dismiss" type="button">Got it</button>';
+    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-6px)';
+      setTimeout(function(){ card.remove(); }, 280);
+    });
+    var firstHeader = document.querySelector('header');
+    if (firstHeader && firstHeader.parentElement) {
+      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
+      return;
+    }
+    var target = document.querySelector('.page, main') || document.body;
+    target.insertBefore(card, target.firstChild);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
 })();
 </script>
 

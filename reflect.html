@@ -408,7 +408,7 @@
   ================================================================= -->
   <div id="landingView" hidden>
     <header class="masthead">
-      <div class="eyebrow">all things vedic · the companion app · v4.42.0</div>
+      <div class="eyebrow">all things vedic · the companion app · v4.43.0</div>
       <h1><em>Reflect</em></h1>
       <p class="lede">Pick an avatar to sit with. Each set of prompts is sourced from the Companion Workbook — drafted by Marie, Sudha, Mannat &amp; Spandana with Vikram, Megha &amp; Neha. Your notes save automatically, only in this browser.</p>
     </header>
@@ -423,7 +423,7 @@
   ================================================================= -->
   <div id="reflectView" hidden>
     <header class="masthead">
-      <div class="eyebrow">all things vedic · the companion app · v4.42.0</div>
+      <div class="eyebrow">all things vedic · the companion app · v4.43.0</div>
       <div class="masthead-emblem" id="reflectEmblem">✦</div>
       <h1>Reflect on <em id="reflectAvatarName">Matsya</em></h1>
       <p class="lede" id="reflectSubLede">Fish · Ketu · 11 reflection clusters · drafted by the workbook team.</p>
@@ -458,7 +458,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to Quick Reference</a> · <a href="layers.html">Layers</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.42.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.43.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -844,7 +844,7 @@ route();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.42.0';
+  const PAGE_VERSION = '4.43.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -881,7 +881,7 @@ route();
 </script>
 
 
-<!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
+<!-- ====================== WHATSAPP FEEDBACK FAB (v4.43.0 — site-wide) ====================== -->
 <style>
   .wa-fab-global {
     position: fixed;
@@ -941,12 +941,113 @@ route();
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.42.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
+})();
+</script>
+
+
+<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<style>
+  .first-visit-tip {
+    position: relative;
+    margin: 18px auto 8px;
+    max-width: 640px;
+    padding: 14px 92px 14px 18px;
+    background: #faf3e2;
+    border: 1px solid #d4c39a;
+    border-left: 3px solid #b8410e;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    color: #1f1a2e;
+    animation: fvtIn .3s ease-out;
+    z-index: 5;
+  }
+  @keyframes fvtIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .first-visit-tip .fvt-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b8410e;
+    margin-bottom: 4px;
+  }
+  .first-visit-tip .fvt-text {
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .first-visit-tip .fvt-dismiss {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #d4c39a;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #4a4055;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .first-visit-tip .fvt-dismiss:hover {
+    border-color: #b8410e;
+    color: #b8410e;
+    background: rgba(184,65,14,.05);
+  }
+  @media (max-width: 480px) {
+    .first-visit-tip { padding: 14px 18px 14px 18px; }
+    .first-visit-tip .fvt-dismiss {
+      position: static;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+</style>
+<script>
+(function() {
+  var PAGE_KEY = 'reflect';
+  var TIP_TEXT = 'Pick an avatar, then write into the prompts. Notes save automatically in this browser. 📋 Copy my reflections to export them as plain text.';
+  var KEY = 'astro-tip-seen-' + PAGE_KEY;
+  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
+  function build() {
+    var card = document.createElement('div');
+    card.className = 'first-visit-tip';
+    card.setAttribute('role', 'note');
+    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
+                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
+                   + '<button class="fvt-dismiss" type="button">Got it</button>';
+    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-6px)';
+      setTimeout(function(){ card.remove(); }, 280);
+    });
+    var firstHeader = document.querySelector('header');
+    if (firstHeader && firstHeader.parentElement) {
+      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
+      return;
+    }
+    var target = document.querySelector('.page, main') || document.body;
+    target.insertBefore(card, target.firstChild);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
 })();
 </script>
 

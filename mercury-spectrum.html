@@ -429,7 +429,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.42.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.43.0</div>
     <span class="glyph" aria-hidden="true">☿</span>
     <h1>The Mercury <em>Spectrum</em></h1>
     <p class="sub">A self-reflection exercise · Astrology 101 with Vikram</p>
@@ -467,7 +467,7 @@
   </main>
 
   <footer class="page-footer">
-    <p style="margin-top:32px;">v4.42.0 · updated 8 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
+    <p style="margin-top:32px;">v4.43.0 · updated 8 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
     <p style="margin-top:8px;font-size:11.5px;opacity:.85;">Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
   </footer>
 
@@ -585,7 +585,7 @@
   updateSummary();
 
   // ====================== UPDATE CHECKER ======================
-  const PAGE_VERSION = '4.42.0';
+  const PAGE_VERSION = '4.43.0';
   function showUpdateBanner(newVer) {
     const b = document.getElementById('updateBanner');
     document.getElementById('updateText').textContent = 'New version available (v' + newVer + ').';
@@ -618,7 +618,7 @@
   window.__pageVersion = PAGE_VERSION;
 </script>
 
-<!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
+<!-- ====================== WHATSAPP FEEDBACK FAB (v4.43.0 — site-wide) ====================== -->
 <style>
   .wa-fab-global {
     position: fixed;
@@ -678,12 +678,113 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.42.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.43.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
+})();
+</script>
+
+
+<!-- ====================== FIRST-VISIT TIP CARD (v4.43.0 — Layer 2 onboarding) ====================== -->
+<style>
+  .first-visit-tip {
+    position: relative;
+    margin: 18px auto 8px;
+    max-width: 640px;
+    padding: 14px 92px 14px 18px;
+    background: #faf3e2;
+    border: 1px solid #d4c39a;
+    border-left: 3px solid #b8410e;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    color: #1f1a2e;
+    animation: fvtIn .3s ease-out;
+    z-index: 5;
+  }
+  @keyframes fvtIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .first-visit-tip .fvt-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b8410e;
+    margin-bottom: 4px;
+  }
+  .first-visit-tip .fvt-text {
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .first-visit-tip .fvt-dismiss {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #d4c39a;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #4a4055;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .first-visit-tip .fvt-dismiss:hover {
+    border-color: #b8410e;
+    color: #b8410e;
+    background: rgba(184,65,14,.05);
+  }
+  @media (max-width: 480px) {
+    .first-visit-tip { padding: 14px 18px 14px 18px; }
+    .first-visit-tip .fvt-dismiss {
+      position: static;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+</style>
+<script>
+(function() {
+  var PAGE_KEY = 'mercury';
+  var TIP_TEXT = 'A single planet across its range — friend, neutral, enemy. Score yourself on each axis and the meaning emerges.';
+  var KEY = 'astro-tip-seen-' + PAGE_KEY;
+  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
+  function build() {
+    var card = document.createElement('div');
+    card.className = 'first-visit-tip';
+    card.setAttribute('role', 'note');
+    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
+                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
+                   + '<button class="fvt-dismiss" type="button">Got it</button>';
+    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-6px)';
+      setTimeout(function(){ card.remove(); }, 280);
+    });
+    var firstHeader = document.querySelector('header');
+    if (firstHeader && firstHeader.parentElement) {
+      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
+      return;
+    }
+    var target = document.querySelector('.page, main') || document.body;
+    target.insertBefore(card, target.firstChild);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
 })();
 </script>
 
