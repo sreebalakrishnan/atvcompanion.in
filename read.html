@@ -538,7 +538,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.52.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.53.0) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -578,7 +578,7 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Two anchors before you write (v4.52.0 — Vikram's craft principles).
+  /* Two anchors before you write (v4.53.0 — Vikram's craft principles).
      Inline expander immediately above the exercise textarea; self-check
      panel immediately below it. Persist open/closed in localStorage. */
   .walk-anchors,
@@ -718,7 +718,134 @@
     margin-bottom: 3px;
   }
 
-  /* Synthesis card (v4.52.0 — Step 8 from Vikram's guidance: emphasized
+  /* Sticky writing pad (v4.53.0). Fixed-position bottom banner that holds
+     the per-house exercise textarea. Visible only on walk-through houses
+     1-12; hidden on synthesis, setup, and chart views. Coexists with the
+     WhatsApp FAB via right-side padding. */
+  .walk-pad {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--rule);
+    box-shadow: 0 -6px 24px -10px rgba(31,26,46,.22);
+    padding: 12px 80px 14px 22px;
+    transition: padding .2s;
+  }
+  .walk-pad[hidden] { display: none; }
+  .walk-pad-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .walk-pad-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .walk-pad-header .icon {
+    color: var(--saffron);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .walk-pad-tag {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.3;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .walk-pad-tag em { color: var(--saffron); font-weight: 500; }
+  .walk-pad-saved {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity .25s;
+    flex-shrink: 0;
+  }
+  .walk-pad-saved.is-visible { opacity: 1; }
+  .walk-pad-toggle {
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color .15s, color .15s;
+  }
+  .walk-pad-toggle:hover { border-color: var(--saffron); color: var(--saffron); }
+  .walk-pad-body {
+    display: none;
+    margin-top: 10px;
+  }
+  .walk-pad.is-expanded .walk-pad-body { display: block; }
+  .walk-pad-prompt {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+    line-height: 1.5;
+  }
+  .walk-pad-prompt em { color: var(--saffron); }
+  .walk-pad-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 8px 10px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    font-family: var(--body);
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    resize: vertical;
+    transition: border-color .15s;
+  }
+  .walk-pad-textarea:focus {
+    outline: 2px solid rgba(184,65,14,.25);
+    outline-offset: 1px;
+    border-color: var(--saffron);
+  }
+  /* Reserve space at the bottom of the page so content isn't hidden under the pad. */
+  body.walk-pad-active           { padding-bottom: 64px; }
+  body.walk-pad-active.walk-pad-expanded { padding-bottom: 220px; }
+  @media (max-width: 480px) {
+    .walk-pad { padding: 10px 70px 12px 14px; }
+    .walk-pad-textarea { min-height: 100px; }
+    body.walk-pad-active           { padding-bottom: 56px; }
+    body.walk-pad-active.walk-pad-expanded { padding-bottom: 240px; }
+  }
+
+  /* Inline pointer in the walk-exercise where the textarea used to live. */
+  .walk-exercise-pointer {
+    margin: 12px 0 0;
+    padding: 10px 14px;
+    background: rgba(184,65,14,.04);
+    border: 1px dashed var(--rule);
+    border-radius: 6px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.45;
+  }
+  .walk-exercise-pointer em { color: var(--saffron); font-style: italic; }
+
+  /* Synthesis card (v4.53.0 — Step 8 from Vikram's guidance: emphasized
      repeated patterns across the user's placed planets, after all 12
      houses walked). Bars show frequency of each building block. */
   .syn-bars {
@@ -792,7 +919,7 @@
   }
   .walk-progress .syn-dot.is-current { color: var(--saffron); background: transparent; }
 
-  /* Worked-example card (v4.52.0). Sits inside the "Two anchors" expander
+  /* Worked-example card (v4.53.0). Sits inside the "Two anchors" expander
      after the Parts of Speech and Intention cards. Tabs toggle between
      Vikram's teaching example and Sree's own-chart example. */
   .we-tabs {
@@ -952,7 +1079,7 @@
   }
   .selfcheck-warning.is-visible { display: block; }
 
-  /* Walk-through framing line (v4.52.0 — Vikram's principle: system gives
+  /* Walk-through framing line (v4.53.0 — Vikram's principle: system gives
      references, learner writes the sentence). Sits between toolbar and
      progress bar, visible on every house. */
   .walk-frame {
@@ -969,7 +1096,7 @@
   }
   .walk-frame em { color: var(--saffron); font-style: italic; font-weight: 500; }
 
-  /* Per-planet QR jump link (v4.52.0). */
+  /* Per-planet QR jump link (v4.53.0). */
   .walk-planet-link {
     display: inline-block;
     margin-top: 4px;
@@ -983,7 +1110,7 @@
   }
   .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
 
-  /* Pati / Ruler block jump (v4.52.0). Tap takes you to that house's walk-through card. */
+  /* Pati / Ruler block jump (v4.53.0). Tap takes you to that house's walk-through card. */
   .walk-pati-jump {
     color: var(--saffron);
     text-decoration: none;
@@ -1001,7 +1128,7 @@
     margin: 6px 0 0;
   }
 
-  /* Quick-reference drawer (v4.52.0) — collapsible cheat sheet inside the walk-through. */
+  /* Quick-reference drawer (v4.53.0) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -1416,7 +1543,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.52.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.53.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1504,7 +1631,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.52.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.53.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -1631,7 +1758,7 @@
 
   // Sign rulers — Pati of each rāśi. Mercury and Mars get co-rulers per
   // Vikram's framing (Rahu for Virgo; Ketu for Scorpio). Used by the
-  // "Pati of the House" block on each walk-through card (v4.52.0 — Sudha's ask).
+  // "Pati of the House" block on each walk-through card (v4.53.0 — Sudha's ask).
   const SIGN_RULERS = {
     aries:       { primary: 'mars',    co: null },
     taurus:      { primary: 'venus',   co: null },
@@ -1666,7 +1793,7 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // v4.52.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // v4.53.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
   // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
   // surfaces. The `light` field maps to QR's `positive` field. Shadow side
   // stays out of the drawer by design (year-1 framing).
@@ -1812,11 +1939,13 @@
   function showSetup() {
     setupView.hidden = false;
     chartView.hidden = true;
+    if (typeof hideWalkPad === 'function') hideWalkPad();
     renderSetup();
   }
   function showChart() {
     setupView.hidden = true;
     chartView.hidden = false;
+    if (typeof hideWalkPad === 'function') hideWalkPad();
     renderChart();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -1997,13 +2126,90 @@
     chartView.hidden = true;
     walkView.hidden  = false;
     walkIdx = Math.max(1, Math.min(12, startAt || 1));
+    setupWalkPadOnce();
     renderWalk();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // v4.53.0 — Sticky writing pad helpers.
+  // The pad is a single fixed-position element at body level (so it can
+  // overlay the viewport). It's shown/hidden based on view + walkIdx.
+  // The textarea's value is reloaded from notes when the user navigates
+  // between houses; on input it auto-saves to the current walkIdx.
+  const PAD_EXPANDED_KEY = 'astro-mychart-pad-expanded-v1';
+  function loadPadExpanded()  { try { const v = localStorage.getItem(PAD_EXPANDED_KEY); return v === null ? true : v === '1'; } catch (e) { return true; } }
+  function savePadExpanded(v) { try { localStorage.setItem(PAD_EXPANDED_KEY, v ? '1' : '0'); } catch (e) {} }
+
+  let _padWired = false;
+  let _padSaveTimer = null;
+  function setupWalkPadOnce() {
+    if (_padWired) return;
+    _padWired = true;
+    const pad     = document.getElementById('walkPad');
+    const toggle  = document.getElementById('walkPadToggle');
+    const ta      = document.getElementById('walkPadAnswer');
+    const saved   = document.getElementById('walkPadSaved');
+
+    // Initial expanded/collapsed state.
+    const startExpanded = loadPadExpanded();
+    pad.classList.toggle('is-expanded', startExpanded);
+    toggle.textContent = startExpanded ? '⌄ Collapse' : '⤢ Expand';
+    toggle.setAttribute('aria-expanded', String(startExpanded));
+    document.body.classList.toggle('walk-pad-expanded', startExpanded);
+
+    toggle.addEventListener('click', () => {
+      const expanded = !pad.classList.contains('is-expanded');
+      pad.classList.toggle('is-expanded', expanded);
+      toggle.textContent = expanded ? '⌄ Collapse' : '⤢ Expand';
+      toggle.setAttribute('aria-expanded', String(expanded));
+      document.body.classList.toggle('walk-pad-expanded', expanded);
+      savePadExpanded(expanded);
+      // Auto-focus textarea when expanding.
+      if (expanded) ta.focus();
+    });
+
+    ta.addEventListener('input', () => {
+      // walkIdx is captured at save time, so navigation just works.
+      const h = walkIdx;
+      if (h < 1 || h > 12) return;
+      clearTimeout(_padSaveTimer);
+      _padSaveTimer = setTimeout(() => {
+        saveNote(h, ta.value);
+        renderWalkProgress();
+        saved.classList.add('is-visible');
+        setTimeout(() => saved.classList.remove('is-visible'), 900);
+      }, 280);
+    });
+
+    // Tapping the textarea while collapsed expands the pad first.
+    ta.addEventListener('focus', () => {
+      if (!pad.classList.contains('is-expanded')) toggle.click();
+    });
+  }
+  function syncWalkPadForHouse(h, exercisePromptHtml) {
+    const pad = document.getElementById('walkPad');
+    if (!pad) return;
+    pad.hidden = false;
+    document.body.classList.add('walk-pad-active');
+    document.body.classList.toggle('walk-pad-expanded', pad.classList.contains('is-expanded'));
+    document.getElementById('walkPadTag').innerHTML = `<em>House ${h} · ${HOUSE_PROMPT_NOUN[h]}</em> — write your line`;
+    document.getElementById('walkPadPrompt').innerHTML = exercisePromptHtml;
+    const ta = document.getElementById('walkPadAnswer');
+    const notes = loadNotes();
+    ta.value = notes['h' + h] || '';
+  }
+  function hideWalkPad() {
+    const pad = document.getElementById('walkPad');
+    if (!pad) return;
+    pad.hidden = true;
+    document.body.classList.remove('walk-pad-active', 'walk-pad-expanded');
+  }
+
   function renderWalk() {
     if (walkIdx === 13) {
-      // v4.52.0 — Synthesis card replaces the per-house card.
+      // v4.53.0 — Synthesis card replaces the per-house card.
+      // v4.53.0 — Hide the writing pad on synthesis (no per-house writing here).
+      if (typeof hideWalkPad === 'function') hideWalkPad();
       renderWalkProgress();
       renderWalkDrawer();
       renderWalkSynthesis();
@@ -2021,7 +2227,7 @@
     nextBtn.textContent = walkIdx === 12 ? 'See synthesis ✦' : 'Next house →';
   }
 
-  // Quick-reference drawer (v4.52.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.53.0) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -2034,7 +2240,7 @@
     try { localStorage.setItem(DRAWER_KEY, v ? '1' : '0'); } catch (e) {}
   }
 
-  // v4.52.0 — Two anchors expander + Self-check persistence.
+  // v4.53.0 — Two anchors expander + Self-check persistence.
   // Open/closed state is global (one preference for the whole walk-through).
   // Self-check answers are per-house (object keyed by 'h{n}').
   const ANCHORS_KEY    = 'astro-mychart-anchors-v1';
@@ -2043,7 +2249,7 @@
   function loadAnchorsOpen()   { try { return localStorage.getItem(ANCHORS_KEY) === '1'; } catch (e) { return false; } }
   function saveAnchorsOpen(v)  { try { localStorage.setItem(ANCHORS_KEY, v ? '1' : '0'); } catch (e) {} }
 
-  // v4.52.0 — Worked-example tab choice. 'vikram' = teaching example,
+  // v4.53.0 — Worked-example tab choice. 'vikram' = teaching example,
   // 'sree' = own-chart example. Default to Vikram's since that's the
   // class-canonical reference; learners can toggle to Sree's to see
   // what the framework yields on a real chart.
@@ -2165,7 +2371,7 @@
                  class="${cur ? 'is-current' : ''} ${hasNote ? 'has-note' : ''}"
                  title="House ${h}${hasNote ? ' · note saved' : ''}"></button>`;
     }
-    // v4.52.0 — synthesis dot at the end (✦), tappable from any house.
+    // v4.53.0 — synthesis dot at the end (✦), tappable from any house.
     const synCur = walkIdx === 13;
     html += `<button type="button" data-jump-h="13" role="tab"
                aria-selected="${synCur}"
@@ -2196,7 +2402,7 @@
     // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
     const isLagnaCard = h === 1;
 
-    // v4.52.0 — Vikram's principle: system gives references, learner writes
+    // v4.53.0 — Vikram's principle: system gives references, learner writes
     // the sentence. The per-planet pill is now factual only — placement +
     // a jump to QR for Vikram's classical material on that planet. No
     // pre-formed "Moon in Aries — energized initiating bold changes" line.
@@ -2212,7 +2418,7 @@
           </div>`;
         }).join('');
 
-    // v4.52.0 — Pati of the House (Sudha's ask). Factual surfacing of the
+    // v4.53.0 — Pati of the House (Sudha's ask). Factual surfacing of the
     // sign's ruler(s) and where each ruler is placed in the user's chart.
     // No per-pair interpretation — that's the learner's work.
     const rulers = SIGN_RULERS[sid] || { primary: null, co: null };
@@ -2243,7 +2449,7 @@
       </div>
     `;
 
-    // v4.52.0 — Karaka block per Step 5 of Vikram's interpretation guidance.
+    // v4.53.0 — Karaka block per Step 5 of Vikram's interpretation guidance.
     // Surfaces the natural significator of this house, which sign its planet
     // sits in, and an explicit reminder of the combination rule (Karaka keyword
     // + sign building blocks; never Karaka keyword + house keyword).
@@ -2272,11 +2478,11 @@
     const notes = loadNotes();
     const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-    // v4.52.0 — open/closed state for the two anchors expander + the self-check.
+    // v4.53.0 — open/closed state for the two anchors expander + the self-check.
     const anchorsOpen   = loadAnchorsOpen();
     const selfcheckOpen = loadSelfcheckOpen();
     const selfcheckState = loadSelfcheckState(h);
-    // v4.52.0 — worked-example tab choice (Vikram's teaching vs Sree's chart).
+    // v4.53.0 — worked-example tab choice (Vikram's teaching vs Sree's chart).
     const weTab = loadWeTab();
 
     const exercisePrompt = isLagnaCard
@@ -2315,7 +2521,7 @@
           <div class="walk-label">The exercise · Vikram's frame</div>
           <p class="walk-exercise-prompt">${exercisePrompt}</p>
 
-          <!-- v4.52.0 — Two anchors before you write (Vikram's craft principles). -->
+          <!-- v4.53.0 — Two anchors before you write (Vikram's craft principles). -->
           <div class="walk-anchors ${anchorsOpen ? 'is-open' : ''}" id="walkAnchors">
             <button class="walk-anchors-toggle" type="button" id="walkAnchorsToggle" aria-expanded="${anchorsOpen}">
               <span class="chev">▶</span>
@@ -2353,7 +2559,7 @@
                 </div>
               </div>
 
-              <!-- v4.52.0 — Worked-example card with tab toggle. Two charts, same framework. -->
+              <!-- v4.53.0 — Worked-example card with tab toggle. Two charts, same framework. -->
               <div class="anchor-card">
                 <div class="anchor-eyebrow">📝 Worked examples</div>
                 <div class="anchor-h"><em>Two walk-throughs</em> — same framework, two charts</div>
@@ -2400,13 +2606,11 @@
             </div>
           </div>
 
-          <textarea class="walk-textarea"
-                    id="walkAnswer"
-                    placeholder="Three characteristics. Start with one. Saved automatically as you type."
-                    aria-label="Your reflection for House ${h}">${savedAnswer}</textarea>
-          <span class="walk-saved" id="walkSaved" aria-live="polite">✓ saved</span>
+          <p class="walk-exercise-pointer">
+            <em>↓ Your reflection lives in the writing pad</em> at the bottom of the screen — always visible, even while you scroll up to read references. Tap "⌄ Collapse" to hide it; tap "⤢ Expand" to write.
+          </p>
 
-          <!-- v4.52.0 — Self-check below the textarea. The user judges; the system asks. -->
+          <!-- v4.53.0 — Self-check below the textarea. The user judges; the system asks. -->
           <div class="walk-selfcheck ${selfcheckOpen ? 'is-open' : ''}" id="walkSelfcheck">
             <button class="walk-selfcheck-toggle" type="button" id="walkSelfcheckToggle" aria-expanded="${selfcheckOpen}">
               <span class="chev">▶</span>
@@ -2441,21 +2645,13 @@
       </div>
     `;
 
-    // Wire textarea auto-save (debounced 280ms — matches Reflect's pattern).
-    const ta = document.getElementById('walkAnswer');
-    const savedTag = document.getElementById('walkSaved');
-    let saveTimer = null;
-    ta.addEventListener('input', () => {
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => {
-        saveNote(h, ta.value);
-        renderWalkProgress();         // refresh dot state
-        savedTag.classList.add('is-visible');
-        setTimeout(() => savedTag.classList.remove('is-visible'), 900);
-      }, 280);
-    });
+    // v4.53.0 — textarea now lives in the fixed sticky pad at the bottom of
+    // the viewport, not inline. Sync the pad's tag/prompt/value for THIS
+    // house. Pad event wiring is set up once in showWalk(); it reads the
+    // current walkIdx at save time so navigation Just Works.
+    syncWalkPadForHouse(h, exercisePrompt);
 
-    // v4.52.0 — Pati jump links: tap takes the user straight to the house
+    // v4.53.0 — Pati jump links: tap takes the user straight to the house
     // where the ruler is placed.
     card.querySelectorAll('.walk-pati-jump[data-jump-h]').forEach(el => {
       el.addEventListener('click', (ev) => {
@@ -2472,7 +2668,7 @@
       });
     });
 
-    // v4.52.0 — Two anchors expander toggle.
+    // v4.53.0 — Two anchors expander toggle.
     const anchorsToggle = document.getElementById('walkAnchorsToggle');
     if (anchorsToggle) {
       anchorsToggle.addEventListener('click', () => {
@@ -2483,7 +2679,7 @@
       });
     }
 
-    // v4.52.0 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
+    // v4.53.0 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
     card.querySelectorAll('.we-tab[data-we-tab]').forEach(btn => {
       btn.addEventListener('click', () => {
         const which = btn.dataset.weTab;
@@ -2500,7 +2696,7 @@
       });
     });
 
-    // v4.52.0 — Self-check expander toggle.
+    // v4.53.0 — Self-check expander toggle.
     const selfcheckToggle = document.getElementById('walkSelfcheckToggle');
     if (selfcheckToggle) {
       selfcheckToggle.addEventListener('click', () => {
@@ -2511,7 +2707,7 @@
       });
     }
 
-    // v4.52.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
+    // v4.53.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
     const partsBoxes = card.querySelectorAll('#selfcheckParts input[data-sc-key]');
     partsBoxes.forEach(cb => {
       const key = cb.dataset.scKey;
@@ -2524,7 +2720,7 @@
       });
     });
 
-    // v4.52.0 — Intention radio + "not for prediction" warning.
+    // v4.53.0 — Intention radio + "not for prediction" warning.
     const intentRadios = card.querySelectorAll('#selfcheckIntent input[data-sc-intent]');
     const warningEl    = document.getElementById('selfcheckWarning');
     function syncWarning() {
@@ -2545,7 +2741,7 @@
   }
 
   function nextWalk() {
-    // v4.52.0 — house 12 → synthesis (walkIdx === 13); synthesis → exit.
+    // v4.53.0 — house 12 → synthesis (walkIdx === 13); synthesis → exit.
     if (walkIdx === 13) { exitWalk(); return; }
     if (walkIdx === 12) { walkIdx = 13; renderWalk(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     walkIdx++;
@@ -2559,7 +2755,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // v4.52.0 — Synthesis card (Step 8: emphasized repeated patterns).
+  // v4.53.0 — Synthesis card (Step 8: emphasized repeated patterns).
   // Tallies each placed planet's sign attributes — duality, modality, element —
   // and surfaces frequencies. If a single quality leads, it's emphasized;
   // ties = no emphasis. Pure fact-surfacing — interpretation is the learner's.
@@ -2685,7 +2881,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.52.0';
+  const PAGE_VERSION = '4.53.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -2722,6 +2918,28 @@
 })();
 </script>
 
+
+<!-- ====================== STICKY WRITING PAD (v4.53.0 — bottom banner) ====================== -->
+<!-- Lives at body level so it can be position:fixed across the viewport.
+     Shown by JS only when the walk-through view is active and walkIdx is 1-12.
+     Default state: expanded (per Sree's preference). -->
+<div class="walk-pad" id="walkPad" hidden>
+  <div class="walk-pad-inner">
+    <div class="walk-pad-header">
+      <span class="icon" aria-hidden="true">✎</span>
+      <span class="walk-pad-tag" id="walkPadTag">Write your line</span>
+      <span class="walk-pad-saved" id="walkPadSaved" aria-live="polite">✓ saved</span>
+      <button class="walk-pad-toggle" type="button" id="walkPadToggle" aria-expanded="true">⌄ Collapse</button>
+    </div>
+    <div class="walk-pad-body">
+      <p class="walk-pad-prompt" id="walkPadPrompt"></p>
+      <textarea class="walk-pad-textarea"
+                id="walkPadAnswer"
+                placeholder="Three characteristics. Start with one. Saved automatically as you type."
+                aria-label="Your reflection for this house"></textarea>
+    </div>
+  </div>
+</div>
 
 <!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
 <style>
@@ -2782,7 +3000,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.52.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.53.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

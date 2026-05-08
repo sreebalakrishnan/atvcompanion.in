@@ -483,10 +483,45 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.53.0 ====================== -->
+  <section class="release" data-credits="Sree (sticky-pad ask · read-and-write friction)">
+    <header>
+      <h2>v4.53.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">A <strong>sticky writing pad</strong> now lives at the bottom of the viewport on the <a href="read.html">Read · beta</a> walk-through. Sree caught the friction: the textarea was buried below the references, so writing meant scrolling between read and write. The fix — pin the textarea as a fixed bottom-banner that stays visible while the user scrolls up to re-read the drawer, the Pati block, the Karaka block. Writing happens with references in view, not after them.</p>
+
+    <h3>What landed</h3>
+    <ul>
+      <li>The per-house textarea moved out of the inline <code>walk-exercise</code> block and into a new fixed-position bottom banner (<code>.walk-pad</code>). Body-level so it can overlay the viewport.</li>
+      <li><strong>Default state: expanded.</strong> The pad shows: house tag (<em>"House 5 · Children — write your line"</em>), the exercise prompt sentence, the textarea, a "✓ saved" indicator, and an "⌄ Collapse" button.</li>
+      <li><strong>Collapse / expand.</strong> Tap "⌄ Collapse" to shrink to a slim 46px header (just the tag + saved indicator + "⤢ Expand"). Tap to bring the textarea back. State persists per browser (<code>astro-mychart-pad-expanded-v1</code>).</li>
+      <li><strong>Auto-focus on expand.</strong> Tapping the collapsed pill expands and focuses the textarea so writing starts immediately.</li>
+      <li><strong>Auto-save preserved.</strong> Same debounced 280ms save to <code>astro-mychart-notes-v1</code> per house. Saved indicator pulses inside the pad on each save.</li>
+      <li><strong>Visible only during the walk-through, houses 1–12.</strong> Hidden on the synthesis destination, on Setup, and on Chart views.</li>
+      <li><strong>Coexists with the WhatsApp FAB.</strong> Pad has 80px right-side padding so the FAB stays accessible. WA FAB sits visually above the pad (z-index 200 vs 100).</li>
+      <li><strong>Page padding adjusts.</strong> Body gets <code>padding-bottom: 64px</code> when collapsed, <code>220px</code> when expanded — content can scroll past the pad without being hidden under it.</li>
+      <li><strong>Inline pointer where the textarea used to be.</strong> A small dashed-border note inside <code>walk-exercise</code> says: <em>"↓ Your reflection lives in the writing pad at the bottom of the screen — always visible, even while you scroll up to read references. Tap '⌄ Collapse' to hide it; tap '⤢ Expand' to write."</em> Cohort members aren't surprised by where the textarea moved to.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The walk-through has accumulated rich references — drawer (Vikram's keyword grids), Pati block, Karaka block, planet placements. All of it is meant to inform the user's "I am ___" sentence. With the textarea inline at the bottom, writing meant losing sight of the references; with it sticky, writing happens with the references one scroll away.</li>
+      <li>Default-expanded means the writing surface is visible the moment the user lands on a house — no hidden affordance to discover.</li>
+      <li>Collapse-on-demand means cohort members who want a clean read of the references can shrink the pad to 46px and still see what house they're on + that their previous notes are saved.</li>
+      <li>The mobile experience benefits most: scrolling on a phone between top-of-card references and bottom-of-card textarea was the worst case of the old layout. The pad fixes it without compromising desktop.</li>
+    </ul>
+
+    <h3>Implementation note</h3>
+    <ul>
+      <li>The pad's textarea event handler reads <code>walkIdx</code> at save time, so navigating between houses (via Prev/Next buttons or the 12-dot progress bar) updates the pad's tag, prompt, and value automatically. One textarea, one save handler, twelve houses.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.52.0 ====================== -->
   <section class="release" data-credits="Vikram (Steps 5 + 8 · house-interpretation guidance PDF) · Sree (build)">
     <header>
-      <h2>v4.52.0 <em>· current</em></h2>
+      <h2>v4.52.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Cut B1 of the deeper interpretation layers from Vikram's recently-shared house-interpretation guidance lands on <a href="read.html">Read · beta</a>. <strong>Two pieces:</strong> a new <em>Karaka · Natural significator</em> block on every walk-through card (Step 5 of the guidance), and a new <em>Synthesis</em> destination card after House 12 that surfaces what the cohort member's chart emphasizes across duality / modality / element (Step 8). Both stay strictly in the fact-surfacing register — Vikram's principle is honored throughout: the system shows the data, the learner draws the meaning.</p>
@@ -3119,7 +3154,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.52.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.53.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3342,7 +3377,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.52.0';
+  const PAGE_VERSION = '4.53.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3456,7 +3491,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.52.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.53.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

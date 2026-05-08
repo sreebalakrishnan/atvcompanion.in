@@ -115,7 +115,7 @@
     letter-spacing: .03em;
   }
 
-  /* ---------- WHERE TO START (v4.52.0 — Layer 1 onboarding map) ---------- */
+  /* ---------- WHERE TO START (v4.53.0 — Layer 1 onboarding map) ---------- */
   .where-to-start {
     margin: 40px 0 0;
     padding: 36px 0 8px;
@@ -174,7 +174,7 @@
     border-color: var(--saffron);
     box-shadow: var(--shadow-md);
   }
-  /* v4.52.0 — coming-soon variants for Cuts G & H */
+  /* v4.53.0 — coming-soon variants for Cuts G & H */
   .wts-card.is-coming-soon {
     opacity: .72;
     cursor: default;
@@ -643,7 +643,7 @@
 
   <!-- ====================== HERO ====================== -->
   <header class="hero">
-    <div class="eyebrow">all things vedic · the companion app · v4.52.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.53.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">A companion app for Vikram's class. Holds the material we're learning, structured to come back to between sessions.</p>
     <div class="ornament" aria-hidden="true">
@@ -657,7 +657,7 @@
     <span class="credit">— Sree &amp; Sanchi · alongside the class</span>
   </p>
 
-  <!-- ====================== WHERE TO START (v4.52.0 — Layer 1 onboarding map) ====================== -->
+  <!-- ====================== WHERE TO START (v4.53.0 — Layer 1 onboarding map) ====================== -->
   <section class="where-to-start" aria-label="Where to start">
     <div class="wts-eyebrow">Where to start</div>
     <h2 class="wts-h">Pick the door that matches <em>your why</em></h2>
@@ -703,13 +703,13 @@
         <div class="wts-where">→ Layers</div>
         <p class="wts-detail">The longer arc — month by month, layer by layer.</p>
       </a>
-      <!-- v4.52.0 — Read · beta (Phase A). Sudha's chart-interpretation ask, shipping in cuts. -->
+      <!-- v4.53.0 — Read · beta (Phase A). Sudha's chart-interpretation ask, shipping in cuts. -->
       <a class="wts-card" href="read.html">
         <div class="wts-want">I want to <em>read my own chart</em><span class="wts-soon-tag" style="background:rgba(184,65,14,.08);color:var(--saffron);border-color:rgba(184,65,14,.3);">beta</span></div>
         <div class="wts-where">→ Read · beta</div>
         <p class="wts-detail">Pick your Lagna, place your planets, see the South Indian chart. Walk-through (Sudha's pedagogy — house by house) lands next.</p>
       </a>
-      <!-- v4.52.0 — Cut G stub. Sudha's elements-with-practices ask, pending Vikram input. -->
+      <!-- v4.53.0 — Cut G stub. Sudha's elements-with-practices ask, pending Vikram input. -->
       <a class="wts-card is-coming-soon" href="#" onclick="return false;" aria-disabled="true">
         <div class="wts-want">I want to <em>embody the five elements</em><span class="wts-soon-tag">coming soon</span></div>
         <div class="wts-where">→ Elements page</div>
@@ -882,7 +882,7 @@
     </div>
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> and my peer group — for the inspiration, love, support and feedback.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.52.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.53.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -917,7 +917,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.52.0';
+  const PAGE_VERSION = '4.53.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1015,7 +1015,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.52.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.53.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
