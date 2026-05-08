@@ -483,10 +483,58 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.54.0 ====================== -->
+  <section class="release" data-credits="Vikram (Session 41 · canonical statement of the two interpretation paths) · Sree (catch — deck 63 vs guidance PDF disagreement)">
+    <header>
+      <h2>v4.54.0 <em>· current</em></h2>
+      <span class="date">8 May 2026</span>
+    </header>
+    <p class="summary">Sree spotted that two of his class references — older deck 63 (<em>Interpreting the Ascendant</em>) and the newer house-interpretation guidance PDF — teach moves that contradict each other. A deep read of six class transcripts (Sessions 35, 39, 40, 41, 42, 43) confirmed: deck 63's worked example combines a Lord keyword with the house-of-Lord's-placement keyword, which Vikram explicitly forbids in Session 41 (April 19, 2026). v4.54 makes the <em>subject of every analysis</em> visible inside <a href="read.html">Read · beta</a>, surfaces the 8-billion-people test prominently at the writing moment, and adds a KB correction note that re-derives deck 63's example using the May 2026 procedure.</p>
+
+    <h3>The diagnosis</h3>
+    <ul>
+      <li>Vikram teaches <strong>two interpretation paths</strong>. Path A · analysing a HOUSE (8 steps); Path B · analysing a PLANET (3 steps). The path determines which combinations are legal in a sentence.</li>
+      <li>The boundary that catches everyone: when a planet sits in a house, its role flips depending on which path you're on. <strong>Path A Step 2</strong> = planet keyword + house keyword (no sign building blocks). <strong>Path A Step 4</strong> = ruler keyword + sign building blocks (no house keyword). <strong>Path B Step 1</strong> = planet keyword + sign building blocks (no house at all). Three different sentence templates for the same chart fact.</li>
+      <li>Deck 63's worked example writes <em>"My identity is linked to my higher education"</em> — combining Lord (Moon → identity) with house-of-Lord-placement (9th → higher education). The May 2026 guidance flags this as a forbidden combination. Deck 63 actively models the move Vikram now catches you on.</li>
+      <li>The 8-billion-people test from the guidance PDF: <em>"is this true for everyone with this Lagna?"</em> If yes — the sentence is universal, not specific. The most common offender: combining the Karaka keyword with the house keyword (Karaka is the same for all 8 billion people).</li>
+    </ul>
+
+    <h3>What landed in Read · beta</h3>
+    <ul>
+      <li><strong>Subject made explicit on every walk-through surface.</strong> The walk-card eyebrow now reads <em>"House N of 12 · subject of this analysis"</em>; the writing pad's tag reads <em>"Analysing House N · [House Word] — write your line about this house"</em>; the framing line at the top of the walk-through reminds: <em>"📍 Subject: you are analysing this house — keep every sentence about this house. The Lord's other house, the Karaka's other placement — those are different analyses, not extras to fold in here."</em></li>
+      <li><strong>The 8-billion-people test surfaced at the writing moment.</strong> A new saffron-bordered note above the writing pad: <em>"📍 The 8-billion-people test. If your line is true for everyone with this Lagna — it's universal, not yours. Specifics come from your sign + your Lord's placement + your Karaka's placement, never from the Karaka keyword combined with the house keyword."</em> With a deep link to the canonical 8-step procedure document.</li>
+    </ul>
+
+    <h3>What landed in the KB</h3>
+    <ul>
+      <li>New file <code>astrology-101-knowledge-base/deck-63-correction-may-2026.md</code> — a companion note alongside <code>decks/63-interpreting-the-ascendant.md</code> that:
+        <ul>
+          <li>Marks each of deck 63's sample sentences as ✅ legal or ❌ forbidden under the May 2026 guidance, with the specific Step number from Path A.</li>
+          <li>Re-derives the Cancer-Ascendant example using the 8-step procedure cleanly.</li>
+          <li>Cites Session 41 (April 19, 2026) where Vikram explicitly distinguishes Path A from Path B at 35:02, names the Step 2 / Step 4 boundary at 1:41:30, and answers Marie's identical question at 1:43:30: <em>"If you do Sun in Aries, you can analyse Sun in Aries, but in that case you are analysing the soul, the identity, the true nature of the person, and nothing to do with the 9th house. Here my task is to analyse the 9th house."</em></li>
+        </ul>
+      </li>
+      <li><code>INDEX.md</code> updated to reference the correction note in the cross-deck reference documents section.</li>
+    </ul>
+
+    <h3>Why this lands</h3>
+    <ul>
+      <li>The biggest source of confusion in chart interpretation is collapsing the subject. With the subject visible at three places on every walk-through card (eyebrow, frame, pad tag), drift is much harder.</li>
+      <li>The 8-billion-people test is the single rule that catches the most universal-not-personal sentences. Surfacing it at the writing moment, not buried in a deck deep in the KB, makes it a check rather than a footnote.</li>
+      <li>The deck 63 correction note prevents a quiet inheritance of the wrong move. Cohort members who learned interpretation from deck 63 first will see exactly which sentences need re-derivation under the new rules.</li>
+    </ul>
+
+    <h3>What's next</h3>
+    <ul>
+      <li><strong>Path B in Read</strong> (v4.55+) — add a "Read a planet" walk-through alongside "Read a house". Currently only Path A is surfaced.</li>
+      <li><strong>Cut B2 (planet-to-planet relationships)</strong> — Step 3 of Path A, when 2+ planets share a house.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.53.0 ====================== -->
   <section class="release" data-credits="Sree (sticky-pad ask · read-and-write friction)">
     <header>
-      <h2>v4.53.0 <em>· current</em></h2>
+      <h2>v4.53.0</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">A <strong>sticky writing pad</strong> now lives at the bottom of the viewport on the <a href="read.html">Read · beta</a> walk-through. Sree caught the friction: the textarea was buried below the references, so writing meant scrolling between read and write. The fix — pin the textarea as a fixed bottom-banner that stays visible while the user scrolls up to re-read the drawer, the Pati block, the Karaka block. Writing happens with references in view, not after them.</p>
@@ -3154,7 +3202,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.53.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.54.0 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3377,7 +3425,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.53.0';
+  const PAGE_VERSION = '4.54.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3491,7 +3539,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.53.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.54.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

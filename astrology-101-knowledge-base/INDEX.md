@@ -111,6 +111,7 @@ These aren't decks — they're standalone canonical references that synthesize V
 | `interpretation-framework.md` | Two craft anchors — Parts of Speech + The Intention | Deck 72 (Sun) |
 | `house-planet-interpretation-guidance.md` | 8-step procedure for analysing a house, 3-step for a planet, "what goes with what" combination rules, and 7 Golden Rules | `sources/House-interpretation-guidance-from-vikram.pdf` (uploaded by Sree, captured a few weeks before May 2026 from Vikram's class) |
 | `worked-example-sun-in-sagittarius-11h.md` | Learner's worked example — Sree's own walk-through (Sun in Sagittarius 11H · Aquarius Lagna). Pairs with Vikram's Sun in Aries 2H teaching example | Sree's chart |
+| `deck-63-correction-may-2026.md` | Correction note flagging that deck 63's worked example mixes Lord + house-of-placement keywords (forbidden under the May 2026 guidance). Re-derives the example legally using the 8-step Path A | Session 41 transcript (April 19, 2026) |
 | `houses-classical.json` | Per-house BPHS / Uttara Kalamrita / Sarvartha Chintamani / Hora Sara extracts | Deck 67 |
 | `planets-classical.json` | Per-planet classical attribute lists | Decks 72/73/76/77 |
 | `reflective-prompts.md` | Per-avatar reflection prompts in Vikram's voice | Per-avatar decks |
