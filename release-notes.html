@@ -483,10 +483,38 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.57.0 ====================== -->
+  <section class="release" data-credits="Sree (real-estate audit on Quick Reference + chamber-clipping bug report on mobile)">
+    <header>
+      <h2>v4.57.0 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">Two fixes on <a href="read.html">Read · beta</a>, both from Sree's eyes-on testing. The Quick Reference drawer inside each walk-through card was eating ~485 vertical pixels before the user reached the analysis card — nine attribute tiles laid out, six of them irrelevant for the current sign. It's now compacted to one prominent tile per dimension with chip-row alternates. Separately, on mobile some planet glyphs were getting clipped at the bottom of their chambers because long deck-61 keyword strings (9H, 11H) were wrapping to 3-4 lines and pushing the planets past the chamber's bottom edge.</p>
+
+    <h3>Quick Reference drawer · compact mode</h3>
+    <ul>
+      <li><strong>Three rows instead of nine tiles.</strong> Per dimension (Dualities, Modalities, Elements), the drawer now shows the <em>relevant</em> tile in full — saffron border, full keyword line — with the alternates rendered as small italic chips beneath. <em>"Compare:"</em> introduces the chip row.</li>
+      <li><strong>Tap a chip to swap.</strong> Tapping <em>Yin</em> (or any alternate) swaps it into the prominent slot with its keywords visible. The previously-prominent tile becomes a chip. So all 9 tiles' content is one tap away — nothing is hidden.</li>
+      <li><strong>Picks reset on navigation.</strong> Each new house or planet anchors back to that sign's actual attributes — your Modalities pick on House 1 doesn't carry over to House 2. The drawer keeps its open/closed state per session as before.</li>
+      <li><strong>Avatars section unchanged.</strong> Still shows only the avatars of planets sitting in the current house (Path A) or the current planet (Path B).</li>
+      <li>Estimated savings: ~60% vertical real estate when the drawer is open. The analysis card now appears above the fold on most laptop screens; on mobile it's roughly one swipe closer.</li>
+    </ul>
+
+    <h3>Chart chamber overflow · mobile fix</h3>
+    <ul>
+      <li><strong>The bug.</strong> The deck-61 keyword strings landed in v4.56.0 inside each chamber. The longer ones — <em>"Awards, Recognition, Friends, my status"</em> (11H), <em>"My learning, teacher, higher education, long distance travel"</em> (9H) — wrapped to 3-4 lines on iPhone-width screens. Combined with <code>overflow: hidden</code> on the chamber, planet glyphs sitting below the divider got clipped past the chamber's bottom edge. Sree caught it on his own chart: Sun + Mercury at 11H Sagittarius were partially cut off, and several planets were invisible.</li>
+      <li><strong>The fix.</strong> Two CSS changes: (a) <code>-webkit-line-clamp</code> on <code>.chamber-house-kw</code> caps the keyword to <strong>2 lines on mobile, 3 lines on desktop</strong>, with overflow ellipsis on the rare chamber that needs more; (b) <code>margin-top: auto</code> on the chamber divider pins the divider + planets to the chamber's bottom edge, so planet glyphs are always visible inside the chamber bounds — keyword length can no longer push them out.</li>
+      <li>The full keyword string is still readable in the walk-through card and in the per-house Pati / Karaka blocks, so nothing is lost — the chamber just stops trying to show the entire string when there isn't room.</li>
+    </ul>
+
+    <h3>Why both shipped together</h3>
+    <p>Both came out of Sree's same testing pass — open the chart, scroll to the walk view, see what's in front of you on a phone. The drawer audit and the clipping bug were two halves of the same answer to "is read.html actually usable in your hand?" Shipping them as one release keeps the version history readable.</p>
+  </section>
+
   <!-- ====================== v4.56.1 ====================== -->
   <section class="release" data-credits="Sree (chamber-space catch — bring legend inside)">
     <header>
-      <h2>v4.56.1 <em>· current</em></h2>
+      <h2>v4.56.1</h2>
       <span class="date">8 May 2026</span>
     </header>
     <p class="summary">Tightening pass on yesterday's deck-61 keyword landing. Sree spotted the obvious — there's plenty of room <strong>inside</strong> each chamber, so the 12-card legend grid below the chart was redundant. The full keyword strings now sit in the chamber itself; the legend grid is gone. The chart view is lighter, and each chamber carries the complete reference instead of a one-word teaser.</p>
