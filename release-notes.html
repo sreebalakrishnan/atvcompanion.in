@@ -483,10 +483,19 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.57.1 ====================== -->
+  <section class="release" data-credits="Sree (Self-check column-collapse bug report on mobile)">
+    <header>
+      <h2>v4.57.1 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">Hotfix on the Self-check section inside Path A walk-through cards. On iPhone-width screens, each check item was rendering as <em>four narrow columns</em> — checkbox, then "My / sentence / stayed / about" word-stacked, then "this / house" word-stacked, then the rest. Caused by <code>display: flex</code> on the <code>&lt;label&gt;</code> with loose text and <code>&lt;strong&gt;</code> inside: each became its own anonymous flex item and shared horizontal space, wrapping into single-word columns. Fixed by wrapping every label's text content in a single <code>&lt;span&gt;</code> so it's one flex item with normal text flow. Also added a defensive CSS rule (<code>.selfcheck-list label &gt; span { flex: 1 1 auto; min-width: 0; }</code>) so future authors can't trigger the same bug. Wrapped the Path B labels too for consistency. Sree caught it on his actual phone reading the 2H Pisces card.</p>
+  </section>
+
   <!-- ====================== v4.57.0 ====================== -->
   <section class="release" data-credits="Sree (real-estate audit on Quick Reference + chamber-clipping bug report on mobile)">
     <header>
-      <h2>v4.57.0 <em>· current</em></h2>
+      <h2>v4.57.0</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">Two fixes on <a href="read.html">Read · beta</a>, both from Sree's eyes-on testing. The Quick Reference drawer inside each walk-through card was eating ~485 vertical pixels before the user reached the analysis card — nine attribute tiles laid out, six of them irrelevant for the current sign. It's now compacted to one prominent tile per dimension with chip-row alternates. Separately, on mobile some planet glyphs were getting clipped at the bottom of their chambers because long deck-61 keyword strings (9H, 11H) were wrapping to 3-4 lines and pushing the planets past the chamber's bottom edge.</p>
@@ -3516,7 +3525,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.57.0 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.57.1 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3739,7 +3748,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.57.0';
+  const PAGE_VERSION = '4.57.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3853,7 +3862,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.57.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.57.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
