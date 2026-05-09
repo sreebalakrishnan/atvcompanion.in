@@ -483,10 +483,54 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.58.0 ====================== -->
+  <section class="release" data-credits="Vikram + Yash Khataokar (ATV brand book, September 2025) · Sree (request to align read.html)">
+    <header>
+      <h2>v4.58.0 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">Pilot release. <a href="read.html">Read · beta</a> is now visually aligned to the official <strong>ATV Brand Guidelines</strong> (Vikram + Yash, Sept 2025). The other 11 pages are unchanged — they keep the legacy palette and serif body until Vikram has eyes on the new look. Sree requested all three migration stages on read.html in one go so Vikram can see the full intended look in one place.</p>
+
+    <h3>Stage A · Color migration</h3>
+    <ul>
+      <li><strong>Saffron <code>#b8410e</code> → Terracotta Ember <code>#BC8146</code>.</strong> The hot saffron was the app's signature — softer, less alarming Terracotta Ember from the brand mid-tones. All 27 hardcoded <code>rgba(184,65,14,...)</code> values for shadows and tints converted to <code>rgba(188,129,70,...)</code>.</li>
+      <li><strong>Ink <code>#1f1a2e</code> → Charcoal Ash <code>#282826</code>.</strong> Old purple-toned dark replaced by the brand book's neutral. Six <code>rgba(31,26,46,...)</code> shadow values converted to <code>rgba(40,40,38,...)</code>.</li>
+      <li><strong>Background family migrated to Sunlit White tints.</strong> <code>--bg</code> is now <code>#F4EEDA</code> (slightly warmed Sunlit White), <code>--surface</code> is true Sunlit White <code>#F8F4E1</code>, <code>--bg-deep</code> uses tint -1 <code>#E0DCCD</code>. Cards still pop against the page bg.</li>
+      <li><strong>Borders</strong>: <code>--rule</code> = <code>#CAC6BB</code> (Sunlit tint -2), <code>--rule-soft</code> = <code>#E0DCCD</code> (tint -1).</li>
+      <li><strong>Indigo <code>#2a3270</code> → Stormy Sky <code>#6E7D85</code>.</strong> The body background-image's secondary radial gradient softens; two <code>rgba(42,50,112,...)</code> values converted.</li>
+      <li><strong>Hardcoded color blocks updated</strong>: the version-toast helper, the WhatsApp FAB tooltip, and the first-visit tip card all carried direct hex values for historical reasons. All converted to the new palette.</li>
+      <li><strong>Favicon updated</strong> — Sunlit White bg with Terracotta Ember "101", Libre Caslon as the family hint.</li>
+      <li><strong>Theme color meta</strong> tag updated to <code>#F4EEDA</code> for browser chrome / iOS safe-area tinting.</li>
+    </ul>
+
+    <h3>Stage B · Switzer for body</h3>
+    <ul>
+      <li>Added <strong>Switzer</strong> via Fontshare CDN (the brand book's secondary typeface, free from Indian Type Foundry / Fontshare): <code>https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700</code>.</li>
+      <li><code>--body</code> token: <code>'Switzer', 'Spectral', system-ui, sans-serif</code>. Spectral remains as a fallback if Fontshare is offline.</li>
+      <li>Body now reads in a <strong>modern sans</strong> against the serif headlines — the actual brand pairing. Reading density on long-form blocks (release notes prose, walk-through guidance, drawer keyword strings) was tested as part of the swap.</li>
+    </ul>
+
+    <h3>Stage C · Libre Caslon Text for display</h3>
+    <ul>
+      <li>Added <strong>Libre Caslon Text</strong> via Google Fonts as a near-match for the brand book's <em>Libre Caslon Condensed</em>. Condensed isn't on Google Fonts; we'll swap to the actual condensed file once Yash provides it.</li>
+      <li><code>--display</code> token: <code>'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif</code>. Cormorant remains fallback for graceful degradation.</li>
+      <li>Display feels closer to the brand book's deck slides + IG creatives.</li>
+    </ul>
+
+    <h3>Why pilot, not big bang</h3>
+    <p>Migrating all 12 pages at once locks in the new look before Vikram has seen a real surface. Doing read.html alone gives him a single, in-depth page to react to — chart + walk-through + drawer + writing pad all in one. If he says yes, we cascade colors and fonts to the other 11 pages in v4.59.0. If he wants tweaks, we adjust on read.html only — cheap to revert.</p>
+
+    <h3>Known cross-page artifact</h3>
+    <p>While the pilot is live, clicking from read.html to any peer page (Quick Reference, Kaalapurusha, etc.) will show a visible style shift — peer pages still use Cormorant Garamond display + Spectral body + the saffron palette. This is expected and temporary; flagged here so the cohort isn't surprised.</p>
+
+    <h3>Source</h3>
+    <p>Brand book: <code>astrology-101-knowledge-base/sources/ATV-Brand-Guidelines-2025-09.pdf</code> (preserved verbatim). Working derivative: <code>astrology-101-knowledge-base/style-guide.md</code> (the doc I reference before any color or typography change going forward).</p>
+  </section>
+
   <!-- ====================== v4.57.1 ====================== -->
   <section class="release" data-credits="Sree (Self-check column-collapse bug report on mobile)">
     <header>
-      <h2>v4.57.1 <em>· current</em></h2>
+      <h2>v4.57.1</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">Hotfix on the Self-check section inside Path A walk-through cards. On iPhone-width screens, each check item was rendering as <em>four narrow columns</em> — checkbox, then "My / sentence / stayed / about" word-stacked, then "this / house" word-stacked, then the rest. Caused by <code>display: flex</code> on the <code>&lt;label&gt;</code> with loose text and <code>&lt;strong&gt;</code> inside: each became its own anonymous flex item and shared horizontal space, wrapping into single-word columns. Fixed by wrapping every label's text content in a single <code>&lt;span&gt;</code> so it's one flex item with normal text flow. Also added a defensive CSS rule (<code>.selfcheck-list label &gt; span { flex: 1 1 auto; min-width: 0; }</code>) so future authors can't trigger the same bug. Wrapped the Path B labels too for consistency. Sree caught it on his actual phone reading the 2H Pisces card.</p>
@@ -3525,7 +3569,7 @@
     </div>
     <p>← <a href="quick-reference.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.57.1 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.58.0 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3748,7 +3792,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.57.1';
+  const PAGE_VERSION = '4.58.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3862,7 +3906,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.57.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
