@@ -425,6 +425,163 @@
     --display: 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Spectral', Georgia, serif;
   }
+
+  /* ---------- v4.60.0 PERSONALISATION ---------- */
+  .name-prompt {
+    margin: 22px auto 14px;
+    max-width: 600px;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 10px 10px 0;
+    font-family: var(--display);
+    animation: namePromptIn .35s ease-out;
+  }
+  @keyframes namePromptIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .name-prompt[hidden] { display: none; }
+  .name-prompt-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .name-prompt-q {
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.5;
+    margin: 0 0 12px;
+  }
+  .name-prompt-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .name-prompt-input {
+    flex: 1 1 200px;
+    min-width: 0;
+    padding: 8px 12px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .name-prompt-input:focus { border-color: var(--saffron); }
+  .name-prompt-save, .name-prompt-skip {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .15s;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink);
+  }
+  .name-prompt-save {
+    background: var(--saffron);
+    color: var(--surface);
+    border-color: var(--saffron);
+    font-weight: 500;
+  }
+  .name-prompt-save:hover { transform: translateY(-1px); }
+  .name-prompt-skip:hover { color: var(--saffron); border-color: var(--saffron); }
+  .name-prompt-thanks {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 10px;
+    display: none;
+  }
+  .name-prompt.is-thanked .name-prompt-thanks { display: block; }
+  .name-prompt.is-thanked .name-prompt-row { display: none; }
+
+  /* Edit popover (anchored under More menu) */
+  .name-popover {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px 26px;
+    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
+    z-index: 300;
+    width: min(90vw, 380px);
+    font-family: var(--display);
+  }
+  .name-popover[hidden] { display: none; }
+  .name-popover-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(40,40,38,.35);
+    z-index: 299;
+  }
+  .name-popover-backdrop[hidden] { display: none; }
+  .name-popover-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .name-popover-q {
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 16px;
+    line-height: 1.3;
+  }
+  .name-popover-input {
+    width: 100%;
+    padding: 9px 14px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    margin-bottom: 14px;
+  }
+  .name-popover-input:focus { border-color: var(--saffron); }
+  .name-popover-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .name-popover-buttons button {
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink);
+    transition: all .15s;
+  }
+  .name-popover-buttons button:hover { border-color: var(--saffron); color: var(--saffron); }
+  .name-popover-buttons .save {
+    background: var(--saffron);
+    color: var(--surface);
+    border-color: var(--saffron);
+    font-weight: 500;
+  }
+  .name-popover-buttons .save:hover { color: var(--surface); transform: translateY(-1px); }
+  .name-popover-buttons .clear { color: var(--muted); }
 </style>
 </head>
 <body>
@@ -457,6 +614,10 @@
         <a href="stats.html" role="menuitem">Stats</a>
         <a href="release-notes.html" role="menuitem">Release Notes</a>
         <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
+          <span class="more-menu-toggle-label">Your name</span>
+          <span class="more-menu-toggle-value" id="namePopoverValue">Add</span>
+        </button>
         <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
           <span class="more-menu-toggle-label">Style</span>
           <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
@@ -466,7 +627,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.59.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.61.0</div>
     <h1><em>Ether</em> — the fifth element</h1>
     <p class="lede">Notes from the Astrology 101 retreat · Sriperumbudur · March 2026.</p>
     <div class="ornament" aria-hidden="true">
@@ -691,7 +852,7 @@
     </div>
     <p>← <a href="index.html">Back to home</a> · <a href="learning-companion.html">Learning Companion</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.59.0 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.61.0 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -705,7 +866,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.59.0';
+  const PAGE_VERSION = '4.61.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -802,7 +963,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.59.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -912,6 +1073,19 @@
 })();
 </script>
 
+<!-- v4.60.0 Personalisation popover (sitewide) -->
+<div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
+<div class="name-popover" id="namePopover" hidden role="dialog" aria-modal="true" aria-labelledby="namePopoverQ">
+  <div class="name-popover-eyebrow">Your name</div>
+  <p class="name-popover-q" id="namePopoverQ">What should we call you?</p>
+  <input class="name-popover-input" type="text" maxlength="30" placeholder="e.g. Sree" autocomplete="given-name">
+  <div class="name-popover-buttons">
+    <button type="button" class="clear" id="namePopoverClear">Clear</button>
+    <button type="button" id="namePopoverCancel">Cancel</button>
+    <button type="button" class="save" id="namePopoverSave">Save</button>
+  </div>
+</div>
+
 <script>
 /* v4.59.0 — More menu + theme toggle (site-wide). */
 (function(){
@@ -936,6 +1110,128 @@
     });
   }
   tPaint();
+})();
+</script>
+
+<script>
+/* v4.60.0 — Personalisation (KISS, local-only). Provides:
+   - window.__name.get() / set(s) / clear()
+   - Auto-templates any element with [data-name-template], substituting {name}.
+     Element is hidden when no name set (skip-entirely-when-no-name behaviour).
+   - Site-wide popover for edit/clear via the More menu.
+   - First-visit prompt on Home only (presence of #namePrompt). */
+(function(){
+  var KEY_NAME='astro-mychart-name-v1';
+  var KEY_PROMPTED='astro-mychart-name-prompted-v1';
+  var MAX=30;
+  function getName(){
+    try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';}
+  }
+  function setName(s){
+    var v=(s||'').trim().slice(0,MAX);
+    try{
+      if(v) localStorage.setItem(KEY_NAME,v);
+      else localStorage.removeItem(KEY_NAME);
+      localStorage.setItem(KEY_PROMPTED,'1');
+    }catch(e){}
+    applyAll();
+  }
+  function clearName(){
+    try{
+      localStorage.removeItem(KEY_NAME);
+      localStorage.setItem(KEY_PROMPTED,'1');
+    }catch(e){}
+    applyAll();
+  }
+  function wasPrompted(){
+    try{return localStorage.getItem(KEY_PROMPTED)==='1';}catch(e){return false;}
+  }
+  function applyAll(){
+    var name=getName();
+    // 1. Templated text nodes
+    document.querySelectorAll('[data-name-template]').forEach(function(el){
+      var tpl=el.getAttribute('data-name-template');
+      if(name){
+        el.textContent=tpl.replace(/\{name\}/g, name);
+        el.hidden=false;
+      } else {
+        var fallback=el.getAttribute('data-name-fallback');
+        if(fallback!=null){
+          el.textContent=fallback;
+          el.hidden=false;
+        } else {
+          el.textContent='';
+          el.hidden=true;
+        }
+      }
+    });
+    // 2. Templated placeholder/value attributes
+    document.querySelectorAll('[data-name-placeholder]').forEach(function(el){
+      var tpl=el.getAttribute('data-name-placeholder');
+      var fb=el.getAttribute('data-name-placeholder-fallback')||'';
+      el.placeholder=name?tpl.replace(/\{name\}/g, name):fb;
+    });
+    // 3. The "Your name" menu item — show current value or "Add your name"
+    var mv=document.getElementById('namePopoverValue');
+    if(mv) mv.textContent=name||'Add';
+  }
+  // Edit popover wiring
+  function openPopover(){
+    var pop=document.getElementById('namePopover');
+    var bd=document.getElementById('namePopoverBackdrop');
+    if(!pop||!bd) return;
+    var input=pop.querySelector('.name-popover-input');
+    if(input) input.value=getName();
+    pop.hidden=false; bd.hidden=false;
+    setTimeout(function(){if(input)input.focus();},50);
+  }
+  function closePopover(){
+    var pop=document.getElementById('namePopover');
+    var bd=document.getElementById('namePopoverBackdrop');
+    if(pop)pop.hidden=true;
+    if(bd)bd.hidden=true;
+  }
+  document.addEventListener('click',function(e){
+    var trigger=e.target.closest('#namePopoverTrigger');
+    if(trigger){e.stopPropagation();openPopover();return;}
+    var save=e.target.closest('#namePopoverSave');
+    if(save){var inp=document.querySelector('#namePopover .name-popover-input');setName(inp?inp.value:'');closePopover();return;}
+    var clr=e.target.closest('#namePopoverClear');
+    if(clr){clearName();closePopover();return;}
+    var cancel=e.target.closest('#namePopoverCancel');
+    if(cancel){closePopover();return;}
+    var bd=e.target.closest('#namePopoverBackdrop');
+    if(bd){closePopover();return;}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopover();});
+  // Home prompt wiring (only fires if #namePrompt exists)
+  var prompt=document.getElementById('namePrompt');
+  if(prompt){
+    if(getName()||wasPrompted()){prompt.hidden=true;}
+    var saveBtn=prompt.querySelector('.name-prompt-save');
+    var skipBtn=prompt.querySelector('.name-prompt-skip');
+    var inp=prompt.querySelector('.name-prompt-input');
+    function doSave(){
+      var v=inp?inp.value:'';
+      setName(v);
+      if(v){
+        var thanks=prompt.querySelector('.name-prompt-thanks');
+        if(thanks) thanks.textContent='Thanks, '+getName()+' — you\'ll see your name where it helps.';
+        prompt.classList.add('is-thanked');
+        setTimeout(function(){prompt.hidden=true;},2500);
+      } else {
+        prompt.hidden=true;
+      }
+    }
+    if(saveBtn) saveBtn.addEventListener('click',doSave);
+    if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')doSave();});
+    if(skipBtn) skipBtn.addEventListener('click',function(){
+      try{localStorage.setItem(KEY_PROMPTED,'1');}catch(e){}
+      prompt.hidden=true;
+    });
+  }
+  window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
+  applyAll();
 })();
 </script>
 
