@@ -198,6 +198,66 @@
   }
   .cohort-note strong { font-style: normal; font-weight: 500; }
 
+  /* v4.62.3 — Dedication to Vikram Devatha */
+  .dedication {
+    margin: 36px auto 0;
+    padding: 36px 28px 32px;
+    background: linear-gradient(180deg, rgba(188,129,70,.04), rgba(188,129,70,.01));
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    text-align: center;
+  }
+  .dedication-eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 8px;
+  }
+  .dedication-portrait {
+    width: 120px; height: 120px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-md);
+  }
+  .dedication-portrait svg { width: 100%; height: 100%; }
+  /* If you swap to a real photo, this filter creates a soft B&W + saffron duotone */
+  .dedication-portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.05) brightness(0.98);
+    mix-blend-mode: multiply;
+  }
+  .dedication h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 28px; color: var(--ink);
+    margin: 0 0 4px; letter-spacing: -.005em;
+  }
+  .dedication h2 em { font-style: italic; color: var(--saffron); }
+  .dedication-role {
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--muted);
+    letter-spacing: .04em;
+    margin-bottom: 18px;
+  }
+  .dedication-text {
+    max-width: 50ch;
+    margin: 0 auto;
+    font-family: var(--display); font-style: italic;
+    font-size: 16px; color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .dedication-text em { color: var(--saffron); }
+  .dedication-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--saffron);
+  }
+
   /* Footer */
   .footer {
     margin-top: 60px; padding-top: 22px;
@@ -293,10 +353,47 @@
     <p>Questions? <a href="https://wa.me/919880337337" target="_blank" rel="noopener">Send a WhatsApp message</a> or reach out via the feedback button on any page.</p>
   </section>
 
+  <!-- ====================== § FIVE — Dedication to Vikram Devatha ====================== -->
+  <section>
+    <div class="dedication">
+      <div class="dedication-eyebrow">an offering to our mentor</div>
+
+      <!-- Stylized SVG silhouette portrait. To replace with the real photo:
+           drop vikram.jpg into the repo root and swap the <svg>...</svg> below
+           with: <img src="vikram.jpg" alt="Vikram Devatha"> -->
+      <div class="dedication-portrait" aria-hidden="true">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Soft cream background -->
+          <rect width="120" height="120" fill="var(--surface)"/>
+          <!-- Hand-drawn silhouette: head + shoulders, saffron stroke, no fill -->
+          <g fill="none" stroke="var(--saffron)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Head -->
+            <ellipse cx="60" cy="44" rx="22" ry="26"/>
+            <!-- Beard suggestion -->
+            <path d="M 42 52 Q 45 64 52 68 Q 60 72 68 68 Q 75 64 78 52" />
+            <!-- Hair line above -->
+            <path d="M 38 30 Q 50 18 60 16 Q 72 16 82 30" />
+            <!-- Shoulders / kurta collar -->
+            <path d="M 24 110 Q 28 86 44 78 Q 50 76 60 76 Q 70 76 76 78 Q 92 86 96 110" />
+            <!-- Kurta neckline -->
+            <path d="M 52 78 Q 60 84 68 78" />
+            <!-- Subtle face hint: eye line (not specific eyes) -->
+            <path d="M 49 40 L 53 40 M 67 40 L 71 40" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </div>
+
+      <h2>Vikram <em>Devatha</em></h2>
+      <div class="dedication-role">Mentor · <em style="color:var(--saffron);">Astrology 101</em> · All Things Vedic</div>
+      <p class="dedication-text">This companion app is an <em>offering</em> — built alongside Vikram's class, in service to the cohort and to anyone who walks the same path after. The teaching is his. The structure here exists to make it easier to come back to between sessions.</p>
+      <a class="dedication-link" href="https://allthingsvedic.in" target="_blank" rel="noopener">↗ allthingsvedic.in</a>
+    </div>
+  </section>
+
   <footer class="footer">
-    <p>Content © <em>All Things Vedic</em> · Vikram. Page itself built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
+    <p>Content © <em>All Things Vedic</em> · Vikram Devatha. Page itself built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.62.2 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.62.3 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="release-notes.html">Release notes</a>
     </p>
