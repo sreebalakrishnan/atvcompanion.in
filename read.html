@@ -477,93 +477,36 @@
     color: var(--muted);
     line-height: 1.1;
   }
-  /* v4.56.0 — short Vikram-deck-61 keyword inside each chamber, below sanskrit. */
+  /* v4.56.1 — full deck-61 keyword string inside each chamber, below sanskrit.
+     Multi-line wrapping for longer strings (e.g. 9H, 12H). Right-aligned to
+     match the sign block's alignment. */
   .chamber-house-kw {
     font-family: var(--display);
     font-style: italic;
-    font-size: clamp(10px, 1.35vw, 12px);
+    font-size: clamp(9.5px, 1.25vw, 11.5px);
     color: var(--saffron);
-    line-height: 1.1;
-    margin-top: 2px;
+    line-height: 1.25;
+    margin-top: 3px;
+    text-align: right;
+    max-width: 100%;
+    word-wrap: break-word;
+    opacity: .9;
   }
 
-  /* v4.56.0 — House meanings legend below the chart. */
-  .house-legend {
-    margin: 26px 0 8px;
-    padding: 18px 18px 14px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-  }
-  .house-legend-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 4px;
-  }
-  .house-legend-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 19px;
-    line-height: 1.25;
-    margin: 0 0 8px;
-    color: var(--ink);
-  }
-  .house-legend-h em { font-style: italic; color: var(--saffron); }
-  .house-legend-frame {
+  /* v4.56.1 — Single framing line beneath the chart that names the
+     Lagna-vs-Kaalapurusha rule. Replaces the v4.56.1 legend grid. */
+  .chart-frame-rule {
+    margin: 14px auto 4px;
+    max-width: 56ch;
     font-family: var(--display);
     font-style: italic;
     font-size: 13px;
     color: var(--ink-soft);
-    line-height: 1.5;
-    margin: 0 0 12px;
+    line-height: 1.55;
+    text-align: center;
   }
-  .house-legend-frame strong { color: var(--ink); font-weight: 500; font-style: normal; }
-  .house-legend-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  @media (min-width: 540px) { .house-legend-grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 760px) { .house-legend-grid { grid-template-columns: 1fr 1fr 1fr; } }
-  .house-legend-card {
-    padding: 8px 10px;
-    background: var(--bg);
-    border: 1px solid var(--rule-soft);
-    border-radius: 7px;
-  }
-  .house-legend-card.is-lagna {
-    border-color: var(--saffron);
-    background: rgba(184,65,14,.05);
-  }
-  .house-legend-num {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 2px;
-  }
-  .house-legend-name {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 14px;
-    color: var(--ink);
-    margin-bottom: 3px;
-    line-height: 1.2;
-  }
-  .house-legend-keywords {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    line-height: 1.45;
-    margin: 0;
-  }
+  .chart-frame-rule strong { color: var(--ink); font-weight: 500; font-style: normal; }
+  .chart-frame-rule em { color: var(--saffron); font-style: italic; }
   .chamber-divider {
     height: 1px;
     background: var(--rule-soft);
@@ -625,7 +568,7 @@
     flex-wrap: wrap;
   }
 
-  /* ---------- WALK-THROUGH (Phase B · v4.56.0) ---------- */
+  /* ---------- WALK-THROUGH (Phase B · v4.56.1) ---------- */
   .walk-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -665,7 +608,7 @@
   .walk-progress button.has-note { background: var(--ink-soft); }
   .walk-progress button.has-note.is-current { background: var(--saffron); }
 
-  /* Two anchors before you write (v4.56.0 — Vikram's craft principles).
+  /* Two anchors before you write (v4.56.1 — Vikram's craft principles).
      Inline expander immediately above the exercise textarea; self-check
      panel immediately below it. Persist open/closed in localStorage. */
   .walk-anchors,
@@ -805,7 +748,7 @@
     margin-bottom: 3px;
   }
 
-  /* Two-door entry on the chart view (v4.56.0). Replaces the single
+  /* Two-door entry on the chart view (v4.56.1). Replaces the single
      "Begin walk-through" button — Path A (house) and Path B (planet)
      are now equal first-class choices. */
   .chart-doors {
@@ -872,7 +815,7 @@
     margin: 0;
   }
 
-  /* Path-intro card content (v4.56.0). Sits in walkCard when walkIdx === 0 —
+  /* Path-intro card content (v4.56.1). Sits in walkCard when walkIdx === 0 —
      shows the procedure, a worked example, a class transcript quote, and
      deck citations before the user enters the per-item cards. */
   .path-intro-section {
@@ -962,7 +905,7 @@
     line-height: 1.55;
   }
 
-  /* Sticky writing pad (v4.56.0). Fixed-position bottom banner that holds
+  /* Sticky writing pad (v4.56.1). Fixed-position bottom banner that holds
      the per-house exercise textarea. Visible only on walk-through houses
      1-12; hidden on synthesis, setup, and chart views. Coexists with the
      WhatsApp FAB via right-side padding. */
@@ -1073,7 +1016,7 @@
     body.walk-pad-active.walk-pad-expanded { padding-bottom: 240px; }
   }
 
-  /* Inline procedure block (v4.56.0). Native <details> with custom styling
+  /* Inline procedure block (v4.56.1). Native <details> with custom styling
      that holds the 8-step + 3-step procedure right inside the page — no
      external links, no MD navigation. Tap-to-expand. */
   .walk-procedure-inline {
@@ -1165,7 +1108,7 @@
   }
   .walk-procedure-table tr:last-child td { border-bottom: 0; }
 
-  /* Subject-of-analysis 8-billion-people rule (v4.56.0). Sits below the
+  /* Subject-of-analysis 8-billion-people rule (v4.56.1). Sits below the
      "writing pad lives below" pointer to make Vikram's combination rule
      visible at the writing moment. */
   .walk-subject-rule {
@@ -1198,7 +1141,7 @@
   }
   .walk-exercise-pointer em { color: var(--saffron); font-style: italic; }
 
-  /* Synthesis card (v4.56.0 — Step 8 from Vikram's guidance: emphasized
+  /* Synthesis card (v4.56.1 — Step 8 from Vikram's guidance: emphasized
      repeated patterns across the user's placed planets, after all 12
      houses walked). Bars show frequency of each building block. */
   .syn-bars {
@@ -1272,7 +1215,7 @@
   }
   .walk-progress .syn-dot.is-current { color: var(--saffron); background: transparent; }
 
-  /* Worked-example card (v4.56.0). Sits inside the "Two anchors" expander
+  /* Worked-example card (v4.56.1). Sits inside the "Two anchors" expander
      after the Parts of Speech and Intention cards. Tabs toggle between
      Vikram's teaching example and Sree's own-chart example. */
   .we-tabs {
@@ -1432,7 +1375,7 @@
   }
   .selfcheck-warning.is-visible { display: block; }
 
-  /* Walk-through framing line (v4.56.0 — Vikram's principle: system gives
+  /* Walk-through framing line (v4.56.1 — Vikram's principle: system gives
      references, learner writes the sentence). Sits between toolbar and
      progress bar, visible on every house. */
   .walk-frame {
@@ -1449,7 +1392,7 @@
   }
   .walk-frame em { color: var(--saffron); font-style: italic; font-weight: 500; }
 
-  /* Per-planet QR jump link (v4.56.0). */
+  /* Per-planet QR jump link (v4.56.1). */
   .walk-planet-link {
     display: inline-block;
     margin-top: 4px;
@@ -1463,7 +1406,7 @@
   }
   .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
 
-  /* Pati / Ruler block jump (v4.56.0). Tap takes you to that house's walk-through card. */
+  /* Pati / Ruler block jump (v4.56.1). Tap takes you to that house's walk-through card. */
   .walk-pati-jump {
     color: var(--saffron);
     text-decoration: none;
@@ -1481,7 +1424,7 @@
     margin: 6px 0 0;
   }
 
-  /* Quick-reference drawer (v4.56.0) — collapsible cheat sheet inside the walk-through. */
+  /* Quick-reference drawer (v4.56.1) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
     margin: 0 0 16px;
     border: 1px solid var(--rule);
@@ -1896,7 +1839,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.56.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.56.1</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1936,10 +1879,12 @@
 
     <p class="chart-foot" id="chartFoot"></p>
 
-    <!-- v4.56.0 — House meanings legend from Vikram's deck 61. -->
-    <div class="house-legend" id="houseLegend"></div>
+    <!-- v4.56.1 — Lagna-vs-Kaalapurusha framing line. The 12-card legend
+         from v4.56.1 is gone; full keyword strings now live inside each
+         chamber directly. -->
+    <p class="chart-frame-rule" id="chartFrameRule"></p>
 
-    <!-- v4.56.0 — Two-door entry: choose your interpretation path. -->
+    <!-- v4.56.1 — Two-door entry: choose your interpretation path. -->
     <div class="chart-doors">
       <div class="chart-doors-eyebrow">Two paths to read your chart</div>
       <div class="chart-doors-grid">
@@ -2003,7 +1948,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.56.0 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.56.1 · updated 8 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -2107,7 +2052,7 @@
     pisces:      'mutable · water · feminine — a body that dissolves into feeling, intuitive, hard to pin down. Ruled by Jupiter.'
   };
 
-  // v4.56.0 — Vikram's per-house keyword map, verbatim from deck 61
+  // v4.56.1 — Vikram's per-house keyword map, verbatim from deck 61
   // (Kinds of Houses, continued). Keys are HOUSE NUMBERS, not signs —
   // these meanings attach to the house position, not to a specific sign.
   // For the user's chart, House 1 = their Lagna (Whole Sign). For the
@@ -2127,7 +2072,7 @@
     12: { short: 'Release',     full: 'Expenses, Subconscious, my morning practice' }
   };
 
-  // v4.56.0 — Vikram's per-planet "Parts of Speech" worked examples, sourced
+  // v4.56.1 — Vikram's per-planet "Parts of Speech" worked examples, sourced
   // verbatim from his class decks. Currently captured for Sun (deck 72) and
   // Moon (deck 73); other planets show a placeholder until their deck examples
   // land. These are SYNTHESIS form (advanced) — combining planet + sign + house
@@ -2247,7 +2192,7 @@
 
   // Sign rulers — Pati of each rāśi. Mercury and Mars get co-rulers per
   // Vikram's framing (Rahu for Virgo; Ketu for Scorpio). Used by the
-  // "Pati of the House" block on each walk-through card (v4.56.0 — Sudha's ask).
+  // "Pati of the House" block on each walk-through card (v4.56.1 — Sudha's ask).
   const SIGN_RULERS = {
     aries:       { primary: 'mars',    co: null },
     taurus:      { primary: 'venus',   co: null },
@@ -2282,7 +2227,7 @@
   };
 
   // Quick-reference data — LIGHT side only (year-1 of Vikram's class).
-  // v4.56.0: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
+  // v4.56.1: copied verbatim from Quick Reference's ELEMENTS / MODALITIES /
   // POLARITIES / AVATARS constants so the same Vikram keywords appear on both
   // surfaces. The `light` field maps to QR's `positive` field. Shadow side
   // stays out of the drawer by design (year-1 framing).
@@ -2542,8 +2487,9 @@
         : `<div class="chamber-planets">${planets.map(p =>
             `<span class="planet-pill" title="${p.name} · ${p.sanskrit}" aria-label="${p.name}">${p.glyph}</span>`
           ).join('')}</div>`;
-      // v4.56.0 — short house keyword from deck 61 (keyed by HOUSE NUMBER, not sign).
-      const hkw = HOUSE_KEYWORDS[h] ? HOUSE_KEYWORDS[h].short : '';
+      // v4.56.1 — full house keyword string from deck 61 (keyed by HOUSE NUMBER).
+      // The chamber carries the full meaning inline — no separate legend below.
+      const hkw = HOUSE_KEYWORDS[h] ? HOUSE_KEYWORDS[h].full : '';
       html += `
         <div class="chamber sign-${sid} ${isEmpty ? 'is-empty' : ''} ${isLagnaCh ? 'is-lagna' : ''}"
              style="animation-delay: ${(h * .03).toFixed(2)}s"
@@ -2588,42 +2534,22 @@
     const footEdit = document.getElementById('footEdit');
     if (footEdit) footEdit.addEventListener('click', (ev) => { ev.preventDefault(); showSetup(); });
 
-    // v4.56.0 — render the House meanings legend (deck 61, Vikram's class).
-    renderHouseLegend(lagnaIdx);
+    // v4.56.1 — render the single framing line beneath the chart.
+    renderChartFrameRule();
   }
 
-  // v4.56.0 — Twelve-card legend below the chart, sourced verbatim from
-  // deck 61. Highlights House 1 (the user's Lagna) and frames the rule
-  // explicitly: keywords attach to HOUSE NUMBER, not sign — your House 1
-  // is your Lagna sign; only the Kaalapurusha cosmic chart defaults H1=Aries.
-  function renderHouseLegend(lagnaIdx) {
-    const wrap = document.getElementById('houseLegend');
-    if (!wrap) return;
+  // v4.56.1 — Single short line beneath the chart naming the rule that
+  // confused students at Vikram's class. Replaces the v4.56.1 legend grid;
+  // the deck-61 keyword strings now live inside each chamber directly.
+  function renderChartFrameRule() {
+    const el = document.getElementById('chartFrameRule');
+    if (!el) return;
     const lagnaSignName = SIGNS[myChart.lagna] ? SIGNS[myChart.lagna].name : '—';
-    let cardsHtml = '';
-    for (let h = 1; h <= 12; h++) {
-      const kw = HOUSE_KEYWORDS[h] || { short: '', full: '' };
-      const sid = SIGN_ORDER[(lagnaIdx + h - 1) % 12];
-      const sName = SIGNS[sid] ? SIGNS[sid].name : '';
-      const isLagna = h === 1;
-      cardsHtml += `<div class="house-legend-card ${isLagna ? 'is-lagna' : ''}">
-        <div class="house-legend-num">House ${h} · ${sName}</div>
-        <div class="house-legend-name">${kw.short}</div>
-        <p class="house-legend-keywords">${kw.full}</p>
-      </div>`;
-    }
-    wrap.innerHTML = `
-      <div class="house-legend-eyebrow">📜 House meanings · from Vikram's class (deck 61)</div>
-      <h3 class="house-legend-h">Twelve <em>life areas</em> — keyed to the house number</h3>
-      <p class="house-legend-frame">
-        Keywords attach to the <strong>house number</strong>. For your chart, House 1 is your Lagna · <strong>${lagnaSignName}</strong>. (In the cosmic Kāla­purusha chart, House 1 is always Aries — that's a different teaching frame.)
-      </p>
-      <div class="house-legend-grid">${cardsHtml}</div>
-    `;
+    el.innerHTML = `Keywords inside each chamber are from <em>Vikram's class · deck 61</em>. They attach to the <strong>house number</strong>. For your chart, House 1 is your Lagna · <strong>${lagnaSignName}</strong>. (In the cosmic Kāla­purusha chart, House 1 is always Aries.)`;
   }
 
   // ---- WALK-THROUGH (Cut 2) ------------------------------------------------
-  // v4.56.0: notes are now path-aware.
+  // v4.56.1: notes are now path-aware.
   //   astro-mychart-notes-v1     — Path A house notes (existing key, kept).
   //   astro-mychart-notes-planet-v1 — Path B planet notes (new key).
   const NOTES_KEY        = 'astro-mychart-notes-v1';
@@ -2653,7 +2579,7 @@
 
   const walkView    = document.getElementById('walkView');
 
-  // v4.56.0 — Walk path state. 'house' = Path A (12 houses, 8 steps each),
+  // v4.56.1 — Walk path state. 'house' = Path A (12 houses, 8 steps each),
   // 'planet' = Path B (9 planets, 3 steps each). walkIdx 0 = path-intro card,
   // 1..12 (or 1..9) = per-item, last+1 = synthesis.
   let walkPath = 'house';
@@ -2674,7 +2600,7 @@
   function showHouseWalk()  { showWalk({ path: 'house',  idx: 0 }); }
   function showPlanetWalk() { showWalk({ path: 'planet', idx: 0 }); }
 
-  // v4.56.0 — Sticky writing pad helpers.
+  // v4.56.1 — Sticky writing pad helpers.
   // The pad is a single fixed-position element at body level (so it can
   // overlay the viewport). It's shown/hidden based on view + walkIdx.
   // The textarea's value is reloaded from notes when the user navigates
@@ -2735,7 +2661,7 @@
     pad.hidden = false;
     document.body.classList.add('walk-pad-active');
     document.body.classList.toggle('walk-pad-expanded', pad.classList.contains('is-expanded'));
-    // v4.56.0 — pad tag is path-aware.
+    // v4.56.1 — pad tag is path-aware.
     let tagHtml;
     if (walkPath === 'planet') {
       const p = PLANETS[h - 1];
@@ -2762,7 +2688,7 @@
     const synthIdx = len + 1;
     const isHouse  = walkPath === 'house';
 
-    // v4.56.0 — walk-frame copy adapts to the active path.
+    // v4.56.1 — walk-frame copy adapts to the active path.
     const frameEl = document.getElementById('walkFrame');
     if (frameEl) {
       if (isHouse) {
@@ -2812,7 +2738,7 @@
     nextBtn.textContent = walkIdx === len ? 'See synthesis ✦' : (isHouse ? 'Next house →' : 'Next planet →');
   }
 
-  // v4.56.0 — Path intro card. Surfaces the procedure, a worked example,
+  // v4.56.1 — Path intro card. Surfaces the procedure, a worked example,
   // a class transcript quote, and deck citations — all inline, all from Vikram.
   function renderWalkPathIntro() {
     const card = document.getElementById('walkCard');
@@ -2935,7 +2861,7 @@
     if (goBtn) goBtn.addEventListener('click', () => { walkIdx = 1; renderWalk(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
   }
 
-  // v4.56.0 — Path B planet card. Surfaces the 3 steps from Vikram's planet
+  // v4.56.1 — Path B planet card. Surfaces the 3 steps from Vikram's planet
   // procedure, sourced strictly from the user's chart + naisargika friendships.
   function renderWalkPlanetCard() {
     const card = document.getElementById('walkCard');
@@ -3160,7 +3086,7 @@
     syncWarning();
   }
 
-  // Quick-reference drawer (v4.56.0) — collapsible cheat sheet inside the
+  // Quick-reference drawer (v4.56.1) — collapsible cheat sheet inside the
   // walk-through. Light-only by design (year-1 framing). Tiles for the
   // current card's duality / modality / element + avatars-of-present-planets
   // get a saffron-tinted "is-relevant" border so the user instantly sees what
@@ -3173,7 +3099,7 @@
     try { localStorage.setItem(DRAWER_KEY, v ? '1' : '0'); } catch (e) {}
   }
 
-  // v4.56.0 — Two anchors expander + Self-check persistence.
+  // v4.56.1 — Two anchors expander + Self-check persistence.
   // Open/closed state is global (one preference for the whole walk-through).
   // Self-check answers are per-house (object keyed by 'h{n}').
   const ANCHORS_KEY    = 'astro-mychart-anchors-v1';
@@ -3182,7 +3108,7 @@
   function loadAnchorsOpen()   { try { return localStorage.getItem(ANCHORS_KEY) === '1'; } catch (e) { return false; } }
   function saveAnchorsOpen(v)  { try { localStorage.setItem(ANCHORS_KEY, v ? '1' : '0'); } catch (e) {} }
 
-  // v4.56.0 — Worked-example tab choice. 'vikram' = teaching example,
+  // v4.56.1 — Worked-example tab choice. 'vikram' = teaching example,
   // 'sree' = own-chart example. Default to Vikram's since that's the
   // class-canonical reference; learners can toggle to Sree's to see
   // what the framework yields on a real chart.
@@ -3217,7 +3143,7 @@
     const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
     if (lagnaIdx < 0) { drawer.innerHTML = ''; return; }
 
-    // v4.56.0 — drawer adapts to walk path. On Path A (house), the "current sign"
+    // v4.56.1 — drawer adapts to walk path. On Path A (house), the "current sign"
     // is the sign sitting in the current house (Whole Sign). On Path B (planet),
     // the "current sign" is the sign the current planet sits in.
     let sid, planetsForAvatars;
@@ -3361,7 +3287,7 @@
     // What sits where the user's Lagna sign is (1H card uses SIGN_ON_LAGNA copy).
     const isLagnaCard = h === 1;
 
-    // v4.56.0 — Vikram's principle: system gives references, learner writes
+    // v4.56.1 — Vikram's principle: system gives references, learner writes
     // the sentence. The per-planet pill is now factual only — placement +
     // a jump to QR for Vikram's classical material on that planet. No
     // pre-formed "Moon in Aries — energized initiating bold changes" line.
@@ -3377,7 +3303,7 @@
           </div>`;
         }).join('');
 
-    // v4.56.0 — Pati of the House (Sudha's ask). Factual surfacing of the
+    // v4.56.1 — Pati of the House (Sudha's ask). Factual surfacing of the
     // sign's ruler(s) and where each ruler is placed in the user's chart.
     // No per-pair interpretation — that's the learner's work.
     const rulers = SIGN_RULERS[sid] || { primary: null, co: null };
@@ -3408,7 +3334,7 @@
       </div>
     `;
 
-    // v4.56.0 — Karaka block per Step 5 of Vikram's interpretation guidance.
+    // v4.56.1 — Karaka block per Step 5 of Vikram's interpretation guidance.
     // Surfaces the natural significator of this house, which sign its planet
     // sits in, and an explicit reminder of the combination rule (Karaka keyword
     // + sign building blocks; never Karaka keyword + house keyword).
@@ -3437,11 +3363,11 @@
     const notes = loadNotes();
     const savedAnswer = (notes['h' + h] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-    // v4.56.0 — open/closed state for the two anchors expander + the self-check.
+    // v4.56.1 — open/closed state for the two anchors expander + the self-check.
     const anchorsOpen   = loadAnchorsOpen();
     const selfcheckOpen = loadSelfcheckOpen();
     const selfcheckState = loadSelfcheckState(h);
-    // v4.56.0 — worked-example tab choice (Vikram's teaching vs Sree's chart).
+    // v4.56.1 — worked-example tab choice (Vikram's teaching vs Sree's chart).
     const weTab = loadWeTab();
 
     const exercisePrompt = isLagnaCard
@@ -3481,7 +3407,7 @@
           <div class="walk-label">The exercise · Vikram's frame</div>
           <p class="walk-exercise-prompt">${exercisePrompt}</p>
 
-          <!-- v4.56.0 — Path A cleanup: Two-anchors expander, Synthesis Examples,
+          <!-- v4.56.1 — Path A cleanup: Two-anchors expander, Synthesis Examples,
                and the inline 8-step procedure all REMOVED from house cards.
                Parts of Speech is Path B's grammar; the 8-step procedure already
                sits in the Path A intro card; Synthesis Examples relocated to the
@@ -3495,7 +3421,7 @@
             <strong style="color:var(--saffron);">📍 The 8-billion-people test.</strong> If your line is true for everyone with this Lagna — it's universal, not yours. Specifics come from <em>your</em> sign + <em>your</em> Lord's placement + <em>your</em> Karaka's placement, never from the Karaka keyword combined with the house keyword.
           </p>
 
-          <!-- v4.56.0 — Self-check rewritten for Path A. The questions ask whether
+          <!-- v4.56.1 — Self-check rewritten for Path A. The questions ask whether
                the user's sentence followed Vikram's house-interpretation procedure
                specifically — not the Parts of Speech grammar (which is Path B). -->
           <div class="walk-selfcheck ${selfcheckOpen ? 'is-open' : ''}" id="walkSelfcheck">
@@ -3531,13 +3457,13 @@
       </div>
     `;
 
-    // v4.56.0 — textarea now lives in the fixed sticky pad at the bottom of
+    // v4.56.1 — textarea now lives in the fixed sticky pad at the bottom of
     // the viewport, not inline. Sync the pad's tag/prompt/value for THIS
     // house. Pad event wiring is set up once in showWalk(); it reads the
     // current walkIdx at save time so navigation Just Works.
     syncWalkPadForHouse(h, exercisePrompt);
 
-    // v4.56.0 — Pati jump links: tap takes the user straight to the house
+    // v4.56.1 — Pati jump links: tap takes the user straight to the house
     // where the ruler is placed.
     card.querySelectorAll('.walk-pati-jump[data-jump-h]').forEach(el => {
       el.addEventListener('click', (ev) => {
@@ -3554,7 +3480,7 @@
       });
     });
 
-    // v4.56.0 — Two anchors expander toggle.
+    // v4.56.1 — Two anchors expander toggle.
     const anchorsToggle = document.getElementById('walkAnchorsToggle');
     if (anchorsToggle) {
       anchorsToggle.addEventListener('click', () => {
@@ -3565,7 +3491,7 @@
       });
     }
 
-    // v4.56.0 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
+    // v4.56.1 — Worked-example tab toggle (Vikram's teaching ↔ Sree's chart).
     card.querySelectorAll('.we-tab[data-we-tab]').forEach(btn => {
       btn.addEventListener('click', () => {
         const which = btn.dataset.weTab;
@@ -3582,7 +3508,7 @@
       });
     });
 
-    // v4.56.0 — Self-check expander toggle.
+    // v4.56.1 — Self-check expander toggle.
     const selfcheckToggle = document.getElementById('walkSelfcheckToggle');
     if (selfcheckToggle) {
       selfcheckToggle.addEventListener('click', () => {
@@ -3593,7 +3519,7 @@
       });
     }
 
-    // v4.56.0 — Self-check parts-of-speech checkboxes (per-house, persisted).
+    // v4.56.1 — Self-check parts-of-speech checkboxes (per-house, persisted).
     const partsBoxes = card.querySelectorAll('#selfcheckParts input[data-sc-key]');
     partsBoxes.forEach(cb => {
       const key = cb.dataset.scKey;
@@ -3606,7 +3532,7 @@
       });
     });
 
-    // v4.56.0 — Intention radio + "not for prediction" warning.
+    // v4.56.1 — Intention radio + "not for prediction" warning.
     const intentRadios = card.querySelectorAll('#selfcheckIntent input[data-sc-intent]');
     const warningEl    = document.getElementById('selfcheckWarning');
     function syncWarning() {
@@ -3627,7 +3553,7 @@
   }
 
   function nextWalk() {
-    // v4.56.0 — path-aware. 0 (intro) → 1 → ... → len → len+1 (synthesis) → exit.
+    // v4.56.1 — path-aware. 0 (intro) → 1 → ... → len → len+1 (synthesis) → exit.
     const len = pathLength();
     if (walkIdx === len + 1) { exitWalk(); return; }
     walkIdx++;
@@ -3641,7 +3567,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // v4.56.0 — Synthesis card (Step 8: emphasized repeated patterns).
+  // v4.56.1 — Synthesis card (Step 8: emphasized repeated patterns).
   // Tallies each placed planet's sign attributes — duality, modality, element —
   // and surfaces frequencies. If a single quality leads, it's emphasized;
   // ties = no emphasis. Pure fact-surfacing — interpretation is the learner's.
@@ -3727,7 +3653,7 @@
 
         <p class="walk-pati-frame">This is what Vikram's Step 8 surfaces — the qualities that show up repeatedly across your placements. The interpretation of <em>what that emphasis means</em> is yours to make.</p>
 
-        <!-- v4.56.0 — Synthesis Examples now Vikram-only. Sree's-chart tab removed
+        <!-- v4.56.1 — Synthesis Examples now Vikram-only. Sree's-chart tab removed
              (per-planet cards already carry the deck-sourced examples for each planet). -->
         <div class="walk-block">
           <div class="walk-label">📝 What an advanced line looks like</div>
@@ -3754,7 +3680,7 @@
     const synEdit = document.getElementById('synEdit');
     if (synEdit) synEdit.addEventListener('click', (ev) => { ev.preventDefault(); showSetup(); });
 
-    // v4.56.0 — wire the relocated Synthesis Examples tabs.
+    // v4.56.1 — wire the relocated Synthesis Examples tabs.
     card.querySelectorAll('.we-tab[data-syn-tab]').forEach(btn => {
       btn.addEventListener('click', () => {
         const which = btn.dataset.synTab;
@@ -3790,7 +3716,7 @@
     if (!confirm('Start over? This clears your Lagna and planet placements from this browser.')) return;
     clearChart(); showSetup();
   });
-  // v4.56.0 — two-door entry replaces single walkBtn.
+  // v4.56.1 — two-door entry replaces single walkBtn.
   wireButton('walkHouseBtn',  showHouseWalk);
   wireButton('walkPlanetBtn', showPlanetWalk);
   wireButton('walkPrevBtn', prevWalk);
@@ -3806,7 +3732,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.56.0';
+  const PAGE_VERSION = '4.56.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3844,7 +3770,7 @@
 </script>
 
 
-<!-- ====================== STICKY WRITING PAD (v4.56.0 — bottom banner) ====================== -->
+<!-- ====================== STICKY WRITING PAD (v4.56.1 — bottom banner) ====================== -->
 <!-- Lives at body level so it can be position:fixed across the viewport.
      Shown by JS only when the walk-through view is active and walkIdx is 1-12.
      Default state: expanded (per Sree's preference). -->
@@ -3925,7 +3851,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.56.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.56.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
