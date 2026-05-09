@@ -214,22 +214,24 @@
     margin-bottom: 8px;
   }
   .dedication-portrait {
-    width: 120px; height: 120px;
-    margin: 0 auto 18px;
+    width: 160px; height: 160px;
+    margin: 0 auto 22px;
     border-radius: 50%;
     background: var(--surface);
-    border: 1px solid var(--rule);
+    border: 2px solid var(--saffron);
+    padding: 4px;  /* breathing space between photo and saffron ring */
     overflow: hidden;
     display: flex; align-items: center; justify-content: center;
     box-shadow: var(--shadow-md);
   }
   .dedication-portrait svg { width: 100%; height: 100%; }
-  /* If you swap to a real photo, this filter creates a soft B&W + saffron duotone */
+  /* v4.62.4 — Photo treatment. Soft B&W + warm contrast for cream context.
+     No mix-blend-mode — keeps the photo readable. The saffron ring frames it. */
   .dedication-portrait img {
     width: 100%; height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) contrast(1.05) brightness(0.98);
-    mix-blend-mode: multiply;
+    border-radius: 50%;
+    filter: grayscale(100%) contrast(1.08) brightness(1.02) sepia(0.18);
   }
   .dedication h2 {
     font-family: var(--display); font-weight: 500;
@@ -358,29 +360,9 @@
     <div class="dedication">
       <div class="dedication-eyebrow">an offering to our mentor</div>
 
-      <!-- Stylized SVG silhouette portrait. To replace with the real photo:
-           drop vikram.jpg into the repo root and swap the <svg>...</svg> below
-           with: <img src="vikram.jpg" alt="Vikram Devatha"> -->
-      <div class="dedication-portrait" aria-hidden="true">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <!-- Soft cream background -->
-          <rect width="120" height="120" fill="var(--surface)"/>
-          <!-- Hand-drawn silhouette: head + shoulders, saffron stroke, no fill -->
-          <g fill="none" stroke="var(--saffron)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <!-- Head -->
-            <ellipse cx="60" cy="44" rx="22" ry="26"/>
-            <!-- Beard suggestion -->
-            <path d="M 42 52 Q 45 64 52 68 Q 60 72 68 68 Q 75 64 78 52" />
-            <!-- Hair line above -->
-            <path d="M 38 30 Q 50 18 60 16 Q 72 16 82 30" />
-            <!-- Shoulders / kurta collar -->
-            <path d="M 24 110 Q 28 86 44 78 Q 50 76 60 76 Q 70 76 76 78 Q 92 86 96 110" />
-            <!-- Kurta neckline -->
-            <path d="M 52 78 Q 60 84 68 78" />
-            <!-- Subtle face hint: eye line (not specific eyes) -->
-            <path d="M 49 40 L 53 40 M 67 40 L 71 40" stroke-width="1.2"/>
-          </g>
-        </svg>
+      <!-- v4.62.4 — Real photo, B&W + cream multiply-blend treatment via CSS. -->
+      <div class="dedication-portrait">
+        <img src="assets/vikram.jpg" alt="Vikram Devatha — mentor, Astrology 101">
       </div>
 
       <h2>Vikram <em>Devatha</em></h2>
@@ -393,7 +375,7 @@
   <footer class="footer">
     <p>Content © <em>All Things Vedic</em> · Vikram Devatha. Page itself built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.62.3 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.62.4 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="release-notes.html">Release notes</a>
     </p>
