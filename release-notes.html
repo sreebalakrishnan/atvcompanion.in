@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#F4EEDA">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -484,6 +485,21 @@
     .more-menu { right: -6px; min-width: 200px; }
     .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
   }
+  /* v4.61.1 — More menu positioning. On wide screens we keep the absolute
+     dropdown anchored to the More button. On narrow screens (where the nav
+     wraps and the More button might end up far left), we reposition the menu
+     as a centred sheet so it's always fully visible. */
+  @media (max-width: 600px) {
+    .more-menu {
+      position: fixed;
+      top: 64px;
+      right: 12px;
+      left: auto;
+      max-width: calc(100vw - 24px);
+      min-width: 240px;
+    }
+  }
+
 
   /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
      Activated by adding html.theme-legacy via inline script. Restores
@@ -717,10 +733,31 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.61.1 ====================== -->
+  <section class="release" data-credits="Sree (three catches — broken pills, off-canvas mobile menu, dark-mode auto-inversion)">
+    <header>
+      <h2>v4.61.1 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">Three urgent fixes from Sree's iPhone Safari testing of v4.61.0.</p>
+
+    <h3>1 · Settings popover pills weren't working</h3>
+    <p>The Settings popover on <a href="learning-companion.html">Learning Companion</a> opened correctly, but tapping Mode / Level / Aa pills inside did nothing. Cause: the existing <code>.mode-pill</code>, <code>.level-pill</code>, and <code>#a11yToggle</code> click handlers attached at script-parse time using <code>document.querySelectorAll</code> — but the popover HTML lives at end of body, parsed AFTER those scripts. So the handlers attached to zero elements. Fix: switched to event delegation on <code>document</code> — clicks bubble up regardless of when the pills are rendered. Mode, Level, and Aa now all respond correctly.</p>
+
+    <h3>2 · More menu rendered off-canvas on iPhone</h3>
+    <p>On narrow viewports where the site nav wraps to a second line, the More button could end up at the LEFT side of its row. The dropdown's <code>position: absolute; right: 0</code> then placed it off the visible canvas, partially hidden behind page content. Fix: on viewports under 600px, the More menu now uses <code>position: fixed</code> anchored to the top-right of the viewport. Always fully visible, regardless of where the More button sits in its wrapped row.</p>
+
+    <h3>3 · Some users seeing the page in dark mode</h3>
+    <p>A few demo viewers reported the page rendering "all black" — caused by iOS Safari (and other browsers) auto-applying their system dark mode preference to our cream-coloured page. The cream palette doesn't survive auto-inversion well. Fix: added <code>&lt;meta name="color-scheme" content="light only"&gt;</code> to all 13 pages. Browsers now know to render the page exactly as designed in cream, regardless of system dark mode setting. Light-only by design, by tradition, by Vikram's deck aesthetic.</p>
+
+    <h3>Follow-up — proper skin picker</h3>
+    <p>Sree also asked for a user-selectable skin (light / dark / sepia / etc.) so individual learners could match their preference. That's a bigger build — token mapping for each skin, dropdown in Settings, persistence. Deferring to a future release. For now the <em>Style</em> toggle in the More menu still offers ATV-brand vs Legacy as the two flavours; both are light.</p>
+  </section>
+
   <!-- ====================== v4.61.0 ====================== -->
   <section class="release" data-credits="Sree (top-section reorg ask + Rāśi Chakra spacing catch)">
     <header>
-      <h2>v4.61.0 <em>· current</em></h2>
+      <h2>v4.61.0</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">Two fixes on <a href="learning-companion.html">Learning Companion</a>. The top of the page was eating ~800-900px on iPhone before content appeared — site nav, Mode switcher row, Level filter row, Search button, masthead. Sree asked for a non-technical reorg with KISS in mind. Picked Option B from the proposal: collapse Mode + Level + Aa into a single <strong>Settings</strong> button next to Search. The page lands faster on mobile; controls stay one tap away. Also fixed a Rāśi Chakra spacing bug where Aquarius / Cancer / Capricorn / Leo chambers (rows 2-3) had a noticeable extra gap between planet glyphs and the bottom sign glyph compared to other chambers.</p>
@@ -3978,7 +4015,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.61.0 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.61.1 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4201,7 +4238,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.61.0';
+  const PAGE_VERSION = '4.61.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4315,7 +4352,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

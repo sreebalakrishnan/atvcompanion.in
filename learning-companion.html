@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -4964,6 +4965,21 @@
     .more-menu { right: -6px; min-width: 200px; }
     .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
   }
+  /* v4.61.1 — More menu positioning. On wide screens we keep the absolute
+     dropdown anchored to the More button. On narrow screens (where the nav
+     wraps and the More button might end up far left), we reposition the menu
+     as a centred sheet so it's always fully visible. */
+  @media (max-width: 600px) {
+    .more-menu {
+      position: fixed;
+      top: 64px;
+      right: 12px;
+      left: auto;
+      max-width: calc(100vw - 24px);
+      min-width: 240px;
+    }
+  }
+
 
   /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
      Activated by adding html.theme-legacy via inline script. Restores
@@ -5333,7 +5349,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.61.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.61.1</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -6012,7 +6028,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.61.0 · updated 9 May 2026</span>
+      <span>v4.61.1 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -10044,7 +10060,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.1';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10271,8 +10287,12 @@ function setLevel(level) {
   if (typeof renderGem === 'function') renderGem();
 }
 
-document.querySelectorAll('.level-pill').forEach(p => {
-  p.addEventListener('click', () => setLevel(p.dataset.levelPill));
+// v4.61.1 — event delegation. The pills now live inside the Settings popover
+// at end of body (parsed AFTER this script), so direct attachment finds 0 elements.
+// Delegated listener catches clicks regardless of when the pills are rendered.
+document.addEventListener('click', function(e) {
+  var pill = e.target && e.target.closest && e.target.closest('.level-pill');
+  if (pill && pill.dataset.levelPill) setLevel(pill.dataset.levelPill);
 });
 
 // Apply stored level (default: 'foundations' — match Vikram's contemplative pedagogy and
@@ -10337,8 +10357,10 @@ function setMode(mode) {
   if (typeof updateActiveSection === 'function') updateActiveSection();
 }
 
-document.querySelectorAll('.mode-pill').forEach(p => {
-  p.addEventListener('click', () => setMode(p.dataset.modePill));
+// v4.61.1 — event delegation (same reason as level-pill above).
+document.addEventListener('click', function(e) {
+  var pill = e.target && e.target.closest && e.target.closest('.mode-pill');
+  if (pill && pill.dataset.modePill) setMode(pill.dataset.modePill);
 });
 
 // ----- Frontier + Hard Locks -----
@@ -10648,8 +10670,14 @@ function setA11y(on) {
     if (v === '1') setA11y(true);
   } catch {}
 })();
-const a11yBtn = document.getElementById('a11yToggle');
-if (a11yBtn) a11yBtn.addEventListener('click', () => setA11y(!document.body.classList.contains('a11y-on')));
+// v4.61.1 — event delegation. The a11y button now lives inside the Settings
+// popover at end of body (parsed AFTER this script), so direct getElementById
+// returns null at attachment time.
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.closest && e.target.closest('#a11yToggle')) {
+    setA11y(!document.body.classList.contains('a11y-on'));
+  }
+});
 
 // Initialise quizzes + mode after DOM is ready (this script runs late, so OK to call directly)
 attachQuizBlocks();
@@ -11424,7 +11452,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.61.0';
+  const PAGE_VERSION = '4.61.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

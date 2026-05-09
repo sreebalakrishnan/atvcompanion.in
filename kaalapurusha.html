@@ -581,6 +581,21 @@
     .more-menu { right: -6px; min-width: 200px; }
     .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
   }
+  /* v4.61.1 — More menu positioning. On wide screens we keep the absolute
+     dropdown anchored to the More button. On narrow screens (where the nav
+     wraps and the More button might end up far left), we reposition the menu
+     as a centred sheet so it's always fully visible. */
+  @media (max-width: 600px) {
+    .more-menu {
+      position: fixed;
+      top: 64px;
+      right: 12px;
+      left: auto;
+      max-width: calc(100vw - 24px);
+      min-width: 240px;
+    }
+  }
+
 
   /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
      Activated by adding html.theme-legacy via inline script. Restores
@@ -808,7 +823,7 @@
   </nav>
 
 <header class="qr-masthead">
-  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.61.0</div>
+  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.61.1</div>
   <h1>Kāla<em>purusha</em></h1>
   <p class="qr-sub">An anatomical map of the cosmic body — the kundali laid into Vishnu's form.</p>
   <div class="qr-ornament" aria-hidden="true">
@@ -862,7 +877,7 @@
 </div>
 </section>
 <p style="margin:32px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:13px;color:#7C7B78;letter-spacing:.04em;">
-  v4.61.0 · updated 9 May 2026
+  v4.61.1 · updated 9 May 2026
   &nbsp;·&nbsp;
   <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:#BC8146;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Check for updates</a>
   &nbsp;·&nbsp;
@@ -894,7 +909,7 @@ if (isTouch) {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.61.0';
+  const PAGE_VERSION = '4.61.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1008,7 +1023,7 @@ if (isTouch) {
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.61.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
