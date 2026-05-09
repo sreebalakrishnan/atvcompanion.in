@@ -734,10 +734,43 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.62.1 ====================== -->
+  <section class="release" data-credits="Sree (ask to bring the slide diagrams alive + add a workbook to lock the concept)">
+    <header>
+      <h2>v4.62.1 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">Two interactive layers added to <a href="sripati.html">Sripati Paddhati</a>: an animated 7-step derivation that walks through the cusp math one tap at a time, and a 3-question workbook to lock in the concept. Both KISS-aligned — no auto-play, no over-engineering.</p>
+
+    <h3>Animated derivation</h3>
+    <ul>
+      <li><strong>Replaces</strong> the previous static worked-step blocks. Same numbers, same math (from deck 66), but now it's a tap-Next walk where each step adds an element to the wheel SVG and updates the math text panel beside it.</li>
+      <li><strong>Step 0</strong>: the given chart (Asc 22° Aquarius, M.C. 25° Scorpio). <strong>Steps 1-7</strong>: convert Asc to longitude → convert M.C. → trisect the quadrant → 12th cusp → 11th cusp → house extents (midpoints) → symmetry to I.C. + Desc + the other quadrants.</li>
+      <li><strong>Visual</strong>: a simple SVG circle with cusps appearing as saffron points, labels animating in, the trisection arc highlighted at step 3. Tap-only — no auto-play. Sree's call: non-technical users like control over pacing.</li>
+      <li><strong>Progress bar</strong> + <strong>Replay</strong> button. Once all 7 steps are revealed, the page can be re-walked from scratch with one tap.</li>
+    </ul>
+
+    <h3>Three-question workbook</h3>
+    <ul>
+      <li><strong>Three classical MCQs</strong>, each with a per-question <em>Reveal answer</em> button:
+        <ol>
+          <li><strong>Concept</strong>: "In Sripati Paddhati, a cusp is..." — the answer is *the midpoint of a house*, not the boundary. Lock the conceptual flip.</li>
+          <li><strong>Math</strong>: "Given Asc 22° Aquarius and 10th cusp 25° Scorpio, what is the 11th cusp?" — answer 264° / 24° Sagittarius. Tests the trisection mechanic.</li>
+          <li><strong>Geometry</strong>: "As you move toward higher latitudes, Sripati houses become..." — answer *unequal*. Ties back to Vikram's class quote on why Sripati exists.</li>
+        </ol>
+      </li>
+      <li><strong>Reveal-on-demand</strong>: think first, then tap to reveal. Correct option highlights in saffron with a checkmark; explanation appears below the dashed divider.</li>
+      <li><strong>Whole-page persistence</strong>: <code>localStorage['astro-sripati-workbook-v1']</code>. Once all three are revealed, the workbook stays in its "complete" state on reload, with a small saffron banner confirming it.</li>
+    </ul>
+
+    <h3>What we deliberately didn't build</h3>
+    <p>Latitude slider on the celestial sphere (idea #2 in the proposal), live cusp calculator (idea #3), and three-system planet comparison (idea #4) were considered and deferred. They're rich but the static math + animated derivation + 3-MCQ check is enough teaching surface for v1. Will revisit if Vikram or Kanika asks for "what would change at the equator" or wants to plug in their own chart.</p>
+  </section>
+
   <!-- ====================== v4.62.0 ====================== -->
   <section class="release" data-credits="Kanika (asked to learn more about Sripati Paddhati) · Sree (request to surface search prominently)">
     <header>
-      <h2>v4.62.0 <em>· current</em></h2>
+      <h2>v4.62.0</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">New peer page — <a href="sripati.html"><strong>Sripati Paddhati</strong></a> — built from class material. Plus search prominence: a search bar on Home that lands you in Learning Companion's search modal with your query pre-filled, and a brief shortening of the Sripati section inside Learning Companion (now teaser + jump link).</p>
@@ -4075,7 +4108,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.62.0 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.62.1 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4298,7 +4331,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.62.0';
+  const PAGE_VERSION = '4.62.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4412,7 +4445,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
