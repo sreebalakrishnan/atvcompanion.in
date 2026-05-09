@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F4EEDA">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="Sripati Paddhati — the 11th-century quadrant-based house system. Geometry, the worked example, and when Vikram uses it.">
+<title>Sripati Paddhati — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F4EEDA;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #7C7B78;
+    --rule:      #CAC6BB;
+    --rule-soft: #E0DCCD;
+    --saffron:   #BC8146;
+    --indigo:    #6E7D85;
+    --forest:    #32413B;
+    --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
+    --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+  }
+  /* v4.59.0 Legacy theme override */
+  html.theme-legacy {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 200;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+  .page { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* ---------- v4.61.3 SITE NAV (unified) ---------- */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    letter-spacing: .04em; color: var(--ink-soft);
+    text-decoration: none; transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md); z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { position: fixed; top: 64px; right: 12px; left: auto; max-width: calc(100vw - 24px); min-width: 240px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* Masthead */
+  .masthead {
+    text-align: center;
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; letter-spacing: .14em;
+    color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(34px, 6vw, 48px);
+    line-height: 1.1; margin: 0 0 12px;
+    letter-spacing: -.005em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede {
+    font-family: var(--display); font-style: italic;
+    font-size: 17px; color: var(--ink-soft);
+    margin: 0 auto; max-width: 56ch; line-height: 1.55;
+  }
+
+  /* Sections */
+  section { margin: 36px 0 0; padding-top: 28px; border-top: 1px dashed var(--rule); }
+  section:first-of-type { border-top: 0; padding-top: 0; }
+  .sec-num {
+    font-family: var(--display); font-style: italic;
+    font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(24px, 4vw, 30px);
+    line-height: 1.15; margin: 0 0 12px;
+    letter-spacing: -.005em;
+  }
+  h2 em { font-style: italic; color: var(--saffron); }
+  h3 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 19px; margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  p { margin: 0 0 14px; font-size: 15.5px; color: var(--ink); }
+  p.intro { color: var(--ink-soft); font-size: 16px; }
+  em { font-style: italic; color: var(--saffron); }
+  strong { font-weight: 500; }
+
+  /* Quote — Vikram from class */
+  .vquote {
+    margin: 18px 0;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 8px 8px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .vquote .cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    font-style: normal;
+  }
+
+  /* Comparison cards (4 systems) */
+  .systems-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 18px 0 0;
+  }
+  @media (min-width: 600px) { .systems-grid { grid-template-columns: 1fr 1fr; } }
+  .system-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 16px 18px 14px;
+  }
+  .system-card.is-sripati { border-color: var(--saffron); }
+  .system-card .sys-name {
+    font-family: var(--display); font-weight: 500; font-size: 17px;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .system-card .sys-name em { font-style: italic; color: var(--saffron); }
+  .system-card .sys-rule {
+    font-family: var(--display); font-style: italic; font-size: 13px;
+    color: var(--saffron); margin-bottom: 6px;
+  }
+  .system-card .sys-detail {
+    font-family: var(--body); font-size: 13.5px;
+    color: var(--ink-soft); line-height: 1.5;
+  }
+
+  /* Worked example */
+  .worked {
+    margin: 22px 0;
+    padding: 22px 24px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .worked-eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .worked h3 { margin-top: 0; }
+  .worked-step {
+    margin: 14px 0;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 2px solid var(--rule);
+    border-radius: 0 6px 6px 0;
+  }
+  .worked-step .step-tag {
+    font-family: var(--display); font-style: italic;
+    font-size: 11px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .worked-step .step-math {
+    font-family: var(--body); font-weight: 400;
+    font-size: 14.5px; color: var(--ink); line-height: 1.55;
+  }
+  .worked-step .step-math code {
+    font-family: 'SF Mono', Monaco, 'Menlo', monospace;
+    font-size: 13px; padding: 1px 4px;
+    background: rgba(188,129,70,.08); border-radius: 3px;
+    color: var(--saffron);
+  }
+
+  /* Cross-refs */
+  .xref-list {
+    list-style: none; padding: 0; margin: 16px 0 0;
+  }
+  .xref-list li {
+    margin: 8px 0;
+    padding-left: 14px;
+    position: relative;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .xref-list li::before {
+    content: '↗';
+    position: absolute; left: 0; color: var(--saffron);
+  }
+  .xref-list li a { color: var(--saffron); }
+
+  /* Footer */
+  .footer {
+    margin-top: 60px; padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted); line-height: 1.6;
+  }
+  .footer .meta { margin-top: 8px; font-size: 12px; }
+  .footer a { color: var(--saffron); }
+
+  /* Personalisation popover (site-wide) */
+  .name-popover-backdrop { position: fixed; inset: 0; background: rgba(40,40,38,.35); z-index: 299; }
+  .name-popover-backdrop[hidden] { display: none; }
+  .name-popover {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 12px; padding: 24px 26px;
+    box-shadow: var(--shadow-md); z-index: 300;
+    width: min(90vw, 380px); font-family: var(--display);
+  }
+  .name-popover[hidden] { display: none; }
+  .name-popover-eyebrow { font-style: italic; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 4px; }
+  .name-popover-q { font-style: italic; font-size: 18px; color: var(--ink); margin: 0 0 16px; line-height: 1.3; }
+  .name-popover-input { width: 100%; padding: 9px 14px; background: var(--bg); border: 1px solid var(--rule); border-radius: 999px; font-family: var(--body); font-size: 15px; color: var(--ink); outline: none; margin-bottom: 14px; }
+  .name-popover-input:focus { border-color: var(--saffron); }
+  .name-popover-buttons { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  .name-popover-buttons button { padding: 7px 16px; border-radius: 999px; font-family: var(--display); font-style: italic; font-size: 14px; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); }
+  .name-popover-buttons .save { background: var(--saffron); color: var(--surface); border-color: var(--saffron); font-weight: 500; }
+  .name-popover-buttons .clear { color: var(--muted); }
+</style>
+</head>
+<body>
+<script>
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
+
+<div class="page">
+
+  <!-- ====================== SITE NAV (v4.59.0) ====================== -->
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
+    <span class="sep">·</span>
+    <a href="read.html" class="primary">Read · beta</a>
+    <span class="sep">·</span>
+    <a href="reflect.html" class="primary">Reflect</a>
+    <span class="sep">·</span>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
+          <span class="more-menu-toggle-label">Your name</span>
+          <span class="more-menu-toggle-value" id="namePopoverValue">Add</span>
+        </button>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====================== MASTHEAD ====================== -->
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · the companion app · v4.62.0</div>
+    <h1>Sripati <em>Paddhati</em></h1>
+    <p class="lede">A quadrant-based house system from 11th-century India. The <em>why</em> behind it — geometry, latitude, the M.C. — and the <em>how</em>, walked through with Vikram's own example.</p>
+  </header>
+
+  <!-- ====================== § ONE — Origin ====================== -->
+  <section id="origin">
+    <div class="sec-num">§ One</div>
+    <h2>Origin · <em>Sripati</em>, 11th century</h2>
+    <p class="intro">Sripati was an Indian astronomer and mathematician (c. 1019–1066 CE), best known for his treatise <em>Siddhānta Śekhara</em>. The house-division method that bears his name — <em>Sripati Paddhati</em> (literally "Sripati's procedure") — is a quadrant-based system: it divides the celestial space into four quadrants using the Ascendant and the Medium Coeli, then sub-divides each quadrant into three houses.</p>
+    <p>It sits alongside <em>Whole Sign</em> (Parashara, Jaimini, Mantreshwara) and <em>Equal House</em> as one of three house systems Vikram covers in the class. Each answers a slightly different question about <em>where the planet sits in the sky</em>.</p>
+  </section>
+
+  <!-- ====================== § TWO — The four systems compared ====================== -->
+  <section id="systems">
+    <div class="sec-num">§ Two</div>
+    <h2>Three systems, one chart</h2>
+    <p class="intro">A planet doesn't move when you switch house systems — but the <em>house number</em> assigned to it can. Each system makes a different choice about where one house ends and the next begins.</p>
+
+    <div class="systems-grid">
+      <div class="system-card">
+        <div class="sys-name">Whole Sign · <em>Rāśi</em></div>
+        <div class="sys-rule">One sign = one house</div>
+        <p class="sys-detail">The rising sign (Lagna) is the entire 1st House. The next sign is the entire 2nd House, and so on. Prescribed by Parāśara, Jaimini, Mantreshwara — the system Vikram uses by default.</p>
+      </div>
+      <div class="system-card">
+        <div class="sys-name">Equal House</div>
+        <div class="sys-rule">Each house = exactly 30°</div>
+        <p class="sys-detail">The rising degree is the <em>midpoint</em> of the 1st House. House extends 15° either side of the Ascendant. Then 30° increments forward. Used in some classical texts and in some modern Western systems.</p>
+      </div>
+      <div class="system-card is-sripati">
+        <div class="sys-name">Sripati Paddhati <em>· this page</em></div>
+        <div class="sys-rule">Quadrants from Asc + M.C., trisected</div>
+        <p class="sys-detail">Uses the actual angular distance between Ascendant and Medium Coeli (10th cusp) — divides each quadrant into three. Latitude-aware: at the equator it collapses toward Equal House; at higher latitudes the houses become unequal.</p>
+      </div>
+      <div class="system-card">
+        <div class="sys-name">Placidus <em>· not used in class</em></div>
+        <div class="sys-rule">Time-based quadrant division</div>
+        <p class="sys-detail">Western tradition. Listed here for completeness — Vikram does not use Placidus in the class. Mentioned only when students ask why Western charts look different.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== § THREE — Why Sripati exists ====================== -->
+  <section id="why">
+    <div class="sec-num">§ Three</div>
+    <h2>Why <em>Sripati</em> exists — the geometry</h2>
+    <p class="intro">At the equator, the M.C. (Medium Coeli — the highest point of the ecliptic at the moment of birth) coincides with the Zenith, the point directly overhead. As you move north or south, those two points separate. <em>Sripati Paddhati</em> is the procedure that accommodates this separation and still produces meaningful house cusps.</p>
+
+    <div class="vquote">
+      "At the equator, the Medium Coeli and the Zenith are the same. But if I go north — or south — it moves away from the zenith. That's what brings us to Sripati Paddhati."
+      <span class="cite">— Vikram, Session 37 · Sripathi Paddhathi & Houses · 1 March 2026</span>
+    </div>
+
+    <h3>The anatomy</h3>
+    <p>Four anchor points define the quadrants:</p>
+    <ul style="font-size:15.5px;line-height:1.7;color:var(--ink);padding-left:22px;">
+      <li><strong>Ascendant (Asc)</strong> — eastern horizon. Cusp of 1st House.</li>
+      <li><strong>Medium Coeli (M.C.)</strong> — highest point of the ecliptic. Cusp of 10th House.</li>
+      <li><strong>Descendant (Desc)</strong> — opposite the Ascendant, +180°. Cusp of 7th House.</li>
+      <li><strong>Imum Coeli (I.C.)</strong> — opposite the M.C., +180°. Cusp of 4th House.</li>
+    </ul>
+    <p>Cusps of the remaining houses (2, 3, 5, 6, 8, 9, 11, 12) are computed by trisecting each quadrant's arc along the ecliptic. The house <em>extents</em> are then the midpoints between consecutive cusps.</p>
+    <p style="font-style:italic;color:var(--muted);font-size:14px;">Note: in Sripati Paddhati, a "cusp" is the <em>middle</em> of a house, not its boundary. This is the conceptual flip from Whole Sign — it takes a moment to settle.</p>
+  </section>
+
+  <!-- ====================== § FOUR — Worked example ====================== -->
+  <section id="worked">
+    <div class="sec-num">§ Four</div>
+    <h2>Vikram's worked example</h2>
+    <p class="intro">From deck 66. Step by step. Real numbers.</p>
+
+    <div class="worked">
+      <div class="worked-eyebrow">The given chart</div>
+      <h3>22° Aquarius rising · 10th cusp at 25° Scorpio</h3>
+      <p style="font-size:14.5px;color:var(--ink-soft);">Convert to absolute longitude (0° Aries = 0°, going clockwise on the wheel):</p>
+      <div class="worked-step">
+        <div class="step-tag">Step 1 · Cusp of 1st House (Asc)</div>
+        <div class="step-math">22° Aquarius = 300° + 22° = <code>322°</code></div>
+      </div>
+      <div class="worked-step">
+        <div class="step-tag">Step 2 · Cusp of 10th House (M.C.)</div>
+        <div class="step-math">25° Scorpio = 210° + 25° = <code>235°</code></div>
+      </div>
+      <div class="worked-step">
+        <div class="step-tag">Step 3 · Quadrant size (Asc → M.C.)</div>
+        <div class="step-math">Going clockwise from M.C. up to Asc: 322° − 235° = <strong>87°</strong>. Trisect into three houses (12, 11, 10):<br>Each house = 87° / 3 = <code>29°</code></div>
+      </div>
+      <div class="worked-step">
+        <div class="step-tag">Step 4 · Cusp of 12th House</div>
+        <div class="step-math">322° − 29° = <code>293°</code> → 23° Capricorn</div>
+      </div>
+      <div class="worked-step">
+        <div class="step-tag">Step 5 · Cusp of 11th House</div>
+        <div class="step-math">293° − 29° = <code>264°</code> → 24° Sagittarius</div>
+      </div>
+      <div class="worked-step">
+        <div class="step-tag">Step 6 · House <em>extents</em> (start/end points)</div>
+        <div class="step-math">Cusps are midpoints; the boundaries are the midpoints between consecutive cusps:<br>End of 12H / start of 1H = (322° + 293°) / 2 = <code>307.5°</code><br>End of 11H / start of 12H = (293° + 264°) / 2 = <code>278.5°</code></div>
+      </div>
+      <div class="worked-step">
+        <div class="step-tag">Step 7 · The other two quadrants</div>
+        <div class="step-math">By symmetry: I.C. (4th cusp) = M.C. + 180° = <code>55°</code>. Desc (7th cusp) = Asc + 180° = <code>142°</code>. The remaining cusps (2, 3, 5, 6, 8, 9) are derived the same way — trisect each quadrant.</div>
+      </div>
+    </div>
+
+    <p style="font-style:italic;color:var(--muted);font-size:14px;">The math is mechanical once you see the rhythm. The conceptual leap is just <em>"cusps are midpoints, not edges."</em></p>
+  </section>
+
+  <!-- ====================== § FIVE — When Vikram uses which ====================== -->
+  <section id="when">
+    <div class="sec-num">§ Five</div>
+    <h2>When does Vikram use which?</h2>
+    <p class="intro">In the class, the <strong>Whole Sign</strong> system is the default. Sripati Paddhati gets pulled in when the question is specifically about <em>geographic latitude</em> or when students want to compare with Western charts they've seen.</p>
+
+    <p>For most chart reading — the work in <a href="read.html">Read · beta</a>, the prompts in <a href="reflect.html">Reflect</a>, the cross-references in <a href="learning-companion.html">Learning Companion</a> — Whole Sign is what's running underneath. Sripati lives here as foundational understanding, not as the working surface.</p>
+  </section>
+
+  <!-- ====================== § SIX — Cross-references ====================== -->
+  <section id="xref">
+    <div class="sec-num">§ Six</div>
+    <h2>Where this connects</h2>
+    <ul class="xref-list">
+      <li><a href="astronomy.html#ecliptic">Astronomy · the ecliptic</a> — the path the Sun takes; both Whole Sign and Sripati live on this circle</li>
+      <li><a href="astronomy.html#precession">Astronomy · precession of the equinoxes</a> — why ayanamsha matters before any house system applies</li>
+      <li><a href="learning-companion.html#houses">Learning Companion · Houses</a> — the meanings of the 12 houses, independent of which system divides them</li>
+      <li><a href="kaalapurusha.html">Kaalapurusha</a> — the cosmic body where House 1 always equals Aries; a different teaching frame</li>
+    </ul>
+  </section>
+
+  <!-- ====================== SOURCES ====================== -->
+  <section id="sources">
+    <div class="sec-num">§ Sources</div>
+    <h2>From the class</h2>
+    <ul class="xref-list">
+      <li>Vikram · Session 37 · <em>Sripathi Paddhathi and Houses</em> · 1 March 2026 (2h 14m)</li>
+      <li>Vikram · Session 38 · <em>SP method houses, starting interpretations</em></li>
+      <li>Decks 62, 65, 66, 69 · House Systems (versions 1 → 4)</li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <p>Sourced from Vikram's class material at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a>. Page itself built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.62.0 · updated 9 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="release-notes.html">Release notes</a>
+    </p>
+  </footer>
+
+</div>
+
+<!-- ====================== Personalisation popover (sitewide) ====================== -->
+<div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
+<div class="name-popover" id="namePopover" hidden role="dialog" aria-modal="true" aria-labelledby="namePopoverQ">
+  <div class="name-popover-eyebrow">Your name</div>
+  <p class="name-popover-q" id="namePopoverQ">What should we call you?</p>
+  <input class="name-popover-input" type="text" maxlength="30" placeholder="e.g. Sree" autocomplete="given-name">
+  <div class="name-popover-buttons">
+    <button type="button" class="clear" id="namePopoverClear">Clear</button>
+    <button type="button" id="namePopoverCancel">Cancel</button>
+    <button type="button" class="save" id="namePopoverSave">Save</button>
+  </div>
+</div>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
+})();
+</script>
+
+<script>
+/* v4.60.0 — Personalisation popover (KISS, local-only). */
+(function(){
+  var KEY_NAME='astro-mychart-name-v1';
+  var KEY_PROMPTED='astro-mychart-name-prompted-v1';
+  var MAX=30;
+  function getName(){try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';}}
+  function setName(s){var v=(s||'').trim().slice(0,MAX);try{if(v) localStorage.setItem(KEY_NAME,v);else localStorage.removeItem(KEY_NAME);localStorage.setItem(KEY_PROMPTED,'1');}catch(e){}applyAll();}
+  function clearName(){try{localStorage.removeItem(KEY_NAME);localStorage.setItem(KEY_PROMPTED,'1');}catch(e){}applyAll();}
+  function applyAll(){
+    var name=getName();
+    document.querySelectorAll('[data-name-template]').forEach(function(el){
+      var tpl=el.getAttribute('data-name-template');
+      if(name){el.textContent=tpl.replace(/\{name\}/g, name);el.hidden=false;}
+      else{var fallback=el.getAttribute('data-name-fallback');if(fallback!=null){el.textContent=fallback;el.hidden=false;}else{el.textContent='';el.hidden=true;}}
+    });
+    var mv=document.getElementById('namePopoverValue');
+    if(mv) mv.textContent=name||'Add';
+  }
+  function openPopover(){var pop=document.getElementById('namePopover');var bd=document.getElementById('namePopoverBackdrop');if(!pop||!bd)return;var input=pop.querySelector('.name-popover-input');if(input)input.value=getName();pop.hidden=false;bd.hidden=false;setTimeout(function(){if(input)input.focus();},50);}
+  function closePopover(){var pop=document.getElementById('namePopover');var bd=document.getElementById('namePopoverBackdrop');if(pop)pop.hidden=true;if(bd)bd.hidden=true;}
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#namePopoverTrigger')){e.stopPropagation();openPopover();return;}
+    if(e.target.closest('#namePopoverSave')){var inp=document.querySelector('#namePopover .name-popover-input');setName(inp?inp.value:'');closePopover();return;}
+    if(e.target.closest('#namePopoverClear')){clearName();closePopover();return;}
+    if(e.target.closest('#namePopoverCancel')){closePopover();return;}
+    if(e.target.closest('#namePopoverBackdrop')){closePopover();return;}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopover();});
+  window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
+  applyAll();
+})();
+</script>
+
+</body>
+</html>
