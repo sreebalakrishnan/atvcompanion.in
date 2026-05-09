@@ -12,7 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -267,24 +269,24 @@
            Body silhouette imagery and tab-content structure preserved.
            ============================================================ */
         :root {
-            --qr-bg:        #f3e9d2;
-            --qr-bg-deep:   #ead9b4;
-            --qr-surface:   #faf3e2;
+            --qr-bg:        #F4EEDA;
+            --qr-bg-deep:   #E0DCCD;
+            --qr-surface:   #F8F4E1;
             --qr-surface-2: #f6ecd0;
-            --qr-ink:       #1f1a2e;
-            --qr-ink-soft:  #4a4055;
-            --qr-muted:     #7d6f55;
-            --qr-rule:      #d4c39a;
-            --qr-rule-soft: #e3d4ad;
-            --qr-saffron:   #b8410e;
+            --qr-ink:       #282826;
+            --qr-ink-soft:  #4B4B4A;
+            --qr-muted:     #7C7B78;
+            --qr-rule:      #CAC6BB;
+            --qr-rule-soft: #E0DCCD;
+            --qr-saffron:   #BC8146;
             --qr-display:   'Cormorant Garamond', 'Times New Roman', serif;
             --qr-body:      'Spectral', Georgia, serif;
         }
         body {
             background: var(--qr-bg) !important;
             background-image:
-                radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
-                radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%),
+                radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+                radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%),
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .1 0 0 0 0 .07 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") !important;
             color: var(--qr-ink) !important;
             font-family: var(--qr-body) !important;
@@ -311,24 +313,24 @@
             color: var(--qr-saffron) !important;
         }
         .step-marker { border-color: var(--qr-saffron) !important; background: var(--qr-surface) !important; }
-        .ref-card-h { border-color: rgba(184,65,14,.4) !important; background: rgba(184,65,14,.08) !important; }
+        .ref-card-h { border-color: rgba(188,129,70,.4) !important; background: rgba(188,129,70,.08) !important; }
         .step-title em, .key-learning-text em, .ref-lead em { color: var(--qr-saffron) !important; }
         .key-learning {
-            background: linear-gradient(180deg, rgba(184,65,14,.05), rgba(184,65,14,.02)) !important;
+            background: linear-gradient(180deg, rgba(188,129,70,.05), rgba(188,129,70,.02)) !important;
             border-left-color: var(--qr-saffron) !important;
             border-radius: 6px !important;
         }
         .key-learning-label { color: var(--qr-saffron) !important; letter-spacing: .14em !important; }
         .key-learning-text { color: var(--qr-ink) !important; line-height: 1.65 !important; font-weight: 400 !important; }
         .timeline::before {
-            background: linear-gradient(to bottom, rgba(184,65,14,.5), rgba(212,195,154,.3)) !important;
+            background: linear-gradient(to bottom, rgba(188,129,70,.5), rgba(212,195,154,.3)) !important;
         }
         /* Ref card */
         .ref-card {
             background: var(--qr-surface) !important;
             border: 1px solid var(--qr-rule) !important;
             border-radius: 6px !important;
-            box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 8px 28px -10px rgba(31,26,46,.18) !important;
+            box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 8px 28px -10px rgba(40,40,38,.18) !important;
         }
         .ref-card:hover {
             border-color: var(--qr-saffron) !important;
@@ -535,38 +537,117 @@
             .ref-card-note { font-size: 11px; }
         }
 
-    </style>
+    
+  /* ---------- v4.59.0 SITE NAV (primary 4 + More menu with embedded style toggle) ---------- */
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
+    z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { right: -6px; min-width: 200px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
+     Activated by adding html.theme-legacy via inline script. Restores
+     pre-v4.58 palette + typography. Toggle lives in the More menu. */
+  html.theme-legacy {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+    --qr-bg:        #f3e9d2;
+    --qr-bg-deep:   #ead9b4;
+    --qr-ink:       #1f1a2e;
+    --qr-ink-soft:  #4a4055;
+    --qr-muted:     #7d6f55;
+    --qr-rule:      #d4c39a;
+    --qr-rule-soft: #e3d4ad;
+    --qr-saffron:   #b8410e;
+  }
+</style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex items-center justify-center p-md">
+<script>
+/* v4.59.0 — apply saved theme before first paint to avoid FOUC. */
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
 <main class="w-full max-w-[820px] mx-auto">
-<nav aria-label="Site sections" style="width:100%;padding:0 4px 14px;margin-bottom:14px;display:flex;justify-content:center;align-items:baseline;gap:18px;flex-wrap:wrap;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:14px;letter-spacing:.04em;border-bottom:1px solid rgba(212,195,154,.4);">
-  <a href="index.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Home</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="quick-reference.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Quick Reference</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <span style="color:#b8410e;">Kaalapurusha</span>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="mercury-spectrum.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Mercury Spectrum</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="astronomy.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Astronomy</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="ether.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Ether</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="layers.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Layers</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="reflect.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Reflect</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="interactive.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Interactive · beta</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="read.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Read · beta</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="release-notes.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Release Notes</a>
-  <span style="color:#d4c39a;font-size:11px;font-style:normal;">·</span>
-  <a href="stats.html" style="color:#7d6f55;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#b8410e'" onmouseout="this.style.color='#7d6f55'">Stats</a>
-</nav>
+  <!-- ====================== SITE NAV (v4.59.0) ====================== -->
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
+    <span class="sep">·</span>
+    <a href="read.html" class="primary">Read · beta</a>
+    <span class="sep">·</span>
+    <a href="reflect.html" class="primary">Reflect</a>
+    <span class="sep">·</span>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
 <header class="qr-masthead">
-  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.58.2</div>
+  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.59.0</div>
   <h1>Kāla<em>purusha</em></h1>
   <p class="qr-sub">An anatomical map of the cosmic body — the kundali laid into Vishnu's form.</p>
   <div class="qr-ornament" aria-hidden="true">
@@ -619,14 +700,14 @@
 <p class="key-learning-text">The kundali is not a chart we cast <em>about</em> a person — it <em>is</em> the cosmic body itself. Twelve houses, twelve regions of Kaalapurusha. The clearest single insight in this build came from a correction: signs and houses are not interchangeable. Once that landed, much of the rest fell into place, and a concept I'd been carrying loosely became firm.</p><p class="key-learning-text">And on the craft side: good visualizations rarely arrive whole. They emerge through subtraction. Every iteration here was <em>less</em> than the last — less colour, fewer labels, less ornament. What stayed is what mattered.</p>
 </div>
 </section>
-<p style="margin:32px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:13px;color:#7d6f55;letter-spacing:.04em;">
-  v4.58.2 · updated 9 May 2026
+<p style="margin:32px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:13px;color:#7C7B78;letter-spacing:.04em;">
+  v4.59.0 · updated 9 May 2026
   &nbsp;·&nbsp;
-  <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:#b8410e;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Check for updates</a>
+  <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:#BC8146;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Check for updates</a>
   &nbsp;·&nbsp;
-  <a href="release-notes.html" style="color:#b8410e;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Release notes</a>
+  <a href="release-notes.html" style="color:#BC8146;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Release notes</a>
 </p>
-<p style="margin:8px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:11.5px;color:#7d6f55;letter-spacing:.02em;opacity:.85;">
+<p style="margin:8px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:11.5px;color:#7C7B78;letter-spacing:.02em;opacity:.85;">
   Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
 </p>
 </main>
@@ -652,7 +733,7 @@ if (isTouch) {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.58.2';
+  const PAGE_VERSION = '4.59.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -666,18 +747,18 @@ if (isTouch) {
     if (document.getElementById('upd-banner')) return;
     const b = document.createElement('div');
     b.id = 'upd-banner';
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#b8410e;color:#faf3e2;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
     b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
-      + ' <a href="release-notes.html" style="color:#faf3e2;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
-      + ' <button id="upd-refresh" style="background:#faf3e2;color:#b8410e;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
-      + ' <button id="upd-dismiss" style="background:transparent;color:#faf3e2;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
+      + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
     document.body.appendChild(b);
     document.getElementById('upd-refresh').onclick = bustCache;
     document.getElementById('upd-dismiss').onclick = () => b.remove();
   }
   function showToast(msg) {
     const t = document.createElement('div');
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;background:#1f1a2e;color:#faf3e2;padding:9px 20px;border-radius:100px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;background:#282826;color:#F8F4E1;padding:9px 20px;border-radius:100px;font-family: "Libre Caslon Text", "Cormorant Garamond", serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);';
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => { t.style.transition = 'opacity .25s'; t.style.opacity = '0'; }, 2000);
@@ -720,7 +801,7 @@ if (isTouch) {
     color: #fff;
     border: 0;
     cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(31,26,46,.25);
+    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -729,15 +810,15 @@ if (isTouch) {
   }
   .wa-fab-global:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px -4px rgba(31,26,46,.3);
+    box-shadow: 0 6px 18px -4px rgba(40,40,38,.3);
   }
   .wa-fab-global::after {
     content: 'Send feedback';
     position: absolute;
     bottom: calc(100% + 8px);
     right: 0;
-    background: #1f1a2e;
-    color: #faf3e2;
+    background: #282826;
+    color: #F8F4E1;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
@@ -766,7 +847,7 @@ if (isTouch) {
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.2';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.59.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -783,13 +864,13 @@ if (isTouch) {
     margin: 18px auto 8px;
     max-width: 640px;
     padding: 14px 92px 14px 18px;
-    background: #faf3e2;
-    border: 1px solid #d4c39a;
-    border-left: 3px solid #b8410e;
+    background: #F8F4E1;
+    border: 1px solid #CAC6BB;
+    border-left: 3px solid #BC8146;
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-    color: #1f1a2e;
+    color: #282826;
     animation: fvtIn .3s ease-out;
     z-index: 5;
   }
@@ -802,7 +883,7 @@ if (isTouch) {
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #b8410e;
+    color: #BC8146;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -816,20 +897,20 @@ if (isTouch) {
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #d4c39a;
+    border: 1px solid #CAC6BB;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
-    color: #4a4055;
+    color: #4B4B4A;
     cursor: pointer;
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #b8410e;
-    color: #b8410e;
-    background: rgba(184,65,14,.05);
+    border-color: #BC8146;
+    color: #BC8146;
+    background: rgba(188,129,70,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -873,6 +954,33 @@ if (isTouch) {
   } else {
     build();
   }
+})();
+</script>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
 })();
 </script>
 

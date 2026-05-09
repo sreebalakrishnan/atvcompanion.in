@@ -39,8 +39,8 @@
     --rule:      #CAC6BB;   /* Sunlit White tint -2 */
     --rule-soft: #E0DCCD;   /* Sunlit White tint -1 */
     /* Mid-tone accents — Terracotta Ember (hero) + Stormy Sky (cool). */
-    --saffron:   #BC8146;   /* Terracotta Ember (replaces #b8410e — name kept for legacy var refs) */
-    --indigo:    #6E7D85;   /* Stormy Sky (replaces #2a3270 — name kept for legacy var refs) */
+    --saffron:   #BC8146;   /* Terracotta Ember (replaces #BC8146 — name kept for legacy var refs) */
+    --indigo:    #6E7D85;   /* Stormy Sky (replaces #6E7D85 — name kept for legacy var refs) */
     /* Shadows tuned to Charcoal Ash. */
     --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
@@ -75,51 +75,6 @@
     background-image:
       radial-gradient(circle at 12% 8%, rgba(184,65,14,.05), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
-  }
-
-  /* Theme toggle pill — fixed top-right, opposite the WhatsApp FAB (bottom-right). */
-  .theme-toggle {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 200;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    padding: 6px 14px 6px 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-family: var(--display);
-    box-shadow: var(--shadow-sm);
-    transition: border-color .15s, transform .15s, box-shadow .15s;
-  }
-  .theme-toggle:hover { border-color: var(--saffron); transform: translateY(-1px); }
-  .theme-toggle-eyebrow {
-    font-size: 10.5px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .14em;
-    font-style: italic;
-  }
-  .theme-toggle-value {
-    font-size: 13.5px;
-    color: var(--saffron);
-    font-style: italic;
-    font-weight: 500;
-  }
-  .theme-toggle .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--saffron);
-    flex-shrink: 0;
-  }
-  @media (max-width: 600px) {
-    .theme-toggle { top: 10px; right: 10px; padding: 5px 11px 5px 9px; }
-    .theme-toggle-eyebrow { display: none; }
-    .theme-toggle-value { font-size: 12.5px; }
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -1964,6 +1919,50 @@
   .footer .meta { margin-top: 10px; font-size: 12px; }
   .footer .credits { margin-top: 10px; font-size: 11.5px; opacity: .85; }
   .footer .credits em { font-style: italic; color: var(--ink-soft); }
+
+  /* ---------- v4.59.0 SITE NAV (primary 4 + More menu) ---------- */
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md); z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { right: -6px; min-width: 200px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1978,44 +1977,42 @@
 })();
 </script>
 
-<button class="theme-toggle" type="button" id="themeToggle" aria-label="Toggle visual style: ATV brand or legacy">
-  <span class="dot" aria-hidden="true"></span>
-  <span class="theme-toggle-eyebrow">Style</span>
-  <span class="theme-toggle-value" id="themeToggleValue">ATV brand</span>
-</button>
-
 <div class="page">
 
   <!-- ====================== SITE NAV ====================== -->
+    <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
     <span class="sep">·</span>
-    <a href="quick-reference.html">Quick Reference</a>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <a href="read.html" class="primary" aria-current="page">Read · beta</a>
     <span class="sep">·</span>
-    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
-    <a href="astronomy.html">Astronomy</a>
-    <span class="sep">·</span>
-    <a href="ether.html">Ether</a>
-    <span class="sep">·</span>
-    <a href="layers.html">Layers</a>
-    <span class="sep">·</span>
-    <a href="reflect.html">Reflect</a>
-    <span class="sep">·</span>
-    <a href="interactive.html">Interactive · beta</a>
-    <span class="sep">·</span>
-    <span class="here">Read · beta</span>
-    <span class="sep">·</span>
-    <a href="release-notes.html">Release Notes</a>
-    <span class="sep">·</span>
-    <a href="stats.html">Stats</a>
+    <div class="more-wrap">
+      <button type="button" class="more-btn" id="moreMenuBtn" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.58.2</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.59.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -2124,7 +2121,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.58.2 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.59.0 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -2325,7 +2322,7 @@
   // Naisargika (permanent) friendships — Vikram's class table, BPHS standard.
   // Used in Path B Step 2: "Relationship between planet and owner of that sign."
   // Returns 'friend' | 'neutral' | 'enemy' for any planet pair (or null if same planet).
-  // Source: deck 76 (Mars) and the cabinet section of Quick Reference.
+  // Source: deck 76 (Mars) and the cabinet section of Learning Companion.
   const FRIENDSHIPS = {
     sun:     { friend: ['moon','mars','jupiter'],          enemy: ['venus','saturn'],     neutral: ['mercury'] },
     moon:    { friend: ['sun','mercury'],                  enemy: [],                     neutral: ['mars','jupiter','venus','saturn'] },
@@ -3513,7 +3510,7 @@
             <span class="walk-planet-glyph">${p.glyph}</span>
             <div class="walk-planet-body">
               <div class="walk-planet-name">${p.name} <em>· ${p.sanskrit}</em> · in <em style="color:var(--saffron);">${s.name}</em></div>
-              <a class="walk-planet-link" href="quick-reference.html#planet-${p.id}" target="_blank" rel="noopener">↗ See ${p.name} in Quick Reference</a>
+              <a class="walk-planet-link" href="learning-companion.html#planet-${p.id}" target="_blank" rel="noopener">↗ See ${p.name} in Learning Companion</a>
             </div>
           </div>`;
         }).join('');
@@ -3947,7 +3944,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.58.2';
+  const PAGE_VERSION = '4.59.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4021,33 +4018,11 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.2';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.59.0';
   }
   document.getElementById('readFeedbackLink')?.addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-  });
-})();
-</script>
-
-<!-- ====================== THEME TOGGLE (v4.58.1 — pilot demo) ====================== -->
-<script>
-(function() {
-  const KEY = 'astro-mychart-theme-v1';
-  const root = document.documentElement;
-  const valueEl = document.getElementById('themeToggleValue');
-  function current() {
-    return root.classList.contains('theme-legacy') ? 'legacy' : 'atv';
-  }
-  function paint() {
-    if (valueEl) valueEl.textContent = current() === 'legacy' ? 'Legacy' : 'ATV brand';
-  }
-  paint();
-  document.getElementById('themeToggle')?.addEventListener('click', function() {
-    const next = current() === 'legacy' ? 'atv' : 'legacy';
-    root.classList.toggle('theme-legacy', next === 'legacy');
-    try { localStorage.setItem(KEY, next); } catch (e) {}
-    paint();
   });
 })();
 </script>
@@ -4149,6 +4124,33 @@
   } else {
     build();
   }
+})();
+</script>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
 })();
 </script>
 

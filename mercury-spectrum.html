@@ -7,18 +7,20 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #f3e9d2;
-    --surface: #faf3e0;
-    --ink: #1f1a2e;
-    --ink-soft: #5a5168;
-    --saffron: #b8410e;
-    --sage: #5a7a5c;
-    --rule: #d4c39a;
-    --display: 'Cormorant Garamond', 'Times New Roman', serif;
-    --body: 'Spectral', Georgia, serif;
+    --cream: #F4EEDA;
+    --surface:   #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --saffron:   #BC8146;
+    --sage: #3D5650;
+    --rule:      #CAC6BB;
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -121,7 +123,7 @@
     transition: border-color 0.18s, background 0.18s;
   }
   .card:hover {
-    border-color: rgba(184,65,14,0.4);
+    border-color: rgba(188,129,70,0.4);
   }
 
   .pair-labels {
@@ -183,13 +185,13 @@
     border-radius: 50%;
     background: var(--cream);
     border: 2px solid var(--saffron);
-    box-shadow: 0 0 0 1px rgba(184,65,14,0.15);
+    box-shadow: 0 0 0 1px rgba(188,129,70,0.15);
     cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s;
   }
   input[type=range]::-webkit-slider-thumb:hover {
     transform: scale(1.15);
-    box-shadow: 0 0 0 4px rgba(184,65,14,0.18);
+    box-shadow: 0 0 0 4px rgba(188,129,70,0.18);
   }
   input[type=range]::-moz-range-thumb {
     width: 18px; height: 18px;
@@ -201,8 +203,8 @@
 
   /* Summary panel */
   .summary {
-    background: linear-gradient(180deg, rgba(184,65,14,0.04), rgba(243,233,210,0.6));
-    border: 1px solid rgba(184,65,14,0.32);
+    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.6));
+    border: 1px solid rgba(188,129,70,0.32);
     border-radius: 10px;
     padding: 28px 24px 24px;
     margin-top: 36px;
@@ -243,7 +245,7 @@
 
   .bar-wrap {
     height: 6px;
-    background: rgba(31,26,46,0.08);
+    background: rgba(40,40,38,0.08);
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 8px;
@@ -371,7 +373,7 @@
     font-family: var(--display);
     font-size: 13px;
     font-style: italic;
-    box-shadow: 0 4px 18px rgba(31,26,46,0.25);
+    box-shadow: 0 4px 18px rgba(40,40,38,0.25);
     z-index: 100;
     display: none;
     align-items: center;
@@ -396,42 +398,114 @@
     .site-nav { font-size: 12px; }
     .site-nav .sep { margin: 0 5px; }
   }
+
+  /* ---------- v4.59.0 SITE NAV (primary 4 + More menu with embedded style toggle) ---------- */
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
+    z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { right: -6px; min-width: 200px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
+     Activated by adding html.theme-legacy via inline script. Restores
+     pre-v4.58 palette + typography. Toggle lives in the More menu. */
+  html.theme-legacy {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+    --sage: #5a7a5c;
+  }
 </style>
 </head>
 <body>
+<script>
+/* v4.59.0 — apply saved theme before first paint to avoid FOUC. */
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
 
 <div class="page">
 
   <!-- ====================== SITE NAV ====================== -->
+    <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
     <span class="sep">·</span>
-    <a href="quick-reference.html">Quick Reference</a>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <a href="read.html" class="primary">Read · beta</a>
     <span class="sep">·</span>
-    <span class="here">Mercury Spectrum</span>
+    <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
-    <a href="astronomy.html">Astronomy</a>
-    <span class="sep">·</span>
-    <a href="ether.html">Ether</a>
-    <span class="sep">·</span>
-    <a href="layers.html">Layers</a>
-    <span class="sep">·</span>
-    <a href="reflect.html">Reflect</a>
-    <span class="sep">·</span>
-    <a href="interactive.html">Interactive · beta</a>
-    <span class="sep">·</span>
-    <a href="read.html">Read · beta</a>
-    <span class="sep">·</span>
-    <a href="release-notes.html">Release Notes</a>
-    <span class="sep">·</span>
-    <a href="stats.html">Stats</a>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.58.2</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.59.0</div>
     <span class="glyph" aria-hidden="true">☿</span>
     <h1>The Mercury <em>Spectrum</em></h1>
     <p class="sub">A self-reflection exercise · Astrology 101 with Vikram</p>
@@ -469,7 +543,7 @@
   </main>
 
   <footer class="page-footer">
-    <p style="margin-top:32px;">v4.58.2 · updated 9 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
+    <p style="margin-top:32px;">v4.59.0 · updated 9 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
     <p style="margin-top:8px;font-size:11.5px;opacity:.85;">Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
   </footer>
 
@@ -587,7 +661,7 @@
   updateSummary();
 
   // ====================== UPDATE CHECKER ======================
-  const PAGE_VERSION = '4.58.2';
+  const PAGE_VERSION = '4.59.0';
   function showUpdateBanner(newVer) {
     const b = document.getElementById('updateBanner');
     document.getElementById('updateText').textContent = 'New version available (v' + newVer + ').';
@@ -634,7 +708,7 @@
     color: #fff;
     border: 0;
     cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(31,26,46,.25);
+    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -643,15 +717,15 @@
   }
   .wa-fab-global:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px -4px rgba(31,26,46,.3);
+    box-shadow: 0 6px 18px -4px rgba(40,40,38,.3);
   }
   .wa-fab-global::after {
     content: 'Send feedback';
     position: absolute;
     bottom: calc(100% + 8px);
     right: 0;
-    background: #1f1a2e;
-    color: #faf3e2;
+    background: #282826;
+    color: #F8F4E1;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
@@ -680,7 +754,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.2';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.59.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -697,13 +771,13 @@
     margin: 18px auto 8px;
     max-width: 640px;
     padding: 14px 92px 14px 18px;
-    background: #faf3e2;
-    border: 1px solid #d4c39a;
-    border-left: 3px solid #b8410e;
+    background: #F8F4E1;
+    border: 1px solid #CAC6BB;
+    border-left: 3px solid #BC8146;
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-    color: #1f1a2e;
+    color: #282826;
     animation: fvtIn .3s ease-out;
     z-index: 5;
   }
@@ -716,7 +790,7 @@
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #b8410e;
+    color: #BC8146;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -730,20 +804,20 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #d4c39a;
+    border: 1px solid #CAC6BB;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
-    color: #4a4055;
+    color: #4B4B4A;
     cursor: pointer;
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #b8410e;
-    color: #b8410e;
-    background: rgba(184,65,14,.05);
+    border-color: #BC8146;
+    color: #BC8146;
+    background: rgba(188,129,70,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -787,6 +861,33 @@
   } else {
     build();
   }
+})();
+</script>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
 })();
 </script>
 

@@ -3,32 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f5ecd9">
+<meta name="theme-color" content="#F4EEDA">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Stats — Astrology 101 Companion App</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #f3e9d2;
-    --bg-deep:   #ead9b4;
-    --surface:   #faf3e2;
-    --cream:     #faf3e2;
-    --ink:       #1f1a2e;
-    --ink-soft:  #4a4055;
-    --muted:     #7d6f55;
-    --rule:      #d4c39a;
-    --rule-soft: #e3d4ad;
-    --saffron:   #b8410e;
-    --indigo:    #2a3270;
-    --forest:    #4a5d2e;
+    --bg:        #F4EEDA;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #7C7B78;
+    --rule:      #CAC6BB;
+    --rule-soft: #E0DCCD;
+    --saffron:   #BC8146;
+    --indigo:    #6E7D85;
+    --forest:    #32413B;
     --plum:      #7a3a5e;
-    --display: 'Cormorant Garamond', 'Times New Roman', serif;
-    --body:    'Spectral', Georgia, serif;
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -37,8 +39,8 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
-      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -273,7 +275,7 @@
     font-style: italic;
     color: var(--saffron);
   }
-  .pages-table tr:hover td { background: rgba(184,65,14,.03); }
+  .pages-table tr:hover td { background: rgba(188,129,70,.03); }
   .pages-table tfoot td {
     border-top: 1px solid var(--rule);
     border-bottom: 0;
@@ -304,39 +306,110 @@
     margin-top: 10px;
     font-size: 12px;
   }
+
+  /* ---------- v4.59.0 SITE NAV (primary 4 + More menu with embedded style toggle) ---------- */
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
+    z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { right: -6px; min-width: 200px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
+     Activated by adding html.theme-legacy via inline script. Restores
+     pre-v4.58 palette + typography. Toggle lives in the More menu. */
+  html.theme-legacy {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
 </style>
 </head>
 <body>
+<script>
+/* v4.59.0 — apply saved theme before first paint to avoid FOUC. */
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
 <div class="page">
 
+    <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
     <span class="sep">·</span>
-    <a href="quick-reference.html">Quick Reference</a>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <a href="read.html" class="primary">Read · beta</a>
     <span class="sep">·</span>
-    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
-    <a href="astronomy.html">Astronomy</a>
-    <span class="sep">·</span>
-    <a href="ether.html">Ether</a>
-    <span class="sep">·</span>
-    <a href="layers.html">Layers</a>
-    <span class="sep">·</span>
-    <a href="reflect.html">Reflect</a>
-    <span class="sep">·</span>
-    <a href="interactive.html">Interactive · beta</a>
-    <span class="sep">·</span>
-    <a href="read.html">Read · beta</a>
-    <span class="sep">·</span>
-    <a href="release-notes.html">Release Notes</a>
-    <span class="sep">·</span>
-    <span class="here">Stats</span>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.58.2</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.59.0</div>
     <h1>By the <em>numbers</em></h1>
     <p class="lede">A page just to trip on. The making-of: how much source material this companion app drew from, how big the build is, how much content sits inside the page, and who showed up.</p>
     <div class="ornament" aria-hidden="true">
@@ -388,7 +461,7 @@
       <div class="stat">
         <div class="num">7</div>
         <div class="label">HTML pages</div>
-        <div class="sub">Quick Reference + 4 peer pages + demo + V0 archive</div>
+        <div class="sub">Learning Companion + 4 peer pages + demo + V0 archive</div>
       </div>
       <div class="stat">
         <div class="num">1.66<small>MB</small></div>
@@ -423,7 +496,7 @@
         <tr><th>Page</th><th>Bytes</th><th>Lines</th><th>Words</th></tr>
       </thead>
       <tbody>
-        <tr><td class="pg-name">quick-reference.html</td><td>490 KB</td><td>10,491</td><td>52,825</td></tr>
+        <tr><td class="pg-name">learning-companion.html</td><td>490 KB</td><td>10,491</td><td>52,825</td></tr>
         <tr><td class="pg-name">kaalapurusha.html</td><td>750 KB</td><td>694</td><td>3,407</td></tr>
         <tr><td class="pg-name">release-notes.html</td><td>171 KB</td><td>2,456</td><td>21,005</td></tr>
         <tr><td class="pg-name">v0.html</td><td>151 KB</td><td>2,752</td><td>10,384</td></tr>
@@ -497,7 +570,7 @@
       <div class="stat">
         <div class="num">53</div>
         <div class="label">Release entries</div>
-        <div class="sub">In the changelog, V0 → v4.58.2</div>
+        <div class="sub">In the changelog, V0 → v4.59.0</div>
       </div>
       <div class="stat">
         <div class="num">10</div>
@@ -549,9 +622,9 @@
     <div class="ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
-    <p>← <a href="quick-reference.html">Back to the reference</a></p>
+    <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.58.2 · regenerated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.59.0 · regenerated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -565,7 +638,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.58.2';
+  const PAGE_VERSION = '4.59.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -575,7 +648,7 @@
     if (!t) {
       t = document.createElement('div');
       t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f1a2e;color:#faf3e2;font-family:Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
       document.body.appendChild(t);
     }
     t.textContent = msg;
@@ -616,7 +689,7 @@
     color: #fff;
     border: 0;
     cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(31,26,46,.25);
+    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -625,15 +698,15 @@
   }
   .wa-fab-global:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px -4px rgba(31,26,46,.3);
+    box-shadow: 0 6px 18px -4px rgba(40,40,38,.3);
   }
   .wa-fab-global::after {
     content: 'Send feedback';
     position: absolute;
     bottom: calc(100% + 8px);
     right: 0;
-    background: #1f1a2e;
-    color: #faf3e2;
+    background: #282826;
+    color: #F8F4E1;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
@@ -662,7 +735,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.2';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.59.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -679,13 +752,13 @@
     margin: 18px auto 8px;
     max-width: 640px;
     padding: 14px 92px 14px 18px;
-    background: #faf3e2;
-    border: 1px solid #d4c39a;
-    border-left: 3px solid #b8410e;
+    background: #F8F4E1;
+    border: 1px solid #CAC6BB;
+    border-left: 3px solid #BC8146;
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-    color: #1f1a2e;
+    color: #282826;
     animation: fvtIn .3s ease-out;
     z-index: 5;
   }
@@ -698,7 +771,7 @@
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #b8410e;
+    color: #BC8146;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -712,20 +785,20 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #d4c39a;
+    border: 1px solid #CAC6BB;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
-    color: #4a4055;
+    color: #4B4B4A;
     cursor: pointer;
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #b8410e;
-    color: #b8410e;
-    background: rgba(184,65,14,.05);
+    border-color: #BC8146;
+    color: #BC8146;
+    background: rgba(188,129,70,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -769,6 +842,33 @@
   } else {
     build();
   }
+})();
+</script>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
 })();
 </script>
 

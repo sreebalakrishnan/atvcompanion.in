@@ -3,30 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f5ecd9">
+<meta name="theme-color" content="#F4EEDA">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Release Notes — Astrology 101 Companion App</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3e9d2' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Cormorant Garamond,Times New Roman,serif' font-size='38' fill='%23b8410e' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #f3e9d2;
-    --bg-deep:   #ead9b4;
-    --surface:   #faf3e2;
-    --ink:       #1f1a2e;
-    --ink-soft:  #4a4055;
-    --muted:     #7d6f55;
-    --rule:      #d4c39a;
-    --rule-soft: #e3d4ad;
-    --saffron:   #b8410e;
-    --gold:      #a8843a;
-    --shadow:    0 1px 0 rgba(31,26,46,.04), 0 8px 28px -10px rgba(31,26,46,.18);
-    --display: 'Cormorant Garamond', 'Times New Roman', serif;
-    --body:    'Spectral', Georgia, serif;
+    --bg:        #F4EEDA;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #7C7B78;
+    --rule:      #CAC6BB;
+    --rule-soft: #E0DCCD;
+    --saffron:   #BC8146;
+    --gold:      #A3986D;
+    --shadow:    0 1px 0 rgba(40,40,38,.04), 0 8px 28px -10px rgba(40,40,38,.18);
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
     --radius:  6px;
   }
   *, *::before, *::after { box-sizing: border-box; }
@@ -37,8 +39,8 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(184,65,14,.04), transparent 40%),
-      radial-gradient(circle at 88% 100%, rgba(42,50,112,.05), transparent 50%);
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -165,7 +167,7 @@
   }
   .release[id] { scroll-margin-top: 24px; }
   .release:target {
-    background: linear-gradient(180deg, rgba(184,65,14,0.05), transparent 80%);
+    background: linear-gradient(180deg, rgba(188,129,70,0.05), transparent 80%);
     border-radius: 8px;
     padding-left: 14px;
     padding-right: 14px;
@@ -182,7 +184,7 @@
     margin: 0 0 14px;
     letter-spacing: .02em;
     padding: 6px 12px;
-    background: linear-gradient(90deg, rgba(184,65,14,0.06), transparent 70%);
+    background: linear-gradient(90deg, rgba(188,129,70,0.06), transparent 70%);
     border-left: 2px solid var(--saffron);
     border-radius: 0 4px 4px 0;
     display: inline-block;
@@ -438,35 +440,106 @@
     color: var(--muted);
     margin: 0;
   }
+
+  /* ---------- v4.59.0 SITE NAV (primary 4 + More menu with embedded style toggle) ---------- */
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
+    z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { right: -6px; min-width: 200px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
+     Activated by adding html.theme-legacy via inline script. Restores
+     pre-v4.58 palette + typography. Toggle lives in the More menu. */
+  html.theme-legacy {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
 </style>
 </head>
 <body>
+<script>
+/* v4.59.0 — apply saved theme before first paint to avoid FOUC. */
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
 <div class="page">
 
+    <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
     <span class="sep">·</span>
-    <a href="quick-reference.html">Quick Reference</a>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="kaalapurusha.html">Kaalapurusha</a>
+    <a href="read.html" class="primary">Read · beta</a>
     <span class="sep">·</span>
-    <a href="mercury-spectrum.html">Mercury Spectrum</a>
+    <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
-    <a href="astronomy.html">Astronomy</a>
-    <span class="sep">·</span>
-    <a href="ether.html">Ether</a>
-    <span class="sep">·</span>
-    <a href="layers.html">Layers</a>
-    <span class="sep">·</span>
-    <a href="reflect.html">Reflect</a>
-    <span class="sep">·</span>
-    <a href="interactive.html">Interactive · beta</a>
-    <span class="sep">·</span>
-    <a href="read.html">Read · beta</a>
-    <span class="sep">·</span>
-    <span class="here">Release Notes</span>
-    <span class="sep">·</span>
-    <a href="stats.html">Stats</a>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <header class="masthead">
@@ -483,10 +556,82 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.59.0 ====================== -->
+  <section class="release" data-credits="Vikram + Yash Khataokar (ATV brand book) · Vikram (Companion naming) · Sree (request to cascade site-wide + nav redesign + page rename)">
+    <header>
+      <h2>v4.59.0 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">The pilot landed; this is the cascade. Every page in the app is now ATV brand-aligned by default — Terracotta Ember, Charcoal Ash, Sunlit White, Switzer body, Libre Caslon Text headlines. Quick Reference is renamed to <strong>Learning Companion</strong> (Vikram's call, more global appeal). The site nav is redesigned: four primary anchors plus a More dropdown for the deep dives. The style toggle (ATV ↔ Legacy) lives inside the More menu, available on every page, persisting across navigation. Old <code>quick-reference.html</code> URL is preserved as a redirect so external bookmarks don't 404.</p>
+
+    <h3>Phase 1 · Site-wide brand cascade</h3>
+    <ul>
+      <li><strong>11 pages updated</strong>: index, learning-companion, kaalapurusha, mercury-spectrum, astronomy, ether, layers, reflect, interactive, stats, release-notes. Same tokens as the v4.58.0 read.html pilot — Terracotta Ember <code>#BC8146</code> for accents, Charcoal Ash <code>#282826</code> for type, Sunlit White <code>#F8F4E1</code> family for backgrounds.</li>
+      <li><strong>Per-page custom tokens remapped</strong>:
+        <ul>
+          <li>Avatar family colors (in Learning Companion): Map → Stormy Sky dark <code>#556168</code>, Mechanics → Deep Forest <code>#32413B</code>, Practice → Muted Mauve dark <code>#584B4B</code>, Story → Terracotta Ember <code>#BC8146</code>. Distinct enough to differentiate, all brand-aligned.</li>
+          <li>Sage green (Mercury Spectrum + Astronomy) <code>#5a7a5c</code> → custom Deep Forest mid <code>#3D5650</code>. Keeps the thematic green accent, brand-aligned.</li>
+          <li>Gold <code>#a8843a</code> → Sunlit White tint <code>#A3986D</code>.</li>
+          <li>Forest <code>#4a5d2e</code> → Deep Forest <code>#32413B</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Hardcoded values across pages</strong>: ~60 hex values and rgba tints in inline styles, JS-injected toasts, WhatsApp FAB tooltips, first-visit tip cards, SVG diagrams (astronomy ecliptic), update banners — all migrated to brand tokens via Python script that protected <code>html.theme-legacy</code> override blocks.</li>
+      <li><strong>Fonts loaded site-wide</strong>: Switzer via Fontshare CDN + Libre Caslon Text via Google Fonts, with Cormorant + Spectral kept as fallbacks for graceful degradation.</li>
+      <li><strong>Favicons + theme-color metas</strong> updated to Sunlit White <code>#F4EEDA</code> + Terracotta Ember "101" on every page.</li>
+    </ul>
+
+    <h3>Phase 2 · Site-level theme toggle</h3>
+    <ul>
+      <li>The toggle that lived as a fixed top-right pill on read.html is now <strong>integrated into the More menu</strong> — last item in the dropdown, after a divider. Cleaner, doesn't compete with page content.</li>
+      <li>Same localStorage key (<code>astro-mychart-theme-v1</code>) so the choice persists across pages. Toggle on Home, browse to Reflect, your style follows.</li>
+      <li>Apply-on-load inline script at the top of <code>&lt;body&gt;</code> on every page sets the class before first paint — no FOUC when reloading or navigating in Legacy mode.</li>
+      <li>Each page's <code>html.theme-legacy</code> override carries that page's pre-v4.58 tokens (including custom snowflakes), so the legacy view is faithful to how the page looked before this release.</li>
+    </ul>
+
+    <h3>Phase 3 · Nav redesign</h3>
+    <ul>
+      <li>Old nav had 12 links wrapping to 3 lines on mobile. New nav has <strong>4 primary + a More dropdown</strong>:
+        <ul>
+          <li>Primary: Home · <em>Learning Companion</em> · <em>Read · beta</em> · <em>Reflect</em></li>
+          <li>More ▾: Interactive · beta · Kaalapurusha · Mercury Spectrum · Astronomy · Ether · Layers · Stats · Release Notes</li>
+        </ul>
+      </li>
+      <li>Reflect elevated to primary at Sree's call — same tier as Learning Companion / Read, since it's where the cohort's reflection work lives.</li>
+      <li><strong>Active-page indication</strong>: the current page's link is rendered in saffron (<code>aria-current="page"</code>). When viewing a More-menu page, the More button itself goes saffron — so users always know where they are.</li>
+      <li><strong>Dropdown behavior</strong>: click to toggle, click-outside or Esc to close, full keyboard nav. Mobile-friendly (touch-target sized), mobile media query tightens spacing.</li>
+    </ul>
+
+    <h3>Phase 4 · Quick Reference → Learning Companion</h3>
+    <ul>
+      <li><strong>New file</strong>: <code>learning-companion.html</code> (copy of the old <code>quick-reference.html</code> with the renamed title, masthead, and JS pageLabel).</li>
+      <li><strong>Old URL preserved</strong>: <code>quick-reference.html</code> now serves a brand-aligned "Page moved" page with a 3-second meta-refresh + manual button. External bookmarks and class-share links continue to work.</li>
+      <li><strong>Internal hrefs updated</strong>: ~50 link references across 13 pages migrated from <code>quick-reference.html</code> to <code>learning-companion.html</code>.</li>
+      <li><strong>Visible labels updated</strong>: every "Quick Reference" mention in body text, link text, CTAs, and cross-references now says "Learning Companion." Code comments referencing historical "Quick Reference" are kept as-is.</li>
+      <li>Vikram picked the name; "Companion" reads globally without Sanskrit-fluency required, while keeping the warmth of the original frame.</li>
+    </ul>
+
+    <h3>Sanity-check pass</h3>
+    <ul>
+      <li>All 13 active pages: nav present, theme toggle present, fonts loading, legacy override functional, version stamped at 4.59.0, internal links clean.</li>
+      <li>HTML structure balanced (open/close tags) on all pages.</li>
+      <li>Title tags consistent: <code>[Page] — Astrology 101 Companion App</code>.</li>
+      <li>aria-current correctly set on Home / Learning Companion / Read · beta / Reflect when those pages are active; More button highlighted on the eight pages in the dropdown.</li>
+      <li>Redirect from <code>quick-reference.html</code> verified — meta-refresh + JS fallback both fire.</li>
+      <li>Per-page custom tokens (family-*, sage, forest, gold, qr-*) remapped to brand-aligned values; legacy override block restores originals when toggled.</li>
+    </ul>
+
+    <h3>Known follow-ups (not blocking)</h3>
+    <ul>
+      <li>The brand book references <em>Libre Caslon Condensed</em> specifically; it's not on Google Fonts. We're using Libre Caslon Text as a near-match. When Yash provides the actual Condensed font file, we'll self-host and swap.</li>
+      <li>The WhatsApp feedback FAB still appears on the 11 non-read pages. Read · beta replaced it with a footer link in v4.58.2; the others may follow if the FAB feels noisy in usability testing.</li>
+      <li>Once Vikram has spent time with the brand-aligned look, we may simplify or remove the legacy toggle. For now it stays as the comparison surface for the usability test.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.58.2 ====================== -->
   <section class="release" data-credits="Sree (FAB-overlap catch on the writing pad)">
     <header>
-      <h2>v4.58.2 <em>· current</em></h2>
+      <h2>v4.58.2</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">The green WhatsApp feedback FAB sits bottom-right on every page. On <a href="read.html">Read · beta</a>, the writing pad is fixed at the bottom of the viewport — so the FAB was overlapping the textarea and competing for attention while learners were trying to write. Removed the FAB on this page only and replaced with a small inline <em>Send feedback</em> link in the footer next to <em>Check for updates</em> and <em>Release notes</em>. Other 11 pages keep the FAB unchanged. Same WhatsApp pre-fill text and same target number; just calmer surfacing.</p>
@@ -524,11 +669,11 @@
 
     <h3>Stage A · Color migration</h3>
     <ul>
-      <li><strong>Saffron <code>#b8410e</code> → Terracotta Ember <code>#BC8146</code>.</strong> The hot saffron was the app's signature — softer, less alarming Terracotta Ember from the brand mid-tones. All 27 hardcoded <code>rgba(184,65,14,...)</code> values for shadows and tints converted to <code>rgba(188,129,70,...)</code>.</li>
-      <li><strong>Ink <code>#1f1a2e</code> → Charcoal Ash <code>#282826</code>.</strong> Old purple-toned dark replaced by the brand book's neutral. Six <code>rgba(31,26,46,...)</code> shadow values converted to <code>rgba(40,40,38,...)</code>.</li>
+      <li><strong>Saffron <code>#b8410e</code> → Terracotta Ember <code>#BC8146</code>.</strong> The hot saffron was the app's signature — softer, less alarming Terracotta Ember from the brand mid-tones. All 27 hardcoded <code>rgba(188,129,70,...)</code> values for shadows and tints converted to <code>rgba(188,129,70,...)</code>.</li>
+      <li><strong>Ink <code>#1f1a2e</code> → Charcoal Ash <code>#282826</code>.</strong> Old purple-toned dark replaced by the brand book's neutral. Six <code>rgba(40,40,38,...)</code> shadow values converted to <code>rgba(40,40,38,...)</code>.</li>
       <li><strong>Background family migrated to Sunlit White tints.</strong> <code>--bg</code> is now <code>#F4EEDA</code> (slightly warmed Sunlit White), <code>--surface</code> is true Sunlit White <code>#F8F4E1</code>, <code>--bg-deep</code> uses tint -1 <code>#E0DCCD</code>. Cards still pop against the page bg.</li>
       <li><strong>Borders</strong>: <code>--rule</code> = <code>#CAC6BB</code> (Sunlit tint -2), <code>--rule-soft</code> = <code>#E0DCCD</code> (tint -1).</li>
-      <li><strong>Indigo <code>#2a3270</code> → Stormy Sky <code>#6E7D85</code>.</strong> The body background-image's secondary radial gradient softens; two <code>rgba(42,50,112,...)</code> values converted.</li>
+      <li><strong>Indigo <code>#2a3270</code> → Stormy Sky <code>#6E7D85</code>.</strong> The body background-image's secondary radial gradient softens; two <code>rgba(110,125,133,...)</code> values converted.</li>
       <li><strong>Hardcoded color blocks updated</strong>: the version-toast helper, the WhatsApp FAB tooltip, and the first-visit tip card all carried direct hex values for historical reasons. All converted to the new palette.</li>
       <li><strong>Favicon updated</strong> — Sunlit White bg with Terracotta Ember "101", Libre Caslon as the family hint.</li>
       <li><strong>Theme color meta</strong> tag updated to <code>#F4EEDA</code> for browser chrome / iOS safe-area tinting.</li>
@@ -876,7 +1021,7 @@
 
     <h3>The principle this codifies</h3>
     <ul>
-      <li>Pages in the project (read.html, quick-reference.html, etc.) never link to <code>.md</code> files. MD lives in the KB as source-of-truth for the team; user-facing surfaces inline whatever they need.</li>
+      <li>Pages in the project (read.html, learning-companion.html, etc.) never link to <code>.md</code> files. MD lives in the KB as source-of-truth for the team; user-facing surfaces inline whatever they need.</li>
       <li>If a reference is small enough to inline, it's inline. If it's too large to inline, it's another peer page. The KB is for builders, not readers.</li>
     </ul>
   </section>
@@ -1115,7 +1260,7 @@
     <h3>Cut 1 — Honor Vikram's principle</h3>
     <ul>
       <li><strong>The system-generated planet line is gone.</strong> Per-planet pills inside "Planets in this house" used to render lines like <em>"Moon in Aries — energized initiating bold changes"</em>, baked from Vikram's per-sign one-liners in decks 72 (Sun), 73 (Moon), 76 (Mars), 77 (Mercury). Removed. Each pill is now factual only: <em>"Moon · Chandra · in Aries"</em>.</li>
-      <li><strong>"↗ See [Planet] in Quick Reference" link added per planet.</strong> Tap takes the reader to QR's deep-linked planet section (<code>quick-reference.html#planet-moon</code>, etc.) where Vikram's classical material on that planet lives — Parashara / Phala Deepika / Uttara Kalamrita, plus the deck-derived attributes. Opens in a new tab so the walk-through stays in place.</li>
+      <li><strong>"↗ See [Planet] in Quick Reference" link added per planet.</strong> Tap takes the reader to QR's deep-linked planet section (<code>learning-companion.html#planet-moon</code>, etc.) where Vikram's classical material on that planet lives — Parashara / Phala Deepika / Uttara Kalamrita, plus the deck-derived attributes. Opens in a new tab so the walk-through stays in place.</li>
       <li><strong>Framing line at the top of every walk-through card:</strong> <em>"Reference is given — open the drawer for Vikram's keywords. Interpretation is yours — write your own line in the box."</em> Sets the contract explicitly so the principle is visible, not just felt.</li>
       <li><strong>Placeholder text removed.</strong> Previous releases showed a "more from class — coming" line for Jupiter / Venus / Saturn / Rahu / Ketu (planets whose decks aren't yet drafted). With no system-generated lines for any planet, this placeholder also goes — there's nothing missing to flag.</li>
     </ul>
@@ -1450,7 +1595,7 @@
       <li><strong>📋 Copy my reflections</strong> button — top and bottom of the page — generates a plain-text export (avatar name · today's date · Vikram's intro quote · for each cluster, theme + quote + Q&amp;A pairs). Clipboard copy with a "Reflections copied" toast. Empty answers render as <code>A: —</code> so the structure stays readable.</li>
       <li><strong>↻ Clear my notes</strong> button — confirmation dialog, then wipes only this avatar's localStorage entries. Other avatars' notes are untouched.</li>
       <li><strong>Privacy callout</strong> at the bottom — <em>"Your notes are saved only in this browser. Nothing leaves your device unless you copy them out."</em></li>
-      <li>The Matsya drawer in <a href="quick-reference.html">Quick Reference</a> now shows a <strong>"↗ Open in Reflect mode"</strong> link at the top of the reflection-clusters expandable. Same data, focused full-page version.</li>
+      <li>The Matsya drawer in <a href="learning-companion.html">Quick Reference</a> now shows a <strong>"↗ Open in Reflect mode"</strong> link at the top of the reflection-clusters expandable. Same data, focused full-page version.</li>
       <li>"Reflect" added to site nav across all pages, alongside Layers and the other peer pages. Reflect peer card on the index.</li>
     </ul>
 
@@ -1487,10 +1632,10 @@
 
     <h3>Cut C — Deep-linkable drawers</h3>
     <ul>
-      <li>Every drawer in <a href="quick-reference.html">Quick Reference</a> — sign · planet · house · avatar — now has a <strong>"🔗 Copy link" chip</strong> in its title. Tap it: copies a canonical URL like <code>quick-reference.html#avatar-matsya</code> to the clipboard, with a small <em>"Link copied"</em> toast.</li>
+      <li>Every drawer in <a href="learning-companion.html">Quick Reference</a> — sign · planet · house · avatar — now has a <strong>"🔗 Copy link" chip</strong> in its title. Tap it: copies a canonical URL like <code>learning-companion.html#avatar-matsya</code> to the clipboard, with a small <em>"Link copied"</em> toast.</li>
       <li>URL hashes auto-open the drawer on page load: <code>#avatar-matsya</code>, <code>#planet-mercury</code>, <code>#sign-aries</code>, <code>#house-7</code>. Anyone the URL is shared with lands directly inside the open drawer — no more "scroll down and tap Matsya" instructions.</li>
       <li>Closing a drawer strips the hash; opening one updates the hash via <code>history.replaceState</code> so a refresh preserves the drawer.</li>
-      <li>Practical use — Sree can now send Vikram <code>quick-reference.html#avatar-matsya</code> instead of a description.</li>
+      <li>Practical use — Sree can now send Vikram <code>learning-companion.html#avatar-matsya</code> instead of a description.</li>
     </ul>
 
     <h3>Why this lands</h3>
@@ -1820,7 +1965,7 @@
 
     <h3>Known edge case</h3>
     <ul>
-      <li>If anyone shares a deep link directly into a later section (e.g., <code>quick-reference.html#practice</code>) — bypassing index — the recipient may land on a locked screen if they're a first-time visitor in Learning mode.</li>
+      <li>If anyone shares a deep link directly into a later section (e.g., <code>learning-companion.html#practice</code>) — bypassing index — the recipient may land on a locked screen if they're a first-time visitor in Learning mode.</li>
       <li>Mitigation: share <code>sreebalakrishnan.in/astrology101</code> (no hash) by default. Or, if a deep link is needed, mention "switch to Reference in the top-left toggle to see everything." If this becomes a recurring issue we'll add smart deep-link detection that auto-switches modes for the session.</li>
     </ul>
   </section>
@@ -1837,7 +1982,7 @@
     <ul>
       <li><strong>Hero</strong> — italic eyebrow, the iconic <em>Astrology 101</em> h1, sub-line: <em>"A companion app for Vikram's class. Holds the material we're learning, structured to come back to between sessions."</em></li>
       <li><strong>Origin paragraph</strong> — short and warm. Acknowledges the kitchen-table flashcards (V0), Sanchi & Sree as builders, allthingsvedic.in as the source, Vikram's review.</li>
-      <li><strong>Three starting-point cards</strong> — each a clickable area with a small section eyebrow (§ One / § Four / § Fifteen), name, and one-sentence description. Subtle hover lift. Each links to <code>quick-reference.html#signs</code> / <code>#cabinet</code> / <code>#practice</code>.</li>
+      <li><strong>Three starting-point cards</strong> — each a clickable area with a small section eyebrow (§ One / § Four / § Fifteen), name, and one-sentence description. Subtle hover lift. Each links to <code>learning-companion.html#signs</code> / <code>#cabinet</code> / <code>#practice</code>.</li>
       <li><strong>What's inside</strong> — two-column list naming all 16 sections of the Quick Reference (signs, qualities, avatars, cabinet, planets, signature, relationships, aspects, yogas, houses, systems, categories, purusharthas, kaalapurusha, practice, workbook). Sets scope without overwhelming.</li>
       <li><strong>CTA</strong> — big italic "Open the Quick Reference →" button; below it, a small line about the 💬 feedback button.</li>
       <li><strong>Peer pages row</strong> — Kaalapurusha, Mercury Spectrum, Astronomy, Release Notes, Stats — each with a one-line description.</li>
@@ -1847,7 +1992,7 @@
     <h3>Welcome-card coordination</h3>
     <ul>
       <li>The Quick Reference's first-time welcome card (added in v4.28.0) was beautiful but would now produce a double-welcome for cohort members arriving via index.</li>
-      <li>Fix: any starting-point click on index.html sets <code>localStorage 'astro-welcomed' = true</code> <em>before</em> navigating. So users who came via the index don't see the Quick Reference welcome card again. Direct visitors to <code>quick-reference.html</code> still get it. Two doors, one welcome.</li>
+      <li>Fix: any starting-point click on index.html sets <code>localStorage 'astro-welcomed' = true</code> <em>before</em> navigating. So users who came via the index don't see the Quick Reference welcome card again. Direct visitors to <code>learning-companion.html</code> still get it. Two doors, one welcome.</li>
     </ul>
 
     <h3>Site nav update</h3>
@@ -2067,7 +2212,7 @@
       <h2>v4.25.2 <em>· UX fix</em></h2>
       <span class="date">7 May 2026</span>
     </header>
-    <p class="summary">Sree spotted that the v4.25.1 popover was rendering with a transparent background — the page's lede text bled through the card, making the Vikram quote unreadable. Root cause: the CSS used <code>var(--cream)</code> in seven places, but <code>--cream</code> was never actually defined as a token in <code>:root</code>. CSS silently fell back to the initial value (transparent). Fix: add <code>--cream: #faf3e2</code> to the root token set as an alias for the existing <code>--surface</code>. The popover card now renders with an opaque cream surface; the <code>.ground-btn</code> and <code>.reflect-btn</code> hover states (which also referenced <code>--cream</code> for on-saffron text colour) also start rendering correctly. Backdrop opacity also bumped from .42 to .58 for cleaner separation between the popover and the page beneath.</p>
+    <p class="summary">Sree spotted that the v4.25.1 popover was rendering with a transparent background — the page's lede text bled through the card, making the Vikram quote unreadable. Root cause: the CSS used <code>var(--cream)</code> in seven places, but <code>--cream</code> was never actually defined as a token in <code>:root</code>. CSS silently fell back to the initial value (transparent). Fix: add <code>--cream:     #F8F4E1</code> to the root token set as an alias for the existing <code>--surface</code>. The popover card now renders with an opaque cream surface; the <code>.ground-btn</code> and <code>.reflect-btn</code> hover states (which also referenced <code>--cream</code> for on-saffron text colour) also start rendering correctly. Backdrop opacity also bumped from .42 to .58 for cleaner separation between the popover and the page beneath.</p>
 
     <h3>What was broken</h3>
     <ul>
@@ -2077,8 +2222,8 @@
 
     <h3>The fix</h3>
     <ul>
-      <li>Added <code>--cream: #faf3e2;</code> to the main <code>:root</code> token block, with a comment noting it as an alias for <code>--surface</code>.</li>
-      <li>Bumped the popover backdrop from <code>rgba(31,26,46,.42)</code> to <code>rgba(31,26,46,.58)</code> — darker, so the popover now visually pops off the page even on light viewport conditions.</li>
+      <li>Added <code>--cream:     #F8F4E1;</code> to the main <code>:root</code> token block, with a comment noting it as an alias for <code>--surface</code>.</li>
+      <li>Bumped the popover backdrop from <code>rgba(40,40,38,.42)</code> to <code>rgba(40,40,38,.58)</code> — darker, so the popover now visually pops off the page even on light viewport conditions.</li>
     </ul>
 
     <h3>Lesson</h3>
@@ -3121,7 +3266,7 @@
 
     <h3>Mechanics</h3>
     <ul>
-      <li>No new file. Both features live entirely inside <code>quick-reference.html</code>.</li>
+      <li>No new file. Both features live entirely inside <code>learning-companion.html</code>.</li>
       <li>Section IDs unchanged. Deep-links continue to work.</li>
       <li>Gem refreshes on level change; clicking the gem's <em>Open</em> link opens the relevant drawer (planet, sign, house, avatar) via the existing click delegation.</li>
     </ul>
@@ -3465,7 +3610,7 @@
       <li>The project is now a small three-page set: <strong>Quick Reference</strong>, <strong><a href="kaalapurusha.html">Kaalapurusha</a></strong> (the full anatomical-map deep-dive), and <strong>Release Notes</strong> (you're reading it).</li>
       <li>A site nav at the top of every page connects all three.</li>
       <li>The Kaalapurusha section of the Quick Reference now links out to the deep-dive page.</li>
-      <li><code>index_3.html</code> renamed to <code>quick-reference.html</code>.</li>
+      <li><code>index_3.html</code> renamed to <code>learning-companion.html</code>.</li>
     </ul>
 
     <h3>Update mechanism <span class="src">— new</span></h3>
@@ -3475,7 +3620,7 @@
       <li>If the manifest reports a newer version, a saffron banner slides in at the top of the page: <em>"A newer version is available — Refresh now / Later / What changed?"</em>. Tapping <em>Refresh now</em> reloads with a cache-busting query string.</li>
       <li>A manual <em>"Check for updates"</em> link in each page's footer triggers the same check on demand and shows a quick toast either way.</li>
       <li>Cache-control meta tags in every <code>&lt;head&gt;</code> as a belt-and-braces measure for caches that respect them.</li>
-      <li><strong>Future-me, when shipping a new version:</strong> bump <code>version.json</code>; bump <code>PAGE_VERSION</code> in each page's update-checker; bump the visible badges (eyebrow line in <code>quick-reference.html</code>, footer line in all three pages); add a release-notes entry. Returning users will see the banner on their next visit.</li>
+      <li><strong>Future-me, when shipping a new version:</strong> bump <code>version.json</code>; bump <code>PAGE_VERSION</code> in each page's update-checker; bump the visible badges (eyebrow line in <code>learning-companion.html</code>, footer line in all three pages); add a release-notes entry. Returning users will see the banner on their next visit.</li>
     </ul>
 
     <div class="note">
@@ -3598,9 +3743,9 @@
     <div class="ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
-    <p>← <a href="quick-reference.html">Back to the reference</a></p>
+    <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.58.2 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.59.0 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -3823,7 +3968,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.58.2';
+  const PAGE_VERSION = '4.59.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3837,18 +3982,18 @@
     if (document.getElementById('upd-banner')) return;
     const b = document.createElement('div');
     b.id = 'upd-banner';
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#b8410e;color:#faf3e2;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
     b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
-      + ' <a href="release-notes.html" style="color:#faf3e2;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
-      + ' <button id="upd-refresh" style="background:#faf3e2;color:#b8410e;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
-      + ' <button id="upd-dismiss" style="background:transparent;color:#faf3e2;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
+      + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
     document.body.appendChild(b);
     document.getElementById('upd-refresh').onclick = bustCache;
     document.getElementById('upd-dismiss').onclick = () => b.remove();
   }
   function showToast(msg) {
     const t = document.createElement('div');
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;background:#1f1a2e;color:#faf3e2;padding:9px 20px;border-radius:100px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;background:#282826;color:#F8F4E1;padding:9px 20px;border-radius:100px;font-family: "Libre Caslon Text", "Cormorant Garamond", serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);';
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => { t.style.transition = 'opacity .25s'; t.style.opacity = '0'; }, 2000);
@@ -3891,7 +4036,7 @@
     color: #fff;
     border: 0;
     cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(31,26,46,.25);
+    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3900,15 +4045,15 @@
   }
   .wa-fab-global:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px -4px rgba(31,26,46,.3);
+    box-shadow: 0 6px 18px -4px rgba(40,40,38,.3);
   }
   .wa-fab-global::after {
     content: 'Send feedback';
     position: absolute;
     bottom: calc(100% + 8px);
     right: 0;
-    background: #1f1a2e;
-    color: #faf3e2;
+    background: #282826;
+    color: #F8F4E1;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
@@ -3937,7 +4082,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.2';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.59.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -3954,13 +4099,13 @@
     margin: 18px auto 8px;
     max-width: 640px;
     padding: 14px 92px 14px 18px;
-    background: #faf3e2;
-    border: 1px solid #d4c39a;
-    border-left: 3px solid #b8410e;
+    background: #F8F4E1;
+    border: 1px solid #CAC6BB;
+    border-left: 3px solid #BC8146;
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 1px 0 rgba(31,26,46,.04), 0 6px 18px -8px rgba(31,26,46,.14);
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-    color: #1f1a2e;
+    color: #282826;
     animation: fvtIn .3s ease-out;
     z-index: 5;
   }
@@ -3973,7 +4118,7 @@
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #b8410e;
+    color: #BC8146;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -3987,20 +4132,20 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #d4c39a;
+    border: 1px solid #CAC6BB;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 12px;
-    color: #4a4055;
+    color: #4B4B4A;
     cursor: pointer;
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #b8410e;
-    color: #b8410e;
-    background: rgba(184,65,14,.05);
+    border-color: #BC8146;
+    color: #BC8146;
+    background: rgba(188,129,70,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -4044,6 +4189,33 @@
   } else {
     build();
   }
+})();
+</script>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
 })();
 </script>
 
