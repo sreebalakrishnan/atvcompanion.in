@@ -2015,7 +2015,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.58.1</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.58.2</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -2124,11 +2124,13 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.58.1 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.58.2 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
       <a href="release-notes.html" style="color:var(--saffron);">Release notes</a>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" id="readFeedbackLink" style="color:var(--saffron);">Send feedback</a>
     </p>
     <p class="credits">
       Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
@@ -3945,7 +3947,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.58.1';
+  const PAGE_VERSION = '4.58.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4005,56 +4007,11 @@
   </div>
 </div>
 
-<!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
-<style>
-  .wa-fab-global {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 200;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: #25d366;
-    color: #fff;
-    border: 0;
-    cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    transition: transform .15s, box-shadow .15s;
-  }
-  .wa-fab-global:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px -4px rgba(40,40,38,.3);
-  }
-  .wa-fab-global::after {
-    content: 'Send feedback';
-    position: absolute;
-    bottom: calc(100% + 8px);
-    right: 0;
-    background: #282826;
-    color: #F8F4E1;
-    font-family: 'Libre Caslon Text', 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .15s;
-  }
-  .wa-fab-global:hover::after { opacity: 1; }
-  @media (max-width: 480px) {
-    .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; }
-  }
-</style>
-<button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
-  <span aria-hidden="true">💬</span>
-</button>
+<!-- ====================== FEEDBACK LINK (v4.58.2 — read.html only) ======================
+     Replaces the green WhatsApp FAB on this page only. The FAB was overlapping
+     the writing pad and competing for attention while learners were trying to
+     write. Inline footer link is calmer and doesn't occlude the textarea.
+     Other 11 pages keep the FAB unchanged. -->
 <script>
 (function() {
   const WA_PHONE = '919880337337';
@@ -4064,9 +4021,9 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.58.2';
   }
-  document.getElementById('waFabGlobal').addEventListener('click', function() {
+  document.getElementById('readFeedbackLink')?.addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
