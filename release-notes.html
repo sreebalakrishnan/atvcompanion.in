@@ -734,10 +734,40 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.62.2 ====================== -->
+  <section class="release" data-credits="Cohort feedback via Sree (Devanagari on Ether) · Sree (pricing — Option B, build but unlink)">
+    <header>
+      <h2>v4.62.2 <em>· current</em></h2>
+      <span class="date">9 May 2026</span>
+    </header>
+    <p class="summary">Two threads. Devanagari + IAST added alongside the English Nirvāṇa Shatakam verses on <a href="ether.html">Ether</a>. Pricing page built and ready, but intentionally unlinked from the nav until Vikram aligns on commercials.</p>
+
+    <h3>Devanagari + IAST on Ether</h3>
+    <ul>
+      <li><strong>Source</strong>: Adi Shankaracharya's <em>Nirvāṇa Shatakam</em> (also called <em>Ātma Shatakam</em>). Six verses, each ending in the refrain <em>चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</em></li>
+      <li><strong>Three layers per verse</strong>, in order: original Devanagari (saffron, Noto Serif Devanagari) → IAST transliteration in muted italic (<em>cidānandarūpaḥ śivo'ham śivo'ham</em>) → English translation (existing). Reader picks whichever layer they're drawn to; the eye finds its own anchor.</li>
+      <li><strong>Font</strong>: Google Fonts' Noto Serif Devanagari (weight 400/500). Falls back gracefully to system Devanagari fonts on iOS / Android / Windows / Mac.</li>
+      <li><strong>Lang attribute</strong>: each Devanagari block tagged <code>lang="sa"</code> for accessibility / search engines.</li>
+      <li>The refrain is centred in all three layers — the ceremonial beat that returns at the end of each verse.</li>
+    </ul>
+
+    <h3>Pricing page (built, unlinked)</h3>
+    <ul>
+      <li><strong>New file</strong>: <code>pricing.html</code>. Standalone, brand-aligned, accessible by direct URL only. Not linked from More menu, not from footer — Sree picked Option B from the proposal: build it now so it's ready when commercials get blessed.</li>
+      <li><strong>Honest single price</strong> — no anchor discount: free first month, then ₹500 / month for India, $10 / month for elsewhere. Same access for everyone. No tiers, no feature locks.</li>
+      <li><strong>Cohort callout</strong>: a separate section reaching out directly to members of Vikram's class. <em>"If you're already paying for the class, please reach out — we'll work out an arrangement that doesn't feel like double-billing."</em></li>
+      <li><strong>What's included</strong>: explicit list of every page and what stays available — Learning Companion, Read · beta, Reflect, all peer pages, future pages.</li>
+      <li><strong>Why unlinked</strong>: published commercials change the brand posture. The honest move is to talk to Vikram first and align before the cohort sees pricing language. The page exists at <code>/pricing.html</code> for direct preview when needed.</li>
+    </ul>
+
+    <h3>What's deferred</h3>
+    <p>No banner anywhere. The Style toggle, Your name, and existing menu items are unchanged. The pricing page is genuinely a draft — copy can be revised, payment integration isn't built yet, no Stripe / Razorpay button. When commercials are agreed, those land in a separate release.</p>
+  </section>
+
   <!-- ====================== v4.62.1 ====================== -->
   <section class="release" data-credits="Sree (ask to bring the slide diagrams alive + add a workbook to lock the concept)">
     <header>
-      <h2>v4.62.1 <em>· current</em></h2>
+      <h2>v4.62.1</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">Two interactive layers added to <a href="sripati.html">Sripati Paddhati</a>: an animated 7-step derivation that walks through the cusp math one tap at a time, and a 3-question workbook to lock in the concept. Both KISS-aligned — no auto-play, no over-engineering.</p>
@@ -4108,7 +4138,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.62.1 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.62.2 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4331,7 +4361,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.62.1';
+  const PAGE_VERSION = '4.62.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4445,7 +4475,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.2';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

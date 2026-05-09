@@ -16,6 +16,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<!-- v4.62.2 — Devanagari for Nirvāṇa Shatakam original verses -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg:        #F4EEDA;
@@ -264,6 +266,43 @@
     color: var(--saffron);
     font-style: italic;
     /* The refrain stays centred — the ceremonial beat that returns at the end of each verse. */
+    text-align: center;
+  }
+  /* v4.62.2 — Devanagari + IAST layers above each verse */
+  .shatakam-skt {
+    display: block;
+    font-family: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', serif;
+    font-style: normal;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--saffron);
+    margin-bottom: 4px;
+    text-align: left;
+  }
+  .shatakam-iast {
+    display: block;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  .shatakam-en {
+    display: block;
+    margin-top: 4px;
+  }
+  .shatakam-skt .skt-refrain {
+    display: block;
+    margin-top: 6px;
+    color: var(--saffron);
+    text-align: center;
+  }
+  .shatakam-iast .iast-refrain {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
     text-align: center;
   }
   .shatakam-divider {
@@ -645,7 +684,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.62.1</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.62.2</div>
     <h1><em>Ether</em> — the fifth element</h1>
     <p class="lede">Notes from the Astrology 101 retreat · Sriperumbudur · March 2026.</p>
     <div class="ornament" aria-hidden="true">
@@ -724,50 +763,62 @@
       <div class="shatakam-h">Six verses · Neti Neti</div>
 
       <p class="shatakam-verse">
-        I am not the mind, intellect, ego or memory.<br>
+        <span class="shatakam-skt" lang="sa">मनोबुद्ध्यहङ्कारचित्तानि नाहं<br>न च श्रोत्रजिह्वे न च घ्राणनेत्रे ।<br>न च व्योम भूमिर्न तेजो न वायुः<br><span class="skt-refrain">चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</span></span>
+        <span class="shatakam-iast">manobuddhyahaṅkāracittāni nāhaṁ<br>na ca śrotrajihve na ca ghrāṇanetre |<br>na ca vyoma bhūmir na tejo na vāyuḥ<br><span class="iast-refrain">cidānandarūpaḥ śivo'ham śivo'ham ||</span></span>
+        <span class="shatakam-en">I am not the mind, intellect, ego or memory.<br>
         I am not ears, tongue, nose or eyes.<br>
         I am not space, earth, fire or air.<br>
-        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span>
+        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span></span>
       </p>
       <div class="shatakam-divider" aria-hidden="true"></div>
 
       <p class="shatakam-verse">
-        I am not the life-force, not the five vital airs.<br>
+        <span class="shatakam-skt" lang="sa">न च प्राणसंज्ञो न वै पञ्चवायुः<br>न वा सप्तधातुः न वा पञ्चकोशः ।<br>न वाक्पाणिपादौ न चोपस्थपायू<br><span class="skt-refrain">चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</span></span>
+        <span class="shatakam-iast">na ca prāṇasaṁjño na vai pañcavāyuḥ<br>na vā saptadhātuḥ na vā pañcakośaḥ |<br>na vākpāṇipādau na copasthapāyū<br><span class="iast-refrain">cidānandarūpaḥ śivo'ham śivo'ham ||</span></span>
+        <span class="shatakam-en">I am not the life-force, not the five vital airs.<br>
         I am not the seven body elements, nor the five sheaths.<br>
         I am not speech, hands, feet, nor the organs of generation and elimination.<br>
-        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span>
+        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span></span>
       </p>
       <div class="shatakam-divider" aria-hidden="true"></div>
 
       <p class="shatakam-verse">
-        I have no hatred or attachment, no greed or delusion.<br>
+        <span class="shatakam-skt" lang="sa">न मे द्वेषरागौ न मे लोभमोहौ<br>मदो नैव मे नैव मात्सर्यभावः ।<br>न धर्मो न चार्थो न कामो न मोक्षः<br><span class="skt-refrain">चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</span></span>
+        <span class="shatakam-iast">na me dveṣarāgau na me lobhamohau<br>mado naiva me naiva mātsaryabhāvaḥ |<br>na dharmo na cārtho na kāmo na mokṣaḥ<br><span class="iast-refrain">cidānandarūpaḥ śivo'ham śivo'ham ||</span></span>
+        <span class="shatakam-en">I have no hatred or attachment, no greed or delusion.<br>
         I have no pride and no jealousy.<br>
         I am not bound by duty, wealth, desire or liberation.<br>
-        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span>
+        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span></span>
       </p>
       <div class="shatakam-divider" aria-hidden="true"></div>
 
       <p class="shatakam-verse">
-        I am not merit or sin, not pleasure or pain.<br>
+        <span class="shatakam-skt" lang="sa">न पुण्यं न पापं न सौख्यं न दुःखं<br>न मन्त्रो न तीर्थं न वेदा न यज्ञाः ।<br>अहं भोजनं नैव भोज्यं न भोक्ता<br><span class="skt-refrain">चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</span></span>
+        <span class="shatakam-iast">na puṇyaṁ na pāpaṁ na saukhyaṁ na duḥkhaṁ<br>na mantro na tīrthaṁ na vedā na yajñāḥ |<br>ahaṁ bhojanaṁ naiva bhojyaṁ na bhoktā<br><span class="iast-refrain">cidānandarūpaḥ śivo'ham śivo'ham ||</span></span>
+        <span class="shatakam-en">I am not merit or sin, not pleasure or pain.<br>
         I am not mantra, pilgrimage, scripture or ritual.<br>
         I am neither the act of eating, nor what is eaten, nor the eater.<br>
-        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span>
+        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span></span>
       </p>
       <div class="shatakam-divider" aria-hidden="true"></div>
 
       <p class="shatakam-verse">
-        I have no fear of death, no distinction of caste or birth.<br>
+        <span class="shatakam-skt" lang="sa">न मृत्युर्न शङ्का न मे जातिभेदः<br>पिता नैव मे नैव माता न जन्म ।<br>न बन्धुर्न मित्रं गुरुर्नैव शिष्यः<br><span class="skt-refrain">चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</span></span>
+        <span class="shatakam-iast">na mṛtyurna śaṅkā na me jātibhedaḥ<br>pitā naiva me naiva mātā na janma |<br>na bandhurna mitraṁ gururnaiva śiṣyaḥ<br><span class="iast-refrain">cidānandarūpaḥ śivo'ham śivo'ham ||</span></span>
+        <span class="shatakam-en">I have no fear of death, no distinction of caste or birth.<br>
         I have no father, no mother, no birth.<br>
         I have no relative, no friend, no teacher, no student.<br>
-        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span>
+        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span></span>
       </p>
       <div class="shatakam-divider" aria-hidden="true"></div>
 
       <p class="shatakam-verse">
-        I am without thought constructs. I am formless in nature.<br>
+        <span class="shatakam-skt" lang="sa">अहं निर्विकल्पो निराकाररूपो<br>विभुर्व्याप्य सर्वत्र सर्वेन्द्रियाणाम् ।<br>सदा मे समत्वं न मुक्तिर्न बन्धः<br><span class="skt-refrain">चिदानन्दरूपः शिवोऽहम् शिवोऽहम् ॥</span></span>
+        <span class="shatakam-iast">ahaṁ nirvikalpo nirākārarūpo<br>vibhurvyāpya sarvatra sarvendriyāṇām |<br>sadā me samatvaṁ na muktirna bandhaḥ<br><span class="iast-refrain">cidānandarūpaḥ śivo'ham śivo'ham ||</span></span>
+        <span class="shatakam-en">I am without thought constructs. I am formless in nature.<br>
         I am all-pervading, present everywhere, underlying all the senses.<br>
         I am neither attached, nor liberated, nor an object to be known.<br>
-        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span>
+        <span class="refrain">I am pure consciousness and bliss. I am Shiva.</span></span>
       </p>
     </div>
   </section>
@@ -870,7 +921,7 @@
     </div>
     <p>← <a href="index.html">Back to home</a> · <a href="learning-companion.html">Learning Companion</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.62.1 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.62.2 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -884,7 +935,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.62.1';
+  const PAGE_VERSION = '4.62.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -981,7 +1032,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.2';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
