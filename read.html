@@ -1552,6 +1552,49 @@
     padding: 8px 4px;
   }
 
+  /* v4.57.0 — Compact drawer layout. Per dimension: one prominent tile
+     (relevant for current sign) + chip row of alternates. Tap a chip to
+     swap it into the prominent slot. */
+  .walk-ref-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 7px;
+  }
+  .walk-ref-chip {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--rule-soft);
+    border-radius: 999px;
+    padding: 3px 11px;
+    cursor: pointer;
+    transition: color .18s, border-color .18s, background .18s;
+    line-height: 1.5;
+  }
+  .walk-ref-chip:hover {
+    color: var(--saffron);
+    border-color: var(--saffron);
+    background: rgba(184,65,14,.04);
+  }
+  .walk-ref-chip em {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 10.5px;
+    margin-left: 4px;
+  }
+  .walk-ref-chip:hover em { color: var(--ink-soft); }
+  .walk-ref-chips-hint {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-right: 4px;
+    align-self: center;
+  }
+
   .walk-card {
     margin: 0 0 18px;
     padding: 24px 22px 22px;
@@ -1839,7 +1882,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.56.1</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.57.0</div>
     <h1><em>Read</em> <span class="beta-tag">· beta</span></h1>
     <p class="lede">A companion for reading your own chart. Pick your Lagna, place your planets, and see the South Indian map of your life. The house-by-house walk-through follows.</p>
   </header>
@@ -1948,7 +1991,7 @@
   <footer class="footer">
     <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> for the inspiration and frame.</p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.56.1 · updated 8 May 2026</span>
+      <span style="color:var(--muted);">v4.57.0 · updated 9 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
       &nbsp;·&nbsp;
@@ -3137,6 +3180,13 @@
       localStorage.setItem(SELFCHECK_KEY, JSON.stringify(all));
     } catch (e) {}
   }
+  // v4.57.0 — Compact drawer state. Per dimension, track which attribute is
+  // currently shown as the prominent tile. Defaults to the sign's relevant
+  // attribute; tapping a chip swaps that alternate into the prominent slot.
+  // Resets every time the drawer renders for a new sign.
+  let _drawerSid = null;
+  const _drawerPick = { duality: null, modality: null, element: null };
+
   function renderWalkDrawer() {
     const drawer = document.getElementById('walkDrawer');
     if (!drawer) return;
@@ -3164,27 +3214,50 @@
     const attrs = SIGN_ATTR[sid];
     const planetsHere = planetsForAvatars;
 
+    // v4.57.0 — reset picks when the sign changes (each new house/planet
+    // anchors back to that sign's actual attributes).
+    if (_drawerSid !== sid) {
+      _drawerSid = sid;
+      _drawerPick.duality  = attrs.duality;
+      _drawerPick.modality = attrs.modality;
+      _drawerPick.element  = attrs.element;
+    }
+
     const isOpen = loadDrawerOpen();
     drawer.className = 'walk-drawer' + (isOpen ? ' is-open' : '');
 
-    // Tile helper — name (+ optional deity sub-tag) + light keyword line.
-    function tileHtml(name, deity, light, isRelevant) {
-      const subHtml = deity ? ` <em>· ${deity}</em>` : '';
-      return `<div class="walk-ref-tile ${isRelevant ? 'is-relevant' : ''}">
-        <div class="walk-ref-name">${name}${subHtml}</div>
-        <p class="walk-ref-line">${light}</p>
+    // v4.57.0 — Build a compact dimension block: one prominent tile (the
+    // currently-picked key for that dimension) + a chip row of alternates.
+    // `relevantKey` is the attribute that actually applies to this sign, used
+    // to tag the prominent tile in saffron when it matches.
+    function dimensionBlock(eyebrow, dimName, dataObj, pickedKey, relevantKey) {
+      const picked = dataObj[pickedKey];
+      const subHtml = picked.deity ? ` <em>· ${picked.deity}</em>` : '';
+      const isRelevant = pickedKey === relevantKey;
+      const tile = `<div class="walk-ref-tile ${isRelevant ? 'is-relevant' : ''}">
+        <div class="walk-ref-name">${picked.name}${subHtml}</div>
+        <p class="walk-ref-line">${picked.light}</p>
+      </div>`;
+      const alternates = Object.entries(dataObj).filter(([k]) => k !== pickedKey);
+      const chips = alternates.length
+        ? `<div class="walk-ref-chips">
+            <span class="walk-ref-chips-hint">Compare:</span>
+            ${alternates.map(([k, v]) =>
+              `<button type="button" class="walk-ref-chip"
+                       data-dim="${dimName}" data-pick="${k}">${v.name}${v.deity ? ` <em>· ${v.deity}</em>` : ''}</button>`
+            ).join('')}
+          </div>`
+        : '';
+      return `<div class="walk-ref-section">
+        <div class="walk-ref-eyebrow">${eyebrow}</div>
+        ${tile}
+        ${chips}
       </div>`;
     }
 
-    const dualitiesHtml = Object.entries(DUALITY_LIGHT).map(([k, v]) =>
-      tileHtml(v.name, v.deity, v.light, k === attrs.duality)
-    ).join('');
-    const modalitiesHtml = Object.entries(MODALITY_LIGHT).map(([k, v]) =>
-      tileHtml(v.name, v.deity, v.light, k === attrs.modality)
-    ).join('');
-    const elementsHtml = Object.entries(ELEMENT_LIGHT).map(([k, v]) =>
-      tileHtml(v.name, v.deity, v.light, k === attrs.element)
-    ).join('');
+    const dualitiesBlock  = dimensionBlock('Dualities',  'duality',  DUALITY_LIGHT,  _drawerPick.duality,  attrs.duality);
+    const modalitiesBlock = dimensionBlock('Modalities', 'modality', MODALITY_LIGHT, _drawerPick.modality, attrs.modality);
+    const elementsBlock   = dimensionBlock('Elements',   'element',  ELEMENT_LIGHT,  _drawerPick.element,  attrs.element);
 
     // Avatars — contextual: only the avatars of planets currently in this house.
     // Each tile tagged "Avatar · Planet · English" so the planet-avatar mapping
@@ -3203,7 +3276,10 @@
           const planetName = planetObj ? planetObj.name : '';
           const subTag = `${planetName} · ${a.english}`;
           const keywordLine = a.keywords.join(', ');
-          return tileHtml(a.name, subTag, keywordLine, true);
+          return `<div class="walk-ref-tile is-relevant">
+            <div class="walk-ref-name">${a.name} <em>· ${subTag}</em></div>
+            <p class="walk-ref-line">${keywordLine}</p>
+          </div>`;
         }).join('')
       : `<div class="walk-ref-empty">${avatarsEmptyMsg}</div>`;
 
@@ -3214,18 +3290,9 @@
         <span class="light-tag">light only · from class</span>
       </button>
       <div class="walk-drawer-body">
-        <div class="walk-ref-section">
-          <div class="walk-ref-eyebrow">Dualities</div>
-          <div class="walk-ref-grid cols-2">${dualitiesHtml}</div>
-        </div>
-        <div class="walk-ref-section">
-          <div class="walk-ref-eyebrow">Modalities</div>
-          <div class="walk-ref-grid cols-3">${modalitiesHtml}</div>
-        </div>
-        <div class="walk-ref-section">
-          <div class="walk-ref-eyebrow">Elements</div>
-          <div class="walk-ref-grid cols-4">${elementsHtml}</div>
-        </div>
+        ${dualitiesBlock}
+        ${modalitiesBlock}
+        ${elementsBlock}
         <div class="walk-ref-section">
           <div class="walk-ref-eyebrow">${avatarSectionLabel}</div>
           <div class="walk-ref-grid cols-avatars">${avatarsHtml}</div>
@@ -3237,6 +3304,19 @@
       const newOpen = !loadDrawerOpen();
       saveDrawerOpen(newOpen);
       renderWalkDrawer();
+    });
+
+    // v4.57.0 — wire up chip swaps. Tapping a chip promotes that alternate
+    // into the prominent slot for its dimension, then re-renders the drawer.
+    drawer.querySelectorAll('.walk-ref-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const dim  = chip.dataset.dim;
+        const pick = chip.dataset.pick;
+        if (dim && pick && _drawerPick.hasOwnProperty(dim)) {
+          _drawerPick[dim] = pick;
+          renderWalkDrawer();
+        }
+      });
     });
   }
 
@@ -3732,7 +3812,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.56.1';
+  const PAGE_VERSION = '4.57.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -3851,7 +3931,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.56.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.57.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

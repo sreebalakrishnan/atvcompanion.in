@@ -1,6 +1,6 @@
 {
-  "version": "4.56.1",
-  "released": "2026-05-08",
+  "version": "4.57.0",
+  "released": "2026-05-09",
   "notes_url": "release-notes.html",
   "comment": "Bump version when any of the three HTML pages changes meaningfully. Bake the same version into the PAGE_VERSION constant in each page's update-checker script."
 }
