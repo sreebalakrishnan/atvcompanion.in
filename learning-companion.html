@@ -5004,6 +5004,9 @@
     --family-story:     #b8410e;
     --gold:      #a8843a;
   }
+  /* v4.68.0 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  html { color-scheme: light; background-color: var(--bg); }
+
 
   /* ---------- v4.60.0 PERSONALISATION ---------- */
   .name-prompt {
@@ -5323,6 +5326,7 @@
     <div class="more-wrap">
       <button type="button" class="more-btn" id="moreMenuBtn" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
       <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="catch-up.html" role="menuitem">Catch up · missed a class?</a>
         <a href="where-am-i.html" role="menuitem">Where am I</a>
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
@@ -5352,7 +5356,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.66.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.0</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -6032,7 +6036,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.66.0 · updated 10 May 2026</span>
+      <span>v4.68.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -10064,7 +10068,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.66.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.0';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10692,6 +10696,53 @@ applyFrontier();
 
 // Initial render of the daily gem
 renderGem();
+
+/* v4.68.0 — URL parameter handlers for shareable senior view + direct mode/level overrides.
+   Supports:
+     ?role=senior              → flips to Reference mode + Level: All (Sarika ask + senior-share use case)
+     ?mode=reference|learning  → set mode directly
+     ?level=all|foundations|beginner|intermediate|advanced → set level directly
+   These persist (the existing setMode/setLevel write to localStorage), so the share link
+   sticks for the visitor across reloads. Also surfaces a small toast confirming. */
+(function applyShareLinkOverrides(){
+  try {
+    var u = new URL(location.href);
+    var role = (u.searchParams.get('role') || '').toLowerCase();
+    var modeParam = (u.searchParams.get('mode') || '').toLowerCase();
+    var levelParam = (u.searchParams.get('level') || '').toLowerCase();
+    var changed = false;
+    var toastMsg = '';
+
+    if (role === 'senior') {
+      setMode('reference');
+      setLevel('all');
+      changed = true;
+      toastMsg = 'Senior view: Reference mode · all sections open';
+    }
+    if (modeParam === 'reference' || modeParam === 'learning') {
+      setMode(modeParam);
+      changed = true;
+    }
+    if (['all','foundations','beginner','intermediate','advanced'].indexOf(levelParam) !== -1) {
+      setLevel(levelParam);
+      changed = true;
+    }
+    if (changed && !toastMsg) {
+      toastMsg = 'Settings applied from link.';
+    }
+    if (changed) {
+      // small confirming toast (reuses the version-toast pattern)
+      setTimeout(function(){
+        var t = document.createElement('div');
+        t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;';
+        t.textContent = toastMsg;
+        document.body.appendChild(t);
+        requestAnimationFrame(function(){ t.style.opacity = '1'; });
+        setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); }, 300); }, 2400);
+      }, 250);
+    }
+  } catch(e){}
+})();
 
 // Wire gem-link buttons into the existing click delegation
 document.addEventListener('click', e => {
@@ -11475,7 +11526,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.66.0';
+  const PAGE_VERSION = '4.68.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

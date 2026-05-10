@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F4EEDA">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="Missed a class? Catch up here. Each Astrology 101 session — what was covered, in one paragraph, with a direct link to the deeper material in the companion app.">
+<title>Catch up — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#F4EEDA; --bg-deep:#E0DCCD; --surface:#F8F4E1; --cream:#F8F4E1;
+    --ink:#282826; --ink-soft:#4B4B4A; --muted:#7C7B78;
+    --rule:#CAC6BB; --rule-soft:#E0DCCD;
+    --saffron:#BC8146; --indigo:#6E7D85;
+    --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
+    --display:'Libre Caslon Text','Cormorant Garamond','Times New Roman',serif;
+    --body:'Switzer','Spectral',system-ui,-apple-system,sans-serif;
+  }
+  html.theme-legacy {
+    --bg:#f3e9d2; --bg-deep:#ead9b4; --surface:#faf3e2; --cream:#faf3e2;
+    --ink:#1f1a2e; --ink-soft:#4a4055; --muted:#7d6f55;
+    --rule:#d4c39a; --rule-soft:#e3d4ad;
+    --saffron:#b8410e; --indigo:#2a3270;
+    --display:'Cormorant Garamond','Times New Roman',serif;
+    --body:'Spectral',Georgia,serif;
+  }
+  html { color-scheme: light; background-color: var(--bg); }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 200;
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* SITE NAV */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex; justify-content: center;
+    gap: 18px; align-items: baseline; flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    letter-spacing: .04em; color: var(--ink-soft);
+    text-decoration: none; transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn { background: transparent; border: 0; padding: 0; font-family: inherit; font-style: italic; font-size: inherit; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu { position: absolute; top: calc(100% + 8px); right: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 0; box-shadow: var(--shadow-md); z-index: 100; min-width: 220px; display: flex; flex-direction: column; }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle { padding: 9px 16px; text-decoration: none; color: var(--ink); font-family: var(--display); font-style: italic; font-size: 14px; text-align: left; border: 0; background: transparent; cursor: pointer; line-height: 1.3; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover { background: var(--bg-deep); color: var(--saffron); }
+  .more-menu a[aria-current="page"] { color: var(--saffron); }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label { color: var(--muted); font-size: 10.5px; text-transform: uppercase; letter-spacing: .14em; font-style: italic; }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu { position: fixed; top: 64px; right: 12px; left: auto; max-width: calc(100vw - 24px); min-width: 240px; }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    padding: 56px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; letter-spacing: .14em;
+    color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(38px, 7vw, 52px);
+    line-height: 1.05; margin: 0 0 14px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede {
+    font-family: var(--display); font-style: italic;
+    font-size: 17px; color: var(--ink-soft);
+    margin: 0 auto; max-width: 56ch; line-height: 1.55;
+  }
+
+  /* ORIGIN NOTE */
+  .origin {
+    margin: 28px auto 24px;
+    max-width: 60ch;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 8px 8px 0;
+  }
+  .origin p {
+    margin: 0 0 6px; font-family: var(--display);
+    font-style: italic; font-size: 15px; color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .origin p:last-child { margin-bottom: 0; }
+
+  /* FILTER BAR */
+  .filter {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    align-items: center;
+    margin: 28px 0 16px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+  .filter-label {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+    letter-spacing: .04em; flex-shrink: 0;
+  }
+  .filter-search {
+    flex: 1; min-width: 0;
+    background: transparent; border: 0; outline: none;
+    font-family: var(--body); font-size: 15px;
+    color: var(--ink);
+    padding: 4px 4px;
+  }
+  .filter-search::placeholder { color: var(--muted); font-style: italic; opacity: .6; }
+  .filter-count {
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* SESSION CARD */
+  .session {
+    margin: 14px 0;
+    padding: 22px 24px 20px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .session.is-latest {
+    border-color: var(--saffron);
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 18px 44px -16px rgba(188,129,70,.18);
+  }
+  .session.is-hidden { display: none; }
+  .session-head {
+    display: flex; align-items: baseline;
+    gap: 12px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .session-num {
+    font-family: var(--display); font-style: italic;
+    font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    padding: 2px 10px;
+    background: rgba(188,129,70,.08);
+    border-radius: 999px;
+  }
+  .session.is-latest .session-num {
+    background: var(--saffron);
+    color: var(--surface);
+  }
+  .session-date {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+  }
+  .session-latest-tag {
+    margin-left: auto;
+    font-family: var(--display); font-style: italic;
+    font-size: 11px; letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+  }
+  .session h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 22px; line-height: 1.2;
+    margin: 0 0 12px; letter-spacing: -.005em;
+  }
+  .session h2 em { font-style: italic; color: var(--saffron); }
+  .session-tldr {
+    font-family: var(--display); font-style: italic;
+    font-size: 15.5px; line-height: 1.55;
+    color: var(--ink); margin: 0 0 14px;
+  }
+  .session-quote {
+    margin: 12px 0 14px;
+    padding: 10px 16px;
+    border-left: 2px solid var(--saffron);
+    background: rgba(188,129,70,.04);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px; color: var(--ink);
+    line-height: 1.5;
+  }
+  .session-quote .attr {
+    display: block; margin-top: 4px;
+    font-style: normal; font-size: 11px;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .session-links {
+    display: flex; flex-wrap: wrap;
+    gap: 6px;
+  }
+  .session-link {
+    display: inline-flex; align-items: center;
+    padding: 5px 12px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--ink-soft);
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .session-link:hover {
+    color: var(--saffron); border-color: var(--saffron);
+    background: rgba(188,129,70,.05);
+  }
+  .session-link.is-primary {
+    background: var(--ink); color: var(--surface); border-color: var(--ink);
+  }
+  .session-link.is-primary:hover {
+    background: var(--saffron); border-color: var(--saffron);
+    color: var(--surface);
+  }
+  .empty {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: var(--display); font-style: italic;
+    color: var(--muted); font-size: 15px;
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: 480px;
+    margin: 60px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer-ornament { color: var(--saffron); margin-bottom: 16px; opacity: .7; }
+  .footer-ornament svg { width: 14px; height: 14px; }
+  .footer p {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .footer .meta { margin-top: 10px; font-size: 12px; }
+
+  /* Name popover (sitewide) */
+  .name-popover { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 24px 26px; box-shadow: var(--shadow-md); z-index: 300; width: min(90vw, 380px); font-family: var(--display); }
+  .name-popover[hidden] { display: none; }
+  .name-popover-backdrop { position: fixed; inset: 0; background: rgba(40,40,38,.35); z-index: 299; }
+  .name-popover-backdrop[hidden] { display: none; }
+  .name-popover-eyebrow { font-style: italic; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 4px; }
+  .name-popover-q { font-style: italic; font-size: 18px; color: var(--ink); margin: 0 0 16px; line-height: 1.3; }
+  .name-popover-input { width: 100%; padding: 9px 14px; background: var(--bg); border: 1px solid var(--rule); border-radius: 999px; font-family: var(--body); font-size: 15px; color: var(--ink); outline: none; margin-bottom: 14px; }
+  .name-popover-input:focus { border-color: var(--saffron); }
+  .name-popover-buttons { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  .name-popover-buttons button { padding: 7px 16px; border-radius: 999px; font-family: var(--display); font-style: italic; font-size: 14px; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); transition: all .15s; }
+  .name-popover-buttons button:hover { border-color: var(--saffron); color: var(--saffron); }
+  .name-popover-buttons .save { background: var(--saffron); color: var(--surface); border-color: var(--saffron); font-weight: 500; }
+  .name-popover-buttons .save:hover { color: var(--surface); transform: translateY(-1px); }
+  .name-popover-buttons .clear { color: var(--muted); }
+
+  /* WhatsApp FAB */
+  .wa-fab-global { position: fixed; bottom: 24px; right: 24px; z-index: 200; width: 52px; height: 52px; border-radius: 50%; background: #25d366; color: #fff; border: 0; cursor: pointer; box-shadow: 0 4px 12px -2px rgba(40,40,38,.25); display: flex; align-items: center; justify-content: center; font-size: 22px; transition: transform .15s, box-shadow .15s; }
+  .wa-fab-global:hover { transform: translateY(-2px); box-shadow: 0 6px 18px -4px rgba(40,40,38,.3); }
+  @media (max-width: 480px) { .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; } }
+</style>
+</head>
+<body>
+<script>
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
+
+<div class="page">
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
+    <span class="sep">·</span>
+    <a href="interpret.html" class="primary">Interpret · beta</a>
+    <span class="sep">·</span>
+    <a href="reflect.html" class="primary">Reflect</a>
+    <span class="sep">·</span>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="catch-up.html" role="menuitem" aria-current="page">Catch up · missed a class?</a>
+        <a href="where-am-i.html" role="menuitem">Where am I</a>
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="about.html" role="menuitem">About · how this came to be</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
+          <span class="more-menu-toggle-label">Your name</span>
+          <span class="more-menu-toggle-value" id="namePopoverValue">Add</span>
+        </button>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · the companion app · v4.68.0</div>
+    <h1>Catch <em>up</em></h1>
+    <p class="lede"
+       data-name-template="Missed a class, {name}? Find the session below — one paragraph on what was covered, with a direct link to the deeper material."
+       data-name-fallback="Missed a class? Find the session below — one paragraph on what was covered, with a direct link to the deeper material in the companion app.">Missed a class? Find the session below — one paragraph on what was covered, with a direct link to the deeper material in the companion app.</p>
+  </header>
+
+  <div class="origin">
+    <p>This page exists because the seniors group (and most of the cohort, honestly) miss a class now and then. Vikram's sessions are dense — even one missed week can leave you feeling adrift.</p>
+    <p>Each card below names what was taught, gives the in-class quote that anchored it, and points you to the page that holds the same material at your own pace. Newest first.</p>
+  </div>
+
+  <div class="filter">
+    <span class="filter-label">Find:</span>
+    <input type="search" class="filter-search" id="catchupFilter" placeholder="Sripati, Krishna, retrograde, houses…" aria-label="Filter sessions">
+    <span class="filter-count" id="catchupCount"></span>
+  </div>
+
+  <div id="sessionsRoot"></div>
+
+  <footer class="footer">
+    <div class="footer-ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="index.html">Back to home</a> · <a href="learning-companion.html">Learning Companion</a></p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.68.0 · updated 10 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+    </p>
+  </footer>
+</div>
+
+<!-- Name popover -->
+<div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
+<div class="name-popover" id="namePopover" hidden role="dialog" aria-modal="true" aria-labelledby="namePopoverQ">
+  <div class="name-popover-eyebrow">Your name</div>
+  <p class="name-popover-q" id="namePopoverQ">What should we call you?</p>
+  <input class="name-popover-input" type="text" maxlength="30" placeholder="e.g. Sree" autocomplete="given-name">
+  <div class="name-popover-buttons">
+    <button type="button" class="clear" id="namePopoverClear">Clear</button>
+    <button type="button" id="namePopoverCancel">Cancel</button>
+    <button type="button" class="save" id="namePopoverSave">Save</button>
+  </div>
+</div>
+
+<button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
+  <span aria-hidden="true">💬</span>
+</button>
+
+<script>
+/* SESSION DATA — sourced from VIKRAM_QUOTES + AVATAR_PRACTICE in learning-companion.html.
+   Newest first. Each session: number, title, date, sortDate (YYYY-MM-DD), tldr, quote (optional), links. */
+const SESSIONS = [
+  {
+    num: '38', title: 'SP method houses, starting interpretations', date: 'March 8, 2026', sortDate: '2026-03-08',
+    tldr: 'Continuation of Sripati Paddhati — using the unequal house cusps in actual chart reading. Sripati feeds the Bhāva Chalit; Whole-Sign feeds the Rāśi chart. Both are companion charts, not rivals.',
+    links: [
+      { href: 'sripati.html#rashi-vs-bhava', label: 'Rāśi chart vs Bhāva Chalit', primary: true },
+      { href: 'sripati.html', label: 'Full Sripati page' }
+    ]
+  },
+  {
+    num: '37', title: 'Sripathi Paddhathi & Houses', date: 'March 1, 2026', sortDate: '2026-03-01',
+    tldr: 'The 11th-century quadrant-based house system. Why it exists (M.C. drifts from the zenith at higher latitudes), how the cusps are derived (trisect each quadrant from Asc to M.C.), and how it sits alongside Whole-Sign and Equal House.',
+    quote: 'At the equator, the Medium Coeli and the Zenith are the same. But if I go north — or south — it moves away from the zenith. That\'s what brings us to Sripathi Paddhathi.',
+    links: [
+      { href: 'sripati.html', label: 'Sripati Paddhati page', primary: true },
+      { href: 'sripati.html#worked', label: 'The 7-step worked example' },
+      { href: 'sripati.html#workbook', label: 'Quick check (3 questions)' }
+    ]
+  },
+  {
+    num: '35', title: 'Interpretation, Kinds of Houses & House Systems', date: 'February 15, 2026', sortDate: '2026-02-15',
+    tldr: 'House categories: kendras, trikoṇas, panaparas, apoklimas, upachayas, dushtanas. Each category maps to a flavour of life — pillars, purpose, sustainers, effort, growth, friction. Plus an introduction to House Systems (Whole-Sign, Equal, Sripati).',
+    quote: 'The moment you say Aries is rising, you are referring to the chart of Kāla Puruṣa.',
+    links: [
+      { href: 'learning-companion.html#categories', label: 'House Categories', primary: true },
+      { href: 'learning-companion.html#kaalapurusha', label: 'Kāla Puruṣa' },
+      { href: 'kaalapurusha.html', label: 'Kāla Puruṣa peer page' }
+    ]
+  },
+  {
+    num: '33', title: 'Intro to Houses', date: 'February 1, 2026', sortDate: '2026-02-01',
+    tldr: 'The twelve Bhāvas — what each house signifies. Purushārthas (the four aims of life — dharma, artha, kāma, mokṣa) mapped onto the houses. Reading the chart by house karaka.',
+    quote: 'These aims of life are not hierarchical. There are distinct aims, all at the same footing — dharma, artha, kama, moksha.',
+    links: [
+      { href: 'learning-companion.html#houses', label: 'Houses section', primary: true },
+      { href: 'learning-companion.html#purusharthas', label: 'Purushārthas' },
+      { href: 'interpret.html', label: 'Interpret your chart · beta' }
+    ]
+  },
+  {
+    num: '32', title: 'Avatars & my story', date: 'January 25, 2026', sortDate: '2026-01-25',
+    tldr: 'The Daśāvatāra arc as psychological evolution — fish → turtle → boar → man-lion → dwarf → warrior-priest → king → cowherd-king → awakened one. Each avatar lives in one of us; each is a chapter of life.',
+    quote: 'Notice how the life form is evolving with each avatar. From the fish came the turtle, and then came the boar — life is gradually moving on to land.',
+    links: [
+      { href: 'learning-companion.html#avatars', label: 'Avatars in Learning Companion', primary: true },
+      { href: 'reflect.html', label: 'Reflect — Matsya is fully drafted' }
+    ]
+  },
+  {
+    num: '31', title: 'End of Year & Buddha Avatar', date: 'January 18, 2026', sortDate: '2026-01-18',
+    tldr: 'Buddha — the awakened one — paired with Mercury. The closing arc of the Daśāvatāra as it stands today (Kalki is the future). Year-1 reflections.',
+    links: [
+      { href: 'learning-companion.html#avatars', label: 'Avatars section', primary: true },
+      { href: 'mercury-spectrum.html', label: 'Mercury Spectrum (peer page)' }
+    ]
+  },
+  {
+    num: '30', title: 'Astronomy of Houses', date: 'January 4, 2026', sortDate: '2026-01-04',
+    tldr: 'The geocentric view — what an observer on Earth sees. The ecliptic, the celestial equator, the Ascendant as the rising sign. Why birth time matters so much (one degree every four minutes).',
+    quote: 'Ascendant means something that has risen. What we are saying is — which are the stars that are rising in the east at that moment?',
+    links: [
+      { href: 'astronomy.html', label: 'Astronomy peer page', primary: true },
+      { href: 'astronomy.html#geocentric', label: 'The Geocentric View' },
+      { href: 'astronomy.html#stellarium', label: 'Stellarium Lab' }
+    ]
+  },
+  {
+    num: '27', title: 'Krishna Avatar', date: 'December 14, 2025', sortDate: '2025-12-14',
+    tldr: 'Kṛṣṇa — the cowherd-king, paired with the Moon. Unconditional love, equanimity, play, wisdom, the flute. Story-as-archetype for reading the Moon in your own chart.',
+    links: [
+      { href: 'learning-companion.html#avatars', label: 'Avatars section', primary: true },
+      { href: 'learning-companion.html?q=Krishna', label: 'Search: Krishna' }
+    ]
+  },
+  {
+    num: '26', title: 'Case Study — Atal Behari Vajpayee', date: 'December 7, 2025', sortDate: '2025-12-07',
+    tldr: 'A worked chart-reading. How Vikram approaches a known life: signature first, then planetary cabinet, then yogas. The case study technique you\'ll use on your own chart.',
+    links: [
+      { href: 'learning-companion.html#practice', label: 'Practice section', primary: true },
+      { href: 'interpret.html', label: 'Interpret · beta — try it on your chart' }
+    ]
+  },
+  {
+    num: '25', title: 'Relationships & Apparent Motions', date: 'November 23, 2025', sortDate: '2025-11-23',
+    tldr: 'Friend / neutral / enemy as Vikram teaches it — natural relationships from the planetary cabinet. Apparent motions of planets: retrograde, stationary, direct.',
+    quote: 'I don\'t know — we need to sit with this. Keep a journal of learnings, and you will continue to apply this on your own chart.',
+    links: [
+      { href: 'learning-companion.html#relationships', label: 'Relationships', primary: true },
+      { href: 'learning-companion.html?q=retrograde', label: 'Search: retrograde' }
+    ]
+  },
+  {
+    num: '24', title: 'Planetary Cabinet & Natural Relationships', date: 'November 16, 2025', sortDate: '2025-11-16',
+    tldr: 'Special aspects: Mars (4 & 8), Jupiter (5 & 9), Saturn (3 & 10). Rahu and Ketu echo Saturn. Parivartana — when two planets exchange signs, both become important.',
+    quote: 'When two planets exchange signs — Venus in Jupiter\'s sign, Jupiter in Venus\'s sign — there\'s no final dispositor. We say it\'s a Parivartana yoga.',
+    links: [
+      { href: 'learning-companion.html#aspects', label: 'Aspects · Drishti', primary: true },
+      { href: 'learning-companion.html#yogas', label: 'Yogas · Combinations' }
+    ]
+  },
+  {
+    num: '23', title: 'Planetary Cabinet', date: 'November 9, 2025', sortDate: '2025-11-09',
+    tldr: 'The story Vikram teaches every chart-reading from. Sun is king. Moon is queen. Mercury is the prince and crown-witness. Mars is the commander. Jupiter is the priest. Venus is the foreign minister. Saturn is the servant. Each exaltation, each debilitation, becomes a scene from the story.',
+    quote: 'Even debilitation, you can explain it with the story. Saturn, the servant, is on his knees in front of the commander of the army — Saturn debilitation, Aries. Make the story yours.',
+    links: [
+      { href: 'learning-companion.html#cabinet', label: 'Cabinet section', primary: true },
+      { href: 'interactive.html', label: 'Interactive · the cabinet as a stage' }
+    ]
+  },
+  {
+    num: '20–21', title: 'Rama Avatar (& Elements)', date: 'October 12 & 19, 2025', sortDate: '2025-10-19',
+    tldr: 'Rāma — the king, paired with the Sun. Two-part teaching, paired with the elements — Earth, Water, Fire, Air, Ether — and the Mahāśakti they each correspond to.',
+    links: [
+      { href: 'learning-companion.html#qualities', label: 'Elements · Modes · Duality', primary: true },
+      { href: 'learning-companion.html#avatars', label: 'Avatars section' }
+    ]
+  },
+  {
+    num: '18a', title: 'Retreat Debrief, Parashurama & Stellarium', date: 'September 21, 2025', sortDate: '2025-09-21',
+    tldr: 'Paraśurāma — the warrior-priest, paired with Venus. Plus the first big Stellarium lab: open the planetarium, set your birth time and place, see the actual sky overhead at the moment you were born.',
+    quote: 'I would like you to try it out in Stellarium. So these are the three intentions. One is revision. Next is to look at it in Stellarium. And then to replicate.',
+    links: [
+      { href: 'astronomy.html#stellarium', label: 'Stellarium Lab', primary: true },
+      { href: 'learning-companion.html#avatars', label: 'Avatars section' }
+    ]
+  },
+  {
+    num: '16', title: 'Vamana Avatar & Signature', date: 'August 31, 2025', sortDate: '2025-08-31',
+    tldr: 'Vāmana — the dwarf who became cosmic, paired with Jupiter. Plus the Signature procedure — count grahas by element and by modality; the predominant pair gives you the sign that signs the chart.',
+    quote: 'What we do is something called signature. We take the predominant element and the predominant modality.',
+    links: [
+      { href: 'learning-companion.html#signature', label: 'Signature section', primary: true }
+    ]
+  },
+  {
+    num: '12', title: 'Sky at Birth & Narasimha', date: 'July 27, 2025', sortDate: '2025-07-27',
+    tldr: 'Narasiṃha — the man-lion, paired with Mars. Plus the procedure for drawing your sky at birth — coordinates, ascendant, the chart on paper.',
+    links: [
+      { href: 'astronomy.html#coords', label: 'Coordinate Systems', primary: true },
+      { href: 'learning-companion.html#avatars', label: 'Avatars section' }
+    ]
+  },
+  {
+    num: '10', title: 'Mentors, Case Study 1 & Varaha', date: 'July 13, 2025', sortDate: '2025-07-13',
+    tldr: 'Varāha — the boar who lifts the earth, paired with Rahu. The first case study of a real chart, and a frame for who Vikram\'s mentors are.',
+    links: [
+      { href: 'learning-companion.html#avatars', label: 'Avatars section', primary: true }
+    ]
+  },
+  {
+    num: '9', title: 'Roadmap, Dualities & Modalities', date: 'June 29, 2025', sortDate: '2025-06-29',
+    tldr: 'The three modes — Cardinal · Fixed · Mutable — taught through the breath. Plus duality (yang/yin · nara/stri). The roadmap of where the year goes from here.',
+    quote: 'The impulse to breathe is Brahma — Cardinal. When I am sustaining the breath, breathing in, breathing in — it is Vishnu — Fixed. When I reach the full breath and there is a full reversal, going from in-breath to out-breath — that reversal is Shiva — Mutable.',
+    links: [
+      { href: 'learning-companion.html#qualities', label: 'Qualities · modes & duality', primary: true }
+    ]
+  },
+  {
+    num: '7', title: 'Samudra Manthan & Planet in Sign', date: 'June 15, 2025', sortDate: '2025-06-15',
+    tldr: 'Kūrma — the tortoise, paired with Saturn. The churning of the milk ocean — the foundational story for what holds steady through chaos. First teaching on planet-in-sign.',
+    links: [
+      { href: 'learning-companion.html#avatars', label: 'Avatars section', primary: true },
+      { href: 'learning-companion.html#planets', label: 'Planets section' }
+    ]
+  },
+  {
+    num: '4', title: 'Matsya Avatar & Earth', date: 'May 25, 2025', sortDate: '2025-05-25',
+    tldr: 'Matsya — the fish, paired with Ketu. The flood story, the seeds saved, the relocation to the Himalayas. Plus the Earth retreat that grounded it. The first avatar, fully drafted in Reflect.',
+    quote: 'There is a huge flood coming in seven days. The fish tells him: tie your boat to my horn.',
+    links: [
+      { href: 'reflect.html#matsya', label: 'Reflect on Matsya', primary: true },
+      { href: 'learning-companion.html#avatars', label: 'Avatars section' }
+    ]
+  }
+];
+
+function escHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+
+function renderSessions(filter){
+  filter = (filter || '').toLowerCase().trim();
+  var root = document.getElementById('sessionsRoot');
+  var matched = 0;
+  var html = '';
+  SESSIONS.forEach(function(s, i){
+    var hay = (s.num + ' ' + s.title + ' ' + s.date + ' ' + s.tldr + ' ' + (s.quote||'') + ' ' + s.links.map(function(l){return l.label;}).join(' ')).toLowerCase();
+    var hit = !filter || hay.indexOf(filter) !== -1;
+    if (hit) matched++;
+    var classes = 'session' + (i === 0 ? ' is-latest' : '') + (!hit ? ' is-hidden' : '');
+    html += '<div class="' + classes + '">';
+    html +=   '<div class="session-head">';
+    html +=     '<span class="session-num">Session ' + escHtml(s.num) + '</span>';
+    html +=     '<span class="session-date">' + escHtml(s.date) + '</span>';
+    if (i === 0) html += '<span class="session-latest-tag">most recent</span>';
+    html +=   '</div>';
+    html +=   '<h2>' + escHtml(s.title) + '</h2>';
+    html +=   '<p class="session-tldr">' + escHtml(s.tldr) + '</p>';
+    if (s.quote){
+      html += '<div class="session-quote">"' + escHtml(s.quote) + '"<span class="attr">— Vikram, Session ' + escHtml(s.num) + '</span></div>';
+    }
+    html +=   '<div class="session-links">';
+    s.links.forEach(function(l){
+      html += '<a class="session-link' + (l.primary ? ' is-primary' : '') + '" href="' + escHtml(l.href) + '">' + escHtml(l.label) + ' →</a>';
+    });
+    html +=   '</div>';
+    html += '</div>';
+  });
+  root.innerHTML = html;
+  document.getElementById('catchupCount').textContent = filter
+    ? matched + ' of ' + SESSIONS.length + ' sessions'
+    : SESSIONS.length + ' sessions';
+}
+
+document.getElementById('catchupFilter').addEventListener('input', function(e){
+  renderSessions(e.target.value);
+});
+renderSessions('');
+
+/* If URL has ?session=37, scroll/filter to that */
+(function(){
+  try {
+    var u = new URL(location.href);
+    var s = u.searchParams.get('session');
+    if (s){
+      var input = document.getElementById('catchupFilter');
+      input.value = s;
+      renderSessions(s);
+    }
+  } catch(e){}
+})();
+</script>
+
+<script>
+/* More menu + theme toggle (sitewide) */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
+})();
+</script>
+
+<script>
+/* Personalisation popover */
+(function(){
+  var KEY_NAME='astro-mychart-name-v1';
+  var KEY_PROMPTED='astro-mychart-name-prompted-v1';
+  var MAX=30;
+  function getName(){ try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';} }
+  function setName(s){
+    var v=(s||'').trim().slice(0,MAX);
+    try{ if(v) localStorage.setItem(KEY_NAME,v); else localStorage.removeItem(KEY_NAME); localStorage.setItem(KEY_PROMPTED,'1'); }catch(e){}
+    applyAll();
+  }
+  function clearName(){ try{localStorage.removeItem(KEY_NAME);localStorage.setItem(KEY_PROMPTED,'1');}catch(e){} applyAll(); }
+  function applyAll(){
+    var name=getName();
+    document.querySelectorAll('[data-name-template]').forEach(function(el){
+      var tpl=el.getAttribute('data-name-template');
+      if(name){ el.textContent=tpl.replace(/\{name\}/g, name); el.hidden=false; }
+      else { var fb=el.getAttribute('data-name-fallback'); if(fb){el.textContent=fb;el.hidden=false;} else {el.textContent='';el.hidden=true;} }
+    });
+    var mv=document.getElementById('namePopoverValue');
+    if(mv) mv.textContent=name||'Add';
+  }
+  function openPopover(){
+    var pop=document.getElementById('namePopover'); var bd=document.getElementById('namePopoverBackdrop');
+    if(!pop||!bd) return;
+    var input=pop.querySelector('.name-popover-input');
+    if(input) input.value=getName();
+    pop.hidden=false; bd.hidden=false;
+    setTimeout(function(){if(input)input.focus();},50);
+  }
+  function closePopover(){ var pop=document.getElementById('namePopover'); var bd=document.getElementById('namePopoverBackdrop'); if(pop)pop.hidden=true; if(bd)bd.hidden=true; }
+  document.addEventListener('click',function(e){
+    var trigger=e.target.closest('#namePopoverTrigger');
+    if(trigger){e.stopPropagation();openPopover();return;}
+    var save=e.target.closest('#namePopoverSave');
+    if(save){var inp=document.querySelector('#namePopover .name-popover-input');setName(inp?inp.value:'');closePopover();return;}
+    var clr=e.target.closest('#namePopoverClear');
+    if(clr){clearName();closePopover();return;}
+    var cancel=e.target.closest('#namePopoverCancel');
+    if(cancel){closePopover();return;}
+    var bd=e.target.closest('#namePopoverBackdrop');
+    if(bd){closePopover();return;}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopover();});
+  window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
+  applyAll();
+})();
+</script>
+
+<script>
+(function() {
+  const PAGE_VERSION = '4.68.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showVersionToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg; t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showVersionToast('A newer version is available — reload to update.');
+      else if (!silent) showVersionToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  check(true);
+  window.addEventListener('focus', () => check(true));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
+})();
+</script>
+
+<script>
+(function() {
+  const WA_PHONE = '919880337337';
+  document.getElementById('waFabGlobal').addEventListener('click', function() {
+    var text = 'Hi Sree, sharing feedback on Astrology 101 Companion App (v4.68.0 · page: Catch up):\n\n';
+    window.open('https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  });
+})();
+</script>
+
+</body>
+</html>

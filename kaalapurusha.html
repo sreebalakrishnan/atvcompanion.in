@@ -647,6 +647,9 @@
     --qr-rule-soft: #e3d4ad;
     --qr-saffron:   #b8410e;
   }
+  /* v4.68.0 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  html { color-scheme: light; background-color: var(--bg); }
+
 
   /* ---------- v4.60.0 PERSONALISATION ---------- */
   .name-prompt {
@@ -825,6 +828,7 @@
     <div class="more-wrap">
       <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
       <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="catch-up.html" role="menuitem">Catch up · missed a class?</a>
         <a href="where-am-i.html" role="menuitem">Where am I</a>
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
@@ -850,7 +854,7 @@
   </nav>
 
 <header class="qr-masthead">
-  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.66.0</div>
+  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.0</div>
   <h1>Kāla<em>purusha</em></h1>
   <p class="qr-sub">An anatomical map of the cosmic body — the kundali laid into Vishnu's form.</p>
   <div class="qr-ornament" aria-hidden="true">
@@ -904,7 +908,7 @@
 </div>
 </section>
 <p style="margin:32px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:13px;color:#7C7B78;letter-spacing:.04em;">
-  v4.66.0 · updated 10 May 2026
+  v4.68.0 · updated 10 May 2026
   &nbsp;·&nbsp;
   <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:#BC8146;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Check for updates</a>
   &nbsp;·&nbsp;
@@ -936,7 +940,7 @@ if (isTouch) {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.66.0';
+  const PAGE_VERSION = '4.68.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1050,7 +1054,7 @@ if (isTouch) {
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.66.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
