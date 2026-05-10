@@ -689,44 +689,8 @@
 <div class="page">
 
     <!-- ====================== SITE NAV (v4.59.0) ====================== -->
-  <nav class="site-nav" aria-label="Site sections">
-    <a href="index.html">Home</a>
-    <span class="sep">·</span>
-    <a href="learning-companion.html" class="primary">Learning Companion</a>
-    <span class="sep">·</span>
-    <a href="interpret.html" class="primary">Interpret · beta</a>
-    <span class="sep">·</span>
-    <a href="reflect.html" class="primary">Reflect</a>
-    <span class="sep">·</span>
-    <div class="more-wrap">
-      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
-      <div class="more-menu" id="moreMenu" hidden role="menu">
-        <a href="catch-up.html" role="menuitem">Catch up · missed a class?</a>
-        <a href="where-am-i.html" role="menuitem">Where am I</a>
-        <a href="elements.html" role="menuitem">Elements</a>
-        <a href="interactive.html" role="menuitem">Interactive · beta</a>
-        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
-        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
-        <a href="jupiter-tracker.html" role="menuitem">Jupiter Tracker</a>
-        <a href="astronomy.html" role="menuitem">Astronomy</a>
-        <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
-        <a href="ether.html" role="menuitem">Ether</a>
-        <a href="layers.html" role="menuitem">Layers</a>
-        <a href="stats.html" role="menuitem">Stats</a>
-        <a href="about.html" role="menuitem">About · how this came to be</a>
-        <a href="release-notes.html" role="menuitem">Release Notes</a>
-        <div class="more-menu-divider" role="separator"></div>
-        <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
-          <span class="more-menu-toggle-label">Your name</span>
-          <span class="more-menu-toggle-value" id="namePopoverValue">Add</span>
-        </button>
-        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
-          <span class="more-menu-toggle-label">Style</span>
-          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
-        </button>
-      </div>
-    </div>
-  </nav>
+  <div id="siteNavMount"></div>
+  <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
     <div class="eyebrow">all things vedic · changelog</div>
@@ -742,10 +706,50 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.73.0 ====================== -->
+  <section class="release" data-credits="Sree (caught the missing Elements link on Where am I + asked to share the nav once instead of duplicating it 23 times + said 'no point hiding feedback')">
+    <header>
+      <h2>v4.73.0 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Three changes that together close out the nav-consistency story we've been chasing all day. <strong>The site nav now lives in one file</strong> — <code>assets/site-nav.js</code> — instead of being duplicated across 23 HTML pages. <strong>Feedback joins the More menu</strong>; the standalone-stealth phase is over. <strong>Where am I's missing Elements link is fixed</strong> at the source.</p>
+
+    <h3>1 · Single source of truth for the nav</h3>
+    <p>Until today, every page hardcoded its own ~80-line <code>&lt;nav class="site-nav"&gt;</code> block plus the More-menu wire-up JS. That's why the v4.72.0 wire-up missed Where am I — a regex didn't match because that page's "Where am I" entry has <code>aria-current="page"</code> on it, breaking the pattern. Bug guaranteed by architecture.</p>
+    <p>Now: each page contains just two lines:</p>
+    <pre style="background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:10px 12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; overflow-x:auto;">&lt;div id="siteNavMount"&gt;&lt;/div&gt;
+&lt;script src="assets/site-nav.js"&gt;&lt;/script&gt;</pre>
+    <p><code>assets/site-nav.js</code> (the new ~120-line file) holds the canonical PAGES array — labels, hrefs, primary-vs-more grouping — plus the markup builder, the active-page detector (from <code>window.location.pathname</code>), the More-menu wiring (with click-outside and Escape-to-close), and an injected <code>&lt;style&gt;</code> block so the page's own CSS doesn't have to carry it. To add a page next time, edit <em>one</em> file. The change picks up on next load across all 19 pages.</p>
+
+    <h3>2 · Feedback in the More menu</h3>
+    <p>v4.72.8 shipped <code>feedback.html</code> deliberately stealth — not in any menu, no inbound links, <code>noindex</code> in the head. After a day of using it, the conclusion: no point hiding it. The page now sits in the More menu of every page, between <em>About</em> and <em>Release Notes</em> (other meta pages clustered). The <code>noindex</code> meta is gone, the lede no longer says "this page isn't on the menu," the footer note now welcomes anyone landing there. Same content, same intent — just discoverable.</p>
+
+    <h3>3 · Where am I · missing Elements fix (root-caused)</h3>
+    <p>The original bug: Where am I didn't show <em>Elements</em> in its More menu. Direct cause: the v4.72.0 bulk-wire script's regex anchored on <code>&lt;a href="where-am-i.html" role="menuitem"&gt;Where am I&lt;/a&gt;</code>, but on Where am I itself, the line has <code>aria-current="page"</code> appended, so the pattern didn't match. The script silently no-op'd that one file.</p>
+    <p>Patched directly today, but the deeper fix is Option C above — a class of bugs ("nav update missed page X") is structurally impossible now. There's no bulk-wire script anymore; there's just one file holding the nav data.</p>
+
+    <h3>What's intentional during the transition</h3>
+    <ul>
+      <li><strong>Old hardcoded nav blocks are gone</strong> from all 19 pages. Every <code>&lt;nav class="site-nav"&gt;...&lt;/nav&gt;</code> block was replaced with the mount + script. Verified via grep: 0 hardcoded blocks remain.</li>
+      <li><strong>Old per-page More-menu wiring scripts</strong> (the inline blocks that find <code>moreMenuBtn</code> / <code>moreMenu</code>) are kept in place as dead code for one release. They look for IDs that no longer exist (the new wiring uses <code>atvNavMoreBtn</code> / <code>atvNavMoreMenu</code>) so they silently no-op. Cleanup deferred to a follow-up.</li>
+      <li><strong>Old per-page nav CSS</strong> stays inline. Identical rules, no harm. Can be removed later.</li>
+    </ul>
+
+    <h3>Numbers</h3>
+    <ul>
+      <li>Removed: <strong>~2.3 KB × 19 pages = ~44 KB</strong> of duplicated nav HTML.</li>
+      <li>Added: one <code>assets/site-nav.js</code>, ~7.9 KB.</li>
+      <li>Net: the site is <strong>~36 KB lighter</strong> on disk and 100% consistent across pages by construction.</li>
+    </ul>
+
+    <h3>Cohort impact</h3>
+    <p>None visible. The nav looks identical to before. The active-page indicator still works (it's now driven from <code>aria-current="page"</code>, set by the script based on the URL). The only behavioural change: the More-menu close-on-Escape is now standard (was inconsistent before).</p>
+  </section>
+
   <!-- ====================== v4.72.9 ====================== -->
   <section class="release" data-credits="Sree (asked to make the 'what we've heard' list link out + add three more origin stories)">
     <header>
-      <h2>v4.72.9 <em>· current</em></h2>
+      <h2>v4.72.9</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Refined the <em>"what we've heard"</em> section on <code>feedback.html</code>. Every cohort-name → page entry now links to the actual page that conversation produced, three more origin stories added, and one earlier attribution corrected.</p>
@@ -5160,7 +5164,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.72.9 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.73.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5383,7 +5387,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.72.9';
+  const PAGE_VERSION = '4.73.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

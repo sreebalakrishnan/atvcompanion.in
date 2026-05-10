@@ -556,44 +556,8 @@
 <div class="page">
 
     <!-- ====================== SITE NAV (v4.59.0) ====================== -->
-  <nav class="site-nav" aria-label="Site sections">
-    <a href="index.html">Home</a>
-    <span class="sep">·</span>
-    <a href="learning-companion.html" class="primary">Learning Companion</a>
-    <span class="sep">·</span>
-    <a href="interpret.html" class="primary">Interpret · beta</a>
-    <span class="sep">·</span>
-    <a href="reflect.html" class="primary">Reflect</a>
-    <span class="sep">·</span>
-    <div class="more-wrap">
-      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
-      <div class="more-menu" id="moreMenu" hidden role="menu">
-        <a href="catch-up.html" role="menuitem">Catch up · missed a class?</a>
-        <a href="where-am-i.html" role="menuitem">Where am I</a>
-        <a href="elements.html" role="menuitem">Elements</a>
-        <a href="interactive.html" role="menuitem">Interactive · beta</a>
-        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
-        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
-        <a href="jupiter-tracker.html" role="menuitem">Jupiter Tracker</a>
-        <a href="astronomy.html" role="menuitem">Astronomy</a>
-        <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
-        <a href="ether.html" role="menuitem">Ether</a>
-        <a href="layers.html" role="menuitem">Layers</a>
-        <a href="stats.html" role="menuitem">Stats</a>
-        <a href="about.html" role="menuitem">About · how this came to be</a>
-        <a href="release-notes.html" role="menuitem">Release Notes</a>
-        <div class="more-menu-divider" role="separator"></div>
-        <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
-          <span class="more-menu-toggle-label">Your name</span>
-          <span class="more-menu-toggle-value" id="namePopoverValue">Add</span>
-        </button>
-        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
-          <span class="more-menu-toggle-label">Style</span>
-          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
-        </button>
-      </div>
-    </div>
-  </nav>
+  <div id="siteNavMount"></div>
+  <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
     <div class="eyebrow">all things vedic · the companion app · v4.70.1</div>
@@ -840,7 +804,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.72.9';
+  const PAGE_VERSION = '4.73.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
