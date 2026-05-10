@@ -706,10 +706,54 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.73.1 ====================== -->
+  <section class="release" data-credits="Sree (asked whether the page should be 'feedback' or 'collaborate', then articulated the working principles — KISS, lean, fail fast, build-launch-test-iterate, real users)">
+    <header>
+      <h2>v4.73.1 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Renamed <code>feedback.html</code> → <code>collaborate.html</code> and added a <em>"how we work"</em> card to the page. <em>Feedback</em> framed it as a one-way receiving tray; <em>Collaborate</em> frames it as the two-way invitation it actually is. The new card makes the working principles explicit — KISS, lean and agile, fail fast, build-launch-test-iterate, real users in the room — so anyone who reads the manifesto knows not just <em>what</em> we're doing but <em>how</em>.</p>
+
+    <h3>1 · Feedback → Collaborate (file rename, not just label)</h3>
+    <p>The page name had been bothering Sree for a few hours. <em>Feedback</em> sounds like a complaints box — something users do <em>at</em> the page after the fact. The page is the opposite: it's an open hand. <em>Collaborate</em> says that out loud.</p>
+    <ul>
+      <li><strong>File renamed</strong>: <code>feedback.html</code> → <code>collaborate.html</code>. URL hadn't been shared with anyone yet (the page only landed in the More menu in v4.73.0, hours ago), so no redirect needed.</li>
+      <li><strong>Nav updated</strong>: <code>assets/site-nav.js</code> — the canonical PAGES array — now points <em>Collaborate</em> at <code>collaborate.html</code>. One edit propagates to all 19 pages by construction (this is exactly what v4.73.0 was for).</li>
+      <li><strong>Page copy</strong>: <code>&lt;title&gt;</code>, eyebrow, <code>&lt;h1&gt;</code>, lede and meta-description all rewritten — "Feedback / pull, never push" → "<em>Collaborate</em> with us / how we'd love to build with you".</li>
+    </ul>
+
+    <h3>2 · New section: <em>"how we work"</em></h3>
+    <p>Inserted between Principles and Lineage. Five bullets, in the same understated voice as the rest of the page:</p>
+    <ul>
+      <li><strong>KISS</strong> — keep it simple. The smallest thing that solves the pain. No clever architecture for clever's sake.</li>
+      <li><strong>Lean and agile</strong> — tiny releases, frequent course-corrections. 200+ versions in six months, most under 50 lines each.</li>
+      <li><strong>Fail fast, learn fast</strong> — if a v0 doesn't land in a week of cohort use, we tweak it; if it doesn't land in a month, we remove it.</li>
+      <li><strong>Build, launch, test, iterate</strong> — in that order. The launch isn't the end, it's the start of the test.</li>
+      <li><strong>Real users, real feedback</strong> — no focus groups, no synthetic personas. Cohort members on WhatsApp, in class, in the page. <em>The page is the conversation.</em></li>
+    </ul>
+    <p>This card matters because the rest of the manifesto talks about <em>what</em> we're building (a learning companion that pulls, never pushes); now the page also names <em>how</em> we build it. For someone considering whether to lean in, the "how" is often the deciding question — they want to know they won't be writing a long spec that disappears into a six-month roadmap. They won't.</p>
+
+    <h3>What didn't change</h3>
+    <ul>
+      <li><em>What we've heard</em>, the eight origin stories with outbound links — same as v4.72.9.</li>
+      <li>The "what we need" section (the open invitations: voice notes, design eyes, content reviewers, code reviewers, more origin stories).</li>
+      <li>Lineage credits — Vikram, Yash, Anmol, Sanchi, the cohort.</li>
+      <li>The pull-never-push framing throughout. <em>Collaborate</em> is the more honest label for the same posture.</li>
+    </ul>
+
+    <h3>Mechanics</h3>
+    <ul>
+      <li>Single <code>git mv feedback.html collaborate.html</code>. No content drift.</li>
+      <li><code>PAGE_VERSION</code> bumped to <code>4.73.1</code> on collaborate.html (and the standard set of pages with update-checkers).</li>
+      <li><code>version.json</code> → <code>4.73.1</code>.</li>
+      <li>Smoke-test: <code>collaborate.html</code> exists, <code>feedback.html</code> gone, <code>site-nav.js</code> parses, <em>Collaborate</em> appears in the More menu of every page on next load.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.73.0 ====================== -->
   <section class="release" data-credits="Sree (caught the missing Elements link on Where am I + asked to share the nav once instead of duplicating it 23 times + said 'no point hiding feedback')">
     <header>
-      <h2>v4.73.0 <em>· current</em></h2>
+      <h2>v4.73.0</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Three changes that together close out the nav-consistency story we've been chasing all day. <strong>The site nav now lives in one file</strong> — <code>assets/site-nav.js</code> — instead of being duplicated across 23 HTML pages. <strong>Feedback joins the More menu</strong>; the standalone-stealth phase is over. <strong>Where am I's missing Elements link is fixed</strong> at the source.</p>
@@ -5164,7 +5208,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.73.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.73.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5387,7 +5431,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.73.0';
+  const PAGE_VERSION = '4.73.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

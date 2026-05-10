@@ -51,7 +51,7 @@
     { href: 'layers.html',             label: 'Layers' },
     { href: 'stats.html',              label: 'Stats' },
     { href: 'about.html',              label: 'About · how this came to be' },
-    { href: 'feedback.html',           label: 'Feedback' },
+    { href: 'collaborate.html',        label: 'Collaborate' },
     { href: 'release-notes.html',      label: 'Release Notes' }
   ];
 
