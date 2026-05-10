@@ -703,6 +703,7 @@
       <div class="more-menu" id="moreMenu" hidden role="menu">
         <a href="catch-up.html" role="menuitem">Catch up · missed a class?</a>
         <a href="where-am-i.html" role="menuitem">Where am I</a>
+        <a href="elements.html" role="menuitem">Elements</a>
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
         <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
@@ -741,10 +742,67 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.72.0 ====================== -->
+  <section class="release" data-credits="Vikram (the four break-out sessions: 11, 13, 17, 18b — and S22 synthesis) · the cohort (Anil, Aysha, Kanika, Surbhi, Aditya, Neesha, Sreekandh, Merve, Shobana, Kajal, Rashmi, Shashank — names attached to their contributions on the page) · Sree (asked to bring it alive)">
+    <header>
+      <h2>v4.72.0 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">A new peer page — <a href="elements.html">elements.html</a> — bringing back Vikram's break-out exercise from across the year. Sessions 11 (Earth), 13 (Water), 17 (Fire), 18b (Air + synthesis), and 22 (the "which element is showing up?" check). What you remembered as one early exercise was actually a four-part arc; this page collects all four into one place.</p>
+
+    <h3>What's on the page</h3>
+    <ul>
+      <li><strong>The gallery</strong>: tabbed picker between Earth · Water · Fire · Air. Each element panel shows six tiles (image, song / story, food / meal, brand, animal / cartoon, news / personality / memory) populated with what cohort members actually brought back from their break-out rooms. Names attached: <em>Anil, Aysha, Kanika, Surbhi, Aditya, Neesha, Sreekandh, Merve, Shobana, Kajal, Rashmi, Shashank</em> and others. Vikram's framing quote sits at the top of each element.</li>
+      <li><strong>The check</strong> — "Which element is showing up?" Five mini-scenarios modelled on Session 22: a war veteran returning home, a startup founder pivoting, a grandmother's dal, a dream about flying, an activist standing in front of a bulldozer. Click an element you sense; reveal explains the mix and points back at the cohort source. Vikram's S22 conclusion built into the feedback: <em>"every situation has a mix — the question is which two are doing the work."</em></li>
+      <li><strong>The personal album</strong>: four textareas — one per element. <em>"Write one image from your life that feels like Earth / Water / Fire / Air."</em> Saved to <code>localStorage</code> under <code>elements-album-v1</code>. Nothing leaves the device. Mirrors Shashank's photo-album exercise from S18b.</li>
+    </ul>
+
+    <h3>Vikram's intent, captured at the top</h3>
+    <p>The pull-quote on the page is the one I think you'll keep coming back to: <em>"Images can be very powerful way of connecting with planets, signs, houses, elements… that itself will be a gateway to your intuition. That is what we are trying to tap into — intuition, not memory."</em> (Vikram, Session 17.)</p>
+
+    <h3>Cohort names</h3>
+    <p>I attributed each tile to whoever shared it in class — first names only, matching the convention <a href="ether.html">ether.html</a> already uses for retreat attendees. The transcripts capture them speaking openly in class, but if anyone would prefer their tile anonymised ("a cohort member shared…"), it's a one-line edit per tile.</p>
+
+    <h3>Wired into the More menu of every page</h3>
+    <p>Elements now shows up in the More menu across all 17 active pages, between Where am I and Interactive · beta — discoverable from anywhere on the site.</p>
+
+    <h3>Pedagogical arc</h3>
+    <p>Set up by Yin/Yang and Cardinal/Fixed/Mutable in Sessions 8–9; layered on top in 11/13/17/18b; re-applied in S22 with a movie clip; carried forward into chart interpretation when Vikram asks the cohort to name "sign, element, modality, duality" for each house. The element-as-felt-sense built in this exercise becomes the raw material for those readings.</p>
+
+    <h3>What's deferred</h3>
+    <p>The "balance the elements" diagnostic Vikram ran in S17 (which element is over-active in your chart, which is under-active) belongs alongside the personal album but needs the chart-reading flow to be wired in — that's a v4.72.x follow-up. Also: image upload into the personal album (currently text-only) is filed as a future addition — keeping it simple for v1 to ship today.</p>
+  </section>
+
+  <!-- ====================== v4.71.8 ====================== -->
+  <section class="release" data-credits="Sree's mentor (pushed for sidereal + real-time) · Sree (chose Tier 1 from the audit)">
+    <header>
+      <h2>v4.71.8</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">The home-page chart is now <strong>real-time sidereal</strong>. Planet positions are computed live in the browser via <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener"><code>astronomy-engine</code></a> (Don Cross, MIT) and converted to Lahiri sidereal client-side. The static <code>today-sky-data.js</code> file stays as a graceful offline fallback. Three goals coexisted: <em>real-time freshness</em>, <em>sidereal correctness</em>, and <em>works offline</em>. We hit all three.</p>
+
+    <h3>What's new under the hood</h3>
+    <ul>
+      <li><strong>Live computation path</strong>: <code>computeLive(date)</code> runs at page-load. Calls <code>Astronomy.GeoVector(body, date, true)</code> for Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn. Uses the analytic mean-node formula (Meeus 47.7) for Rahu; Ketu is +180°. Subtracts Lahiri ayanāṁśa to get sidereal. Sub-arcminute accuracy; the page displays to the degree.</li>
+      <li><strong>Offline fallback</strong>: if <code>astronomy-engine</code> isn't loaded (offline / CDN blocked / file:// without internet), <code>load()</code> falls back to <code>window.__todaySkyData</code> — the same Python-generated snapshot as before. Same shape, same Lahiri values, just frozen at the last refresh.</li>
+      <li><strong>Late-arriving CDN handling</strong>: <code>bootLoad()</code> renders once on DOM ready, then watches for <code>Astronomy</code> to become available over the next 2.5 s. If it arrives after first paint, the chart re-renders seamlessly with live data — no flicker, no flash of stale content.</li>
+      <li><strong>Lagna stays real-time either way</strong>: it's pure client-side math (GMST → RAMC → atan2 → quadrant fix → Lahiri), no library needed.</li>
+    </ul>
+
+    <h3>Why this honours "the page works without internet"</h3>
+    <p>Same constraint as before. The CDN script is async + non-blocking. If it never arrives, the page renders normally from the static fallback. If it arrives late, we re-render. If it's blocked entirely, no error surfaces — the user sees yesterday's snapshot, sidereal Lahiri, exactly as they did in v4.71.7. The only meaningful change for offline users: the Moon's intra-day motion isn't tracked. Sun-sign reading is fine; Moon is within ~6° of correct.</p>
+
+    <h3>"How it was built" pop-up updated</h3>
+    <p>The technical pane on the home page now reflects the new architecture — live computation as the happy path, the static file as fallback, the boot sequence with the late-arrival retry. Vikram and the engineering-curious can click <em>"how it was built"</em> in the centre cell of the chart to see the full picture, including the exact <code>astronomy-engine</code> calls and the Meeus formula for Rahu.</p>
+
+    <h3>What this opens up</h3>
+    <p>Real-time motion. The Moon now visually shifts signs within a day if you reload at the right moment. Retrograde detection becomes a one-line addition (<code>v.x</code> sign change). Birth-chart overlay is now a small extension rather than a re-architecture — same engine, just a different date.</p>
+  </section>
+
   <!-- ====================== v4.71.7 ====================== -->
   <section class="release" data-credits="Sree (asked 'is the stats page updated?' — the answer was no, by ~50 versions)">
     <header>
-      <h2>v4.71.7 <em>· current</em></h2>
+      <h2>v4.71.7</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Stats page refreshed against the live numbers. The page had been frozen since around v4.7.0 — claiming "7 HTML pages, 18.7K lines, 58 transcripts." Reality at v4.71.7: <strong>22 pages, 47.6K lines, 43 numbered transcripts (May 2025 → 3 May 2026), 14 MB of knowledge base on disk, 128 release entries, 36 named contributors</strong>. Also patched <code>tools/build-stats.py</code> so it auto-discovers HTML pages instead of carrying a hardcoded list of seven.</p>
@@ -4849,7 +4907,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.71.7 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.72.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5072,7 +5130,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.71.7';
+  const PAGE_VERSION = '4.72.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
