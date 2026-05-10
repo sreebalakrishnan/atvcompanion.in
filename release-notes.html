@@ -741,10 +741,92 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.71.4 ====================== -->
+  <section class="release" data-credits="Sree (called the masthead bar 'still jarring' and asked to merge it with the modal — one search, one place)">
+    <header>
+      <h2>v4.71.4 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Final cut on the LC search. The masthead search bar is gone. The <strong>modal — the experience you called "very refined"</strong> — is now the only search surface. Opened from the always-visible Search pill (top right), the <kbd>/</kbd> keyboard shortcut, or the bottom-of-page "Search again" CTA. The example chips moved into the modal's empty state, where they now belong.</p>
+
+    <h3>What's gone</h3>
+    <ul>
+      <li><strong>The masthead search input</strong> (<code>#heroSearchInput</code>) and its surrounding form.</li>
+      <li><strong>The "Try: Houses · Cabinet · Aspects · …" chip row</strong> below the masthead. Same six chips now live inside the modal's empty state, where they're useful when the user actually wants to search.</li>
+      <li><strong>The "Press / or tap Search" hint</strong> — unnecessary now that the Search pill is always visible at the top right.</li>
+    </ul>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Sticky search pill is now always visible.</strong> Previously it faded in once the masthead scrolled away. With the masthead bar gone, the pill is the affordance — no reason to hide it.</li>
+      <li><strong>Modal empty state</strong> shows the six example chips. Click any chip → modal pre-fills and runs the search.</li>
+      <li><strong><kbd>/</kbd> shortcut, "Search again" CTA, sticky pill</strong> — all converge on the same single <code>openSearch()</code> entry point.</li>
+    </ul>
+
+    <h3>Why this won</h3>
+    <p>Three iterations on this in a single day: v4.62.0 added the masthead bar; v4.71.2 demoted it to a passive trigger; v4.71.3 fixed its chip examples; v4.71.4 just removed it. The lesson — your instinct from the start was right: one canonical search experience is better than two, even if the second one looks helpful. The modal's depth (500+ indexed items, drawer-or-jump dispatch, keyboard nav, diacritic-folding) was always the answer.</p>
+
+    <h3>Cleanup deferred</h3>
+    <p>The masthead-search JS IIFEs (the typeahead at line 12242, the form-submit handler at 12655) are kept as dead code for one more release. They self-skip when the form/input doesn't exist (<code>if (!input || !box) return;</code>). Same for the <code>.lc-masthead-search-*</code> CSS rules. Removing them is a follow-up.</p>
+  </section>
+
+  <!-- ====================== v4.71.3 ====================== -->
+  <section class="release" data-credits="Sree (caught Mūlatrikoṇa returning no matches + asked to keep example chips in English)">
+    <header>
+      <h2>v4.71.3</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Two fixes on the LC search experience. The example chips below the search bar were showing diacritic Sanskrit (<code>Mūlatrikoṇa</code>, <code>Kāla Puruṣa</code>) — terms nobody types and that, when clicked, returned <em>"No matches in the Companion"</em> because the search index keeps the IAST source ("mūlatrikoṇa") and the user's typed form ("mulatrikona") never matched. Two layers, both fixed.</p>
+
+    <h3>1 · Chips are now English / typeable</h3>
+    <p>Replaced <code>Drishti · Parivartana · Mūlatrikoṇa · Kāla Puruṣa</code> with <code>Houses · Cabinet · Aspects · Yogas · Avatars · Ascendant</code>. Every chip now shows a term a learner could plausibly type AND the modal returns useful results for. The Sanskrit terms are still findable — just not held up as the example.</p>
+
+    <h3>2 · Diacritic-folding in the search</h3>
+    <p>Added a two-step Sanskrit fold to <code>searchQuery()</code>. Step 1: phonetic transliteration of consonants users would write with "h" or "i" — <code>ṛ → ri</code>, <code>ṣ → sh</code>, <code>ś → sh</code>, <code>ñ ṅ ṇ → n</code>, <code>ṭ → t</code>, <code>ḍ → d</code>, <code>ḥ → h</code>, <code>ṁ ṃ → m</code>. Step 2: NFD-strip the remaining combining marks so <code>ā ī ū</code> become <code>a i u</code>, then lowercase. Result:</p>
+    <ul>
+      <li><code>"Drishti"</code> typed by user → folds to <code>drishti</code> · index entry <code>"Dṛṣṭi"</code> → also folds to <code>drishti</code> → <strong>match</strong>.</li>
+      <li><code>"mulatrikona"</code> → matches <code>"Mūlatrikoṇa"</code> in indexed content.</li>
+      <li><code>"shiva"</code> → matches <code>"Śiva"</code>.</li>
+      <li><code>"vishnu"</code> → matches <code>"Viṣṇu"</code>.</li>
+      <li><code>"purusha"</code> → matches <code>"Puruṣa"</code>.</li>
+    </ul>
+    <p>The fold is cached per index entry on first hit, so the runtime cost stays at one <code>String.normalize</code> per entry per session.</p>
+
+    <h3>What's deferred</h3>
+    <p>The masthead's dead-code helpers from v4.71.2 (KW array, render(), submitWith(), pushRecent()) are still untouched. They cause no harm but should be cleaned up in a follow-up. And the section-level content for <em>Mūlatrikoṇa</em> as a standalone concept (degrees per planet, why it matters in interpretation) still isn't a first-class drawer in the Companion — only mentioned inside planet content. Filed for v4.72.x.</p>
+  </section>
+
+  <!-- ====================== v4.71.2 ====================== -->
+  <section class="release" data-credits="Sree (caught the doubled-search loop on LC and chose Option B from the audit)">
+    <header>
+      <h2>v4.71.2</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">LC search UX cleanup. The masthead search bar (added in v4.62.0) ran its own inline suggestions dropdown and on submit opened the canonical "/" search modal — so users were effectively answering the search question twice. Now the masthead bar is a <strong>passive trigger</strong>: focusing or clicking it opens the <em>same</em> modal directly. One search, one place. The modal — the experience you said felt "very refined" — is now the single source of truth.</p>
+
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Masthead input</strong>: focus, click, and Enter all open the modal directly. No inline dropdown, no two-data-source mismatch, no second search.</li>
+      <li><strong><kbd>/</kbd> shortcut</strong>: now opens the modal directly. Previously it focused the masthead input, which then opened the modal — a two-step path.</li>
+      <li><strong>Chips</strong> ("Try: Cabinet · Drishti · Yogas · Parivartana · Mūlatrikoṇa · Kāla Puruṣa") still work — clicking pre-fills the modal with that query.</li>
+      <li><strong>Sticky search pill</strong> (appears once the masthead scrolls off-screen) still opens the modal.</li>
+      <li><strong>Modal itself</strong>: unchanged. Same ranking, same drawer-or-jump behaviour, same keyboard nav.</li>
+    </ul>
+
+    <h3>What got dropped</h3>
+    <p>The inline dropdown's curated <code>KW</code> array (~50 hand-picked keywords), the recent-searches store at the masthead level, the "did you mean…" Levenshtein logic, and the exact-match preview block. The modal's <code>SEARCH_INDEX</code> (500+ items, page-aware) is richer than <code>KW</code> ever was, so nothing the user could find before is missing now. The dead-code helpers in the original masthead IIFE are kept for one release as a safety net; they'll be removed in a follow-up.</p>
+
+    <h3>Why this won</h3>
+    <p>Two surfaces with different indexes were the problem. The bar was promising a search the modal then re-did, with results from a different (richer) source — confusing. Demoting the bar to a thin trigger keeps the visual affordance ("you can search here") and the canonical <kbd>/</kbd>-shortcut behaviour everyone learned, while removing the redundancy entirely.</p>
+
+    <h3>Why a v4.71.2 not a v4.72.0</h3>
+    <p>This is small and surgical — about 30 lines of code touched in the masthead IIFE plus the <kbd>/</kbd> handler — and it's a UX tidy on top of the v4.71.x line. Group B from the sessions 39–43 mining (four-intent rewriter, yoga first-pass, "feel the planet" prompts, retrograde line) is the next minor release.</p>
+  </section>
+
   <!-- ====================== v4.71.1 ====================== -->
   <section class="release" data-credits="Sree (asked for two pop-ups from the centre of the chart, one for learners, one for Vikram-types; asked to drop the notable-today list and keep the home page minimal)">
     <header>
-      <h2>v4.71.1 <em>· current</em></h2>
+      <h2>v4.71.1</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Two changes on the home. First — dropped the "what's notable today" list under the chart; the page is now just the chart, the centre cell, and Daily Gem. Second — added a <strong>"how it was built"</strong> trigger inside the centre cell. Clicking it opens a single modal with two tabs: <em>For learners</em> (plain English, no code) and <em>Technical</em> (astronomy formulas, code excerpts, file structure). Two artifacts, one launch surface.</p>
@@ -4725,7 +4807,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.71.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.71.4 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4948,7 +5030,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.71.1';
+  const PAGE_VERSION = '4.71.4';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

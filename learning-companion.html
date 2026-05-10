@@ -5365,27 +5365,10 @@
     </div>
   
 
-    <!-- v4.70.1 — masthead search bar -->
-    <div class="lc-masthead-search-wrap">
-      <form class="lc-masthead-search" id="heroSearchForm" role="search" autocomplete="off" onsubmit="return window.lcOnHeroSubmit(event);">
-        <span class="lc-masthead-search-icon" aria-hidden="true">⌕</span>
-        <input class="lc-masthead-search-input" type="search" id="heroSearchInput" name="q"
-               placeholder="Search the Companion — sign, planet, house, avatar…"
-               aria-label="Search query" autocomplete="off"
-               role="combobox" aria-autocomplete="list" aria-controls="heroSearchSuggest" aria-expanded="false">
-        <kbd class="lc-masthead-search-kbd">/</kbd>
-      </form>
-      <div class="hero-suggest" id="heroSearchSuggest" role="listbox" aria-label="Search suggestions" hidden></div>
-      <div class="lc-masthead-search-chips" id="lcMastheadChips">
-        <span style="font-family:var(--display);font-style:italic;font-size:13px;color:var(--muted);letter-spacing:.04em;">Try:</span>
-        <button class="lc-chip" type="button" data-lc-chip="Cabinet">Cabinet</button>
-        <button class="lc-chip" type="button" data-lc-chip="Drishti">Drishti</button>
-        <button class="lc-chip" type="button" data-lc-chip="Yogas">Yogas</button>
-        <button class="lc-chip" type="button" data-lc-chip="Parivartana">Parivartana</button>
-        <button class="lc-chip" type="button" data-lc-chip="Mūlatrikoṇa">Mūlatrikoṇa</button>
-        <button class="lc-chip" type="button" data-lc-chip="Kāla Puruṣa">Kāla Puruṣa</button>
-      </div>
-    </div>
+    <!-- v4.71.4 — Masthead search bar removed. The single search surface is now
+         the modal — opened from the always-visible Search pill (top right),
+         the / keyboard shortcut, or the bottom-of-page "Search again" CTA.
+         The example chips moved into the modal's empty state. -->
 
   </header>
 
@@ -10966,14 +10949,45 @@ const SEARCH_TYPE_LABEL = {
 };
 const SEARCH_TYPE_BONUS = { sign:5, planet:5, house:5, avatar:5, section:3, term:4, anatomy:3, classical:1, prompt:0 };
 
+// v4.71.3 — Strip diacritics so "drishti" matches "Dṛṣṭi", "mulatrikona" matches
+// "Mūlatrikoṇa", "kalapurusha" matches "Kāla Puruṣa" etc. NFD splits a base
+// character from its combining marks; the regex strips the marks; we lowercase.
+// v4.71.3 — Two-step Sanskrit fold so anglicised typing matches IAST source.
+// Step 1: phonetic transliteration of consonants users would write with "h" or "i"
+// (Dṛṣṭi → Drishti, Puruṣa → Purusha, Śiva → Shiva). Bare diacritics (ā ī ū)
+// fall through to step 2 which strips them via NFD.
+const SANSKRIT_PHONETIC_MAP = {
+  'ṛ': 'ri', 'Ṛ': 'Ri', 'ṝ': 'ri', 'Ṝ': 'Ri',
+  'ṣ': 'sh', 'Ṣ': 'Sh',
+  'ś': 'sh', 'Ś': 'Sh',
+  'ñ': 'n',  'Ñ': 'N',
+  'ṅ': 'n',  'Ṅ': 'N',
+  'ṇ': 'n',  'Ṇ': 'N',
+  'ṭ': 't',  'Ṭ': 'T',
+  'ḍ': 'd',  'Ḍ': 'D',
+  'ḥ': 'h',  'Ḥ': 'H',
+  'ḻ': 'l',  'Ḻ': 'L',
+  'ṁ': 'm',  'Ṁ': 'M',
+  'ṃ': 'm',  'Ṃ': 'M'
+};
+function foldDiacritics(s) {
+  let out = String(s || '');
+  // Step 1: phonetic transliteration for consonants with diacritics.
+  out = out.replace(/[ṛṜṝṘṢṣśŚñÑṅṄṇṆṭṬḍḌḥḤḻḺṁṀṃṂ]/g, ch => SANSKRIT_PHONETIC_MAP[ch] || ch);
+  // Step 2: NFD-strip remaining combining marks (ā ī ū → a i u), then lowercase.
+  return out.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
 function searchQuery(qRaw) {
-  const q = (qRaw || '').toLowerCase().trim();
+  const q = foldDiacritics((qRaw || '').trim());
   if (q.length < 2) return [];
   const tokens = q.split(/\s+/);
   const results = [];
   SEARCH_INDEX.forEach(entry => {
-    if (!tokens.every(t => entry.tokens.includes(t))) return;
-    const labelLow = entry.label.toLowerCase();
+    // Cache the folded haystack on the entry once.
+    if (!entry._tokensFolded) entry._tokensFolded = foldDiacritics(entry.tokens);
+    if (!tokens.every(t => entry._tokensFolded.includes(t))) return;
+    const labelLow = foldDiacritics(entry.label);
     let score = 30;
     if (labelLow === q) score = 100;
     else if (labelLow.startsWith(q)) score = 80;
@@ -11070,7 +11084,20 @@ function openSearch(initialQuery) {
     if (initialQuery) input.dispatchEvent(new Event('input', { bubbles: true }));
   }
   if (!initialQuery) {
-    $('srchResults').innerHTML = `<div class="srch-empty">Type to search · signs, planets, houses, avatars, Sanskrit terms, classical significations, anatomy, prompts.</div>`;
+    // v4.71.4 — empty-state now includes the example chips that used to live in the masthead.
+    $('srchResults').innerHTML =
+      '<div class="srch-empty">' +
+        '<p style="margin:0 0 4px;">Type to search — signs, planets, houses, avatars, Sanskrit terms, classical significations, anatomy, prompts.</p>' +
+        '<div class="srch-empty-chips">' +
+          '<span style="font-family:var(--display);font-style:italic;font-size:13px;color:var(--muted);letter-spacing:.04em;align-self:center;">Try:</span>' +
+          '<button class="lc-chip" type="button" data-lc-chip="Houses">Houses</button>' +
+          '<button class="lc-chip" type="button" data-lc-chip="Cabinet">Cabinet</button>' +
+          '<button class="lc-chip" type="button" data-lc-chip="Aspects">Aspects</button>' +
+          '<button class="lc-chip" type="button" data-lc-chip="Yogas">Yogas</button>' +
+          '<button class="lc-chip" type="button" data-lc-chip="Avatars">Avatars</button>' +
+          '<button class="lc-chip" type="button" data-lc-chip="Ascendant">Ascendant</button>' +
+        '</div>' +
+      '</div>';
   }
 }
 
@@ -11577,7 +11604,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.71.1';
+  const PAGE_VERSION = '4.71.4';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11734,8 +11761,32 @@ document.addEventListener('keydown', (e) => {
     font-size: 11px; color: var(--muted);
   }
   @media (max-width: 600px) { .lc-masthead-search-kbd { display: none; } }
-  .lc-masthead-search-chips {
+  /* v4.71.4 — Masthead hint that replaced the search bar */
+  .lc-masthead-search-hint {
+    margin: 22px auto 8px;
+    text-align: center;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--muted);
+    line-height: 1.5;
+  }
+  .lc-masthead-search-hint kbd {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-family: var(--display); font-style: normal;
+    font-size: 11.5px; color: var(--ink-soft);
+    margin: 0 2px;
+  }
+  .lc-masthead-search-hint strong { font-weight: 500; color: var(--ink-soft); font-style: normal; }
+  /* Search-modal empty-state chips (mirror the old masthead chip styling) */
+  .srch-empty-chips {
     display: flex; flex-wrap: wrap; gap: 6px;
+    justify-content: center; margin-top: 12px;
+  }
+  .lc-masthead-search-chips {
+    display: none; /* v4.71.4 — masthead chips removed, modal empty-state takes over */
+    flex-wrap: wrap; gap: 6px;
     justify-content: center; margin-top: 10px;
     font-family: var(--display); font-style: italic; font-size: 12.5px;
     color: var(--muted);
@@ -12609,42 +12660,29 @@ document.addEventListener('keydown', (e) => {
     if (form) form.submit();
   }
 
-  input.addEventListener('input', function(){ render(input.value.trim()); });
-  input.addEventListener('focus', function(){ render(input.value.trim()); });
-  input.addEventListener('keydown', function(e){
-    if (box.hidden) return;
-    if (e.key === 'ArrowDown'){ e.preventDefault(); setActive(activeIdx + 1); }
-    else if (e.key === 'ArrowUp'){ e.preventDefault(); setActive(activeIdx - 1); }
-    else if (e.key === 'Enter'){
-      var nodes = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
-      if (activeIdx >= 0 && nodes[activeIdx]){
-        e.preventDefault();
-        var qv = nodes[activeIdx].getAttribute('data-q');
-        if (qv) submitWith(qv);
-      }
-      // else — native form submit fires with current input.value, plus pushRecent below
-      else if (input.value.trim()){
-        pushRecent(input.value.trim());
-      }
-    } else if (e.key === 'Escape'){ close(); }
-    else if (e.key === 'Tab'){
-      var nodes2 = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
-      if (activeIdx >= 0 && nodes2[activeIdx]){
-        e.preventDefault();
-        var qv2 = nodes2[activeIdx].getAttribute('data-q');
-        if (qv2){ input.value = qv2; close(); }
-      }
+  // v4.71.2 — Option B: the masthead bar is a passive trigger for the modal.
+  // No inline dropdown, no parallel KW search. The focus/click on the input
+  // immediately opens the canonical "/" search modal — single source of truth.
+  // The KW data + render() / submitWith() helpers above are now dead code and
+  // will be cleaned up in a follow-up release. Kept for now so the diff stays small.
+  if (box) box.hidden = true;
+  function openModalFromInput() {
+    var v = (input.value || '').trim();
+    if (window.openSearch) {
+      window.openSearch(v);
     }
-  });
-  box.addEventListener('mousedown', function(e){
-    var item = e.target.closest('[data-q]');
-    if (item){
+    // Defocus so the input doesn't keep blinking behind the modal.
+    setTimeout(function(){ try { input.blur(); } catch (e) {} }, 50);
+  }
+  input.addEventListener('focus',     openModalFromInput);
+  input.addEventListener('mousedown', function(e){ e.preventDefault(); openModalFromInput(); });
+  input.addEventListener('keydown',   function(e){
+    if (e.key === 'Enter'){
       e.preventDefault();
-      submitWith(item.getAttribute('data-q'));
+      openModalFromInput();
+    } else if (e.key === 'Escape'){
+      try { input.blur(); } catch (err) {}
     }
-  });
-  document.addEventListener('click', function(e){
-    if (!box.contains(e.target) && e.target !== input){ close(); }
   });
 })();
 
@@ -12679,36 +12717,27 @@ document.addEventListener('keydown', (e) => {
 
   // Sticky pill — show when masthead leaves viewport
   var sticky = document.getElementById('lcSearchSticky');
-  var masthead = document.querySelector('header.masthead');
   if (sticky){
     sticky.addEventListener('click', function(){
       if (window.openSearch) window.openSearch('');
-      else { var i = document.getElementById('heroSearchInput'); if (i) i.focus(); }
     });
-    if ('IntersectionObserver' in window && masthead){
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          sticky.classList.toggle('is-visible', !en.isIntersecting);
-        });
-      }, { threshold: 0 });
-      io.observe(masthead);
-    } else {
-      // Fallback: scroll listener
-      window.addEventListener('scroll', function(){
-        sticky.classList.toggle('is-visible', window.scrollY > 200);
-      });
-    }
+    // v4.71.4 — Sticky pill is now always visible. Previously it faded in once
+    // the masthead scrolled off-screen, because the masthead had its own search
+    // bar. With that bar removed, the pill IS the search affordance — no reason
+    // to hide it.
+    sticky.classList.add('is-visible');
   }
 
-  // Keyboard shortcut: `/` opens the LC search modal (unless typing in another input)
+  // v4.71.2 — `/` shortcut now opens the LC search modal directly.
+  // Previously this focused the masthead input, which then opened the modal —
+  // a two-step path that confused users. Single jump now.
   document.addEventListener('keydown', function(e){
     if (e.key === '/' && document.activeElement &&
         document.activeElement.tagName !== 'INPUT' &&
         document.activeElement.tagName !== 'TEXTAREA' &&
         !document.activeElement.isContentEditable){
       e.preventDefault();
-      var inp = document.getElementById('heroSearchInput');
-      if (inp){ inp.focus(); inp.select(); }
+      if (window.openSearch) window.openSearch('');
     }
   });
 })();
