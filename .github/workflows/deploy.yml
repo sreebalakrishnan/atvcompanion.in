@@ -37,5 +37,5 @@ jobs:
         uses: designmodo/static-app-deploy-action@v1.0.0
         with:
           api-key: ${{ secrets.STATIC_APP_API_KEY }}
-          pid: 'jp3a5h2e8x'
+          pid: 'rujcfa7h6w'
           build-dir: 'staging'
