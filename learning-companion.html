@@ -5004,7 +5004,7 @@
     --family-story:     #b8410e;
     --gold:      #a8843a;
   }
-  /* v4.68.2 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.69.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
 
@@ -5331,6 +5331,7 @@
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
         <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="jupiter-tracker.html" role="menuitem">Jupiter Tracker</a>
         <a href="astronomy.html" role="menuitem">Astronomy</a>
         <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
         <a href="ether.html" role="menuitem">Ether</a>
@@ -5356,7 +5357,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.2</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.69.1</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5364,7 +5365,7 @@
     </div>
   
 
-    <!-- v4.68.2 — masthead search bar -->
+    <!-- v4.69.1 — masthead search bar -->
     <div class="lc-masthead-search-wrap">
       <form class="lc-masthead-search" id="heroSearchForm" role="search" autocomplete="off" onsubmit="return window.lcOnHeroSubmit(event);">
         <span class="lc-masthead-search-icon" aria-hidden="true">⌕</span>
@@ -6049,7 +6050,7 @@
   </div>
 
   
-  <!-- v4.68.2 — Bottom-of-LC empty-state CTA -->
+  <!-- v4.69.1 — Bottom-of-LC empty-state CTA -->
   <section class="lc-bottom-cta" aria-label="Couldn't find what you wanted">
     <div class="lc-bottom-cta-eyebrow">still looking?</div>
     <h2 class="lc-bottom-cta-h">Couldn't find what you were looking <em>for</em>?</h2>
@@ -6072,7 +6073,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.68.2 · updated 10 May 2026</span>
+      <span>v4.69.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -10104,7 +10105,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.2';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.69.1';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10733,7 +10734,7 @@ applyFrontier();
 // Initial render of the daily gem
 renderGem();
 
-/* v4.68.2 — URL parameter handlers for shareable senior view + direct mode/level overrides.
+/* v4.69.1 — URL parameter handlers for shareable senior view + direct mode/level overrides.
    Supports:
      ?role=senior              → flips to Reference mode + Level: All (Sarika ask + senior-share use case)
      ?mode=reference|learning  → set mode directly
@@ -11029,7 +11030,7 @@ function renderSearchResults(results) {
   searchState.results = flat;
   searchState.cursor = 0;
   if (!html){
-    // v4.68.2 — richer empty state: explore-or-feedback CTAs.
+    // v4.69.1 — richer empty state: explore-or-feedback CTAs.
     var lastQ = (document.getElementById('srchInput') && document.getElementById('srchInput').value) || '';
     var feedbackMsg = "Hi Sree, I searched the Astrology 101 Companion App for \"" + lastQ + "\" but didn't find what I was looking for. Could you help?";
     var feedbackUrl = 'https://wa.me/919880337337?text=' + encodeURIComponent(feedbackMsg);
@@ -11576,7 +11577,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.68.2';
+  const PAGE_VERSION = '4.69.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11699,7 +11700,7 @@ document.addEventListener('keydown', (e) => {
     }
   }
 
-  /* v4.68.2 — LC masthead search bar + sticky pill + bottom CTA */
+  /* v4.69.1 — LC masthead search bar + sticky pill + bottom CTA */
   .lc-masthead-search-wrap {
     margin: 22px auto 8px;
     max-width: 640px;
@@ -12118,8 +12119,8 @@ document.addEventListener('keydown', (e) => {
 </script>
 
 <script>
-/* v4.68.2 — Search typeahead module (LC). */
-/* v4.68.2 — Search typeahead. Adds:
+/* v4.69.1 — Search typeahead module (LC). */
+/* v4.69.1 — Search typeahead. Adds:
    - Recent searches (localStorage, last 5)
    - Did-you-mean (Levenshtein ≤ 2 for misspellings, esp. Sanskrit)
    - Categorized result groups with subtle italic headers
@@ -12540,7 +12541,7 @@ document.addEventListener('keydown', (e) => {
 </script>
 
 <script>
-/* v4.68.2 — LC typeahead. Same logic as home but on Enter, opens the deeper LC search modal. */
+/* v4.69.1 — LC typeahead. Same logic as home but on Enter, opens the deeper LC search modal. */
 (function(){
   // Override form submit: open the modal with the typed value (don't reload page)
   window.lcOnHeroSubmit = function(e){
@@ -12604,7 +12605,7 @@ document.addEventListener('keydown', (e) => {
 </script>
 
 
-<!-- v4.68.2 — Sticky search pill (appears once masthead scrolls away) -->
+<!-- v4.69.1 — Sticky search pill (appears once masthead scrolls away) -->
 <button type="button" class="lc-search-sticky" id="lcSearchSticky" aria-label="Open search">
   <span class="lc-search-sticky-icon" aria-hidden="true">⌕</span>
   <span>Search</span>

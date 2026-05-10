@@ -519,7 +519,7 @@
     --display: 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Spectral', Georgia, serif;
   }
-  /* v4.68.2 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.69.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
 
@@ -706,6 +706,7 @@
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
         <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="jupiter-tracker.html" role="menuitem">Jupiter Tracker</a>
         <a href="astronomy.html" role="menuitem">Astronomy</a>
         <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
         <a href="ether.html" role="menuitem">Ether</a>
@@ -740,10 +741,53 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
-  <!-- ====================== v4.68.2 ====================== -->
+  <!-- ====================== v4.69.1 ====================== -->
+  <section class="release" data-credits="Vikram (Session 39 · the auction game on Jupiter) · Sree (auctioned for the tracker)">
+    <header>
+      <h2>v4.69.1 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">A Jupiter release. New peer page <a href="jupiter-tracker.html"><strong>The Jupiter Tracker</strong></a>, built straight from today's session — Vikram's auction game where everyone bid 100 coins on financial security, recognition, pleasure, good fortune, protection, wisdom, children. Eight slider pairs from <em>false expectation</em> to <em>divine grace</em>, three reflection prompts, an embodiment practice that surfaces from your lowest score, and the auction story as the page's origin.</p>
+
+    <h3>The eight pairs</h3>
+    <p>Drawn directly from the auction-game arc and the discussion that followed. Each pair carries a small embodiment practice that surfaces when you score low on the shadow side:</p>
+    <ul>
+      <li><strong>Misplaced trust ↔ Divine grace</strong> — Vikram's headline scale. False expectation vs. authentic faith.</li>
+      <li><strong>Excessive optimism ↔ Grounded faith</strong> — delusion (the casino) vs. clear-eyed hope.</li>
+      <li><strong>Holding back / hoarding ↔ Generosity</strong> — the auction itself. Sat back fearfully, vs. spent at the right moment.</li>
+      <li><strong>Doubting blessings ↔ Counting blessings</strong> — Jupiter as gratitude.</li>
+      <li><strong>Rigid beliefs ↔ Open to wisdom</strong> — Jupiter the guru who can also be taught.</li>
+      <li><strong>Bookish knowledge ↔ Lived wisdom</strong> — Vikram's exact false-expectation example: <em>"I know, because I read a book."</em></li>
+      <li><strong>Closed to mentors ↔ Receptive to guidance</strong> — Jupiter as receiver, not just giver.</li>
+      <li><strong>Heavy / joyless ↔ Joyful / expansive</strong> — bliss is the bright side; sadness is its absence.</li>
+    </ul>
+
+    <h3>Vikram's three reflection prompts</h3>
+    <p>Embedded as private textareas on the tracker, saved only in your browser:</p>
+    <ol>
+      <li><em>Where in your life have you felt protected? Even if it didn't appear as protection in the moment.</em></li>
+      <li><em>What appeared as a loss — a failure, a missed opportunity — that turned out to be a blessing in disguise?</em></li>
+      <li><em>One blessing you received in life, but you don't fully feel you deserved.</em></li>
+    </ol>
+
+    <h3>Embodiment practice surfaces from the shadow</h3>
+    <p>When you slide a pair into the shadow side (≤ 5/10), a small saffron card appears at the bottom with one practice for the day. <em>Hoarding</em> low → give one thing away. <em>Doubting blessings</em> low → name three blessings before sleep. <em>Bookish knowledge</em> low → take one teaching you know intellectually and apply it once today. If everything is on the grace side (≥ 7/10), the card congratulates you and asks you to name one blessing you're inhabiting before the moment passes.</p>
+
+    <h3>Cross-app updates triggered by the class</h3>
+    <ul>
+      <li><strong><a href="catch-up.html">Catch up</a></strong> — Session 39 added as the most-recent card.</li>
+      <li><strong><a href="where-am-i.html">Where am I</a></strong> — Jupiter unlocked from <em>TBD this year</em> to a graded topic, linking to the new tracker.</li>
+      <li><strong>More menu (site-wide)</strong> — <em>Jupiter Tracker</em> sits alongside <em>Mercury Spectrum</em> on every page.</li>
+    </ul>
+
+    <h3>What's next</h3>
+    <p>LC Planets · Jupiter content (currently a stub) and LC Yogas · Hamsa Yoga / Guru-Chandala / Dhana Yoga full write-ups land in v4.69.2. Today's release ships the tracker and the cross-app links so the cohort can use the page tonight while the class is fresh.</p>
+  </section>
+
+  <!-- ====================== v4.68.2 (was current) ====================== -->
   <section class="release" data-credits="Sree (asked for richer search + LC discoverability) · Anil's demo (the 'I didn't know I could search' moment that triggered the Companion-side bar)">
     <header>
-      <h2>v4.68.2 <em>· current</em></h2>
+      <h2>v4.68.2</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Search gets a serious upgrade. The home dropdown now has <strong>recent searches</strong>, <strong>did-you-mean</strong> for misspellings (especially Sanskrit), <strong>category groups</strong> with italic headers, and an <strong>exact-match preview card</strong> with one-line blurbs for ~80 keywords. The Learning Companion gets its own <strong>masthead search bar</strong>, a <strong>sticky pill</strong> that appears once the masthead scrolls away, a <strong>"/"</strong> keyboard shortcut, and a <strong>"Couldn't find it?" CTA</strong> at the bottom. Inspired by Google, Notion, Spotlight, Algolia DocSearch.</p>
@@ -878,7 +922,7 @@
     <p>Three principles guided the rebuild: give value in under sixty seconds before asking the visitor to make choices; one primary action on the landing page, not nine; depth available, not advertised. Net effect: the home went from ~24 visible routes to roughly 9 (search + 6 chips + 3 rooms), with everything else one click away in More.</p>
 
     <h3>Regression</h3>
-    <p>Verified across all 14 active pages: every page eyebrow + footer reads <code>v4.68.2</code>, every <code>PAGE_VERSION</code> constant is on <code>'4.68.2'</code>, every More menu has both Interpret · beta and About entries, and every internal <code>href="read.html"</code> has been swapped to <code>interpret.html</code>. The redirect file at <code>read.html</code> handles any cached or external links to the old URL.</p>
+    <p>Verified across all 14 active pages: every page eyebrow + footer reads <code>v4.69.1</code>, every <code>PAGE_VERSION</code> constant is on <code>'4.69.1'</code>, every More menu has both Interpret · beta and About entries, and every internal <code>href="read.html"</code> has been swapped to <code>interpret.html</code>. The redirect file at <code>read.html</code> handles any cached or external links to the old URL.</p>
   </section>
 
   <!-- ====================== v4.65.1 ====================== -->
@@ -4519,7 +4563,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.68.2 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.69.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4742,7 +4786,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.68.2';
+  const PAGE_VERSION = '4.69.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4856,7 +4900,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.2';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.69.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

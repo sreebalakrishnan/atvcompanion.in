@@ -2,56 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta name="description" content="The longer arc — how the Astrology 101 Companion App came to be, milestone by milestone, layer by layer.">
-<title>Layers — Astrology 101 Companion App</title>
+<title>Jupiter Tracker — Astrology 101 Companion App</title>
+<meta name="description" content="A self-reflection on Jupiter — eight slider pairs from false expectation to divine grace. Built from Vikram's auction-game session.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
-    --bg-deep:   #E0DCCD;
+    --cream: #F4EEDA;
     --surface:   #F8F4E1;
-    --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
-    --rule-soft: #E0DCCD;
     --saffron:   #BC8146;
-    --indigo:    #6E7D85;
+    --sage: #3D5650;
+    --rule:      #CAC6BB;
     --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
+    background: var(--cream);
+    color: var(--ink);
     font-family: var(--body);
     font-weight: 200;
-    color: var(--ink);
-    background: var(--bg);
-    background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
-      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    line-height: 1.55;
+    min-height: 100vh;
+    padding: 0 0 60px;
   }
-  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
-  a:hover { text-decoration-color: var(--saffron); }
 
-  .page { max-width: 720px; margin: 0 auto; padding: 0 22px 100px; }
+  .page {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+  }
 
-  /* ---------- SITE NAV ---------- */
+  /* Site nav */
+/* ---------- v4.61.3 SITE NAV (unified across all pages) ---------- */
   .site-nav {
     padding: 22px 0 14px;
     display: flex;
@@ -74,196 +68,345 @@
   .site-nav .here { color: var(--saffron); }
   .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
 
-  /* ---------- MASTHEAD ---------- */
-  .masthead {
-    padding: 56px 0 28px;
+/* Masthead */
+  header.masthead {
     text-align: center;
+    padding: 28px 0 22px;
     border-bottom: 1px solid var(--rule);
+    margin-bottom: 12px;
   }
   .eyebrow {
     font-family: var(--display);
     font-style: italic;
-    font-size: 13px;
-    letter-spacing: .14em;
-    color: var(--saffron);
-    text-transform: lowercase;
-    margin-bottom: 8px;
-  }
-  h1 {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(40px, 7vw, 60px);
-    line-height: 1.05;
-    margin: 0 0 14px;
-    letter-spacing: -.01em;
-  }
-  h1 em { font-style: italic; color: var(--saffron); }
-  .lede {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 17px;
-    color: var(--ink-soft);
-    margin: 0 auto;
-    max-width: 50ch;
-    line-height: 1.55;
-  }
-
-  /* ---------- VIKRAM EPIGRAPH ---------- */
-  .epigraph {
-    margin: 36px auto 12px;
-    max-width: 50ch;
-    text-align: center;
-    padding: 18px 24px;
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
-  .epigraph p {
-    margin: 0;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 17px;
-    color: var(--ink);
-    line-height: 1.5;
-  }
-  .epigraph .attribution {
-    display: block;
-    margin-top: 10px;
     font-size: 12px;
     letter-spacing: .12em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .glyph {
+    font-size: 38px;
+    line-height: 1;
+    color: var(--saffron);
+    margin: 4px 0 8px;
+    display: block;
+  }
+  .masthead h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(28px, 5.5vw, 38px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+    color: var(--ink);
+    letter-spacing: -.005em;
+  }
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+  .sub {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
+  /* Section labels */
+  .section-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--saffron);
+    text-align: center;
+    margin: 32px 0 16px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 18px 20px 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .card:hover {
+    border-color: rgba(188,129,70,0.4);
+  }
+
+  .pair-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 16px;
+  }
+  .pole {
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 44%;
+    color: var(--ink);
+  }
+  .pole.left { text-align: left; }
+  .pole.right { text-align: right; }
+  .pole span {
+    display: block;
+    font-size: 10px;
+    font-family: var(--display);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
     font-style: normal;
   }
+  .pole.left span { color: var(--saffron); opacity: 0.85; }
+  .pole.right span { color: var(--sage); opacity: 0.95; }
 
-  /* ---------- TIMELINE LAYER ---------- */
-  .layer {
-    padding: 48px 0 18px;
-    border-bottom: 1px dashed var(--rule);
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .layer:last-of-type { border-bottom: 0; }
-  .layer .when {
+  .score-display {
     font-family: var(--display);
     font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
+    font-size: 17px;
     color: var(--saffron);
-    margin-bottom: 6px;
+    min-width: 28px;
+    text-align: center;
+    font-weight: 500;
   }
-  .layer h2 {
+
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--saffron) 0%, var(--rule) 50%, var(--sage) 100%);
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--saffron);
+    box-shadow: 0 0 0 1px rgba(188,129,70,0.15);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px rgba(188,129,70,0.18);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--saffron);
+    cursor: pointer;
+  }
+
+  /* Summary panel */
+  .summary {
+    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.6));
+    border: 1px solid rgba(188,129,70,0.32);
+    border-radius: 10px;
+    padding: 28px 24px 24px;
+    margin-top: 36px;
+  }
+  .summary h2 {
     font-family: var(--display);
     font-weight: 500;
-    font-size: clamp(26px, 4.5vw, 32px);
-    line-height: 1.15;
-    margin: 0 0 18px;
+    font-size: 22px;
     letter-spacing: -.005em;
     color: var(--ink);
+    margin-bottom: 18px;
+    text-align: center;
   }
-  .layer h2 em { font-style: italic; color: var(--saffron); }
-  .layer p {
-    font-family: var(--body);
-    font-size: 15.5px;
-    line-height: 1.7;
-    margin: 0 0 14px;
-    color: var(--ink);
-  }
-  .layer p.aside {
+  .summary h2 em {
     font-style: italic;
-    color: var(--ink-soft);
+    color: var(--saffron);
   }
-
-  /* Pulled-quote callout — Sree's voice in his own words. */
-  .layer blockquote {
-    margin: 22px 0 22px;
-    padding: 4px 22px;
-    border-left: 2px solid var(--saffron);
+  .avg-display {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .avg-number {
     font-family: var(--display);
     font-style: italic;
-    font-size: 18px;
-    line-height: 1.5;
-    color: var(--ink);
+    font-weight: 500;
+    font-size: 56px;
+    color: var(--saffron);
+    line-height: 1;
   }
-  .layer blockquote em { color: var(--saffron); }
+  .avg-label {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: .08em;
+    margin-top: 6px;
+    font-family: var(--display);
+    font-style: italic;
+  }
 
-  /* Inline figure: blue-file photo, cohort photo, etc. */
-  figure {
-    margin: 22px -6px;
-    padding: 0;
+  .bar-wrap {
+    height: 6px;
+    background: rgba(40,40,38,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
   }
-  figure img {
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--saffron), var(--rule), var(--sage));
+    transition: width 0.4s ease;
+  }
+  .bar-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: var(--display);
+    letter-spacing: .04em;
+  }
+
+  /* Wise note */
+  .wise-note {
+    margin-top: 24px;
+  }
+  .wise-note label {
     display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    box-shadow: 0 2px 0 rgba(40,40,38,.04), 0 12px 32px -16px rgba(40,40,38,.18);
-  }
-  figcaption {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    text-align: center;
-    margin-top: 10px;
-    line-height: 1.5;
-  }
-
-  /* "What's ahead" — deliberate ellipsis at the bottom. */
-  .open-end {
-    margin: 56px auto 0;
-    text-align: center;
-    padding: 32px 0 12px;
-  }
-  .open-end .when {
     font-family: var(--display);
     font-style: italic;
     font-size: 12px;
     letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--saffron);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
-  .open-end h2 {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(26px, 4.5vw, 32px);
-    margin: 0 0 14px;
-    letter-spacing: -.005em;
-  }
-  .open-end h2 em { font-style: italic; color: var(--saffron); }
-  .open-end p {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--ink-soft);
-    max-width: 44ch;
-    margin: 0 auto;
+  .wise-note textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 14.5px;
+    padding: 10px 12px;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
     line-height: 1.55;
+    transition: border-color .15s;
   }
-  .open-end .ellipsis {
-    color: var(--saffron);
-    font-size: 24px;
-    letter-spacing: .3em;
-    margin: 18px 0 0;
+  .wise-note textarea:focus {
+    border-color: var(--saffron);
+  }
+  .wise-note textarea::placeholder {
+    color: var(--ink-soft);
+    font-style: italic;
+    opacity: 0.7;
   }
 
-  /* ---------- FOOTER ---------- */
-  .footer {
-    max-width: 480px;
-    margin: 60px auto 0;
-    text-align: center;
-    padding: 0 8px;
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
   }
-  .footer-ornament { color: var(--saffron); margin-bottom: 16px; opacity: .7; }
-  .footer-ornament svg { width: 14px; height: 14px; }
-  .footer p {
+  button {
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: .08em;
+    padding: 8px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.18s;
+    border: 1px solid var(--saffron);
+    background: var(--cream);
+    color: var(--saffron);
+    font-style: italic;
+  }
+  button:hover {
+    background: var(--saffron);
+    color: var(--cream);
+  }
+  button.secondary {
+    border-color: var(--rule);
+    color: var(--ink-soft);
+  }
+  button.secondary:hover {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 8px 0 22px;
+  }
+
+  /* Footer */
+  footer.page-footer {
+    margin-top: 40px;
+    text-align: center;
     font-family: var(--display);
     font-style: italic;
     font-size: 13px;
-    color: var(--muted);
-    margin: 0 0 8px;
+    color: var(--ink-soft);
+    letter-spacing: .04em;
   }
-  .footer .meta { margin-top: 10px; font-size: 12px; }
-  .footer .credits { margin-top: 10px; font-size: 11.5px; opacity: .85; }
+  footer.page-footer a {
+    color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+  }
+
+  /* Update banner */
+  .update-banner {
+    position: fixed;
+    bottom: 16px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-size: 13px;
+    font-style: italic;
+    box-shadow: 0 4px 18px rgba(40,40,38,0.25);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    gap: 12px;
+  }
+  .update-banner.is-showing { display: inline-flex; }
+  .update-banner button {
+    background: var(--saffron);
+    color: var(--cream);
+    border: 0;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-style: normal;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .update-banner button:hover { background: var(--cream); color: var(--ink); }
+
+  @media (max-width: 480px) {
+    .pole { font-size: 13px; }
+    .avg-number { font-size: 48px; }
+    .site-nav { font-size: 12px; }
+    .site-nav .sep { margin: 0 5px; }
+  }
 
   /* ---------- v4.59.0 SITE NAV (primary 4 + More menu with embedded style toggle) ---------- */
   .site-nav .primary { font-weight: 500; }
@@ -341,6 +484,7 @@
     --indigo:    #2a3270;
     --display: 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Spectral', Georgia, serif;
+    --sage: #5a7a5c;
   }
   /* v4.69.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
@@ -512,6 +656,7 @@
 
 <div class="page">
 
+  <!-- ====================== SITE NAV ====================== -->
     <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
@@ -551,180 +696,312 @@
     </div>
   </nav>
 
+  <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.69.1</div>
-    <h1><em>Layers</em></h1>
-    <p class="lede">How this came to be — month by month, conversation by conversation, layer by layer. The longer arc behind the blue file.</p>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.69.1</div>
+    <span class="glyph" aria-hidden="true">♃</span>
+    <h1>The Jupiter <em>Tracker</em></h1>
+    <p class="sub">A self-reflection on grace, abundance and expansion · Astrology 101 with Vikram</p>
   </header>
 
-  <!-- Vikram's line that names the page. -->
-  <div class="epigraph">
-    <p>"We learn in <em>layers</em>."</p>
-    <span class="attribution">— Vikram, Astrology 101</span>
-  </div>
+  <!-- Origin: the auction game -->
+  <aside style="margin:24px auto 0;max-width:60ch;padding:18px 22px;background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--saffron);border-radius:0 8px 8px 0;">
+    <div style="font-family:var(--display);font-style:italic;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron);margin-bottom:6px;">how this came to be</div>
+    <p style="margin:0 0 10px;font-family:var(--display);font-style:italic;font-size:15px;line-height:1.6;color:var(--ink-soft);">Vikram opened the Jupiter session with an auction. Everyone got 100 coins to bid on financial security, recognition, pleasure, good fortune, protection, wisdom, children. Some bid hard and ran out of coins. Some held back. Then a "market crash" cut everyone's money in half — and humility went on sale. The whole game was Jupiter: <em style="color:var(--saffron);">grace, abundance, the regret of missed opportunities, the realisation that what felt like a loss was sometimes a blessing.</em></p>
+    <p style="margin:0;font-family:var(--display);font-style:italic;font-size:15px;line-height:1.6;color:var(--ink-soft);">Vikram's pivot: <em>"these planets are facets of us, not something out there."</em> So the eight sliders below let you sit with where Jupiter is in <em>you</em> right now — false expectation on one end, divine grace on the other. <a href="catch-up.html?session=39" style="color:var(--saffron);">Read the full session →</a></p>
+  </aside>
 
-  <!-- =================================================================
-       LAYER 1 — THE BLUE FILE ACCUMULATES
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">Late 2025 — onwards</div>
-    <h2>The blue file accumulates</h2>
-    <p>For about six months — through the back half of 2025 and into 2026 — Sree has been quietly printing pages from Vikram's class. Slides, transcripts, the occasional table, anything worth a second look. They go into a plastic folder. The folder gets thicker.</p>
-    <blockquote>I don't learn by memory. I need a lot of references all the time. I needed something pocket-friendly and handy.</blockquote>
-    <p>The ritual is unglamorous. Print, hole-punch, slide into plastic, file. Cringe a little at the cost-per-page and the time it takes. Carry the binder to the next class anyway.</p>
-    <figure>
-      <img src="assets/blue-file.jpg" alt="The infamous blue binder of Astrology 101 printouts." loading="lazy">
-      <figcaption>The infamous blue file. The original — before any of this existed.</figcaption>
-    </figure>
-  </section>
+  <main>
+    <p class="section-label">False expectation ↔ Divine grace</p>
 
-  <!-- =================================================================
-       LAYER 2 — SPARKS IN CONVERSATION
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">Late 2025 / early 2026</div>
-    <h2>Sparks in <em>conversation</em></h2>
-    <p>Somewhere in the same months, Sree starts saying it out loud — to Sathvi, to Arpi, to whoever will listen. <em>"What if we built a beautiful astrology software, using Vikram's reference material? Something that actually does the material justice?"</em> Nobody disagrees. Nobody starts. The thought just hangs there, low-grade resonant, waiting for a moment.</p>
-  </section>
+    <div id="sliders"></div>
 
-  <!-- =================================================================
-       LAYER 3 — ETHER RETREAT
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">March 2026 · Ether retreat · Sriperumbudur</div>
-    <h2>Two seeds, one weekend</h2>
-    <p>At the retreat, two things land within hours of each other.</p>
-    <p>First: <strong>Rashmi</strong> mentions she's been meaning to make a reference folder of her own — one of those moments where you realise the need isn't yours alone, the cohort feels it too. Sree quietly cringes, thinking through the paper-plastic-print ritual a second person would now have to perform.</p>
-    <p>Second: at one of Vikram's sessions, he names the moment — <em>time for an end-of-year project</em>. Sanchi and Sree turn to each other and the answer arrives almost in unison: <em>flashcards, maybe?</em> Not a product yet. Just a question — what's the best way to actually <em>remember</em> all of this material, for us and for the cohort?</p>
-    <p class="aside">More on the retreat itself in <a href="ether.html">Ether</a> — the five-elements framework, Nirvāṇa Shatakam, the Chidambaram secret.</p>
-  </section>
+    <div class="summary">
+      <h2>Your <em>Jupiter</em> Today</h2>
+      <div class="avg-display">
+        <div class="avg-number" id="avg-val">—</div>
+        <div class="avg-label">average across all spectrums</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="avg-bar" style="width:50%"></div>
+      </div>
+      <div class="bar-ends">
+        <span>False expectation (0)</span>
+        <span>Divine grace (10)</span>
+      </div>
 
-  <!-- =================================================================
-       LAYER 4 — V0
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">Late March – early April 2026</div>
-    <h2>V0 — the kitchen-table prototype</h2>
-    <p>Sree starts playing. The first thing that comes out is <a href="release-notes.html#v0">V0</a> — a single, crude HTML page with the twelve signs as flashcards. No build pipeline, no framework. Just a file you can open in a browser. It's enough to feel right. It's enough to keep going.</p>
-  </section>
+      <div class="wise-note">
+        <label>What would a wise person advise? (private note)</label>
+        <textarea id="wise" placeholder="Write your reflection here — this stays with you…"></textarea>
+      </div>
 
-  <!-- =================================================================
-       LAYER 5 — THE LAYERS CLICK
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">April – early May 2026</div>
-    <h2>The layers <em>click</em></h2>
-    <p>This is the month where five different things converge, almost coincidentally. None of them was planned to feed the project. Each one ends up doing exactly that.</p>
-    <p><strong>The KB.</strong> Sree had already been on a separate journey of exploring AI tools — and as part of that, he wrote utilities to extract class transcripts and decks. The output was supposed to be a personal exercise. It became the knowledge base everything else now sits on.</p>
-    <p><strong>Mercury Spectrum.</strong> After the Mercury session in class, Sree builds a <a href="mercury-spectrum.html">spectrum tracker</a> — Mercury's twelve dualities as a slider you move yourself across — and shares it with the peer learning group. The build pulls together a pattern he'd never used before — Google's design tools, Cursor, Claude, Antigravity, all braided. Something clicks about what becomes possible when the knowledge base is right there next to the build tools.</p>
-    <p><strong>Kāla<em>purusha</em>.</strong> Between mid-April and May 3rd, Sree works directly with Vikram on a modern <a href="kaalapurusha.html">Kāla<em>purusha</em></a> page. Multiple rounds of feedback — corrections, additions, re-orderings, rebalancings.</p>
-    <blockquote>Vikram had multiple rounds of feedback for Kāla<em>purusha</em>, and so did I. It evolved, and so did I evolve.</blockquote>
-    <p><strong>Planetary motion.</strong> Similar work on retrograde motion — vakra, anuvakra, atichara. Shared as a PNG to the peer group. Not yet in the app. The learning was its own reward.</p>
-    <p><strong>Hosting.</strong> A small detour: Sree stands up <em>static.app</em> to explore static hosting — the path that eventually carries this project to its first public URL.</p>
-    <blockquote>Vikram keeps saying we learn in layers. I can see the layers here. Just fascinated by this.</blockquote>
-  </section>
-
-  <!-- =================================================================
-       LAYER 6 — THE DEEPENING
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">Early May 2026</div>
-    <h2>Mercury, Budha, <em>Buddhi</em></h2>
-    <p>The most recent Mercury session in class doesn't only feed a feature on the page. Something deeper lands.</p>
-    <p>Mercury is <em>Budha</em>. Sanskrit's word for awakened intelligence is <em>Buddhi</em>. The two share the same root. Sree sits with that.</p>
-    <blockquote>A deep calling inside for awakening, after the session. I'm still yet to understand why I have a deep calling in this path. But I am in a flow, and that's what matters.</blockquote>
-  </section>
-
-  <!-- =================================================================
-       LAYER 7 — SANCHI JOINS
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">May 7, 2026</div>
-    <h2>Sanchi <em>joins</em></h2>
-    <p>The day before. Sree and Sanchi agree to team up. Not as helpers to each other, but as partners on whatever this becomes. Sanchi presents the idea — the thought, the concept, the direction — to Vikram and to Mega.</p>
-    <p>Three angles open up in the same conversation:</p>
-    <p>One — a <strong>pocket reference</strong> for the cohort, alongside Vikram's class. The original pitch, still true.</p>
-    <p>Two — a <strong>learning companion app</strong>, beyond this cohort, beyond this class. Something a future Vedic-astrology learner could pick up and grow with.</p>
-    <p>Three — a <strong>commercial venture</strong>, eventually. Not the point, but a real possibility on the table.</p>
-    <blockquote>More exciting than the commercial part is being able to do real things, enjoy the domain, and solve real problems for real people. What an exciting time to be in.</blockquote>
-  </section>
-
-  <!-- =================================================================
-       LAYER 8 — INTERACTIVE WITH SATHVIKA
-  ================================================================= -->
-  <section class="layer">
-    <div class="when">May 8, 2026 · today</div>
-    <h2>Interactive · beta with <em>Sathvika</em></h2>
-    <p>Today, in response to Sathvika's WhatsApp note that text-heavy reference doesn't always land for her — <em>"I learn through visuals, spatial layouts, 3D representations. Stories help me hold on to things"</em> — the <a href="interactive.html">Interactive Lab</a> opens a new room. The Planetary Cabinet as a stage, with a cinematic Story autoplay, a Court of Friendships overlay, all laid out as a South Indian chart.</p>
-    <p>The pattern is the same as every layer before it. A peer says what they need. The build follows.</p>
-  </section>
-
-  <!-- =================================================================
-       OPEN END — WHAT'S AHEAD
-  ================================================================= -->
-  <section class="open-end">
-    <div class="when">What's ahead</div>
-    <h2><em>Open</em></h2>
-    <p>The page is alive. The layers haven't stopped landing. The next one will appear when it does — from a session, from a conversation, from someone in the cohort who needs something this app doesn't yet do.</p>
-    <p class="ellipsis">·  ·  ·</p>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-ornament" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+      <div class="btn-row">
+        <button onclick="copyResults()">Copy Results</button>
+        <button class="secondary" onclick="resetAll()">Reset</button>
+      </div>
     </div>
-    <p>← <a href="index.html">Back to home</a> · <a href="learning-companion.html">Learning Companion</a></p>
-    <p class="meta">
-      <span style="color:var(--muted);">v4.69.1 · updated 10 May 2026</span>
-      &nbsp;·&nbsp;
-      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
-    </p>
-    <p class="credits">
-      Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
-    </p>
+
+    <!-- v4.69.1 — Vikram's three Jupiter prompts -->
+    <section style="margin:42px auto 0;max-width:680px;padding:28px 26px 24px;background:var(--surface);border:1px solid rgba(188,129,70,.32);border-radius:12px;">
+      <p style="font-family:var(--display);font-style:italic;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron);margin:0 0 8px;text-align:center;">three prompts vikram offered</p>
+      <h2 style="font-family:var(--display);font-weight:500;font-size:22px;line-height:1.2;margin:0 0 20px;text-align:center;letter-spacing:-.005em;">Sit with one. <em style="font-style:italic;color:var(--saffron);">Notes save here, only on this device.</em></h2>
+
+      <div style="margin:18px 0;">
+        <label style="display:block;font-family:var(--display);font-style:italic;font-size:14.5px;color:var(--ink);line-height:1.55;margin-bottom:8px;">1 · Where in your life have you felt protected? Even if it didn't appear as protection in the moment.</label>
+        <textarea id="prompt1" style="width:100%;min-height:80px;background:var(--cream);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;font-family:var(--body);font-size:14.5px;color:var(--ink);line-height:1.55;resize:vertical;outline:none;" placeholder="Write here — it stays only on your device."></textarea>
+      </div>
+
+      <div style="margin:18px 0;">
+        <label style="display:block;font-family:var(--display);font-style:italic;font-size:14.5px;color:var(--ink);line-height:1.55;margin-bottom:8px;">2 · What appeared as a loss — a failure, a missed opportunity — that turned out to be a blessing in disguise?</label>
+        <textarea id="prompt2" style="width:100%;min-height:80px;background:var(--cream);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;font-family:var(--body);font-size:14.5px;color:var(--ink);line-height:1.55;resize:vertical;outline:none;" placeholder="Write here — it stays only on your device."></textarea>
+      </div>
+
+      <div style="margin:18px 0;">
+        <label style="display:block;font-family:var(--display);font-style:italic;font-size:14.5px;color:var(--ink);line-height:1.55;margin-bottom:8px;">3 · One blessing you received in life — but you don't fully feel you deserved.</label>
+        <textarea id="prompt3" style="width:100%;min-height:80px;background:var(--cream);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;font-family:var(--body);font-size:14.5px;color:var(--ink);line-height:1.55;resize:vertical;outline:none;" placeholder="Write here — it stays only on your device."></textarea>
+      </div>
+    </section>
+
+    <!-- v4.69.1 — One small practice for the day -->
+    <section id="jupiterPractice" style="margin:32px auto 0;max-width:680px;padding:22px 24px;background:var(--bg-deep,rgba(188,129,70,.06));border:1px dashed var(--rule);border-radius:12px;text-align:center;display:none;">
+      <p style="font-family:var(--display);font-style:italic;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron);margin:0 0 8px;">one practice for today</p>
+      <p id="jupiterPracticeText" style="font-family:var(--display);font-style:italic;font-size:16px;color:var(--ink);line-height:1.55;margin:0 auto;max-width:46ch;"></p>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p style="margin-top:32px;">v4.69.1 · updated 10 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
+    <p style="margin-top:8px;font-size:11.5px;opacity:.85;">Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
   </footer>
 
 </div>
 
-<!-- ====================== UPDATE CHECKER ====================== -->
-<script>
-(function() {
-  const PAGE_VERSION = '4.69.1';
-  const VERSION_URL = 'version.json';
-  const FOCUS_THROTTLE_MS = 30000;
-  let lastChecked = 0;
-  function showToast(msg) {
-    let t = document.getElementById('versionToast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.style.opacity = '1';
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
-  }
-  async function check(silent) {
-    const now = Date.now();
-    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
-    lastChecked = now;
-    try {
-      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
-      if (!r.ok) return;
-      const data = await r.json();
-      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
-      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
-    } catch {}
-  }
-  window.__checkForUpdates = () => check(false);
-  check(true);
-  window.addEventListener('focus', () => check(true));
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
-})();
-</script>
+<div class="update-banner" id="updateBanner" role="status" aria-live="polite">
+  <span id="updateText">A new version is available.</span>
+  <button onclick="location.reload(true)">Refresh</button>
+</div>
 
+<script>
+  // v4.69.1 — Eight Jupiter pairs from Vikram's auction-game session.
+  // Each pair carries a `practice` — a small embodiment cue when the score lands on the shadow side.
+  const pairs = [
+    { section: 'Faith & Trust',
+      left: 'Misplaced trust',          right: 'Divine grace',
+      practice: 'Notice one thing today that worked out without you forcing it. Whisper a thank-you under your breath.' },
+    {                                  left: 'Excessive optimism',        right: 'Grounded faith',
+      practice: 'Choose one hope you\'re holding. Ask: am I doing the work that hope requires? Or am I waiting for grace alone?' },
+
+    { section: 'Abundance & Generosity',
+      left: 'Holding back / hoarding',  right: 'Generosity / open hand',
+      practice: 'Give one thing away today. A book, a compliment, ten minutes of full attention to someone.' },
+    {                                  left: 'Doubting blessings',        right: 'Counting blessings',
+      practice: 'Before sleep tonight, name three blessings from today out loud. Even small ones. Especially small ones.' },
+
+    { section: 'Wisdom & Learning',
+      left: 'Rigid beliefs',            right: 'Open to wisdom',
+      practice: 'Pick one belief you\'ve held tightly. Sit with it for ten minutes — what would change if it weren\'t fully true?' },
+    {                                  left: 'Bookish knowledge',         right: 'Lived wisdom',
+      practice: 'Take one teaching you know intellectually. Apply it once today. Notice the gap between knowing and doing.' },
+
+    { section: 'Mentors & Joy',
+      left: 'Closed to mentors',        right: 'Receptive to guidance',
+      practice: 'Reach out to one teacher, mentor, or older friend you trust. No agenda — just acknowledge what they\'ve given you.' },
+    {                                  left: 'Heavy / joyless',           right: 'Joyful / expansive',
+      practice: 'Find one thing today that makes you laugh out loud. Or sing along to. Joy is Jupiter — it doesn\'t need a reason.' },
+  ];
+
+  const container = document.getElementById('sliders');
+  const scores = new Array(pairs.length).fill(5);
+  let currentSection = null;
+
+  pairs.forEach((p, i) => {
+    if (p.section && p.section !== currentSection) {
+      currentSection = p.section;
+      if (i > 0) {
+        const hr = document.createElement('hr');
+        hr.className = 'divider';
+        container.appendChild(hr);
+      }
+      const lbl = document.createElement('p');
+      lbl.className = 'section-label';
+      lbl.textContent = p.section;
+      container.appendChild(lbl);
+    }
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML =
+      '<div class="pair-labels">'
+      + '<div class="pole left"><span>False expectation</span>' + p.left + '</div>'
+      + '<div class="pole right"><span>Divine grace</span>' + p.right + '</div>'
+      + '</div>'
+      + '<div class="slider-row">'
+      + '<input type="range" min="0" max="10" value="5" step="1" id="slider-' + i + '" aria-label="' + p.left + ' to ' + p.right + '">'
+      + '<div class="score-display" id="score-' + i + '">5</div>'
+      + '</div>';
+    container.appendChild(card);
+
+    const slider = card.querySelector('#slider-' + i);
+    slider.addEventListener('input', () => {
+      scores[i] = parseInt(slider.value, 10);
+      document.getElementById('score-' + i).textContent = slider.value;
+      updateSummary();
+    });
+  });
+
+  function updateSummary() {
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    document.getElementById('avg-val').textContent = avg.toFixed(1);
+    document.getElementById('avg-bar').style.width = (avg / 10 * 100) + '%';
+    // v4.69.1 — surface the practice for the lowest-scored pair (most shadow)
+    surfacePractice();
+  }
+
+  function surfacePractice() {
+    // find the pair with the lowest score (deepest in shadow); ignore if all >= 7
+    let lowestIdx = -1, lowestVal = 11;
+    scores.forEach((s, i) => {
+      if (s < lowestVal) { lowestVal = s; lowestIdx = i; }
+    });
+    var box = document.getElementById('jupiterPractice');
+    var txt = document.getElementById('jupiterPracticeText');
+    if (lowestIdx >= 0 && lowestVal <= 5 && pairs[lowestIdx].practice) {
+      txt.innerHTML = '<em style="color:var(--saffron);font-style:italic;">' + pairs[lowestIdx].left + ' ↔ ' + pairs[lowestIdx].right + ' (' + lowestVal + '/10)</em><br><br>' + pairs[lowestIdx].practice;
+      box.style.display = 'block';
+    } else if (scores.every(s => s >= 7)) {
+      txt.innerHTML = '<em style="color:var(--saffron);">Beautiful.</em> Today\'s reading is all on the grace side. Sit with that — name one blessing you\'re inhabiting right now, before the moment passes.';
+      box.style.display = 'block';
+    } else {
+      box.style.display = 'none';
+    }
+  }
+
+  // v4.69.1 — Persist scores + notes + reflection prompts (localStorage)
+  const STORAGE_KEY = 'astro-jupiter-tracker-v1';
+  function loadState() {
+    try {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      if (Array.isArray(data.scores) && data.scores.length === pairs.length) {
+        for (let i = 0; i < pairs.length; i++) {
+          scores[i] = parseInt(data.scores[i], 10);
+          if (isNaN(scores[i])) scores[i] = 5;
+          const s = document.getElementById('slider-' + i);
+          if (s) {
+            s.value = scores[i];
+            document.getElementById('score-' + i).textContent = scores[i];
+          }
+        }
+      }
+      if (data.wise) document.getElementById('wise').value = data.wise;
+      if (data.prompt1) document.getElementById('prompt1').value = data.prompt1;
+      if (data.prompt2) document.getElementById('prompt2').value = data.prompt2;
+      if (data.prompt3) document.getElementById('prompt3').value = data.prompt3;
+    } catch(e) {}
+  }
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        scores: scores,
+        wise:    (document.getElementById('wise')||{}).value || '',
+        prompt1: (document.getElementById('prompt1')||{}).value || '',
+        prompt2: (document.getElementById('prompt2')||{}).value || '',
+        prompt3: (document.getElementById('prompt3')||{}).value || ''
+      }));
+    } catch(e) {}
+  }
+  ['wise','prompt1','prompt2','prompt3'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', saveState);
+  });
+
+  function resetAll() {
+    if (!confirm('Reset every slider and clear all notes?')) return;
+    scores.fill(5);
+    pairs.forEach((_, i) => {
+      const s = document.getElementById('slider-' + i);
+      if (s) {
+        s.value = 5;
+        document.getElementById('score-' + i).textContent = '5';
+      }
+    });
+    document.getElementById('wise').value = '';
+    document.getElementById('prompt1').value = '';
+    document.getElementById('prompt2').value = '';
+    document.getElementById('prompt3').value = '';
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+    updateSummary();
+  }
+
+  function copyResults() {
+    let text = 'Jupiter Tracker — Astrology 101\n\n';
+    pairs.forEach((p, i) => {
+      text += p.left + ' ↔ ' + p.right + ': ' + scores[i] + '/10\n';
+    });
+    const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+    text += '\nAverage: ' + avg + '/10  (false expectation 0 ↔ divine grace 10)';
+    const note = document.getElementById('wise').value.trim();
+    if (note) text += '\n\nWise reflection:\n' + note;
+    const p1 = document.getElementById('prompt1').value.trim();
+    const p2 = document.getElementById('prompt2').value.trim();
+    const p3 = document.getElementById('prompt3').value.trim();
+    if (p1 || p2 || p3) {
+      text += '\n\n— Three Jupiter prompts —';
+      if (p1) text += '\n\n1 · Where I have felt protected:\n' + p1;
+      if (p2) text += '\n\n2 · Loss that turned out to be a blessing:\n' + p2;
+      if (p3) text += '\n\n3 · A blessing I don\'t feel I deserved:\n' + p3;
+    }
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.btn-row button');
+      const original = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => btn.textContent = original, 2000);
+    });
+  }
+
+  // Wire slider input persistence
+  pairs.forEach((p, i) => {
+    const slider = document.getElementById('slider-' + i);
+    if (slider) {
+      slider.addEventListener('change', saveState);
+    }
+  });
+
+  loadState();
+  updateSummary();
+
+  // ====================== UPDATE CHECKER ======================
+  const PAGE_VERSION = "4.69.1";
+  function showUpdateBanner(newVer) {
+    const b = document.getElementById('updateBanner');
+    document.getElementById('updateText').textContent = 'New version available (v' + newVer + ').';
+    b.classList.add('is-showing');
+  }
+  function showToast(msg) {
+    const b = document.getElementById('updateBanner');
+    document.getElementById('updateText').textContent = msg;
+    b.classList.add('is-showing');
+    setTimeout(() => b.classList.remove('is-showing'), 2400);
+  }
+  function __checkForUpdates(silent) {
+    fetch('version.json?_=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => {
+        if (data.version !== PAGE_VERSION) showUpdateBanner(data.version);
+        else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+      })
+      .catch(() => {});
+  }
+  __checkForUpdates(true);
+  let lastCheck = Date.now();
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && Date.now() - lastCheck > 30000) {
+      lastCheck = Date.now();
+      __checkForUpdates(true);
+    }
+  });
+  window.__checkForUpdates = __checkForUpdates;
+  window.__pageVersion = PAGE_VERSION;
+</script>
 
 <!-- ====================== WHATSAPP FEEDBACK FAB (v4.56.1 — site-wide) ====================== -->
 <style>
@@ -862,8 +1139,8 @@
 </style>
 <script>
 (function() {
-  var PAGE_KEY = 'layers';
-  var TIP_TEXT = 'Eight chapters mark how this page came to be. Skim the timeline, or read the longer arc inside each layer.';
+  var PAGE_KEY = 'mercury';
+  var TIP_TEXT = 'A single planet across its range — friend, neutral, enemy. Score yourself on each axis and the meaning emerges.';
   var KEY = 'astro-tip-seen-' + PAGE_KEY;
   try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
   function build() {
