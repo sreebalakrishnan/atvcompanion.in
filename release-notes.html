@@ -741,10 +741,58 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.71.1 ====================== -->
+  <section class="release" data-credits="Sree (asked for two pop-ups from the centre of the chart, one for learners, one for Vikram-types; asked to drop the notable-today list and keep the home page minimal)">
+    <header>
+      <h2>v4.71.1 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Two changes on the home. First — dropped the "what's notable today" list under the chart; the page is now just the chart, the centre cell, and Daily Gem. Second — added a <strong>"how it was built"</strong> trigger inside the centre cell. Clicking it opens a single modal with two tabs: <em>For learners</em> (plain English, no code) and <em>Technical</em> (astronomy formulas, code excerpts, file structure). Two artifacts, one launch surface.</p>
+
+    <h3>For learners</h3>
+    <p>Five short steps in plain language: where the planets actually are; the tropical → sidereal (Lahiri ayanāṁśa) step; the South Indian chart layout; the live Lagna marker; why the page works without internet. No code, no equations. Designed to be readable by someone three weeks into Astrology 101.</p>
+
+    <h3>For Vikram + the engineering-curious</h3>
+    <p>Nine sections: stack at a glance, ephemeris generation (PyEphem + the Rahu mean-node analytic formula), the Lahiri linear approximation, the JSON+JS dual-output trick (and the <code>file://</code> CORS bug behind it), the CSS-Grid named-area chart layout, the full Lagna calculation with the quadrant-correction step (and the bug we hit at noon when atan2 landed 180° off), the four anchor-time verification, the monthly refresh routine, and the file list. Code excerpts are short and inline.</p>
+
+    <h3>Why the "notable today" list went away</h3>
+    <p>Sree's call: keep the home page minimal. The page now reads: chart, centre cell with date/time/location/how-built, Daily Gem. Nothing else. The notable-today list duplicated what the chart already shows visually, and the link-out actions belong on the Learning Companion, not the home.</p>
+
+    <h3>How to open it</h3>
+    <p>Click the dotted "<em>how it was built</em>" link inside the centre square of the chart. The modal opens with the <em>For learners</em> tab active. Toggle to <em>Technical</em> for the depth. <kbd>Esc</kbd> or the backdrop closes it.</p>
+  </section>
+
+  <!-- ====================== v4.71.0 ====================== -->
+  <section class="release" data-credits="Vikram (the four corrections in Session 41 + the procedural arc across sessions 39–43) · Sree (asked to bring the latest classroom into the page)">
+    <header>
+      <h2>v4.71.0</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Group A from the sessions 39–43 mining: four procedural fixes Vikram has been hammering on in the Google Doc reviews. All land in <a href="interpret.html">Interpret · beta</a>'s Path A (House walk).</p>
+
+    <h3>1 · "Bracket your sources" hint on the writing pad</h3>
+    <p>Above the textarea is a new dismissable hint: <em>after each word, note where it came from in brackets — wisdom (Jupiter) through reflection (yin)</em>. If brackets reveal a wrong source, the line is wrong even if it sounds right. Source: Session 41, Vikram's most-repeated correction across the cohort's submissions. Saved-as-dismissed in <code>localStorage</code> (<code>astro-mychart-pad-bracket-hint-v1</code>) so it stays out of the way after you've internalised it.</p>
+
+    <h3>2 · Live "8-billion-people" warning above the textarea</h3>
+    <p>As you type, if your sentence combines the karaka keyword for the current house <em>and</em> the house keyword <em>without</em> any sign building block (yang/yin, cardinal/fixed/mutable, fire/earth/air/water, or a sign name), a soft saffron warning surfaces: <em>"Karaka of House N is [planet] — that pairing is true for everyone. Combine [planet]'s keyword with the sign [planet] sits in, not with House N's keyword."</em> Detection is word-boundary regex over the textarea contents; the warning is non-blocking and disappears the moment the line passes the test. Source: Session 41 — the rule that already existed as a static reminder in the self-check is now a live nudge in the moment of writing.</p>
+
+    <h3>3 · "Don't chase the dispositor" callout in Step 3</h3>
+    <p>Inside the Pati / Ruler block, a new saffron-tinged stop sign: <em>"When you reach planet-in-sign, write. Don't chase the dispositor further — Mercury → Sagittarius → ruled by Jupiter → in Cancer → ruled by Moon… 'all this is not needed.'"</em> Source: Session 41, near-verbatim from Vikram. The depth-first dispositor walk was a recurring failure mode in submissions; this catches it before the user starts.</p>
+
+    <h3>4 · Step 4b · "Aspects on the Karaka"</h3>
+    <p>A new sub-step appears immediately after the Karaka block: <em>"Look at your chart. Is anything aspecting your [karakaPlanet]? Count this separately from aspects on House N itself — the two questions are different."</em> Includes Vikram's worked example for the 9<sup>th</sup>: nothing aspects the 9<sup>th</sup>, but Mars aspects Jupiter (the karaka of the 9<sup>th</sup>) — and that aspect carried the read. The card also includes the rule-of-thumb aspect rules (everyone aspects 7<sup>th</sup>; Mars also 4+8, Jupiter 5+9, Saturn 3+10). Read-only learner prompt — no aspect engine yet (deferred to a separate KB+JS effort).</p>
+
+    <h3>What didn't land in this release</h3>
+    <p>The other recommendations from Group B (four-intent sentence rewriter on the synthesis card; first-impressions yoga-scan card; experiential "feel the planet" prompts on Path B; retrograde line on each planet card) are queued for v4.72.0 onwards. They depend on slightly more data (yoga rules, retrograde detection) and on a separate UX cut.</p>
+
+    <h3>Cohort homework rhythm</h3>
+    <p>Across all five sessions Vikram repeats: <em>make sentences for each planet in each sign yourself, then look at the deck</em>. Eventually a "this week's homework" strip should pull from the latest transcript and surface near the path-intro card. Filed for a follow-up.</p>
+  </section>
+
   <!-- ====================== v4.70.3 ====================== -->
   <section class="release" data-credits="Sree (caught the unstyled search dropdown on LC)">
     <header>
-      <h2>v4.70.3 <em>· current</em></h2>
+      <h2>v4.70.3</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Hotfix on the LC search dropdown. Clicking the search bar showed all suggestions stacked vertically and centre-aligned because the <code>.hero-suggest-*</code> CSS rules were missing entirely (probably dropped during a much earlier merge). The JS was rendering the right HTML; the styles just weren't there. Now the dropdown panel renders as intended — group headers, two-column rows (label on the left, category pill on the right), the foot row with <kbd>↵</kbd> hint, and the "did you mean…" + exact-match preview blocks.</p>
@@ -4677,7 +4725,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.70.3 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.71.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4900,7 +4948,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.70.3';
+  const PAGE_VERSION = '4.71.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

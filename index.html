@@ -313,9 +313,22 @@
     transition: color .15s, text-decoration-color .15s;
   }
   .stage-center .loc:hover { color: var(--saffron); text-decoration-color: var(--saffron); }
+  /* v4.71.1 — "how it was built" centre-cell trigger */
+  .stage-center .ts-built {
+    margin-top: 8px;
+    background: transparent; border: 0; padding: 2px 6px;
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(10.5px, 1.3vw, 12px);
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 1px dotted var(--rule);
+    line-height: 1.2;
+    transition: color .15s, border-color .15s;
+  }
+  .stage-center .ts-built:hover { color: var(--saffron); border-color: var(--saffron); }
 
-  /* Notable today list */
-  .ts-notable { margin: 24px auto 0; max-width: 56ch; }
+  /* v4.71.1 — Notable today list (removed in v4.71.1; rule kept for safety, no element renders) */
+  .ts-notable { display: none; }
   .ts-notable-h { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; text-align: center; }
   .ts-notable ul { list-style: none; padding: 0; margin: 0; }
   .ts-notable li {
@@ -518,13 +531,6 @@
 
     <div class="stage" id="tsStage">
       <!-- 12 sign chambers + centre cell, populated by JS -->
-    </div>
-
-    <div class="ts-notable">
-      <div class="ts-notable-h">what's notable today</div>
-      <ul id="tsNotable">
-        <li style="text-align:center;color:var(--muted);font-style:italic;">Loading sky data…</li>
-      </ul>
     </div>
 
     <p class="ts-fallback" id="tsFallback" hidden>
@@ -785,34 +791,14 @@
       '<div class="label">today</div>' +
       '<div class="date">' + escHtml(prettyDate(todayISO())) + '</div>' +
       '<div class="time">' + escHtml(nowTime) + '</div>' +
-      '<button type="button" class="loc" id="tsCentreLoc" title="Click to change location">' + escHtml(loc) + '</button>';
+      '<button type="button" class="loc" id="tsCentreLoc" title="Click to change location">' + escHtml(loc) + '</button>' +
+      '<button type="button" class="ts-built" id="tsBuiltBtn" title="How this chart was built">how it was built</button>';
     stage.appendChild(c);
   }
 
-  function renderNotable(today){
-    var ul = document.getElementById('tsNotable');
-    if (!ul) return;
-    if (!today){
-      ul.innerHTML = '';
-      var fb = document.getElementById('tsFallback');
-      if (fb) fb.hidden = false;
-      return;
-    }
-    var picks = ['sun','moon','jupiter','mars','venus','saturn'];
-    var html = '';
-    picks.forEach(function(p){
-      var P = PLANETS[p];
-      var entry = today[p];
-      if (!entry) return;
-      var flav = SIGN_FLAVOUR[entry.sign] || '';
-      html += '<li>' +
-                '<strong style="font-weight:500;font-style:italic;color:var(--saffron);">' + escHtml(P.name) + '</strong> ' +
-                '— ' + escHtml(P.sansk) + ' ' + escHtml(flav) + ' ' +
-                '<a href="' + escHtml(P.link) + '">read →</a>' +
-              '</li>';
-    });
-    ul.innerHTML = html;
-  }
+  // v4.71.1 — "What's notable today" widget removed (per Sree).
+  // No-op kept so existing call sites in load() don't error.
+  function renderNotable(today){ /* removed in v4.71.1 — page kept minimal, no content surface beyond the chart + Daily Gem */ }
 
   // v4.70.2 — heading kept static ("today in the sky"); date lives only in the centre cell now.
   function renderDateLabel(){ /* no-op: avoid duplicating the date */ }
@@ -890,6 +876,287 @@
 })();
 </script>
 
+<!-- ====================== HOW IT WAS BUILT — modal ====================== -->
+<!-- v4.71.1 — Two pop-ups, accessed from the centre cell.
+     Pop-up #1 (learner) — plain English, story arc, no code.
+     Pop-up #2 (technical) — astronomy formulas, code excerpts, file structure. -->
+<style>
+  .ts-built-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(40,40,38,.45);
+    backdrop-filter: blur(2px);
+    z-index: 200;
+  }
+  .ts-built-backdrop[hidden] { display: none; }
+  .ts-built-modal {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 210;
+    width: min(720px, 92vw);
+    max-height: 86vh;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    box-shadow: 0 30px 80px -20px rgba(40,40,38,.45);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .ts-built-modal[hidden] { display: none; }
+  .ts-built-modal-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule-soft);
+    flex-shrink: 0;
+  }
+  .ts-built-modal-eyebrow {
+    flex: 1;
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--saffron);
+  }
+  .ts-built-tabs {
+    display: flex; gap: 4px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 3px;
+  }
+  .ts-built-tab {
+    appearance: none; border: 0; cursor: pointer;
+    background: transparent;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; color: var(--ink-soft);
+    transition: background-color .15s, color .15s;
+  }
+  .ts-built-tab.is-active { background: var(--saffron); color: #fff; }
+  .ts-built-close {
+    flex-shrink: 0;
+    appearance: none; background: transparent; border: 0; cursor: pointer;
+    font-size: 20px; color: var(--muted);
+    line-height: 1; padding: 4px 6px;
+  }
+  .ts-built-close:hover { color: var(--saffron); }
+  .ts-built-modal-body {
+    padding: 18px 22px 22px;
+    overflow-y: auto;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .ts-built-modal-body h3 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 17px; color: var(--ink);
+    margin: 18px 0 6px; line-height: 1.3;
+  }
+  .ts-built-modal-body h3:first-child { margin-top: 0; }
+  .ts-built-modal-body p { margin: 0 0 10px; font-size: 14.5px; }
+  .ts-built-modal-body em { font-style: italic; color: var(--saffron); }
+  .ts-built-modal-body strong { font-weight: 500; color: var(--ink); }
+  .ts-built-modal-body ol { margin: 0 0 10px; padding-left: 22px; }
+  .ts-built-modal-body ol li { margin-bottom: 8px; font-size: 14.5px; }
+  .ts-built-modal-body code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+  .ts-built-modal-body pre {
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 6px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    margin: 0 0 12px;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .ts-built-modal-body pre code {
+    background: transparent; border: 0; padding: 0;
+    font-size: 12px;
+  }
+  .ts-built-pane[hidden] { display: none; }
+  .ts-built-foot {
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    .ts-built-modal { width: 96vw; max-height: 90vh; }
+    .ts-built-modal-head { padding: 10px 12px; gap: 8px; }
+    .ts-built-modal-eyebrow { font-size: 10.5px; }
+    .ts-built-tab { padding: 4px 9px; font-size: 11.5px; }
+    .ts-built-modal-body { padding: 14px 16px 18px; }
+  }
+</style>
+
+<div class="ts-built-backdrop" id="tsBuiltBackdrop" hidden></div>
+<div class="ts-built-modal" id="tsBuiltModal" hidden role="dialog" aria-modal="true" aria-labelledby="tsBuiltTitle">
+  <div class="ts-built-modal-head">
+    <div class="ts-built-modal-eyebrow" id="tsBuiltTitle">how today's sky was built</div>
+    <div class="ts-built-tabs" role="tablist" aria-label="Audience">
+      <button class="ts-built-tab is-active" type="button" data-pane="learner" role="tab" aria-selected="true">For learners</button>
+      <button class="ts-built-tab" type="button" data-pane="technical" role="tab" aria-selected="false">Technical</button>
+    </div>
+    <button class="ts-built-close" type="button" id="tsBuiltClose" aria-label="Close">✕</button>
+  </div>
+  <div class="ts-built-modal-body">
+
+    <!-- ===== Learner pane ===== -->
+    <div class="ts-built-pane" data-pane="learner" role="tabpanel">
+      <h3>What you're looking at</h3>
+      <p>The chart at the top of this page is a <strong>South Indian chart</strong> showing where the planets are in the sky <em>right now</em> — laid out exactly the way Vikram draws on the whiteboard. Twelve chambers around the edge for the twelve signs (Pisces top-left, then clockwise). The centre tells you the date, the time, and the location it's calculated for.</p>
+
+      <h3>Step 1 · Where the planets actually are</h3>
+      <p>A planet's position in the sky changes every moment. The Sun moves about <em>one degree a day</em>; the Moon moves a full sign every two-and-a-half days. To know where any planet is on a given date, you need an <strong>ephemeris</strong> — a table of positions astronomers have been keeping for centuries.</p>
+      <p>Once a month, a small program on Sree's machine does this calculation for the next 396 days, for all nine grahas (Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, Rahu, Ketu). The output is a single file the home page can read.</p>
+
+      <h3>Step 2 · Tropical → sidereal (the ayanāṁśa step)</h3>
+      <p>Modern astronomy software gives positions in the <em>tropical</em> zodiac — based on the seasons. Indian astrology uses the <em>sidereal</em> zodiac — based on the actual stars. The difference between the two is the <strong>ayanāṁśa</strong>, currently about <em>24°</em> and growing by roughly <em>50 arcseconds a year</em>. Every position the program computes gets that 24° subtracted before it lands in the file.</p>
+      <p>This is the same ayanāṁśa Vikram teaches — Lahiri.</p>
+
+      <h3>Step 3 · The chart layout</h3>
+      <p>Drawing a South Indian chart in HTML uses a feature called <strong>CSS Grid</strong> — you can label each cell with a name and ask the browser to put the right content there. The named layout looks like this:</p>
+      <p><em>Pisces / Aries / Taurus / Gemini</em> across the top. <em>Aquarius</em> and <em>Capricorn</em> on the left. <em>Sagittarius / Scorpio / Libra / Virgo</em> across the bottom. <em>Cancer</em> and <em>Leo</em> on the right. The big square in the middle holds the date.</p>
+      <p>Inside each chamber: the sign's glyph, its English name, its Sanskrit name, and any planets sitting there right now — shown as small two-letter pills (Su · Mo · Ma · Me · Ju · Ve · Sa · Ra · Ke).</p>
+
+      <h3>Step 4 · The Lagna marker</h3>
+      <p>The <strong>Lagna</strong> (Ascendant) is the sign rising on the eastern horizon at this moment, at this place. It changes every two hours as the earth rotates. The page calculates the current Lagna for the centre-cell location and adds a saffron <em>ASC</em> badge to the chamber that's rising right now.</p>
+      <p>This is the <em>current</em> Lagna at this <em>place</em> — not your personal birth Lagna. To mark <em>your</em> Lagna, the page would need your birth time and birthplace. That's a future addition.</p>
+
+      <h3>Step 5 · Why the page works without internet</h3>
+      <p>Everything you see is computed once a month and baked into the page. No live API calls, no waiting for a server, no internet needed after the first load. Open the page on a flight, you still get today's sky.</p>
+
+      <h3>How to use this with the class</h3>
+      <p>Look at where the Sun is right now. Where the Moon is. Notice the sign rising. As the days move, watch the Moon hop signs every two-and-a-half days, watch the Sun's slow walk through Aries → Taurus → Gemini, watch Jupiter take a year to cross one sign. The chart on this page is a daily companion to what Vikram is teaching — not a substitute for learning to read it yourself.</p>
+
+      <p class="ts-built-foot">Built with Vikram's class as the source of truth, by Sree &amp; Sanchi · v4.71.1</p>
+    </div>
+
+    <!-- ===== Technical pane (for Vikram + the engineering-curious) ===== -->
+    <div class="ts-built-pane" data-pane="technical" role="tabpanel" hidden>
+      <h3>Stack at a glance</h3>
+      <p>Single static HTML page (<code>index.html</code>) + a JS data wrapper (<code>today-sky-data.js</code>) + a Python generator (<code>scripts/generate_today_sky.py</code>). No server, no build step, no framework. Opens via <code>file://</code> or any static host. Refresh cadence: monthly, by hand.</p>
+
+      <h3>1 · Ephemeris generation</h3>
+      <p><code>generate_today_sky.py</code> uses <strong>PyEphem</strong> for Sun, Moon, and the five visible planets. For each calendar day in a 396-day window, it asks PyEphem for the body's geocentric ecliptic longitude (tropical) at <em>00:00 UTC</em>.</p>
+      <p>Rahu (the mean lunar node) is computed analytically from <em>Astronomical Algorithms</em> (Meeus, p. 144) — PyEphem doesn't expose nodes directly. Ketu is exactly opposite Rahu (+ 180°).</p>
+
+      <h3>2 · Lahiri ayanāṁśa</h3>
+      <p>Linear approximation around the 2026 epoch:</p>
+      <pre><code>ayanamsha(date) = 24.10° + (years_since_2026) × (50.3″ / year)</code></pre>
+      <p>Every tropical longitude the script writes has this subtracted before being recorded. The result is sidereal Lahiri to within ~1 arcminute — fine for a sign-level chart; not a substitute for Swiss Ephemeris when minute-level precision is needed.</p>
+
+      <h3>3 · Output: JSON + JS dual write</h3>
+      <p>Same data, two files:</p>
+      <ol>
+        <li><code>today-sky-data.json</code> — clean JSON. For server-side or future tooling.</li>
+        <li><code>today-sky-data.js</code> — wraps the same payload as <code>window.__todaySkyData = {...}</code>. The home page loads this via a plain <code>&lt;script src&gt;</code> tag.</li>
+      </ol>
+      <p>Why the JS wrapper? <strong>file://</strong> origins block <code>fetch()</code> for CORS reasons. A <code>&lt;script src&gt;</code> tag has no such restriction. So the page works when opened locally with no web server. (We hit this bug; v4.70.1 was the fix.)</p>
+
+      <h3>4 · Layout: CSS Grid with named template areas</h3>
+      <pre><code>.stage {
+  display: grid;
+  grid-template-areas:
+    "pi ar ta ge"
+    "aq cc cc ca"
+    "cp cc cc le"
+    "sa sc li vi";
+  aspect-ratio: 1 / 1;
+}
+.chamber.sign-pisces { grid-area: pi; }
+.stage-center        { grid-area: cc; }</code></pre>
+      <p>Pisces sits in <code>pi</code>, Aquarius in <code>aq</code>, and so on. The centre cell <code>cc</code> spans the inner 2×2 — that's where the date / time / location / "how it was built" trigger live. This is a direct port of the chart layout from <code>interpret.html</code>, which has been in use for several releases.</p>
+
+      <h3>5 · Lagna calculation (client-side)</h3>
+      <p>Computed in JS at page load, recomputed on location change. The flow:</p>
+      <ol>
+        <li><strong>Julian Day</strong> from <code>Date.UTC(...)</code>.</li>
+        <li><strong>GMST</strong> via the standard polynomial in <code>JD − J2000</code>.</li>
+        <li><strong>RAMC</strong> = GMST + λ<sub>observer</sub>.</li>
+        <li><strong>MC ecliptic longitude</strong>: <code>atan2(sin(RAMC), cos(RAMC) · cos(ε))</code>.</li>
+        <li><strong>Asc tropical</strong>: <code>atan2(−cos(RAMC), sin(ε)·tan(φ) + cos(ε)·sin(RAMC))</code>.</li>
+        <li><strong>Quadrant fix</strong>: if <code>(asc − mc) mod 360 &gt; 180</code>, add 180° to the asc. (<code>atan2</code> can land 180° off without this — the bug surfaced when the noon Lagna came out 180° wrong.)</li>
+        <li><strong>Sidereal Asc</strong>: subtract Lahiri ayanāṁśa.</li>
+        <li><strong>Sign index</strong>: <code>floor(λ / 30)</code>.</li>
+      </ol>
+      <p>Coordinates come from a hand-curated table (Auroville, Pondicherry, Chennai, Bengaluru, Mumbai, Delhi, Hyderabad, Kolkata, Pune, Kochi, Thiruvananthapuram). Anything else falls back to Auroville. No geocoder.</p>
+
+      <h3>6 · Verification</h3>
+      <p>Spot-checked at four anchor times for Auroville on 2026-05-10:</p>
+      <ol>
+        <li><strong>Sunrise (06:00 IST)</strong> → Aries 27° (matches Sun's sidereal position — correct).</li>
+        <li><strong>Noon (12:00 IST)</strong> → Cancer (Sun at MC, Asc 90° ahead — correct).</li>
+        <li><strong>Sunset (18:00 IST)</strong> → Libra (opposite the rising sign — correct).</li>
+        <li><strong>17:40 IST</strong> → Libra 196° (just before sunset — correct).</li>
+      </ol>
+
+      <h3>7 · Refresh routine</h3>
+      <pre><code>cd /Users/sreeb/Developer/astrology-101-companion
+python3 scripts/generate_today_sky.py</code></pre>
+      <p>Runs in ~15 seconds. Writes both <code>today-sky-data.json</code> and <code>today-sky-data.js</code>. Commit, push, done.</p>
+
+      <h3>8 · What's not in the page</h3>
+      <p>No internet calls. No analytics. No external fonts beyond the project's standard (Switzer + display face). All ephemeris is local. All UI is computed in the user's browser. Open it on a flight — works.</p>
+
+      <h3>9 · Files touched in this build</h3>
+      <pre><code>index.html                   ← chart, Daily Gem, this modal
+today-sky-data.js            ← 396-day pre-computed positions
+today-sky-data.json          ← same payload, JSON form
+scripts/generate_today_sky.py  ← monthly refresh</code></pre>
+
+      <p class="ts-built-foot">Stack: vanilla JS · CSS Grid · PyEphem · Lahiri ayanāṁśa · ~700 lines of JS · zero dependencies in the browser.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* v4.71.1 — Built modal: open/close + tab switching. */
+(function(){
+  var bd    = document.getElementById('tsBuiltBackdrop');
+  var modal = document.getElementById('tsBuiltModal');
+  function open(){
+    if (!bd || !modal) return;
+    bd.hidden = false; modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    if (!bd || !modal) return;
+    bd.hidden = true; modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+  function setPane(name){
+    var tabs = modal.querySelectorAll('.ts-built-tab');
+    var panes = modal.querySelectorAll('.ts-built-pane');
+    tabs.forEach(function(t){
+      var active = t.dataset.pane === name;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', String(active));
+    });
+    panes.forEach(function(p){ p.hidden = (p.dataset.pane !== name); });
+  }
+  document.addEventListener('click', function(e){
+    if (e.target && e.target.id === 'tsBuiltBtn'){ e.preventDefault(); open(); return; }
+    if (e.target && e.target.id === 'tsBuiltClose'){ close(); return; }
+    if (e.target && e.target.id === 'tsBuiltBackdrop'){ close(); return; }
+    if (e.target && e.target.classList && e.target.classList.contains('ts-built-tab')){
+      setPane(e.target.dataset.pane); return;
+    }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal && !modal.hidden) close();
+  });
+})();
+</script>
+
 <!-- ====================== DAILY GEM ====================== -->
 <script>
 /* v4.70.1 — Daily Gem on home. Curated pool drawn from Vikram's class quotes
@@ -938,7 +1205,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.70.3';
+  var PAGE_VERSION = '4.71.1';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');

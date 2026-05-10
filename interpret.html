@@ -1086,6 +1086,55 @@
     body.walk-pad-active.walk-pad-expanded { padding-bottom: 240px; }
   }
 
+  /* v4.71.0 — Bracket-your-sources hint (dismissable, sits between header and body). */
+  .walk-pad.is-expanded .walk-pad-bracket-hint:not([hidden]) {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 6px 0 8px;
+    padding: 8px 10px;
+    background: rgba(188,129,70,.06);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+  }
+  .walk-pad-bracket-hint { display: none; }
+  .walk-pad-bracket-hint-text {
+    flex: 1;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .walk-pad-bracket-hint-text em { font-style: italic; }
+  .walk-pad-bracket-hint-dismiss {
+    flex-shrink: 0;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .walk-pad-bracket-hint-dismiss:hover { color: var(--saffron); }
+
+  /* v4.71.0 — Karaka+House auto-warning (appears above the textarea when both keywords detected without sign building blocks). */
+  .walk-pad-karaka-warn:not([hidden]) {
+    display: block;
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    background: rgba(188,129,70,.10);
+    border: 1px solid rgba(188,129,70,.35);
+    border-radius: 6px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .walk-pad-karaka-warn strong { color: var(--saffron); font-style: normal; }
+
   /* Inline procedure block (v4.56.1). Native <details> with custom styling
      that holds the 8-step + 3-step procedure right inside the page — no
      external links, no MD navigation. Tap-to-expand. */
@@ -1500,6 +1549,21 @@
     line-height: 1.55;
     margin: 6px 0 0;
   }
+
+  /* v4.71.0 — "Don't chase the dispositor" callout from Vikram, Session 41. */
+  .walk-pati-stop {
+    margin: 10px 0 0;
+    padding: 10px 12px;
+    border-left: 3px solid var(--saffron);
+    background: rgba(188,129,70,.06);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .walk-pati-stop em { font-style: italic; }
 
   /* Quick-reference drawer (v4.56.1) — collapsible cheat sheet inside the walk-through. */
   .walk-drawer {
@@ -2841,6 +2905,20 @@
   function loadPadExpanded()  { try { const v = localStorage.getItem(PAD_EXPANDED_KEY); return v === null ? true : v === '1'; } catch (e) { return true; } }
   function savePadExpanded(v) { try { localStorage.setItem(PAD_EXPANDED_KEY, v ? '1' : '0'); } catch (e) {} }
 
+  // v4.71.0 — Bracket-your-sources hint. Default visible; user can dismiss.
+  const PAD_BRACKET_HINT_KEY = 'astro-mychart-pad-bracket-hint-v1';
+  function loadBracketHintShown() { try { const v = localStorage.getItem(PAD_BRACKET_HINT_KEY); return v !== '0'; } catch (e) { return true; } }
+  function saveBracketHintShown(v) { try { localStorage.setItem(PAD_BRACKET_HINT_KEY, v ? '1' : '0'); } catch (e) {} }
+
+  // v4.71.0 — Building blocks Vikram teaches as the source vocabulary.
+  // If a sentence combines karaka_keyword + house_keyword and contains NONE of these,
+  // it likely fails the 8-billion-people test.
+  const SIGN_BUILDING_BLOCKS = [
+    'yang','yin',
+    'cardinal','fixed','mutable','movable','dual',
+    'fire','fiery','earth','earthy','air','airy','water','watery'
+  ];
+
   let _padWired = false;
   let _padSaveTimer = null;
   function setupWalkPadOnce() {
@@ -2880,12 +2958,72 @@
         saved.classList.add('is-visible');
         setTimeout(() => saved.classList.remove('is-visible'), 900);
       }, 280);
+      // v4.71.0 — Karaka+House 8-billion-people detection (debounced via the same timer indirectly).
+      checkKarakaWarning(ta.value);
     });
 
     // Tapping the textarea while collapsed expands the pad first.
     ta.addEventListener('focus', () => {
       if (!pad.classList.contains('is-expanded')) toggle.click();
     });
+
+    // v4.71.0 — Bracket-source hint: show by default, allow dismiss.
+    const hint = document.getElementById('walkPadBracketHint');
+    const hintDismiss = document.getElementById('walkPadBracketHintDismiss');
+    if (hint) hint.hidden = !loadBracketHintShown();
+    if (hintDismiss) {
+      hintDismiss.addEventListener('click', () => {
+        if (hint) hint.hidden = true;
+        saveBracketHintShown(false);
+      });
+    }
+  }
+
+  // v4.71.0 — Detect when the user's sentence combines karaka_keyword + house_keyword
+  // without any sign building block. Surface a soft warning above the textarea.
+  function checkKarakaWarning(text) {
+    const warnEl = document.getElementById('walkPadKarakaWarn');
+    if (!warnEl) return;
+    if (walkPath !== 'house') { warnEl.hidden = true; return; }
+    const h = walkIdx;
+    if (h < 1 || h > 12) { warnEl.hidden = true; return; }
+    const karakaInfo = HOUSE_KARAKA[h];
+    const houseKw    = HOUSE_KEYWORDS[h];
+    if (!karakaInfo || !houseKw) { warnEl.hidden = true; return; }
+    const t = (text || '').toLowerCase();
+    if (!t.trim()) { warnEl.hidden = true; return; }
+
+    // Karaka keywords (e.g. "wisdom" for Jupiter at H9). Token match on word boundary.
+    const karakaTokens = String(karakaInfo.keyword).toLowerCase().split(/[\s,/]+/).filter(Boolean);
+    const houseTokens  = String(houseKw.full || houseKw.short || '').toLowerCase().split(/[,\s/]+/).filter(t => t.length > 3);
+    const hasKaraka = karakaTokens.some(tok => new RegExp('\\b' + tok.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&') + '\\w*\\b').test(t));
+    const hasHouse  = houseTokens.some(tok => new RegExp('\\b' + tok.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&') + '\\w*\\b').test(t));
+    if (!hasKaraka || !hasHouse) { warnEl.hidden = true; return; }
+
+    // Sign building blocks check — if any present, the line passes (it's pinned to the chart).
+    const hasBlock = SIGN_BUILDING_BLOCKS.some(bb => new RegExp('\\b' + bb + '\\b').test(t));
+    // Also accept actual sign names (Aries, Taurus, …) as a sign hook.
+    const signNames = SIGN_ORDER.map(sid => SIGNS[sid].name.toLowerCase());
+    const hasSignName = signNames.some(n => new RegExp('\\b' + n + '\\b').test(t));
+    if (hasBlock || hasSignName) { warnEl.hidden = true; return; }
+
+    // Fail: combine karaka + house keyword with no sign hook → 8-billion test.
+    const karakaPlanet = PLANETS.find(p => p.id === karakaInfo.planet);
+    const planetName   = karakaPlanet ? karakaPlanet.name : 'the Karaka';
+    const placedH      = karakaPlanet ? myChart.planets[karakaPlanet.id] : null;
+    let signHint = '';
+    if (placedH && myChart.lagna) {
+      const lagnaIdx = SIGN_ORDER.indexOf(myChart.lagna);
+      if (lagnaIdx >= 0) {
+        const placedSid = SIGN_ORDER[(lagnaIdx + placedH - 1) % 12];
+        signHint = ' (' + SIGNS[placedSid].name + ')';
+      }
+    }
+    warnEl.innerHTML =
+      '<strong>📍 Heads up — 8-billion-people test.</strong> ' +
+      'Karaka of House ' + h + ' is ' + planetName + ' — that pairing (with the house keyword) is true for everyone. ' +
+      'Combine ' + planetName + '\'s keyword with the <em>sign</em> ' + planetName + ' sits in' + signHint + ', not with House ' + h + '\'s keyword.';
+    warnEl.hidden = false;
   }
   function syncWalkPadForHouse(h, exercisePromptHtml) {
     const pad = document.getElementById('walkPad');
@@ -2907,6 +3045,8 @@
     const notes = loadNotes();
     const prefix = _itemPrefix();
     ta.value = notes[prefix + h] || '';
+    // v4.71.0 — Re-evaluate the karaka warning for the new house's saved text.
+    if (typeof checkKarakaWarning === 'function') checkKarakaWarning(ta.value);
   }
   function hideWalkPad() {
     const pad = document.getElementById('walkPad');
@@ -3600,6 +3740,7 @@
         ${rulerLine(primaryRuler)}
         ${coRuler ? rulerLine(coRuler) : ''}
         <p class="walk-pati-frame">Where the lord lives is the next layer of the read — that connection is yours to make.</p>
+        <p class="walk-pati-stop"><strong style="color:var(--saffron);">Stop here.</strong> When you reach <em>planet-in-sign</em>, write. Don't chase the dispositor further — Mercury → Sagittarius → ruled by Jupiter → in Cancer → ruled by Moon… <em style="color:var(--muted);">"all this is not needed."</em> <span style="color:var(--muted);font-size:12.5px;">— Vikram, Session 41 · April 19, 2026</span></p>
       </div>
     `;
 
@@ -3626,6 +3767,19 @@
         <p class="walk-text">The natural Karaka of this house is <strong>${karakaPlanet.name} · ${karakaPlanet.sanskrit}</strong>, holding the keyword <em style="color:var(--saffron);">${karakaInfo.keyword}</em>.</p>
         ${karakaPlacedLine}
         <p class="walk-pati-frame">Combine <em>${karakaInfo.keyword}</em> with the sign's building blocks — never with the house keyword. The Karaka is the same for all 8 billion people; that pairing would be universal, not yours.</p>
+      </div>
+    ` : '';
+
+    // v4.71.0 — Aspects-on-Karaka sub-step. Vikram, Session 41 (April 19, 2026):
+    // when reading a house, check aspects on the *karaka* of that house separately
+    // from aspects on the house itself. Worked example: nothing aspects his 9th
+    // house, but Mars aspects Jupiter (the karaka of the 9th).
+    const karakaAspectsBlockHtml = karakaInfo ? `
+      <div class="walk-block">
+        <div class="walk-label">Aspects on the Karaka <em style="color:var(--muted);">· step 4b</em></div>
+        <p class="walk-text">Look at your chart. Is anything <strong>aspecting your ${karakaPlanet.name}</strong>? Count this <em>separately</em> from aspects on House ${h} itself — the two questions are different.</p>
+        <p class="walk-pati-frame">Vikram's worked example for the 9<sup>th</sup>: nothing aspected the house, but <em>Mars aspected Jupiter</em>, the karaka of the 9<sup>th</sup> — and that aspect carried the read. Don't miss this layer.</p>
+        <p class="walk-pati-frame" style="color:var(--ink-soft);">Aspect rule of thumb: every planet aspects the 7<sup>th</sup> from itself. Mars also 4 + 8, Jupiter also 5 + 9, Saturn also 3 + 10. Rahu/Ketu echo Saturn.</p>
       </div>
     ` : '';
 
@@ -3671,6 +3825,8 @@
         ${patiBlockHtml}
 
         ${karakaBlockHtml}
+
+        ${karakaAspectsBlockHtml}
 
         <div class="walk-exercise">
           <div class="walk-label">The exercise · Vikram's frame</div>
@@ -4001,7 +4157,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.70.3';
+  const PAGE_VERSION = '4.71.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4051,8 +4207,17 @@
       <span class="walk-pad-saved" id="walkPadSaved" aria-live="polite">✓ saved</span>
       <button class="walk-pad-toggle" type="button" id="walkPadToggle" aria-expanded="true">⌄ Collapse</button>
     </div>
+    <!-- v4.71.0 — "Bracket your sources" rule from Vikram, Session 41. Dismissable. -->
+    <div class="walk-pad-bracket-hint" id="walkPadBracketHint" hidden>
+      <div class="walk-pad-bracket-hint-text">
+        <strong style="color:var(--saffron);">Bracket your sources.</strong> After each word, note where it came from in brackets — e.g. <em>wisdom <span style="color:var(--saffron);">(Jupiter)</span> through reflection <span style="color:var(--saffron);">(yin)</span></em>. If brackets reveal a wrong source, the line is wrong even if it sounds right. <span style="color:var(--muted);font-size:12px;">— Vikram, Session 41</span>
+      </div>
+      <button type="button" class="walk-pad-bracket-hint-dismiss" id="walkPadBracketHintDismiss" aria-label="Dismiss bracket-source hint">✕</button>
+    </div>
     <div class="walk-pad-body">
       <p class="walk-pad-prompt" id="walkPadPrompt"></p>
+      <!-- v4.71.0 — Karaka+House warning surface (auto-shown when both keywords detected without sign building blocks). -->
+      <div class="walk-pad-karaka-warn" id="walkPadKarakaWarn" hidden role="alert"></div>
       <textarea class="walk-pad-textarea"
                 id="walkPadAnswer"
                 placeholder="Three characteristics. Start with one. Saved automatically as you type."
