@@ -741,10 +741,52 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.71.7 ====================== -->
+  <section class="release" data-credits="Sree (asked 'is the stats page updated?' — the answer was no, by ~50 versions)">
+    <header>
+      <h2>v4.71.7 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Stats page refreshed against the live numbers. The page had been frozen since around v4.7.0 — claiming "7 HTML pages, 18.7K lines, 58 transcripts." Reality at v4.71.7: <strong>22 pages, 47.6K lines, 43 numbered transcripts (May 2025 → 3 May 2026), 14 MB of knowledge base on disk, 128 release entries, 36 named contributors</strong>. Also patched <code>tools/build-stats.py</code> so it auto-discovers HTML pages instead of carrying a hardcoded list of seven.</p>
+
+    <h3>Numbers refreshed across the page</h3>
+    <ul>
+      <li><strong>Vikram's class:</strong> 73 → <strong>76 decks</strong>; 58 → <strong>43 session transcripts</strong> (numbered the way Vikram numbers them in class — the 58 was over-counting by including redirect stubs); 553K → <strong>605K words parsed</strong>; 3.4 MB → <strong>14 MB knowledge base on disk</strong>.</li>
+      <li><strong>The build:</strong> 7 → <strong>22 HTML pages</strong>; 1.66 MB → <strong>3.04 MB</strong>; 18,796 → <strong>47,581 lines</strong>; 98,386 → <strong>243,772 words</strong>; 256 → <strong>292 files</strong>; 5.4 MB → <strong>19 MB</strong> on disk.</li>
+      <li><strong>Quick Reference card:</strong> 10,491 → <strong>12,833 lines</strong> in <code>learning-companion.html</code>.</li>
+      <li><strong>Cohort:</strong> 53 → <strong>128 release entries</strong>; 10 → <strong>36 named contributors</strong>. Contributor chip row expanded from 10 to 18 prominent names plus a "+ 18 more" tail link.</li>
+      <li><strong>Per-page table:</strong> the old 7-row table grew to a top-12-by-size table, with a "+ 10 smaller pages" rollup row so the totals still reconcile.</li>
+    </ul>
+
+    <h3>Why the script was wrong</h3>
+    <p><code>tools/build-stats.py</code> had a hardcoded list of seven pages: the original set from v4.29.0 (when stats.html first shipped). Every page added since — index, interpret, where-am-i, sripati, ether, jupiter-tracker, layers, catch-up, reflect, interactive, about, pricing, plus a few redirects — was invisible to the script. Patched <code>html_stats()</code> to <code>root.glob("*.html")</code>, so future bumps pick up new pages automatically.</p>
+
+    <h3>What the page itself looks like now</h3>
+    <p>Same structure — four sections (Vikram's class, Static HTML, Quick Reference, The cohort, How it stays honest). Same visual language, same stat-card grid. Just truthful numbers throughout. The closing "Auto-counted, not hand-counted" callout finally lives up to its name now that the script auto-discovers.</p>
+  </section>
+
+  <!-- ====================== v4.71.6 ====================== -->
+  <section class="release" data-credits="Sree (recorded the Loom intro + asked to clean up build artifacts)">
+    <header>
+      <h2>v4.71.6</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Two small ones. Sree's Loom intro is now embedded on the home page (replacing the dashed placeholder that's been sitting there since v4.68.0), and the build pipeline got a quiet upgrade so it stops leaving <code>.bak</code> artifacts behind every version bump.</p>
+
+    <h3>1 · Loom intro embedded</h3>
+    <p>The <em>"A short introduction from Sree"</em> section on the home page now renders the actual Loom video — <a href="https://www.loom.com/share/2d286eaaea784321a6a52547672f8dec" target="_blank" rel="noopener">2d286ea…f8dec</a> — in a responsive 16:9 frame. Lazy-loaded (<code>loading="lazy"</code>), so it doesn't fetch the player until the user scrolls down to it. The page itself still works without internet — the iframe just doesn't play if you're offline.</p>
+
+    <h3>2 · Build hygiene — no more .bak files</h3>
+    <p>Earlier today's bumps used <code>sed -i.bak</code>, which always writes a sibling backup file. That cluttered the working directory with 18 <code>*.bak</code> files (~3.4 MB) per bump and snuck three <code>*.bak2</code> files into git. Switched to a Python file-rewrite that doesn't create artifacts. <code>.gitignore</code> hardened to also catch <code>*.bak2</code> and <code>*.bak.*</code> patterns as a belt-and-braces against future incidents.</p>
+
+    <h3>What didn't change</h3>
+    <p>The home page layout is unchanged. The chart, centre cell, "how it was built" modal (v4.71.1), and Daily Gem all stay where they were. The Loom is the same 60-second slot it has always occupied — just with content in it now.</p>
+  </section>
+
   <!-- ====================== v4.71.4 ====================== -->
   <section class="release" data-credits="Sree (called the masthead bar 'still jarring' and asked to merge it with the modal — one search, one place)">
     <header>
-      <h2>v4.71.4 <em>· current</em></h2>
+      <h2>v4.71.4</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Final cut on the LC search. The masthead search bar is gone. The <strong>modal — the experience you called "very refined"</strong> — is now the only search surface. Opened from the always-visible Search pill (top right), the <kbd>/</kbd> keyboard shortcut, or the bottom-of-page "Search again" CTA. The example chips moved into the modal's empty state, where they now belong.</p>
@@ -4807,7 +4849,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.71.4 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.71.7 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5030,7 +5072,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.71.4';
+  const PAGE_VERSION = '4.71.7';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

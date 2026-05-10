@@ -414,12 +414,24 @@
   .catchup-arrow { flex-shrink: 0; color: var(--saffron); font-family: var(--display); font-size: 20px; }
   @media (max-width: 480px) { .catchup-strip { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px; } .catchup-arrow { display: none; } }
 
-  /* LOOM PLACEHOLDER */
-  .intro-loom { margin: 22px 0 0; padding: 22px 24px; background: var(--surface); border: 1px dashed var(--rule); border-radius: 10px; text-align: center; }
-  .intro-loom-eyebrow { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; }
-  .intro-loom-placeholder { display: flex; align-items: center; gap: 14px; max-width: 520px; width: 100%; margin: 0 auto; padding: 14px 18px; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; text-align: left; }
-  .intro-loom-icon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: var(--saffron); color: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 14px; opacity: .85; }
-  .intro-loom-text { flex: 1; margin: 0; font-family: var(--display); font-style: italic; font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; }
+  /* LOOM INTRO — v4.71.6 (replaced placeholder with embed) */
+  .intro-loom { margin: 22px 0 0; padding: 18px 18px 22px; background: var(--surface); border: 1px solid var(--rule-soft); border-radius: 10px; text-align: center; }
+  .intro-loom-eyebrow { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+  .intro-loom-embed {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .intro-loom-embed iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
 
   /* HOME FOOTER */
   .home-footer { text-align: center; margin: 48px auto 0; padding: 0 8px; max-width: 540px; }
@@ -576,16 +588,17 @@
     <span class="catchup-arrow" aria-hidden="true">→</span>
   </a>
 
-  <!-- LOOM INTRO -->
-  <section class="intro-loom" aria-label="A 60-second introduction">
-    <div class="intro-loom-eyebrow">A 60-second introduction</div>
-    <div>
-      <!-- Sree to record and replace the placeholder below with the Loom embed iframe.
-           Format: <iframe src="https://www.loom.com/embed/<ID>" allowfullscreen></iframe> -->
-      <div class="intro-loom-placeholder" id="introLoomPlaceholder">
-        <div class="intro-loom-icon" aria-hidden="true">▶</div>
-        <p class="intro-loom-text">A short walk-through from Sree is on the way. Until then, the three rooms above are the quickest way in.</p>
-      </div>
+  <!-- LOOM INTRO — v4.71.5 -->
+  <section class="intro-loom" aria-label="A short introduction from Sree">
+    <div class="intro-loom-eyebrow">A short introduction from Sree</div>
+    <div class="intro-loom-embed">
+      <iframe
+        src="https://www.loom.com/embed/2d286eaaea784321a6a52547672f8dec"
+        title="A short introduction to the Astrology 101 Companion App"
+        frameborder="0"
+        allowfullscreen
+        loading="lazy"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write"></iframe>
     </div>
   </section>
 
@@ -1205,7 +1218,7 @@ scripts/generate_today_sky.py  ← monthly refresh</code></pre>
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.71.4';
+  var PAGE_VERSION = '4.71.7';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');

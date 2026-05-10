@@ -5365,7 +5365,7 @@
     </div>
   
 
-    <!-- v4.71.4 — Masthead search bar removed. The single search surface is now
+    <!-- v4.71.6 — Masthead search bar removed. The single search surface is now
          the modal — opened from the always-visible Search pill (top right),
          the / keyboard shortcut, or the bottom-of-page "Search again" CTA.
          The example chips moved into the modal's empty state. -->
@@ -11084,7 +11084,7 @@ function openSearch(initialQuery) {
     if (initialQuery) input.dispatchEvent(new Event('input', { bubbles: true }));
   }
   if (!initialQuery) {
-    // v4.71.4 — empty-state now includes the example chips that used to live in the masthead.
+    // v4.71.6 — empty-state now includes the example chips that used to live in the masthead.
     $('srchResults').innerHTML =
       '<div class="srch-empty">' +
         '<p style="margin:0 0 4px;">Type to search — signs, planets, houses, avatars, Sanskrit terms, classical significations, anatomy, prompts.</p>' +
@@ -11604,7 +11604,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.71.4';
+  const PAGE_VERSION = '4.71.7';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11761,7 +11761,7 @@ document.addEventListener('keydown', (e) => {
     font-size: 11px; color: var(--muted);
   }
   @media (max-width: 600px) { .lc-masthead-search-kbd { display: none; } }
-  /* v4.71.4 — Masthead hint that replaced the search bar */
+  /* v4.71.6 — Masthead hint that replaced the search bar */
   .lc-masthead-search-hint {
     margin: 22px auto 8px;
     text-align: center;
@@ -11785,7 +11785,7 @@ document.addEventListener('keydown', (e) => {
     justify-content: center; margin-top: 12px;
   }
   .lc-masthead-search-chips {
-    display: none; /* v4.71.4 — masthead chips removed, modal empty-state takes over */
+    display: none; /* v4.71.6 — masthead chips removed, modal empty-state takes over */
     flex-wrap: wrap; gap: 6px;
     justify-content: center; margin-top: 10px;
     font-family: var(--display); font-style: italic; font-size: 12.5px;
@@ -12721,7 +12721,7 @@ document.addEventListener('keydown', (e) => {
     sticky.addEventListener('click', function(){
       if (window.openSearch) window.openSearch('');
     });
-    // v4.71.4 — Sticky pill is now always visible. Previously it faded in once
+    // v4.71.6 — Sticky pill is now always visible. Previously it faded in once
     // the masthead scrolled off-screen, because the masthead had its own search
     // bar. With that bar removed, the pill IS the search affordance — no reason
     // to hide it.

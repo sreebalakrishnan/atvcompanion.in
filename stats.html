@@ -611,24 +611,24 @@
 
     <div class="grid">
       <div class="stat">
-        <div class="num">73</div>
+        <div class="num">76</div>
         <div class="label">Class decks</div>
         <div class="sub">PDFs ingested as the source corpus</div>
       </div>
       <div class="stat">
-        <div class="num">58</div>
+        <div class="num">43</div>
         <div class="label">Session transcripts</div>
-        <div class="sub">From the recorded class sessions</div>
+        <div class="sub">Vikram-numbered, May 2025 → 3 May 2026</div>
       </div>
       <div class="stat">
-        <div class="num">553<small>K</small></div>
+        <div class="num">605<small>K</small></div>
         <div class="label">Words parsed</div>
         <div class="sub">Across decks · transcripts · extracted text</div>
       </div>
       <div class="stat">
-        <div class="num">3.4<small>MB</small></div>
+        <div class="num">14<small>MB</small></div>
         <div class="label">Knowledge base on disk</div>
-        <div class="sub">238 files in <code>astrology-101-knowledge-base/</code></div>
+        <div class="sub">250 files in <code>astrology-101-knowledge-base/</code></div>
       </div>
     </div>
 
@@ -640,58 +640,64 @@
   <!-- ====================== THE BUILD ====================== -->
   <section class="s build">
     <div class="s-eyebrow">The build · what it became</div>
-    <h2>Static <em>HTML</em> · 7 pages</h2>
-    <p class="s-lede">No framework, no build step. Single HTML files, each self-contained. The whole companion is ~1.6 MB of HTML / CSS / JS, roughly 18.7 K lines.</p>
+    <h2>Static <em>HTML</em> · 22 pages</h2>
+    <p class="s-lede">No framework, no build step. Single HTML files, each self-contained. The whole companion is ~3 MB of HTML / CSS / JS, roughly 47.6 K lines across 22 pages — up from 7 pages and 18.7 K lines six months ago.</p>
 
     <div class="grid">
       <div class="stat">
-        <div class="num">7</div>
+        <div class="num">22</div>
         <div class="label">HTML pages</div>
-        <div class="sub">Learning Companion + 4 peer pages + demo + V0 archive</div>
+        <div class="sub">Home, Learning Companion, Interpret, 14 peer pages, V0 archive, redirects</div>
       </div>
       <div class="stat">
-        <div class="num">1.66<small>MB</small></div>
+        <div class="num">3.04<small>MB</small></div>
         <div class="label">Total HTML</div>
         <div class="sub">Across all pages combined</div>
       </div>
       <div class="stat">
-        <div class="num">18,796</div>
+        <div class="num">47,581</div>
         <div class="label">Lines</div>
         <div class="sub">HTML · CSS · inline JS</div>
       </div>
       <div class="stat">
-        <div class="num">98,386</div>
+        <div class="num">243,772</div>
         <div class="label">Words / tokens</div>
-        <div class="sub">Counted across all 7 HTML pages</div>
+        <div class="sub">Counted across all 22 HTML pages</div>
       </div>
       <div class="stat">
-        <div class="num">256</div>
+        <div class="num">292</div>
         <div class="label">Files in repo</div>
         <div class="sub">Source · pages · scripts · assets</div>
       </div>
       <div class="stat">
-        <div class="num">5.4<small>MB</small></div>
+        <div class="num">19<small>MB</small></div>
         <div class="label">Repo size</div>
-        <div class="sub">Project total on disk</div>
+        <div class="sub">Project total on disk (excl. <code>.git</code>)</div>
       </div>
     </div>
 
-    <h3 style="font-family:var(--display);font-weight:500;font-size:18px;margin:36px 0 8px;color:var(--ink);">Per-page breakdown</h3>
+    <h3 style="font-family:var(--display);font-weight:500;font-size:18px;margin:36px 0 8px;color:var(--ink);">Per-page breakdown · top 12 by size</h3>
     <table class="pages-table">
       <thead>
         <tr><th>Page</th><th>Bytes</th><th>Lines</th><th>Words</th></tr>
       </thead>
       <tbody>
-        <tr><td class="pg-name">learning-companion.html</td><td>490 KB</td><td>10,491</td><td>52,825</td></tr>
-        <tr><td class="pg-name">kaalapurusha.html</td><td>750 KB</td><td>694</td><td>3,407</td></tr>
-        <tr><td class="pg-name">release-notes.html</td><td>171 KB</td><td>2,456</td><td>21,005</td></tr>
+        <tr><td class="pg-name">kaalapurusha.html</td><td>776 KB</td><td>1,406</td><td>5,703</td></tr>
+        <tr><td class="pg-name">learning-companion.html</td><td>600 KB</td><td>12,833</td><td>64,543</td></tr>
+        <tr><td class="pg-name">release-notes.html</td><td>459 KB</td><td>5,513</td><td>57,633</td></tr>
+        <tr><td class="pg-name">interpret.html</td><td>191 KB</td><td>4,517</td><td>19,689</td></tr>
         <tr><td class="pg-name">v0.html</td><td>151 KB</td><td>2,752</td><td>10,384</td></tr>
-        <tr><td class="pg-name">astronomy.html</td><td>43 KB</td><td>818</td><td>4,604</td></tr>
-        <tr><td class="pg-name">demo.html</td><td>41 KB</td><td>976</td><td>4,469</td></tr>
-        <tr><td class="pg-name">mercury-spectrum.html</td><td>18 KB</td><td>609</td><td>1,692</td></tr>
+        <tr><td class="pg-name">interactive.html</td><td>105 KB</td><td>2,698</td><td>10,840</td></tr>
+        <tr><td class="pg-name">astronomy.html</td><td>80 KB</td><td>1,576</td><td>8,204</td></tr>
+        <tr><td class="pg-name">index.html</td><td>73 KB</td><td>1,331</td><td>7,771</td></tr>
+        <tr><td class="pg-name">where-am-i.html</td><td>71 KB</td><td>1,751</td><td>7,012</td></tr>
+        <tr><td class="pg-name">sripati.html</td><td>63 KB</td><td>1,248</td><td>6,478</td></tr>
+        <tr><td class="pg-name">about.html</td><td>60 KB</td><td>1,646</td><td>5,611</td></tr>
+        <tr><td class="pg-name">ether.html</td><td>60 KB</td><td>1,390</td><td>5,766</td></tr>
+        <tr><td class="pg-name" style="color:var(--muted);font-style:italic;">+ 10 smaller pages</td><td>354 KB</td><td>9,021</td><td>34,138</td></tr>
       </tbody>
       <tfoot>
-        <tr><td>Total</td><td>1.66 MB</td><td>18,796</td><td>98,386</td></tr>
+        <tr><td>Total · 22 pages</td><td>3.04 MB</td><td>47,581</td><td>243,772</td></tr>
       </tfoot>
     </table>
   </section>
@@ -700,7 +706,7 @@
   <section class="s quickref">
     <div class="s-eyebrow">The core · what's inside the page</div>
     <h2>Quick <em>Reference</em></h2>
-    <p class="s-lede">The main page — <em>Astrology 101</em> — is one HTML file with 16 sections, 15 quizzes, the planetary cabinet, the Vikram-quote rotation, the Court Call game, and a tracing exercise. All in 490 KB.</p>
+    <p class="s-lede">The main page — <em>Astrology 101</em> — is one HTML file with 16 sections, 15 quizzes, the planetary cabinet, the Vikram-quote rotation, the Court Call game, and a tracing exercise. All in 600 KB.</p>
 
     <div class="grid">
       <div class="stat">
@@ -739,7 +745,7 @@
         <div class="sub">Matsya through Buddha (Kalki not yet in source)</div>
       </div>
       <div class="stat">
-        <div class="num">10,491</div>
+        <div class="num">12,833</div>
         <div class="label">Lines in one file</div>
         <div class="sub">All HTML · CSS · inline JS, no build step</div>
       </div>
@@ -750,16 +756,16 @@
   <section class="s cohort">
     <div class="s-eyebrow">The people · who showed up</div>
     <h2>The <em>cohort</em></h2>
-    <p class="s-lede">53 release entries since V0. Ten named contributors whose feedback or content shaped a version. Names appear inside <em>"Heard from"</em> credits across the changelog.</p>
+    <p class="s-lede">128 release entries since V0. 36 named contributors whose feedback or content shaped a version. Names appear inside <em>"Heard from"</em> credits across the changelog.</p>
 
     <div class="grid">
       <div class="stat">
-        <div class="num">53</div>
+        <div class="num">128</div>
         <div class="label">Release entries</div>
-        <div class="sub">In the changelog, V0 → v4.70.1</div>
+        <div class="sub">In the changelog, V0 → v4.71.7</div>
       </div>
       <div class="stat">
-        <div class="num">10</div>
+        <div class="num">36</div>
         <div class="label">Named contributors</div>
         <div class="sub">Whose feedback or content shaped a release</div>
       </div>
@@ -776,16 +782,25 @@
     </div>
 
     <div class="contrib-row" aria-label="Contributors">
-      <span class="contrib-chip"><a href="release-notes.html#v4-23-0">Marie</a></span>
-      <span class="contrib-chip"><a href="release-notes.html">Mannat</a></span>
-      <span class="contrib-chip"><a href="release-notes.html">Spandana</a></span>
-      <span class="contrib-chip"><a href="release-notes.html#v4-13-0">Sudha</a></span>
-      <span class="contrib-chip"><a href="release-notes.html">Megha</a></span>
-      <span class="contrib-chip"><a href="release-notes.html">Neha</a></span>
       <span class="contrib-chip"><a href="release-notes.html#v4-17-0">Vikram</a></span>
       <span class="contrib-chip"><a href="release-notes.html#v4-16-0">Sanchi</a></span>
       <span class="contrib-chip"><a href="release-notes.html#v4-21-0">Sree</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-13-0">Sudha</a></span>
+      <span class="contrib-chip"><a href="release-notes.html#v4-23-0">Marie</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Mannat</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Spandana</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Megha</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Neha</a></span>
       <span class="contrib-chip"><a href="release-notes.html#v4-27-0">Arpitha</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Anil</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Sarika</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Surbhi</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Kanika</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Kiron</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Meera</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Shobhana</a></span>
+      <span class="contrib-chip"><a href="release-notes.html">Aditya</a></span>
+      <span class="contrib-chip"><a href="release-notes.html" style="color:var(--muted);font-style:italic;">+ 18 more</a></span>
     </div>
 
     <div class="callout" style="margin-top:30px;">
@@ -810,7 +825,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.70.1 · regenerated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.71.7 · regenerated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -824,7 +839,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.71.4';
+  const PAGE_VERSION = '4.71.7';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

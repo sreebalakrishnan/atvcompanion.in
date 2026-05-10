@@ -99,18 +99,12 @@ def kb_stats(kb_root):
 
 
 def html_stats(root):
-    """Top-level HTML pages (excluding the V0 archive — V0 is its own thing)."""
-    pages = [
-        "quick-reference.html",
-        "kaalapurusha.html",
-        "mercury-spectrum.html",
-        "astronomy.html",
-        "release-notes.html",
-        "demo.html",
-        "v0.html",
-    ]
+    """Top-level HTML pages — auto-discover every *.html at the project root.
+    v4.71.7: previously hardcoded to 7 pages; the site grew to 22 underneath
+    that list. Now any new HTML page is picked up on the next stats build."""
     out = {}
     sum_bytes = sum_lines = sum_words = 0
+    pages = sorted(p.name for p in root.glob("*.html"))
     for p in pages:
         fp = root / p
         if not fp.exists():
@@ -122,7 +116,12 @@ def html_stats(root):
         sum_bytes += b
         sum_lines += l
         sum_words += w
-    out["__total__"] = {"bytes": sum_bytes, "lines": sum_lines, "words": sum_words}
+    out["__total__"] = {
+        "bytes": sum_bytes,
+        "lines": sum_lines,
+        "words": sum_words,
+        "page_count": len(pages),
+    }
     return out
 
 
