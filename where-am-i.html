@@ -421,8 +421,9 @@
     color: var(--ink-soft);
     transition: all .15s;
     user-select: none;
+    -webkit-appearance: none;
+    appearance: none;
   }
-  .stage-pill input { position: absolute; opacity: 0; pointer-events: none; }
   .stage-pill:hover { border-color: var(--saffron); color: var(--saffron); }
   .stage-pill .pill-label {
     display: block;
@@ -793,7 +794,7 @@
 
 <div class="page">
 
-  <!-- ====================== SITE NAV (v4.63.0) ====================== -->
+  <!-- ====================== SITE NAV (v4.63.1) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
     <span class="sep">·</span>
@@ -830,7 +831,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.63.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.63.1</div>
     <h1>Where am <em>I</em></h1>
     <p class="lede"
        data-name-template="A self-assessment, {name} — for every topic in the 101 journey, mark whether you're aware of it, familiar with it, or confident enough to teach it. Your answers stay only in this browser."
@@ -840,7 +841,7 @@
   <div class="origin">
     <p>This page came out of a conversation with Arpitha. We were sitting with Sripati Paddhati and noticed something: the topics I could teach back to her were the ones I had truly internalised. The ones I could only nod along with were the ones I still needed to circle back to.</p>
     <p>So — instead of one more quiz, this is a space to be honest with myself about where each topic actually sits. Aware. Familiar. Confident. And the notes column is for the very specific question I want to ask Vikram next time we sit together.</p>
-    <span class="credit">An idea by Arpitha · drafted with Sree · v4.63.0</span>
+    <span class="credit">An idea by Arpitha · drafted with Sree · v4.63.1</span>
   </div>
 
   <!-- DASHBOARD -->
@@ -888,7 +889,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to Learning Companion</a> · <a href="reflect.html">Reflect</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.63.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.63.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -1114,11 +1115,10 @@ function renderTopic(t){
   var pills = '';
   STAGES.forEach(function(stg){
     var isOn = savedStage === stg.id;
-    pills += '<label class="stage-pill' + (isOn ? ' is-on' : '') + '" data-stage-pill="' + t.id + '|' + stg.id + '">';
-    pills +=   '<input type="radio" name="stage-' + t.id + '" value="' + stg.id + '"' + (isOn ? ' checked' : '') + '>';
+    pills += '<button type="button" class="stage-pill' + (isOn ? ' is-on' : '') + '" data-stage-pill="' + t.id + '|' + stg.id + '" role="radio" aria-checked="' + (isOn ? 'true' : 'false') + '">';
     pills +=   '<span class="pill-label">' + stg.label + '</span>';
     pills +=   '<span class="pill-hint">' + stg.hint + '</span>';
-    pills += '</label>';
+    pills += '</button>';
   });
 
   var notesPlaceholder = t.tbd
@@ -1292,7 +1292,7 @@ function buildExport(){
 
   lines.push('Legend:  [●··] Aware   [●●·] Familiar   [●●●] Confident   TBD = not yet taught');
   lines.push('');
-  lines.push('From: All Things Vedic · Astrology 101 Companion App · v4.63.0');
+  lines.push('From: All Things Vedic · Astrology 101 Companion App · v4.63.1');
   return lines.join('\n');
 }
 
@@ -1372,8 +1372,7 @@ document.addEventListener('click', function(e){
         var ps = p.getAttribute('data-stage-pill').split('|')[1];
         var on = (ps === next);
         p.classList.toggle('is-on', on);
-        var inp = p.querySelector('input');
-        if (inp) inp.checked = on;
+        p.setAttribute('aria-checked', on ? 'true' : 'false');
       });
       topicEl.classList.toggle('has-stage', !!next);
     }
@@ -1433,7 +1432,7 @@ renderNextPanel();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.63.0';
+  const PAGE_VERSION = '4.63.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1482,7 +1481,7 @@ renderNextPanel();
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
-    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v4.63.0 · page: ${pageLabel()}):\n\n`;
+    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v4.63.1 · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
 })();
