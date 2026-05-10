@@ -742,10 +742,69 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.72.7 ====================== -->
+  <section class="release" data-credits="Sree (moved the site to its own subdomain)">
+    <header>
+      <h2>v4.72.7 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">The site has moved from <code>https://sreebalakrishnan.in/astrology101</code> to <strong><code>https://atv-companion.sreebalakrishnan.in</code></strong> — its own subdomain, no path prefix. All hardcoded URL references in the codebase swept and updated.</p>
+
+    <h3>Files updated</h3>
+    <ul>
+      <li><strong><code>release-notes.html</code></strong> — four prose example URLs in old release notes (v4.30.0 hero share URL, v4.62.0 deep-link example, v4.30.1 mitigation note, v4.62.0 copy-anchor example).</li>
+      <li><strong><code>workbook-avatar-template.md</code></strong> — the Matsya avatar deep-link example.</li>
+      <li><strong><code>.github/workflows/deploy.yml</code></strong> — the comment at the top of the workflow now reflects the new URL.</li>
+    </ul>
+
+    <h3>What stays unchanged</h3>
+    <ul>
+      <li><strong>All inter-page links</strong> are relative (<code>href="learning-companion.html"</code>, <code>href="elements.html"</code>, etc.), so they keep working at any host without modification.</li>
+      <li><strong>The deploy target</strong> — still static.app, same project ID, same workflow. Sree pointed the new subdomain at the same static.app deployment, so no GitHub Action change needed.</li>
+      <li><strong>Cloudflare Web Analytics</strong> (v4.72.6) — token-based beacon, hostname-agnostic. Already collecting clean traffic on the new subdomain.</li>
+    </ul>
+
+    <h3>Side benefit for analytics</h3>
+    <p>The Cloudflare dashboard was configured for <code>atv-companion.sreebalakrishnan.in</code> from the start. Until today, traffic from <code>sreebalakrishnan.in/astrology101</code> still got counted (token does the auth, not the hostname), but the dashboard's hostname grouping showed "(other)". With the move, the dashboard hostname now matches the actual traffic — clean grouping in the Cloudflare console going forward.</p>
+
+    <h3>Deferred — <code>_root/</code></h3>
+    <p>The <code>_root/index.html</code> file still has an <code>og:url</code> pointing at the old <code>sreebalakrishnan.in</code>. That folder is excluded from deploys (per the rsync exclusions in the workflow), so it's not in production. Left untouched as cosmetic-only.</p>
+  </section>
+
+  <!-- ====================== v4.72.6 ====================== -->
+  <section class="release" data-credits="Sree (signed up for Cloudflare Web Analytics + asked for the cleanest privacy-respecting integration)">
+    <header>
+      <h2>v4.72.6</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary"><strong>Cloudflare Web Analytics</strong> is now live across all 23 pages — page-views only, <em>no cookies, no fingerprinting, no individual tracking, no banner needed</em>. Sree can finally see which pages the cohort actually opens (is anyone reading <code>elements.html</code>? does <code>interpret.html</code> stick? is <code>jupiter-tracker.html</code> getting traffic?) without compromising the calm-page property the rest of the site has protected.</p>
+
+    <h3>Why Cloudflare Web Analytics, not GA4 / Plausible</h3>
+    <ul>
+      <li><strong>Free</strong> at our scale (~30-cohort site).</li>
+      <li><strong>No cookies, no fingerprinting</strong> — GDPR-clean by default. No banner needed.</li>
+      <li><strong>Tiny script</strong> — ~5 KB, deferred load via <code>script defer</code>; doesn't block rendering.</li>
+      <li><strong>Token-based beacon</strong> means it works regardless of which hostname or path the page is served from. Same setup keeps working when (or if) we move from <code>static.app</code> to Firebase Hosting.</li>
+      <li><strong>One vendor, no analytics middleman</strong> — same DNS / CDN ecosystem we'd use anyway.</li>
+    </ul>
+
+    <h3>What changed</h3>
+    <ul>
+      <li>Snippet added before <code>&lt;/body&gt;</code> in all <strong>23 HTML pages</strong> (verified via grep — every page reports 1 occurrence of <code>cloudflareinsights</code>).</li>
+      <li>The <em>"how today's sky was built"</em> technical pane on the home page used to claim <em>"No analytics. No tracking."</em> Updated to be honest: <em>"One privacy-respecting analytics call — Cloudflare Web Analytics (page-views only, no cookies, no fingerprinting, no individual tracking) so Sree can see which pages the cohort actually opens. No third-party trackers."</em> — so the prose matches reality.</li>
+    </ul>
+
+    <h3>What it tracks</h3>
+    <p>Page URL · referrer · approximate country · browser/device family · time of visit. <strong>Not tracked</strong>: IP addresses (anonymised on Cloudflare's edge), individual users (no cookies / persistent identifiers), button clicks or scroll depth, anything that could re-identify a cohort member. The dashboard answers <em>"is this page being read?"</em> — not <em>"who read it?"</em></p>
+
+    <h3>Open follow-ups</h3>
+    <p>If, in a few weeks, Sree wants <em>events</em> too (<em>"did anyone open the Cabinet drawer?"</em>, <em>"how many people clicked the technical pane?"</em>) — Cloudflare doesn't do custom events; we'd add Plausible alongside (~$9/mo) or wait until Firebase rollout brings Firebase Analytics. Filed for later.</p>
+  </section>
+
   <!-- ====================== v4.72.5 ====================== -->
   <section class="release" data-credits="Sree (asked to canonicalise contributor names and re-attribute several releases honestly)">
     <header>
-      <h2>v4.72.5 <em>· current</em></h2>
+      <h2>v4.72.5</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Tidy on the changelog itself — five contributor-attribution corrections + three name canonicalisations across the release-notes archive. The contributor-chip index at the top of this page is auto-generated from <code>data-credits</code> attributes, so cleaning the credits cleans the chip row too.</p>
@@ -1349,7 +1408,7 @@
     <h3>Shareable <code>?role=senior</code> URL flag</h3>
     <p>Sarika asked for a way to share a link that opens the Companion already in <em>Reference</em> mode with level <em>All</em> — no soft-locks, everything open. Now possible. Append <code>?role=senior</code> to any Learning Companion URL and the page applies the settings on load (and persists them, so reload keeps them). Also accepts <code>?mode=reference</code> and <code>?level=all</code> as direct overrides. A small toast confirms <em>"Senior view: Reference mode · all sections open"</em>.</p>
     <ul>
-      <li><strong>For Vikram's seniors-group share</strong>: <code>https://sreebalakrishnan.in/astrology101/learning-companion.html?role=senior</code></li>
+      <li><strong>For Vikram's seniors-group share</strong>: <code>https://atv-companion.sreebalakrishnan.in/learning-companion.html?role=senior</code></li>
       <li><strong>For specific control</strong>: <code>?mode=reference&amp;level=all</code> or any other valid combination.</li>
     </ul>
 
@@ -1415,7 +1474,7 @@
     <ul>
       <li><strong>Hover (desktop)</strong> — the <em>§ link</em> pill appears next to the heading. Click to copy.</li>
       <li><strong>Tap (mobile)</strong> — the pill is always visible at slightly reduced opacity. Tap to copy.</li>
-      <li><strong>What gets copied</strong> — the canonical URL with the section anchor, e.g. <code>https://sreebalakrishnan.in/astrology101/sripati.html#rashi-vs-bhava</code>. The URL bar updates too, but the page does not scroll.</li>
+      <li><strong>What gets copied</strong> — the canonical URL with the section anchor, e.g. <code>https://atv-companion.sreebalakrishnan.in/sripati.html#rashi-vs-bhava</code>. The URL bar updates too, but the page does not scroll.</li>
       <li><strong>Confirmation</strong> — the pill flashes saffron, briefly reads <em>"✓ copied"</em>, and a toast at the bottom confirms <em>"Link copied — ready to paste &amp; share."</em></li>
       <li><strong>All nine sections plus Sources</strong> — every numbered section gets the button. So you can deep-link directly to <em>Four ways to look at the sky</em>, <em>Rāśi chart vs Bhāva Chalit</em>, the worked example, the workbook, anything.</li>
     </ul>
@@ -3262,7 +3321,7 @@
     <h3>Known edge case</h3>
     <ul>
       <li>If anyone shares a deep link directly into a later section (e.g., <code>learning-companion.html#practice</code>) — bypassing index — the recipient may land on a locked screen if they're a first-time visitor in Learning mode.</li>
-      <li>Mitigation: share <code>sreebalakrishnan.in/astrology101</code> (no hash) by default. Or, if a deep link is needed, mention "switch to Reference in the top-left toggle to see everything." If this becomes a recurring issue we'll add smart deep-link detection that auto-switches modes for the session.</li>
+      <li>Mitigation: share <code>atv-companion.sreebalakrishnan.in</code> (no hash) by default. Or, if a deep link is needed, mention "switch to Reference in the top-left toggle to see everything." If this becomes a recurring issue we'll add smart deep-link detection that auto-switches modes for the session.</li>
     </ul>
   </section>
 
@@ -3272,7 +3331,7 @@
       <h2>v4.30.0</h2>
       <span class="date">7 May 2026</span>
     </header>
-    <p class="summary">A new <strong>index.html</strong> as the project's landing page — built for the moment Sree shares the link with the wider cohort. Clean intro: hero, one-paragraph origin (kitchen table → Vikram's blessing), three starting-point cards (Wheel of Signs / Planetary Cabinet / Trace Exercise) each linking deep into Quick Reference, a <em>"What's inside"</em> two-column list of all 16 sections, an <em>"Open the Quick Reference →"</em> CTA, and a peer-pages row. Cohort members arriving via the share URL now land somewhere quiet first, instead of straight into the dense Quick Reference. The share URL stays the same — <code>sreebalakrishnan.in/astrology101</code> — because static hosts auto-serve <code>index.html</code> as the directory default.</p>
+    <p class="summary">A new <strong>index.html</strong> as the project's landing page — built for the moment Sree shares the link with the wider cohort. Clean intro: hero, one-paragraph origin (kitchen table → Vikram's blessing), three starting-point cards (Wheel of Signs / Planetary Cabinet / Trace Exercise) each linking deep into Quick Reference, a <em>"What's inside"</em> two-column list of all 16 sections, an <em>"Open the Quick Reference →"</em> CTA, and a peer-pages row. Cohort members arriving via the share URL now land somewhere quiet first, instead of straight into the dense Quick Reference. The share URL stays the same — <code>atv-companion.sreebalakrishnan.in</code> — because static hosts auto-serve <code>index.html</code> as the directory default.</p>
 
     <h3>What's on the page</h3>
     <ul>
@@ -5041,7 +5100,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.72.5 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.72.7 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5264,7 +5323,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.72.5';
+  const PAGE_VERSION = '4.72.7';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -5725,5 +5784,7 @@
 })();
 </script>
 
+<!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
 </body>
 </html>

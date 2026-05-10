@@ -101,7 +101,7 @@ The **Quiz** is part of the Avatars-section quiz at the bottom of the section, n
 Each drawer has a `🔗 Copy link` chip in the title — copies a URL like:
 
 ```
-https://sreebalakrishnan.in/astrology101/quick-reference.html#avatar-matsya
+https://atv-companion.sreebalakrishnan.in/quick-reference.html#avatar-matsya
 ```
 
 Anyone you send that to lands directly inside the open drawer. Use this when sharing with Vikram, the workbook team, or the cohort to point at one avatar specifically.

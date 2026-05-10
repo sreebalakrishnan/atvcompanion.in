@@ -1,6 +1,6 @@
 name: Deploy to Static.app
 
-# Deploys every push to main to https://sreebalakrishnan.in/astrology101 via static.app.
+# Deploys every push to main to https://atv-companion.sreebalakrishnan.in via static.app.
 # Single staging step: copy the whole repo into staging/, exclude internal-only stuff,
 # upload staging/ as the site root.
 

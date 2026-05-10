@@ -853,7 +853,7 @@
   updateSummary();
 
   // ====================== UPDATE CHECKER ======================
-  const PAGE_VERSION = '4.72.5';
+  const PAGE_VERSION = '4.72.7';
   function showUpdateBanner(newVer) {
     const b = document.getElementById('updateBanner');
     document.getElementById('updateText').textContent = 'New version available (v' + newVer + ').';
@@ -1293,5 +1293,7 @@
 })();
 </script>
 
+<!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
 </body>
 </html>

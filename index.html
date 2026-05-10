@@ -1255,7 +1255,7 @@ const sidereal = ((ec.elon - lahiriAyanamsha(date)) % 360 + 360) % 360;</code></
       <p>Coordinates come from a hand-curated table (Auroville, Pondicherry, Chennai, Bengaluru, Mumbai, Delhi, Hyderabad, Kolkata, Pune, Kochi, Thiruvananthapuram). Anything else falls back to Auroville. No geocoder.</p>
 
       <h3>7 · What's <em>not</em> in the page</h3>
-      <p>No analytics. No tracking. No fonts beyond the project's standard. All UI is computed in the user's browser. The only network call is the one-time CDN fetch of <code>astronomy.browser.min.js</code> (~80 KB, cached after first load) — and even that is optional; the page falls back to the static file if it's blocked.</p>
+      <p>One privacy-respecting analytics call — <strong>Cloudflare Web Analytics</strong> (page-views only, <em>no cookies, no fingerprinting, no individual tracking</em>) so Sree can see which pages the cohort actually opens. No third-party trackers. No fonts beyond the project's standard. All UI is computed in the user's browser. The only other network call is the one-time CDN fetch of <code>astronomy.browser.min.js</code> (~80 KB, cached after first load) — and that one is optional; the page falls back to the static file if it's blocked.</p>
 
       <h3>8 · Why this architecture</h3>
       <p>Three goals had to coexist: (1) <strong>real-time freshness</strong> — the Moon moves 13°/day, so a stale chart is wrong by lunchtime; (2) <strong>sidereal correctness</strong> — what Vikram teaches, what the cohort needs; (3) <strong>works offline</strong> — for retreat use, flights, places without reliable connectivity. <code>astronomy-engine</code> + Lahiri + static fallback hits all three.</p>
@@ -1449,7 +1449,7 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.72.5';
+  var PAGE_VERSION = '4.72.7';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');
@@ -1558,5 +1558,7 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 })();
 </script>
 
+<!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
 </body>
 </html>

@@ -11608,7 +11608,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.72.5';
+  const PAGE_VERSION = '4.72.7';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -12833,5 +12833,7 @@ document.addEventListener('keydown', (e) => {
 
 <!-- v4.70.1 — Daily Gem moved to home; no-op on LC -->
 <script>window.renderGem = function(){ var el = document.getElementById("dailyGem"); if (el) el.innerHTML = ""; };</script>
+<!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
 </body>
 </html>
