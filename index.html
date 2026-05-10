@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="description" content="A companion app for Vikram Devatha's Astrology 101 class. Search the cohort's reference, interpret your chart, sit with a reflection prompt.">
+<meta name="description" content="A companion app for Vikram Devatha's Astrology 101 class. Today's sky, a daily piece from the class, and three rooms inside.">
 <title>Astrology 101 — Companion App</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,9 +41,7 @@
     --display:'Cormorant Garamond','Times New Roman',serif;
     --body:'Spectral',Georgia,serif;
   }
-  /* v4.69.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
-
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
@@ -61,10 +59,9 @@
   }
   a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
   a:hover { text-decoration-color: var(--saffron); }
-
   .page { max-width: 760px; margin: 0 auto; padding: 0 22px 80px; }
 
-  /* ---------- SITE NAV ---------- */
+  /* SITE NAV */
   .site-nav {
     padding: 22px 0 14px;
     display: flex; justify-content: center;
@@ -77,635 +74,360 @@
     text-decoration: none; transition: color .15s;
   }
   .site-nav a:hover { color: var(--saffron); }
-  .site-nav .here { color: var(--saffron); }
   .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
   .site-nav .primary { font-weight: 500; }
   .site-nav a[aria-current="page"] { color: var(--saffron); }
-
   .more-wrap { position: relative; display: inline-block; }
-  .more-btn {
-    background: transparent; border: 0; padding: 0;
-    font-family: inherit; font-style: italic; font-size: inherit;
-    color: var(--ink); cursor: pointer;
-    display: inline-flex; align-items: center; gap: 4px;
-  }
+  .more-btn { background: transparent; border: 0; padding: 0; font-family: inherit; font-style: italic; font-size: inherit; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
   .more-btn:hover { color: var(--saffron); }
   .more-btn .chev { font-size: 11px; transition: transform .2s; }
   .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
-  .more-menu {
-    position: absolute; top: calc(100% + 8px); right: 0;
-    background: var(--surface); border: 1px solid var(--rule);
-    border-radius: 10px; padding: 6px 0;
-    box-shadow: var(--shadow-md); z-index: 100; min-width: 220px;
-    display: flex; flex-direction: column;
-  }
+  .more-menu { position: absolute; top: calc(100% + 8px); right: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 0; box-shadow: var(--shadow-md); z-index: 100; min-width: 220px; display: flex; flex-direction: column; }
   .more-menu[hidden] { display: none; }
-  .more-menu a, .more-menu .more-menu-toggle {
-    padding: 9px 16px; text-decoration: none; color: var(--ink);
-    font-family: var(--display); font-style: italic; font-size: 14px;
-    text-align: left; border: 0; background: transparent;
-    cursor: pointer; line-height: 1.3;
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  }
-  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
-    background: var(--bg-deep); color: var(--saffron);
-  }
+  .more-menu a, .more-menu .more-menu-toggle { padding: 9px 16px; text-decoration: none; color: var(--ink); font-family: var(--display); font-style: italic; font-size: 14px; text-align: left; border: 0; background: transparent; cursor: pointer; line-height: 1.3; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover { background: var(--bg-deep); color: var(--saffron); }
   .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
-  .more-menu-toggle-label {
-    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
-    letter-spacing: .14em; font-style: italic;
-  }
+  .more-menu-toggle-label { color: var(--muted); font-size: 10.5px; text-transform: uppercase; letter-spacing: .14em; font-style: italic; }
   .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
   @media (max-width: 600px) {
     .more-menu { position: fixed; top: 64px; right: 12px; left: auto; max-width: calc(100vw - 24px); min-width: 240px; }
     .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
   }
 
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 64px 0 18px;
-    text-align: center;
-  }
-  .hero-eyebrow {
-    font-family: var(--display); font-style: italic;
-    font-size: 13px; letter-spacing: .14em;
-    color: var(--saffron); text-transform: lowercase;
-    margin-bottom: 10px;
-  }
-  .hero h1 {
-    font-family: var(--display); font-weight: 500;
-    font-size: clamp(42px, 8vw, 60px);
-    line-height: 1.05; margin: 0 0 12px;
-    letter-spacing: -.01em;
-  }
+  /* HERO */
+  .hero { padding: 56px 0 18px; text-align: center; }
+  .hero-eyebrow { font-family: var(--display); font-style: italic; font-size: 13px; letter-spacing: .14em; color: var(--saffron); text-transform: lowercase; margin-bottom: 10px; }
+  .hero h1 { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 8vw, 56px); line-height: 1.05; margin: 0 0 10px; letter-spacing: -.01em; }
   .hero h1 em { font-style: italic; color: var(--saffron); }
-  .hero-sub {
-    font-family: var(--display); font-style: italic;
-    font-size: 16.5px; color: var(--ink-soft);
-    margin: 0 auto 4px; max-width: 50ch; line-height: 1.55;
-  }
-  .hero-sub-name {
-    font-family: var(--display); font-style: italic;
-    font-size: 15px; color: var(--muted);
-    margin: 0 auto; max-width: 50ch;
-  }
-  .hero-sub-name[hidden] { display: none; }
+  .hero-sub { font-family: var(--display); font-style: italic; font-size: 16px; color: var(--ink-soft); margin: 0 auto 4px; max-width: 50ch; line-height: 1.55; }
+  .hero-name { font-family: var(--display); font-style: italic; font-size: 14.5px; color: var(--muted); margin: 6px 0 0; }
+  .hero-name[hidden] { display: none; }
+  .hero-orn { color: var(--saffron); margin: 18px auto 0; opacity: .7; width: 14px; }
 
-  /* ---------- HERO SEARCH ---------- */
-  .hero-search-wrap { margin: 32px 0 14px; position: relative; }
+    /* TODAY'S SKY — adopts interpret.html's proven South Indian layout (.stage + .chamber) */
+  .today-sky { margin: 36px 0 0; padding: 26px 0 0; border-top: 1px dashed var(--rule); }
+  .today-sky-eyebrow { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; color: var(--saffron); text-transform: uppercase; text-align: center; margin-bottom: 4px; }
+  .today-sky-h { font-family: var(--display); font-weight: 500; font-size: 22px; line-height: 1.2; text-align: center; margin: 0 0 6px; letter-spacing: -.005em; }
+  .today-sky-h em { font-style: italic; color: var(--saffron); }
+  /* v4.70.1 — date · time · location line under the heading */
+  .today-sky-meta {
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--ink-soft);
+    text-align: center; margin: 0 0 18px;
+    line-height: 1.4;
+  }
+  .today-sky-meta .ts-meta-sep { color: var(--rule); margin: 0 8px; font-style: normal; }
+  .today-sky-meta .ts-meta-loc-edit {
+    margin-left: 6px;
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    cursor: pointer;
+    background: transparent; border: 0; padding: 0;
+  }
+  .today-sky-meta .ts-meta-loc-edit:hover { text-decoration-color: var(--saffron); }
+  .today-sky-loc-popover {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 12px; padding: 22px 24px;
+    box-shadow: var(--shadow-md); z-index: 320;
+    width: min(90vw, 340px);
+    font-family: var(--display);
+  }
+  .today-sky-loc-popover[hidden] { display: none; }
+  .today-sky-loc-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(40,40,38,.35); z-index: 319;
+  }
+  .today-sky-loc-backdrop[hidden] { display: none; }
+  .today-sky-loc-popover label {
+    display: block; font-style: italic; font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--saffron); margin-bottom: 4px;
+  }
+  .today-sky-loc-popover input {
+    width: 100%; padding: 8px 12px;
+    background: var(--bg); border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--body); font-size: 14.5px;
+    color: var(--ink); outline: none;
+  }
+  .today-sky-loc-popover input:focus { border-color: var(--saffron); }
+  .today-sky-loc-popover .btns {
+    display: flex; gap: 8px; justify-content: flex-end;
+    margin-top: 14px; flex-wrap: wrap;
+  }
+  .today-sky-loc-popover button {
+    padding: 6px 14px; border-radius: 999px;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; cursor: pointer;
+    border: 1px solid var(--rule); background: transparent;
+    color: var(--ink); transition: all .15s;
+  }
+  .today-sky-loc-popover button:hover { border-color: var(--saffron); color: var(--saffron); }
+  .today-sky-loc-popover button.save {
+    background: var(--saffron); color: var(--surface);
+    border-color: var(--saffron); font-weight: 500;
+  }
 
-  /* ---------- HERO SUGGEST DROPDOWN (v4.69.1) ---------- */
-  .hero-suggest {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0; right: 0;
-    z-index: 50;
+  .stage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "pi ar ta ge"
+      "aq cc cc ca"
+      "cp cc cc le"
+      "sa sc li vi";
+    gap: 6px;
+    aspect-ratio: 1 / 1;
+    max-width: 560px;
+    margin: 0 auto 18px;
+    position: relative;
+  }
+  @media (max-width: 720px) { .stage { gap: 5px; max-width: 96vw; } }
+  @media (max-width: 420px) { .stage { gap: 4px; } }
+
+  .chamber.sign-pisces      { grid-area: pi; }
+  .chamber.sign-aries       { grid-area: ar; }
+  .chamber.sign-taurus      { grid-area: ta; }
+  .chamber.sign-gemini      { grid-area: ge; }
+  .chamber.sign-cancer      { grid-area: ca; }
+  .chamber.sign-leo         { grid-area: le; }
+  .chamber.sign-virgo       { grid-area: vi; }
+  .chamber.sign-libra       { grid-area: li; }
+  .chamber.sign-scorpio     { grid-area: sc; }
+  .chamber.sign-sagittarius { grid-area: sa; }
+  .chamber.sign-capricorn   { grid-area: cp; }
+  .chamber.sign-aquarius    { grid-area: aq; }
+  .stage-center { grid-area: cc; }
+
+  .chamber {
+    padding: 7px 8px 6px;
     background: var(--surface);
     border: 1px solid var(--rule);
-    border-radius: 14px;
-    box-shadow: var(--shadow-md);
-    padding: 6px 0;
-    max-height: min(60vh, 420px);
-    overflow-y: auto;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
   }
-  .hero-suggest[hidden] { display: none; }
-  .hero-suggest-item {
+  .chamber.is-empty { background: rgba(250,243,226,.55); }
+  .chamber-head {
     display: flex;
     align-items: baseline;
-    gap: 12px;
-    padding: 9px 18px;
-    cursor: pointer;
-    transition: background .12s;
+    justify-content: flex-end;
+    gap: 4px;
+    line-height: 1.1;
   }
-  .hero-suggest-item.is-active,
-  .hero-suggest-item:hover {
-    background: var(--bg-deep);
-  }
-  .hero-suggest-name {
-    flex: 1; min-width: 0;
-    font-family: var(--display);
-    font-size: 15.5px;
+  .chamber-sign-block { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; min-width: 0; }
+  .chamber-sign-glyph { font-size: clamp(13px, 1.7vw, 16px); color: var(--saffron); line-height: 1; font-style: normal; }
+  .chamber-sign-name { font-family: var(--display); font-weight: 500; font-size: clamp(11px, 1.5vw, 13px); color: var(--ink); line-height: 1.1; }
+  .chamber-sign-sanskrit { font-family: var(--display); font-style: italic; font-size: clamp(10px, 1.3vw, 11.5px); color: var(--muted); line-height: 1.1; }
+  .chamber-divider { height: 1px; background: var(--rule-soft); margin: 4px -3px 0; margin-top: auto; flex-shrink: 0; }
+  .chamber-planets { display: flex; flex-wrap: wrap; gap: 3px; align-items: flex-start; align-content: flex-start; flex-shrink: 0; margin-top: 4px; min-height: 22px; }
+  .planet-pill {
+    font-size: clamp(13px, 1.7vw, 16px);
+    line-height: 1;
+    padding: 2px 5px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
     color: var(--ink);
-    line-height: 1.3;
-  }
-  .hero-suggest-name em {
-    font-style: italic;
-    color: var(--saffron);
     font-weight: 500;
-  }
-  .hero-suggest-cat {
-    flex-shrink: 0;
+    cursor: help;
     font-family: var(--display);
-    font-style: italic;
-    font-size: 11px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--muted);
+    font-style: normal;
   }
-  .hero-suggest-empty {
-    padding: 14px 18px;
+  .planet-pill[data-planet="sun"]     { color: #b8410e; }
+  .planet-pill[data-planet="moon"]    { color: #6E7D85; }
+  .planet-pill[data-planet="mars"]    { color: #c0392b; }
+  .planet-pill[data-planet="mercury"] { color: #5a8a5a; }
+  .planet-pill[data-planet="jupiter"] { color: #b08800; }
+  .planet-pill[data-planet="venus"]   { color: #ad6488; }
+  .planet-pill[data-planet="saturn"]  { color: #2a3270; }
+  .planet-pill[data-planet="rahu"]    { color: #4a4055; }
+  .planet-pill[data-planet="ketu"]    { color: #4a4055; }
+
+  .stage-center {
+    background: linear-gradient(180deg, rgba(243,233,210,.6), rgba(234,217,180,.4));
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 14px;
     text-align: center;
-  }
-  .hero-suggest-empty p {
-    margin: 0 0 8px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14px;
     color: var(--ink-soft);
+    overflow: hidden;
   }
-  .hero-suggest-empty p:last-child { margin-bottom: 0; }
-  .hero-suggest-empty .empty-actions {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 4px;
-  }
-  .hero-suggest-empty a {
-    display: inline-block;
-    padding: 5px 12px;
-    background: transparent;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: all .15s;
-  }
-  .hero-suggest-empty a:hover {
-    border-color: var(--saffron);
-    color: var(--saffron);
-    background: rgba(188,129,70,.05);
-  }
-  @media (max-width: 480px) {
-    .hero-suggest { max-height: min(55vh, 360px); border-radius: 10px; }
-    .hero-suggest-item { padding: 8px 14px; gap: 8px; }
-    .hero-suggest-name { font-size: 15px; }
-    .hero-suggest-cat { font-size: 10.5px; }
-  }
-  .hero-search {
-    display: flex; align-items: center;
-    gap: 8px; padding: 12px 18px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    box-shadow: var(--shadow-md);
-    transition: border-color .15s, box-shadow .15s;
-  }
-  .hero-search:focus-within {
-    border-color: var(--saffron);
-    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 18px 44px -16px rgba(188,129,70,.32);
-  }
-  .hero-search-icon {
-    color: var(--saffron);
-    font-size: 22px; line-height: 1;
-    flex-shrink: 0;
-    font-family: var(--display);
-  }
-  .hero-search-input {
-    flex: 1; min-width: 0;
-    background: transparent; border: 0; outline: none;
-    font-family: var(--body); font-size: 17px;
-    color: var(--ink);
-    padding: 6px 0;
-  }
-  .hero-search-input::placeholder { color: var(--muted); font-style: italic; opacity: .7; }
-  .hero-search-submit {
-    flex-shrink: 0;
-    background: var(--ink);
-    color: var(--surface);
-    border: 0;
-    border-radius: 999px;
-    padding: 9px 18px;
+  .stage-center .label {
     font-family: var(--display); font-style: italic;
-    font-size: 14.5px;
-    cursor: pointer;
-    transition: transform .15s, background .15s;
+    font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--saffron);
+    line-height: 1.2; margin-bottom: 6px;
   }
-  .hero-search-submit:hover { transform: translateY(-1px); background: var(--saffron); }
-  @media (max-width: 480px) {
-    .hero-search { padding: 9px 14px; gap: 6px; }
-    .hero-search-input { font-size: 16px; }
-    .hero-search-submit { padding: 7px 14px; font-size: 13px; }
+  .stage-center .date {
+    font-family: var(--display); font-style: italic;
+    font-weight: 500; font-size: clamp(14px, 2vw, 17px);
+    color: var(--ink); line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .stage-center .time {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(12px, 1.6vw, 14px);
+    color: var(--ink-soft); line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .stage-center .loc {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(11px, 1.4vw, 12.5px);
+    color: var(--muted); line-height: 1.25;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--rule-soft);
+    text-underline-offset: 2px;
+    background: transparent; border: 0; padding: 0;
+    font-weight: inherit;
+    transition: color .15s, text-decoration-color .15s;
+  }
+  .stage-center .loc:hover { color: var(--saffron); text-decoration-color: var(--saffron); }
+
+  /* Notable today list */
+  .ts-notable { margin: 24px auto 0; max-width: 56ch; }
+  .ts-notable-h { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; text-align: center; }
+  .ts-notable ul { list-style: none; padding: 0; margin: 0; }
+  .ts-notable li {
+    padding: 9px 16px;
+    margin: 6px 0;
+    background: var(--surface);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display); font-size: 14.5px;
+    line-height: 1.5; color: var(--ink);
+  }
+  .ts-notable li .glyph { color: var(--saffron); font-weight: 500; margin-right: 6px; font-style: normal; }
+  .ts-notable li em { font-style: italic; color: var(--saffron); }
+  .ts-notable li a { color: var(--ink-soft); text-decoration: underline; text-decoration-color: var(--rule); }
+  .ts-notable li a:hover { color: var(--saffron); text-decoration-color: var(--saffron); }
+  .ts-fallback {
+    margin: 18px auto 0; max-width: 50ch;
+    padding: 14px 18px; text-align: center;
+    background: var(--surface); border: 1px dashed var(--rule);
+    border-radius: 8px;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--muted);
   }
 
-  /* ---------- STARTER CHIPS ---------- */
-  .chips {
-    display: flex; flex-wrap: wrap;
-    justify-content: center; gap: 8px;
-    margin: 0 0 6px;
-  }
-  .chips-label {
-    width: 100%;
+  /* DAILY GEM */
+  .gem-section { margin: 40px 0 0; padding-top: 30px; border-top: 1px dashed var(--rule); }
+  .gem-eyebrow { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; color: var(--saffron); text-transform: uppercase; text-align: center; margin-bottom: 10px; }
+  .gem-card {
+    margin: 0 auto;
+    max-width: 60ch;
+    padding: 24px 26px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
     text-align: center;
-    font-family: var(--display); font-style: italic;
-    font-size: 12.5px; color: var(--muted);
-    margin-bottom: 4px; letter-spacing: .04em;
   }
-  .chip {
+  .gem-text {
+    font-family: var(--display); font-style: italic;
+    font-size: 17px; line-height: 1.55;
+    color: var(--ink); margin: 0 0 12px;
+  }
+  .gem-attr {
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; letter-spacing: .04em;
+    color: var(--saffron); margin: 0 0 10px;
+  }
+  .gem-actions {
+    display: flex; justify-content: center; gap: 10px;
+    flex-wrap: wrap;
+  }
+  .gem-action {
     appearance: none;
     background: transparent;
     border: 1px solid var(--rule);
     border-radius: 999px;
-    padding: 6px 14px;
+    padding: 5px 14px;
     font-family: var(--display); font-style: italic;
-    font-size: 14px; color: var(--ink-soft);
-    cursor: pointer;
+    font-size: 13px; color: var(--ink-soft);
+    cursor: pointer; text-decoration: none;
     transition: all .15s;
   }
-  .chip:hover { border-color: var(--saffron); color: var(--saffron); background: rgba(188,129,70,.04); transform: translateY(-1px); }
+  .gem-action:hover { border-color: var(--saffron); color: var(--saffron); }
 
-  /* ---------- ROOMS ---------- */
-  .rooms-divider {
-    border: 0;
-    border-top: 1px dashed var(--rule);
-    margin: 48px auto 28px;
-    max-width: 200px;
-  }
-  .rooms-label {
-    text-align: center;
-    font-family: var(--display); font-style: italic;
-    font-size: 11.5px; letter-spacing: .14em;
-    color: var(--saffron); text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  .rooms {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin: 0 0 28px;
-  }
-  @media (max-width: 600px) {
-    .rooms { grid-template-columns: 1fr; gap: 10px; }
-  }
-  .room {
-    display: block;
-    padding: 22px 22px 20px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color .15s, transform .15s, box-shadow .15s;
-  }
-  .room:hover {
-    border-color: var(--saffron);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-  .room-name {
-    font-family: var(--display); font-weight: 500;
-    font-size: 19px; color: var(--ink);
-    margin: 0 0 6px; letter-spacing: -.005em;
-  }
+  /* ROOMS */
+  .rooms-divider { border: 0; border-top: 1px dashed var(--rule); margin: 48px auto 28px; max-width: 200px; }
+  .rooms-label { text-align: center; font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; color: var(--saffron); text-transform: uppercase; margin-bottom: 16px; }
+  .rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0 0 28px; }
+  @media (max-width: 600px) { .rooms { grid-template-columns: 1fr; gap: 10px; } }
+  .room { display: block; padding: 22px 22px 20px; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s, box-shadow .15s; }
+  .room:hover { border-color: var(--saffron); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .room-name { font-family: var(--display); font-weight: 500; font-size: 19px; color: var(--ink); margin: 0 0 6px; letter-spacing: -.005em; }
   .room-name em { font-style: italic; color: var(--saffron); }
-  .room-detail {
-    font-family: var(--display); font-style: italic;
-    font-size: 14.5px; color: var(--ink-soft);
-    line-height: 1.5; margin: 0;
-  }
-  .room-tag {
-    display: inline-block;
-    margin-left: 6px;
-    padding: 1px 7px;
-    background: rgba(188,129,70,.08);
-    color: var(--saffron);
-    border: 1px solid rgba(188,129,70,.3);
-    border-radius: 999px;
-    font-family: var(--display); font-style: italic;
-    font-size: 10.5px; letter-spacing: .04em;
-    vertical-align: middle;
-  }
+  .room-detail { font-family: var(--display); font-style: italic; font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+  .room-tag { display: inline-block; margin-left: 6px; padding: 1px 7px; background: rgba(188,129,70,.08); color: var(--saffron); border: 1px solid rgba(188,129,70,.3); border-radius: 999px; font-family: var(--display); font-style: italic; font-size: 10.5px; letter-spacing: .04em; vertical-align: middle; }
 
-  /* ---------- CATCH-UP STRIP (v4.69.1) ---------- */
-  .catchup-strip {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 28px 0 0;
-    padding: 16px 22px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--saffron);
-    border-radius: 0 10px 10px 0;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color .15s, transform .15s, box-shadow .15s, background .15s;
-  }
-  .catchup-strip:hover {
-    border-color: var(--saffron);
-    background: var(--bg-deep);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-  }
-  .catchup-eyebrow {
-    flex-shrink: 0;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-  }
-  .catchup-body {
-    flex: 1;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink);
-    line-height: 1.5;
-  }
-  .catchup-arrow {
-    flex-shrink: 0;
-    color: var(--saffron);
-    font-family: var(--display);
-    font-size: 20px;
-  }
-  @media (max-width: 480px) {
-    .catchup-strip { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px; }
-    .catchup-arrow { display: none; }
-  }
+  /* CATCH-UP STRIP */
+  .catchup-strip { display: flex; align-items: center; gap: 14px; margin: 28px 0 0; padding: 16px 22px; background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--saffron); border-radius: 0 10px 10px 0; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s, box-shadow .15s, background .15s; }
+  .catchup-strip:hover { border-color: var(--saffron); background: var(--bg-deep); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .catchup-eyebrow { flex-shrink: 0; font-family: var(--display); font-style: italic; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); }
+  .catchup-body { flex: 1; font-family: var(--display); font-style: italic; font-size: 15px; color: var(--ink); line-height: 1.5; }
+  .catchup-arrow { flex-shrink: 0; color: var(--saffron); font-family: var(--display); font-size: 20px; }
+  @media (max-width: 480px) { .catchup-strip { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px; } .catchup-arrow { display: none; } }
 
-  /* ---------- LOOM INTRO PLACEHOLDER (v4.69.1) ---------- */
-  .intro-loom {
-    margin: 22px 0 0;
-    padding: 22px 24px;
-    background: var(--surface);
-    border: 1px dashed var(--rule);
-    border-radius: 10px;
-    text-align: center;
-  }
-  .intro-loom-eyebrow {
-    font-family: var(--display); font-style: italic;
-    font-size: 11.5px; letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 10px;
-  }
-  .intro-loom-body { display: flex; justify-content: center; }
-  .intro-loom-placeholder {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    max-width: 520px;
-    width: 100%;
-    padding: 14px 18px;
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    text-align: left;
-  }
-  .intro-loom-icon {
-    flex-shrink: 0;
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: var(--saffron);
-    color: var(--surface);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px;
-    opacity: .85;
-  }
-  .intro-loom-text {
-    flex: 1;
-    margin: 0;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14.5px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .intro-loom iframe {
-    width: 100%;
-    max-width: 640px;
-    aspect-ratio: 16 / 9;
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    background: var(--bg);
-  }
+  /* LOOM PLACEHOLDER */
+  .intro-loom { margin: 22px 0 0; padding: 22px 24px; background: var(--surface); border: 1px dashed var(--rule); border-radius: 10px; text-align: center; }
+  .intro-loom-eyebrow { font-family: var(--display); font-style: italic; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; }
+  .intro-loom-placeholder { display: flex; align-items: center; gap: 14px; max-width: 520px; width: 100%; margin: 0 auto; padding: 14px 18px; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; text-align: left; }
+  .intro-loom-icon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: var(--saffron); color: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 14px; opacity: .85; }
+  .intro-loom-text { flex: 1; margin: 0; font-family: var(--display); font-style: italic; font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; }
 
-  /* ---------- TOUR LINK ---------- */
-  .tour-cta {
-    text-align: center;
-    margin: 22px 0 12px;
-  }
-  .tour-cta a {
-    color: var(--ink-soft);
-    text-decoration: underline;
-    text-decoration-color: var(--rule);
-    text-underline-offset: 4px;
-    font-family: var(--display); font-style: italic;
-    font-size: 14.5px;
-  }
-  .tour-cta a:hover { color: var(--saffron); text-decoration-color: var(--saffron); }
-
-  /* ---------- FOOTER ---------- */
-  .home-footer {
-    text-align: center;
-    margin: 48px auto 0;
-    padding: 0 8px;
-    max-width: 540px;
-  }
+  /* HOME FOOTER */
+  .home-footer { text-align: center; margin: 48px auto 0; padding: 0 8px; max-width: 540px; }
   .home-footer-ornament { color: var(--saffron); margin-bottom: 14px; opacity: .7; }
   .home-footer-ornament svg { width: 14px; height: 14px; }
-  .home-footer p {
-    font-family: var(--display); font-style: italic;
-    font-size: 13.5px; color: var(--muted);
-    margin: 0 0 6px; line-height: 1.55;
-  }
+  .home-footer p { font-family: var(--display); font-style: italic; font-size: 13.5px; color: var(--muted); margin: 0 0 6px; line-height: 1.55; }
   .home-footer p a { color: var(--ink-soft); }
   .home-footer p a:hover { color: var(--saffron); }
   .home-footer .meta { margin-top: 8px; font-size: 12px; }
 
-  /* ---------- TOUR OVERLAY ---------- */
-  .tour-backdrop {
-    position: fixed; inset: 0;
-    background: rgba(40,40,38,.45);
-    z-index: 400;
-    opacity: 0; pointer-events: none;
-    transition: opacity .2s;
-  }
-  .tour-backdrop.is-open { opacity: 1; pointer-events: auto; }
-  .tour-modal {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 401;
-    width: min(92vw, 520px);
-    max-height: 85vh; overflow: auto;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 14px;
-    padding: 30px 28px 22px;
-    box-shadow: 0 32px 80px -20px rgba(40,40,38,.45);
-    opacity: 0; pointer-events: none;
-    transition: opacity .2s;
-  }
-  .tour-modal.is-open { opacity: 1; pointer-events: auto; }
-  .tour-eyebrow {
-    font-family: var(--display); font-style: italic;
-    font-size: 11.5px; letter-spacing: .14em;
-    color: var(--saffron); text-transform: uppercase;
-    margin-bottom: 6px; text-align: center;
-  }
-  .tour-step-num {
-    text-align: center;
-    font-family: var(--display); font-style: italic;
-    font-size: 13px; color: var(--muted);
-    margin-bottom: 10px;
-  }
-  .tour-h {
-    font-family: var(--display); font-weight: 500;
-    font-size: 26px; line-height: 1.15;
-    margin: 0 0 14px; text-align: center;
-    letter-spacing: -.005em;
-  }
-  .tour-h em { font-style: italic; color: var(--saffron); }
-  .tour-body {
-    font-family: var(--display); font-style: italic;
-    font-size: 16px; line-height: 1.55;
-    color: var(--ink);
-    margin: 0 0 20px; text-align: center;
-  }
-  .tour-actions {
-    display: flex; justify-content: space-between;
-    align-items: center; gap: 10px; flex-wrap: wrap;
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 1px solid var(--rule-soft);
-  }
-  .tour-action-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tour-btn {
-    appearance: none;
-    background: transparent;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    padding: 7px 16px;
-    font-family: var(--display); font-style: italic;
-    font-size: 14px; color: var(--ink);
-    cursor: pointer;
-    transition: all .15s;
-  }
-  .tour-btn:hover { border-color: var(--saffron); color: var(--saffron); }
-  .tour-btn.is-primary {
-    background: var(--saffron);
-    color: var(--surface);
-    border-color: var(--saffron);
-    font-weight: 500;
-  }
-  .tour-btn.is-primary:hover { transform: translateY(-1px); color: var(--surface); }
-  .tour-skip {
-    font-family: var(--display); font-style: italic;
-    font-size: 13px; color: var(--muted);
-    background: transparent; border: 0;
-    cursor: pointer; text-decoration: underline;
-    text-decoration-color: var(--rule);
-    text-underline-offset: 3px;
-  }
-  .tour-skip:hover { color: var(--saffron); }
-  .tour-progress {
-    display: flex; gap: 5px; justify-content: center;
-    margin: 0 0 12px;
-  }
-  .tour-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--rule);
-  }
-  .tour-dot.is-on { background: var(--saffron); }
-  .tour-input {
-    width: 100%; padding: 10px 14px;
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    font-family: var(--body); font-size: 16px;
-    color: var(--ink);
-    outline: none;
-    margin: 4px 0 8px;
-  }
-  .tour-input:focus { border-color: var(--saffron); }
-
-  /* ---------- NAME POPOVER (sitewide) ---------- */
-  .name-popover {
-    position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--surface); border: 1px solid var(--rule);
-    border-radius: 12px; padding: 24px 26px;
-    box-shadow: var(--shadow-md);
-    z-index: 300; width: min(90vw, 380px);
-    font-family: var(--display);
-  }
+  /* NAME POPOVER (sitewide) */
+  .name-popover { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 24px 26px; box-shadow: var(--shadow-md); z-index: 300; width: min(90vw, 380px); font-family: var(--display); }
   .name-popover[hidden] { display: none; }
-  .name-popover-backdrop {
-    position: fixed; inset: 0;
-    background: rgba(40,40,38,.35);
-    z-index: 299;
-  }
+  .name-popover-backdrop { position: fixed; inset: 0; background: rgba(40,40,38,.35); z-index: 299; }
   .name-popover-backdrop[hidden] { display: none; }
-  .name-popover-eyebrow {
-    font-style: italic; font-size: 11px;
-    letter-spacing: .14em; text-transform: uppercase;
-    color: var(--saffron); margin-bottom: 4px;
-  }
-  .name-popover-q {
-    font-style: italic; font-size: 18px;
-    color: var(--ink); margin: 0 0 16px; line-height: 1.3;
-  }
-  .name-popover-input {
-    width: 100%; padding: 9px 14px;
-    background: var(--bg); border: 1px solid var(--rule);
-    border-radius: 999px;
-    font-family: var(--body); font-size: 15px;
-    color: var(--ink); outline: none;
-    margin-bottom: 14px;
-  }
+  .name-popover-eyebrow { font-style: italic; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); margin-bottom: 4px; }
+  .name-popover-q { font-style: italic; font-size: 18px; color: var(--ink); margin: 0 0 16px; line-height: 1.3; }
+  .name-popover-input { width: 100%; padding: 9px 14px; background: var(--bg); border: 1px solid var(--rule); border-radius: 999px; font-family: var(--body); font-size: 15px; color: var(--ink); outline: none; margin-bottom: 14px; }
   .name-popover-input:focus { border-color: var(--saffron); }
   .name-popover-buttons { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
-  .name-popover-buttons button {
-    padding: 7px 16px; border-radius: 999px;
-    font-family: var(--display); font-style: italic;
-    font-size: 14px; cursor: pointer;
-    border: 1px solid var(--rule); background: transparent;
-    color: var(--ink); transition: all .15s;
-  }
+  .name-popover-buttons button { padding: 7px 16px; border-radius: 999px; font-family: var(--display); font-style: italic; font-size: 14px; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); transition: all .15s; }
   .name-popover-buttons button:hover { border-color: var(--saffron); color: var(--saffron); }
-  .name-popover-buttons .save {
-    background: var(--saffron); color: var(--surface);
-    border-color: var(--saffron); font-weight: 500;
-  }
+  .name-popover-buttons .save { background: var(--saffron); color: var(--surface); border-color: var(--saffron); font-weight: 500; }
   .name-popover-buttons .save:hover { color: var(--surface); transform: translateY(-1px); }
   .name-popover-buttons .clear { color: var(--muted); }
 
   /* WhatsApp FAB */
-  .wa-fab-global {
-    position: fixed;
-    bottom: 24px; right: 24px;
-    z-index: 200;
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: #25d366;
-    color: #fff; border: 0; cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    transition: transform .15s, box-shadow .15s;
-  }
+  .wa-fab-global { position: fixed; bottom: 24px; right: 24px; z-index: 200; width: 52px; height: 52px; border-radius: 50%; background: #25d366; color: #fff; border: 0; cursor: pointer; box-shadow: 0 4px 12px -2px rgba(40,40,38,.25); display: flex; align-items: center; justify-content: center; font-size: 22px; transition: transform .15s, box-shadow .15s; }
   .wa-fab-global:hover { transform: translateY(-2px); box-shadow: 0 6px 18px -4px rgba(40,40,38,.3); }
-  @media (max-width: 480px) {
-    .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; }
-  }
+  @media (max-width: 480px) { .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; } }
 </style>
 </head>
 <body>
-<script>
-/* Pre-paint theme to avoid FOUC */
-(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
-</script>
+<script>(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();</script>
 
 <div class="page">
 
-  <!-- ====================== SITE NAV ====================== -->
+  <!-- SITE NAV -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html" aria-current="page">Home</a>
     <span class="sep">·</span>
@@ -718,6 +440,7 @@
     <div class="more-wrap">
       <button type="button" class="more-btn" id="moreMenuBtn" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
       <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="catch-up.html" role="menuitem">Catch up · missed a class?</a>
         <a href="where-am-i.html" role="menuitem">Where am I</a>
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
@@ -743,60 +466,75 @@
     </div>
   </nav>
 
-  <!-- ====================== HERO ====================== -->
+  <!-- HERO -->
   <header class="hero">
-    <div class="hero-eyebrow">all things vedic · the companion app · v4.69.1</div>
+    <div class="hero-eyebrow">all things vedic · the companion app · v4.70.1</div>
     <h1>Astrology <em>101</em></h1>
     <p class="hero-sub">A companion to Vikram Devatha's class at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a> — built alongside the cohort, in service to anyone walking the same path.</p>
-    <p class="hero-sub-name"
+    <p class="hero-name"
        data-name-template="Welcome back, {name}."
        data-name-fallback=""
        hidden></p>
+    <div class="hero-orn" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
   </header>
 
-  <!-- ====================== SEARCH ====================== -->
-  <div class="hero-search-wrap">
-    <form class="hero-search" role="search" aria-label="Search the companion app" action="learning-companion.html" method="get" autocomplete="off" id="heroSearchForm">
-      <span class="hero-search-icon" aria-hidden="true">⌕</span>
-      <input class="hero-search-input"
-             type="search"
-             name="q"
-             id="heroSearchInput"
-             placeholder="Search — try a sign, planet, house, avatar…"
-             aria-label="Search query"
-             autocomplete="off"
-             role="combobox"
-             aria-autocomplete="list"
-             aria-controls="heroSearchSuggest"
-             aria-expanded="false">
-      <button class="hero-search-submit" type="submit">Search →</button>
-    </form>
-    <div class="hero-suggest" id="heroSearchSuggest" role="listbox" aria-label="Search suggestions" hidden></div>
-  </div>
+    <!-- TODAY'S SKY -->
+  <section class="today-sky" aria-label="Today's sky">
+    <div class="today-sky-eyebrow">today's sky · sidereal · Lahiri</div>
+    <h2 class="today-sky-h"><em id="tsDateLabel">today</em> in the sky</h2>
 
-  <!-- starter chips -->
-  <div class="chips" id="chips">
-    <div class="chips-label">Try one of these:</div>
-    <button class="chip" type="button" data-chip="Aries">Aries</button>
-    <button class="chip" type="button" data-chip="Mars">Mars</button>
-    <button class="chip" type="button" data-chip="7th house">the 7th house</button>
-    <button class="chip" type="button" data-chip="Sripati">Sripati</button>
-    <button class="chip" type="button" data-chip="Matsya">Matsya</button>
-    <button class="chip" type="button" data-chip="retrograde">retrograde</button>
-  </div>
+    <!-- Location popover (opened by clicking the centre cell's location line) -->
+    <div class="today-sky-loc-backdrop" id="tsLocBackdrop" hidden></div>
+    <div class="today-sky-loc-popover" id="tsLocPopover" hidden role="dialog" aria-modal="true" aria-labelledby="tsLocLabel">
+      <label id="tsLocLabel">Your location</label>
+      <input type="text" id="tsLocInput" maxlength="60" placeholder="e.g. Auroville, Tamil Nadu, India" autocomplete="off">
+      <p style="margin:8px 0 0;font-style:italic;font-size:12.5px;color:var(--muted);line-height:1.4;">
+        For now this is just for display. The chart shows planetary positions in signs (which don't depend on your location). Lagna and houses are coming in a future release.
+      </p>
+      <div class="btns">
+        <button type="button" id="tsLocCancel">Cancel</button>
+        <button type="button" class="save" id="tsLocSave">Save</button>
+      </div>
+    </div>
 
-  <!-- ====================== TOUR CTA ====================== -->
-  <div class="tour-cta">
-    <a href="javascript:void(0)" id="tourTrigger">First time here? · A four-step walk-through →</a>
-  </div>
+    <div class="stage" id="tsStage">
+      <!-- 12 sign chambers + centre cell, populated by JS -->
+    </div>
 
-  <!-- ====================== ROOMS ====================== -->
+    <div class="ts-notable">
+      <div class="ts-notable-h">what's notable today</div>
+      <ul id="tsNotable">
+        <li style="text-align:center;color:var(--muted);font-style:italic;">Loading sky data…</li>
+      </ul>
+    </div>
+
+    <p class="ts-fallback" id="tsFallback" hidden>
+      Sky data hasn't been refreshed lately. Sree refreshes the daily ephemeris once a month — try again soon, or check Stellarium for live positions.
+    </p>
+  </section>
+
+  <!-- DAILY GEM -->
+  <section class="gem-section" aria-label="Today's piece from the class">
+    <div class="gem-eyebrow">today's piece · from the class</div>
+    <div class="gem-card">
+      <p class="gem-text" id="gemText">…</p>
+      <p class="gem-attr" id="gemAttr">—</p>
+      <div class="gem-actions">
+        <button class="gem-action" id="gemNext" type="button">Tap for another →</button>
+        <a class="gem-action" id="gemOpen" href="learning-companion.html">Open in Companion →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
   <hr class="rooms-divider">
   <div class="rooms-label">Three rooms inside</div>
   <div class="rooms">
     <a class="room" href="learning-companion.html">
       <h2 class="room-name">Learning <em>Companion</em></h2>
-      <p class="room-detail">Look anything up — sign, planet, house, avatar. The dense reference, with quizzes if you want to check yourself.</p>
+      <p class="room-detail">Search and look anything up — sign, planet, house, avatar. The dense reference, with quizzes if you want them.</p>
     </a>
     <a class="room" href="interpret.html">
       <h2 class="room-name"><em>Interpret</em> your chart<span class="room-tag">beta</span></h2>
@@ -808,35 +546,34 @@
     </a>
   </div>
 
-  <!-- ====================== CATCH-UP STRIP (v4.69.1) ====================== -->
+  <!-- CATCH-UP STRIP -->
   <a class="catchup-strip" href="catch-up.html" aria-label="Catch up — find a class you missed">
     <span class="catchup-eyebrow">Missed a class?</span>
     <span class="catchup-body">Find the session and catch up — one paragraph per class, with the right page to go deeper.</span>
     <span class="catchup-arrow" aria-hidden="true">→</span>
   </a>
 
-  <!-- ====================== LOOM INTRO (v4.69.1 placeholder) ====================== -->
+  <!-- LOOM INTRO -->
   <section class="intro-loom" aria-label="A 60-second introduction">
     <div class="intro-loom-eyebrow">A 60-second introduction</div>
-    <div class="intro-loom-body">
-      <!-- Sree to record and replace src below with the Loom embed iframe.
-           Format: <iframe src="https://www.loom.com/embed/<ID>" allowfullscreen></iframe>
-           For now we render a quiet placeholder. -->
+    <div>
+      <!-- Sree to record and replace the placeholder below with the Loom embed iframe.
+           Format: <iframe src="https://www.loom.com/embed/<ID>" allowfullscreen></iframe> -->
       <div class="intro-loom-placeholder" id="introLoomPlaceholder">
         <div class="intro-loom-icon" aria-hidden="true">▶</div>
-        <p class="intro-loom-text">A short walk-through from Sree is on the way. Until then, the four-step tour above is the quickest way in.</p>
+        <p class="intro-loom-text">A short walk-through from Sree is on the way. Until then, the three rooms above are the quickest way in.</p>
       </div>
     </div>
   </section>
 
-  <!-- ====================== HOME FOOTER ====================== -->
+  <!-- HOME FOOTER -->
   <footer class="home-footer">
     <div class="home-footer-ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
     <p>Wondering where this came from? <a href="about.html">How this came to be →</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.69.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.70.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="release-notes.html">Release notes</a>
       &nbsp;·&nbsp;
@@ -846,25 +583,7 @@
 
 </div>
 
-<!-- ====================== TOUR OVERLAY ====================== -->
-<div class="tour-backdrop" id="tourBackdrop"></div>
-<div class="tour-modal" id="tourModal" role="dialog" aria-modal="true" aria-labelledby="tourH">
-  <div class="tour-eyebrow">a four-step walk-through</div>
-  <div class="tour-progress" id="tourProgress"></div>
-  <div class="tour-step-num" id="tourStepNum">step 1 of 4</div>
-  <h2 class="tour-h" id="tourH">What should we call you?</h2>
-  <p class="tour-body" id="tourBody">Just for the page — the name lives in your browser. Nothing leaves your device.</p>
-  <div id="tourSlot"></div>
-  <div class="tour-actions">
-    <button type="button" class="tour-skip" id="tourSkip">Skip the tour</button>
-    <div class="tour-action-row">
-      <button type="button" class="tour-btn" id="tourBack" hidden>← Back</button>
-      <button type="button" class="tour-btn is-primary" id="tourNext">Next →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ====================== NAME POPOVER (sitewide) ====================== -->
+<!-- Name popover -->
 <div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
 <div class="name-popover" id="namePopover" hidden role="dialog" aria-modal="true" aria-labelledby="namePopoverQ">
   <div class="name-popover-eyebrow">Your name</div>
@@ -877,552 +596,304 @@
   </div>
 </div>
 
-<!-- WhatsApp FAB -->
 <button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
   <span aria-hidden="true">💬</span>
 </button>
 
+<!-- ====================== TODAY'S SKY DATA + RENDER ====================== -->
+<script src="today-sky-data.js"></script>
 <script>
-/* CHIP CLICK — submit search form */
+/* v4.70.1 — Today's Sky widget. Loads window.__todaySkyData (script-tag based,
+   works on file:// — no CORS). Adopts interpret.html's .stage + .chamber layout. */
 (function(){
-  document.addEventListener('click', function(e){
-    var c = e.target.closest('[data-chip]');
-    if (!c) return;
-    var input = document.getElementById('heroSearchInput');
-    if (input){
-      input.value = c.getAttribute('data-chip');
-      input.form.submit();
-    }
-  });
-  // Autofocus search on first paint, except on small screens (avoids keyboard pop)
-  try {
-    if (window.innerWidth >= 700){
-      var el = document.getElementById('heroSearchInput');
-      if (el) setTimeout(function(){ el.focus({preventScroll:true}); }, 80);
-    }
-  } catch(e){}
-})();
-</script>
-
-<script>
-/* v4.69.1 — Hero search typeahead (rich). See changelog. */
-/* v4.69.1 — Search typeahead. Adds:
-   - Recent searches (localStorage, last 5)
-   - Did-you-mean (Levenshtein ≤ 2 for misspellings, esp. Sanskrit)
-   - Categorized result groups with subtle italic headers
-   - One-line preview blurb when typed query exactly matches one entry
-   - "Where most learners start" curated panel when input is empty (and no recents)
-   The keyword inventory is shared between home and LC masthead bars.
-   On LC, Enter handoff opens the deeper LC search modal with the query
-   already filled in. On home, Enter submits to learning-companion.html?q=. */
-(function(){
-  // -------- KEYWORD INVENTORY --------
-  // Each entry: { q, cat, alt?, blurb?, popular? }
-  // blurb: 1 short sentence shown in the exact-match preview card.
-  // popular: true → appears in "where most learners start" curated section.
-  var KW = [
-    // 12 signs
-    {q:'Aries',       cat:'sign', alt:['Mesha'],         blurb:'Cardinal fire, ruled by Mars. The first sign — head of Kāla Puruṣa.', popular:true},
-    {q:'Taurus',      cat:'sign', alt:['Vrishabha'],     blurb:'Fixed earth, ruled by Venus. Sustains, accumulates, beautifies.'},
-    {q:'Gemini',      cat:'sign', alt:['Mithuna'],       blurb:'Mutable air, ruled by Mercury. The pair, the conversation, the bridge.'},
-    {q:'Cancer',      cat:'sign', alt:['Karkata'],       blurb:'Cardinal water, ruled by the Moon. Home, mother, the inner ground.'},
-    {q:'Leo',         cat:'sign', alt:['Simha'],         blurb:'Fixed fire, ruled by the Sun. The king, the heart, sovereign self.'},
-    {q:'Virgo',       cat:'sign', alt:['Kanya'],         blurb:'Mutable earth, ruled by Mercury. Discernment, service, the analyst.'},
-    {q:'Libra',       cat:'sign', alt:['Tula'],          blurb:'Cardinal air, ruled by Venus. The scale, partnership, balance.'},
-    {q:'Scorpio',     cat:'sign', alt:['Vrishchika'],    blurb:'Fixed water, ruled by Mars. Depth, transformation, the shadow.'},
-    {q:'Sagittarius', cat:'sign', alt:['Dhanu'],         blurb:'Mutable fire, ruled by Jupiter. The teacher, the seeker, dharma.'},
-    {q:'Capricorn',   cat:'sign', alt:['Makara'],        blurb:'Cardinal earth, ruled by Saturn. Discipline, structure, the long climb.'},
-    {q:'Aquarius',    cat:'sign', alt:['Kumbha'],        blurb:'Fixed air, ruled by Saturn. The collective, the contrarian, the future.'},
-    {q:'Pisces',      cat:'sign', alt:['Meena'],         blurb:'Mutable water, ruled by Jupiter. Dissolution, mokṣa, the ocean.'},
-    // 9 planets
-    {q:'Sun',     cat:'planet', alt:['Surya','Sūrya'],          blurb:'King of the cabinet. Soul, vitality, father, sovereign self. Exalts in Aries.'},
-    {q:'Moon',    cat:'planet', alt:['Chandra'],                blurb:'Queen of the cabinet. Mind, mother, emotion, the senses. Exalts in Taurus.', popular:true},
-    {q:'Mars',    cat:'planet', alt:['Mangala'],                blurb:'Commander of the army. Will, fire, blood, courage. Exalts in Capricorn.'},
-    {q:'Mercury', cat:'planet', alt:['Budha'],                  blurb:'Prince and crown-witness. Intellect, speech, learning. Exalts in Virgo.'},
-    {q:'Jupiter', cat:'planet', alt:['Guru','Brihaspati'],      blurb:'Priest and counsellor. Wisdom, dharma, expansion. Exalts in Cancer.'},
-    {q:'Venus',   cat:'planet', alt:['Shukra','Śukra'],         blurb:'Foreign minister. Beauty, art, relationship, sweetness. Exalts in Pisces.'},
-    {q:'Saturn',  cat:'planet', alt:['Shani'],                  blurb:'Servant of the cabinet. Time, discipline, karma. Exalts in Libra.'},
-    {q:'Rahu',    cat:'planet', alt:['north node'],             blurb:'North lunar node. Obsession, ambition, the unconventional path.'},
-    {q:'Ketu',    cat:'planet', alt:['south node'],             blurb:'South lunar node. Detachment, mokṣa, what is already known.'},
-    // 12 houses (kept short)
-    {q:'1st house',  cat:'house', alt:['first house','Lagna','Tanu Bhava'],            blurb:'Self · body · vitality. Ruled by the rising sign.', popular:true},
-    {q:'2nd house',  cat:'house', alt:['second house','Dhana'],                          blurb:'Wealth · speech · family · what we hold.'},
-    {q:'3rd house',  cat:'house', alt:['third house','Sahaja'],                          blurb:'Siblings · effort · skill · short journeys.'},
-    {q:'4th house',  cat:'house', alt:['fourth house','Sukha','I.C.'],                  blurb:'Home · mother · roots · the inner ground.'},
-    {q:'5th house',  cat:'house', alt:['fifth house','Putra'],                           blurb:'Creativity · children · pūrva-puṇya · play.'},
-    {q:'6th house',  cat:'house', alt:['sixth house','Ari'],                             blurb:'Service · health · obstacles · daily work.'},
-    {q:'7th house',  cat:'house', alt:['seventh house','Yuvati','Descendant'],          blurb:'Partner · marriage · the other.', popular:true},
-    {q:'8th house',  cat:'house', alt:['eighth house','Randhra'],                        blurb:'Hidden things · transformation · longevity · joint resources.'},
-    {q:'9th house',  cat:'house', alt:['ninth house','Dharma'],                          blurb:'Dharma · teacher · long journeys · grace.'},
-    {q:'10th house', cat:'house', alt:['tenth house','Karma','M.C.','Medium Coeli'],    blurb:'Career · public-facing self · the chart at the top.'},
-    {q:'11th house', cat:'house', alt:['eleventh house','Labha'],                        blurb:'Gains · networks · elder siblings · fulfilment of desires.'},
-    {q:'12th house', cat:'house', alt:['twelfth house','Vyaya','Moksha'],               blurb:'Loss · liberation · foreign lands · the bed.'},
-    // 10 avatars
-    {q:'Matsya',      cat:'avatar', alt:['fish'],                blurb:'The fish. Paired with Ketu. The flood, the seeds saved, relocation to the Himalayas.', popular:true},
-    {q:'Kūrma',       cat:'avatar', alt:['Kurma','tortoise'],    blurb:'The tortoise. Paired with Saturn. Stillness while the milk-ocean is churned.'},
-    {q:'Varāha',      cat:'avatar', alt:['Varaha','boar'],       blurb:'The boar. Paired with Rahu. Lifts the earth from the depths.'},
-    {q:'Narasiṃha',   cat:'avatar', alt:['Narasimha','man-lion'],blurb:'The man-lion. Paired with Mars. Neither man nor beast, neither inside nor outside.'},
-    {q:'Vāmana',      cat:'avatar', alt:['Vamana','dwarf'],      blurb:'The dwarf who became cosmic. Paired with Jupiter.'},
-    {q:'Paraśurāma',  cat:'avatar', alt:['Parashurama'],         blurb:'The warrior-priest. Paired with Venus.'},
-    {q:'Rāma',        cat:'avatar', alt:['Rama','king'],         blurb:'The righteous king. Paired with the Sun.'},
-    {q:'Kṛṣṇa',       cat:'avatar', alt:['Krishna','cowherd'],   blurb:'The cowherd-king. Paired with the Moon. Unconditional love, equanimity, play.'},
-    {q:'Buddha',      cat:'avatar', alt:['awakened'],            blurb:'The awakened one. Paired with Mercury. Insight, the middle way.'},
-    {q:'Kalki',       cat:'avatar', alt:['future avatar'],       blurb:'The future avatar. Not in the workbook — the chapter still to come.'},
-    // 4 elements
-    {q:'Fire',  cat:'element', alt:['Mahakali'],        blurb:'Will, transformation, the spark. Devi: Mahākālī.'},
-    {q:'Earth', cat:'element', alt:['Mahasaraswati'],   blurb:'Form, structure, the ground. Devi: Mahāsaraswatī.'},
-    {q:'Air',   cat:'element', alt:['Maheshwari'],      blurb:'Movement, thought, breath. Devi: Maheśvarī.'},
-    {q:'Water', cat:'element', alt:['Mahalakshmi'],     blurb:'Feeling, flow, nourishment. Devi: Mahālakṣmī.'},
-    // Modes & duality
-    {q:'Cardinal', cat:'mode',    alt:['Brahma','impulse'],     blurb:'The impulse to begin — Brahmā mode. Aries, Cancer, Libra, Capricorn.'},
-    {q:'Fixed',    cat:'mode',    alt:['Vishnu','sustaining'],  blurb:'The sustaining force — Viṣṇu mode. Taurus, Leo, Scorpio, Aquarius.'},
-    {q:'Mutable',  cat:'mode',    alt:['Shiva','reversal'],     blurb:'The reversal — Śiva mode. Gemini, Virgo, Sagittarius, Pisces.'},
-    {q:'Yang',     cat:'duality', alt:['Nara','masculine'],     blurb:'Active, outward — Nara. Odd-numbered signs.'},
-    {q:'Yin',      cat:'duality', alt:['Stri','feminine'],      blurb:'Receptive, inward — Strī. Even-numbered signs.'},
-    // Concepts
-    {q:'Signature',          cat:'concept', alt:['signature procedure'],            blurb:'Predominant element + modality of the grahas (not Asc) → the sign that signs the chart.', popular:true},
-    {q:'Cabinet',            cat:'concept', alt:['Planetary Cabinet','court'],       blurb:'Vikram\'s teaching frame: Sun king, Moon queen, Mars commander, Saturn servant…', popular:true},
-    {q:'Aspects',            cat:'concept', alt:['Drishti'],                         blurb:'Drishti — the lines of sight planets cast. Mars 4 & 8, Jupiter 5 & 9, Saturn 3 & 10.', popular:true},
-    {q:'Yogas',              cat:'concept', alt:['combinations'],                    blurb:'Combinations of planets that change the meaning of the whole chart.'},
-    {q:'Parivartana',        cat:'concept', alt:['exchange of lords'],               blurb:'When two planets sit in each other\'s signs — a closed loop, a powerful yoga.'},
-    {q:'Retrograde',         cat:'concept', alt:['Vakri','apparent motion'],         blurb:'A planet appearing to move backwards against the stars — the loop in the sky.'},
-    {q:'Ayanamsha',          cat:'concept', alt:['precession'],                      blurb:'The offset between tropical and sidereal zodiacs — caused by Earth\'s wobble.'},
-    {q:'Ecliptic',           cat:'concept', alt:[],                                  blurb:'The path the Sun takes against the stars — the great circle of the zodiac.'},
-    {q:'Nakshatra',          cat:'concept', alt:['nakshatras','27 stars','lunar mansions'], blurb:'27 lunar mansions — the Moon\'s path divided into segments of about 13°20\'.'},
-    {q:'Kāla Puruṣa',        cat:'concept', alt:['Kalapurusha','cosmic body'],       blurb:'The cosmic person whose body is the zodiac — Aries the head, Pisces the feet.'},
-    {q:'Sripati Paddhati',   cat:'concept', alt:['Sripati','sripathi'],              blurb:'11th-century quadrant-based house system. Cusps trisect each quadrant from Asc to M.C.'},
-    {q:'Bhāva Chalit',       cat:'concept', alt:['Bhava Chalit','house chart'],      blurb:'The house chart — which house a planet actually influences (not just which sign it sits in).'},
-    {q:'Whole Sign',         cat:'concept', alt:['rāśi chart','rasi chart','D-1'],    blurb:'One sign = one house. The Rāśi chart Vikram opens with by default.'},
-    {q:'Equal House',        cat:'concept', alt:[],                                  blurb:'Each house is exactly 30°, starting from the Ascendant degree.'},
-    {q:'Lagna',              cat:'concept', alt:['Ascendant','rising sign'],         blurb:'The exact degree rising in the east at birth. The cusp of the 1st House.'},
-    {q:'Mūlatrikoṇa',        cat:'concept', alt:['Mulatrikona'],                     blurb:'A planet\'s seat of power — its own sign, in its strongest stretch of degrees.'},
-    {q:'Exaltation',         cat:'concept', alt:['Uccha'],                           blurb:'Uccha — the sign in which a planet is most honoured. Read with the cabinet story.'},
-    {q:'Debilitation',       cat:'concept', alt:['Neecha'],                          blurb:'Neecha — the sign in which a planet is at its lowest. Not bad — vulnerable.'},
-    {q:'Kendra',              cat:'concept', alt:['angular','1 4 7 10'],              blurb:'The pillar houses — 1, 4, 7, 10. Where life demands action.'},
-    {q:'Trikoṇa',             cat:'concept', alt:['Trikona','trine','1 5 9'],         blurb:'The trines — 1, 5, 9. Dharma houses; meaning, direction, grace.'},
-    {q:'Purushārtha',        cat:'concept', alt:['Purushartha','aims of life'],       blurb:'The four aims of life — dharma, artha, kāma, mokṣa. Mapped onto trines of houses.'},
-    {q:'Dharma',             cat:'concept', alt:[],                                  blurb:'One of the four aims — purpose, righteous action. Houses 1, 5, 9.'},
-    {q:'Artha',              cat:'concept', alt:[],                                  blurb:'One of the four aims — material, earning, sustaining. Houses 2, 6, 10.'},
-    {q:'Kāma',               cat:'concept', alt:['Kama'],                            blurb:'One of the four aims — desire, relationship, pleasure. Houses 3, 7, 11.'},
-    {q:'Mokṣa',              cat:'concept', alt:['Moksha'],                          blurb:'One of the four aims — liberation, dissolution. Houses 4, 8, 12.'},
-    {q:'Mahāśakti',          cat:'concept', alt:['Mahashakti','great mother'],       blurb:'The great mothers — Mahākālī, Mahāsaraswatī, Maheśvarī, Mahālakṣmī.'},
-    {q:'Geocentric view',    cat:'concept', alt:['observer','sky from earth'],       blurb:'The sky from where the observer stands. Vedic astrology = what the eye can see.'},
-    {q:'Stellarium',         cat:'concept', alt:['planetarium','sky software'],       blurb:'Free planetarium. Set birth time and place; see your sky as it actually was.'},
-    {q:'Nirvāṇa Shatakam',   cat:'concept', alt:['Nirvana Shatakam','Atma Shatakam'], blurb:'Six verses by Adi Shankaracharya. The refrain: śivo\'ham, śivo\'ham — I am Śiva.'},
-    // App pages (no blurb — these are launchers)
-    {q:'Reflect',            cat:'page', alt:['workbook prompt','reflection']},
-    {q:'Interpret',          cat:'page', alt:['Interpret your chart','read chart']},
-    {q:'Where am I',         cat:'page', alt:['self assessment','aware familiar confident']},
-    {q:'Catch up',           cat:'page', alt:['missed a class','sessions list']},
-    {q:'Mercury Spectrum',   cat:'page', alt:[]},
-    {q:'Astronomy',          cat:'page', alt:['astronomy under astrology']}
+  var SIGNS = [
+    { e:'Aries',       sansk:'Mesha',      glyph:'♈', cell:'aries' },
+    { e:'Taurus',      sansk:'Vrishabha',  glyph:'♉', cell:'taurus' },
+    { e:'Gemini',      sansk:'Mithuna',    glyph:'♊', cell:'gemini' },
+    { e:'Cancer',      sansk:'Karkata',    glyph:'♋', cell:'cancer' },
+    { e:'Leo',         sansk:'Simha',      glyph:'♌', cell:'leo' },
+    { e:'Virgo',       sansk:'Kanya',      glyph:'♍', cell:'virgo' },
+    { e:'Libra',       sansk:'Tula',       glyph:'♎', cell:'libra' },
+    { e:'Scorpio',     sansk:'Vrishchika', glyph:'♏', cell:'scorpio' },
+    { e:'Sagittarius', sansk:'Dhanu',      glyph:'♐', cell:'sagittarius' },
+    { e:'Capricorn',   sansk:'Makara',     glyph:'♑', cell:'capricorn' },
+    { e:'Aquarius',    sansk:'Kumbha',     glyph:'♒', cell:'aquarius' },
+    { e:'Pisces',      sansk:'Meena',      glyph:'♓', cell:'pisces' }
   ];
+  // Short codes used inside chamber pills (text presentation forced everywhere)
+  var PLANET_CODES = {
+    sun:'Su', moon:'Mo', mars:'Ma', mercury:'Me', jupiter:'Ju',
+    venus:'Ve', saturn:'Sa', rahu:'Ra', ketu:'Ke'
+  };
+  var PLANETS = {
+    sun:     { name:'Sun',     sansk:'Sūrya',   link:'learning-companion.html#planets' },
+    moon:    { name:'Moon',    sansk:'Chandra', link:'learning-companion.html#planets' },
+    mars:    { name:'Mars',    sansk:'Mangala', link:'learning-companion.html#planets' },
+    mercury: { name:'Mercury', sansk:'Budha',   link:'mercury-spectrum.html' },
+    jupiter: { name:'Jupiter', sansk:'Guru',    link:'jupiter-tracker.html' },
+    venus:   { name:'Venus',   sansk:'Shukra',  link:'learning-companion.html#planets' },
+    saturn:  { name:'Saturn',  sansk:'Shani',   link:'learning-companion.html#planets' },
+    rahu:    { name:'Rahu',    sansk:'Rahu',    link:'learning-companion.html#planets' },
+    ketu:    { name:'Ketu',    sansk:'Ketu',    link:'learning-companion.html#planets' }
+  };
+  var SIGN_FLAVOUR = {
+    'Aries':       'in fiery Aries — quick to act, eager to begin.',
+    'Taurus':      'in earthy Taurus — sustaining, sensual, steady.',
+    'Gemini':      'in airy Gemini — thinking, curious, mobile.',
+    'Cancer':      'in watery Cancer — feeling, nourishing, protective.',
+    'Leo':         'in fiery Leo — radiant, kingly, heart-led.',
+    'Virgo':       'in earthy Virgo — discerning, refining, in service.',
+    'Libra':       'in airy Libra — balancing, partnering, weighing.',
+    'Scorpio':     'in watery Scorpio — deep, transforming, intense.',
+    'Sagittarius': 'in fiery Sagittarius — seeking, teaching, dharmic.',
+    'Capricorn':   'in earthy Capricorn — disciplined, structural, climbing.',
+    'Aquarius':    'in airy Aquarius — collective, contrarian, future-facing.',
+    'Pisces':      'in watery Pisces — dissolving, devotional, oceanic.'
+  };
 
-  // -------- DOM --------
-  var input = document.getElementById('heroSearchInput');
-  var form  = document.getElementById('heroSearchForm');
-  var box   = document.getElementById('heroSearchSuggest');
-  if (!input || !box) return;
+  function escHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  function pad2(n){ n = String(n); return n.length < 2 ? '0' + n : n; }
+  function todayISO(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function prettyDate(iso){ try { var d = new Date(iso + 'T12:00:00'); return d.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return iso; } }
 
-  // -------- STATE / STORAGE --------
-  var RECENT_KEY = 'astro-recent-searches-v1';
-  var RECENT_MAX = 5;
-  var WA_PHONE   = '919880337337';
-  var activeIdx = -1;
-  var lastFlat = []; // flat list of selectable items (for keyboard nav)
-
-  function escHtml(s){
-    return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; });
-  }
-  function highlight(text, q){
-    var t = escHtml(text);
-    if (!q) return t;
-    var i = text.toLowerCase().indexOf(q.toLowerCase());
-    if (i === -1) return t;
-    return escHtml(text.slice(0, i)) + '<em>' + escHtml(text.slice(i, i + q.length)) + '</em>' + escHtml(text.slice(i + q.length));
-  }
-  function getRecent(){
-    try { return (JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') || []).slice(0, RECENT_MAX); }
-    catch(e){ return []; }
-  }
-  function pushRecent(q){
-    if (!q) return;
-    try {
-      var list = getRecent().filter(function(x){ return x.toLowerCase() !== q.toLowerCase(); });
-      list.unshift(q);
-      list = list.slice(0, RECENT_MAX);
-      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
-    } catch(e){}
-  }
-
-  // -------- LEVENSHTEIN (for did-you-mean) --------
-  function lev(a, b){
-    a = a.toLowerCase(); b = b.toLowerCase();
-    if (a === b) return 0;
-    var m = a.length, n = b.length;
-    if (Math.abs(m - n) > 3) return 99; // bail early; we only care up to 2
-    var prev = new Array(n + 1), curr = new Array(n + 1), j;
-    for (j = 0; j <= n; j++) prev[j] = j;
-    for (var i = 1; i <= m; i++){
-      curr[0] = i;
-      for (j = 1; j <= n; j++){
-        var cost = a.charCodeAt(i-1) === b.charCodeAt(j-1) ? 0 : 1;
-        curr[j] = Math.min(curr[j-1] + 1, prev[j] + 1, prev[j-1] + cost);
-      }
-      var t = prev; prev = curr; curr = t;
-    }
-    return prev[n];
-  }
-  function bestSpellingCorrection(q){
-    if (q.length < 4) return null;
-    var ql = q.toLowerCase();
-    var best = null, bestD = 99;
-    for (var i = 0; i < KW.length; i++){
-      var item = KW[i];
-      var candidates = [item.q].concat(item.alt || []);
-      for (var k = 0; k < candidates.length; k++){
-        var c = candidates[k];
-        var d = lev(ql, c);
-        if (d < bestD && d > 0 && d <= 2){
-          bestD = d; best = item;
-        }
-      }
-    }
-    return best;
-  }
-
-  // -------- SCORING --------
-  function score(item, q){
-    var ql = q.toLowerCase();
-    var name = item.q.toLowerCase();
-    var alts = (item.alt || []).map(function(a){ return a.toLowerCase(); });
-    if (name === ql) return -100;
-    if (name.indexOf(ql) === 0) return -50 - (1 / name.length);
-    for (var i = 0; i < alts.length; i++){
-      if (alts[i] === ql) return -90;
-      if (alts[i].indexOf(ql) === 0) return -45 - (1 / alts[i].length);
-    }
-    if (name.indexOf(ql) !== -1) return -10;
-    for (var j = 0; j < alts.length; j++){
-      if (alts[j].indexOf(ql) !== -1) return -5;
-    }
-    return null;
-  }
-  function buildResults(q){
-    if (!q) return [];
-    var scored = [];
-    for (var i = 0; i < KW.length; i++){
-      var s = score(KW[i], q);
-      if (s !== null) scored.push({ item: KW[i], score: s });
-    }
-    scored.sort(function(a, b){ return a.score - b.score; });
-    return scored.slice(0, 8).map(function(r){ return r.item; });
-  }
-
-  function feedbackUrl(q){
-    var msg = "Hi Sree, I searched the Astrology 101 Companion App for \"" + q + "\" but didn't find what I was looking for. Could you help?";
-    return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(msg);
-  }
-
-  function findByQ(q){
-    var ql = q.toLowerCase();
-    for (var i = 0; i < KW.length; i++) if (KW[i].q.toLowerCase() === ql) return KW[i];
-    return null;
-  }
-
-  // -------- RENDER --------
-  function render(q){
-    activeIdx = -1;
-    lastFlat = [];
-
-    if (!q){
-      // Empty state — recents + curated
-      var recents = getRecent();
-      var curated = KW.filter(function(k){ return k.popular; });
-      var html = '';
-      if (recents.length){
-        html += '<div class="hero-suggest-group">';
-        html +=   '<div class="hero-suggest-group-h">recent</div>';
-        recents.forEach(function(r){
-          lastFlat.push({ kind:'recent', q:r });
-          html += '<div class="hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(r) + '">';
-          html +=   '<div class="hero-suggest-name">' + escHtml(r) + '</div>';
-          html +=   '<div class="hero-suggest-cat">↩</div>';
-          html += '</div>';
-        });
-        html += '</div>';
-      }
-      if (curated.length){
-        html += '<div class="hero-suggest-group">';
-        html +=   '<div class="hero-suggest-group-h">where most learners start</div>';
-        curated.forEach(function(it){
-          lastFlat.push({ kind:'item', item:it });
-          html += '<div class="hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(it.q) + '">';
-          html +=   '<div class="hero-suggest-name">' + escHtml(it.q) + '</div>';
-          html +=   '<div class="hero-suggest-cat">' + escHtml(it.cat) + '</div>';
-          html += '</div>';
-        });
-        html += '</div>';
-      }
-      html += '<div class="hero-suggest-foot">↳ press <kbd>↵</kbd> to search anything</div>';
-      box.innerHTML = html;
-      box.hidden = false;
-      input.setAttribute('aria-expanded', 'true');
-      return;
-    }
-
-    var items = buildResults(q);
-    var exact = items.length === 1 && items[0].q.toLowerCase() === q.toLowerCase() ? items[0] : findByQ(q);
-    var spell = items.length === 0 ? bestSpellingCorrection(q) : null;
-
-    if (items.length === 0 && !spell){
-      // Truly empty — show feedback CTAs
-      box.innerHTML =
-        '<div class="hero-suggest-empty">' +
-          '<p>Nothing in the Companion matches <em style="color:var(--saffron);">' + escHtml(q) + '</em> — yet.</p>' +
-          '<p style="color:var(--muted);">Search anyway, browse the Companion, or tell Sree what you wanted.</p>' +
-          '<div class="empty-actions">' +
-            '<a href="learning-companion.html?q=' + encodeURIComponent(q) + '">Search anyway →</a>' +
-            '<a href="learning-companion.html#signs">Browse LC →</a>' +
-            '<a href="' + feedbackUrl(q) + '" target="_blank" rel="noopener">Tell Sree →</a>' +
-          '</div>' +
-        '</div>';
-      box.hidden = false;
-      input.setAttribute('aria-expanded', 'true');
-      return;
-    }
-
-    var html = '';
-
-    // State 4: exact-match preview card
-    if (exact && exact.blurb){
-      lastFlat.push({ kind:'item', item:exact });
-      html += '<div class="hero-suggest-group">';
-      html +=   '<div class="hero-suggest-preview hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(exact.q) + '">';
-      html +=     '<div class="hero-suggest-preview-cat">' + escHtml(exact.cat) + '</div>';
-      html +=     '<div class="hero-suggest-preview-name">' + escHtml(exact.q) + '</div>';
-      html +=     '<div class="hero-suggest-preview-blurb">' + escHtml(exact.blurb) + '</div>';
-      html +=   '</div>';
-      html += '</div>';
-      // Other items still shown below
-      var others = items.filter(function(it){ return it !== exact; });
-      if (others.length){
-        html += renderGrouped(others, q);
-      }
-    } else {
-      // Did-you-mean card if applicable (no exact, no other matches but a close suggestion)
-      if (spell){
-        lastFlat.push({ kind:'item', item:spell });
-        html += '<div class="hero-suggest-dym" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(spell.q) + '">' +
-                  '<span class="dym-prefix">did you mean</span> <em>' + escHtml(spell.q) + '</em>' +
-                  '<span class="dym-cat">' + escHtml(spell.cat) + '</span>' +
-                '</div>';
-      }
-      if (items.length){
-        html += renderGrouped(items, q);
-      }
-    }
-
-    // Always offer "search anyway" tail when typed query has at least one matching result
-    if (items.length || spell){
-      html += '<div class="hero-suggest-foot">↳ press <kbd>↵</kbd> to search "<em style="color:var(--saffron);font-style:italic;">' + escHtml(q) + '</em>" in the deeper Companion</div>';
-    }
-
-    box.innerHTML = html;
-    box.hidden = false;
-    input.setAttribute('aria-expanded', 'true');
-  }
-
-  function renderGrouped(items, q){
-    // Group by cat, preserve original score order within group
-    var order = [];
-    var byCat = {};
-    items.forEach(function(it){
-      if (!byCat[it.cat]){ byCat[it.cat] = []; order.push(it.cat); }
-      byCat[it.cat].push(it);
-    });
-    var html = '';
-    order.forEach(function(cat){
-      html += '<div class="hero-suggest-group">';
-      html +=   '<div class="hero-suggest-group-h">' + escHtml(cat) + '</div>';
-      byCat[cat].forEach(function(it){
-        lastFlat.push({ kind:'item', item:it });
-        html += '<div class="hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(it.q) + '">';
-        html +=   '<div class="hero-suggest-name">' + highlight(it.q, q) + '</div>';
-        if (it.blurb){
-          html += '<div class="hero-suggest-name-meta">' + escHtml(it.blurb.slice(0, 60)) + (it.blurb.length > 60 ? '…' : '') + '</div>';
-        }
-        html += '</div>';
+  function renderStage(today){
+    var stage = document.getElementById('tsStage');
+    if (!stage) return;
+    stage.innerHTML = '';
+    var bySign = {};
+    if (today){
+      Object.keys(PLANETS).forEach(function(p){
+        var entry = today[p];
+        if (!entry) return;
+        if (!bySign[entry.sIdx]) bySign[entry.sIdx] = [];
+        bySign[entry.sIdx].push({ key:p, deg:entry.deg });
       });
-      html += '</div>';
+    }
+    SIGNS.forEach(function(s, idx){
+      var ch = document.createElement('div');
+      ch.className = 'chamber sign-' + s.cell + (bySign[idx] ? '' : ' is-empty');
+      var planets = (bySign[idx] || []).map(function(p){
+        var P = PLANETS[p.key];
+        var code = PLANET_CODES[p.key] || p.key.slice(0,2);
+        return '<span class="planet-pill" data-planet="' + p.key + '" title="' + escHtml(P.name + ' · ' + s.e + ' ' + p.deg.toFixed(1) + '°') + '">' + code + '</span>';
+      }).join('');
+      ch.innerHTML =
+        '<div class="chamber-head">' +
+          '<div class="chamber-sign-block">' +
+            '<span class="chamber-sign-glyph" aria-hidden="true">' + s.glyph + '</span>' +
+            '<span class="chamber-sign-name">' + s.e + '</span>' +
+            '<span class="chamber-sign-sanskrit">' + s.sansk + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="chamber-divider"></div>' +
+        '<div class="chamber-planets">' + planets + '</div>';
+      stage.appendChild(ch);
     });
-    return html;
+    var c = document.createElement('div');
+    c.className = 'stage-center';
+    var loc = (function(){ try { return localStorage.getItem('astro-mychart-loc-v1') || 'Auroville, Tamil Nadu, India'; } catch(e){ return 'Auroville, Tamil Nadu, India'; } })();
+    var nowTime = new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+    c.innerHTML =
+      '<div class="label">today</div>' +
+      '<div class="date">' + escHtml(prettyDate(todayISO())) + '</div>' +
+      '<div class="time">' + escHtml(nowTime) + '</div>' +
+      '<button type="button" class="loc" id="tsCentreLoc" title="Click to change location">' + escHtml(loc) + '</button>';
+    stage.appendChild(c);
   }
 
-  // -------- INTERACTION --------
-  function setActive(idx){
-    var nodes = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
-    activeIdx = Math.max(-1, Math.min(nodes.length - 1, idx));
-    nodes.forEach(function(el, i){ el.classList.toggle('is-active', i === activeIdx); });
-    if (activeIdx >= 0){
-      var el = nodes[activeIdx];
-      if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+  function renderNotable(today){
+    var ul = document.getElementById('tsNotable');
+    if (!ul) return;
+    if (!today){
+      ul.innerHTML = '';
+      var fb = document.getElementById('tsFallback');
+      if (fb) fb.hidden = false;
+      return;
     }
-  }
-  function close(){
-    box.hidden = true;
-    activeIdx = -1;
-    input.setAttribute('aria-expanded', 'false');
-  }
-  function submitWith(q){
-    pushRecent(q);
-    input.value = q;
-    if (form) form.submit();
-  }
-  function submitAnyway(){
-    var q = input.value.trim();
-    if (q) pushRecent(q);
-    if (form) form.submit();
+    var picks = ['sun','moon','jupiter','mars','venus','saturn'];
+    var html = '';
+    picks.forEach(function(p){
+      var P = PLANETS[p];
+      var entry = today[p];
+      if (!entry) return;
+      var flav = SIGN_FLAVOUR[entry.sign] || '';
+      html += '<li>' +
+                '<strong style="font-weight:500;font-style:italic;color:var(--saffron);">' + escHtml(P.name) + '</strong> ' +
+                '— ' + escHtml(P.sansk) + ' ' + escHtml(flav) + ' ' +
+                '<a href="' + escHtml(P.link) + '">read →</a>' +
+              '</li>';
+    });
+    ul.innerHTML = html;
   }
 
-  input.addEventListener('input', function(){ render(input.value.trim()); });
-  input.addEventListener('focus', function(){ render(input.value.trim()); });
-  input.addEventListener('keydown', function(e){
-    if (box.hidden) return;
-    if (e.key === 'ArrowDown'){ e.preventDefault(); setActive(activeIdx + 1); }
-    else if (e.key === 'ArrowUp'){ e.preventDefault(); setActive(activeIdx - 1); }
-    else if (e.key === 'Enter'){
-      var nodes = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
-      if (activeIdx >= 0 && nodes[activeIdx]){
-        e.preventDefault();
-        var qv = nodes[activeIdx].getAttribute('data-q');
-        if (qv) submitWith(qv);
-      }
-      // else — native form submit fires with current input.value, plus pushRecent below
-      else if (input.value.trim()){
-        pushRecent(input.value.trim());
-      }
-    } else if (e.key === 'Escape'){ close(); }
-    else if (e.key === 'Tab'){
-      var nodes2 = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
-      if (activeIdx >= 0 && nodes2[activeIdx]){
-        e.preventDefault();
-        var qv2 = nodes2[activeIdx].getAttribute('data-q');
-        if (qv2){ input.value = qv2; close(); }
+  function renderDateLabel(){ var el = document.getElementById('tsDateLabel'); if (el) el.textContent = prettyDate(todayISO()); }
+
+  function load(){
+    renderDateLabel();
+    var data = window.__todaySkyData;
+    if (!data || !data.days){
+      renderStage(null);
+      renderNotable(null);
+      return;
+    }
+    var today = data.days[todayISO()];
+    if (!today){
+      // fallback to yesterday
+      var d = new Date();
+      d.setDate(d.getDate() - 1);
+      var yISO = d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate());
+      today = data.days[yISO];
+      if (today){
+        var fb = document.getElementById('tsFallback');
+        if (fb) { fb.textContent = "Showing yesterday's sky — today's data hasn't refreshed yet."; fb.hidden = false; }
       }
     }
-  });
-  box.addEventListener('mousedown', function(e){
-    var item = e.target.closest('[data-q]');
-    if (item){
-      e.preventDefault();
-      submitWith(item.getAttribute('data-q'));
+    renderStage(today);
+    renderNotable(today);
+    if (!today){
+      var fb2 = document.getElementById('tsFallback'); if (fb2) fb2.hidden = false;
     }
-  });
+  }
+  if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', load); } else { load(); }
+
+  // v4.70.1 — Location popover (click the centre cell's location to change)
+  function openLocPop(){
+    var pop = document.getElementById('tsLocPopover');
+    var bd  = document.getElementById('tsLocBackdrop');
+    var inp = document.getElementById('tsLocInput');
+    if (!pop || !bd) return;
+    try { inp.value = localStorage.getItem('astro-mychart-loc-v1') || 'Auroville, Tamil Nadu, India'; } catch(e){ inp.value = 'Auroville, Tamil Nadu, India'; }
+    pop.hidden = false; bd.hidden = false;
+    setTimeout(function(){ inp.focus(); inp.select(); }, 50);
+  }
+  function closeLocPop(){
+    var pop = document.getElementById('tsLocPopover');
+    var bd  = document.getElementById('tsLocBackdrop');
+    if (pop) pop.hidden = true;
+    if (bd) bd.hidden = true;
+  }
+  function saveLoc(){
+    var inp = document.getElementById('tsLocInput');
+    var v = (inp.value || '').trim().slice(0, 60);
+    if (!v) v = 'Auroville, Tamil Nadu, India';
+    try { localStorage.setItem('astro-mychart-loc-v1', v); } catch(e){}
+    closeLocPop();
+    // Re-render the centre cell to show the new location
+    var data = window.__todaySkyData;
+    var today = data && data.days && data.days[todayISO()];
+    if (today) renderStage(today);
+  }
   document.addEventListener('click', function(e){
-    if (!box.contains(e.target) && e.target !== input){ close(); }
+    if (e.target && e.target.id === 'tsCentreLoc') { e.preventDefault(); openLocPop(); return; }
+    if (e.target && e.target.id === 'tsLocSave')   { saveLoc(); return; }
+    if (e.target && e.target.id === 'tsLocCancel') { closeLocPop(); return; }
+    if (e.target && e.target.id === 'tsLocBackdrop'){ closeLocPop(); return; }
   });
-})();
-
-</script>
-
-<script>
-/* TOUR — opt-in 4-step walk-through */
-(function(){
-  var STEPS = [
-    {
-      h: 'What should we call you?',
-      body: 'Just for the page — the name lives in your browser. Nothing leaves your device.',
-      slot: '<input class="tour-input" id="tourNameInput" type="text" maxlength="30" placeholder="e.g. Arpitha" autocomplete="given-name">',
-      onShow: function(){
-        var i = document.getElementById('tourNameInput');
-        if (i){
-          var existing = (window.__name && window.__name.get && window.__name.get()) || '';
-          i.value = existing;
-          setTimeout(function(){ i.focus(); }, 50);
-        }
-      },
-      onNext: function(){
-        var i = document.getElementById('tourNameInput');
-        if (i && window.__name) window.__name.set(i.value || '');
-      }
-    },
-    {
-      h: 'Look something up.',
-      body: 'The Companion is the dense reference. Tap any tile inside — a sign, a planet, a house, an avatar — and a drawer opens with the teaching from class.',
-      slot: '<p style="text-align:center;margin:8px 0 0;"><a href="learning-companion.html#signs" style="color:var(--saffron);">Open the Companion →</a></p>'
-    },
-    {
-      h: 'Read your own chart.',
-      body: 'Interpret · beta lets you pick your Lagna, place your planets, and walk through the South Indian chart of your life house by house.',
-      slot: '<p style="text-align:center;margin:8px 0 0;"><a href="interpret.html" style="color:var(--saffron);">Open Interpret →</a></p>'
-    },
-    {
-      h: 'Sit with one prompt.',
-      body: 'Reflect has eleven prompts per avatar, drawn from the cohort\'s Companion Workbook. Pick one — your notes save only in your browser.',
-      slot: '<p style="text-align:center;margin:8px 0 0;"><a href="reflect.html" style="color:var(--saffron);">Open Reflect →</a></p>'
-    }
-  ];
-  var idx = 0;
-  var modal = document.getElementById('tourModal');
-  var backdrop = document.getElementById('tourBackdrop');
-  var elH = document.getElementById('tourH');
-  var elBody = document.getElementById('tourBody');
-  var elSlot = document.getElementById('tourSlot');
-  var elNum = document.getElementById('tourStepNum');
-  var elProg = document.getElementById('tourProgress');
-  var btnBack = document.getElementById('tourBack');
-  var btnNext = document.getElementById('tourNext');
-  var btnSkip = document.getElementById('tourSkip');
-  var btnTrigger = document.getElementById('tourTrigger');
-
-  function paint(){
-    var s = STEPS[idx];
-    elH.textContent = s.h;
-    elBody.textContent = s.body;
-    elSlot.innerHTML = s.slot || '';
-    elNum.textContent = 'step ' + (idx+1) + ' of ' + STEPS.length;
-    btnBack.hidden = idx === 0;
-    btnNext.textContent = idx === STEPS.length-1 ? 'Done ✓' : 'Next →';
-    elProg.innerHTML = STEPS.map(function(_,i){
-      return '<span class="tour-dot' + (i <= idx ? ' is-on' : '') + '"></span>';
-    }).join('');
-    if (typeof s.onShow === 'function') setTimeout(s.onShow, 30);
-  }
-  function open(){
-    idx = 0; paint();
-    modal.classList.add('is-open');
-    backdrop.classList.add('is-open');
-    try { localStorage.setItem('astro-tour-seen-v1', '1'); } catch(e){}
-  }
-  function close(){
-    var s = STEPS[idx];
-    if (typeof s.onNext === 'function') s.onNext();
-    modal.classList.remove('is-open');
-    backdrop.classList.remove('is-open');
-  }
-  btnTrigger && btnTrigger.addEventListener('click', open);
-  btnBack && btnBack.addEventListener('click', function(){
-    var s = STEPS[idx];
-    if (typeof s.onNext === 'function') s.onNext();
-    if (idx > 0){ idx--; paint(); }
-  });
-  btnNext && btnNext.addEventListener('click', function(){
-    var s = STEPS[idx];
-    if (typeof s.onNext === 'function') s.onNext();
-    if (idx < STEPS.length-1){ idx++; paint(); }
-    else close();
-  });
-  btnSkip && btnSkip.addEventListener('click', close);
-  backdrop && backdrop.addEventListener('click', close);
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    if (e.key === 'Escape') {
+      var pop = document.getElementById('tsLocPopover');
+      if (pop && !pop.hidden) closeLocPop();
+    }
+    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'tsLocInput'){
+      e.preventDefault(); saveLoc();
+    }
   });
 })();
 </script>
 
+<!-- ====================== DAILY GEM ====================== -->
 <script>
-/* More menu + theme toggle */
+/* v4.70.1 — Daily Gem on home. Curated pool drawn from Vikram's class quotes
+   and key teachings. Auto-rotates every visit (per user pick #6). */
+(function(){
+  var GEMS = [
+    { text: "Notice how the life form is evolving with each avatar. From the fish came the turtle, and then came the boar — life is gradually moving on to land.", attr: "Vikram, Session 32 · Avatars & my story", link: "learning-companion.html#avatars" },
+    { text: "Even debilitation, you can explain it with the story. Saturn, the servant, is on his knees in front of the commander of the army. Make the story yours.", attr: "Vikram, Session 23 · Planetary Cabinet", link: "learning-companion.html#cabinet" },
+    { text: "We have the geocentric view. The earth is tilted, the equator is going to be tilted. This is a projection — the celestial equator.", attr: "Vikram, Session 18 · Stellarium", link: "astronomy.html#geocentric" },
+    { text: "At the equator, the Medium Coeli and the Zenith are the same. But if I go north — or south — it moves away from the zenith. That's what brings us to Sripathi Paddhathi.", attr: "Vikram, Session 37 · Sripathi Paddhathi", link: "sripati.html" },
+    { text: "The impulse to breathe is Brahma — Cardinal. Sustaining the breath is Vishnu — Fixed. The reversal is Shiva — Mutable.", attr: "Vikram, Session 9 · Modalities through the breath", link: "learning-companion.html#qualities" },
+    { text: "Did anyone hold back earlier, before spending later? Jupiter is the grace of the gods. The benefactor.", attr: "Vikram, Session 39 · The auction game", link: "jupiter-tracker.html" },
+    { text: "Ascendant means something that has risen. Which are the stars rising in the east at that moment?", attr: "Vikram, Session 30 · Astronomy of Houses", link: "astronomy.html" },
+    { text: "These planets are facets of us. Not something out there.", attr: "Vikram, Session 39 · Jupiter", link: "jupiter-tracker.html" },
+    { text: "I don't know — we need to sit with this. Keep a journal of learnings, and you will continue to apply this on your own chart.", attr: "Vikram, Session 25 · Apparent Motions", link: "learning-companion.html#practice" },
+    { text: "The moment you say Aries is rising, you are referring to the chart of Kāla Puruṣa. Kāla is time, Puruṣa is person.", attr: "Vikram, Session 35 · Kāla Puruṣa", link: "kaalapurusha.html" },
+    { text: "When two planets exchange signs — Venus in Jupiter's sign, Jupiter in Venus's — there's no final dispositor. We say it's a Parivartana yoga.", attr: "Vikram, Session 24 · Yogas", link: "learning-companion.html#yogas" },
+    { text: "These aims of life are not hierarchical. There are distinct aims, all at the same footing — dharma, artha, kama, moksha.", attr: "Vikram, Session 33 · Purushārthas", link: "learning-companion.html#purusharthas" },
+    { text: "There is a huge flood coming in seven days. The fish tells him: tie your boat to my horn.", attr: "Vikram, Session 4 · Matsya Avatar", link: "reflect.html#matsya" },
+    { text: "We allow the higher to speak through anything. A fish, a crab, anything. Our only task is to listen.", attr: "Vikram, on Matsya · Workbook", link: "reflect.html#matsya" },
+    { text: "Look at the story I shared — the planetary cabinet. Remember the story, and look at where a planet exalts. Tell me what you notice.", attr: "Vikram, Session 23 · Cabinet", link: "learning-companion.html#cabinet" },
+    { text: "What we do is something called signature. We take the predominant element and the predominant modality of the grahas — not the ascendant.", attr: "Vikram, Session 16 · Signature", link: "learning-companion.html#signature" },
+    { text: "Beyond logic, not illogical. When one goes beyond logic, transformation becomes possible.", attr: "Vikram, on Matsya", link: "reflect.html#matsya" },
+    { text: "Mars has the 4th and 8th aspect. Jupiter has the 5th and 9th. Saturn has the 3rd and 10th.", attr: "Vikram, Session 24 · Aspects", link: "learning-companion.html#aspects" },
+    { text: "Build a real, embodied connection with each graha. This lays the foundation for understanding transits — mentally, spatially, energetically.", attr: "Vikram, on the Stellarium lab", link: "astronomy.html#stellarium" },
+    { text: "Many times when we study transits, what is transiting the 5th and the 9th — it is as though it is transiting the ascendant itself. 1, 5 and 9 — very important houses.", attr: "Vikram, Session 37 · Trikoṇas", link: "learning-companion.html#categories" },
+  ];
+
+  function pickGem(){
+    return GEMS[Math.floor(Math.random() * GEMS.length)];
+  }
+  function setGem(g){
+    document.getElementById('gemText').textContent = '"' + g.text + '"';
+    document.getElementById('gemAttr').textContent = '— ' + g.attr;
+    var open = document.getElementById('gemOpen');
+    open.href = g.link || 'learning-companion.html';
+  }
+  // Initial pick — every visit (per pick #6)
+  setGem(pickGem());
+  document.getElementById('gemNext').addEventListener('click', function(){
+    setGem(pickGem());
+  });
+})();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  var PAGE_VERSION = '4.70.1';
+  var lastChecked = 0;
+  function showVersionToast(msg) {
+    var t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg; t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
+  }
+  function check(silent) {
+    var now = Date.now();
+    if (silent && now - lastChecked < 30000) return;
+    lastChecked = now;
+    fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data) return;
+        if (data.version !== PAGE_VERSION) showVersionToast('A newer version is available — reload to update.');
+        else if (!silent) showVersionToast("You're on the latest (v" + PAGE_VERSION + ')');
+      }).catch(function(){});
+  }
+  window.__checkForUpdates = function(){ check(false); };
+  check(true);
+  window.addEventListener('focus', function(){ check(true); });
+})();
+</script>
+
+<!-- ====================== WHATSAPP FAB ====================== -->
+<script>
+(function() {
+  var WA_PHONE = '919880337337';
+  document.getElementById('waFabGlobal').addEventListener('click', function() {
+    var text = 'Hi Sree, sharing feedback on Astrology 101 Companion App (v4.70.1 · page: Home):\n\n';
+    window.open('https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  });
+})();
+</script>
+
+<!-- ====================== MORE MENU + THEME TOGGLE ====================== -->
+<script>
 (function(){
   var KEY='astro-mychart-theme-v1';
   var btn=document.getElementById('moreMenuBtn');
@@ -1435,47 +906,26 @@
   if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
   document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
-  if(tBtn){
-    tBtn.addEventListener('click',function(e){
-      e.stopPropagation();
-      var next=tCurrent()==='legacy'?'atv':'legacy';
-      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
-      try{localStorage.setItem(KEY,next);}catch(e){}
-      tPaint();
-    });
-  }
+  if(tBtn){tBtn.addEventListener('click',function(e){e.stopPropagation();var next=tCurrent()==='legacy'?'atv':'legacy';document.documentElement.classList.toggle('theme-legacy', next==='legacy');try{localStorage.setItem(KEY,next);}catch(e){}tPaint();});}
   tPaint();
 })();
 </script>
 
+<!-- ====================== PERSONALISATION ====================== -->
 <script>
-/* Personalisation */
 (function(){
   var KEY_NAME='astro-mychart-name-v1';
   var KEY_PROMPTED='astro-mychart-name-prompted-v1';
   var MAX=30;
   function getName(){ try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';} }
-  function setName(s){
-    var v=(s||'').trim().slice(0,MAX);
-    try{
-      if(v) localStorage.setItem(KEY_NAME,v); else localStorage.removeItem(KEY_NAME);
-      localStorage.setItem(KEY_PROMPTED,'1');
-    }catch(e){}
-    applyAll();
-  }
-  function clearName(){
-    try{localStorage.removeItem(KEY_NAME);localStorage.setItem(KEY_PROMPTED,'1');}catch(e){}
-    applyAll();
-  }
+  function setName(s){ var v=(s||'').trim().slice(0,MAX); try{ if(v) localStorage.setItem(KEY_NAME,v); else localStorage.removeItem(KEY_NAME); localStorage.setItem(KEY_PROMPTED,'1'); }catch(e){} applyAll(); }
+  function clearName(){ try{localStorage.removeItem(KEY_NAME);localStorage.setItem(KEY_PROMPTED,'1');}catch(e){} applyAll(); }
   function applyAll(){
     var name=getName();
     document.querySelectorAll('[data-name-template]').forEach(function(el){
       var tpl=el.getAttribute('data-name-template');
       if(name){ el.textContent=tpl.replace(/\{name\}/g, name); el.hidden=false; }
-      else {
-        var fb=el.getAttribute('data-name-fallback');
-        if(fb){ el.textContent=fb; el.hidden=false; } else { el.textContent=''; el.hidden=true; }
-      }
+      else { var fb=el.getAttribute('data-name-fallback'); if(fb){el.textContent=fb;el.hidden=false;} else {el.textContent='';el.hidden=true;} }
     });
     var mv=document.getElementById('namePopoverValue');
     if(mv) mv.textContent=name||'Add';
@@ -1489,11 +939,7 @@
     pop.hidden=false; bd.hidden=false;
     setTimeout(function(){if(input)input.focus();},50);
   }
-  function closePopover(){
-    var pop=document.getElementById('namePopover');
-    var bd=document.getElementById('namePopoverBackdrop');
-    if(pop)pop.hidden=true; if(bd)bd.hidden=true;
-  }
+  function closePopover(){ var pop=document.getElementById('namePopover'); var bd=document.getElementById('namePopoverBackdrop'); if(pop)pop.hidden=true; if(bd)bd.hidden=true; }
   document.addEventListener('click',function(e){
     var trigger=e.target.closest('#namePopoverTrigger');
     if(trigger){e.stopPropagation();openPopover();return;}
@@ -1509,55 +955,6 @@
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopover();});
   window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
   applyAll();
-})();
-</script>
-
-<!-- WhatsApp FAB wiring -->
-<script>
-(function() {
-  var WA_PHONE = '919880337337';
-  document.getElementById('waFabGlobal').addEventListener('click', function() {
-    var text = 'Hi Sree, sharing feedback on Astrology 101 Companion App (v4.69.1 · page: Home):\n\n';
-    window.open('https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
-  });
-})();
-</script>
-
-<!-- Update checker -->
-<script>
-(function() {
-  var PAGE_VERSION = '4.69.1';
-  var FOCUS_THROTTLE_MS = 30000;
-  var lastChecked = 0;
-  function showVersionToast(msg) {
-    var t = document.getElementById('versionToast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.style.opacity = '1';
-    clearTimeout(t._timer);
-    t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
-  }
-  function check(silent) {
-    var now = Date.now();
-    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
-    lastChecked = now;
-    fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(data){
-        if (!data) return;
-        if (data.version !== PAGE_VERSION) showVersionToast('A newer version is available — reload to update.');
-        else if (!silent) showVersionToast("You're on the latest (v" + PAGE_VERSION + ')');
-      }).catch(function(){});
-  }
-  window.__checkForUpdates = function(){ check(false); };
-  check(true);
-  window.addEventListener('focus', function(){ check(true); });
-  document.addEventListener('visibilitychange', function(){ if (!document.hidden) check(true); });
 })();
 </script>
 

@@ -481,7 +481,7 @@
     --display: 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Spectral', Georgia, serif;
   }
-  /* v4.69.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.70.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
 
@@ -691,7 +691,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.69.1</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.70.1</div>
     <h1><em>Ether</em> — the fifth element</h1>
     <p class="lede">Notes from the Astrology 101 retreat · Sriperumbudur · March 2026.</p>
     <div class="ornament" aria-hidden="true">
@@ -928,7 +928,7 @@
     </div>
     <p>← <a href="index.html">Back to home</a> · <a href="learning-companion.html">Learning Companion</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.69.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.70.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -942,7 +942,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.69.1';
+  const PAGE_VERSION = '4.70.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1039,7 +1039,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.69.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.70.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
@@ -1308,6 +1308,81 @@
   }
   window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
   applyAll();
+})();
+</script>
+
+
+<!-- v4.70.1 — site-wide copy-anchor module -->
+<!-- v4.70.1 — Site-wide copy-anchor module. Drops a "§ link" pill next to
+     every <h2> inside <section id="…"> on the page. Click → copies
+     canonical URL with anchor to clipboard. Standalone, self-contained. -->
+<style>
+  .copy-anchor {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 9px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: transparent;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--muted);
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity .15s, color .15s, border-color .15s, background .15s;
+    user-select: none;
+  }
+  h2:hover .copy-anchor,
+  .copy-anchor:focus,
+  .copy-anchor.is-copied { opacity: 1; }
+  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(188,129,70,.05); }
+  .copy-anchor.is-copied { color: var(--surface); background: var(--saffron); border-color: var(--saffron); }
+  @media (hover: none) { .copy-anchor { opacity: .55; } }
+</style>
+<script>
+(function(){
+  function buildToast(){
+    var existing = document.getElementById('anchorToast');
+    if (existing) return existing;
+    var t = document.createElement('div');
+    t.id = 'anchorToast';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    document.body.appendChild(t);
+    return t;
+  }
+  function flash(msg){ var t = buildToast(); t.textContent = msg; t.style.opacity = '1'; clearTimeout(t._timer); t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 1700); }
+  function copyText(text, btn){
+    function done(){ flash('Link copied — ready to paste & share'); if (btn){ btn.classList.add('is-copied'); var orig = btn.textContent; btn.textContent = '✓ copied'; clearTimeout(btn._t); btn._t = setTimeout(function(){ btn.classList.remove('is-copied'); btn.textContent = orig; }, 1700); } }
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, function(){ fallback(text); done(); }); } else { fallback(text); done(); }
+  }
+  function fallback(text){ var ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+  function attach(){
+    document.querySelectorAll('section[id]').forEach(function(sec){
+      if (sec.querySelector(':scope > h2 .copy-anchor, :scope h2 .copy-anchor')) return;
+      var h2 = sec.querySelector(':scope > h2') || sec.querySelector('h2');
+      if (!h2) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-anchor';
+      btn.textContent = '§ link';
+      btn.setAttribute('aria-label', 'Copy link to this section');
+      btn.title = 'Copy link to this section';
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var url = location.origin + location.pathname + '#' + sec.id;
+        copyText(url, btn);
+        try { history.replaceState(null, '', '#' + sec.id); } catch(err){}
+      });
+      h2.appendChild(document.createTextNode(' '));
+      h2.appendChild(btn);
+    });
+  }
+  if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', attach); }
+  else { attach(); }
 })();
 </script>
 
