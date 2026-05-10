@@ -519,7 +519,7 @@
     --display: 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Spectral', Georgia, serif;
   }
-  /* v4.68.0 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.68.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
 
@@ -740,10 +740,42 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.68.1 ====================== -->
+  <section class="release" data-credits="Sree (asked for typeahead + better empty-state on search)">
+    <header>
+      <h2>v4.68.1 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Two upgrades to the home search. <strong>Typeahead suggestions</strong> as you type — a curated dropdown of ~85 keywords (signs, planets, houses, avatars, concepts, app pages) with category labels. Plus a richer <strong>empty-state</strong>: when nothing matches, learners can search anyway, jump into the Companion to explore, or send Sree a WhatsApp with their query pre-filled.</p>
+
+    <h3>Typeahead on home</h3>
+    <ul>
+      <li><strong>~85 curated keywords</strong> spanning the six big categories: <em>sign</em> (12 + Sanskrit), <em>planet</em> (9 + Sanskrit), <em>house</em> (12 with Sanskrit + nicknames like "Lagna" or "M.C."), <em>avatar</em> (10), <em>concept</em> (Signature, Cabinet, Drishti, Parivartana, Retrograde, Ayanamsha, Sripati, Bhāva Chalit, Mūlatrikoṇa, Kendra, Trikoṇa, Purushārtha, Mahāśakti, Nakshatra, Nirvāṇa Shatakam, …), and <em>page</em> (Reflect, Interpret, Where am I, Catch up, etc.). Easy to extend — the array sits at the top of the typeahead script in <code>index.html</code>.</li>
+      <li><strong>Fuzzy match</strong> — exact match wins, prefix beats substring, name beats alt-spelling. So <em>"matsya"</em> exact-matches Matsya, <em>"mat"</em> prefixes it, <em>"fish"</em> substrings via the alt list. Sanskrit and English variants are treated as alts of each other (typing "Mesha" finds Aries; typing "Surya" finds Sun).</li>
+      <li><strong>Keyboard nav</strong> — ↑↓ to move, Enter to submit selection, Tab to fill the input, Escape to close. Click works the same on mobile.</li>
+      <li><strong>Category labels</strong> on the right of every suggestion (sign / planet / house / avatar / concept / page) so the learner can see <em>where</em> the result lives before clicking.</li>
+      <li><strong>Highlighted match</strong> — the typed substring is shown in italic saffron inside each suggestion, so the matching letters jump out.</li>
+    </ul>
+
+    <h3>Empty-state — when nothing matches</h3>
+    <p>If the typed query matches none of the 85 keywords, the dropdown shows a small panel with three CTAs:</p>
+    <ul>
+      <li><strong>Search anyway →</strong> submits the query as-is to the Learning Companion (in case it matches deeper content the typeahead doesn't index — the LC search engine covers a lot more ground).</li>
+      <li><strong>Open Learning Companion →</strong> for the explorer who'd rather browse than search.</li>
+      <li><strong>Tell Sree what you wanted →</strong> opens WhatsApp with the message pre-filled: <em>"Hi Sree, I searched the Astrology 101 Companion App for &quot;[query]&quot; but didn't find what I was looking for. Could you help?"</em> Lowest-friction feedback channel — closes the gap between confused-learner and Sree-can-fix-it.</li>
+    </ul>
+
+    <h3>Same empty-state inside the Learning Companion</h3>
+    <p>The full LC search engine (the modal that opens when you click the search pill or land via <code>?q=</code>) also got the upgrade — when its index returns nothing, the same three CTAs show up: <em>Open Learning Companion · Tell Sree what you wanted</em>. Both empty-states use the same WhatsApp number and the same pre-filled-message pattern.</p>
+
+    <h3>Keyword set is a starting point</h3>
+    <p>~85 entries is curated, not exhaustive. As learners surface searches that fall through to the empty state (and feedback comes in via the WhatsApp link), the inventory will grow. The data structure (an array of <code>{q, cat, alt}</code> objects) is intentionally simple so adding new entries is a one-line edit.</p>
+  </section>
+
   <!-- ====================== v4.68.0 ====================== -->
   <section class="release" data-credits="Anil (the demo-with-Sree-as-guide that exposed the discovery gap) · Sarika (asked for a way to share Reference + All as a link) · Vikram (will share to the seniors group)">
     <header>
-      <h2>v4.68.0 <em>· current</em></h2>
+      <h2>v4.68.0</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Bundle of onboarding upgrades after Anil's demo. A new <a href="catch-up.html">Catch up page</a> for missed classes (Vikram's #1 ask from the seniors group). A shareable <em>?role=senior</em> URL flag that auto-flips Learning Companion to Reference + All (Sarika ask). A dark-mode audit so iOS Safari stops bleeding system dark through the cream theme. Plus a Loom-intro placeholder on home, ready for Sree to record into.</p>
@@ -808,7 +840,7 @@
     <p>Three principles guided the rebuild: give value in under sixty seconds before asking the visitor to make choices; one primary action on the landing page, not nine; depth available, not advertised. Net effect: the home went from ~24 visible routes to roughly 9 (search + 6 chips + 3 rooms), with everything else one click away in More.</p>
 
     <h3>Regression</h3>
-    <p>Verified across all 14 active pages: every page eyebrow + footer reads <code>v4.68.0</code>, every <code>PAGE_VERSION</code> constant is on <code>'4.68.0'</code>, every More menu has both Interpret · beta and About entries, and every internal <code>href="read.html"</code> has been swapped to <code>interpret.html</code>. The redirect file at <code>read.html</code> handles any cached or external links to the old URL.</p>
+    <p>Verified across all 14 active pages: every page eyebrow + footer reads <code>v4.68.1</code>, every <code>PAGE_VERSION</code> constant is on <code>'4.68.1'</code>, every More menu has both Interpret · beta and About entries, and every internal <code>href="read.html"</code> has been swapped to <code>interpret.html</code>. The redirect file at <code>read.html</code> handles any cached or external links to the old URL.</p>
   </section>
 
   <!-- ====================== v4.65.1 ====================== -->
@@ -4449,7 +4481,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.68.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.68.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4672,7 +4704,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.68.0';
+  const PAGE_VERSION = '4.68.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4786,7 +4818,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

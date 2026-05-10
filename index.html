@@ -41,7 +41,7 @@
     --display:'Cormorant Garamond','Times New Roman',serif;
     --body:'Spectral',Georgia,serif;
   }
-  /* v4.68.0 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.68.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -152,7 +152,99 @@
   .hero-sub-name[hidden] { display: none; }
 
   /* ---------- HERO SEARCH ---------- */
-  .hero-search-wrap { margin: 32px 0 14px; }
+  .hero-search-wrap { margin: 32px 0 14px; position: relative; }
+
+  /* ---------- HERO SUGGEST DROPDOWN (v4.68.1) ---------- */
+  .hero-suggest {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0; right: 0;
+    z-index: 50;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    box-shadow: var(--shadow-md);
+    padding: 6px 0;
+    max-height: min(60vh, 420px);
+    overflow-y: auto;
+  }
+  .hero-suggest[hidden] { display: none; }
+  .hero-suggest-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 18px;
+    cursor: pointer;
+    transition: background .12s;
+  }
+  .hero-suggest-item.is-active,
+  .hero-suggest-item:hover {
+    background: var(--bg-deep);
+  }
+  .hero-suggest-name {
+    flex: 1; min-width: 0;
+    font-family: var(--display);
+    font-size: 15.5px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .hero-suggest-name em {
+    font-style: italic;
+    color: var(--saffron);
+    font-weight: 500;
+  }
+  .hero-suggest-cat {
+    flex-shrink: 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-suggest-empty {
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .hero-suggest-empty p {
+    margin: 0 0 8px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .hero-suggest-empty p:last-child { margin-bottom: 0; }
+  .hero-suggest-empty .empty-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .hero-suggest-empty a {
+    display: inline-block;
+    padding: 5px 12px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .hero-suggest-empty a:hover {
+    border-color: var(--saffron);
+    color: var(--saffron);
+    background: rgba(188,129,70,.05);
+  }
+  @media (max-width: 480px) {
+    .hero-suggest { max-height: min(55vh, 360px); border-radius: 10px; }
+    .hero-suggest-item { padding: 8px 14px; gap: 8px; }
+    .hero-suggest-name { font-size: 15px; }
+    .hero-suggest-cat { font-size: 10.5px; }
+  }
   .hero-search {
     display: flex; align-items: center;
     gap: 8px; padding: 12px 18px;
@@ -287,7 +379,7 @@
     vertical-align: middle;
   }
 
-  /* ---------- CATCH-UP STRIP (v4.68.0) ---------- */
+  /* ---------- CATCH-UP STRIP (v4.68.1) ---------- */
   .catchup-strip {
     display: flex;
     align-items: center;
@@ -336,7 +428,7 @@
     .catchup-arrow { display: none; }
   }
 
-  /* ---------- LOOM INTRO PLACEHOLDER (v4.68.0) ---------- */
+  /* ---------- LOOM INTRO PLACEHOLDER (v4.68.1) ---------- */
   .intro-loom {
     margin: 22px 0 0;
     padding: 22px 24px;
@@ -652,7 +744,7 @@
 
   <!-- ====================== HERO ====================== -->
   <header class="hero">
-    <div class="hero-eyebrow">all things vedic · the companion app · v4.68.0</div>
+    <div class="hero-eyebrow">all things vedic · the companion app · v4.68.1</div>
     <h1>Astrology <em>101</em></h1>
     <p class="hero-sub">A companion to Vikram Devatha's class at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a> — built alongside the cohort, in service to anyone walking the same path.</p>
     <p class="hero-sub-name"
@@ -663,7 +755,7 @@
 
   <!-- ====================== SEARCH ====================== -->
   <div class="hero-search-wrap">
-    <form class="hero-search" role="search" aria-label="Search the companion app" action="learning-companion.html" method="get">
+    <form class="hero-search" role="search" aria-label="Search the companion app" action="learning-companion.html" method="get" autocomplete="off" id="heroSearchForm">
       <span class="hero-search-icon" aria-hidden="true">⌕</span>
       <input class="hero-search-input"
              type="search"
@@ -671,9 +763,14 @@
              id="heroSearchInput"
              placeholder="Search — try a sign, planet, house, avatar…"
              aria-label="Search query"
-             autocomplete="off">
+             autocomplete="off"
+             role="combobox"
+             aria-autocomplete="list"
+             aria-controls="heroSearchSuggest"
+             aria-expanded="false">
       <button class="hero-search-submit" type="submit">Search →</button>
     </form>
+    <div class="hero-suggest" id="heroSearchSuggest" role="listbox" aria-label="Search suggestions" hidden></div>
   </div>
 
   <!-- starter chips -->
@@ -710,14 +807,14 @@
     </a>
   </div>
 
-  <!-- ====================== CATCH-UP STRIP (v4.68.0) ====================== -->
+  <!-- ====================== CATCH-UP STRIP (v4.68.1) ====================== -->
   <a class="catchup-strip" href="catch-up.html" aria-label="Catch up — find a class you missed">
     <span class="catchup-eyebrow">Missed a class?</span>
     <span class="catchup-body">Find the session and catch up — one paragraph per class, with the right page to go deeper.</span>
     <span class="catchup-arrow" aria-hidden="true">→</span>
   </a>
 
-  <!-- ====================== LOOM INTRO (v4.68.0 placeholder) ====================== -->
+  <!-- ====================== LOOM INTRO (v4.68.1 placeholder) ====================== -->
   <section class="intro-loom" aria-label="A 60-second introduction">
     <div class="intro-loom-eyebrow">A 60-second introduction</div>
     <div class="intro-loom-body">
@@ -738,7 +835,7 @@
     </div>
     <p>Wondering where this came from? <a href="about.html">How this came to be →</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.68.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.68.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="release-notes.html">Release notes</a>
       &nbsp;·&nbsp;
@@ -803,6 +900,271 @@
       if (el) setTimeout(function(){ el.focus({preventScroll:true}); }, 80);
     }
   } catch(e){}
+})();
+</script>
+
+<script>
+/* v4.68.1 — Hero search typeahead. Custom dropdown with category labels.
+   Why custom rather than <datalist>: we need (a) consistent styling across
+   browsers, (b) category labels (sign / planet / house / avatar / concept),
+   (c) helpful empty state with feedback CTA.
+   Curated keyword set ~85 entries — covers signs/planets/houses/avatars/
+   key concepts taught in 101. Easy to extend. */
+(function(){
+  // --- Curated keyword inventory ---
+  // {q: query string submitted, label: display string, cat: category, alt?: alt match strings}
+  var KW = [
+    // 12 signs (English + Sanskrit)
+    {q:'Aries',       cat:'sign', alt:['Mesha']},
+    {q:'Taurus',      cat:'sign', alt:['Vrishabha']},
+    {q:'Gemini',      cat:'sign', alt:['Mithuna']},
+    {q:'Cancer',      cat:'sign', alt:['Karkata']},
+    {q:'Leo',         cat:'sign', alt:['Simha']},
+    {q:'Virgo',       cat:'sign', alt:['Kanya']},
+    {q:'Libra',       cat:'sign', alt:['Tula']},
+    {q:'Scorpio',     cat:'sign', alt:['Vrishchika']},
+    {q:'Sagittarius', cat:'sign', alt:['Dhanu']},
+    {q:'Capricorn',   cat:'sign', alt:['Makara']},
+    {q:'Aquarius',    cat:'sign', alt:['Kumbha']},
+    {q:'Pisces',      cat:'sign', alt:['Meena']},
+    // 9 planets (English; sanskrit as alt)
+    {q:'Sun',     cat:'planet', alt:['Surya','Sūrya']},
+    {q:'Moon',    cat:'planet', alt:['Chandra']},
+    {q:'Mars',    cat:'planet', alt:['Mangala']},
+    {q:'Mercury', cat:'planet', alt:['Budha']},
+    {q:'Jupiter', cat:'planet', alt:['Guru','Brihaspati']},
+    {q:'Venus',   cat:'planet', alt:['Shukra','Śukra']},
+    {q:'Saturn',  cat:'planet', alt:['Shani']},
+    {q:'Rahu',    cat:'planet', alt:['north node']},
+    {q:'Ketu',    cat:'planet', alt:['south node']},
+    // 12 houses
+    {q:'1st house', cat:'house', alt:['first house','Lagna','Tanu Bhava']},
+    {q:'2nd house', cat:'house', alt:['second house','Dhana']},
+    {q:'3rd house', cat:'house', alt:['third house','Sahaja']},
+    {q:'4th house', cat:'house', alt:['fourth house','Sukha','I.C.']},
+    {q:'5th house', cat:'house', alt:['fifth house','Putra']},
+    {q:'6th house', cat:'house', alt:['sixth house','Ari']},
+    {q:'7th house', cat:'house', alt:['seventh house','Yuvati','Descendant']},
+    {q:'8th house', cat:'house', alt:['eighth house','Randhra']},
+    {q:'9th house', cat:'house', alt:['ninth house','Dharma']},
+    {q:'10th house', cat:'house', alt:['tenth house','Karma','M.C.','Medium Coeli']},
+    {q:'11th house', cat:'house', alt:['eleventh house','Labha']},
+    {q:'12th house', cat:'house', alt:['twelfth house','Vyaya','Moksha']},
+    // 10 avatars
+    {q:'Matsya',      cat:'avatar', alt:['fish']},
+    {q:'Kūrma',       cat:'avatar', alt:['Kurma','tortoise']},
+    {q:'Varāha',      cat:'avatar', alt:['Varaha','boar']},
+    {q:'Narasiṃha',   cat:'avatar', alt:['Narasimha','man-lion']},
+    {q:'Vāmana',      cat:'avatar', alt:['Vamana','dwarf']},
+    {q:'Paraśurāma',  cat:'avatar', alt:['Parashurama','warrior priest']},
+    {q:'Rāma',        cat:'avatar', alt:['Rama','king']},
+    {q:'Kṛṣṇa',       cat:'avatar', alt:['Krishna','cowherd']},
+    {q:'Buddha',      cat:'avatar', alt:['awakened']},
+    {q:'Kalki',       cat:'avatar', alt:['future avatar']},
+    // 4 elements
+    {q:'Fire',  cat:'element', alt:['Mahakali']},
+    {q:'Earth', cat:'element', alt:['Mahasaraswati']},
+    {q:'Air',   cat:'element', alt:['Maheshwari']},
+    {q:'Water', cat:'element', alt:['Mahalakshmi']},
+    // Modes & duality
+    {q:'Cardinal', cat:'mode',    alt:['Brahma','impulse']},
+    {q:'Fixed',    cat:'mode',    alt:['Vishnu','sustaining']},
+    {q:'Mutable',  cat:'mode',    alt:['Shiva','reversal']},
+    {q:'Yang',     cat:'duality', alt:['Nara','masculine']},
+    {q:'Yin',      cat:'duality', alt:['Stri','feminine']},
+    // Key concepts
+    {q:'Signature',           cat:'concept', alt:['signature procedure']},
+    {q:'Cabinet',             cat:'concept', alt:['Planetary Cabinet','court']},
+    {q:'Aspects',             cat:'concept', alt:['Drishti']},
+    {q:'Yogas',               cat:'concept', alt:['combinations']},
+    {q:'Parivartana',         cat:'concept', alt:['exchange of lords']},
+    {q:'Retrograde',          cat:'concept', alt:['Vakri','apparent motion']},
+    {q:'Ayanamsha',           cat:'concept', alt:['precession']},
+    {q:'Ecliptic',            cat:'concept', alt:[]},
+    {q:'Nakshatra',           cat:'concept', alt:['nakshatras','27 stars','lunar mansions']},
+    {q:'Kāla Puruṣa',         cat:'concept', alt:['Kalapurusha','cosmic body']},
+    {q:'Sripati Paddhati',    cat:'concept', alt:['Sripati','sripathi']},
+    {q:'Bhāva Chalit',        cat:'concept', alt:['Bhava Chalit','house chart']},
+    {q:'Whole Sign',          cat:'concept', alt:['rāśi chart','rasi chart','D-1']},
+    {q:'Equal House',         cat:'concept', alt:[]},
+    {q:'Lagna',               cat:'concept', alt:['Ascendant','rising sign']},
+    {q:'Mūlatrikoṇa',         cat:'concept', alt:['Mulatrikona']},
+    {q:'Exaltation',          cat:'concept', alt:['Uccha']},
+    {q:'Debilitation',        cat:'concept', alt:['Neecha']},
+    {q:'Kendra',              cat:'concept', alt:['angular','1 4 7 10']},
+    {q:'Trikoṇa',             cat:'concept', alt:['Trikona','trine','1 5 9']},
+    {q:'Purushārtha',         cat:'concept', alt:['Purushartha','aims of life']},
+    {q:'Dharma',              cat:'concept', alt:[]},
+    {q:'Artha',               cat:'concept', alt:[]},
+    {q:'Kāma',                cat:'concept', alt:['Kama']},
+    {q:'Mokṣa',               cat:'concept', alt:['Moksha']},
+    {q:'Mahāśakti',           cat:'concept', alt:['Mahashakti','great mother']},
+    {q:'Geocentric view',     cat:'concept', alt:['observer','sky from earth']},
+    {q:'Stellarium',          cat:'concept', alt:['planetarium','sky software']},
+    {q:'Nirvāṇa Shatakam',    cat:'concept', alt:['Nirvana Shatakam','Atma Shatakam']},
+    // App pages
+    {q:'Reflect',          cat:'page', alt:['workbook prompt','reflection']},
+    {q:'Interpret',        cat:'page', alt:['Interpret your chart','read chart']},
+    {q:'Where am I',       cat:'page', alt:['self assessment','aware familiar confident']},
+    {q:'Catch up',         cat:'page', alt:['missed a class','sessions list']},
+    {q:'Mercury Spectrum', cat:'page', alt:[]},
+    {q:'Astronomy',        cat:'page', alt:['astronomy under astrology']}
+  ];
+
+  var input = document.getElementById('heroSearchInput');
+  var form = document.getElementById('heroSearchForm');
+  var box = document.getElementById('heroSearchSuggest');
+  if (!input || !box) return;
+
+  var activeIdx = -1;
+  var lastResults = [];
+  var WA_PHONE = '919880337337';
+
+  function escHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; });
+  }
+  function highlight(text, q){
+    var t = escHtml(text);
+    if (!q) return t;
+    var qLower = q.toLowerCase();
+    var i = text.toLowerCase().indexOf(qLower);
+    if (i === -1) return t;
+    return escHtml(text.slice(0, i)) + '<em>' + escHtml(text.slice(i, i + q.length)) + '</em>' + escHtml(text.slice(i + q.length));
+  }
+
+  function score(item, q){
+    // Returns negative number; lower (more negative) = better. Or null = no match.
+    var ql = q.toLowerCase();
+    var name = item.q.toLowerCase();
+    var alts = (item.alt || []).map(function(a){ return a.toLowerCase(); });
+    if (name === ql)            return -100;        // exact
+    if (name.startsWith(ql))    return -50 - (1 / name.length);  // prefix on name
+    for (var i = 0; i < alts.length; i++){
+      if (alts[i] === ql)         return -90;
+      if (alts[i].startsWith(ql)) return -45 - (1 / alts[i].length);
+    }
+    if (name.indexOf(ql) !== -1) return -10;        // substring on name
+    for (var j = 0; j < alts.length; j++){
+      if (alts[j].indexOf(ql) !== -1) return -5;    // substring on alt
+    }
+    return null;
+  }
+
+  function buildResults(q){
+    if (!q) return [];
+    var scored = [];
+    for (var i = 0; i < KW.length; i++){
+      var s = score(KW[i], q);
+      if (s !== null) scored.push({ item: KW[i], score: s });
+    }
+    scored.sort(function(a, b){ return a.score - b.score; });
+    return scored.slice(0, 8).map(function(r){ return r.item; });
+  }
+
+  function feedbackUrl(q){
+    var msg = "Hi Sree, I searched the Astrology 101 Companion App for \"" + q + "\" but didn't find what I was looking for. Could you help?";
+    return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(msg);
+  }
+
+  function render(q){
+    var items = buildResults(q);
+    lastResults = items;
+    activeIdx = -1;
+    if (q && items.length === 0){
+      // empty state
+      box.innerHTML =
+        '<div class="hero-suggest-empty">' +
+          '<p>No suggestions for <em style="color:var(--saffron);">' + escHtml(q) + '</em>.</p>' +
+          '<p style="color:var(--muted);">Search anyway, explore the Companion, or tell Sree what you were looking for.</p>' +
+          '<div class="empty-actions">' +
+            '<a href="learning-companion.html?q=' + encodeURIComponent(q) + '" data-action="search-anyway">Search anyway →</a>' +
+            '<a href="learning-companion.html#signs">Open Learning Companion</a>' +
+            '<a href="' + feedbackUrl(q) + '" target="_blank" rel="noopener">Tell Sree what you wanted →</a>' +
+          '</div>' +
+        '</div>';
+      box.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      return;
+    }
+    if (items.length === 0){
+      box.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      return;
+    }
+    var html = items.map(function(it, i){
+      return '<div class="hero-suggest-item" role="option" data-idx="' + i + '" data-q="' + escHtml(it.q) + '">' +
+               '<div class="hero-suggest-name">' + highlight(it.q, q) + '</div>' +
+               '<div class="hero-suggest-cat">' + escHtml(it.cat) + '</div>' +
+             '</div>';
+    }).join('');
+    box.innerHTML = html;
+    box.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  function setActive(idx){
+    var items = box.querySelectorAll('.hero-suggest-item');
+    activeIdx = Math.max(-1, Math.min(items.length - 1, idx));
+    items.forEach(function(el, i){ el.classList.toggle('is-active', i === activeIdx); });
+    if (activeIdx >= 0){
+      var el = items[activeIdx];
+      if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  function close(){
+    box.hidden = true;
+    activeIdx = -1;
+    input.setAttribute('aria-expanded', 'false');
+  }
+
+  function submitWith(q){
+    input.value = q;
+    form.submit();
+  }
+
+  input.addEventListener('input', function(){
+    render(input.value.trim());
+  });
+  input.addEventListener('focus', function(){
+    if (input.value.trim()) render(input.value.trim());
+  });
+  input.addEventListener('keydown', function(e){
+    if (box.hidden) return;
+    if (e.key === 'ArrowDown'){
+      e.preventDefault();
+      setActive(activeIdx + 1);
+    } else if (e.key === 'ArrowUp'){
+      e.preventDefault();
+      setActive(activeIdx - 1);
+    } else if (e.key === 'Enter'){
+      if (activeIdx >= 0 && lastResults[activeIdx]){
+        e.preventDefault();
+        submitWith(lastResults[activeIdx].q);
+      }
+      // else: native form submit with current input.value
+    } else if (e.key === 'Escape'){
+      close();
+    } else if (e.key === 'Tab'){
+      if (activeIdx >= 0 && lastResults[activeIdx]){
+        e.preventDefault();
+        input.value = lastResults[activeIdx].q;
+        close();
+      }
+    }
+  });
+  box.addEventListener('mousedown', function(e){
+    var item = e.target.closest('.hero-suggest-item');
+    if (item){
+      e.preventDefault();
+      submitWith(item.getAttribute('data-q'));
+    }
+  });
+  document.addEventListener('click', function(e){
+    if (!box.contains(e.target) && e.target !== input){
+      close();
+    }
+  });
 })();
 </script>
 
@@ -997,7 +1359,7 @@
 (function() {
   var WA_PHONE = '919880337337';
   document.getElementById('waFabGlobal').addEventListener('click', function() {
-    var text = 'Hi Sree, sharing feedback on Astrology 101 Companion App (v4.68.0 · page: Home):\n\n';
+    var text = 'Hi Sree, sharing feedback on Astrology 101 Companion App (v4.68.1 · page: Home):\n\n';
     window.open('https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
   });
 })();
@@ -1006,7 +1368,7 @@
 <!-- Update checker -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.68.0';
+  var PAGE_VERSION = '4.68.1';
   var FOCUS_THROTTLE_MS = 30000;
   var lastChecked = 0;
   function showVersionToast(msg) {

@@ -5004,7 +5004,7 @@
     --family-story:     #b8410e;
     --gold:      #a8843a;
   }
-  /* v4.68.0 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.68.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
 
@@ -5356,7 +5356,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.0</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.1</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -6036,7 +6036,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.68.0 · updated 10 May 2026</span>
+      <span>v4.68.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -10068,7 +10068,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.0';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.1';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10697,7 +10697,7 @@ applyFrontier();
 // Initial render of the daily gem
 renderGem();
 
-/* v4.68.0 — URL parameter handlers for shareable senior view + direct mode/level overrides.
+/* v4.68.1 — URL parameter handlers for shareable senior view + direct mode/level overrides.
    Supports:
      ?role=senior              → flips to Reference mode + Level: All (Sarika ask + senior-share use case)
      ?mode=reference|learning  → set mode directly
@@ -10992,7 +10992,21 @@ function renderSearchResults(results) {
   });
   searchState.results = flat;
   searchState.cursor = 0;
-  return html || '<div class="srch-empty">No matches. Try a sign name, a planet, an organ, or a Sanskrit term.</div>';
+  if (!html){
+    // v4.68.1 — richer empty state: explore-or-feedback CTAs.
+    var lastQ = (document.getElementById('srchInput') && document.getElementById('srchInput').value) || '';
+    var feedbackMsg = "Hi Sree, I searched the Astrology 101 Companion App for \"" + lastQ + "\" but didn't find what I was looking for. Could you help?";
+    var feedbackUrl = 'https://wa.me/919880337337?text=' + encodeURIComponent(feedbackMsg);
+    return '<div class="srch-empty">' +
+             '<p style="margin:0 0 10px;">No matches in the Companion for <em style="color:var(--saffron);">' + lastQ.replace(/[<>&]/g, function(c){return ({'<':'&lt;','>':'&gt;','&':'&amp;'})[c];}) + '</em>.</p>' +
+             '<p style="margin:0 0 14px;color:var(--muted);font-size:13.5px;">Two ways forward — explore the Companion sections directly, or tell Sree what you were looking for.</p>' +
+             '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">' +
+               '<a href="#signs" onclick="closeSearch();" style="padding:6px 14px;border:1px solid var(--rule);border-radius:999px;font-family:var(--display);font-style:italic;font-size:13.5px;color:var(--ink-soft);text-decoration:none;">Open Learning Companion →</a>' +
+               '<a href="' + feedbackUrl + '" target="_blank" rel="noopener" style="padding:6px 14px;border:1px solid var(--rule);border-radius:999px;font-family:var(--display);font-style:italic;font-size:13.5px;color:var(--ink-soft);text-decoration:none;">Tell Sree what you wanted →</a>' +
+             '</div>' +
+           '</div>';
+  }
+  return html;
 }
 
 function updateSearchCursor() {
@@ -11526,7 +11540,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.68.0';
+  const PAGE_VERSION = '4.68.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
