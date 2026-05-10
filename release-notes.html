@@ -742,10 +742,69 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.72.5 ====================== -->
+  <section class="release" data-credits="Sree (asked to canonicalise contributor names and re-attribute several releases honestly)">
+    <header>
+      <h2>v4.72.5 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Tidy on the changelog itself — five contributor-attribution corrections + three name canonicalisations across the release-notes archive. The contributor-chip index at the top of this page is auto-generated from <code>data-credits</code> attributes, so cleaning the credits cleans the chip row too.</p>
+
+    <h3>Re-attributions</h3>
+    <ul>
+      <li><strong>v4.70.2</strong> — the KB import line was floating without an owner. Now properly credited to <em>Sree</em> ("imported KB class transcripts 39–43").</li>
+      <li><strong>v4.59.0 + v4.58.0</strong> — both said "Vikram + Yash Khataokar (ATV brand book)". <em>Yash</em> is the designer; <em>Vikram</em> shared the design files. Updated both entries to credit Yash for the brand book and Vikram for sharing.</li>
+      <li><strong>v4.71.8</strong> — was credited to "Sree's mentor". In this app's context, Sree's mentor <em>is</em> Vikram. Updated.</li>
+      <li><strong>v4.62.2</strong> — was "Cohort feedback via Sree (Devanagari on Ether) · Sree (pricing — Option B, build but unlink)". Both items came from Sree directly. Consolidated to a single Sree credit.</li>
+      <li><strong>v4.62.3</strong> — credited to "Vikram Devatha" — same person as everywhere else. Canonicalised to <em>Vikram</em>. (The full name "Vikram Devatha" stays in the page body where it's an intentional formal naming on the pricing page dedication.)</li>
+    </ul>
+
+    <h3>Name canonicalisations</h3>
+    <ul>
+      <li><em>Arpi</em> / <em>Apri</em> → <strong>Arpitha</strong> (one canonical form, four spots in body prose + one cohort credit list).</li>
+      <li><em>Sathvi</em> → <strong>Sathvika</strong> (one body-prose mention + one cohort credit list).</li>
+      <li><em>Vikram Devatha</em> in <code>data-credits</code> → <strong>Vikram</strong> (one entry).</li>
+      <li><em>Yash Khataokar</em> in <code>data-credits</code> → <strong>Yash</strong> (two entries).</li>
+    </ul>
+
+    <h3>Why this matters</h3>
+    <p>The contributor index at the top of release notes parses every <code>data-credits</code> attribute and builds clickable chips per name — clicking a chip filters the changelog to releases that person shaped. Without canonicalisation, the same person showed up as multiple chips ("Arpi" + "Arpitha", "Sathvi" + "Sathvika"). Now one chip per person, and clicking it surfaces every release that name actually contributed to.</p>
+
+    <h3>Going forward</h3>
+    <p>Rule of thumb when adding new <code>data-credits</code>: use the canonical first name only (<em>Arpitha</em>, <em>Sathvika</em>, <em>Vikram</em>, <em>Yash</em>, <em>Sree</em>, etc.). Sub-clauses in parentheses are fine for context. If unsure who deserves credit, ask or attribute to <em>Unknown</em>.</p>
+  </section>
+
+  <!-- ====================== v4.72.4 ====================== -->
+  <section class="release" data-credits="Sree (caught the Honoured/Disgraced vocabulary mismatch + asked to validate Vikram's 7-from-exaltation rule)">
+    <header>
+      <h2>v4.72.4</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Four targeted fixes in <a href="learning-companion.html#cabinet">§ Four — The Planetary Cabinet</a> after Sree caught a vocabulary mismatch between LC's UI and what Vikram actually says in class. The page used "Honoured / Dishonoured" as poetic UI labels. Vikram never uses those words in transcripts — he says <em>exalted / debilitated</em> or the Sanskrit <em>Uchhasthāna / Nīchasthāna</em> (Uccha / Neecha). Fixed.</p>
+
+    <h3>1 · Vikram's vocabulary added next to the UI labels</h3>
+    <p>Cabinet lede now reads: <em>"Where a planet is honoured (exalted · Uccha) or dishonoured (debilitated · Neecha)…"</em>. Both table headers (Wheel of Honour + Learning Companion · nine planets) carry the secondary terms in a smaller muted style. Both sub-ledes echo the pairing. The data-structure keys (<code>honoured</code> / <code>dishonoured</code>) are kept internal — only visible labels changed.</p>
+
+    <h3>2 · "Count 7 from exaltation" rule surfaced</h3>
+    <p>Vikram states this rule three times across S23–S25 — <em>"if you count 7 from exaltation, you'll reach debilitation"</em>. Verified astronomically: every classical pair (Sun-Aries↔Libra, Moon-Taurus↔Scorpio, Mars-Capricorn↔Cancer, Mercury-Virgo↔Pisces, Jupiter-Cancer↔Capricorn, Venus-Pisces↔Virgo, Saturn-Libra↔Aries, plus Rahu/Ketu) is exactly 6 signs apart = 7th house counting inclusively. A saffron-bordered shortcut callout now sits at the top of the "How exaltation and debilitation work" story panel.</p>
+
+    <h3>3 · Vikram's "fear-mongering" caveat captured</h3>
+    <p>Inside the same panel, a saffron-outlined pull: <em>"Debilitation is used as a fear-mongering tool — you have to do shanti, you have to do homa. Don't get caught in that. The cancellation rules exist; we'll see them slowly."</em> (Vikram, S25). Important teaching disposition that was missing from the page.</p>
+
+    <h3>4 · Forward-pointer to Neechabhanga in § Yogas</h3>
+    <p>Same callout closes with a soft "stay tuned for <em>Neechabhanga Raja Yoga</em> in § Yogas later" pointer. § Yogas currently only carries Parivartana (the one yoga Vikram has formally taught at beginner level); when Neechabhanga lands there, this pointer becomes a deep-link.</p>
+
+    <h3>What's not changed</h3>
+    <p>Story panel substance, the cabinet narrative, the Wheel of Honour data, Court Call quiz, and § Five (Planets) — all left alone. The story is exactly as Vikram tells it; we just added Vikram's actual terminology so when learners go back to the recordings, the words match what they read here.</p>
+
+    <h3>Specific exaltation degrees</h3>
+    <p>Worth noting: Sun 10° Aries, Mercury 15° Virgo, etc. are <strong>not</strong> in our KB. Vikram doesn't teach them at this level — sign-granularity only. So the page correctly stops at sign-level too. If degrees ever get added to <code>planets-classical.json</code>, they'll naturally surface here.</p>
+  </section>
+
   <!-- ====================== v4.72.3 ====================== -->
   <section class="release" data-credits="Sree (asked to highlight 'sidereal' so it's the first word a reader sees, with a one-line plain explanation)">
     <header>
-      <h2>v4.72.3 <em>· current</em></h2>
+      <h2>v4.72.3</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Two small but important touches in the home-page <em>"how today's sky was built"</em> modal — making the sidereal frame impossible to miss.</p>
@@ -849,7 +908,7 @@
   </section>
 
   <!-- ====================== v4.71.8 ====================== -->
-  <section class="release" data-credits="Sree's mentor (pushed for sidereal + real-time) · Sree (chose Tier 1 from the audit)">
+  <section class="release" data-credits="Vikram (pushed for sidereal + real-time) · Sree (chose Tier 1 from the audit)">
     <header>
       <h2>v4.71.8</h2>
       <span class="date">10 May 2026</span>
@@ -1062,7 +1121,7 @@
   </section>
 
   <!-- ====================== v4.70.2 ====================== -->
-  <section class="release" data-credits="Sree (caught the duplicate date + asked for an Asc marker) · KB ingest of class transcripts 39–43">
+  <section class="release" data-credits="Sree (caught the duplicate date + asked for an Asc marker; also imported KB class transcripts 39–43)">
     <header>
       <h2>v4.70.2</h2>
       <span class="date">10 May 2026</span>
@@ -1446,7 +1505,7 @@
       <li><strong>Spend time with the actual sky</strong> — a small list of tools the cohort can use to do what Vikram keeps asking: <a href="https://deva.guru" target="_blank" rel="noopener">deva.guru</a> for browser charts, <em>Parashara's Light</em> for desktop depth, and <a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> as the planetarium that makes the chart stop being abstract.</li>
     </ul>
 
-    <h3>"Four ways to look at the sky" — Arpi's framing</h3>
+    <h3>"Four ways to look at the sky" — Arpitha's framing</h3>
     <p>§ Two retitled to <em>Four ways to look at the sky</em>. The systems grid now reads as four genuine alternatives rather than three plus a dismissive footnote: <strong>Whole Sign</strong>, <strong>Equal House</strong>, <strong>Sripati Paddhati</strong>, and the <strong>KP system</strong>. Beginners often reach for Equal House; traditionalists prefer Whole Sign or Sripati. KP astrologers — what most Indian astrologers in popular practice will reach for — uses Placidus underneath. All four are now described on their own terms, not in opposition to each other.</p>
 
     <h3>New § Three — Rāśi chart vs Bhāva Chalit</h3>
@@ -1455,7 +1514,7 @@
       <li><strong>Rāśi Chart (D-1)</strong> — answers <em>which sign is a planet in?</em> Determines dignity, strength, and yogas. Fed by <strong>Whole Sign</strong>.</li>
       <li><strong>Bhāva Chalit (the house chart)</strong> — answers <em>which house is a planet actually influencing?</em> Adjusts boundaries based on the exact Ascendant degree. Fed by <strong>Equal House</strong> (beginner-friendly) or <strong>Sripati Paddhati</strong> (the unequal, traditional choice).</li>
     </ul>
-    <p>Both charts can show the same planet sitting in different houses; both are true, each answering a different question. The page now makes that explicit, and quotes Arpi's framing verbatim in a callout.</p>
+    <p>Both charts can show the same planet sitting in different houses; both are true, each answering a different question. The page now makes that explicit, and quotes Arpitha's framing verbatim in a callout.</p>
 
     <h3>Section renumbering + duplicate-§-Five fix</h3>
     <p>Inserting the new section pushed every subsequent section number down one. Also fixed a pre-existing display bug where two sections both said "§ Five" — Quick Check is now § Six and "When does Vikram use which?" is § Seven, with cross-references closing as § Eight. URL anchors (#origin, #systems, #why, #worked, #workbook, #when, #xref, #sources) are unchanged so any existing inbound links still resolve.</p>
@@ -1558,7 +1617,7 @@
   </section>
 
   <!-- ====================== v4.62.3 ====================== -->
-  <section class="release" data-credits="Vikram Devatha (asked to be named) · Sree (asked for the dedication)">
+  <section class="release" data-credits="Vikram (asked to be named) · Sree (asked for the dedication)">
     <header>
       <h2>v4.62.3</h2>
       <span class="date">9 May 2026</span>
@@ -1579,7 +1638,7 @@
   </section>
 
   <!-- ====================== v4.62.2 ====================== -->
-  <section class="release" data-credits="Cohort feedback via Sree (Devanagari on Ether) · Sree (pricing — Option B, build but unlink)">
+  <section class="release" data-credits="Sree (Devanagari on Ether + pricing — Option B, build but unlink)">
     <header>
       <h2>v4.62.2</h2>
       <span class="date">9 May 2026</span>
@@ -1794,7 +1853,7 @@
   </section>
 
   <!-- ====================== v4.59.0 ====================== -->
-  <section class="release" data-credits="Vikram + Yash Khataokar (ATV brand book) · Vikram (Companion naming) · Sree (request to cascade site-wide + nav redesign + page rename)">
+  <section class="release" data-credits="Yash (ATV brand book) · Vikram (shared the design files; Companion naming) · Sree (request to cascade site-wide + nav redesign + page rename)">
     <header>
       <h2>v4.59.0</h2>
       <span class="date">9 May 2026</span>
@@ -1897,7 +1956,7 @@
   </section>
 
   <!-- ====================== v4.58.0 ====================== -->
-  <section class="release" data-credits="Vikram + Yash Khataokar (ATV brand book, September 2025) · Sree (request to align read.html)">
+  <section class="release" data-credits="Yash (ATV brand book, September 2025) · Vikram (shared the design files) · Sree (request to align read.html)">
     <header>
       <h2>v4.58.0</h2>
       <span class="date">9 May 2026</span>
@@ -2975,7 +3034,7 @@
     <h3>What landed</h3>
     <ul>
       <li>New <code>layers.html</code> peer page, wired into the site nav across all pages between Ether and Interactive · beta.</li>
-      <li>Eight date-grouped sections: <em>Late 2025 — onwards</em> (the blue file accumulates), <em>Late 2025 / early 2026</em> (sparks in conversation with Sathvi and Arpi), <em>March 2026 · Ether retreat</em> (Rashmi's reference-folder need + Vikram naming the end-of-year-project moment + the flashcards seed), <em>Late March – early April</em> (V0), <em>April – early May</em> (the layers click — KB extraction, Mercury Spectrum, Kāla<em>purusha</em> rounds with Vikram, planetary motion shared as PNG, static.app), <em>Early May</em> (Mercury → Budha → Buddhi → the deeper calling), <em>May 7</em> (Sanchi joins; pitch to Vikram and Mega; pocket reference / learning companion / commercial), and <em>May 8 · today</em> (Interactive · beta with Sathvika).</li>
+      <li>Eight date-grouped sections: <em>Late 2025 — onwards</em> (the blue file accumulates), <em>Late 2025 / early 2026</em> (sparks in conversation with Sathvika and Arpitha), <em>March 2026 · Ether retreat</em> (Rashmi's reference-folder need + Vikram naming the end-of-year-project moment + the flashcards seed), <em>Late March – early April</em> (V0), <em>April – early May</em> (the layers click — KB extraction, Mercury Spectrum, Kāla<em>purusha</em> rounds with Vikram, planetary motion shared as PNG, static.app), <em>Early May</em> (Mercury → Budha → Buddhi → the deeper calling), <em>May 7</em> (Sanchi joins; pitch to Vikram and Mega; pocket reference / learning companion / commercial), and <em>May 8 · today</em> (Interactive · beta with Sathvika).</li>
       <li>Each section carries Sree's pulled-out quotes set as italic display blockquotes, with connective prose between them. Vikram's line "we learn in layers" sits as the page epigraph.</li>
       <li>The blue-file photo is reused on the Layers page; the Ether retreat is cross-linked.</li>
       <li>On <a href="index.html">index.html</a>, a small <em>"Read the longer arc — Layers →"</em> link sits below the existing "How it started" closing line. The Layers peer card joins the row beside Ether and Interactive · beta.</li>
@@ -3075,7 +3134,7 @@
   </section>
 
   <!-- ====================== v4.32.2 ====================== -->
-  <section class="release" data-credits="Meera · Rashmi · Sudha · Sathvi · Apri · Anil · Kanika · Shashank · Aditya · Kiron · Shobhana · Sanchi · Suraj · Megha · Aysha · Marie · Shweta · Sarika · Kajal · Surbhi · Divya · Siva · Shivangi · Shruthi (the cohort)">
+  <section class="release" data-credits="Meera · Rashmi · Sudha · Sathvika · Arpitha · Anil · Kanika · Shashank · Aditya · Kiron · Shobhana · Sanchi · Suraj · Megha · Aysha · Marie · Shweta · Sarika · Kajal · Surbhi · Divya · Siva · Shivangi · Shruthi (the cohort)">
     <header>
       <h2>v4.32.2 <em>· naming the cohort</em></h2>
       <span class="date">7 May 2026</span>
@@ -3084,7 +3143,7 @@
 
     <h3>Who's named, by group</h3>
     <ul>
-      <li><strong>In the photo</strong> — Meera, Rashmi, Sudha, Sathvi, Apri, Anil, Kanika, Shashank, Aditya, Kiron, Shobhana. Plus Sanchi (Sree's partner on this project).</li>
+      <li><strong>In the photo</strong> — Meera, Rashmi, Sudha, Sathvika, Arpitha, Anil, Kanika, Shashank, Aditya, Kiron, Shobhana. Plus Sanchi (Sree's partner on this project).</li>
       <li><strong>Co-facilitating with Vikram</strong> — Suraj, Megha.</li>
       <li><strong>The larger learning group</strong> — Aysha, Marie, Shweta, Sarika, Kajal, Surbhi.</li>
       <li><strong>Mentors</strong> — Divya, Siva, Shivangi, Shruthi.</li>
@@ -4982,7 +5041,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.72.3 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.72.5 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5205,7 +5264,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.72.3';
+  const PAGE_VERSION = '4.72.5';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
