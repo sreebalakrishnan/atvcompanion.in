@@ -735,10 +735,38 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.64.1 ====================== -->
+  <section class="release" data-credits="Sree (asked for the deep links on Where am I)">
+    <header>
+      <h2>v4.64.1 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Deep-linking pass on <a href="where-am-i.html">Where am I</a>. Every topic now points to the right place to actually go and study it.</p>
+
+    <h3>Where the links go</h3>
+    <p>The page was already grouping topics by section and giving you a place to take stock — but the source citation underneath each topic was just text. Now those citations are real links that take you to the relevant section in the rest of the app, and the surfaced items in the <em>What to discuss next</em> panel at the bottom are clickable too.</p>
+    <ul>
+      <li><strong>Astronomy</strong> topics → <a href="astronomy.html">astronomy.html</a> (with deep anchors for <em>ecliptic</em> and <em>precession</em>)</li>
+      <li><strong>Signs</strong> topics → <a href="learning-companion.html#signs">LC · Signs</a> · <a href="learning-companion.html#qualities">Qualities</a> · <a href="learning-companion.html#cabinet">Cabinet</a> · <a href="learning-companion.html#relationships">Relationships</a> · <a href="kaalapurusha.html">Kālapurusha</a></li>
+      <li><strong>Planets</strong> taught → <a href="learning-companion.html#planets">LC · Planets</a> (Sun · Moon · Mars), and Mercury → <a href="mercury-spectrum.html">Mercury Spectrum peer page</a></li>
+      <li><strong>Houses</strong> topics → <a href="learning-companion.html#houses">LC · Houses</a> · <a href="learning-companion.html#categories">Categories</a> · <a href="learning-companion.html#purusharthas">Purushārthas</a> · <a href="sripati.html">Sripati</a> for the systems topic · <a href="read.html">Read · beta</a> for placement reading</li>
+      <li><strong>Avatars</strong> · Matsya → <a href="reflect.html#matsya">Reflect · Matsya</a></li>
+      <li><strong>Interpretation</strong> → <a href="learning-companion.html#aspects">Aspects</a> · <a href="learning-companion.html#yogas">Yogas</a> · <a href="learning-companion.html#cabinet">Cabinet</a> · <a href="learning-companion.html#relationships">Relationships</a> · <a href="read.html">Read · beta</a> for whole-chart reading</li>
+      <li><strong>Reflective</strong> → <a href="learning-companion.html#workbook">Workbook overview</a> · <a href="reflect.html">Reflect</a> · <a href="ether.html">Ether</a> · <a href="read.html">Read</a> for my own chart</li>
+    </ul>
+
+    <h3>How the links surface</h3>
+    <ul>
+      <li><strong>On each topic card</strong> — the source citation underneath the topic name is now a quiet underlined link with a small <em>→</em> at the end. Click it to jump straight to that material.</li>
+      <li><strong>In the <em>What to discuss next</em> panel</strong> — the items in <em>Re-read these</em>, <em>Take to peer group</em>, and <em>Bring to Vikram</em> are now clickable. The page becomes a real launchpad, not just a list of bookmarks-on-paper.</li>
+      <li><strong>TBD topics stay un-linked</strong> — there's nothing to link to yet for Jupiter / Venus / Saturn / Rahu / Ketu or the nine pending avatars. They'll wire up automatically when those teachings ship.</li>
+    </ul>
+  </section>
+
   <!-- ====================== v4.64.0 ====================== -->
   <section class="release" data-credits="Arpitha (the late-night WhatsApp on house systems) · Sree (the geocentric / language-of-the-sky push)">
     <header>
-      <h2>v4.64.0 <em>· current</em></h2>
+      <h2>v4.64.0</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Substantial update to <a href="sripati.html">Sripati Paddhati</a>. A new foundations section on the visible sky, plus two layers of clarity from a late-night WhatsApp with Arpitha on house systems.</p>
@@ -4288,7 +4316,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.64.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.64.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4511,7 +4539,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.64.0';
+  const PAGE_VERSION = '4.64.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4625,7 +4653,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.64.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.64.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

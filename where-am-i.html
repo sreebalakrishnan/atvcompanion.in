@@ -398,6 +398,29 @@
     color: var(--muted);
     margin: 0 0 12px;
   }
+  .topic-source-link {
+    color: var(--muted);
+    text-decoration: underline;
+    text-decoration-color: var(--rule-soft);
+    text-underline-offset: 3px;
+    transition: color .15s, text-decoration-color .15s;
+  }
+  .topic-source-link:hover {
+    color: var(--saffron);
+    text-decoration-color: var(--saffron);
+  }
+  .next-link {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+    font-style: italic;
+    transition: color .15s, text-decoration-color .15s;
+  }
+  .next-link:hover {
+    color: var(--saffron);
+    text-decoration-color: var(--saffron);
+  }
 
   /* radio pills */
   .stage-pills {
@@ -794,7 +817,7 @@
 
 <div class="page">
 
-  <!-- ====================== SITE NAV (v4.64.0) ====================== -->
+  <!-- ====================== SITE NAV (v4.64.1) ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html">Home</a>
     <span class="sep">·</span>
@@ -831,7 +854,7 @@
   </nav>
 
   <header class="masthead">
-    <div class="eyebrow">all things vedic · the companion app · v4.64.0</div>
+    <div class="eyebrow">all things vedic · the companion app · v4.64.1</div>
     <h1>Where am <em>I</em></h1>
     <p class="lede"
        data-name-template="A self-assessment, {name} — for every topic in the 101 journey, mark whether you're aware of it, familiar with it, or confident enough to teach it. Your answers stay only in this browser."
@@ -841,7 +864,7 @@
   <div class="origin">
     <p>This page came out of a conversation with Arpitha. We were sitting with Sripati Paddhati and noticed something: the topics I could teach back to her were the ones I had truly internalised. The ones I could only nod along with were the ones I still needed to circle back to.</p>
     <p>So — instead of one more quiz, this is a space to be honest with myself about where each topic actually sits. Aware. Familiar. Confident. And the notes column is for the very specific question I want to ask Vikram next time we sit together.</p>
-    <span class="credit">An idea by Arpitha · drafted with Sree · v4.64.0</span>
+    <span class="credit">An idea by Arpitha · drafted with Sree · v4.64.1</span>
   </div>
 
   <!-- DASHBOARD -->
@@ -889,7 +912,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to Learning Companion</a> · <a href="reflect.html">Reflect</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.64.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.64.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -927,12 +950,12 @@ const SECTIONS = [
     name: 'Astronomy',
     blurb: 'The physical sky, before any meaning is layered on.',
     topics: [
-      { id: 'astro-frame',    name: 'Geocentric vs heliocentric framing',           source: 'Astronomy peer page · Session 30' },
-      { id: 'astro-equinox',  name: 'Equinoxes, solstices & the seasons',           source: 'Astronomy peer page · Session 30' },
-      { id: 'astro-ecliptic', name: 'The ecliptic & 27 nakshatras',                 source: 'Astronomy peer page · Deck 04' },
-      { id: 'astro-tilt',     name: 'Earth’s axial tilt & precession',         source: 'Astronomy peer page · Session 30' },
-      { id: 'astro-meaning',  name: 'Astronomy → meaning (physics becomes psychology)', source: 'Astronomy peer page · planet decks 14–18' },
-      { id: 'astro-sripati',  name: 'Sripati Paddhati — cusps from the Lagna degree', source: 'Sripati peer page · Session 37' }
+      { id: 'astro-frame',    name: 'Geocentric vs heliocentric framing',           source: 'Astronomy peer page · Session 30',                link: 'astronomy.html' },
+      { id: 'astro-equinox',  name: 'Equinoxes, solstices & the seasons',           source: 'Astronomy peer page · Session 30',                link: 'astronomy.html' },
+      { id: 'astro-ecliptic', name: 'The ecliptic & 27 nakshatras',                 source: 'Astronomy peer page · Deck 04',                   link: 'astronomy.html#ecliptic' },
+      { id: 'astro-tilt',     name: 'Earth’s axial tilt & precession',         source: 'Astronomy peer page · Session 30',                link: 'astronomy.html#precession' },
+      { id: 'astro-meaning',  name: 'Astronomy → meaning (physics becomes psychology)', source: 'Astronomy peer page · planet decks 14–18',  link: 'astronomy.html' },
+      { id: 'astro-sripati',  name: 'Sripati Paddhati — cusps from the Lagna degree', source: 'Sripati peer page · Session 37',                link: 'sripati.html' }
     ]
   },
   {
@@ -940,18 +963,18 @@ const SECTIONS = [
     name: 'Signs',
     blurb: 'The 12 Rāśis — their structure and psychology.',
     topics: [
-      { id: 'sign-twelve',    name: 'The twelve signs — names, sanskrit, symbols', source: 'LC · Signs section · Deck 06' },
-      { id: 'sign-elements',  name: 'Elements: fire, earth, air, water',            source: 'LC · Elements grid · Deck 07' },
-      { id: 'sign-modes',     name: 'Modes: cardinal, fixed, mutable',              source: 'LC · Modes grid · Deck 07' },
-      { id: 'sign-duality',   name: 'Duality: yang/yin · nara/stri',           source: 'LC · Duality grid · Deck 07' },
-      { id: 'sign-rulership', name: 'Sign rulerships (which planet rules which sign)', source: 'LC · Cabinet · Deck 09' },
-      { id: 'sign-ucchaneecha',name: 'Exaltation & debilitation (uccha / neecha)',  source: 'LC · Cabinet · Deck 11' },
-      { id: 'sign-mulatrikona',name: 'Mūlatrikoṇa',                       source: 'LC · Cabinet · Deck 11' },
-      { id: 'sign-meaning',   name: 'Sign meanings & psychology (12 archetypes)',   source: 'LC · Signs section · Decks 06–08' },
-      { id: 'sign-rashi',     name: 'Rāśi Chakra layout (the wheel)',     source: 'LC · Signs section' },
-      { id: 'sign-kaala',     name: 'Kālapurusha mapping (signs → body parts)', source: 'LC · Kālapurusha · peer page' },
-      { id: 'sign-reading',   name: 'Reading signs in a chart',                     source: 'LC · Practice section' },
-      { id: 'sign-friends',   name: 'Sign friendship via rulers',                   source: 'LC · Relationships · Deck 12' }
+      { id: 'sign-twelve',    name: 'The twelve signs — names, sanskrit, symbols', source: 'LC · Signs section · Deck 06',                  link: 'learning-companion.html#signs' },
+      { id: 'sign-elements',  name: 'Elements: fire, earth, air, water',            source: 'LC · Elements grid · Deck 07',                  link: 'learning-companion.html#qualities' },
+      { id: 'sign-modes',     name: 'Modes: cardinal, fixed, mutable',              source: 'LC · Modes grid · Deck 07',                     link: 'learning-companion.html#qualities' },
+      { id: 'sign-duality',   name: 'Duality: yang/yin · nara/stri',           source: 'LC · Duality grid · Deck 07',                   link: 'learning-companion.html#qualities' },
+      { id: 'sign-rulership', name: 'Sign rulerships (which planet rules which sign)', source: 'LC · Cabinet · Deck 09',                     link: 'learning-companion.html#cabinet' },
+      { id: 'sign-ucchaneecha',name: 'Exaltation & debilitation (uccha / neecha)',  source: 'LC · Cabinet · Deck 11',                        link: 'learning-companion.html#cabinet' },
+      { id: 'sign-mulatrikona',name: 'Mūlatrikoṇa',                       source: 'LC · Cabinet · Deck 11',                        link: 'learning-companion.html#cabinet' },
+      { id: 'sign-meaning',   name: 'Sign meanings & psychology (12 archetypes)',   source: 'LC · Signs section · Decks 06–08',              link: 'learning-companion.html#signs' },
+      { id: 'sign-rashi',     name: 'Rāśi Chakra layout (the wheel)',     source: 'LC · Signs section',                            link: 'learning-companion.html#signs' },
+      { id: 'sign-kaala',     name: 'Kālapurusha mapping (signs → body parts)', source: 'LC · Kālapurusha · peer page',           link: 'kaalapurusha.html' },
+      { id: 'sign-reading',   name: 'Reading signs in a chart',                     source: 'LC · Practice section',                         link: 'learning-companion.html#practice' },
+      { id: 'sign-friends',   name: 'Sign friendship via rulers',                   source: 'LC · Relationships · Deck 12',                  link: 'learning-companion.html#relationships' }
     ]
   },
   {
@@ -959,10 +982,10 @@ const SECTIONS = [
     name: 'Planets',
     blurb: 'The Navagrahas. Four taught so far this year; five still ahead.',
     topics: [
-      { id: 'planet-sun',     name: 'Sun · Sūrya',                        source: 'LC · Planets · Deck 14' },
-      { id: 'planet-moon',    name: 'Moon · Chandra',                          source: 'LC · Planets · Deck 15' },
-      { id: 'planet-mars',    name: 'Mars · Mangala',                          source: 'LC · Planets · Deck 16 · Session 31' },
-      { id: 'planet-mercury', name: 'Mercury · Budha',                         source: 'LC · Planets · Deck 17 · Mercury Spectrum peer page' },
+      { id: 'planet-sun',     name: 'Sun · Sūrya',                        source: 'LC · Planets · Deck 14',                                link: 'learning-companion.html#planets' },
+      { id: 'planet-moon',    name: 'Moon · Chandra',                          source: 'LC · Planets · Deck 15',                                link: 'learning-companion.html#planets' },
+      { id: 'planet-mars',    name: 'Mars · Mangala',                          source: 'LC · Planets · Deck 16 · Session 31',                   link: 'learning-companion.html#planets' },
+      { id: 'planet-mercury', name: 'Mercury · Budha',                         source: 'LC · Planets · Deck 17 · Mercury Spectrum peer page',   link: 'mercury-spectrum.html' },
       { id: 'planet-jupiter', name: 'Jupiter · Guru',                          source: 'TBD this year', tbd: true },
       { id: 'planet-venus',   name: 'Venus · Shukra',                          source: 'TBD this year', tbd: true },
       { id: 'planet-saturn',  name: 'Saturn · Shani',                          source: 'TBD this year', tbd: true },
@@ -975,18 +998,18 @@ const SECTIONS = [
     name: 'Houses',
     blurb: 'The 12 Bhāvas — the arenas of life.',
     topics: [
-      { id: 'house-twelve',     name: 'The twelve houses — names & sanskrit',  source: 'LC · Houses · Deck 67 · Session 33' },
-      { id: 'house-karaka',     name: 'House kārakas (significators)',         source: 'LC · Houses · Deck 67' },
-      { id: 'house-purushartha',name: 'Purushārthas — Dharma, Artha, Kāma, Mokṣa trines', source: 'LC · Purushārthas · Deck 67' },
-      { id: 'house-kendra',     name: 'Kendras — 1, 4, 7, 10',                 source: 'LC · House Categories · Session 35' },
-      { id: 'house-trikona',    name: 'Trikoṇas — 1, 5, 9',                source: 'LC · House Categories · Session 35' },
-      { id: 'house-panapara',   name: 'Panaparas — succedent (2,5,8,11)',      source: 'LC · House Categories · Session 35' },
-      { id: 'house-apoklima',   name: 'Apoklimas — cadent (3,6,9,12)',         source: 'LC · House Categories · Session 35' },
-      { id: 'house-upachaya',   name: 'Upachayas — 3, 6, 10, 11',              source: 'LC · House Categories · Session 35' },
-      { id: 'house-dushtana',   name: 'Dushtanas — 6, 8, 12',                  source: 'LC · House Categories · Session 35' },
-      { id: 'house-systems',    name: 'House systems (Whole-sign, Equal, Sripati)', source: 'LC · House Systems · Session 37' },
-      { id: 'house-lord',       name: 'House lords — reading lord placement',  source: 'LC · Practice · Session 35' },
-      { id: 'house-placement',  name: 'Planet-in-house interpretation',             source: 'LC · Practice · Session 35' }
+      { id: 'house-twelve',     name: 'The twelve houses — names & sanskrit',  source: 'LC · Houses · Deck 67 · Session 33',                  link: 'learning-companion.html#houses' },
+      { id: 'house-karaka',     name: 'House kārakas (significators)',         source: 'LC · Houses · Deck 67',                               link: 'learning-companion.html#houses' },
+      { id: 'house-purushartha',name: 'Purushārthas — Dharma, Artha, Kāma, Mokṣa trines', source: 'LC · Purushārthas · Deck 67',           link: 'learning-companion.html#purusharthas' },
+      { id: 'house-kendra',     name: 'Kendras — 1, 4, 7, 10',                 source: 'LC · House Categories · Session 35',                  link: 'learning-companion.html#categories' },
+      { id: 'house-trikona',    name: 'Trikoṇas — 1, 5, 9',                source: 'LC · House Categories · Session 35',                  link: 'learning-companion.html#categories' },
+      { id: 'house-panapara',   name: 'Panaparas — succedent (2,5,8,11)',      source: 'LC · House Categories · Session 35',                  link: 'learning-companion.html#categories' },
+      { id: 'house-apoklima',   name: 'Apoklimas — cadent (3,6,9,12)',         source: 'LC · House Categories · Session 35',                  link: 'learning-companion.html#categories' },
+      { id: 'house-upachaya',   name: 'Upachayas — 3, 6, 10, 11',              source: 'LC · House Categories · Session 35',                  link: 'learning-companion.html#categories' },
+      { id: 'house-dushtana',   name: 'Dushtanas — 6, 8, 12',                  source: 'LC · House Categories · Session 35',                  link: 'learning-companion.html#categories' },
+      { id: 'house-systems',    name: 'House systems (Whole-sign, Equal, Sripati)', source: 'LC · House Systems · Session 37',                 link: 'sripati.html' },
+      { id: 'house-lord',       name: 'House lords — reading lord placement',  source: 'LC · Practice · Session 35',                          link: 'learning-companion.html#practice' },
+      { id: 'house-placement',  name: 'Planet-in-house interpretation',             source: 'LC · Practice · Session 35',                     link: 'read.html' }
     ]
   },
   {
@@ -994,7 +1017,7 @@ const SECTIONS = [
     name: 'Avatars',
     blurb: 'Daśāvatāra as psychological archetypes. Matsya drafted; the rest are coming.',
     topics: [
-      { id: 'avatar-matsya',     name: 'Matsya — Fish · Ketu',               source: 'Reflect · Workbook Module 1 · Session 32' },
+      { id: 'avatar-matsya',     name: 'Matsya — Fish · Ketu',               source: 'Reflect · Workbook Module 1 · Session 32',                link: 'reflect.html#matsya' },
       { id: 'avatar-kurma',      name: 'Kūrma — Tortoise · Saturn',     source: 'TBD this year', tbd: true },
       { id: 'avatar-varaha',     name: 'Varāha — Boar · Rahu',          source: 'TBD this year', tbd: true },
       { id: 'avatar-narasimha',  name: 'Narasiṃha — Man-Lion · Mars',   source: 'TBD this year', tbd: true },
@@ -1011,11 +1034,11 @@ const SECTIONS = [
     name: 'Interpretation',
     blurb: 'Putting the pieces together.',
     topics: [
-      { id: 'interp-aspects',    name: 'Aspects — Drishti',                    source: 'LC · Aspects · Deck 28' },
-      { id: 'interp-yogas',      name: 'Yogas — combinations',                 source: 'LC · Yogas · Deck 31' },
-      { id: 'interp-cabinet',    name: 'The Signature · planetary cabinet',    source: 'LC · Cabinet · Deck 09' },
-      { id: 'interp-relations',  name: 'Planetary relationships (friend / neutral / enemy)', source: 'LC · Relationships · Deck 12' },
-      { id: 'interp-whole',      name: 'Reading the whole chart',                   source: 'LC · Practice section' }
+      { id: 'interp-aspects',    name: 'Aspects — Drishti',                    source: 'LC · Aspects · Deck 28',                                link: 'learning-companion.html#aspects' },
+      { id: 'interp-yogas',      name: 'Yogas — combinations',                 source: 'LC · Yogas · Deck 31',                                  link: 'learning-companion.html#yogas' },
+      { id: 'interp-cabinet',    name: 'The Signature · planetary cabinet',    source: 'LC · Cabinet · Deck 09',                                link: 'learning-companion.html#cabinet' },
+      { id: 'interp-relations',  name: 'Planetary relationships (friend / neutral / enemy)', source: 'LC · Relationships · Deck 12',           link: 'learning-companion.html#relationships' },
+      { id: 'interp-whole',      name: 'Reading the whole chart',                   source: 'LC · Practice section',                            link: 'read.html' }
     ]
   },
   {
@@ -1023,10 +1046,10 @@ const SECTIONS = [
     name: 'Reflective practice',
     blurb: 'The contemplative side of the journey.',
     topics: [
-      { id: 'refl-workbook',     name: 'The Companion Workbook approach',           source: 'LC · Companion Workbook section' },
-      { id: 'refl-archetypes',   name: 'Avatars as psychological archetypes',       source: 'Reflect · Module 1' },
-      { id: 'refl-ether',        name: 'Ether · Nirvāṇa Shatakam',   source: 'Ether peer page' },
-      { id: 'refl-mychart',      name: 'My own chart — patterns I notice',     source: 'My Chart section' }
+      { id: 'refl-workbook',     name: 'The Companion Workbook approach',           source: 'LC · Companion Workbook section',                  link: 'learning-companion.html#workbook' },
+      { id: 'refl-archetypes',   name: 'Avatars as psychological archetypes',       source: 'Reflect · Module 1',                               link: 'reflect.html' },
+      { id: 'refl-ether',        name: 'Ether · Nirvāṇa Shatakam',   source: 'Ether peer page',                                  link: 'ether.html' },
+      { id: 'refl-mychart',      name: 'My own chart — patterns I notice',     source: 'My Chart section',                                 link: 'read.html' }
     ]
   }
 ];
@@ -1130,7 +1153,13 @@ function renderTopic(t){
   html +=     '<h3 class="topic-name">' + escHtml(t.name) + '</h3>';
   if (t.tbd) html += '<span class="topic-tbd-badge">TBD this year</span>';
   html +=   '</div>';
-  html +=   '<p class="topic-source">' + escHtml(t.source) + '</p>';
+  html +=   '<p class="topic-source">';
+  if (t.link && !t.tbd) {
+    html += '<a href="' + escHtml(t.link) + '" class="topic-source-link">' + escHtml(t.source) + ' →</a>';
+  } else {
+    html += escHtml(t.source);
+  }
+  html +=   '</p>';
   if (t.tbd){
     html += '<p class="topic-tbd-note">Vikram has not taught this in 101 yet — you can still leave a note for when it comes up.</p>';
   } else {
@@ -1232,7 +1261,10 @@ function renderNextPanel(){
     h +=    '<div class="next-bucket-name">' + label + '</div>';
     h +=    '<ul>';
     items.forEach(function(x){
-      h += '<li>' + escHtml(x.t.name) + ' · <em style="color:var(--muted);">' + escHtml(x.section.name) + '</em>';
+      var nameHtml = x.t.link
+        ? '<a href="' + escHtml(x.t.link) + '" class="next-link">' + escHtml(x.t.name) + ' →</a>'
+        : escHtml(x.t.name);
+      h += '<li>' + nameHtml + ' · <em style="color:var(--muted);">' + escHtml(x.section.name) + '</em>';
       if (x.note) h += '<span class="topic-note-snippet">“' + escHtml(x.note) + '”</span>';
       h += '</li>';
     });
@@ -1292,7 +1324,7 @@ function buildExport(){
 
   lines.push('Legend:  [●··] Aware   [●●·] Familiar   [●●●] Confident   TBD = not yet taught');
   lines.push('');
-  lines.push('From: All Things Vedic · Astrology 101 Companion App · v4.64.0');
+  lines.push('From: All Things Vedic · Astrology 101 Companion App · v4.64.1');
   return lines.join('\n');
 }
 
@@ -1432,7 +1464,7 @@ renderNextPanel();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.64.0';
+  const PAGE_VERSION = '4.64.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1481,7 +1513,7 @@ renderNextPanel();
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
-    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v4.64.0 · page: ${pageLabel()}):\n\n`;
+    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v4.64.1 · page: ${pageLabel()}):\n\n`;
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
 })();
