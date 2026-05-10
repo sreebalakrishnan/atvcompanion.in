@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F4EEDA">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="A self-assessment for the Astrology 101 journey. Mark each topic as Aware, Familiar, or Confident. Notes save only in this browser.">
+<title>Where am I — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F4EEDA;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #7C7B78;
+    --rule:      #CAC6BB;
+    --rule-soft: #E0DCCD;
+    --saffron:   #BC8146;
+    --indigo:    #6E7D85;
+    --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 200;
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 820px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* ---------- SITE NAV ---------- */
+  .site-nav {
+    padding: 22px 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .site-nav a, .site-nav span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .site-nav a:hover { color: var(--saffron); }
+  .site-nav .here { color: var(--saffron); }
+  .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
+  .site-nav .primary { font-weight: 500; }
+  .site-nav a[aria-current="page"] { color: var(--saffron); }
+
+  .more-wrap { position: relative; display: inline-block; }
+  .more-btn {
+    background: transparent; border: 0; padding: 0;
+    font-family: inherit; font-style: italic; font-size: inherit;
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .more-btn:hover { color: var(--saffron); }
+  .more-btn .chev { font-size: 11px; transition: transform .2s; }
+  .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .more-btn.is-current { color: var(--saffron); }
+  .more-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 6px 0;
+    box-shadow: var(--shadow-md);
+    z-index: 100; min-width: 220px;
+    display: flex; flex-direction: column;
+  }
+  .more-menu[hidden] { display: none; }
+  .more-menu a, .more-menu .more-menu-toggle {
+    padding: 9px 16px; text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    text-align: left; border: 0; background: transparent;
+    cursor: pointer; line-height: 1.3;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .more-menu a:hover, .more-menu .more-menu-toggle:hover {
+    background: var(--bg-deep); color: var(--saffron);
+  }
+  .more-menu a[aria-current="page"] { color: var(--saffron); }
+  .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 6px 14px; }
+  .more-menu-toggle-label {
+    color: var(--muted); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .14em; font-style: italic;
+  }
+  .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
+  @media (max-width: 600px) {
+    .more-menu {
+      position: fixed;
+      top: 64px;
+      right: 12px;
+      left: auto;
+      max-width: calc(100vw - 24px);
+      min-width: 240px;
+    }
+    .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
+  }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead {
+    padding: 56px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(38px, 7vw, 56px);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 60ch;
+    line-height: 1.55;
+  }
+
+  /* ---------- ORIGIN STORY ---------- */
+  .origin {
+    margin: 30px auto 24px;
+    max-width: 60ch;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 8px 8px 0;
+  }
+  .origin p {
+    margin: 0 0 8px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .origin p:last-child { margin-bottom: 0; }
+  .origin .credit {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    font-style: normal;
+    margin-top: 10px;
+    display: block;
+  }
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard {
+    margin: 28px 0;
+    padding: 22px 24px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+  .dashboard-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 0 14px;
+    color: var(--ink);
+    letter-spacing: -.005em;
+  }
+  .dashboard-counts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .dash-count {
+    text-align: center;
+    padding: 10px 6px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+  }
+  .dash-count-num {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .dash-count.aware    .dash-count-num { color: var(--indigo); }
+  .dash-count.familiar .dash-count-num { color: var(--saffron); }
+  .dash-count.confident .dash-count-num { color: #5b8a5b; }
+  .dash-count.tbd      .dash-count-num { color: var(--muted); }
+  .dash-count-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+  .dash-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+    font-family: var(--display);
+    font-size: 14px;
+  }
+  .dash-section-name {
+    flex: 0 0 32%;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .dash-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg);
+    border-radius: 999px;
+    overflow: hidden;
+    display: flex;
+  }
+  .dash-bar-seg-aware     { background: var(--indigo); }
+  .dash-bar-seg-familiar  { background: var(--saffron); }
+  .dash-bar-seg-confident { background: #5b8a5b; }
+  .dash-bar-seg-tbd       { background: repeating-linear-gradient(45deg, var(--rule-soft), var(--rule-soft) 4px, var(--bg) 4px, var(--bg) 8px); }
+  .dash-section-stat {
+    flex: 0 0 56px;
+    text-align: right;
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    .dashboard-counts { grid-template-columns: repeat(2, 1fr); }
+    .dash-section-name { flex-basis: 36%; font-size: 13px; }
+  }
+
+  /* ---------- ACTIONS ---------- */
+  .top-actions, .bottom-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 18px 0;
+  }
+  .btn {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all .15s;
+    line-height: 1.2;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn:hover { color: var(--saffron); border-color: var(--saffron); }
+  .btn.is-primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .btn.is-primary:hover { background: var(--saffron); border-color: var(--saffron); color: var(--surface); }
+  .btn.is-quiet { font-size: 13px; opacity: .85; }
+
+  /* ---------- SECTIONS / TOPICS ---------- */
+  .section {
+    margin: 22px 0;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 18px 22px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--surface);
+    border: 0;
+    width: 100%;
+    font-family: inherit;
+    text-align: left;
+    transition: background .15s;
+  }
+  .section-head:hover { background: var(--bg-deep); }
+  .section-head-left { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .section-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -.005em;
+  }
+  .section-name em { font-style: italic; color: var(--saffron); }
+  .section-meta {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .section-chev {
+    font-family: var(--display);
+    font-size: 14px;
+    color: var(--saffron);
+    transition: transform .2s;
+  }
+  .section[aria-expanded="true"] .section-chev { transform: rotate(180deg); }
+  .section-body { padding: 6px 22px 22px; }
+  .section[aria-expanded="false"] .section-body { display: none; }
+
+  /* ---------- TOPIC CARD ---------- */
+  .topic {
+    margin: 12px 0;
+    padding: 16px 18px 14px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+    transition: border-color .15s;
+  }
+  .topic.is-tbd { opacity: .7; }
+  .topic.has-stage { border-color: var(--rule); }
+  .topic-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .topic-name {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 16.5px;
+    color: var(--ink);
+    margin: 0;
+    flex: 1 1 auto;
+    letter-spacing: -.005em;
+  }
+  .topic-tbd-badge {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+  .topic-source {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+
+  /* radio pills */
+  .stage-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 4px 0 8px;
+  }
+  .stage-pill {
+    flex: 1 1 0;
+    min-width: 0;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 7px 12px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--surface);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    transition: all .15s;
+    user-select: none;
+  }
+  .stage-pill input { position: absolute; opacity: 0; pointer-events: none; }
+  .stage-pill:hover { border-color: var(--saffron); color: var(--saffron); }
+  .stage-pill .pill-label {
+    display: block;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 13px;
+    line-height: 1.1;
+  }
+  .stage-pill .pill-hint {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .stage-pill.is-on  {
+    background: var(--bg);
+    color: var(--saffron);
+    border-color: var(--saffron);
+    box-shadow: inset 0 0 0 1px var(--saffron);
+  }
+  .stage-pill.is-on .pill-hint { color: var(--ink-soft); }
+
+  .topic.is-tbd .stage-pills { display: none; }
+
+  /* notes */
+  .topic-notes-wrap { margin-top: 8px; }
+  .topic-notes-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .topic-notes {
+    width: 100%;
+    min-height: 50px;
+    background: var(--cream);
+    border: 1px solid var(--rule-soft);
+    border-radius: 6px;
+    padding: 9px 11px;
+    font-family: var(--body);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.55;
+    resize: vertical;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .topic-notes:focus { border-color: var(--saffron); }
+  .topic-notes::placeholder { color: var(--muted); font-style: italic; opacity: .55; }
+
+  .topic-tbd-note {
+    margin: 4px 0 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- WHAT TO DISCUSS PANEL ---------- */
+  .next-panel {
+    margin: 36px 0 0;
+    padding: 24px 26px 22px;
+    background: var(--surface);
+    border: 1px solid var(--saffron);
+    border-radius: 12px;
+  }
+  .next-panel-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .next-panel-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 0 14px;
+    letter-spacing: -.005em;
+    color: var(--ink);
+  }
+  .next-panel-title em { font-style: italic; color: var(--saffron); }
+  .next-bucket { margin: 14px 0 0; }
+  .next-bucket-name {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .04em;
+    color: var(--saffron);
+    margin: 0 0 6px;
+  }
+  .next-bucket ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .next-bucket li {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    padding: 4px 0 4px 18px;
+    position: relative;
+  }
+  .next-bucket li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    color: var(--saffron);
+    font-weight: 700;
+  }
+  .next-bucket li .topic-note-snippet {
+    display: block;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    padding-left: 0;
+  }
+  .next-empty {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    margin: 14px 0 0;
+  }
+
+  /* ---------- PRIVACY ---------- */
+  .privacy {
+    margin: 36px auto 0;
+    max-width: 56ch;
+    padding: 14px 18px;
+    text-align: center;
+    background: rgba(188,129,70,.04);
+    border: 1px dashed var(--rule);
+    border-radius: 8px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ---------- TOAST ---------- */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--surface);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    padding: 9px 20px;
+    border-radius: 999px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .2s;
+    pointer-events: none;
+  }
+  .toast.is-visible { opacity: 1; }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    max-width: 480px;
+    margin: 60px auto 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .footer-ornament { color: var(--saffron); margin-bottom: 16px; opacity: .7; }
+  .footer-ornament svg { width: 14px; height: 14px; }
+  .footer p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .footer .meta { margin-top: 10px; font-size: 12px; }
+
+  /* ---------- v4.59.0 LEGACY THEME OVERRIDE ---------- */
+  html.theme-legacy {
+    --bg:        #f3e9d2;
+    --bg-deep:   #ead9b4;
+    --surface:   #faf3e2;
+    --cream:     #faf3e2;
+    --ink:       #1f1a2e;
+    --ink-soft:  #4a4055;
+    --muted:     #7d6f55;
+    --rule:      #d4c39a;
+    --rule-soft: #e3d4ad;
+    --saffron:   #b8410e;
+    --indigo:    #2a3270;
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Spectral', Georgia, serif;
+  }
+
+  /* ---------- Name popover (sitewide) ---------- */
+  .name-popover {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px 26px;
+    box-shadow: var(--shadow-md);
+    z-index: 300;
+    width: min(90vw, 380px);
+    font-family: var(--display);
+  }
+  .name-popover[hidden] { display: none; }
+  .name-popover-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(40,40,38,.35);
+    z-index: 299;
+  }
+  .name-popover-backdrop[hidden] { display: none; }
+  .name-popover-eyebrow {
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 4px;
+  }
+  .name-popover-q {
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 16px;
+    line-height: 1.3;
+  }
+  .name-popover-input {
+    width: 100%;
+    padding: 9px 14px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    margin-bottom: 14px;
+  }
+  .name-popover-input:focus { border-color: var(--saffron); }
+  .name-popover-buttons {
+    display: flex; gap: 8px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .name-popover-buttons button {
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink);
+    transition: all .15s;
+  }
+  .name-popover-buttons button:hover { border-color: var(--saffron); color: var(--saffron); }
+  .name-popover-buttons .save {
+    background: var(--saffron);
+    color: var(--surface);
+    border-color: var(--saffron);
+    font-weight: 500;
+  }
+  .name-popover-buttons .save:hover { color: var(--surface); transform: translateY(-1px); }
+  .name-popover-buttons .clear { color: var(--muted); }
+
+  /* ---------- WhatsApp FAB & first-visit tip ---------- */
+  .wa-fab-global {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 200;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .wa-fab-global:hover { transform: translateY(-2px); box-shadow: 0 6px 18px -4px rgba(40,40,38,.3); }
+  .wa-fab-global::after {
+    content: 'Send feedback';
+    position: absolute; bottom: calc(100% + 8px); right: 0;
+    background: #282826; color: #F8F4E1;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 12px;
+    padding: 5px 10px; border-radius: 6px;
+    white-space: nowrap; opacity: 0;
+    pointer-events: none; transition: opacity .15s;
+  }
+  .wa-fab-global:hover::after { opacity: 1; }
+  @media (max-width: 480px) {
+    .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; }
+  }
+
+  .first-visit-tip {
+    position: relative;
+    margin: 18px auto 8px;
+    max-width: 640px;
+    padding: 14px 92px 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
+    font-family: var(--display);
+    color: var(--ink);
+    animation: fvtIn .3s ease-out;
+    z-index: 5;
+  }
+  @keyframes fvtIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .first-visit-tip .fvt-eyebrow {
+    font-style: italic; font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--saffron); margin-bottom: 4px;
+  }
+  .first-visit-tip .fvt-text {
+    font-style: italic; font-size: 15.5px;
+    line-height: 1.5; margin: 0;
+  }
+  .first-visit-tip .fvt-dismiss {
+    position: absolute; top: 12px; right: 12px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: var(--display);
+    font-style: italic; font-size: 12px;
+    color: var(--ink-soft); cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .first-visit-tip .fvt-dismiss:hover {
+    border-color: var(--saffron);
+    color: var(--saffron);
+    background: rgba(188,129,70,.05);
+  }
+  @media (max-width: 480px) {
+    .first-visit-tip { padding: 14px 18px 14px 18px; }
+    .first-visit-tip .fvt-dismiss { position: static; display: inline-block; margin-top: 8px; }
+  }
+</style>
+</head>
+<body>
+<script>
+/* v4.59.0 — apply saved theme before first paint to avoid FOUC. */
+(function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
+</script>
+
+<div class="page">
+
+  <!-- ====================== SITE NAV (v4.63.0) ====================== -->
+  <nav class="site-nav" aria-label="Site sections">
+    <a href="index.html">Home</a>
+    <span class="sep">·</span>
+    <a href="learning-companion.html" class="primary">Learning Companion</a>
+    <span class="sep">·</span>
+    <a href="read.html" class="primary">Read · beta</a>
+    <span class="sep">·</span>
+    <a href="reflect.html" class="primary">Reflect</a>
+    <span class="sep">·</span>
+    <div class="more-wrap">
+      <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
+      <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="where-am-i.html" role="menuitem" aria-current="page">Where am I</a>
+        <a href="interactive.html" role="menuitem">Interactive · beta</a>
+        <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
+        <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
+        <a href="astronomy.html" role="menuitem">Astronomy</a>
+        <a href="sripati.html" role="menuitem">Sripati Paddhati</a>
+        <a href="ether.html" role="menuitem">Ether</a>
+        <a href="layers.html" role="menuitem">Layers</a>
+        <a href="stats.html" role="menuitem">Stats</a>
+        <a href="release-notes.html" role="menuitem">Release Notes</a>
+        <div class="more-menu-divider" role="separator"></div>
+        <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
+          <span class="more-menu-toggle-label">Your name</span>
+          <span class="more-menu-toggle-value" id="namePopoverValue">Add</span>
+        </button>
+        <button type="button" class="more-menu-toggle" id="themeToggleMenu" role="menuitem">
+          <span class="more-menu-toggle-label">Style</span>
+          <span class="more-menu-toggle-value" id="themeToggleValue">ATV brand</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">all things vedic · the companion app · v4.63.0</div>
+    <h1>Where am <em>I</em></h1>
+    <p class="lede"
+       data-name-template="A self-assessment, {name} — for every topic in the 101 journey, mark whether you're aware of it, familiar with it, or confident enough to teach it. Your answers stay only in this browser."
+       data-name-fallback="A self-assessment for every topic in the 101 journey. Mark whether you're aware of it, familiar with it, or confident enough to teach it. Your answers stay only in this browser.">A self-assessment for every topic in the 101 journey. Mark whether you're aware of it, familiar with it, or confident enough to teach it. Your answers stay only in this browser.</p>
+  </header>
+
+  <div class="origin">
+    <p>This page came out of a conversation with Arpitha. We were sitting with Sripati Paddhati and noticed something: the topics I could teach back to her were the ones I had truly internalised. The ones I could only nod along with were the ones I still needed to circle back to.</p>
+    <p>So — instead of one more quiz, this is a space to be honest with myself about where each topic actually sits. Aware. Familiar. Confident. And the notes column is for the very specific question I want to ask Vikram next time we sit together.</p>
+    <span class="credit">An idea by Arpitha · drafted with Sree · v4.63.0</span>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <h2 class="dashboard-title">At a glance</h2>
+    <div class="dashboard-counts">
+      <div class="dash-count aware"><div class="dash-count-num" id="cntAware">0</div><div class="dash-count-label">Aware</div></div>
+      <div class="dash-count familiar"><div class="dash-count-num" id="cntFamiliar">0</div><div class="dash-count-label">Familiar</div></div>
+      <div class="dash-count confident"><div class="dash-count-num" id="cntConfident">0</div><div class="dash-count-label">Confident</div></div>
+      <div class="dash-count tbd"><div class="dash-count-num" id="cntTbd">0</div><div class="dash-count-label">TBD this year</div></div>
+    </div>
+    <div id="dashSections"></div>
+  </div>
+
+  <div class="top-actions">
+    <button class="btn is-primary" id="exportBtn" type="button">📋 Copy as checklist</button>
+    <button class="btn" id="expandAllBtn" type="button">Open all</button>
+    <button class="btn" id="collapseAllBtn" type="button">Close all</button>
+    <button class="btn is-quiet" id="resetBtn" type="button">↻ Reset</button>
+  </div>
+
+  <!-- SECTIONS -->
+  <div id="sectionsRoot"></div>
+
+  <!-- WHAT TO DISCUSS PANEL -->
+  <div class="next-panel">
+    <div class="next-panel-eyebrow">surfaced from your answers</div>
+    <h2 class="next-panel-title">What to <em>discuss next</em></h2>
+    <div id="nextPanelBody">
+      <p class="next-empty">Mark a few topics above and this panel will fill in — what to re-read, what to take to peer group, what to bring to Vikram.</p>
+    </div>
+  </div>
+
+  <div class="bottom-actions">
+    <button class="btn is-primary" id="exportBtnBottom" type="button">📋 Copy as checklist</button>
+  </div>
+
+  <div class="privacy">
+    Everything on this page lives in your browser only. Nothing is shared with Vikram, Arpitha, the cohort, or anyone else — unless you copy it out yourself with the button above.
+  </div>
+
+  <footer class="footer">
+    <div class="footer-ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="learning-companion.html">Back to Learning Companion</a> · <a href="reflect.html">Reflect</a></p>
+    <p class="meta">
+      <span style="color:var(--muted);">v4.63.0 · updated 10 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+    </p>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<!-- v4.60.0 Personalisation popover (sitewide) -->
+<div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
+<div class="name-popover" id="namePopover" hidden role="dialog" aria-modal="true" aria-labelledby="namePopoverQ">
+  <div class="name-popover-eyebrow">Your name</div>
+  <p class="name-popover-q" id="namePopoverQ">What should we call you?</p>
+  <input class="name-popover-input" type="text" maxlength="30" placeholder="e.g. Sree" autocomplete="given-name">
+  <div class="name-popover-buttons">
+    <button type="button" class="clear" id="namePopoverClear">Clear</button>
+    <button type="button" id="namePopoverCancel">Cancel</button>
+    <button type="button" class="save" id="namePopoverSave">Save</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   TOPIC INVENTORY
+   Each topic is { id, name, source, tbd? }.
+   Source uses deck/session shorthand from the KB so the learner
+   can find the exact teaching to revisit.
+   TBD topics are locked — Vikram has not taught them yet, so a
+   stage cannot honestly be picked.
+============================================================ */
+const SECTIONS = [
+  {
+    id: 'astronomy',
+    name: 'Astronomy',
+    blurb: 'The physical sky, before any meaning is layered on.',
+    topics: [
+      { id: 'astro-frame',    name: 'Geocentric vs heliocentric framing',           source: 'Astronomy peer page · Session 30' },
+      { id: 'astro-equinox',  name: 'Equinoxes, solstices & the seasons',           source: 'Astronomy peer page · Session 30' },
+      { id: 'astro-ecliptic', name: 'The ecliptic & 27 nakshatras',                 source: 'Astronomy peer page · Deck 04' },
+      { id: 'astro-tilt',     name: 'Earth’s axial tilt & precession',         source: 'Astronomy peer page · Session 30' },
+      { id: 'astro-meaning',  name: 'Astronomy → meaning (physics becomes psychology)', source: 'Astronomy peer page · planet decks 14–18' },
+      { id: 'astro-sripati',  name: 'Sripati Paddhati — cusps from the Lagna degree', source: 'Sripati peer page · Session 37' }
+    ]
+  },
+  {
+    id: 'signs',
+    name: 'Signs',
+    blurb: 'The 12 Rāśis — their structure and psychology.',
+    topics: [
+      { id: 'sign-twelve',    name: 'The twelve signs — names, sanskrit, symbols', source: 'LC · Signs section · Deck 06' },
+      { id: 'sign-elements',  name: 'Elements: fire, earth, air, water',            source: 'LC · Elements grid · Deck 07' },
+      { id: 'sign-modes',     name: 'Modes: cardinal, fixed, mutable',              source: 'LC · Modes grid · Deck 07' },
+      { id: 'sign-duality',   name: 'Duality: yang/yin · nara/stri',           source: 'LC · Duality grid · Deck 07' },
+      { id: 'sign-rulership', name: 'Sign rulerships (which planet rules which sign)', source: 'LC · Cabinet · Deck 09' },
+      { id: 'sign-ucchaneecha',name: 'Exaltation & debilitation (uccha / neecha)',  source: 'LC · Cabinet · Deck 11' },
+      { id: 'sign-mulatrikona',name: 'Mūlatrikoṇa',                       source: 'LC · Cabinet · Deck 11' },
+      { id: 'sign-meaning',   name: 'Sign meanings & psychology (12 archetypes)',   source: 'LC · Signs section · Decks 06–08' },
+      { id: 'sign-rashi',     name: 'Rāśi Chakra layout (the wheel)',     source: 'LC · Signs section' },
+      { id: 'sign-kaala',     name: 'Kālapurusha mapping (signs → body parts)', source: 'LC · Kālapurusha · peer page' },
+      { id: 'sign-reading',   name: 'Reading signs in a chart',                     source: 'LC · Practice section' },
+      { id: 'sign-friends',   name: 'Sign friendship via rulers',                   source: 'LC · Relationships · Deck 12' }
+    ]
+  },
+  {
+    id: 'planets',
+    name: 'Planets',
+    blurb: 'The Navagrahas. Four taught so far this year; five still ahead.',
+    topics: [
+      { id: 'planet-sun',     name: 'Sun · Sūrya',                        source: 'LC · Planets · Deck 14' },
+      { id: 'planet-moon',    name: 'Moon · Chandra',                          source: 'LC · Planets · Deck 15' },
+      { id: 'planet-mars',    name: 'Mars · Mangala',                          source: 'LC · Planets · Deck 16 · Session 31' },
+      { id: 'planet-mercury', name: 'Mercury · Budha',                         source: 'LC · Planets · Deck 17 · Mercury Spectrum peer page' },
+      { id: 'planet-jupiter', name: 'Jupiter · Guru',                          source: 'TBD this year', tbd: true },
+      { id: 'planet-venus',   name: 'Venus · Shukra',                          source: 'TBD this year', tbd: true },
+      { id: 'planet-saturn',  name: 'Saturn · Shani',                          source: 'TBD this year', tbd: true },
+      { id: 'planet-rahu',    name: 'Rahu · north node',                       source: 'TBD this year', tbd: true },
+      { id: 'planet-ketu',    name: 'Ketu · south node',                       source: 'TBD this year', tbd: true }
+    ]
+  },
+  {
+    id: 'houses',
+    name: 'Houses',
+    blurb: 'The 12 Bhāvas — the arenas of life.',
+    topics: [
+      { id: 'house-twelve',     name: 'The twelve houses — names & sanskrit',  source: 'LC · Houses · Deck 67 · Session 33' },
+      { id: 'house-karaka',     name: 'House kārakas (significators)',         source: 'LC · Houses · Deck 67' },
+      { id: 'house-purushartha',name: 'Purushārthas — Dharma, Artha, Kāma, Mokṣa trines', source: 'LC · Purushārthas · Deck 67' },
+      { id: 'house-kendra',     name: 'Kendras — 1, 4, 7, 10',                 source: 'LC · House Categories · Session 35' },
+      { id: 'house-trikona',    name: 'Trikoṇas — 1, 5, 9',                source: 'LC · House Categories · Session 35' },
+      { id: 'house-panapara',   name: 'Panaparas — succedent (2,5,8,11)',      source: 'LC · House Categories · Session 35' },
+      { id: 'house-apoklima',   name: 'Apoklimas — cadent (3,6,9,12)',         source: 'LC · House Categories · Session 35' },
+      { id: 'house-upachaya',   name: 'Upachayas — 3, 6, 10, 11',              source: 'LC · House Categories · Session 35' },
+      { id: 'house-dushtana',   name: 'Dushtanas — 6, 8, 12',                  source: 'LC · House Categories · Session 35' },
+      { id: 'house-systems',    name: 'House systems (Whole-sign, Equal, Sripati)', source: 'LC · House Systems · Session 37' },
+      { id: 'house-lord',       name: 'House lords — reading lord placement',  source: 'LC · Practice · Session 35' },
+      { id: 'house-placement',  name: 'Planet-in-house interpretation',             source: 'LC · Practice · Session 35' }
+    ]
+  },
+  {
+    id: 'avatars',
+    name: 'Avatars',
+    blurb: 'Daśāvatāra as psychological archetypes. Matsya drafted; the rest are coming.',
+    topics: [
+      { id: 'avatar-matsya',     name: 'Matsya — Fish · Ketu',               source: 'Reflect · Workbook Module 1 · Session 32' },
+      { id: 'avatar-kurma',      name: 'Kūrma — Tortoise · Saturn',     source: 'TBD this year', tbd: true },
+      { id: 'avatar-varaha',     name: 'Varāha — Boar · Rahu',          source: 'TBD this year', tbd: true },
+      { id: 'avatar-narasimha',  name: 'Narasiṃha — Man-Lion · Mars',   source: 'TBD this year', tbd: true },
+      { id: 'avatar-vamana',     name: 'Vāmana — Dwarf · Jupiter',      source: 'TBD this year', tbd: true },
+      { id: 'avatar-parashurama',name: 'Paraśurāma — Warrior-priest · Venus', source: 'TBD this year', tbd: true },
+      { id: 'avatar-rama',       name: 'Rāma — King · Sun',             source: 'TBD this year', tbd: true },
+      { id: 'avatar-krishna',    name: 'Kṛṣṇa — Cowherd-king · Moon', source: 'TBD this year', tbd: true },
+      { id: 'avatar-buddha',     name: 'Buddha — Awakened one · Mercury',    source: 'TBD this year', tbd: true },
+      { id: 'avatar-kalki',      name: 'Kalki — future avatar (not in workbook)',source: 'Out of scope', tbd: true }
+    ]
+  },
+  {
+    id: 'interpretation',
+    name: 'Interpretation',
+    blurb: 'Putting the pieces together.',
+    topics: [
+      { id: 'interp-aspects',    name: 'Aspects — Drishti',                    source: 'LC · Aspects · Deck 28' },
+      { id: 'interp-yogas',      name: 'Yogas — combinations',                 source: 'LC · Yogas · Deck 31' },
+      { id: 'interp-cabinet',    name: 'The Signature · planetary cabinet',    source: 'LC · Cabinet · Deck 09' },
+      { id: 'interp-relations',  name: 'Planetary relationships (friend / neutral / enemy)', source: 'LC · Relationships · Deck 12' },
+      { id: 'interp-whole',      name: 'Reading the whole chart',                   source: 'LC · Practice section' }
+    ]
+  },
+  {
+    id: 'reflective',
+    name: 'Reflective practice',
+    blurb: 'The contemplative side of the journey.',
+    topics: [
+      { id: 'refl-workbook',     name: 'The Companion Workbook approach',           source: 'LC · Companion Workbook section' },
+      { id: 'refl-archetypes',   name: 'Avatars as psychological archetypes',       source: 'Reflect · Module 1' },
+      { id: 'refl-ether',        name: 'Ether · Nirvāṇa Shatakam',   source: 'Ether peer page' },
+      { id: 'refl-mychart',      name: 'My own chart — patterns I notice',     source: 'My Chart section' }
+    ]
+  }
+];
+
+const STAGES = [
+  { id: 'aware',     label: 'Aware',     hint: 'I’ve heard of it' },
+  { id: 'familiar',  label: 'Familiar',  hint: 'I can use it' },
+  { id: 'confident', label: 'Confident', hint: 'I could teach it' }
+];
+
+/* ============================================================
+   STORAGE
+============================================================ */
+const STORAGE_PREFIX = 'astro-where-am-i-v1';
+function stageKey(tid){ return STORAGE_PREFIX + '-stage-' + tid; }
+function noteKey(tid){ return STORAGE_PREFIX + '-note-' + tid; }
+function expandKey(sid){ return STORAGE_PREFIX + '-open-' + sid; }
+function loadStage(tid){ try { return localStorage.getItem(stageKey(tid)) || ''; } catch(e){ return ''; } }
+function saveStage(tid, stage){
+  try {
+    if (stage) localStorage.setItem(stageKey(tid), stage);
+    else localStorage.removeItem(stageKey(tid));
+  } catch(e){}
+}
+function loadNote(tid){ try { return localStorage.getItem(noteKey(tid)) || ''; } catch(e){ return ''; } }
+function saveNote(tid, value){
+  try {
+    if (value && value.trim()) localStorage.setItem(noteKey(tid), value);
+    else localStorage.removeItem(noteKey(tid));
+  } catch(e){}
+}
+function loadOpen(sid){ try { var v = localStorage.getItem(expandKey(sid)); return v === null ? null : v === '1'; } catch(e){ return null; } }
+function saveOpen(sid, open){ try { localStorage.setItem(expandKey(sid), open ? '1' : '0'); } catch(e){} }
+
+/* ============================================================
+   TOAST
+============================================================ */
+function showToast(msg, ms){
+  ms = ms || 1800;
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.hidden = false;
+  t.classList.add('is-visible');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove('is-visible'); }, ms);
+}
+
+/* ============================================================
+   RENDER — sections
+============================================================ */
+function escHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+
+function renderSections(){
+  var root = document.getElementById('sectionsRoot');
+  var html = '';
+  SECTIONS.forEach(function(s){
+    var openSaved = loadOpen(s.id);
+    var open = openSaved === null ? false : openSaved;  // collapsed by default
+    var totals = sectionTotals(s);
+    html += '<section class="section" id="sec-' + s.id + '" aria-expanded="' + (open ? 'true' : 'false') + '">';
+    html +=   '<button type="button" class="section-head" data-section-toggle="' + s.id + '" aria-controls="body-' + s.id + '">';
+    html +=     '<div class="section-head-left">';
+    html +=       '<h2 class="section-name">' + escHtml(s.name) + '</h2>';
+    html +=       '<div class="section-meta" data-section-meta="' + s.id + '">' + sectionMetaText(totals) + '</div>';
+    html +=     '</div>';
+    html +=     '<span class="section-chev" aria-hidden="true">▾</span>';
+    html +=   '</button>';
+    html +=   '<div class="section-body" id="body-' + s.id + '">';
+    html +=     '<p style="font-family:var(--display);font-style:italic;font-size:14px;color:var(--ink-soft);margin:6px 0 12px;">' + escHtml(s.blurb) + '</p>';
+    s.topics.forEach(function(t){
+      html += renderTopic(t);
+    });
+    html +=   '</div>';
+    html += '</section>';
+  });
+  root.innerHTML = html;
+}
+
+function renderTopic(t){
+  var savedStage = loadStage(t.id);
+  var savedNote  = loadNote(t.id);
+  var classes = 'topic';
+  if (t.tbd) classes += ' is-tbd';
+  if (savedStage) classes += ' has-stage';
+
+  var pills = '';
+  STAGES.forEach(function(stg){
+    var isOn = savedStage === stg.id;
+    pills += '<label class="stage-pill' + (isOn ? ' is-on' : '') + '" data-stage-pill="' + t.id + '|' + stg.id + '">';
+    pills +=   '<input type="radio" name="stage-' + t.id + '" value="' + stg.id + '"' + (isOn ? ' checked' : '') + '>';
+    pills +=   '<span class="pill-label">' + stg.label + '</span>';
+    pills +=   '<span class="pill-hint">' + stg.hint + '</span>';
+    pills += '</label>';
+  });
+
+  var notesPlaceholder = t.tbd
+    ? 'Anything you’d like to ask Vikram when this comes up…'
+    : 'What specifically do you want to revisit — or take to peer group, or to Vikram?';
+
+  var html = '<div class="' + classes + '" data-topic="' + t.id + '">';
+  html +=   '<div class="topic-head">';
+  html +=     '<h3 class="topic-name">' + escHtml(t.name) + '</h3>';
+  if (t.tbd) html += '<span class="topic-tbd-badge">TBD this year</span>';
+  html +=   '</div>';
+  html +=   '<p class="topic-source">' + escHtml(t.source) + '</p>';
+  if (t.tbd){
+    html += '<p class="topic-tbd-note">Vikram has not taught this in 101 yet — you can still leave a note for when it comes up.</p>';
+  } else {
+    html += '<div class="stage-pills" role="radiogroup" aria-label="' + escHtml(t.name) + ' — stage">' + pills + '</div>';
+  }
+  html +=   '<div class="topic-notes-wrap">';
+  html +=     '<label class="topic-notes-label" for="note-' + t.id + '">Notes (only for me)</label>';
+  html +=     '<textarea class="topic-notes" id="note-' + t.id + '" data-topic-note="' + t.id + '" placeholder="' + notesPlaceholder + '">' + escHtml(savedNote) + '</textarea>';
+  html +=   '</div>';
+  html += '</div>';
+  return html;
+}
+
+function sectionTotals(s){
+  var t = { aware:0, familiar:0, confident:0, tbd:0, total:s.topics.length, gradable:0 };
+  s.topics.forEach(function(top){
+    if (top.tbd){ t.tbd++; return; }
+    t.gradable++;
+    var st = loadStage(top.id);
+    if (st === 'aware') t.aware++;
+    else if (st === 'familiar') t.familiar++;
+    else if (st === 'confident') t.confident++;
+  });
+  return t;
+}
+function sectionMetaText(t){
+  var graded = t.aware + t.familiar + t.confident;
+  if (t.gradable === 0) return t.tbd + ' topics · all TBD this year';
+  return graded + ' of ' + t.gradable + ' graded' + (t.tbd ? ' · ' + t.tbd + ' TBD' : '');
+}
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+function renderDashboard(){
+  var totals = { aware:0, familiar:0, confident:0, tbd:0 };
+  SECTIONS.forEach(function(s){
+    var st = sectionTotals(s);
+    totals.aware     += st.aware;
+    totals.familiar  += st.familiar;
+    totals.confident += st.confident;
+    totals.tbd       += st.tbd;
+  });
+  document.getElementById('cntAware').textContent = totals.aware;
+  document.getElementById('cntFamiliar').textContent = totals.familiar;
+  document.getElementById('cntConfident').textContent = totals.confident;
+  document.getElementById('cntTbd').textContent = totals.tbd;
+
+  var rows = '';
+  SECTIONS.forEach(function(s){
+    var st = sectionTotals(s);
+    var totalForBar = st.total;
+    var pctA = (st.aware     / totalForBar) * 100;
+    var pctF = (st.familiar  / totalForBar) * 100;
+    var pctC = (st.confident / totalForBar) * 100;
+    var pctT = (st.tbd       / totalForBar) * 100;
+    rows += '<div class="dash-section">';
+    rows +=   '<div class="dash-section-name">' + escHtml(s.name) + '</div>';
+    rows +=   '<div class="dash-bar">';
+    if (pctA > 0) rows += '<div class="dash-bar-seg-aware"     style="width:' + pctA + '%"></div>';
+    if (pctF > 0) rows += '<div class="dash-bar-seg-familiar"  style="width:' + pctF + '%"></div>';
+    if (pctC > 0) rows += '<div class="dash-bar-seg-confident" style="width:' + pctC + '%"></div>';
+    if (pctT > 0) rows += '<div class="dash-bar-seg-tbd"       style="width:' + pctT + '%"></div>';
+    rows +=   '</div>';
+    rows +=   '<div class="dash-section-stat">' + (st.aware + st.familiar + st.confident) + '/' + st.gradable + '</div>';
+    rows += '</div>';
+  });
+  document.getElementById('dashSections').innerHTML = rows;
+}
+
+/* ============================================================
+   "WHAT TO DISCUSS NEXT" panel
+============================================================ */
+function renderNextPanel(){
+  var awareTopics = [], familiarTopics = [], confidentTopics = [], tbdNoteTopics = [];
+  SECTIONS.forEach(function(s){
+    s.topics.forEach(function(t){
+      var st = loadStage(t.id);
+      var note = loadNote(t.id).trim();
+      if (t.tbd){
+        if (note) tbdNoteTopics.push({ t:t, note:note, section:s });
+        return;
+      }
+      if (st === 'aware')     awareTopics.push({ t:t, note:note, section:s });
+      else if (st === 'familiar')  familiarTopics.push({ t:t, note:note, section:s });
+      else if (st === 'confident') confidentTopics.push({ t:t, note:note, section:s });
+    });
+  });
+
+  if (!awareTopics.length && !familiarTopics.length && !confidentTopics.length && !tbdNoteTopics.length){
+    document.getElementById('nextPanelBody').innerHTML = '<p class="next-empty">Mark a few topics above and this panel will fill in — what to re-read, what to take to peer group, what to bring to Vikram.</p>';
+    return;
+  }
+
+  var html = '';
+  function renderBucket(label, items){
+    if (!items.length) return '';
+    var h  = '<div class="next-bucket">';
+    h +=    '<div class="next-bucket-name">' + label + '</div>';
+    h +=    '<ul>';
+    items.forEach(function(x){
+      h += '<li>' + escHtml(x.t.name) + ' · <em style="color:var(--muted);">' + escHtml(x.section.name) + '</em>';
+      if (x.note) h += '<span class="topic-note-snippet">“' + escHtml(x.note) + '”</span>';
+      h += '</li>';
+    });
+    h +=    '</ul>';
+    h +=   '</div>';
+    return h;
+  }
+  html += renderBucket('Re-read these (Aware → Familiar)', awareTopics);
+  html += renderBucket('Take these to peer group (Familiar → Confident)', familiarTopics);
+  html += renderBucket('Bring these to Vikram (Confident — to push deeper, or to teach)', confidentTopics);
+  html += renderBucket('When taught — questions to ask', tbdNoteTopics);
+  document.getElementById('nextPanelBody').innerHTML = html;
+}
+
+/* ============================================================
+   EXPORT — plain text checklist
+============================================================ */
+function buildExport(){
+  var name = (window.__name && window.__name.get && window.__name.get()) || '';
+  var date = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  var lines = [];
+  lines.push('Where am I — Astrology 101 self-assessment');
+  lines.push((name ? name + ' · ' : '') + date);
+  lines.push('');
+
+  // headline counts
+  var totals = { aware:0, familiar:0, confident:0, tbd:0, total:0 };
+  SECTIONS.forEach(function(s){
+    var st = sectionTotals(s);
+    totals.aware += st.aware; totals.familiar += st.familiar;
+    totals.confident += st.confident; totals.tbd += st.tbd;
+    totals.total += st.total;
+  });
+  lines.push('Aware ' + totals.aware + ' · Familiar ' + totals.familiar +
+             ' · Confident ' + totals.confident + ' · TBD ' + totals.tbd +
+             ' (of ' + totals.total + ' topics)');
+  lines.push('');
+  lines.push('──────────────────────────────');
+  lines.push('');
+
+  SECTIONS.forEach(function(s){
+    lines.push(s.name.toUpperCase());
+    s.topics.forEach(function(t){
+      var st = loadStage(t.id);
+      var note = loadNote(t.id).trim();
+      var marker;
+      if (t.tbd) marker = '[ ] TBD ';
+      else if (st === 'confident') marker = '[●●●] ';
+      else if (st === 'familiar')  marker = '[●●·] ';
+      else if (st === 'aware')     marker = '[●··] ';
+      else                          marker = '[···] ';
+      lines.push('  ' + marker + t.name);
+      if (note) lines.push('       — ' + note);
+    });
+    lines.push('');
+  });
+
+  lines.push('Legend:  [●··] Aware   [●●·] Familiar   [●●●] Confident   TBD = not yet taught');
+  lines.push('');
+  lines.push('From: All Things Vedic · Astrology 101 Companion App · v4.63.0');
+  return lines.join('\n');
+}
+
+function copyExport(){
+  var text = buildExport();
+  function fallback(){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showToast('Checklist copied'); }
+    catch(e){ showToast('Copy failed — long-press to copy manually'); }
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(
+      function(){ showToast('Checklist copied to clipboard'); },
+      fallback
+    );
+  } else {
+    fallback();
+  }
+}
+
+/* ============================================================
+   RESET
+============================================================ */
+function resetAll(){
+  if (!confirm('Clear every stage and note on this page? This cannot be undone.')) return;
+  try {
+    var toRemove = [];
+    for (var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if (k && k.indexOf(STORAGE_PREFIX) === 0) toRemove.push(k);
+    }
+    toRemove.forEach(function(k){ localStorage.removeItem(k); });
+  } catch(e){}
+  // Re-render everything
+  renderSections();
+  renderDashboard();
+  renderNextPanel();
+  showToast('Cleared');
+}
+
+/* ============================================================
+   EVENT WIRING (delegation — sections re-render so we cannot bind directly)
+============================================================ */
+function refreshAll(){
+  renderDashboard();
+  renderNextPanel();
+}
+
+document.addEventListener('click', function(e){
+  // Section toggle
+  var head = e.target.closest('[data-section-toggle]');
+  if (head){
+    var sid = head.getAttribute('data-section-toggle');
+    var sec = document.getElementById('sec-' + sid);
+    var nowOpen = sec.getAttribute('aria-expanded') !== 'true';
+    sec.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+    saveOpen(sid, nowOpen);
+    return;
+  }
+  // Stage pill
+  var pill = e.target.closest('[data-stage-pill]');
+  if (pill){
+    var parts = pill.getAttribute('data-stage-pill').split('|');
+    var tid = parts[0], stage = parts[1];
+    var current = loadStage(tid);
+    // Toggle off if clicking the same one again
+    var next = (current === stage) ? '' : stage;
+    saveStage(tid, next);
+    // Update visual state for the pill group + topic class
+    var topicEl = document.querySelector('[data-topic="' + tid + '"]');
+    if (topicEl){
+      topicEl.querySelectorAll('.stage-pill').forEach(function(p){
+        var ps = p.getAttribute('data-stage-pill').split('|')[1];
+        var on = (ps === next);
+        p.classList.toggle('is-on', on);
+        var inp = p.querySelector('input');
+        if (inp) inp.checked = on;
+      });
+      topicEl.classList.toggle('has-stage', !!next);
+    }
+    // Update meta on the section header too
+    var section = pill.closest('.section');
+    if (section){
+      var sid2 = section.id.replace(/^sec-/, '');
+      var sObj = SECTIONS.find(function(x){ return x.id === sid2; });
+      if (sObj){
+        var meta = section.querySelector('[data-section-meta="' + sid2 + '"]');
+        if (meta) meta.textContent = sectionMetaText(sectionTotals(sObj));
+      }
+    }
+    refreshAll();
+    return;
+  }
+  // Top-level buttons
+  if (e.target.id === 'exportBtn' || e.target.id === 'exportBtnBottom'){ copyExport(); return; }
+  if (e.target.id === 'resetBtn'){ resetAll(); return; }
+  if (e.target.id === 'expandAllBtn'){
+    SECTIONS.forEach(function(s){
+      var sec = document.getElementById('sec-' + s.id);
+      sec.setAttribute('aria-expanded', 'true');
+      saveOpen(s.id, true);
+    });
+    return;
+  }
+  if (e.target.id === 'collapseAllBtn'){
+    SECTIONS.forEach(function(s){
+      var sec = document.getElementById('sec-' + s.id);
+      sec.setAttribute('aria-expanded', 'false');
+      saveOpen(s.id, false);
+    });
+    return;
+  }
+});
+
+document.addEventListener('input', function(e){
+  var ta = e.target.closest('[data-topic-note]');
+  if (!ta) return;
+  var tid = ta.getAttribute('data-topic-note');
+  saveNote(tid, ta.value);
+  // Notes don't change dashboard counts but do affect the next-panel snippets
+  // Debounce-ish: only refresh next panel
+  clearTimeout(window.__nextPanelTimer);
+  window.__nextPanelTimer = setTimeout(renderNextPanel, 250);
+});
+
+/* ============================================================
+   BOOT
+============================================================ */
+renderSections();
+renderDashboard();
+renderNextPanel();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.63.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showVersionToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showVersionToast('A newer version is available — reload to update.');
+      else if (!silent) showVersionToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  check(true);
+  window.addEventListener('focus', () => check(true));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
+})();
+</script>
+
+<!-- ====================== WhatsApp FAB ====================== -->
+<button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
+  <span aria-hidden="true">💬</span>
+</button>
+<script>
+(function() {
+  const WA_PHONE = '919880337337';
+  function pageLabel() {
+    const t = document.title || '';
+    const i = t.indexOf('—');
+    return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
+  }
+  document.getElementById('waFabGlobal').addEventListener('click', function() {
+    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v4.63.0 · page: ${pageLabel()}):\n\n`;
+    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  });
+})();
+</script>
+
+<!-- ====================== FIRST-VISIT TIP ====================== -->
+<script>
+(function() {
+  var PAGE_KEY = 'where-am-i';
+  var TIP_TEXT = 'For each topic, pick Aware, Familiar, or Confident. Add a note about what you specifically want to revisit. The "What to discuss next" panel at the bottom auto-fills from your answers.';
+  var KEY = 'astro-tip-seen-' + PAGE_KEY;
+  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
+  function build() {
+    var card = document.createElement('div');
+    card.className = 'first-visit-tip';
+    card.setAttribute('role', 'note');
+    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
+                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
+                   + '<button class="fvt-dismiss" type="button">Got it</button>';
+    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-6px)';
+      setTimeout(function(){ card.remove(); }, 280);
+    });
+    var firstHeader = document.querySelector('header');
+    if (firstHeader && firstHeader.parentElement) {
+      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
+      return;
+    }
+    var target = document.querySelector('.page, main') || document.body;
+    target.insertBefore(card, target.firstChild);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+</script>
+
+<script>
+/* v4.59.0 — More menu + theme toggle (site-wide). */
+(function(){
+  var KEY='astro-mychart-theme-v1';
+  var btn=document.getElementById('moreMenuBtn');
+  var menu=document.getElementById('moreMenu');
+  var tBtn=document.getElementById('themeToggleMenu');
+  var tVal=document.getElementById('themeToggleValue');
+  function tCurrent(){return document.documentElement.classList.contains('theme-legacy')?'legacy':'atv';}
+  function tPaint(){if(tVal)tVal.textContent=tCurrent()==='legacy'?'Legacy':'ATV brand';}
+  function open(o){if(menu){menu.hidden=!o;}if(btn){btn.setAttribute('aria-expanded',String(o));}}
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();open(menu.hidden);});}
+  document.addEventListener('click',function(e){if(menu && !menu.hidden && !menu.contains(e.target) && e.target!==btn){open(false);}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false);});
+  if(tBtn){
+    tBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var next=tCurrent()==='legacy'?'atv':'legacy';
+      document.documentElement.classList.toggle('theme-legacy', next==='legacy');
+      try{localStorage.setItem(KEY,next);}catch(e){}
+      tPaint();
+    });
+  }
+  tPaint();
+})();
+</script>
+
+<script>
+/* v4.60.0 — Personalisation. */
+(function(){
+  var KEY_NAME='astro-mychart-name-v1';
+  var KEY_PROMPTED='astro-mychart-name-prompted-v1';
+  var MAX=30;
+  function getName(){ try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';} }
+  function setName(s){
+    var v=(s||'').trim().slice(0,MAX);
+    try{
+      if(v) localStorage.setItem(KEY_NAME,v);
+      else localStorage.removeItem(KEY_NAME);
+      localStorage.setItem(KEY_PROMPTED,'1');
+    }catch(e){}
+    applyAll();
+  }
+  function clearName(){
+    try{
+      localStorage.removeItem(KEY_NAME);
+      localStorage.setItem(KEY_PROMPTED,'1');
+    }catch(e){}
+    applyAll();
+  }
+  function applyAll(){
+    var name=getName();
+    document.querySelectorAll('[data-name-template]').forEach(function(el){
+      var tpl=el.getAttribute('data-name-template');
+      if(name){
+        el.innerHTML=tpl.replace(/\{name\}/g, escHtmlSimple(name));
+        el.hidden=false;
+      } else {
+        var fallback=el.getAttribute('data-name-fallback');
+        if(fallback!=null){
+          el.innerHTML=fallback;
+          el.hidden=false;
+        } else {
+          el.textContent='';
+          el.hidden=true;
+        }
+      }
+    });
+    document.querySelectorAll('[data-name-placeholder]').forEach(function(el){
+      var tpl=el.getAttribute('data-name-placeholder');
+      var fb=el.getAttribute('data-name-placeholder-fallback')||'';
+      el.placeholder=name?tpl.replace(/\{name\}/g, name):fb;
+    });
+    var mv=document.getElementById('namePopoverValue');
+    if(mv) mv.textContent=name||'Add';
+  }
+  function escHtmlSimple(s){return String(s).replace(/[&<>"']/g, function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
+  function openPopover(){
+    var pop=document.getElementById('namePopover');
+    var bd=document.getElementById('namePopoverBackdrop');
+    if(!pop||!bd) return;
+    var input=pop.querySelector('.name-popover-input');
+    if(input) input.value=getName();
+    pop.hidden=false; bd.hidden=false;
+    setTimeout(function(){if(input)input.focus();},50);
+  }
+  function closePopover(){
+    var pop=document.getElementById('namePopover');
+    var bd=document.getElementById('namePopoverBackdrop');
+    if(pop)pop.hidden=true;
+    if(bd)bd.hidden=true;
+  }
+  document.addEventListener('click',function(e){
+    var trigger=e.target.closest('#namePopoverTrigger');
+    if(trigger){e.stopPropagation();openPopover();return;}
+    var save=e.target.closest('#namePopoverSave');
+    if(save){var inp=document.querySelector('#namePopover .name-popover-input');setName(inp?inp.value:'');closePopover();return;}
+    var clr=e.target.closest('#namePopoverClear');
+    if(clr){clearName();closePopover();return;}
+    var cancel=e.target.closest('#namePopoverCancel');
+    if(cancel){closePopover();return;}
+    var bd=e.target.closest('#namePopoverBackdrop');
+    if(bd){closePopover();return;}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopover();});
+  window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
+  applyAll();
+})();
+</script>
+
+</body>
+</html>

@@ -698,6 +698,7 @@
     <div class="more-wrap">
       <button type="button" class="more-btn is-current" id="moreMenuBtn" aria-current="page" aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>
       <div class="more-menu" id="moreMenu" hidden role="menu">
+        <a href="where-am-i.html" role="menuitem">Where am I</a>
         <a href="interactive.html" role="menuitem">Interactive · beta</a>
         <a href="kaalapurusha.html" role="menuitem">Kaalapurusha</a>
         <a href="mercury-spectrum.html" role="menuitem">Mercury Spectrum</a>
@@ -734,10 +735,51 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.63.0 ====================== -->
+  <section class="release" data-credits="Arpitha (the conversation that started it) · Sree (drafted with her)">
+    <header>
+      <h2>v4.63.0 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">A new self-assessment page — <a href="where-am-i.html">Where am I</a> — for honest stock-taking across every topic in the 101 journey. Came out of a conversation with Arpitha after our Sripati Paddhati call: the topics one can <em>teach</em> back are the ones that have actually landed. So instead of one more quiz, this is a space to mark each topic as <strong>Aware · Familiar · Confident</strong>, and write the specific question to take to Vikram next.</p>
+
+    <h3>Why this exists</h3>
+    <p>Existing quizzes in the Learning Companion test recall — they're useful for getting from <em>aware</em> to <em>familiar</em>. But there's a third stage no quiz can grade: whether you can sit across from someone and teach the topic back to them. That stage is self-knowledge. Where am I leaves the grading to the learner.</p>
+
+    <h3>Topic inventory · 58 items across 7 sections</h3>
+    <ul>
+      <li><strong>Astronomy</strong> · 6 items — geocentric framing, equinoxes, the ecliptic & 27 nakshatras, axial tilt & precession, astronomy → meaning, Sripati cusps.</li>
+      <li><strong>Signs</strong> · 12 items — the twelve signs, elements, modes, duality, rulerships, exaltation/debilitation, mūlatrikoṇa, sign psychology, Rāśi Chakra layout, Kālapurusha mapping, reading signs, sign friendship.</li>
+      <li><strong>Planets</strong> · 9 items — 4 covered (Sun, Moon, Mars, Mercury); <strong>5 locked as TBD this year</strong> (Jupiter, Venus, Saturn, Rahu, Ketu) since Vikram hasn't taught them yet — no honest grading possible.</li>
+      <li><strong>Houses</strong> · 12 items — names, kārakas, purushārthas, kendras, trikoṇas, panaparas, apoklimas, upachayas, dushtanas, house systems, house lords, planet-in-house.</li>
+      <li><strong>Avatars</strong> · 10 items — Matsya covered (Module 1 in the workbook); 9 locked as TBD.</li>
+      <li><strong>Interpretation</strong> · 5 items — aspects, yogas, the Signature, planetary relationships, reading the whole chart.</li>
+      <li><strong>Reflective practice</strong> · 4 items — the workbook approach, avatars as archetypes, Ether/Nirvāṇa Shatakam, my own chart.</li>
+    </ul>
+
+    <h3>The page itself</h3>
+    <ul>
+      <li><strong>Three-stage radio per topic</strong>: Aware · Familiar · Confident. Pills are toggle-style — tap the same pill again to clear it.</li>
+      <li><strong>TBD topics are locked</strong> — no stage pills shown, just a quiet "TBD this year" badge and a notes box for whatever question comes up. Nothing to grade until it's been taught.</li>
+      <li><strong>Per-topic notes</strong> — a small textarea labelled <em>"What specifically do you want to revisit — or take to peer group, or to Vikram?"</em> Saves only in this browser.</li>
+      <li><strong>Source citation</strong> on every topic (deck + session refs from the KB) so it's a click away from re-reading the right teaching.</li>
+      <li><strong>Dashboard at the top</strong> — total counts (Aware / Familiar / Confident / TBD), and a per-section progress bar so you can see at a glance which area needs the most attention.</li>
+      <li><strong>"What to discuss next" panel at the bottom</strong> — auto-generated from your answers. Three buckets: <em>Re-read these</em> (Aware → Familiar), <em>Take these to peer group</em> (Familiar → Confident), <em>Bring these to Vikram</em> (Confident — to push deeper or teach back). TBD topics with notes get a fourth bucket: <em>When taught — questions to ask</em>.</li>
+      <li><strong>Export as checklist</strong> — copies a plain-text version to clipboard, marker-style ([●●●] / [●●·] / [●··]) so it screenshots clean for sharing or for keeping a paper trail.</li>
+      <li><strong>localStorage only.</strong> Nothing leaves the browser unless you copy it out yourself. No cohort sharing — ever — by design.</li>
+    </ul>
+
+    <h3>Where it lives</h3>
+    <p>In the More menu, first item. Sripati Paddhati and the existing peer pages are still in there too. Primary nav (Learning Companion · Read · Reflect) is unchanged.</p>
+
+    <h3>What this is not</h3>
+    <p>Not a replacement for the LC quizzes — those still test recall and are great for the Aware → Familiar move. Where am I sits one layer above: it's the meta-page, the place to take stock <em>between</em> sessions and decide where to spend the next hour of study.</p>
+  </section>
+
   <!-- ====================== v4.62.5 ====================== -->
   <section class="release" data-credits="Sree (flat-fee call + coffee analogy ask)">
     <header>
-      <h2>v4.62.5 <em>· current</em></h2>
+      <h2>v4.62.5</h2>
       <span class="date">9 May 2026</span>
     </header>
     <p class="summary">Two simplifications on <a href="pricing.html">pricing.html</a>. The cohort/special-arrangement section is gone — flat fee for everyone, no exceptions language. And a small coffee analogy now sits inside the price card to make the amount feel concrete and warm.</p>
@@ -4196,7 +4238,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.62.5 · updated 9 May 2026</span>
+      <span style="color:var(--muted);">v4.63.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4419,7 +4461,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.62.5';
+  const PAGE_VERSION = '4.63.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4533,7 +4575,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.62.5';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.63.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
