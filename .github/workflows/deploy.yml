@@ -11,7 +11,7 @@ jobs:
 
       - name: Stage files
         run: |
-          mkdir -p staging/astrology101
+        # mkdir -p staging/astrology101
 
           # 1. Copy astrology101 content into staging/astrology101/
           rsync -av \
@@ -22,12 +22,12 @@ jobs:
             --exclude='astrology-101-knowledge-base' \
             --exclude='*.sh' \
             --exclude='_root' \
-            ./ staging//
+            ./ staging/
 
           # 2. Copy site-root files into staging/ (so they land at the site root)
-          if [ -d "_root" ]; then
-            rsync -av _root/ staging/
-          fi
+          #if [ -d "_root" ]; then
+          #  rsync -av _root/ staging/
+          #fi
 
           # 3. Sanity check what's about to be uploaded
           echo "==== Staging tree ===="
