@@ -1,4 +1,9 @@
 name: Deploy to Static.app
+
+# Deploys every push to main to https://sreebalakrishnan.in/astrology101 via static.app.
+# Single staging step: copy the whole repo into staging/, exclude internal-only stuff,
+# upload staging/ as the site root.
+
 on:
   push:
     branches: [ main ]
@@ -9,29 +14,31 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Stage files
+      - name: Stage files for upload
         run: |
-        # mkdir -p staging/astrology101
-
-          # 1. Copy astrology101 content into staging/astrology101/
+          mkdir -p staging
           rsync -av \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='staging' \
-            --exclude='README.md' \
-            --exclude='astrology-101-knowledge-base' \
-            --exclude='*.sh' \
             --exclude='_root' \
+            --exclude='astrology-101-knowledge-base' \
+            --exclude='scripts' \
+            --exclude='tools' \
+            --exclude='*.sh' \
+            --exclude='*.bak' \
+            --exclude='*.bak2' \
+            --exclude='*.bak.*' \
+            --exclude='.gitignore' \
+            --exclude='.gitattributes' \
+            --exclude='README.md' \
+            --exclude='USER_TESTING.txt' \
+            --exclude='workbook-avatar-template.md' \
             ./ staging/
 
-          # 2. Copy site-root files into staging/ (so they land at the site root)
-          #if [ -d "_root" ]; then
-          #  rsync -av _root/ staging/
-          #fi
-
-          # 3. Sanity check what's about to be uploaded
           echo "==== Staging tree ===="
-          find staging -type f
+          find staging -type f | sort
+          echo "==== File count: $(find staging -type f | wc -l) ===="
 
       - name: Deploy to Static.app
         uses: designmodo/static-app-deploy-action@v1.0.0
