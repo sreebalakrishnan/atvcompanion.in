@@ -22,7 +22,7 @@ jobs:
             --exclude='astrology-101-knowledge-base' \
             --exclude='*.sh' \
             --exclude='_root' \
-            ./ staging/astrology101/
+            ./ staging//
 
           # 2. Copy site-root files into staging/ (so they land at the site root)
           if [ -d "_root" ]; then
