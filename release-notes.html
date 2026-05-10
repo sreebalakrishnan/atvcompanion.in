@@ -735,10 +735,44 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.65.0 ====================== -->
+  <section class="release" data-credits="Sree (geocentric framing + sky-and-chart-as-one push) · Vikram (Session 18 transcript on the geocentric view)">
+    <header>
+      <h2>v4.65.0 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Substantial update to <a href="astronomy.html">astronomy.html</a>. A new opening section makes the geocentric foundation explicit — the chart <em>is</em> the visible sky from where you stand — and the Stellarium Lab at the end is rebuilt around <a href="https://deva.guru" target="_blank" rel="noopener">deva.guru</a> + <a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> open at the same time, on the same birth details, so the chart and the sky reveal themselves as one thing.</p>
+
+    <h3>New § One — The Geocentric View</h3>
+    <p>Every section that follows depends on this one. Vikram explicitly names the geocentric frame on the whiteboard in Session 18 ("we have the geocentric view, and because the earth is tilted, the equator is going to be tilted…"); the page now opens with that quote and unpacks what it means. <em>Vedic astrology is not abstract. It is what the eye can see, slowed down enough to study.</em></p>
+    <ul>
+      <li><strong>Vedic astrology = the visible sky from the observer.</strong> Nothing in the chart is calculated from a Sun-centred frame. The chart is the sky as you would see it from the spot where you were born, at the moment you were born.</li>
+      <li><strong>Astronomy and astrology are intertwined.</strong> The next eight sections (solar system, ecliptic, coordinates, celestial equator, eclipses, retrograde, precession, the Stellarium lab) are astronomy concepts first; the astrology grows out of them. If a later section feels arbitrary, the geocentric frame underneath it has not yet clicked — come back to § One.</li>
+      <li><strong>The four anchor points</strong> — Lagna, M.C., Descendant, I.C. — described as positions on the visible sky, with what each cusp means.</li>
+      <li><strong>Cusp · zenith · nadir</strong> — three terms students mix up, now disambiguated. Includes the one-liner that ties everything to <a href="sripati.html">Sripati</a>: M.C. and zenith coincide only at the equator; the drift at higher latitudes is exactly why Sripati exists.</li>
+    </ul>
+
+    <h3>Rebuilt § Nine — The Stellarium Lab · sky &amp; chart side by side</h3>
+    <p>The previous Stellarium Lab told you to open Stellarium and step outside. The new version pairs Stellarium with deva.guru and walks the cohort through using <em>both</em> together — the realisation Vikram is pushing is that the chart on your screen and the sky outside your window are the same thing. One is the geometry written down. The other is the geometry, alive.</p>
+    <ul>
+      <li><strong>Two-window framing</strong> — left: <a href="https://deva.guru" target="_blank" rel="noopener">deva.guru</a> with your South Indian chart; right: <a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> showing the actual sky for the same birth details. The exercise is to verify the chart against the sky: the sign rising in Stellarium's east should match the Lagna; each planet's sign on the chart should match where Stellarium places it on the ecliptic.</li>
+      <li><strong>Seven-step procedure</strong> from Deck 22 (<em>Your Sky at Birth</em>): get details → open deva.guru → open Stellarium → cross-check signs → step outside, face the azimuth, estimate altitude (a fist at arm's length is roughly 10°) → write a few lines about what you noticed.</li>
+      <li><strong>Parashara's Light</strong> named explicitly for serious students wanting Sripati cusps, divisional charts, dashas, transits in one place.</li>
+      <li><strong>Watching retrograde happen live</strong> — speed up time in Stellarium and see the loop. What BPHS describes in eight technical terms is just <em>this loop</em>, sped up.</li>
+      <li><strong>Why this matters</strong> — pulled forward as its own subhead. Spending an hour with deva.guru and Stellarium open at the same time is the single highest-leverage thing a learner can do between sessions. Many 101 concepts simply will not click until the geocentric sky is something you have <em>seen</em>, not just read about.</li>
+    </ul>
+
+    <h3>Renumbering &amp; TOC</h3>
+    <p>Inserting the new § One pushed the existing eight foundations down: Solar System → § Two, Ecliptic → § Three, Coordinate Systems → § Four, Celestial Equator → § Five, Eclipses → § Six, Apparent Motions → § Seven, Precession → § Eight, Stellarium Lab → § Nine. The TOC was updated to "Nine foundations" and the masthead now leads with <em>"Astronomy and astrology are intertwined — the chart is the visible sky, slowed down enough to study."</em> URL anchors (#solar-system, #ecliptic, #coords, #celestial-equator, #eclipses, #motions, #precession, #stellarium) are unchanged so any inbound links still resolve.</p>
+
+    <h3>Sources</h3>
+    <p>Primary source for the new § One is Vikram's whiteboard moment in <strong>Session 18 · Retreat Debrief, Parashurama &amp; Stellarium</strong>, where he explicitly names the geocentric view while drawing the celestial equator. Same session is the source for the rebuilt § Nine framing.</p>
+  </section>
+
   <!-- ====================== v4.64.1 ====================== -->
   <section class="release" data-credits="Sree (asked for the deep links on Where am I)">
     <header>
-      <h2>v4.64.1 <em>· current</em></h2>
+      <h2>v4.64.1</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Deep-linking pass on <a href="where-am-i.html">Where am I</a>. Every topic now points to the right place to actually go and study it.</p>
@@ -4316,7 +4350,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.64.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.65.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4539,7 +4573,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.64.1';
+  const PAGE_VERSION = '4.65.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4653,7 +4687,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.64.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.65.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
