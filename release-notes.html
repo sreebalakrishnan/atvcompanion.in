@@ -735,10 +735,33 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.65.1 ====================== -->
+  <section class="release" data-credits="Sree (asked for shareable section links on Sripati)">
+    <header>
+      <h2>v4.65.1 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Every section heading on <a href="sripati.html">Sripati Paddhati</a> now has a small <em>§ link</em> button next to it. Hover the heading on desktop, or just look for the pill on mobile, click it, and the link to that exact section is copied to your clipboard — ready to paste into a chat with Vikram or Arpitha.</p>
+
+    <h3>How it works</h3>
+    <ul>
+      <li><strong>Hover (desktop)</strong> — the <em>§ link</em> pill appears next to the heading. Click to copy.</li>
+      <li><strong>Tap (mobile)</strong> — the pill is always visible at slightly reduced opacity. Tap to copy.</li>
+      <li><strong>What gets copied</strong> — the canonical URL with the section anchor, e.g. <code>https://sreebalakrishnan.in/astrology101/sripati.html#rashi-vs-bhava</code>. The URL bar updates too, but the page does not scroll.</li>
+      <li><strong>Confirmation</strong> — the pill flashes saffron, briefly reads <em>"✓ copied"</em>, and a toast at the bottom confirms <em>"Link copied — ready to paste &amp; share."</em></li>
+      <li><strong>All nine sections plus Sources</strong> — every numbered section gets the button. So you can deep-link directly to <em>Four ways to look at the sky</em>, <em>Rāśi chart vs Bhāva Chalit</em>, the worked example, the workbook, anything.</li>
+    </ul>
+
+    <h3>Why this is useful</h3>
+    <p>Sripati is the longest peer page in the app and the conversations it triggers usually circle around one specific section — <em>"how does the trisection work again?"</em> or <em>"can you re-read the bit about M.C. and zenith?"</em> Sending a friend the right paragraph beats sending them the whole page and saying "scroll to § Five." This makes that one click.</p>
+
+    <p style="font-size:14px;color:var(--ink-soft);">The pattern is light-touch and self-contained — pure JavaScript walking each <code>section[id]</code>, no markup changes needed. If it lands well on Sripati, it can be lifted into the other peer pages in a follow-up release.</p>
+  </section>
+
   <!-- ====================== v4.65.0 ====================== -->
   <section class="release" data-credits="Sree (geocentric framing + sky-and-chart-as-one push) · Vikram (Session 18 transcript on the geocentric view)">
     <header>
-      <h2>v4.65.0 <em>· current</em></h2>
+      <h2>v4.65.0</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Substantial update to <a href="astronomy.html">astronomy.html</a>. A new opening section makes the geocentric foundation explicit — the chart <em>is</em> the visible sky from where you stand — and the Stellarium Lab at the end is rebuilt around <a href="https://deva.guru" target="_blank" rel="noopener">deva.guru</a> + <a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> open at the same time, on the same birth details, so the chart and the sky reveal themselves as one thing.</p>
@@ -4350,7 +4373,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.65.0 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.65.1 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4573,7 +4596,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.65.0';
+  const PAGE_VERSION = '4.65.1';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4687,7 +4710,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.65.0';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.65.1';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
