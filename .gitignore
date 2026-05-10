@@ -47,4 +47,8 @@ Desktop.ini
 
 # Temp
 *.tmp
+
+# Backup files (any suffix variant)
 *.bak
+*.bak2
+*.bak.*
