@@ -735,10 +735,45 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.64.0 ====================== -->
+  <section class="release" data-credits="Arpitha (the late-night WhatsApp on house systems) · Sree (the geocentric / language-of-the-sky push)">
+    <header>
+      <h2>v4.64.0 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Substantial update to <a href="sripati.html">Sripati Paddhati</a>. A new foundations section on the visible sky, plus two layers of clarity from a late-night WhatsApp with Arpitha on house systems.</p>
+
+    <h3>New § Two — The language of the sky</h3>
+    <p>Before any house system can land, the vocabulary has to. A new foundations section now sits right after Origin, covering the words people most often confuse:</p>
+    <ul>
+      <li><strong>Geocentric view</strong> — explicitly named as the foundation. Vedic astrology is what an observer standing on this earth would actually see overhead. The chart is the visible sky, slowed down enough to study. Without that frame, none of the cusps make sense.</li>
+      <li><strong>The four anchor points</strong> — Ascendant (Lagna), Medium Coeli (M.C.), Descendant, Imum Coeli (I.C.) — each in its own card with what it means and where it sits in the sky.</li>
+      <li><strong>Cusp · zenith · nadir</strong> — three terms people regularly mix up. Cusp = a house boundary (or its midpoint, in Sripati). Zenith = the point directly overhead the observer. Nadir = the point directly underneath. M.C. and zenith coincide only at the equator — which is precisely <em>why</em> Sripati Paddhati exists.</li>
+      <li><strong>Spend time with the actual sky</strong> — a small list of tools the cohort can use to do what Vikram keeps asking: <a href="https://deva.guru" target="_blank" rel="noopener">deva.guru</a> for browser charts, <em>Parashara's Light</em> for desktop depth, and <a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> as the planetarium that makes the chart stop being abstract.</li>
+    </ul>
+
+    <h3>"Four ways to look at the sky" — Arpi's framing</h3>
+    <p>§ Two retitled to <em>Four ways to look at the sky</em>. The systems grid now reads as four genuine alternatives rather than three plus a dismissive footnote: <strong>Whole Sign</strong>, <strong>Equal House</strong>, <strong>Sripati Paddhati</strong>, and the <strong>KP system</strong>. Beginners often reach for Equal House; traditionalists prefer Whole Sign or Sripati. KP astrologers — what most Indian astrologers in popular practice will reach for — uses Placidus underneath. All four are now described on their own terms, not in opposition to each other.</p>
+
+    <h3>New § Three — Rāśi chart vs Bhāva Chalit</h3>
+    <p>The conceptual layer the old page was missing. The four house systems aren't competing answers to the same question — they feed two <em>different charts</em>:</p>
+    <ul>
+      <li><strong>Rāśi Chart (D-1)</strong> — answers <em>which sign is a planet in?</em> Determines dignity, strength, and yogas. Fed by <strong>Whole Sign</strong>.</li>
+      <li><strong>Bhāva Chalit (the house chart)</strong> — answers <em>which house is a planet actually influencing?</em> Adjusts boundaries based on the exact Ascendant degree. Fed by <strong>Equal House</strong> (beginner-friendly) or <strong>Sripati Paddhati</strong> (the unequal, traditional choice).</li>
+    </ul>
+    <p>Both charts can show the same planet sitting in different houses; both are true, each answering a different question. The page now makes that explicit, and quotes Arpi's framing verbatim in a callout.</p>
+
+    <h3>Section renumbering + duplicate-§-Five fix</h3>
+    <p>Inserting the new section pushed every subsequent section number down one. Also fixed a pre-existing display bug where two sections both said "§ Five" — Quick Check is now § Six and "When does Vikram use which?" is § Seven, with cross-references closing as § Eight. URL anchors (#origin, #systems, #why, #worked, #workbook, #when, #xref, #sources) are unchanged so any existing inbound links still resolve.</p>
+
+    <h3>Sources updated</h3>
+    <p>Added the late-night WhatsApp with Arpitha (9 May 2026) to the sources list at the bottom of the Sripati page. Credit where credit is due.</p>
+  </section>
+
   <!-- ====================== v4.63.1 ====================== -->
   <section class="release" data-credits="Sree (caught the bug — pills weren’t saving unless ‘Open all’ was used)">
     <header>
-      <h2>v4.63.1 <em>· current</em></h2>
+      <h2>v4.63.1</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Hotfix on <a href="where-am-i.html">Where am I</a>. The stage pills (Aware · Familiar · Confident) weren't saving reliably — tapping a pill toggled it on, then immediately off. Visual flicker was too fast to see; the saved value just looked empty.</p>
@@ -4253,7 +4288,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.63.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.64.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4476,7 +4511,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.63.1';
+  const PAGE_VERSION = '4.64.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4590,7 +4625,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.63.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.64.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
