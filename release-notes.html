@@ -742,10 +742,65 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.72.3 ====================== -->
+  <section class="release" data-credits="Sree (asked to highlight 'sidereal' so it's the first word a reader sees, with a one-line plain explanation)">
+    <header>
+      <h2>v4.72.3 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Two small but important touches in the home-page <em>"how today's sky was built"</em> modal — making the sidereal frame impossible to miss.</p>
+
+    <h3>1 · Sidereal · Lahiri tag in the modal header</h3>
+    <p>Right next to the title <em>"how today's sky was built"</em> a small saffron sub-tag now reads <strong style="color:var(--saffron);">· sidereal · Lahiri</strong> — visible the moment the modal opens, regardless of which pane is active. Tells you what frame the chart is in before you read a word.</p>
+
+    <h3>2 · One-line callout at the top of each pane</h3>
+    <p>A saffron-bordered first line on each pane explains it plainly:</p>
+    <ul>
+      <li><strong>Learner pane:</strong> <em>"Sidereal · Lahiri. The chart is aligned to the actual stars (the zodiac your eyes see), not the seasons — we subtract the Lahiri ayanāṁśa (~24°) from every position so the signs read the way Vikram teaches."</em></li>
+      <li><strong>Technical pane:</strong> <em>"Sidereal · Lahiri. Engine returns geocentric tropical longitudes; we subtract the Lahiri ayanāṁśa (linear approximation, ≈24.10° at 2026-01-01, +50.3″/yr) before mapping to a sign. Output matches Swiss Ephemeris to within ~1 arcminute."</em></li>
+    </ul>
+    <p>Both callouts sit ABOVE the first heading, so readers see the framing before any architecture detail.</p>
+
+    <h3>Why this matters</h3>
+    <p>Anyone arriving from a Vikram cohort needs to see "sidereal" in the first second. Anyone arriving from a Western-astrology background needs to know we're not in their frame. One word, one badge, one line — done.</p>
+  </section>
+
+  <!-- ====================== v4.72.2 ====================== -->
+  <section class="release" data-credits="Sree (asked to refresh the 'how today's sky was built' modal to lead with the live JS path + made the section link-shareable)">
+    <header>
+      <h2>v4.72.2</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Two changes to the home-page <em>"how today's sky was built"</em> modal. The learner pane was rewritten so it leads with <strong>"the math runs live in your browser"</strong> as Step 1, instead of burying that as Step 5 under "once a month a program runs". The modal is now <strong>link-shareable</strong> — there's a <code>§</code> button in the header that copies a deep-link to whichever pane is open, and pasting that URL anywhere reopens the page right at that view.</p>
+
+    <h3>1 · Learner pane reordered</h3>
+    <p>The old order had readers walking past four steps about static computation before learning the page is actually live. New order:</p>
+    <ul>
+      <li><strong>Step 1</strong> · The math runs live in your browser (~80 KB JS lib, no server, computes for this exact moment)</li>
+      <li><strong>Step 2</strong> · Tropical → sidereal Lahiri (the ayanāṁśa step)</li>
+      <li><strong>Step 3</strong> · The Lagna marker (real-time, location-aware)</li>
+      <li><strong>Step 4</strong> · The chart layout (CSS Grid, named template areas)</li>
+      <li><strong>Step 5</strong> · It works without internet too (the static fallback, demoted to its proper role)</li>
+    </ul>
+    <p>The technical pane was already correct from v4.71.8; trimmed the "(v4.71.8)" version stamp and updated the footer signature to v4.72.2.</p>
+
+    <h3>2 · Deep-linkable + copy-link button</h3>
+    <p>Three URL hashes now open the modal directly:</p>
+    <ul>
+      <li><code>#how-it-was-built</code> — opens with the learner pane (default)</li>
+      <li><code>#how-it-was-built-learner</code> — explicit learner pane</li>
+      <li><code>#how-it-was-built-technical</code> — opens straight to the technical pane</li>
+    </ul>
+    <p>A small <code>§</code> button in the modal header copies the right URL for whichever pane is currently active. Click it, paste anywhere, recipient lands on the right view. Hash is updated when the user switches tabs (so the URL always reflects what's on screen) and cleared when the modal closes. Back/forward navigation also works — <code>hashchange</code> handler opens or closes the modal as the URL evolves.</p>
+
+    <h3>Use cases</h3>
+    <p>WhatsApp Vikram a link directly to the technical pane. Drop the learner-pane URL in a cohort message. Embed the hash in a class invitation so newcomers land on the explanation. Same modal, three audiences, three shareable URLs.</p>
+  </section>
+
   <!-- ====================== v4.72.1 ====================== -->
   <section class="release" data-credits="Sree (asked 'is the new page deeplinked back to LC?' — the answer was: only via the More menu, not from the relevant section)">
     <header>
-      <h2>v4.72.1 <em>· current</em></h2>
+      <h2>v4.72.1</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Made the cross-link bidirectional. <a href="elements.html">elements.html</a> already deep-linked into Learning Companion's <code>#qualities</code> anchor + back to the reference in its footer. The other direction was missing — LC's "Elements, Modes &amp; Duality" section had no inline pointer to the new lab; readers in that section couldn't see it. Fixed.</p>
@@ -4927,7 +4982,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.72.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.72.3 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -5150,7 +5205,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.72.1';
+  const PAGE_VERSION = '4.72.3';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

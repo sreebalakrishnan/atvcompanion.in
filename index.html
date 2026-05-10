@@ -1044,6 +1044,49 @@
     line-height: 1; padding: 4px 6px;
   }
   .ts-built-close:hover { color: var(--saffron); }
+  /* v4.72.2 — copy-link button beside the close */
+  .ts-built-copy {
+    flex-shrink: 0;
+    appearance: none; background: transparent; border: 1px solid var(--rule);
+    border-radius: 4px; cursor: pointer;
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+    line-height: 1; padding: 3px 8px;
+    transition: color .15s, border-color .15s;
+  }
+  .ts-built-copy:hover { color: var(--saffron); border-color: var(--saffron); }
+  .ts-built-copy.is-copied { color: var(--saffron); border-color: var(--saffron); }
+  .ts-built-copy.is-copied::after { content: ' copied'; font-size: 11.5px; }
+  /* v4.72.3 — small saffron sub-tag next to the modal title */
+  .ts-built-mode-tag {
+    display: inline-block;
+    margin-left: 4px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--saffron);
+    text-transform: lowercase;
+    letter-spacing: .08em;
+    font-size: 0.92em;
+  }
+  /* v4.72.3 — one-line "what sidereal means" callout at the top of each pane */
+  .ts-built-sidereal-line {
+    margin: 0 0 18px;
+    padding: 10px 14px;
+    background: rgba(188,129,70,.08);
+    border-left: 3px solid var(--saffron);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .ts-built-sidereal-line strong {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--saffron);
+  }
+  .ts-built-sidereal-line em { font-style: italic; color: var(--saffron); }
   .ts-built-modal-body {
     padding: 18px 22px 22px;
     overflow-y: auto;
@@ -1104,54 +1147,61 @@
 <div class="ts-built-backdrop" id="tsBuiltBackdrop" hidden></div>
 <div class="ts-built-modal" id="tsBuiltModal" hidden role="dialog" aria-modal="true" aria-labelledby="tsBuiltTitle">
   <div class="ts-built-modal-head">
-    <div class="ts-built-modal-eyebrow" id="tsBuiltTitle">how today's sky was built</div>
+    <div class="ts-built-modal-eyebrow" id="tsBuiltTitle">
+      how today's sky was built
+      <span class="ts-built-mode-tag" aria-label="sidereal Lahiri">· sidereal · Lahiri</span>
+    </div>
     <div class="ts-built-tabs" role="tablist" aria-label="Audience">
       <button class="ts-built-tab is-active" type="button" data-pane="learner" role="tab" aria-selected="true">For learners</button>
       <button class="ts-built-tab" type="button" data-pane="technical" role="tab" aria-selected="false">Technical</button>
     </div>
+    <!-- v4.72.2 — copy-link button: copies a shareable deep-link to the current pane -->
+    <button class="ts-built-copy" type="button" id="tsBuiltCopy" aria-label="Copy link to this section" title="Copy link to share">§</button>
     <button class="ts-built-close" type="button" id="tsBuiltClose" aria-label="Close">✕</button>
   </div>
   <div class="ts-built-modal-body">
 
     <!-- ===== Learner pane ===== -->
     <div class="ts-built-pane" data-pane="learner" role="tabpanel">
+      <p class="ts-built-sidereal-line"><strong>Sidereal · Lahiri.</strong> The chart is aligned to the actual stars (the zodiac your eyes see), not the seasons — we subtract the Lahiri ayanāṁśa (~24°) from every position so the signs read the way Vikram teaches.</p>
+
       <h3>What you're looking at</h3>
       <p>The chart at the top of this page is a <strong>South Indian chart</strong> showing where the planets are in the sky <em>right now</em> — laid out exactly the way Vikram draws on the whiteboard. Twelve chambers around the edge for the twelve signs (Pisces top-left, then clockwise). The centre tells you the date, the time, and the location it's calculated for.</p>
 
-      <h3>Step 1 · Where the planets actually are</h3>
-      <p>A planet's position in the sky changes every moment. The Sun moves about <em>one degree a day</em>; the Moon moves a full sign every two-and-a-half days. To know where any planet is on a given date, you need an <strong>ephemeris</strong> — a table of positions astronomers have been keeping for centuries.</p>
-      <p>Once a month, a small program on Sree's machine does this calculation for the next 396 days, for all nine grahas (Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, Rahu, Ketu). The output is a single file the home page can read.</p>
+      <h3>Step 1 · The math runs live in your browser</h3>
+      <p>A planet's position in the sky changes every moment. The Sun moves about <em>one degree a day</em>; the Moon moves a full sign every two-and-a-half days. So a chart drawn last week is already wrong by lunchtime today.</p>
+      <p>When you open this page, a small astronomy library — about 80 KB of JavaScript — runs <em>right there in your browser</em> and computes the position of every graha (Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, Rahu, Ketu) for <em>this exact moment</em>. No server, no waiting, no API call. The chart is computed in the time it takes the page to render.</p>
 
       <h3>Step 2 · Tropical → sidereal (the ayanāṁśa step)</h3>
-      <p>Modern astronomy software gives positions in the <em>tropical</em> zodiac — based on the seasons. Indian astrology uses the <em>sidereal</em> zodiac — based on the actual stars. The difference between the two is the <strong>ayanāṁśa</strong>, currently about <em>24°</em> and growing by roughly <em>50 arcseconds a year</em>. Every position the program computes gets that 24° subtracted before it lands in the file.</p>
-      <p>This is the same ayanāṁśa Vikram teaches — Lahiri.</p>
+      <p>The astronomy library returns positions in the <em>tropical</em> zodiac — based on the seasons. Indian astrology uses the <em>sidereal</em> zodiac — based on the actual stars. The difference between the two is the <strong>ayanāṁśa</strong>, currently about <em>24°</em> and growing by roughly <em>50 arcseconds a year</em>.</p>
+      <p>The page subtracts that 24° from every position before placing the planet on the chart. The ayanāṁśa it uses is <strong>Lahiri</strong> — the same one Vikram teaches in class.</p>
 
-      <h3>Step 3 · The chart layout</h3>
-      <p>Drawing a South Indian chart in HTML uses a feature called <strong>CSS Grid</strong> — you can label each cell with a name and ask the browser to put the right content there. The named layout looks like this:</p>
-      <p><em>Pisces / Aries / Taurus / Gemini</em> across the top. <em>Aquarius</em> and <em>Capricorn</em> on the left. <em>Sagittarius / Scorpio / Libra / Virgo</em> across the bottom. <em>Cancer</em> and <em>Leo</em> on the right. The big square in the middle holds the date.</p>
+      <h3>Step 3 · The Lagna marker</h3>
+      <p>The <strong>Lagna</strong> (Ascendant) is the sign rising on the eastern horizon at this moment, at this place. It changes every two hours as the earth rotates. The page calculates the current Lagna using the location shown in the centre cell, and adds a saffron <em>ASC</em> badge to the chamber that's rising right now.</p>
+      <p>This is the <em>current</em> Lagna at this <em>place</em> — not your personal birth Lagna. To mark your own birth Lagna the page would need your birth time and birthplace. That's a future addition.</p>
+
+      <h3>Step 4 · The chart layout</h3>
+      <p>Drawing a South Indian chart in HTML uses a feature called <strong>CSS Grid</strong> — you can name each cell and ask the browser to put the right content there. The named layout: <em>Pisces / Aries / Taurus / Gemini</em> across the top, <em>Aquarius</em> and <em>Capricorn</em> on the left, <em>Sagittarius / Scorpio / Libra / Virgo</em> across the bottom, <em>Cancer</em> and <em>Leo</em> on the right. The big square in the middle holds the date.</p>
       <p>Inside each chamber: the sign's glyph, its English name, its Sanskrit name, and any planets sitting there right now — shown as small two-letter pills (Su · Mo · Ma · Me · Ju · Ve · Sa · Ra · Ke).</p>
 
-      <h3>Step 4 · The Lagna marker</h3>
-      <p>The <strong>Lagna</strong> (Ascendant) is the sign rising on the eastern horizon at this moment, at this place. It changes every two hours as the earth rotates. The page calculates the current Lagna for the centre-cell location and adds a saffron <em>ASC</em> badge to the chamber that's rising right now.</p>
-      <p>This is the <em>current</em> Lagna at this <em>place</em> — not your personal birth Lagna. To mark <em>your</em> Lagna, the page would need your birth time and birthplace. That's a future addition.</p>
-
-      <h3>Step 5 · Real-time, but still works offline</h3>
-      <p>When you open the page online, a small astronomy library does the calculation right there in your browser — so the chart you see is computed for <em>this exact moment</em>, not yesterday's snapshot. The Moon, which moves about 13° a day, is fresh.</p>
-      <p>If you're offline (on a flight, at a retreat, anywhere without internet), the page gracefully falls back to a snapshot Sree refreshes monthly. Same sidereal Lahiri values, just frozen at the last refresh. Open the page anywhere — it works.</p>
+      <h3>Step 5 · It works without internet too</h3>
+      <p>If you're offline — on a flight, at a retreat, anywhere without connectivity — the astronomy library can't load. So as a backup, Sree pre-computes 396 days of positions once a month and bakes them into the page. If the live path can't run, the page quietly falls back to that snapshot. Same sidereal Lahiri values, just frozen at the last refresh. Open the page anywhere; the chart shows up.</p>
 
       <h3>How to use this with the class</h3>
       <p>Look at where the Sun is right now. Where the Moon is. Notice the sign rising. As the days move, watch the Moon hop signs every two-and-a-half days, watch the Sun's slow walk through Aries → Taurus → Gemini, watch Jupiter take a year to cross one sign. The chart on this page is a daily companion to what Vikram is teaching — not a substitute for learning to read it yourself.</p>
 
-      <p class="ts-built-foot">Built with Vikram's class as the source of truth, by Sree &amp; Sanchi · v4.71.1</p>
+      <p class="ts-built-foot">Built with Vikram's class as the source of truth, by Sree &amp; Sanchi · v4.72.2</p>
     </div>
 
     <!-- ===== Technical pane (for Vikram + the engineering-curious) ===== -->
     <div class="ts-built-pane" data-pane="technical" role="tabpanel" hidden>
+      <p class="ts-built-sidereal-line"><strong>Sidereal · Lahiri.</strong> Engine returns geocentric tropical longitudes; we subtract the Lahiri ayanāṁśa (linear approximation, ≈24.10° at 2026-01-01, +50.3″/yr) before mapping to a sign. Output matches Swiss Ephemeris to within ~1 arcminute.</p>
+
       <h3>Stack at a glance</h3>
       <p>Single static HTML page (<code>index.html</code>) plus a real-time astronomy library loaded via CDN. The library — <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener"><code>astronomy-engine</code></a> by Don Cross (MIT-licensed) — computes geocentric tropical positions for Sun, Moon, and the five visible planets directly in the browser at page load. No server, no build step, no framework.</p>
       <p>A Python-generated static file (<code>today-sky-data.js</code>) sits beside it as an offline fallback — for opening the page on a flight, or if the CDN is blocked. The renderer doesn't care which path the data came from; the shape is identical.</p>
 
-      <h3>1 · Live computation (the happy path · v4.71.8)</h3>
+      <h3>1 · Live computation (the happy path)</h3>
       <p>On page load, after <code>astronomy-engine</code> finishes loading, we call:</p>
       <pre><code>// for each of Sun · Moon · Mars · Mercury · Jupiter · Venus · Saturn:
 const v = Astronomy.GeoVector(Astronomy.Body[body], date, /* aberration */ true);
@@ -1223,21 +1273,45 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 </div>
 
 <script>
-/* v4.71.1 — Built modal: open/close + tab switching. */
+/* v4.71.1 — Built modal: open/close + tab switching.
+   v4.72.2 — Plus URL-hash deep-linking + copy-link button.
+   Hash schema:
+     #how-it-was-built              → opens with default (learner) pane
+     #how-it-was-built-learner      → opens learner pane explicitly
+     #how-it-was-built-technical    → opens technical pane
+   Hash is set on open / cleared on close. Back-button works because we use
+   replaceState — no extra history entries pile up. */
 (function(){
   var bd    = document.getElementById('tsBuiltBackdrop');
   var modal = document.getElementById('tsBuiltModal');
+  var copyBtn = document.getElementById('tsBuiltCopy');
+  var currentPane = 'learner';
+
+  function syncHash(){
+    var newHash = '#how-it-was-built' + (currentPane === 'technical' ? '-technical' : '');
+    if (window.location.hash !== newHash){
+      try { history.replaceState(null, '', window.location.pathname + window.location.search + newHash); } catch(e){}
+    }
+  }
+  function clearHash(){
+    if (window.location.hash.indexOf('how-it-was-built') !== -1){
+      try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch(e){}
+    }
+  }
   function open(){
     if (!bd || !modal) return;
     bd.hidden = false; modal.hidden = false;
     document.body.style.overflow = 'hidden';
+    syncHash();
   }
   function close(){
     if (!bd || !modal) return;
     bd.hidden = true; modal.hidden = true;
     document.body.style.overflow = '';
+    clearHash();
   }
   function setPane(name){
+    currentPane = name;
     var tabs = modal.querySelectorAll('.ts-built-tab');
     var panes = modal.querySelectorAll('.ts-built-pane');
     tabs.forEach(function(t){
@@ -1246,17 +1320,83 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
       t.setAttribute('aria-selected', String(active));
     });
     panes.forEach(function(p){ p.hidden = (p.dataset.pane !== name); });
+    if (!modal.hidden) syncHash();
   }
+  function copyLink(){
+    if (!copyBtn) return;
+    var hash = '#how-it-was-built' + (currentPane === 'technical' ? '-technical' : '-learner');
+    var url = window.location.origin + window.location.pathname + hash;
+    var done = function(){
+      copyBtn.classList.add('is-copied');
+      setTimeout(function(){ copyBtn.classList.remove('is-copied'); }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(done, function(){
+        // Fallback if clipboard API fails (e.g. permissions, file://)
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          done();
+        } catch(e){ alert('Copy this link:\n' + url); }
+      });
+    } else {
+      // Older browsers
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        done();
+      } catch(e){ alert('Copy this link:\n' + url); }
+    }
+  }
+
+  // v4.72.2 — Auto-open the modal if the page loads with a matching hash.
+  function checkHashOnLoad(){
+    var h = window.location.hash || '';
+    if (h.indexOf('how-it-was-built') === -1) return;
+    var pane = h.indexOf('technical') !== -1 ? 'technical' : 'learner';
+    setPane(pane);
+    open();
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', checkHashOnLoad);
+  } else {
+    checkHashOnLoad();
+  }
+
   document.addEventListener('click', function(e){
     if (e.target && e.target.id === 'tsBuiltBtn'){ e.preventDefault(); open(); return; }
     if (e.target && e.target.id === 'tsBuiltClose'){ close(); return; }
     if (e.target && e.target.id === 'tsBuiltBackdrop'){ close(); return; }
+    if (e.target && e.target.id === 'tsBuiltCopy'){ copyLink(); return; }
     if (e.target && e.target.classList && e.target.classList.contains('ts-built-tab')){
       setPane(e.target.dataset.pane); return;
     }
   });
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && modal && !modal.hidden) close();
+  });
+  // v4.72.2 — Respond to back/forward navigation so the modal closes/opens with hash changes.
+  window.addEventListener('hashchange', function(){
+    var h = window.location.hash || '';
+    if (h.indexOf('how-it-was-built') !== -1){
+      if (modal.hidden){
+        var pane = h.indexOf('technical') !== -1 ? 'technical' : 'learner';
+        setPane(pane);
+        bd.hidden = false; modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+    } else {
+      if (!modal.hidden){
+        bd.hidden = true; modal.hidden = true;
+        document.body.style.overflow = '';
+      }
+    }
   });
 })();
 </script>
@@ -1309,7 +1449,7 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.72.1';
+  var PAGE_VERSION = '4.72.3';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');
