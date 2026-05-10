@@ -8,8 +8,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="description" content="A companion app for Vikram's Astrology 101 class — sign cross-references, planetary cabinet, embodied practices, reflection prompts.">
-<title>Astrology 101 Companion App</title>
+<meta name="description" content="A companion app for Vikram Devatha's Astrology 101 class. Search the cohort's reference, interpret your chart, sit with a reflection prompt.">
+<title>Astrology 101 — Companion App</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,12 +29,17 @@
     --rule-soft: #E0DCCD;
     --saffron:   #BC8146;
     --indigo:    #6E7D85;
-    --forest:    #32413B;
-    --plum:      #7a3a5e;
-    --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
     --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+  }
+  html.theme-legacy {
+    --bg:#f3e9d2; --bg-deep:#ead9b4; --surface:#faf3e2; --cream:#faf3e2;
+    --ink:#1f1a2e; --ink-soft:#4a4055; --muted:#7d6f55;
+    --rule:#d4c39a; --rule-soft:#e3d4ad;
+    --saffron:#b8410e; --indigo:#2a3270;
+    --display:'Cormorant Garamond','Times New Roman',serif;
+    --body:'Spectral',Georgia,serif;
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -44,688 +49,36 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.05), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    min-height: 100vh;
   }
   a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
   a:hover { text-decoration-color: var(--saffron); }
 
-  .page { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+  .page { max-width: 760px; margin: 0 auto; padding: 0 22px 80px; }
 
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 64px 0 32px;
-    text-align: center;
-    border-bottom: 1px solid var(--rule);
-  }
-  .eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    letter-spacing: .14em;
-    color: var(--saffron);
-    text-transform: lowercase;
-    margin-bottom: 12px;
-  }
-  h1 {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(40px, 8vw, 60px);
-    line-height: 1.05;
-    margin: 0 0 14px;
-    letter-spacing: -.01em;
-  }
-  h1 em {
-    font-style: italic;
-    color: var(--saffron);
-  }
-  .hero .sub {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: clamp(17px, 2.6vw, 20px);
-    color: var(--ink-soft);
-    margin: 0 auto;
-    max-width: 50ch;
-    line-height: 1.5;
-  }
-  .ornament {
-    color: var(--saffron);
-    margin-top: 24px;
-    opacity: .7;
-  }
-  .ornament svg { width: 14px; height: 14px; }
-
-  /* ---------- v4.62.0 SITE SEARCH (Home) ---------- */
-  .home-search {
-    margin: 32px auto 0;
-    max-width: 560px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    transition: border-color .15s, box-shadow .15s;
-  }
-  .home-search:focus-within {
-    border-color: var(--saffron);
-    box-shadow: 0 0 0 3px rgba(188,129,70,.12);
-  }
-  .home-search-icon {
-    font-size: 18px;
-    color: var(--saffron);
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .home-search-input {
-    flex: 1 1 auto;
-    min-width: 0;
-    border: 0;
-    background: transparent;
-    font-family: var(--body);
-    font-size: 15px;
-    font-weight: 200;
-    color: var(--ink);
-    outline: none;
-    padding: 4px 0;
-  }
-  .home-search-input::placeholder {
-    color: var(--muted);
-    font-style: italic;
-  }
-  .home-search-submit {
-    background: var(--saffron);
-    color: var(--surface);
-    border: 0;
-    border-radius: 999px;
-    padding: 7px 16px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13.5px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: transform .15s;
-    flex-shrink: 0;
-  }
-  .home-search-submit:hover { transform: translateY(-1px); }
-  @media (max-width: 480px) {
-    .home-search { padding: 8px 12px; gap: 6px; }
-    .home-search-submit { padding: 6px 12px; font-size: 12.5px; }
-  }
-
-  /* ---------- ORIGIN PARA ---------- */
-  .origin {
-    margin: 36px auto 0;
-    max-width: 58ch;
-    font-family: var(--body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    text-align: center;
-  }
-  .origin em { color: var(--ink); font-style: italic; }
-  .origin .credit {
-    display: block;
-    margin-top: 12px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: .03em;
-  }
-
-  /* ---------- WHERE TO START (v4.56.1 — Layer 1 onboarding map) ---------- */
-  .where-to-start {
-    margin: 40px 0 0;
-    padding: 36px 0 8px;
-    border-top: 1px dashed var(--rule);
-  }
-  .wts-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  .wts-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(26px, 4.6vw, 34px);
-    line-height: 1.1;
-    letter-spacing: -.005em;
-    margin: 0 0 8px;
-    text-align: center;
-  }
-  .wts-h em { font-style: italic; color: var(--saffron); }
-  .wts-lede {
-    text-align: center;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14.5px;
-    color: var(--muted);
-    margin: 0 auto 24px;
-    max-width: 56ch;
-  }
-  .wts-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  @media (min-width: 600px) {
-    .wts-grid { grid-template-columns: 1fr 1fr; }
-  }
-  .wts-card {
-    display: block;
-    text-decoration: none;
-    color: var(--ink);
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    padding: 16px 18px 14px;
-    box-shadow: var(--shadow-sm);
-    transition: transform .18s ease, border-color .18s, box-shadow .18s;
-  }
-  .wts-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--saffron);
-    box-shadow: var(--shadow-md);
-  }
-  /* v4.56.1 — coming-soon variants for Cuts G & H */
-  .wts-card.is-coming-soon {
-    opacity: .72;
-    cursor: default;
-    pointer-events: none;
-    background: repeating-linear-gradient(135deg, var(--surface), var(--surface) 10px, rgba(243,233,210,.5) 10px, rgba(243,233,210,.5) 20px);
-  }
-  .wts-card.is-coming-soon:hover { transform: none; border-color: var(--rule); box-shadow: var(--shadow-sm); }
-  .wts-card.is-coming-soon .wts-where { color: var(--muted); }
-  .wts-card .wts-soon-tag {
-    display: inline-block;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 10.5px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border: 1px dashed var(--rule);
-    padding: 1px 8px;
-    border-radius: 999px;
-    margin-left: 6px;
-    vertical-align: 2px;
-  }
-  .wts-want {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 1.3;
-    letter-spacing: -.005em;
-    margin-bottom: 4px;
-  }
-  .wts-want em { font-style: italic; color: var(--saffron); }
-  .wts-where {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--saffron);
-    margin-bottom: 6px;
-    letter-spacing: .02em;
-  }
-  .wts-detail {
-    font-family: var(--body);
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* ---------- HOW IT STARTED (v4.33.0) ---------- */
-  .origin-story {
-    margin: 40px 0 0;
-    padding: 36px 0 12px;
-    border-top: 1px dashed var(--rule);
-  }
-  .origin-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  .origin-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(26px, 4.6vw, 34px);
-    line-height: 1.1;
-    letter-spacing: -.005em;
-    margin: 0 0 20px;
-    text-align: center;
-  }
-  .origin-h em { font-style: italic; color: var(--saffron); }
-
-  .origin-figure {
-    margin: 0 auto 26px;
-    max-width: 560px;
-  }
-  .origin-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid var(--rule);
-    box-shadow: var(--shadow-md);
-  }
-  .origin-figure figcaption {
-    margin-top: 10px;
-    text-align: center;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .origin-narrative {
-    max-width: 56ch;
-    margin: 0 auto;
-  }
-  .origin-narrative p {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--ink);
-    margin: 0 0 14px;
-  }
-  .origin-narrative p em {
-    color: var(--saffron);
-    font-style: italic;
-  }
-  .origin-narrative .origin-attr {
-    text-align: right;
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 12px;
-    font-style: italic;
-    letter-spacing: .03em;
-  }
-
-  /* ---------- THE COHORT (v4.33.0) ---------- */
-  .cohort-section {
-    margin: 56px 0 0;
-    padding: 36px 0 12px;
-    border-top: 1px dashed var(--rule);
-    text-align: center;
-  }
-  .cohort-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 8px;
-  }
-  .cohort-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(24px, 4.5vw, 32px);
-    line-height: 1.15;
-    letter-spacing: -.005em;
-    margin: 0 0 16px;
-  }
-  .cohort-h em { font-style: italic; color: var(--saffron); }
-  .cohort-lede {
-    font-family: var(--body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    max-width: 56ch;
-    margin: 0 auto 26px;
-  }
-  .cohort-lede em { color: var(--ink); font-style: italic; }
-  .cohort-lede .names {
-    color: var(--ink);
-    font-style: italic;
-  }
-  .cohort-figure {
-    margin: 0 auto 20px;
-    max-width: 720px;
-  }
-  .cohort-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid var(--rule);
-    box-shadow: var(--shadow-md);
-  }
-  .cohort-caption {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    margin: 12px 0 24px;
-    line-height: 1.5;
-  }
-  .cohort-quote {
-    margin: 28px auto 4px;
-    max-width: 480px;
-    padding: 18px 22px 16px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--saffron);
-    border-radius: 0 8px 8px 0;
-    text-align: left;
-  }
-  .cohort-quote .quote-mark {
-    font-family: var(--display);
-    color: var(--saffron);
-    font-size: 22px;
-    line-height: 0;
-    margin-right: 4px;
-    vertical-align: -2px;
-  }
-  .cohort-quote .quote-text {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.5;
-    color: var(--ink);
-    display: inline;
-  }
-  .cohort-quote .quote-attr {
-    display: block;
-    margin-top: 10px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: .03em;
-  }
-
-  /* ---------- STARTING POINTS ---------- */
-  .starts-h {
-    text-align: center;
-    margin: 48px 0 18px;
-  }
-  .starts-h .small {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 6px;
-  }
-  .starts-h h2 {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 28px;
-    margin: 0;
-    letter-spacing: -.005em;
-  }
-  .starts-h h2 em { font-style: italic; color: var(--saffron); }
-
-  .starts {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin: 18px 0 32px;
-  }
-  @media (min-width: 720px) {
-    .starts { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  }
-  .start-card {
-    display: block;
-    text-decoration: none;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    padding: 20px 18px 18px;
-    transition: transform .18s ease, box-shadow .18s ease, border-color .18s;
-    box-shadow: var(--shadow-sm);
-    color: var(--ink);
-    position: relative;
-  }
-  .start-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--saffron);
-    box-shadow: var(--shadow-md);
-  }
-  .start-card .sc-mark {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 6px;
-  }
-  .start-card .sc-name {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 20px;
-    margin-bottom: 6px;
-    letter-spacing: -.005em;
-  }
-  .start-card .sc-name em { color: var(--saffron); font-style: italic; }
-  .start-card .sc-desc {
-    font-family: var(--body);
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    margin: 0;
-  }
-  .start-card .sc-arrow {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    color: var(--saffron);
-    font-style: italic;
-    opacity: .6;
-    font-size: 16px;
-  }
-  .start-card:hover .sc-arrow { opacity: 1; }
-
-  /* ---------- WHAT'S INSIDE ---------- */
-  .whats {
-    margin: 48px 0 32px;
-    padding: 22px 22px 18px;
-    background: linear-gradient(180deg, rgba(110,125,133,0.04), rgba(243,233,210,0.4));
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-  }
-  .whats-h {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    text-align: center;
-    margin-bottom: 14px;
-  }
-  .whats-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4px 24px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink);
-  }
-  @media (min-width: 540px) {
-    .whats-list { grid-template-columns: 1fr 1fr; }
-  }
-  .whats-list li {
-    padding: 4px 0 4px 18px;
-    position: relative;
-    line-height: 1.5;
-  }
-  .whats-list li::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    top: 5px;
-    font-size: 11px;
-    color: var(--saffron);
-  }
-
-  /* ---------- CTA ---------- */
-  .cta-row {
-    text-align: center;
-    margin: 44px 0 16px;
-  }
-  .cta {
-    display: inline-block;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 18px;
-    padding: 14px 32px;
-    background: var(--ink);
-    color: var(--surface);
-    border: 0;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background .15s, transform .18s;
-    text-decoration: none;
-    letter-spacing: .02em;
-  }
-  .cta:hover {
-    background: var(--saffron);
-    transform: translateY(-1px);
-  }
-  .cta-hint {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 12px;
-    line-height: 1.45;
-  }
-
-  /* ---------- PEERS ROW ---------- */
-  .peers {
-    margin: 56px 0 24px;
-    padding: 22px 0 4px;
-    border-top: 1px dashed var(--rule);
-  }
-  .peers-h {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .peers-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  @media (min-width: 600px) {
-    .peers-grid { grid-template-columns: 1fr 1fr; }
-  }
-  .peer {
-    display: block;
-    text-decoration: none;
-    color: var(--ink);
-    padding: 12px 14px;
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    background: var(--surface);
-    transition: border-color .15s, color .15s;
-  }
-  .peer:hover { border-color: var(--saffron); color: var(--saffron); }
-  .peer-name {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 16px;
-    margin-bottom: 2px;
-  }
-  .peer-desc {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
-
-  /* ---------- FOOTER ---------- */
-  .footer {
-    max-width: 480px;
-    margin: 60px auto 0;
-    text-align: center;
-    padding: 0 8px;
-  }
-  .footer-ornament {
-    color: var(--saffron);
-    margin-bottom: 18px;
-  }
-  .footer-ornament svg { width: 14px; height: 14px; }
-  .footer p {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    margin: 0 0 8px;
-  }
-  .footer .meta {
-    margin-top: 10px;
-    font-size: 12px;
-  }
-  .footer .credits {
-    margin-top: 10px;
-    font-size: 11.5px;
-    opacity: .85;
-  }
-  .footer .credits em {
-    font-style: italic;
-    color: var(--ink-soft);
-  }
-
-  /* ---------- v4.59.0 SITE NAV (primary 4 + More menu with embedded style toggle) ---------- */
-  
-  /* ---------- v4.61.3 SITE NAV (unified across all pages) ---------- */
+  /* ---------- SITE NAV ---------- */
   .site-nav {
     padding: 22px 0 14px;
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    align-items: baseline;
-    flex-wrap: wrap;
+    display: flex; justify-content: center;
+    gap: 18px; align-items: baseline; flex-wrap: wrap;
     border-bottom: 1px solid var(--rule-soft);
   }
   .site-nav a, .site-nav span {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14px;
-    letter-spacing: .04em;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color .15s;
+    font-family: var(--display); font-style: italic; font-size: 14px;
+    letter-spacing: .04em; color: var(--ink-soft);
+    text-decoration: none; transition: color .15s;
   }
   .site-nav a:hover { color: var(--saffron); }
   .site-nav .here { color: var(--saffron); }
   .site-nav .sep { color: var(--rule); font-style: normal; font-size: 11px; letter-spacing: 0; }
-
   .site-nav .primary { font-weight: 500; }
   .site-nav a[aria-current="page"] { color: var(--saffron); }
+
   .more-wrap { position: relative; display: inline-block; }
   .more-btn {
     background: transparent; border: 0; padding: 0;
@@ -736,13 +89,11 @@
   .more-btn:hover { color: var(--saffron); }
   .more-btn .chev { font-size: 11px; transition: transform .2s; }
   .more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
-  .more-btn.is-current { color: var(--saffron); }
   .more-menu {
     position: absolute; top: calc(100% + 8px); right: 0;
     background: var(--surface); border: 1px solid var(--rule);
     border-radius: 10px; padding: 6px 0;
-    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
-    z-index: 100; min-width: 220px;
+    box-shadow: var(--shadow-md); z-index: 100; min-width: 220px;
     display: flex; flex-direction: column;
   }
   .more-menu[hidden] { display: none; }
@@ -763,136 +114,325 @@
   }
   .more-menu-toggle-value { color: var(--saffron); font-weight: 500; font-style: italic; }
   @media (max-width: 600px) {
-    .more-menu { right: -6px; min-width: 200px; }
+    .more-menu { position: fixed; top: 64px; right: 12px; left: auto; max-width: calc(100vw - 24px); min-width: 240px; }
     .more-menu a, .more-menu .more-menu-toggle { font-size: 13.5px; padding: 8px 14px; }
   }
-  /* v4.61.1 — More menu positioning. On wide screens we keep the absolute
-     dropdown anchored to the More button. On narrow screens (where the nav
-     wraps and the More button might end up far left), we reposition the menu
-     as a centred sheet so it's always fully visible. */
-  @media (max-width: 600px) {
-    .more-menu {
-      position: fixed;
-      top: 64px;
-      right: 12px;
-      left: auto;
-      max-width: calc(100vw - 24px);
-      min-width: 240px;
-    }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 64px 0 18px;
+    text-align: center;
   }
-
-
-  /* ---------- v4.59.0 LEGACY THEME OVERRIDE ----------
-     Activated by adding html.theme-legacy via inline script. Restores
-     pre-v4.58 palette + typography. Toggle lives in the More menu. */
-  html.theme-legacy {
-    --bg:        #f3e9d2;
-    --bg-deep:   #ead9b4;
-    --surface:   #faf3e2;
-    --cream:     #faf3e2;
-    --ink:       #1f1a2e;
-    --ink-soft:  #4a4055;
-    --muted:     #7d6f55;
-    --rule:      #d4c39a;
-    --rule-soft: #e3d4ad;
-    --saffron:   #b8410e;
-    --indigo:    #2a3270;
-    --display: 'Cormorant Garamond', 'Times New Roman', serif;
-    --body:    'Spectral', Georgia, serif;
+  .hero-eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; letter-spacing: .14em;
+    color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 10px;
   }
+  .hero h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(42px, 8vw, 60px);
+    line-height: 1.05; margin: 0 0 12px;
+    letter-spacing: -.01em;
+  }
+  .hero h1 em { font-style: italic; color: var(--saffron); }
+  .hero-sub {
+    font-family: var(--display); font-style: italic;
+    font-size: 16.5px; color: var(--ink-soft);
+    margin: 0 auto 4px; max-width: 50ch; line-height: 1.55;
+  }
+  .hero-sub-name {
+    font-family: var(--display); font-style: italic;
+    font-size: 15px; color: var(--muted);
+    margin: 0 auto; max-width: 50ch;
+  }
+  .hero-sub-name[hidden] { display: none; }
 
-  /* ---------- v4.60.0 PERSONALISATION ---------- */
-  .name-prompt {
-    margin: 22px auto 14px;
-    max-width: 600px;
-    padding: 18px 22px;
+  /* ---------- HERO SEARCH ---------- */
+  .hero-search-wrap { margin: 32px 0 14px; }
+  .hero-search {
+    display: flex; align-items: center;
+    gap: 8px; padding: 12px 18px;
     background: var(--surface);
     border: 1px solid var(--rule);
-    border-left: 3px solid var(--saffron);
-    border-radius: 0 10px 10px 0;
-    font-family: var(--display);
-    animation: namePromptIn .35s ease-out;
+    border-radius: 999px;
+    box-shadow: var(--shadow-md);
+    transition: border-color .15s, box-shadow .15s;
   }
-  @keyframes namePromptIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-  .name-prompt[hidden] { display: none; }
-  .name-prompt-eyebrow {
-    font-style: italic;
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
+  .hero-search:focus-within {
+    border-color: var(--saffron);
+    box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 18px 44px -16px rgba(188,129,70,.32);
+  }
+  .hero-search-icon {
     color: var(--saffron);
-    margin-bottom: 4px;
+    font-size: 22px; line-height: 1;
+    flex-shrink: 0;
+    font-family: var(--display);
   }
-  .name-prompt-q {
-    font-style: italic;
-    font-size: 16px;
+  .hero-search-input {
+    flex: 1; min-width: 0;
+    background: transparent; border: 0; outline: none;
+    font-family: var(--body); font-size: 17px;
     color: var(--ink);
-    line-height: 1.5;
-    margin: 0 0 12px;
+    padding: 6px 0;
   }
-  .name-prompt-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
+  .hero-search-input::placeholder { color: var(--muted); font-style: italic; opacity: .7; }
+  .hero-search-submit {
+    flex-shrink: 0;
+    background: var(--ink);
+    color: var(--surface);
+    border: 0;
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px;
+    cursor: pointer;
+    transition: transform .15s, background .15s;
   }
-  .name-prompt-input {
-    flex: 1 1 200px;
-    min-width: 0;
-    padding: 8px 12px;
-    background: var(--bg);
+  .hero-search-submit:hover { transform: translateY(-1px); background: var(--saffron); }
+  @media (max-width: 480px) {
+    .hero-search { padding: 9px 14px; gap: 6px; }
+    .hero-search-input { font-size: 16px; }
+    .hero-search-submit { padding: 7px 14px; font-size: 13px; }
+  }
+
+  /* ---------- STARTER CHIPS ---------- */
+  .chips {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 8px;
+    margin: 0 0 6px;
+  }
+  .chips-label {
+    width: 100%;
+    text-align: center;
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; color: var(--muted);
+    margin-bottom: 4px; letter-spacing: .04em;
+  }
+  .chip {
+    appearance: none;
+    background: transparent;
     border: 1px solid var(--rule);
     border-radius: 999px;
-    font-family: var(--body);
-    font-size: 15px;
-    color: var(--ink);
-    outline: none;
-    transition: border-color .15s;
-  }
-  .name-prompt-input:focus { border-color: var(--saffron); }
-  .name-prompt-save, .name-prompt-skip {
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14px;
+    padding: 6px 14px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--ink-soft);
     cursor: pointer;
     transition: all .15s;
-    border: 1px solid var(--rule);
-    background: transparent;
-    color: var(--ink);
   }
-  .name-prompt-save {
+  .chip:hover { border-color: var(--saffron); color: var(--saffron); background: rgba(188,129,70,.04); transform: translateY(-1px); }
+
+  /* ---------- ROOMS ---------- */
+  .rooms-divider {
+    border: 0;
+    border-top: 1px dashed var(--rule);
+    margin: 48px auto 28px;
+    max-width: 200px;
+  }
+  .rooms-label {
+    text-align: center;
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; letter-spacing: .14em;
+    color: var(--saffron); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .rooms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 0 0 28px;
+  }
+  @media (max-width: 600px) {
+    .rooms { grid-template-columns: 1fr; gap: 10px; }
+  }
+  .room {
+    display: block;
+    padding: 22px 22px 20px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .15s, transform .15s, box-shadow .15s;
+  }
+  .room:hover {
+    border-color: var(--saffron);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .room-name {
+    font-family: var(--display); font-weight: 500;
+    font-size: 19px; color: var(--ink);
+    margin: 0 0 6px; letter-spacing: -.005em;
+  }
+  .room-name em { font-style: italic; color: var(--saffron); }
+  .room-detail {
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px; color: var(--ink-soft);
+    line-height: 1.5; margin: 0;
+  }
+  .room-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    background: rgba(188,129,70,.08);
+    color: var(--saffron);
+    border: 1px solid rgba(188,129,70,.3);
+    border-radius: 999px;
+    font-family: var(--display); font-style: italic;
+    font-size: 10.5px; letter-spacing: .04em;
+    vertical-align: middle;
+  }
+
+  /* ---------- TOUR LINK ---------- */
+  .tour-cta {
+    text-align: center;
+    margin: 22px 0 12px;
+  }
+  .tour-cta a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 4px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px;
+  }
+  .tour-cta a:hover { color: var(--saffron); text-decoration-color: var(--saffron); }
+
+  /* ---------- FOOTER ---------- */
+  .home-footer {
+    text-align: center;
+    margin: 48px auto 0;
+    padding: 0 8px;
+    max-width: 540px;
+  }
+  .home-footer-ornament { color: var(--saffron); margin-bottom: 14px; opacity: .7; }
+  .home-footer-ornament svg { width: 14px; height: 14px; }
+  .home-footer p {
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--muted);
+    margin: 0 0 6px; line-height: 1.55;
+  }
+  .home-footer p a { color: var(--ink-soft); }
+  .home-footer p a:hover { color: var(--saffron); }
+  .home-footer .meta { margin-top: 8px; font-size: 12px; }
+
+  /* ---------- TOUR OVERLAY ---------- */
+  .tour-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(40,40,38,.45);
+    z-index: 400;
+    opacity: 0; pointer-events: none;
+    transition: opacity .2s;
+  }
+  .tour-backdrop.is-open { opacity: 1; pointer-events: auto; }
+  .tour-modal {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 401;
+    width: min(92vw, 520px);
+    max-height: 85vh; overflow: auto;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 30px 28px 22px;
+    box-shadow: 0 32px 80px -20px rgba(40,40,38,.45);
+    opacity: 0; pointer-events: none;
+    transition: opacity .2s;
+  }
+  .tour-modal.is-open { opacity: 1; pointer-events: auto; }
+  .tour-eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; letter-spacing: .14em;
+    color: var(--saffron); text-transform: uppercase;
+    margin-bottom: 6px; text-align: center;
+  }
+  .tour-step-num {
+    text-align: center;
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .tour-h {
+    font-family: var(--display); font-weight: 500;
+    font-size: 26px; line-height: 1.15;
+    margin: 0 0 14px; text-align: center;
+    letter-spacing: -.005em;
+  }
+  .tour-h em { font-style: italic; color: var(--saffron); }
+  .tour-body {
+    font-family: var(--display); font-style: italic;
+    font-size: 16px; line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 20px; text-align: center;
+  }
+  .tour-actions {
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .tour-action-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tour-btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--ink);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .tour-btn:hover { border-color: var(--saffron); color: var(--saffron); }
+  .tour-btn.is-primary {
     background: var(--saffron);
     color: var(--surface);
     border-color: var(--saffron);
     font-weight: 500;
   }
-  .name-prompt-save:hover { transform: translateY(-1px); }
-  .name-prompt-skip:hover { color: var(--saffron); border-color: var(--saffron); }
-  .name-prompt-thanks {
-    font-style: italic;
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 10px;
-    display: none;
+  .tour-btn.is-primary:hover { transform: translateY(-1px); color: var(--surface); }
+  .tour-skip {
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+    background: transparent; border: 0;
+    cursor: pointer; text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
   }
-  .name-prompt.is-thanked .name-prompt-thanks { display: block; }
-  .name-prompt.is-thanked .name-prompt-row { display: none; }
-
-  /* Edit popover (anchored under More menu) */
-  .name-popover {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--surface);
+  .tour-skip:hover { color: var(--saffron); }
+  .tour-progress {
+    display: flex; gap: 5px; justify-content: center;
+    margin: 0 0 12px;
+  }
+  .tour-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+  .tour-dot.is-on { background: var(--saffron); }
+  .tour-input {
+    width: 100%; padding: 10px 14px;
+    background: var(--bg);
     border: 1px solid var(--rule);
-    border-radius: 12px;
-    padding: 24px 26px;
-    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
-    z-index: 300;
-    width: min(90vw, 380px);
+    border-radius: 999px;
+    font-family: var(--body); font-size: 16px;
+    color: var(--ink);
+    outline: none;
+    margin: 4px 0 8px;
+  }
+  .tour-input:focus { border-color: var(--saffron); }
+
+  /* ---------- NAME POPOVER (sitewide) ---------- */
+  .name-popover {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 12px; padding: 24px 26px;
+    box-shadow: var(--shadow-md);
+    z-index: 300; width: min(90vw, 380px);
     font-family: var(--display);
   }
   .name-popover[hidden] { display: none; }
@@ -903,77 +443,74 @@
   }
   .name-popover-backdrop[hidden] { display: none; }
   .name-popover-eyebrow {
-    font-style: italic;
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 4px;
+    font-style: italic; font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--saffron); margin-bottom: 4px;
   }
   .name-popover-q {
-    font-style: italic;
-    font-size: 18px;
-    color: var(--ink);
-    margin: 0 0 16px;
-    line-height: 1.3;
+    font-style: italic; font-size: 18px;
+    color: var(--ink); margin: 0 0 16px; line-height: 1.3;
   }
   .name-popover-input {
-    width: 100%;
-    padding: 9px 14px;
-    background: var(--bg);
-    border: 1px solid var(--rule);
+    width: 100%; padding: 9px 14px;
+    background: var(--bg); border: 1px solid var(--rule);
     border-radius: 999px;
-    font-family: var(--body);
-    font-size: 15px;
-    color: var(--ink);
-    outline: none;
+    font-family: var(--body); font-size: 15px;
+    color: var(--ink); outline: none;
     margin-bottom: 14px;
   }
   .name-popover-input:focus { border-color: var(--saffron); }
-  .name-popover-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-  }
+  .name-popover-buttons { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
   .name-popover-buttons button {
-    padding: 7px 16px;
-    border-radius: 999px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14px;
-    cursor: pointer;
-    border: 1px solid var(--rule);
-    background: transparent;
-    color: var(--ink);
-    transition: all .15s;
+    padding: 7px 16px; border-radius: 999px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; cursor: pointer;
+    border: 1px solid var(--rule); background: transparent;
+    color: var(--ink); transition: all .15s;
   }
   .name-popover-buttons button:hover { border-color: var(--saffron); color: var(--saffron); }
   .name-popover-buttons .save {
-    background: var(--saffron);
-    color: var(--surface);
-    border-color: var(--saffron);
-    font-weight: 500;
+    background: var(--saffron); color: var(--surface);
+    border-color: var(--saffron); font-weight: 500;
   }
   .name-popover-buttons .save:hover { color: var(--surface); transform: translateY(-1px); }
   .name-popover-buttons .clear { color: var(--muted); }
+
+  /* WhatsApp FAB */
+  .wa-fab-global {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 200;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff; border: 0; cursor: pointer;
+    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .wa-fab-global:hover { transform: translateY(-2px); box-shadow: 0 6px 18px -4px rgba(40,40,38,.3); }
+  @media (max-width: 480px) {
+    .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; }
+  }
 </style>
 </head>
 <body>
 <script>
-/* v4.59.0 — apply saved theme before first paint to avoid FOUC. */
+/* Pre-paint theme to avoid FOUC */
 (function(){try{var s=localStorage.getItem('astro-mychart-theme-v1');if(s==='legacy')document.documentElement.classList.add('theme-legacy');}catch(e){}})();
 </script>
 
 <div class="page">
 
-  <!-- ====================== SITE NAV (v4.59.0) ====================== -->
+  <!-- ====================== SITE NAV ====================== -->
   <nav class="site-nav" aria-label="Site sections">
     <a href="index.html" aria-current="page">Home</a>
     <span class="sep">·</span>
     <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="read.html" class="primary">Read · beta</a>
+    <a href="interpret.html" class="primary">Interpret · beta</a>
     <span class="sep">·</span>
     <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
@@ -989,6 +526,7 @@
         <a href="ether.html" role="menuitem">Ether</a>
         <a href="layers.html" role="menuitem">Layers</a>
         <a href="stats.html" role="menuitem">Stats</a>
+        <a href="about.html" role="menuitem">About · how this came to be</a>
         <a href="release-notes.html" role="menuitem">Release Notes</a>
         <div class="more-menu-divider" role="separator"></div>
         <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
@@ -1003,410 +541,102 @@
     </div>
   </nav>
 
-
   <!-- ====================== HERO ====================== -->
   <header class="hero">
-    <div class="eyebrow">all things vedic · the companion app · v4.65.1</div>
+    <div class="hero-eyebrow">all things vedic · the companion app · v4.66.0</div>
     <h1>Astrology <em>101</em></h1>
-    <p class="sub" data-name-template="Welcome back, {name}. The companion app for Vikram's class — material we're learning, structured to come back to between sessions." data-name-fallback="A companion app for Vikram's class. Holds the material we're learning, structured to come back to between sessions.">A companion app for Vikram's class. Holds the material we're learning, structured to come back to between sessions.</p>
-    <div class="ornament" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
-    </div>
+    <p class="hero-sub">A companion to Vikram Devatha's class at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a> — built alongside the cohort, in service to anyone walking the same path.</p>
+    <p class="hero-sub-name"
+       data-name-template="Welcome back, {name}."
+       data-name-fallback=""
+       hidden></p>
   </header>
 
-  <!-- ====================== v4.62.0 — SITE SEARCH (Home) ====================== -->
-  <form class="home-search" role="search" aria-label="Search the companion app" action="learning-companion.html" method="get">
-    <span class="home-search-icon" aria-hidden="true">⌕</span>
-    <input class="home-search-input" type="search" name="q" placeholder="Search the companion app — signs, planets, houses, avatars…" aria-label="Search query">
-    <button class="home-search-submit" type="submit">Search →</button>
-  </form>
-
-  <!-- ====================== ORIGIN PARAGRAPH ====================== -->
-  <p class="origin">
-    Built alongside Vikram's <em>Astrology 101</em> cohort at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a>. Vikram has reviewed it; the cohort is now invited in.
-    <span class="credit">— Sree &amp; Sanchi · alongside the class</span>
-  </p>
-
-  <!-- ====================== v4.60.0 — NAME PROMPT (first-visit only) ====================== -->
-  <section class="name-prompt" id="namePrompt" aria-label="What should we call you?">
-    <div class="name-prompt-eyebrow">A small thing</div>
-    <p class="name-prompt-q">What should we call you? It helps us nudge you by name where it counts — and stays only on this device.</p>
-    <div class="name-prompt-row">
-      <input class="name-prompt-input" type="text" maxlength="30" placeholder="e.g. Sree" autocomplete="given-name" aria-label="Your first name or nickname">
-      <button type="button" class="name-prompt-save">Save</button>
-      <button type="button" class="name-prompt-skip">Skip</button>
-    </div>
-    <p class="name-prompt-thanks"></p>
-  </section>
-
-  <!-- ====================== WHERE TO START (v4.56.1 — Layer 1 onboarding map) ====================== -->
-  <section class="where-to-start" aria-label="Where to start">
-    <div class="wts-eyebrow" data-name-template="Where to start, {name}" data-name-fallback="Where to start">Where to start</div>
-    <h2 class="wts-h">Pick the door that matches <em>your why</em></h2>
-    <p class="wts-lede">Eight intents — one for each of us coming in for a different reason.</p>
-    <div class="wts-grid">
-      <a class="wts-card" href="learning-companion.html">
-        <div class="wts-want">I want to <em>look something up</em></div>
-        <div class="wts-where">→ Learning Companion</div>
-        <p class="wts-detail">The biggest page. Tap any tile — sign, planet, house, avatar — and a drawer opens.</p>
-      </a>
-      <a class="wts-card" href="interactive.html">
-        <div class="wts-want">I want to <em>learn the cabinet as a story</em></div>
-        <div class="wts-where">→ Interactive</div>
-        <p class="wts-detail">Watch Vikram's planetary court assemble. Story · Storybook · Court mode.</p>
-      </a>
-      <a class="wts-card" href="reflect.html">
-        <div class="wts-want">I want to <em>sit with a reflection prompt</em></div>
-        <div class="wts-where">→ Reflect</div>
-        <p class="wts-detail">Eleven prompts per avatar. Notes auto-save in your browser.</p>
-      </a>
-      <a class="wts-card" href="kaalapurusha.html">
-        <div class="wts-want">I want to <em>see my body in the chart</em></div>
-        <div class="wts-where">→ Kāla­purusha</div>
-        <p class="wts-detail">The kundali laid into Vishnu's body — head to feet, sign by sign.</p>
-      </a>
-      <a class="wts-card" href="astronomy.html">
-        <div class="wts-want">I want to <em>understand the science underneath</em></div>
-        <div class="wts-where">→ Astronomy</div>
-        <p class="wts-detail">Ecliptic, ayanamsha, eclipses. The mechanism, not just the meaning.</p>
-      </a>
-      <a class="wts-card" href="mercury-spectrum.html">
-        <div class="wts-want">I want to <em>see one planet across its range</em></div>
-        <div class="wts-where">→ Mercury Spectrum</div>
-        <p class="wts-detail">Mercury seen as friend, neutral, enemy — and how to read it in your own chart.</p>
-      </a>
-      <a class="wts-card" href="ether.html">
-        <div class="wts-want">I want to <em>read about the retreat</em></div>
-        <div class="wts-where">→ Ether</div>
-        <p class="wts-detail">Notes from Chidambaram. Nirvana Shatakam. The great secret.</p>
-      </a>
-      <a class="wts-card" href="layers.html">
-        <div class="wts-want">I want to <em>know how this came to be</em></div>
-        <div class="wts-where">→ Layers</div>
-        <p class="wts-detail">The longer arc — month by month, layer by layer.</p>
-      </a>
-      <!-- v4.56.1 — Read · beta (Phase A). Sudha's chart-interpretation ask, shipping in cuts. -->
-      <a class="wts-card" href="read.html">
-        <div class="wts-want">I want to <em>read my own chart</em><span class="wts-soon-tag" style="background:rgba(188,129,70,.08);color:var(--saffron);border-color:rgba(188,129,70,.3);">beta</span></div>
-        <div class="wts-where">→ Read · beta</div>
-        <p class="wts-detail">Pick your Lagna, place your planets, see the South Indian chart. Walk-through (Sudha's pedagogy — house by house) lands next.</p>
-      </a>
-      <!-- v4.56.1 — Cut G stub. Sudha's elements-with-practices ask, pending Vikram input. -->
-      <a class="wts-card is-coming-soon" href="#" onclick="return false;" aria-disabled="true">
-        <div class="wts-want">I want to <em>embody the five elements</em><span class="wts-soon-tag">coming soon</span></div>
-        <div class="wts-where">→ Elements page</div>
-        <p class="wts-detail">Earth · Water · Fire · Air · Ether — each with one or two practices Vikram recommends for embodying it.</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- ====================== HOW IT STARTED (v4.33.0) ====================== -->
-  <section class="origin-story" aria-label="How it started">
-    <div class="origin-eyebrow">How it started</div>
-    <h2 class="origin-h">The infamous <em>blue file</em></h2>
-
-    <figure class="origin-figure">
-      <img src="assets/blue-file.jpg" alt="Sree's blue binder filled with Astrology 101 printouts" loading="lazy">
-      <figcaption>The blue file. Printouts of every Astrology 101 reference I might want to find in a hurry.</figcaption>
-    </figure>
-
-    <div class="origin-narrative">
-      <p>Every time I had to refer to astrology, I'd reach for my infamous blue file — a binder of printouts — or the iPad with all the PDFs. In a jiffy, if I wanted to find a specific piece of information, <em>it was impossible</em>.</p>
-      <p>I don't learn by memory. I need a lot of references all the time. I needed something pocket-friendly and handy — something I could open up and remember, or search.</p>
-      <p>That was the genesis. But it also coincided with something deep — something touching and resonating for me. I'm still yet to understand why I have a deep calling in this path. But I am in a flow, and that's what matters, right?</p>
-      <p style="margin-top:18px;text-align:right;font-family:var(--display);font-style:italic;font-size:14.5px;"><a href="layers.html" style="color:var(--saffron);">Read the longer arc — Layers →</a></p>
-      <p class="origin-attr">— Sree</p>
-    </div>
-  </section>
-
-  <!-- ====================== THE COHORT (v4.33.0) ====================== -->
-  <section class="cohort-section" aria-label="The cohort">
-    <div class="cohort-eyebrow">The cohort</div>
-    <h2 class="cohort-h">The class is more than the <em>teacher</em></h2>
-    <p class="cohort-lede">
-      A frame from the Ether retreat — Vikram's Astrology 101 cohort. The class is more than the teacher; the page is what it is because of this group.
-    </p>
-    <p class="cohort-lede" style="margin-top:0;">
-      <strong style="color:var(--saffron);font-style:normal;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px;">In this picture</strong>
-      <span class="names">Meera · Rashmi · Sudha · Sathvi · Apri · Anil · Kanika · Shashank · Aditya · Kiron · Shobhana</span> — and <span class="names">Sanchi</span>, partner in crime on this project.
-    </p>
-    <p class="cohort-lede" style="margin-top:0;">
-      <strong style="color:var(--saffron);font-style:normal;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px;">Co-facilitating with Vikram</strong>
-      <span class="names">Suraj · Megha</span>.
-    </p>
-    <p class="cohort-lede" style="margin-top:0;">
-      <strong style="color:var(--saffron);font-style:normal;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px;">The larger learning group</strong>
-      Not all in this frame, but in the conversations: <span class="names">Aysha · Marie · Shweta · Sarika · Kajal · Surbhi</span> — and more.
-    </p>
-    <p class="cohort-lede" style="margin-top:0;">
-      <strong style="color:var(--saffron);font-style:normal;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px;">Mentors who shaped the path</strong>
-      <span class="names">Divya · Siva · Shivangi · Shruthi</span>. And the list goes on.
-    </p>
-    <p class="cohort-lede" style="margin-top:18px;font-style:italic;">
-      Vikram has been the <em>teacher</em>; this group has been the <em>second teacher</em> — every catch, every question, every "wait, that doesn't sound right" landed inside the page.
-    </p>
-    <figure class="cohort-figure">
-      <img src="assets/cohort-ether-retreat.jpg" alt="Vikram's Astrology 101 cohort, gathered at the Ether retreat, in joyful poses around a small puja plate" loading="lazy">
-      <figcaption class="cohort-caption">Ether retreat · Astrology 101 cohort · 2026. <a href="ether.html" style="color:var(--saffron);">↗ Read Sree's reflections from the retreat</a></figcaption>
-    </figure>
-    <blockquote class="cohort-quote">
-      <span class="quote-mark">&#x275D;</span><span class="quote-text">I owe a lot to this group.</span>
-      <span class="quote-attr">— Sree</span>
-    </blockquote>
-  </section>
-
-  <!-- ====================== STARTING POINTS ====================== -->
-  <div class="starts-h">
-    <div class="small">New here?</div>
-    <h2>Three places to <em>start</em></h2>
+  <!-- ====================== SEARCH ====================== -->
+  <div class="hero-search-wrap">
+    <form class="hero-search" role="search" aria-label="Search the companion app" action="learning-companion.html" method="get">
+      <span class="hero-search-icon" aria-hidden="true">⌕</span>
+      <input class="hero-search-input"
+             type="search"
+             name="q"
+             id="heroSearchInput"
+             placeholder="Search — try a sign, planet, house, avatar…"
+             aria-label="Search query"
+             autocomplete="off">
+      <button class="hero-search-submit" type="submit">Search →</button>
+    </form>
   </div>
-  <div class="starts">
-    <a class="start-card" href="learning-companion.html#signs" data-start>
-      <div class="sc-arrow">↗</div>
-      <div class="sc-mark">§ One</div>
-      <div class="sc-name">The wheel of <em>signs</em></div>
-      <p class="sc-desc">Tap any sign tile — a drawer opens showing how it connects to its planet, element, and house. The cross-reference pattern that everything else uses.</p>
+
+  <!-- starter chips -->
+  <div class="chips" id="chips">
+    <div class="chips-label">Try one of these:</div>
+    <button class="chip" type="button" data-chip="Aries">Aries</button>
+    <button class="chip" type="button" data-chip="Mars">Mars</button>
+    <button class="chip" type="button" data-chip="7th house">the 7th house</button>
+    <button class="chip" type="button" data-chip="Sripati">Sripati</button>
+    <button class="chip" type="button" data-chip="Matsya">Matsya</button>
+    <button class="chip" type="button" data-chip="retrograde">retrograde</button>
+  </div>
+
+  <!-- ====================== TOUR CTA ====================== -->
+  <div class="tour-cta">
+    <a href="javascript:void(0)" id="tourTrigger">First time here? · A four-step walk-through →</a>
+  </div>
+
+  <!-- ====================== ROOMS ====================== -->
+  <hr class="rooms-divider">
+  <div class="rooms-label">Three rooms inside</div>
+  <div class="rooms">
+    <a class="room" href="learning-companion.html">
+      <h2 class="room-name">Learning <em>Companion</em></h2>
+      <p class="room-detail">Look anything up — sign, planet, house, avatar. The dense reference, with quizzes if you want to check yourself.</p>
     </a>
-    <a class="start-card" href="learning-companion.html#cabinet" data-start>
-      <div class="sc-arrow">↗</div>
-      <div class="sc-mark">§ Four</div>
-      <div class="sc-name">The planetary <em>Cabinet</em></div>
-      <p class="sc-desc">Vikram's story of the planets as a royal court — King, Queen, Commander, Prince, Princess, Priest, Servant. With a Court Call game inside.</p>
+    <a class="room" href="interpret.html">
+      <h2 class="room-name"><em>Interpret</em> your chart<span class="room-tag">beta</span></h2>
+      <p class="room-detail">Pick your Lagna, place your planets, walk through your South Indian chart house by house.</p>
     </a>
-    <a class="start-card" href="learning-companion.html#practice" data-start>
-      <div class="sc-arrow">↗</div>
-      <div class="sc-mark">§ Fifteen</div>
-      <div class="sc-name">Trace the <em>symbols</em></div>
-      <p class="sc-desc">Embodied recall — draw the planet glyphs by hand on a small canvas. Forty seconds each. The way the symbols stick.</p>
+    <a class="room" href="reflect.html">
+      <h2 class="room-name"><em>Reflect</em></h2>
+      <p class="room-detail">Sit with one prompt from the Companion Workbook. Notes save only in your browser.</p>
     </a>
   </div>
 
-  <!-- ====================== WHAT'S INSIDE ====================== -->
-  <div class="whats">
-    <div class="whats-h">What's inside · the full Learning Companion</div>
-    <ul class="whats-list">
-      <li>The Twelve Signs · Rāśi Chakra</li>
-      <li>Elements · Modes · Duality</li>
-      <li>The Daśāvatāra · ten avatars</li>
-      <li>The Planetary Cabinet</li>
-      <li>The Nine Planets · Navagrahas</li>
-      <li>The Signature · Lagna · Moon · Sun</li>
-      <li>Planetary Relationships</li>
-      <li>Aspects · Drishti</li>
-      <li>Yogas · Combinations</li>
-      <li>The Twelve Houses · Bhāvas</li>
-      <li>House Systems</li>
-      <li>House Categories</li>
-      <li>Purusharthas — Aims of Life</li>
-      <li>Kāla­purusha — the cosmic body</li>
-      <li>Practice — flashcards · quizzes · trace</li>
-      <li>The Companion Workbook</li>
-    </ul>
-  </div>
-
-  <!-- ====================== CTA ====================== -->
-  <div class="cta-row">
-    <a class="cta" href="learning-companion.html" data-start>Open the Learning Companion →</a>
-    <p class="cta-hint">Free, no signup. Phone or laptop. Tap the 💬 button at the bottom of any page to send feedback over WhatsApp.</p>
-  </div>
-
-  <!-- ====================== PEERS ====================== -->
-  <div class="peers">
-    <div class="peers-h">More to explore · peer pages</div>
-    <div class="peers-grid">
-      <a class="peer" href="kaalapurusha.html">
-        <div class="peer-name">Kaalapurusha</div>
-        <div class="peer-desc">An anatomical map — the kundali laid into Vishnu's body.</div>
-      </a>
-      <a class="peer" href="mercury-spectrum.html">
-        <div class="peer-name">Mercury Spectrum</div>
-        <div class="peer-desc">A planet seen across its full range — friend, neutral, enemy.</div>
-      </a>
-      <a class="peer" href="astronomy.html">
-        <div class="peer-name">Astronomy</div>
-        <div class="peer-desc">The science under the symbolism — ecliptic, ayanamsha, eclipses.</div>
-      </a>
-      <a class="peer" href="ether.html">
-        <div class="peer-name">Ether</div>
-        <div class="peer-desc">Notes from the retreat — Chidambaram, Nirvana Shatakam, the great secret.</div>
-      </a>
-      <a class="peer" href="layers.html">
-        <div class="peer-name">Layers</div>
-        <div class="peer-desc">The longer arc — month by month, conversation by conversation, layer by layer.</div>
-      </a>
-      <a class="peer" href="reflect.html">
-        <div class="peer-name">Reflect</div>
-        <div class="peer-desc">Sit with the workbook prompts. Eleven reflection clusters per avatar — your notes saved locally.</div>
-      </a>
-      <a class="peer" href="interactive.html">
-        <div class="peer-name">Interactive <em style="color:var(--saffron);font-style:italic;font-size:.7em;">· beta</em></div>
-        <div class="peer-desc">An experimental space — visual / spatial learning. First experiment: the Cabinet as a stage.</div>
-      </a>
-      <a class="peer" href="read.html">
-        <div class="peer-name">Read <em style="color:var(--saffron);font-style:italic;font-size:.7em;">· beta</em></div>
-        <div class="peer-desc">Pick your Lagna, place your planets, see your chart. Walk-through coming next.</div>
-      </a>
-      <a class="peer" href="release-notes.html">
-        <div class="peer-name">Release Notes</div>
-        <div class="peer-desc">A running log — what's been added or changed, freshest first.</div>
-      </a>
-      <a class="peer" href="stats.html">
-        <div class="peer-name">Stats</div>
-        <div class="peer-desc">By the numbers — source corpus, build size, contributors.</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- ====================== FOOTER ====================== -->
-  <footer class="footer">
-    <div class="footer-ornament" aria-hidden="true">
+  <!-- ====================== HOME FOOTER ====================== -->
+  <footer class="home-footer">
+    <div class="home-footer-ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
-    <p>Praṇāms to all masters of astrology, known and unknown, and to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Vikram of allthingsvedic.in</a> and my peer group — for the inspiration, love, support and feedback.</p>
+    <p>Wondering where this came from? <a href="about.html">How this came to be →</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.65.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.66.0 · updated 10 May 2026</span>
+      &nbsp;·&nbsp;
+      <a href="release-notes.html">Release notes</a>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
-      &nbsp;·&nbsp;
-      <a href="release-notes.html" style="color:var(--saffron);">Release notes</a>
-    </p>
-    <p class="credits">
-      Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
     </p>
   </footer>
 
 </div>
 
-<!-- ====================== STARTING-POINT HANDOFF ====================== -->
-<!-- Setting the welcome flag here means cohort members arriving via this index
-     don't see the Learning Companion's first-time welcome card on top — they've
-     already been welcomed here. Direct visitors to learning-companion.html still
-     get the card. -->
-<script>
-(function() {
-  const WELCOME_KEY = 'astro-welcomed';
+<!-- ====================== TOUR OVERLAY ====================== -->
+<div class="tour-backdrop" id="tourBackdrop"></div>
+<div class="tour-modal" id="tourModal" role="dialog" aria-modal="true" aria-labelledby="tourH">
+  <div class="tour-eyebrow">a four-step walk-through</div>
+  <div class="tour-progress" id="tourProgress"></div>
+  <div class="tour-step-num" id="tourStepNum">step 1 of 4</div>
+  <h2 class="tour-h" id="tourH">What should we call you?</h2>
+  <p class="tour-body" id="tourBody">Just for the page — the name lives in your browser. Nothing leaves your device.</p>
+  <div id="tourSlot"></div>
+  <div class="tour-actions">
+    <button type="button" class="tour-skip" id="tourSkip">Skip the tour</button>
+    <div class="tour-action-row">
+      <button type="button" class="tour-btn" id="tourBack" hidden>← Back</button>
+      <button type="button" class="tour-btn is-primary" id="tourNext">Next →</button>
+    </div>
+  </div>
+</div>
 
-  function markWelcomed() {
-    try { localStorage.setItem(WELCOME_KEY, 'true'); } catch (e) {}
-  }
-
-  document.querySelectorAll('[data-start]').forEach(el => {
-    el.addEventListener('click', markWelcomed);
-  });
-})();
-</script>
-
-<!-- ====================== UPDATE CHECKER ====================== -->
-<script>
-(function() {
-  const PAGE_VERSION = '4.65.1';
-  const VERSION_URL = 'version.json';
-  const FOCUS_THROTTLE_MS = 30000;
-  let lastChecked = 0;
-
-  function showToast(msg) {
-    let t = document.getElementById('versionToast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.style.opacity = '1';
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
-  }
-  async function check(silent) {
-    const now = Date.now();
-    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
-    lastChecked = now;
-    try {
-      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
-      if (!r.ok) return;
-      const data = await r.json();
-      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
-      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
-    } catch {}
-  }
-  window.__checkForUpdates = () => check(false);
-  check(true);
-  window.addEventListener('focus', () => check(true));
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
-})();
-</script>
-
-
-<!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
-<style>
-  .wa-fab-global {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 200;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: #25d366;
-    color: #fff;
-    border: 0;
-    cursor: pointer;
-    box-shadow: 0 4px 12px -2px rgba(40,40,38,.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    transition: transform .15s, box-shadow .15s;
-  }
-  .wa-fab-global:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px -4px rgba(40,40,38,.3);
-  }
-  .wa-fab-global::after {
-    content: 'Send feedback';
-    position: absolute;
-    bottom: calc(100% + 8px);
-    right: 0;
-    background: #282826;
-    color: #F8F4E1;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .15s;
-  }
-  .wa-fab-global:hover::after { opacity: 1; }
-  @media (max-width: 480px) {
-    .wa-fab-global { bottom: 18px; right: 18px; width: 46px; height: 46px; font-size: 19px; }
-  }
-</style>
-<button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
-  <span aria-hidden="true">💬</span>
-</button>
-<script>
-(function() {
-  const WA_PHONE = '919880337337';
-  function pageLabel() {
-    // Title pattern: "Page — Astrology 101 Companion App"  →  "Page"
-    const t = document.title || '';
-    const i = t.indexOf('—');
-    return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
-  }
-  function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.65.1';
-  }
-  document.getElementById('waFabGlobal').addEventListener('click', function() {
-    const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
-    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-  });
-})();
-</script>
-
-<!-- v4.60.0 Personalisation popover (sitewide) -->
+<!-- ====================== NAME POPOVER (sitewide) ====================== -->
 <div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
 <div class="name-popover" id="namePopover" hidden role="dialog" aria-modal="true" aria-labelledby="namePopoverQ">
   <div class="name-popover-eyebrow">Your name</div>
@@ -1419,8 +649,130 @@
   </div>
 </div>
 
+<!-- WhatsApp FAB -->
+<button class="wa-fab-global" type="button" id="waFabGlobal" aria-label="Send feedback via WhatsApp" title="Send feedback">
+  <span aria-hidden="true">💬</span>
+</button>
+
 <script>
-/* v4.59.0 — More menu + theme toggle (site-wide). */
+/* CHIP CLICK — submit search form */
+(function(){
+  document.addEventListener('click', function(e){
+    var c = e.target.closest('[data-chip]');
+    if (!c) return;
+    var input = document.getElementById('heroSearchInput');
+    if (input){
+      input.value = c.getAttribute('data-chip');
+      input.form.submit();
+    }
+  });
+  // Autofocus search on first paint, except on small screens (avoids keyboard pop)
+  try {
+    if (window.innerWidth >= 700){
+      var el = document.getElementById('heroSearchInput');
+      if (el) setTimeout(function(){ el.focus({preventScroll:true}); }, 80);
+    }
+  } catch(e){}
+})();
+</script>
+
+<script>
+/* TOUR — opt-in 4-step walk-through */
+(function(){
+  var STEPS = [
+    {
+      h: 'What should we call you?',
+      body: 'Just for the page — the name lives in your browser. Nothing leaves your device.',
+      slot: '<input class="tour-input" id="tourNameInput" type="text" maxlength="30" placeholder="e.g. Arpitha" autocomplete="given-name">',
+      onShow: function(){
+        var i = document.getElementById('tourNameInput');
+        if (i){
+          var existing = (window.__name && window.__name.get && window.__name.get()) || '';
+          i.value = existing;
+          setTimeout(function(){ i.focus(); }, 50);
+        }
+      },
+      onNext: function(){
+        var i = document.getElementById('tourNameInput');
+        if (i && window.__name) window.__name.set(i.value || '');
+      }
+    },
+    {
+      h: 'Look something up.',
+      body: 'The Companion is the dense reference. Tap any tile inside — a sign, a planet, a house, an avatar — and a drawer opens with the teaching from class.',
+      slot: '<p style="text-align:center;margin:8px 0 0;"><a href="learning-companion.html#signs" style="color:var(--saffron);">Open the Companion →</a></p>'
+    },
+    {
+      h: 'Read your own chart.',
+      body: 'Interpret · beta lets you pick your Lagna, place your planets, and walk through the South Indian chart of your life house by house.',
+      slot: '<p style="text-align:center;margin:8px 0 0;"><a href="interpret.html" style="color:var(--saffron);">Open Interpret →</a></p>'
+    },
+    {
+      h: 'Sit with one prompt.',
+      body: 'Reflect has eleven prompts per avatar, drawn from the cohort\'s Companion Workbook. Pick one — your notes save only in your browser.',
+      slot: '<p style="text-align:center;margin:8px 0 0;"><a href="reflect.html" style="color:var(--saffron);">Open Reflect →</a></p>'
+    }
+  ];
+  var idx = 0;
+  var modal = document.getElementById('tourModal');
+  var backdrop = document.getElementById('tourBackdrop');
+  var elH = document.getElementById('tourH');
+  var elBody = document.getElementById('tourBody');
+  var elSlot = document.getElementById('tourSlot');
+  var elNum = document.getElementById('tourStepNum');
+  var elProg = document.getElementById('tourProgress');
+  var btnBack = document.getElementById('tourBack');
+  var btnNext = document.getElementById('tourNext');
+  var btnSkip = document.getElementById('tourSkip');
+  var btnTrigger = document.getElementById('tourTrigger');
+
+  function paint(){
+    var s = STEPS[idx];
+    elH.textContent = s.h;
+    elBody.textContent = s.body;
+    elSlot.innerHTML = s.slot || '';
+    elNum.textContent = 'step ' + (idx+1) + ' of ' + STEPS.length;
+    btnBack.hidden = idx === 0;
+    btnNext.textContent = idx === STEPS.length-1 ? 'Done ✓' : 'Next →';
+    elProg.innerHTML = STEPS.map(function(_,i){
+      return '<span class="tour-dot' + (i <= idx ? ' is-on' : '') + '"></span>';
+    }).join('');
+    if (typeof s.onShow === 'function') setTimeout(s.onShow, 30);
+  }
+  function open(){
+    idx = 0; paint();
+    modal.classList.add('is-open');
+    backdrop.classList.add('is-open');
+    try { localStorage.setItem('astro-tour-seen-v1', '1'); } catch(e){}
+  }
+  function close(){
+    var s = STEPS[idx];
+    if (typeof s.onNext === 'function') s.onNext();
+    modal.classList.remove('is-open');
+    backdrop.classList.remove('is-open');
+  }
+  btnTrigger && btnTrigger.addEventListener('click', open);
+  btnBack && btnBack.addEventListener('click', function(){
+    var s = STEPS[idx];
+    if (typeof s.onNext === 'function') s.onNext();
+    if (idx > 0){ idx--; paint(); }
+  });
+  btnNext && btnNext.addEventListener('click', function(){
+    var s = STEPS[idx];
+    if (typeof s.onNext === 'function') s.onNext();
+    if (idx < STEPS.length-1){ idx++; paint(); }
+    else close();
+  });
+  btnSkip && btnSkip.addEventListener('click', close);
+  backdrop && backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+})();
+</script>
+
+<script>
+/* More menu + theme toggle */
 (function(){
   var KEY='astro-mychart-theme-v1';
   var btn=document.getElementById('moreMenuBtn');
@@ -1447,68 +799,37 @@
 </script>
 
 <script>
-/* v4.60.0 — Personalisation (KISS, local-only). Provides:
-   - window.__name.get() / set(s) / clear()
-   - Auto-templates any element with [data-name-template], substituting {name}.
-     Element is hidden when no name set (skip-entirely-when-no-name behaviour).
-   - Site-wide popover for edit/clear via the More menu.
-   - First-visit prompt on Home only (presence of #namePrompt). */
+/* Personalisation */
 (function(){
   var KEY_NAME='astro-mychart-name-v1';
   var KEY_PROMPTED='astro-mychart-name-prompted-v1';
   var MAX=30;
-  function getName(){
-    try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';}
-  }
+  function getName(){ try{var n=localStorage.getItem(KEY_NAME);return n?n.trim().slice(0,MAX):'';}catch(e){return '';} }
   function setName(s){
     var v=(s||'').trim().slice(0,MAX);
     try{
-      if(v) localStorage.setItem(KEY_NAME,v);
-      else localStorage.removeItem(KEY_NAME);
+      if(v) localStorage.setItem(KEY_NAME,v); else localStorage.removeItem(KEY_NAME);
       localStorage.setItem(KEY_PROMPTED,'1');
     }catch(e){}
     applyAll();
   }
   function clearName(){
-    try{
-      localStorage.removeItem(KEY_NAME);
-      localStorage.setItem(KEY_PROMPTED,'1');
-    }catch(e){}
+    try{localStorage.removeItem(KEY_NAME);localStorage.setItem(KEY_PROMPTED,'1');}catch(e){}
     applyAll();
-  }
-  function wasPrompted(){
-    try{return localStorage.getItem(KEY_PROMPTED)==='1';}catch(e){return false;}
   }
   function applyAll(){
     var name=getName();
-    // 1. Templated text nodes
     document.querySelectorAll('[data-name-template]').forEach(function(el){
       var tpl=el.getAttribute('data-name-template');
-      if(name){
-        el.textContent=tpl.replace(/\{name\}/g, name);
-        el.hidden=false;
-      } else {
-        var fallback=el.getAttribute('data-name-fallback');
-        if(fallback!=null){
-          el.textContent=fallback;
-          el.hidden=false;
-        } else {
-          el.textContent='';
-          el.hidden=true;
-        }
+      if(name){ el.textContent=tpl.replace(/\{name\}/g, name); el.hidden=false; }
+      else {
+        var fb=el.getAttribute('data-name-fallback');
+        if(fb){ el.textContent=fb; el.hidden=false; } else { el.textContent=''; el.hidden=true; }
       }
     });
-    // 2. Templated placeholder/value attributes
-    document.querySelectorAll('[data-name-placeholder]').forEach(function(el){
-      var tpl=el.getAttribute('data-name-placeholder');
-      var fb=el.getAttribute('data-name-placeholder-fallback')||'';
-      el.placeholder=name?tpl.replace(/\{name\}/g, name):fb;
-    });
-    // 3. The "Your name" menu item — show current value or "Add your name"
     var mv=document.getElementById('namePopoverValue');
     if(mv) mv.textContent=name||'Add';
   }
-  // Edit popover wiring
   function openPopover(){
     var pop=document.getElementById('namePopover');
     var bd=document.getElementById('namePopoverBackdrop');
@@ -1521,8 +842,7 @@
   function closePopover(){
     var pop=document.getElementById('namePopover');
     var bd=document.getElementById('namePopoverBackdrop');
-    if(pop)pop.hidden=true;
-    if(bd)bd.hidden=true;
+    if(pop)pop.hidden=true; if(bd)bd.hidden=true;
   }
   document.addEventListener('click',function(e){
     var trigger=e.target.closest('#namePopoverTrigger');
@@ -1537,34 +857,57 @@
     if(bd){closePopover();return;}
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopover();});
-  // Home prompt wiring (only fires if #namePrompt exists)
-  var prompt=document.getElementById('namePrompt');
-  if(prompt){
-    if(getName()||wasPrompted()){prompt.hidden=true;}
-    var saveBtn=prompt.querySelector('.name-prompt-save');
-    var skipBtn=prompt.querySelector('.name-prompt-skip');
-    var inp=prompt.querySelector('.name-prompt-input');
-    function doSave(){
-      var v=inp?inp.value:'';
-      setName(v);
-      if(v){
-        var thanks=prompt.querySelector('.name-prompt-thanks');
-        if(thanks) thanks.textContent='Thanks, '+getName()+' — you\'ll see your name where it helps.';
-        prompt.classList.add('is-thanked');
-        setTimeout(function(){prompt.hidden=true;},2500);
-      } else {
-        prompt.hidden=true;
-      }
-    }
-    if(saveBtn) saveBtn.addEventListener('click',doSave);
-    if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')doSave();});
-    if(skipBtn) skipBtn.addEventListener('click',function(){
-      try{localStorage.setItem(KEY_PROMPTED,'1');}catch(e){}
-      prompt.hidden=true;
-    });
-  }
   window.__name={get:getName,set:setName,clear:clearName,apply:applyAll};
   applyAll();
+})();
+</script>
+
+<!-- WhatsApp FAB wiring -->
+<script>
+(function() {
+  var WA_PHONE = '919880337337';
+  document.getElementById('waFabGlobal').addEventListener('click', function() {
+    var text = 'Hi Sree, sharing feedback on Astrology 101 Companion App (v4.66.0 · page: Home):\n\n';
+    window.open('https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  });
+})();
+</script>
+
+<!-- Update checker -->
+<script>
+(function() {
+  var PAGE_VERSION = '4.66.0';
+  var FOCUS_THROTTLE_MS = 30000;
+  var lastChecked = 0;
+  function showVersionToast(msg) {
+    var t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
+  }
+  function check(silent) {
+    var now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data) return;
+        if (data.version !== PAGE_VERSION) showVersionToast('A newer version is available — reload to update.');
+        else if (!silent) showVersionToast("You're on the latest (v" + PAGE_VERSION + ')');
+      }).catch(function(){});
+  }
+  window.__checkForUpdates = function(){ check(false); };
+  check(true);
+  window.addEventListener('focus', function(){ check(true); });
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) check(true); });
 })();
 </script>
 

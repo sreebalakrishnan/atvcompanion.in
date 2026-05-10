@@ -584,7 +584,7 @@
     <span class="sep">·</span>
     <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="read.html" class="primary">Read · beta</a>
+    <a href="interpret.html" class="primary">Interpret · beta</a>
     <span class="sep">·</span>
     <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
@@ -600,6 +600,7 @@
         <a href="ether.html" role="menuitem">Ether</a>
         <a href="layers.html" role="menuitem">Layers</a>
         <a href="stats.html" role="menuitem">Stats</a>
+        <a href="about.html" role="menuitem">About · how this came to be</a>
         <a href="release-notes.html" role="menuitem">Release Notes</a>
         <div class="more-menu-divider" role="separator"></div>
         <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
@@ -616,7 +617,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.65.1</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.66.0</div>
     <h1>The <em>Astronomy</em> under the Astrology</h1>
     <p class="sub">Nine foundations from Vikram's class — the science under the symbolism. Sourced from his decks and transcripts; nothing borrowed from elsewhere. Astronomy and astrology are intertwined — the chart is the visible sky, slowed down enough to study.</p>
   </header>
@@ -1102,11 +1103,11 @@
     <h3 style="margin-top:22px;">Why this matters</h3>
     <p class="body">In Vikram's phrasing: the lab is to <em>"build a real, embodied connection with each graha. Lays foundation for understanding transits — mentally, spatially, and energetically."</em> Without this step, the rest of the course stays on paper. Spending an hour with deva.guru and Stellarium open at the same time is the single highest-leverage thing a learner can do between sessions. Many Astrology 101 concepts simply will not click until the geocentric sky is something you have <em>seen</em>, not just read about.</p>
 
-    <div class="x-ref">↗ This lab loops back to <a href="#geocentric">§ One — The Geocentric View</a>. Everything else on this page (ecliptic, coordinates, celestial equator, retrograde, precession) is preparing you for the moment Stellarium opens and the chart matches the sky. The same exercise feeds the chart you read in <a href="learning-companion.html">Learning Companion</a> and <a href="read.html">Read · beta</a>.</div>
+    <div class="x-ref">↗ This lab loops back to <a href="#geocentric">§ One — The Geocentric View</a>. Everything else on this page (ecliptic, coordinates, celestial equator, retrograde, precession) is preparing you for the moment Stellarium opens and the chart matches the sky. The same exercise feeds the chart you read in <a href="learning-companion.html">Learning Companion</a> and <a href="interpret.html">Interpret · beta</a>.</div>
   </section>
 
   <footer class="page-footer">
-    <p style="margin-top:32px;">v4.65.1 · updated 10 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
+    <p style="margin-top:32px;">v4.66.0 · updated 10 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()">Check for updates</a> &nbsp;·&nbsp; <a href="release-notes.html">Release notes</a></p>
     <p style="margin-top:8px;">All material here is from Vikram's transcripts and decks. Nothing borrowed from elsewhere without confirmation.</p>
     <p style="margin-top:8px;font-size:11.5px;opacity:.85;">Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
   </footer>
@@ -1119,7 +1120,7 @@
 </div>
 
 <script>
-  const PAGE_VERSION = '4.65.1';
+  const PAGE_VERSION = '4.66.0';
   function showUpdateBanner(newVer) {
     const b = document.getElementById('updateBanner');
     document.getElementById('updateText').textContent = 'New version available (v' + newVer + ').';
@@ -1213,7 +1214,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.65.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.66.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;

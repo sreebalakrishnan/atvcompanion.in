@@ -691,7 +691,7 @@
     <span class="sep">·</span>
     <a href="learning-companion.html" class="primary">Learning Companion</a>
     <span class="sep">·</span>
-    <a href="read.html" class="primary">Read · beta</a>
+    <a href="interpret.html" class="primary">Interpret · beta</a>
     <span class="sep">·</span>
     <a href="reflect.html" class="primary">Reflect</a>
     <span class="sep">·</span>
@@ -707,6 +707,7 @@
         <a href="ether.html" role="menuitem">Ether</a>
         <a href="layers.html" role="menuitem">Layers</a>
         <a href="stats.html" role="menuitem">Stats</a>
+        <a href="about.html" role="menuitem">About · how this came to be</a>
         <a href="release-notes.html" role="menuitem">Release Notes</a>
         <div class="more-menu-divider" role="separator"></div>
         <button type="button" class="more-menu-toggle" id="namePopoverTrigger" role="menuitem">
@@ -735,10 +736,47 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.66.0 ====================== -->
+  <section class="release" data-credits="Vikram (the seniors-share + overwhelm worry that triggered this) · Sree (the calm-reading-room frame)">
+    <header>
+      <h2>v4.66.0 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Major release. The home page is rebuilt around <strong>search</strong> instead of nine equally-weighted doors. <code>read.html</code> is renamed to <a href="interpret.html"><code>interpret.html</code></a> with a clearer label — <em>Interpret your chart · beta</em> — and the old URL redirects. The cohort photo, the blue file, and the nine-door grid all moved to a new <a href="about.html">About page</a>. Site-wide regression run.</p>
+
+    <h3>Why this happened</h3>
+    <p>Vikram is about to share the app with the seniors group and worried it would feel overwhelming. The diagnosis was that the home page was asking visitors to make a structural choice (nine doors) before they had tasted anything. For seniors with prior 101 context who just want to look something up, the right mental model is <em>search</em>, not a museum of rooms.</p>
+
+    <h3>The new home</h3>
+    <ul>
+      <li><strong>Search bar dominates.</strong> Large, centred, autofocused on desktop. The form posts to the existing Learning Companion search engine via <code>?q=…</code> — no new infrastructure, just promoting what was already there.</li>
+      <li><strong>Six starter chips</strong> below the search bar — <em>Aries · Mars · the 7th house · Sripati · Matsya · retrograde</em>. Each runs the search for that term. Picked to span signs / planets / houses / avatars / peer-page / phenomenon so the first click reveals the breadth.</li>
+      <li><strong>Three rooms below</strong>, not nine cards: <em>Learning Companion · Interpret · beta · Reflect</em>. One line of value each. The depth (Sripati, Astronomy, Where am I, Mercury Spectrum, Kālapurusha, Ether, Layers, Stats, Interactive) lives in the More menu, one click away.</li>
+      <li><strong>Opt-in four-step walk-through.</strong> A small grey link — <em>"First time here? · A four-step walk-through →"</em> — opens an in-page overlay: <strong>1.</strong> pick your name → <strong>2.</strong> look something up → <strong>3.</strong> read your own chart → <strong>4.</strong> sit with one prompt. Anyone who doesn't want a tour ignores it.</li>
+      <li><strong>Footer stays quiet.</strong> Single link to the new About page (<em>"How this came to be →"</em>), version + release notes link, update checker.</li>
+    </ul>
+
+    <h3>read.html → interpret.html (renamed; old URL redirects)</h3>
+    <ul>
+      <li>The page formerly known as <em>Read · beta</em> is now <em>Interpret your chart · beta</em>. The label change reflects what the page actually does — interpret your own chart house by house using Vikram's procedure.</li>
+      <li><code>interpret.html</code> is the canonical URL going forward. <code>read.html</code> still resolves — it's now a 0-second redirect with a small "moved" card showing the new name in case the redirect is blocked.</li>
+      <li>All internal links and nav labels across the 14 site pages have been updated. <a href="where-am-i.html">Where am I</a>'s topic deep-links and pricing.html were also updated.</li>
+    </ul>
+
+    <h3>About page · how this came to be</h3>
+    <p>A new <a href="about.html">about.html</a> is the home for the longer story: the cohort photo from the Ether retreat, the infamous blue-file origin story, and the full nine-door <em>"All the rooms"</em> grid that used to live on the home. Existing inbound URL anchors like <code>#cohort</code> and <code>#origin</code> are preserved on the About page.</p>
+
+    <h3>Pedagogy notes</h3>
+    <p>Three principles guided the rebuild: give value in under sixty seconds before asking the visitor to make choices; one primary action on the landing page, not nine; depth available, not advertised. Net effect: the home went from ~24 visible routes to roughly 9 (search + 6 chips + 3 rooms), with everything else one click away in More.</p>
+
+    <h3>Regression</h3>
+    <p>Verified across all 14 active pages: every page eyebrow + footer reads <code>v4.66.0</code>, every <code>PAGE_VERSION</code> constant is on <code>'4.66.0'</code>, every More menu has both Interpret · beta and About entries, and every internal <code>href="read.html"</code> has been swapped to <code>interpret.html</code>. The redirect file at <code>read.html</code> handles any cached or external links to the old URL.</p>
+  </section>
+
   <!-- ====================== v4.65.1 ====================== -->
   <section class="release" data-credits="Sree (asked for shareable section links on Sripati)">
     <header>
-      <h2>v4.65.1 <em>· current</em></h2>
+      <h2>v4.65.1</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Every section heading on <a href="sripati.html">Sripati Paddhati</a> now has a small <em>§ link</em> button next to it. Hover the heading on desktop, or just look for the pill on mobile, click it, and the link to that exact section is copied to your clipboard — ready to paste into a chat with Vikram or Arpitha.</p>
@@ -806,10 +844,10 @@
       <li><strong>Astronomy</strong> topics → <a href="astronomy.html">astronomy.html</a> (with deep anchors for <em>ecliptic</em> and <em>precession</em>)</li>
       <li><strong>Signs</strong> topics → <a href="learning-companion.html#signs">LC · Signs</a> · <a href="learning-companion.html#qualities">Qualities</a> · <a href="learning-companion.html#cabinet">Cabinet</a> · <a href="learning-companion.html#relationships">Relationships</a> · <a href="kaalapurusha.html">Kālapurusha</a></li>
       <li><strong>Planets</strong> taught → <a href="learning-companion.html#planets">LC · Planets</a> (Sun · Moon · Mars), and Mercury → <a href="mercury-spectrum.html">Mercury Spectrum peer page</a></li>
-      <li><strong>Houses</strong> topics → <a href="learning-companion.html#houses">LC · Houses</a> · <a href="learning-companion.html#categories">Categories</a> · <a href="learning-companion.html#purusharthas">Purushārthas</a> · <a href="sripati.html">Sripati</a> for the systems topic · <a href="read.html">Read · beta</a> for placement reading</li>
+      <li><strong>Houses</strong> topics → <a href="learning-companion.html#houses">LC · Houses</a> · <a href="learning-companion.html#categories">Categories</a> · <a href="learning-companion.html#purusharthas">Purushārthas</a> · <a href="sripati.html">Sripati</a> for the systems topic · <a href="interpret.html">Interpret · beta</a> for placement reading</li>
       <li><strong>Avatars</strong> · Matsya → <a href="reflect.html#matsya">Reflect · Matsya</a></li>
-      <li><strong>Interpretation</strong> → <a href="learning-companion.html#aspects">Aspects</a> · <a href="learning-companion.html#yogas">Yogas</a> · <a href="learning-companion.html#cabinet">Cabinet</a> · <a href="learning-companion.html#relationships">Relationships</a> · <a href="read.html">Read · beta</a> for whole-chart reading</li>
-      <li><strong>Reflective</strong> → <a href="learning-companion.html#workbook">Workbook overview</a> · <a href="reflect.html">Reflect</a> · <a href="ether.html">Ether</a> · <a href="read.html">Read</a> for my own chart</li>
+      <li><strong>Interpretation</strong> → <a href="learning-companion.html#aspects">Aspects</a> · <a href="learning-companion.html#yogas">Yogas</a> · <a href="learning-companion.html#cabinet">Cabinet</a> · <a href="learning-companion.html#relationships">Relationships</a> · <a href="interpret.html">Interpret · beta</a> for whole-chart reading</li>
+      <li><strong>Reflective</strong> → <a href="learning-companion.html#workbook">Workbook overview</a> · <a href="reflect.html">Reflect</a> · <a href="ether.html">Ether</a> · <a href="interpret.html">Read</a> for my own chart</li>
     </ul>
 
     <h3>How the links surface</h3>
@@ -1160,7 +1198,7 @@
       <li><a href="index.html">Home</a> hero subhead — when set: <em>"Welcome back, Sree. The companion app for Vikram's class — material we're learning…"</em></li>
       <li><a href="index.html">Home</a> "Where to start" eyebrow — <em>"Where to start, Sree"</em></li>
       <li><a href="learning-companion.html">Learning Companion</a> first-visit welcome card — <em>"New here, Sree?"</em> instead of <em>"New here?"</em></li>
-      <li><a href="read.html">Read · beta</a> walk-through writing pad — placeholder becomes <em>"Sree, three characteristics. Start with one. Saved automatically as you type."</em></li>
+      <li><a href="interpret.html">Interpret · beta</a> walk-through writing pad — placeholder becomes <em>"Sree, three characteristics. Start with one. Saved automatically as you type."</em></li>
       <li><a href="reflect.html">Reflect</a> landing lede — <em>"Hi Sree — pick an avatar to sit with. Each set of prompts is sourced from the Companion Workbook…"</em></li>
     </ul>
     <p>Light hand by design. Vikram's class is humble; sprinkling the name in 50 places would feel uncanny. Five touchpoints anchor the personal feel without overdoing it.</p>
@@ -1220,7 +1258,7 @@
     <ul>
       <li>Old nav had 12 links wrapping to 3 lines on mobile. New nav has <strong>4 primary + a More dropdown</strong>:
         <ul>
-          <li>Primary: Home · <em>Learning Companion</em> · <em>Read · beta</em> · <em>Reflect</em></li>
+          <li>Primary: Home · <em>Learning Companion</em> · <em>Interpret · beta</em> · <em>Reflect</em></li>
           <li>More ▾: Interactive · beta · Kaalapurusha · Mercury Spectrum · Astronomy · Ether · Layers · Stats · Release Notes</li>
         </ul>
       </li>
@@ -1262,7 +1300,7 @@
       <h2>v4.58.2</h2>
       <span class="date">9 May 2026</span>
     </header>
-    <p class="summary">The green WhatsApp feedback FAB sits bottom-right on every page. On <a href="read.html">Read · beta</a>, the writing pad is fixed at the bottom of the viewport — so the FAB was overlapping the textarea and competing for attention while learners were trying to write. Removed the FAB on this page only and replaced with a small inline <em>Send feedback</em> link in the footer next to <em>Check for updates</em> and <em>Release notes</em>. Other 11 pages keep the FAB unchanged. Same WhatsApp pre-fill text and same target number; just calmer surfacing.</p>
+    <p class="summary">The green WhatsApp feedback FAB sits bottom-right on every page. On <a href="interpret.html">Interpret · beta</a>, the writing pad is fixed at the bottom of the viewport — so the FAB was overlapping the textarea and competing for attention while learners were trying to write. Removed the FAB on this page only and replaced with a small inline <em>Send feedback</em> link in the footer next to <em>Check for updates</em> and <em>Release notes</em>. Other 11 pages keep the FAB unchanged. Same WhatsApp pre-fill text and same target number; just calmer surfacing.</p>
   </section>
 
   <!-- ====================== v4.58.1 ====================== -->
@@ -1271,7 +1309,7 @@
       <h2>v4.58.1</h2>
       <span class="date">9 May 2026</span>
     </header>
-    <p class="summary">Companion to v4.58.0. Adds a <strong>style toggle</strong> on <a href="read.html">Read · beta</a> so Vikram can flip between the new ATV brand-aligned design and the pre-v4.58 legacy design without leaving the page. Top-right pill button labelled <em>Style · ATV brand</em> / <em>Style · Legacy</em>. Choice persists in localStorage; default is ATV brand. Apply happens before first paint via an inline script in <code>&lt;body&gt;</code>, so there's no flash of the wrong theme on reload.</p>
+    <p class="summary">Companion to v4.58.0. Adds a <strong>style toggle</strong> on <a href="interpret.html">Interpret · beta</a> so Vikram can flip between the new ATV brand-aligned design and the pre-v4.58 legacy design without leaving the page. Top-right pill button labelled <em>Style · ATV brand</em> / <em>Style · Legacy</em>. Choice persists in localStorage; default is ATV brand. Apply happens before first paint via an inline script in <code>&lt;body&gt;</code>, so there's no flash of the wrong theme on reload.</p>
 
     <h3>How it works</h3>
     <ul>
@@ -1293,7 +1331,7 @@
       <h2>v4.58.0</h2>
       <span class="date">9 May 2026</span>
     </header>
-    <p class="summary">Pilot release. <a href="read.html">Read · beta</a> is now visually aligned to the official <strong>ATV Brand Guidelines</strong> (Vikram + Yash, Sept 2025). The other 11 pages are unchanged — they keep the legacy palette and serif body until Vikram has eyes on the new look. Sree requested all three migration stages on read.html in one go so Vikram can see the full intended look in one place.</p>
+    <p class="summary">Pilot release. <a href="interpret.html">Interpret · beta</a> is now visually aligned to the official <strong>ATV Brand Guidelines</strong> (Vikram + Yash, Sept 2025). The other 11 pages are unchanged — they keep the legacy palette and serif body until Vikram has eyes on the new look. Sree requested all three migration stages on read.html in one go so Vikram can see the full intended look in one place.</p>
 
     <h3>Stage A · Color migration</h3>
     <ul>
@@ -1346,7 +1384,7 @@
       <h2>v4.57.0</h2>
       <span class="date">9 May 2026</span>
     </header>
-    <p class="summary">Two fixes on <a href="read.html">Read · beta</a>, both from Sree's eyes-on testing. The Quick Reference drawer inside each walk-through card was eating ~485 vertical pixels before the user reached the analysis card — nine attribute tiles laid out, six of them irrelevant for the current sign. It's now compacted to one prominent tile per dimension with chip-row alternates. Separately, on mobile some planet glyphs were getting clipped at the bottom of their chambers because long deck-61 keyword strings (9H, 11H) were wrapping to 3-4 lines and pushing the planets past the chamber's bottom edge.</p>
+    <p class="summary">Two fixes on <a href="interpret.html">Interpret · beta</a>, both from Sree's eyes-on testing. The Quick Reference drawer inside each walk-through card was eating ~485 vertical pixels before the user reached the analysis card — nine attribute tiles laid out, six of them irrelevant for the current sign. It's now compacted to one prominent tile per dimension with chip-row alternates. Separately, on mobile some planet glyphs were getting clipped at the bottom of their chambers because long deck-61 keyword strings (9H, 11H) were wrapping to 3-4 lines and pushing the planets past the chamber's bottom edge.</p>
 
     <h3>Quick Reference drawer · compact mode</h3>
     <ul>
@@ -1376,7 +1414,7 @@
     </header>
     <p class="summary">Tightening pass on yesterday's deck-61 keyword landing. Sree spotted the obvious — there's plenty of room <strong>inside</strong> each chamber, so the 12-card legend grid below the chart was redundant. The full keyword strings now sit in the chamber itself; the legend grid is gone. The chart view is lighter, and each chamber carries the complete reference instead of a one-word teaser.</p>
 
-    <h3>What changed on <a href="read.html">Read · beta</a></h3>
+    <h3>What changed on <a href="interpret.html">Interpret · beta</a></h3>
     <ul>
       <li><strong>Chamber keyword: short → full.</strong> Each chamber now shows the complete deck-61 keyword string in saffron italic — <em>"Resources, Family, my support"</em> instead of just <em>"Resources"</em>. Multi-line wrapping handled by the chamber CSS; font sized down to <code>clamp(9.5px, 1.25vw, 11.5px)</code> to fit comfortably alongside sign name + sanskrit + planets.</li>
       <li><strong>Legend grid removed.</strong> The 12-card <em>"📜 House meanings"</em> grid below the chart is gone, along with all <code>.house-legend-*</code> CSS rules. The chart visualization is the legend now.</li>
@@ -1398,7 +1436,7 @@
       <h2>v4.56.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">The South Indian chart on <a href="read.html">Read · beta</a> now <strong>speaks</strong>. Vikram's per-house keyword map from deck 61 (<em>Kinds of Houses, continued</em>) lands inside each chamber and as a legend grid below the chart. Each chamber gains a single short keyword on a new line under the sanskrit (<em>Self · Resources · Hobbies · Home · …</em>). Below the chart, a 12-card legend shows the full keyword strings verbatim from class — and a frame line clarifies that keywords attach to the <strong>house number</strong>, not the sign: in your chart, House 1 is your Lagna; only the Kāla­purusha cosmic chart defaults House 1 = Aries.</p>
+    <p class="summary">The South Indian chart on <a href="interpret.html">Interpret · beta</a> now <strong>speaks</strong>. Vikram's per-house keyword map from deck 61 (<em>Kinds of Houses, continued</em>) lands inside each chamber and as a legend grid below the chart. Each chamber gains a single short keyword on a new line under the sanskrit (<em>Self · Resources · Hobbies · Home · …</em>). Below the chart, a 12-card legend shows the full keyword strings verbatim from class — and a frame line clarifies that keywords attach to the <strong>house number</strong>, not the sign: in your chart, House 1 is your Lagna; only the Kāla­purusha cosmic chart defaults House 1 = Aries.</p>
 
     <h3>What landed</h3>
     <ul>
@@ -1469,7 +1507,7 @@
       <h2>v4.55.2</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Each planet card on Path B (<a href="read.html">Read · beta</a>) now carries Vikram's deck-sourced <strong>Parts of Speech worked example</strong> for that specific planet. Sun's card surfaces deck 72's <em>"Sun in Aries 2H"</em> example with both Vikram synthesis sentences. Moon's card surfaces deck 73's <em>"Moon in Taurus 2H"</em> example. Cohort members reading the Sun see Vikram's Sun example; reading the Moon see his Moon example. Same framework, different planets — the room for the learner's voice within each.</p>
+    <p class="summary">Each planet card on Path B (<a href="interpret.html">Interpret · beta</a>) now carries Vikram's deck-sourced <strong>Parts of Speech worked example</strong> for that specific planet. Sun's card surfaces deck 72's <em>"Sun in Aries 2H"</em> example with both Vikram synthesis sentences. Moon's card surfaces deck 73's <em>"Moon in Taurus 2H"</em> example. Cohort members reading the Sun see Vikram's Sun example; reading the Moon see his Moon example. Same framework, different planets — the room for the learner's voice within each.</p>
 
     <h3>What landed</h3>
     <ul>
@@ -1504,7 +1542,7 @@
       <h2>v4.55.1</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">A focused cleanup pass on the Path A (house) walk-through after Sree's deep-scan review of <a href="read.html">Read · beta</a>. The per-house card was carrying material that belongs to Path B (Parts of Speech grammar) or duplicated material the new intro card already carries (the inline 8-step procedure). v4.55.1 strips both, rewrites the self-check to ask Path-A-relevant questions, makes the page-level subject frame path-aware, relocates the Synthesis Examples to the Synthesis destination, and adapts the drawer's avatar section header per path. The per-house card now collapses from ≈8 elements below the prompt to ≈3.</p>
+    <p class="summary">A focused cleanup pass on the Path A (house) walk-through after Sree's deep-scan review of <a href="interpret.html">Interpret · beta</a>. The per-house card was carrying material that belongs to Path B (Parts of Speech grammar) or duplicated material the new intro card already carries (the inline 8-step procedure). v4.55.1 strips both, rewrites the self-check to ask Path-A-relevant questions, makes the page-level subject frame path-aware, relocates the Synthesis Examples to the Synthesis destination, and adapts the drawer's avatar section header per path. The per-house card now collapses from ≈8 elements below the prompt to ≈3.</p>
 
     <h3>What was removed from per-house cards (Path A)</h3>
     <ul>
@@ -1565,7 +1603,7 @@
       <h2>v4.55.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">A two-path rearchitecture of <a href="read.html">Read · beta</a>. Vikram teaches <strong>two distinct interpretation procedures</strong> — Path A for analysing a house (8 steps), Path B for analysing a planet (3 steps) — with different combination rules for each. The page now offers them as two equal first-class doors from the chart view. Each path has its own intro card with a step-by-step worked example, a class transcript quote with timestamp, and deck citations. All inline. All sourced from Vikram. No public internet.</p>
+    <p class="summary">A two-path rearchitecture of <a href="interpret.html">Interpret · beta</a>. Vikram teaches <strong>two distinct interpretation procedures</strong> — Path A for analysing a house (8 steps), Path B for analysing a planet (3 steps) — with different combination rules for each. The page now offers them as two equal first-class doors from the chart view. Each path has its own intro card with a step-by-step worked example, a class transcript quote with timestamp, and deck citations. All inline. All sourced from Vikram. No public internet.</p>
 
     <h3>Two doors on the chart view</h3>
     <ul>
@@ -1631,7 +1669,7 @@
       <h2>v4.54.1</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Hotfix on top of v4.54.0. Sree caught that the new "↗ See Vikram's 8-step procedure" link inside <a href="read.html">Read · beta</a> pointed at a raw <code>.md</code> file in the knowledge base — wouldn't render in a browser, wrong artefact for users. The principle: any reference material from inside the page lives <em>inside</em> the page; no links to MD. v4.54.1 inlines the entire 8-step + 3-step procedure as a tap-to-expand <code>&lt;details&gt;</code> block right where the link used to be.</p>
+    <p class="summary">Hotfix on top of v4.54.0. Sree caught that the new "↗ See Vikram's 8-step procedure" link inside <a href="interpret.html">Interpret · beta</a> pointed at a raw <code>.md</code> file in the knowledge base — wouldn't render in a browser, wrong artefact for users. The principle: any reference material from inside the page lives <em>inside</em> the page; no links to MD. v4.54.1 inlines the entire 8-step + 3-step procedure as a tap-to-expand <code>&lt;details&gt;</code> block right where the link used to be.</p>
 
     <h3>What changed</h3>
     <ul>
@@ -1660,7 +1698,7 @@
       <h2>v4.54.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Sree spotted that two of his class references — older deck 63 (<em>Interpreting the Ascendant</em>) and the newer house-interpretation guidance PDF — teach moves that contradict each other. A deep read of six class transcripts (Sessions 35, 39, 40, 41, 42, 43) confirmed: deck 63's worked example combines a Lord keyword with the house-of-Lord's-placement keyword, which Vikram explicitly forbids in Session 41 (April 19, 2026). v4.54 makes the <em>subject of every analysis</em> visible inside <a href="read.html">Read · beta</a>, surfaces the 8-billion-people test prominently at the writing moment, and adds a KB correction note that re-derives deck 63's example using the May 2026 procedure.</p>
+    <p class="summary">Sree spotted that two of his class references — older deck 63 (<em>Interpreting the Ascendant</em>) and the newer house-interpretation guidance PDF — teach moves that contradict each other. A deep read of six class transcripts (Sessions 35, 39, 40, 41, 42, 43) confirmed: deck 63's worked example combines a Lord keyword with the house-of-Lord's-placement keyword, which Vikram explicitly forbids in Session 41 (April 19, 2026). v4.54 makes the <em>subject of every analysis</em> visible inside <a href="interpret.html">Interpret · beta</a>, surfaces the 8-billion-people test prominently at the writing moment, and adds a KB correction note that re-derives deck 63's example using the May 2026 procedure.</p>
 
     <h3>The diagnosis</h3>
     <ul>
@@ -1708,7 +1746,7 @@
       <h2>v4.53.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">A <strong>sticky writing pad</strong> now lives at the bottom of the viewport on the <a href="read.html">Read · beta</a> walk-through. Sree caught the friction: the textarea was buried below the references, so writing meant scrolling between read and write. The fix — pin the textarea as a fixed bottom-banner that stays visible while the user scrolls up to re-read the drawer, the Pati block, the Karaka block. Writing happens with references in view, not after them.</p>
+    <p class="summary">A <strong>sticky writing pad</strong> now lives at the bottom of the viewport on the <a href="interpret.html">Interpret · beta</a> walk-through. Sree caught the friction: the textarea was buried below the references, so writing meant scrolling between read and write. The fix — pin the textarea as a fixed bottom-banner that stays visible while the user scrolls up to re-read the drawer, the Pati block, the Karaka block. Writing happens with references in view, not after them.</p>
 
     <h3>What landed</h3>
     <ul>
@@ -1743,7 +1781,7 @@
       <h2>v4.52.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Cut B1 of the deeper interpretation layers from Vikram's recently-shared house-interpretation guidance lands on <a href="read.html">Read · beta</a>. <strong>Two pieces:</strong> a new <em>Karaka · Natural significator</em> block on every walk-through card (Step 5 of the guidance), and a new <em>Synthesis</em> destination card after House 12 that surfaces what the cohort member's chart emphasizes across duality / modality / element (Step 8). Both stay strictly in the fact-surfacing register — Vikram's principle is honored throughout: the system shows the data, the learner draws the meaning.</p>
+    <p class="summary">Cut B1 of the deeper interpretation layers from Vikram's recently-shared house-interpretation guidance lands on <a href="interpret.html">Interpret · beta</a>. <strong>Two pieces:</strong> a new <em>Karaka · Natural significator</em> block on every walk-through card (Step 5 of the guidance), and a new <em>Synthesis</em> destination card after House 12 that surfaces what the cohort member's chart emphasizes across duality / modality / element (Step 8). Both stay strictly in the fact-surfacing register — Vikram's principle is honored throughout: the system shows the data, the learner draws the meaning.</p>
 
     <h3>Cut 1 — Karaka block on every house</h3>
     <ul>
@@ -1805,7 +1843,7 @@
       <h2>v4.51.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">A <strong>worked-examples card</strong> joins the "📐 Two anchors before you write" expander on <a href="read.html">Read · beta</a>. Two tabs — <em>Vikram's teaching</em> (Sun in Aries 2H) and <em>Sree's chart</em> (Sun in Sagittarius 11H · Aquarius Lagna) — each show the Parts of Speech table mapped to that placement, plus the synthesis sentence(s). Same framework, two charts, two voicings each. The teacher's example anchors the framework; the learner's example shows what the framework actually yields when a real cohort member uses it on their own chart. The room for the learner's own voice becomes visible.</p>
+    <p class="summary">A <strong>worked-examples card</strong> joins the "📐 Two anchors before you write" expander on <a href="interpret.html">Interpret · beta</a>. Two tabs — <em>Vikram's teaching</em> (Sun in Aries 2H) and <em>Sree's chart</em> (Sun in Sagittarius 11H · Aquarius Lagna) — each show the Parts of Speech table mapped to that placement, plus the synthesis sentence(s). Same framework, two charts, two voicings each. The teacher's example anchors the framework; the learner's example shows what the framework actually yields when a real cohort member uses it on their own chart. The room for the learner's own voice becomes visible.</p>
 
     <h3>What landed</h3>
     <ul>
@@ -1836,7 +1874,7 @@
       <h2>v4.50.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Two craft anchors from Vikram's class now sit with the writing surface on <a href="read.html">Read · beta</a>. Above each per-house exercise textarea: a small expander — <strong>"📐 Two anchors before you write"</strong> — opens to show his <em>Parts of Speech</em> grammar map and the four <em>Intentions</em> (with prediction explicitly struck out, since year-1 of the class doesn't read for prediction). Below the textarea: a <strong>"🪞 Self-check"</strong> panel that asks the learner to verify their own line against both anchors — five tick-boxes for the grammar, a four-radio for the intention, with a saffron warning if the learner picks "Prediction." The system asks the questions; the learner answers — same Vikram principle as v4.49, deepened.</p>
+    <p class="summary">Two craft anchors from Vikram's class now sit with the writing surface on <a href="interpret.html">Interpret · beta</a>. Above each per-house exercise textarea: a small expander — <strong>"📐 Two anchors before you write"</strong> — opens to show his <em>Parts of Speech</em> grammar map and the four <em>Intentions</em> (with prediction explicitly struck out, since year-1 of the class doesn't read for prediction). Below the textarea: a <strong>"🪞 Self-check"</strong> panel that asks the learner to verify their own line against both anchors — five tick-boxes for the grammar, a four-radio for the intention, with a saffron warning if the learner picks "Prediction." The system asks the questions; the learner answers — same Vikram principle as v4.49, deepened.</p>
 
     <h3>Anchor 1 — Parts of Speech</h3>
     <ul>
@@ -1932,7 +1970,7 @@
       <h2>v4.48.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Two refinements to the v4.47 quick-reference drawer on <a href="read.html">Read · beta</a>, both from Sree's reviewing eye. <strong>One:</strong> the duality / modality / element descriptions are now Vikram's exact keyword lists pulled verbatim from Quick Reference — no drafted paraphrase. Same words on both surfaces. <strong>Two:</strong> the Avatars section is now <em>contextual-only</em> — it shows only the avatars of planets actually placed in the current house, with explicit <em>"Avatar · Planet · English"</em> tagging, instead of all ten regardless of placement.</p>
+    <p class="summary">Two refinements to the v4.47 quick-reference drawer on <a href="interpret.html">Interpret · beta</a>, both from Sree's reviewing eye. <strong>One:</strong> the duality / modality / element descriptions are now Vikram's exact keyword lists pulled verbatim from Quick Reference — no drafted paraphrase. Same words on both surfaces. <strong>Two:</strong> the Avatars section is now <em>contextual-only</em> — it shows only the avatars of planets actually placed in the current house, with explicit <em>"Avatar · Planet · English"</em> tagging, instead of all ten regardless of placement.</p>
 
     <h3>Cut 1 — QR-sourced keywords</h3>
     <ul>
@@ -1970,7 +2008,7 @@
       <h2>v4.47.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">A <strong>quick-reference drawer</strong> lives inside the walk-through on <a href="read.html">Read · beta</a>. Collapsible. Shows the four foundational grids — Dualities, Modalities, Elements, Avatars — in <strong>light-only descriptions</strong>, matching year-1 of Vikram's class. As you walk through your houses, the drawer adapts: tiles for the current sign's <em>duality · modality · element</em> get a saffron border, and the avatars of any planets in this house light up too. So general look-up and contextual learning happen in the same surface.</p>
+    <p class="summary">A <strong>quick-reference drawer</strong> lives inside the walk-through on <a href="interpret.html">Interpret · beta</a>. Collapsible. Shows the four foundational grids — Dualities, Modalities, Elements, Avatars — in <strong>light-only descriptions</strong>, matching year-1 of Vikram's class. As you walk through your houses, the drawer adapts: tiles for the current sign's <em>duality · modality · element</em> get a saffron border, and the avatars of any planets in this house light up too. So general look-up and contextual learning happen in the same surface.</p>
 
     <h3>What landed</h3>
     <ul>
@@ -2002,7 +2040,7 @@
       <h2>v4.46.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">Two changes on <a href="read.html">Read · beta</a>. <strong>One:</strong> Sudha caught that the chart was rotating per-Lagna (her Virgo Lagna landed in the top-left corner). The South Indian chart format is canonical — signs sit fixed in their positions; only the house numbers move with the Lagna. Restored to match Quick Reference + Interactive. <strong>Two:</strong> Cut 2 of the chart-interpretation arc — the <strong>per-house walk-through</strong>. Twelve cards, navigated one at a time, each carrying Vikram's deck-sourced one-liner for the planets present, plus his <em>"My ___ is X. Three characteristics. I am ___"</em> exercise with an auto-saving textarea.</p>
+    <p class="summary">Two changes on <a href="interpret.html">Interpret · beta</a>. <strong>One:</strong> Sudha caught that the chart was rotating per-Lagna (her Virgo Lagna landed in the top-left corner). The South Indian chart format is canonical — signs sit fixed in their positions; only the house numbers move with the Lagna. Restored to match Quick Reference + Interactive. <strong>Two:</strong> Cut 2 of the chart-interpretation arc — the <strong>per-house walk-through</strong>. Twelve cards, navigated one at a time, each carrying Vikram's deck-sourced one-liner for the planets present, plus his <em>"My ___ is X. Three characteristics. I am ___"</em> exercise with an auto-saving textarea.</p>
 
     <h3>Cut 1 — South Indian chart layout fix</h3>
     <ul>
@@ -2043,7 +2081,7 @@
       <h2>v4.45.0</h2>
       <span class="date">8 May 2026</span>
     </header>
-    <p class="summary">A new beta peer page — <a href="read.html"><strong>Read · beta</strong></a> — opens the chart-interpretation arc Sudha sketched in her voice note. Phase A ships the <strong>shell</strong>: pick your Lagna, place your nine planets, and see your South Indian chart with sign labels computed via Whole Sign. The walk-through (house by house, "I am ___" exercise, Signature, full reading) lands in Phase B. Cohort can use Phase A immediately to render the chart Vikram cast for them.</p>
+    <p class="summary">A new beta peer page — <a href="interpret.html"><strong>Interpret · beta</strong></a> — opens the chart-interpretation arc Sudha sketched in her voice note. Phase A ships the <strong>shell</strong>: pick your Lagna, place your nine planets, and see your South Indian chart with sign labels computed via Whole Sign. The walk-through (house by house, "I am ___" exercise, Signature, full reading) lands in Phase B. Cohort can use Phase A immediately to render the chart Vikram cast for them.</p>
 
     <h3>What landed in Phase A</h3>
     <ul>
@@ -2053,7 +2091,7 @@
       <li><strong>Whole Sign math</strong> — once a Lagna is picked, the 12 chambers are labeled automatically (Lagna sign in 1H, next sign in 2H, etc.). The 1H chamber is highlighted with a saffron border + "Asc" tag.</li>
       <li><strong>localStorage persistence</strong> — chart saves to <code>astro-mychart-v1</code> on every change. Load on next visit. Clearing browser data clears the chart — by design. ↻ Start over button with confirmation.</li>
       <li><strong>Privacy callout</strong> — <em>"Your chart and notes are saved only in this browser's local storage. Nothing leaves your device. There is no account, no server, no log."</em></li>
-      <li><strong>Wired into the site</strong> — Read replaces the "I want to read my own chart · coming soon" tile on the index where-to-start map; added as a peer card; "Read · beta" added to the site nav of all 11 other pages; first-visit tip card; WhatsApp FAB; update checker.</li>
+      <li><strong>Wired into the site</strong> — Read replaces the "I want to read my own chart · coming soon" tile on the index where-to-start map; added as a peer card; "Interpret · beta" added to the site nav of all 11 other pages; first-visit tip card; WhatsApp FAB; update checker.</li>
       <li><strong>Roadmap visible inside the page</strong> — the "What's coming" section lists Phase B (walk-through), Phase C (Signature + full reading), 📋 Copy export, the birth-detail compute path, and aspects/yogas/dashas as future layers.</li>
     </ul>
 
@@ -4373,7 +4411,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.65.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.66.0 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4596,7 +4634,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.65.1';
+  const PAGE_VERSION = '4.66.0';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4710,7 +4748,7 @@
     return (i > 0 ? t.slice(0, i) : t).trim() || 'Companion App';
   }
   function pageVersion() {
-    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.65.1';
+    return (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.66.0';
   }
   document.getElementById('waFabGlobal').addEventListener('click', function() {
     const text = `Hi Sree, sharing feedback on Astrology 101 Companion App (v${pageVersion()} · page: ${pageLabel()}):\n\n`;
