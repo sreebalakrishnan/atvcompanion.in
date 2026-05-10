@@ -1,7 +1,0 @@
-# If static.app honours this format, the HTML stubs become unnecessary.
-# Either way is fine — both can coexist; the server-side rule wins.
-#
-# IMPORTANT: only the /astrology101 path is redirected. The apex (sreebalakrishnan.in/)
-# is left alone so it can serve a personal landing page later.
-/astrology101/*  https://atv-companion.sreebalakrishnan.in/:splat  301
-/astrology101    https://atv-companion.sreebalakrishnan.in         301
