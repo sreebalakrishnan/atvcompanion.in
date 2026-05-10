@@ -5004,7 +5004,7 @@
     --family-story:     #b8410e;
     --gold:      #a8843a;
   }
-  /* v4.68.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.68.2 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
 
@@ -5356,12 +5356,36 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.1</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.68.2</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
+  
+
+    <!-- v4.68.2 — masthead search bar -->
+    <div class="lc-masthead-search-wrap">
+      <form class="lc-masthead-search" id="heroSearchForm" role="search" autocomplete="off" onsubmit="return window.lcOnHeroSubmit(event);">
+        <span class="lc-masthead-search-icon" aria-hidden="true">⌕</span>
+        <input class="lc-masthead-search-input" type="search" id="heroSearchInput" name="q"
+               placeholder="Search the Companion — sign, planet, house, avatar…"
+               aria-label="Search query" autocomplete="off"
+               role="combobox" aria-autocomplete="list" aria-controls="heroSearchSuggest" aria-expanded="false">
+        <kbd class="lc-masthead-search-kbd">/</kbd>
+      </form>
+      <div class="hero-suggest" id="heroSearchSuggest" role="listbox" aria-label="Search suggestions" hidden></div>
+      <div class="lc-masthead-search-chips" id="lcMastheadChips">
+        <span style="font-family:var(--display);font-style:italic;font-size:13px;color:var(--muted);letter-spacing:.04em;">Try:</span>
+        <button class="lc-chip" type="button" data-lc-chip="Cabinet">Cabinet</button>
+        <button class="lc-chip" type="button" data-lc-chip="Drishti">Drishti</button>
+        <button class="lc-chip" type="button" data-lc-chip="Yogas">Yogas</button>
+        <button class="lc-chip" type="button" data-lc-chip="Parivartana">Parivartana</button>
+        <button class="lc-chip" type="button" data-lc-chip="Mūlatrikoṇa">Mūlatrikoṇa</button>
+        <button class="lc-chip" type="button" data-lc-chip="Kāla Puruṣa">Kāla Puruṣa</button>
+      </div>
+    </div>
+
   </header>
 
   <!-- ====================== v4.61.0 — LC TOOLBAR (Settings + Search) ====================== -->
@@ -6024,6 +6048,18 @@
     </button>
   </div>
 
+  
+  <!-- v4.68.2 — Bottom-of-LC empty-state CTA -->
+  <section class="lc-bottom-cta" aria-label="Couldn't find what you wanted">
+    <div class="lc-bottom-cta-eyebrow">still looking?</div>
+    <h2 class="lc-bottom-cta-h">Couldn't find what you were looking <em>for</em>?</h2>
+    <p class="lc-bottom-cta-body">Either search again from the top, or tell Sree what you wanted — every confused query is a keyword Sree can add next.</p>
+    <div class="lc-bottom-cta-actions">
+      <button type="button" class="lc-bottom-cta-btn is-primary" onclick="if(window.openSearch)openSearch('');else document.getElementById('heroSearchInput').focus();">⌕ Search again</button>
+      <a class="lc-bottom-cta-btn" id="lcBottomCtaTell" href="#" onclick="event.preventDefault();window.lcTellSree();">Tell Sree what you wanted →</a>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="footer-ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
@@ -6036,7 +6072,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.68.1 · updated 10 May 2026</span>
+      <span>v4.68.2 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Check for updates</a>
       &nbsp;·&nbsp;
@@ -10068,7 +10104,7 @@ function getCurrentSectionLabel() {
 
 function buildFeedbackText() {
   const section = getCurrentSectionLabel();
-  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.1';
+  const v = (typeof PAGE_VERSION !== 'undefined') ? PAGE_VERSION : '4.68.2';
   return `Hi Sree, sharing feedback on Astrology 101 Companion App (v${v} · section: ${section}):\n\n`;
 }
 
@@ -10697,7 +10733,7 @@ applyFrontier();
 // Initial render of the daily gem
 renderGem();
 
-/* v4.68.1 — URL parameter handlers for shareable senior view + direct mode/level overrides.
+/* v4.68.2 — URL parameter handlers for shareable senior view + direct mode/level overrides.
    Supports:
      ?role=senior              → flips to Reference mode + Level: All (Sarika ask + senior-share use case)
      ?mode=reference|learning  → set mode directly
@@ -10993,7 +11029,7 @@ function renderSearchResults(results) {
   searchState.results = flat;
   searchState.cursor = 0;
   if (!html){
-    // v4.68.1 — richer empty state: explore-or-feedback CTAs.
+    // v4.68.2 — richer empty state: explore-or-feedback CTAs.
     var lastQ = (document.getElementById('srchInput') && document.getElementById('srchInput').value) || '';
     var feedbackMsg = "Hi Sree, I searched the Astrology 101 Companion App for \"" + lastQ + "\" but didn't find what I was looking for. Could you help?";
     var feedbackUrl = 'https://wa.me/919880337337?text=' + encodeURIComponent(feedbackMsg);
@@ -11540,7 +11576,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.68.1';
+  const PAGE_VERSION = '4.68.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11662,7 +11698,144 @@ document.addEventListener('keydown', (e) => {
       margin-top: 8px;
     }
   }
-</style>
+
+  /* v4.68.2 — LC masthead search bar + sticky pill + bottom CTA */
+  .lc-masthead-search-wrap {
+    margin: 22px auto 8px;
+    max-width: 640px;
+    position: relative;
+  }
+  .lc-masthead-search {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    box-shadow: var(--shadow-md, 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22));
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .lc-masthead-search:focus-within { border-color: var(--saffron); }
+  .lc-masthead-search-icon { color: var(--saffron); font-size: 20px; line-height: 1; flex-shrink: 0; font-family: var(--display); }
+  .lc-masthead-search-input {
+    flex: 1; min-width: 0;
+    background: transparent; border: 0; outline: none;
+    font-family: var(--body); font-size: 16.5px;
+    color: var(--ink); padding: 4px 0;
+  }
+  .lc-masthead-search-input::placeholder { color: var(--muted); font-style: italic; opacity: .7; }
+  .lc-masthead-search-kbd {
+    flex-shrink: 0;
+    padding: 1px 7px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-family: var(--display); font-style: normal;
+    font-size: 11px; color: var(--muted);
+  }
+  @media (max-width: 600px) { .lc-masthead-search-kbd { display: none; } }
+  .lc-masthead-search-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    justify-content: center; margin-top: 10px;
+    font-family: var(--display); font-style: italic; font-size: 12.5px;
+    color: var(--muted);
+  }
+  .lc-chip {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--ink-soft);
+    cursor: pointer; transition: all .15s;
+  }
+  .lc-chip:hover { border-color: var(--saffron); color: var(--saffron); background: rgba(188,129,70,.04); }
+
+  /* Sticky search pill — appears once masthead leaves viewport */
+  .lc-search-sticky {
+    position: fixed;
+    top: 14px; right: 14px;
+    z-index: 90;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 7px 14px 7px 12px;
+    box-shadow: var(--shadow-md, 0 14px 36px -14px rgba(40,40,38,.22));
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--display); font-style: italic; font-size: 13.5px;
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity .2s, transform .2s, color .15s, border-color .15s;
+    pointer-events: none;
+  }
+  .lc-search-sticky.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .lc-search-sticky:hover { color: var(--saffron); border-color: var(--saffron); }
+  .lc-search-sticky-icon { color: var(--saffron); font-size: 16px; }
+  .lc-search-sticky-kbd {
+    margin-left: 4px;
+    padding: 1px 6px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-family: var(--display); font-style: normal;
+    font-size: 10px; color: var(--muted);
+  }
+  @media (max-width: 600px) {
+    .lc-search-sticky { top: auto; bottom: 84px; right: 12px; padding: 8px 12px; }
+    .lc-search-sticky-kbd { display: none; }
+  }
+
+  /* Bottom-of-LC empty-state CTA */
+  .lc-bottom-cta {
+    margin: 56px auto 0;
+    padding: 28px 24px 24px;
+    max-width: 640px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px dashed var(--rule);
+    border-radius: 12px;
+  }
+  .lc-bottom-cta-eyebrow {
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 8px;
+  }
+  .lc-bottom-cta-h {
+    font-family: var(--display); font-weight: 500;
+    font-size: 22px; line-height: 1.25;
+    margin: 0 0 14px; letter-spacing: -.005em;
+  }
+  .lc-bottom-cta-h em { font-style: italic; color: var(--saffron); }
+  .lc-bottom-cta-body {
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px; color: var(--ink-soft);
+    line-height: 1.55; max-width: 50ch;
+    margin: 0 auto 16px;
+  }
+  .lc-bottom-cta-actions {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  .lc-bottom-cta-btn {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--ink-soft);
+    cursor: pointer; text-decoration: none;
+    transition: all .15s;
+  }
+  .lc-bottom-cta-btn:hover { color: var(--saffron); border-color: var(--saffron); }
+  .lc-bottom-cta-btn.is-primary {
+    background: var(--ink); color: var(--surface); border-color: var(--ink);
+  }
+  .lc-bottom-cta-btn.is-primary:hover { background: var(--saffron); border-color: var(--saffron); color: var(--surface); }
+
+  </style>
 <script>
 (function() {
   var PAGE_KEY = 'quickref';
@@ -11943,6 +12116,500 @@ document.addEventListener('keydown', (e) => {
   setTimeout(updateSummary, 200);
 })();
 </script>
+
+<script>
+/* v4.68.2 — Search typeahead module (LC). */
+/* v4.68.2 — Search typeahead. Adds:
+   - Recent searches (localStorage, last 5)
+   - Did-you-mean (Levenshtein ≤ 2 for misspellings, esp. Sanskrit)
+   - Categorized result groups with subtle italic headers
+   - One-line preview blurb when typed query exactly matches one entry
+   - "Where most learners start" curated panel when input is empty (and no recents)
+   The keyword inventory is shared between home and LC masthead bars.
+   On LC, Enter handoff opens the deeper LC search modal with the query
+   already filled in. On home, Enter submits to learning-companion.html?q=. */
+(function(){
+  // -------- KEYWORD INVENTORY --------
+  // Each entry: { q, cat, alt?, blurb?, popular? }
+  // blurb: 1 short sentence shown in the exact-match preview card.
+  // popular: true → appears in "where most learners start" curated section.
+  var KW = [
+    // 12 signs
+    {q:'Aries',       cat:'sign', alt:['Mesha'],         blurb:'Cardinal fire, ruled by Mars. The first sign — head of Kāla Puruṣa.', popular:true},
+    {q:'Taurus',      cat:'sign', alt:['Vrishabha'],     blurb:'Fixed earth, ruled by Venus. Sustains, accumulates, beautifies.'},
+    {q:'Gemini',      cat:'sign', alt:['Mithuna'],       blurb:'Mutable air, ruled by Mercury. The pair, the conversation, the bridge.'},
+    {q:'Cancer',      cat:'sign', alt:['Karkata'],       blurb:'Cardinal water, ruled by the Moon. Home, mother, the inner ground.'},
+    {q:'Leo',         cat:'sign', alt:['Simha'],         blurb:'Fixed fire, ruled by the Sun. The king, the heart, sovereign self.'},
+    {q:'Virgo',       cat:'sign', alt:['Kanya'],         blurb:'Mutable earth, ruled by Mercury. Discernment, service, the analyst.'},
+    {q:'Libra',       cat:'sign', alt:['Tula'],          blurb:'Cardinal air, ruled by Venus. The scale, partnership, balance.'},
+    {q:'Scorpio',     cat:'sign', alt:['Vrishchika'],    blurb:'Fixed water, ruled by Mars. Depth, transformation, the shadow.'},
+    {q:'Sagittarius', cat:'sign', alt:['Dhanu'],         blurb:'Mutable fire, ruled by Jupiter. The teacher, the seeker, dharma.'},
+    {q:'Capricorn',   cat:'sign', alt:['Makara'],        blurb:'Cardinal earth, ruled by Saturn. Discipline, structure, the long climb.'},
+    {q:'Aquarius',    cat:'sign', alt:['Kumbha'],        blurb:'Fixed air, ruled by Saturn. The collective, the contrarian, the future.'},
+    {q:'Pisces',      cat:'sign', alt:['Meena'],         blurb:'Mutable water, ruled by Jupiter. Dissolution, mokṣa, the ocean.'},
+    // 9 planets
+    {q:'Sun',     cat:'planet', alt:['Surya','Sūrya'],          blurb:'King of the cabinet. Soul, vitality, father, sovereign self. Exalts in Aries.'},
+    {q:'Moon',    cat:'planet', alt:['Chandra'],                blurb:'Queen of the cabinet. Mind, mother, emotion, the senses. Exalts in Taurus.', popular:true},
+    {q:'Mars',    cat:'planet', alt:['Mangala'],                blurb:'Commander of the army. Will, fire, blood, courage. Exalts in Capricorn.'},
+    {q:'Mercury', cat:'planet', alt:['Budha'],                  blurb:'Prince and crown-witness. Intellect, speech, learning. Exalts in Virgo.'},
+    {q:'Jupiter', cat:'planet', alt:['Guru','Brihaspati'],      blurb:'Priest and counsellor. Wisdom, dharma, expansion. Exalts in Cancer.'},
+    {q:'Venus',   cat:'planet', alt:['Shukra','Śukra'],         blurb:'Foreign minister. Beauty, art, relationship, sweetness. Exalts in Pisces.'},
+    {q:'Saturn',  cat:'planet', alt:['Shani'],                  blurb:'Servant of the cabinet. Time, discipline, karma. Exalts in Libra.'},
+    {q:'Rahu',    cat:'planet', alt:['north node'],             blurb:'North lunar node. Obsession, ambition, the unconventional path.'},
+    {q:'Ketu',    cat:'planet', alt:['south node'],             blurb:'South lunar node. Detachment, mokṣa, what is already known.'},
+    // 12 houses (kept short)
+    {q:'1st house',  cat:'house', alt:['first house','Lagna','Tanu Bhava'],            blurb:'Self · body · vitality. Ruled by the rising sign.', popular:true},
+    {q:'2nd house',  cat:'house', alt:['second house','Dhana'],                          blurb:'Wealth · speech · family · what we hold.'},
+    {q:'3rd house',  cat:'house', alt:['third house','Sahaja'],                          blurb:'Siblings · effort · skill · short journeys.'},
+    {q:'4th house',  cat:'house', alt:['fourth house','Sukha','I.C.'],                  blurb:'Home · mother · roots · the inner ground.'},
+    {q:'5th house',  cat:'house', alt:['fifth house','Putra'],                           blurb:'Creativity · children · pūrva-puṇya · play.'},
+    {q:'6th house',  cat:'house', alt:['sixth house','Ari'],                             blurb:'Service · health · obstacles · daily work.'},
+    {q:'7th house',  cat:'house', alt:['seventh house','Yuvati','Descendant'],          blurb:'Partner · marriage · the other.', popular:true},
+    {q:'8th house',  cat:'house', alt:['eighth house','Randhra'],                        blurb:'Hidden things · transformation · longevity · joint resources.'},
+    {q:'9th house',  cat:'house', alt:['ninth house','Dharma'],                          blurb:'Dharma · teacher · long journeys · grace.'},
+    {q:'10th house', cat:'house', alt:['tenth house','Karma','M.C.','Medium Coeli'],    blurb:'Career · public-facing self · the chart at the top.'},
+    {q:'11th house', cat:'house', alt:['eleventh house','Labha'],                        blurb:'Gains · networks · elder siblings · fulfilment of desires.'},
+    {q:'12th house', cat:'house', alt:['twelfth house','Vyaya','Moksha'],               blurb:'Loss · liberation · foreign lands · the bed.'},
+    // 10 avatars
+    {q:'Matsya',      cat:'avatar', alt:['fish'],                blurb:'The fish. Paired with Ketu. The flood, the seeds saved, relocation to the Himalayas.', popular:true},
+    {q:'Kūrma',       cat:'avatar', alt:['Kurma','tortoise'],    blurb:'The tortoise. Paired with Saturn. Stillness while the milk-ocean is churned.'},
+    {q:'Varāha',      cat:'avatar', alt:['Varaha','boar'],       blurb:'The boar. Paired with Rahu. Lifts the earth from the depths.'},
+    {q:'Narasiṃha',   cat:'avatar', alt:['Narasimha','man-lion'],blurb:'The man-lion. Paired with Mars. Neither man nor beast, neither inside nor outside.'},
+    {q:'Vāmana',      cat:'avatar', alt:['Vamana','dwarf'],      blurb:'The dwarf who became cosmic. Paired with Jupiter.'},
+    {q:'Paraśurāma',  cat:'avatar', alt:['Parashurama'],         blurb:'The warrior-priest. Paired with Venus.'},
+    {q:'Rāma',        cat:'avatar', alt:['Rama','king'],         blurb:'The righteous king. Paired with the Sun.'},
+    {q:'Kṛṣṇa',       cat:'avatar', alt:['Krishna','cowherd'],   blurb:'The cowherd-king. Paired with the Moon. Unconditional love, equanimity, play.'},
+    {q:'Buddha',      cat:'avatar', alt:['awakened'],            blurb:'The awakened one. Paired with Mercury. Insight, the middle way.'},
+    {q:'Kalki',       cat:'avatar', alt:['future avatar'],       blurb:'The future avatar. Not in the workbook — the chapter still to come.'},
+    // 4 elements
+    {q:'Fire',  cat:'element', alt:['Mahakali'],        blurb:'Will, transformation, the spark. Devi: Mahākālī.'},
+    {q:'Earth', cat:'element', alt:['Mahasaraswati'],   blurb:'Form, structure, the ground. Devi: Mahāsaraswatī.'},
+    {q:'Air',   cat:'element', alt:['Maheshwari'],      blurb:'Movement, thought, breath. Devi: Maheśvarī.'},
+    {q:'Water', cat:'element', alt:['Mahalakshmi'],     blurb:'Feeling, flow, nourishment. Devi: Mahālakṣmī.'},
+    // Modes & duality
+    {q:'Cardinal', cat:'mode',    alt:['Brahma','impulse'],     blurb:'The impulse to begin — Brahmā mode. Aries, Cancer, Libra, Capricorn.'},
+    {q:'Fixed',    cat:'mode',    alt:['Vishnu','sustaining'],  blurb:'The sustaining force — Viṣṇu mode. Taurus, Leo, Scorpio, Aquarius.'},
+    {q:'Mutable',  cat:'mode',    alt:['Shiva','reversal'],     blurb:'The reversal — Śiva mode. Gemini, Virgo, Sagittarius, Pisces.'},
+    {q:'Yang',     cat:'duality', alt:['Nara','masculine'],     blurb:'Active, outward — Nara. Odd-numbered signs.'},
+    {q:'Yin',      cat:'duality', alt:['Stri','feminine'],      blurb:'Receptive, inward — Strī. Even-numbered signs.'},
+    // Concepts
+    {q:'Signature',          cat:'concept', alt:['signature procedure'],            blurb:'Predominant element + modality of the grahas (not Asc) → the sign that signs the chart.', popular:true},
+    {q:'Cabinet',            cat:'concept', alt:['Planetary Cabinet','court'],       blurb:'Vikram\'s teaching frame: Sun king, Moon queen, Mars commander, Saturn servant…', popular:true},
+    {q:'Aspects',            cat:'concept', alt:['Drishti'],                         blurb:'Drishti — the lines of sight planets cast. Mars 4 & 8, Jupiter 5 & 9, Saturn 3 & 10.', popular:true},
+    {q:'Yogas',              cat:'concept', alt:['combinations'],                    blurb:'Combinations of planets that change the meaning of the whole chart.'},
+    {q:'Parivartana',        cat:'concept', alt:['exchange of lords'],               blurb:'When two planets sit in each other\'s signs — a closed loop, a powerful yoga.'},
+    {q:'Retrograde',         cat:'concept', alt:['Vakri','apparent motion'],         blurb:'A planet appearing to move backwards against the stars — the loop in the sky.'},
+    {q:'Ayanamsha',          cat:'concept', alt:['precession'],                      blurb:'The offset between tropical and sidereal zodiacs — caused by Earth\'s wobble.'},
+    {q:'Ecliptic',           cat:'concept', alt:[],                                  blurb:'The path the Sun takes against the stars — the great circle of the zodiac.'},
+    {q:'Nakshatra',          cat:'concept', alt:['nakshatras','27 stars','lunar mansions'], blurb:'27 lunar mansions — the Moon\'s path divided into segments of about 13°20\'.'},
+    {q:'Kāla Puruṣa',        cat:'concept', alt:['Kalapurusha','cosmic body'],       blurb:'The cosmic person whose body is the zodiac — Aries the head, Pisces the feet.'},
+    {q:'Sripati Paddhati',   cat:'concept', alt:['Sripati','sripathi'],              blurb:'11th-century quadrant-based house system. Cusps trisect each quadrant from Asc to M.C.'},
+    {q:'Bhāva Chalit',       cat:'concept', alt:['Bhava Chalit','house chart'],      blurb:'The house chart — which house a planet actually influences (not just which sign it sits in).'},
+    {q:'Whole Sign',         cat:'concept', alt:['rāśi chart','rasi chart','D-1'],    blurb:'One sign = one house. The Rāśi chart Vikram opens with by default.'},
+    {q:'Equal House',        cat:'concept', alt:[],                                  blurb:'Each house is exactly 30°, starting from the Ascendant degree.'},
+    {q:'Lagna',              cat:'concept', alt:['Ascendant','rising sign'],         blurb:'The exact degree rising in the east at birth. The cusp of the 1st House.'},
+    {q:'Mūlatrikoṇa',        cat:'concept', alt:['Mulatrikona'],                     blurb:'A planet\'s seat of power — its own sign, in its strongest stretch of degrees.'},
+    {q:'Exaltation',         cat:'concept', alt:['Uccha'],                           blurb:'Uccha — the sign in which a planet is most honoured. Read with the cabinet story.'},
+    {q:'Debilitation',       cat:'concept', alt:['Neecha'],                          blurb:'Neecha — the sign in which a planet is at its lowest. Not bad — vulnerable.'},
+    {q:'Kendra',              cat:'concept', alt:['angular','1 4 7 10'],              blurb:'The pillar houses — 1, 4, 7, 10. Where life demands action.'},
+    {q:'Trikoṇa',             cat:'concept', alt:['Trikona','trine','1 5 9'],         blurb:'The trines — 1, 5, 9. Dharma houses; meaning, direction, grace.'},
+    {q:'Purushārtha',        cat:'concept', alt:['Purushartha','aims of life'],       blurb:'The four aims of life — dharma, artha, kāma, mokṣa. Mapped onto trines of houses.'},
+    {q:'Dharma',             cat:'concept', alt:[],                                  blurb:'One of the four aims — purpose, righteous action. Houses 1, 5, 9.'},
+    {q:'Artha',              cat:'concept', alt:[],                                  blurb:'One of the four aims — material, earning, sustaining. Houses 2, 6, 10.'},
+    {q:'Kāma',               cat:'concept', alt:['Kama'],                            blurb:'One of the four aims — desire, relationship, pleasure. Houses 3, 7, 11.'},
+    {q:'Mokṣa',              cat:'concept', alt:['Moksha'],                          blurb:'One of the four aims — liberation, dissolution. Houses 4, 8, 12.'},
+    {q:'Mahāśakti',          cat:'concept', alt:['Mahashakti','great mother'],       blurb:'The great mothers — Mahākālī, Mahāsaraswatī, Maheśvarī, Mahālakṣmī.'},
+    {q:'Geocentric view',    cat:'concept', alt:['observer','sky from earth'],       blurb:'The sky from where the observer stands. Vedic astrology = what the eye can see.'},
+    {q:'Stellarium',         cat:'concept', alt:['planetarium','sky software'],       blurb:'Free planetarium. Set birth time and place; see your sky as it actually was.'},
+    {q:'Nirvāṇa Shatakam',   cat:'concept', alt:['Nirvana Shatakam','Atma Shatakam'], blurb:'Six verses by Adi Shankaracharya. The refrain: śivo\'ham, śivo\'ham — I am Śiva.'},
+    // App pages (no blurb — these are launchers)
+    {q:'Reflect',            cat:'page', alt:['workbook prompt','reflection']},
+    {q:'Interpret',          cat:'page', alt:['Interpret your chart','read chart']},
+    {q:'Where am I',         cat:'page', alt:['self assessment','aware familiar confident']},
+    {q:'Catch up',           cat:'page', alt:['missed a class','sessions list']},
+    {q:'Mercury Spectrum',   cat:'page', alt:[]},
+    {q:'Astronomy',          cat:'page', alt:['astronomy under astrology']}
+  ];
+
+  // -------- DOM --------
+  var input = document.getElementById('heroSearchInput');
+  var form  = document.getElementById('heroSearchForm');
+  var box   = document.getElementById('heroSearchSuggest');
+  if (!input || !box) return;
+
+  // -------- STATE / STORAGE --------
+  var RECENT_KEY = 'astro-recent-searches-v1';
+  var RECENT_MAX = 5;
+  var WA_PHONE   = '919880337337';
+  var activeIdx = -1;
+  var lastFlat = []; // flat list of selectable items (for keyboard nav)
+
+  function escHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; });
+  }
+  function highlight(text, q){
+    var t = escHtml(text);
+    if (!q) return t;
+    var i = text.toLowerCase().indexOf(q.toLowerCase());
+    if (i === -1) return t;
+    return escHtml(text.slice(0, i)) + '<em>' + escHtml(text.slice(i, i + q.length)) + '</em>' + escHtml(text.slice(i + q.length));
+  }
+  function getRecent(){
+    try { return (JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') || []).slice(0, RECENT_MAX); }
+    catch(e){ return []; }
+  }
+  function pushRecent(q){
+    if (!q) return;
+    try {
+      var list = getRecent().filter(function(x){ return x.toLowerCase() !== q.toLowerCase(); });
+      list.unshift(q);
+      list = list.slice(0, RECENT_MAX);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+    } catch(e){}
+  }
+
+  // -------- LEVENSHTEIN (for did-you-mean) --------
+  function lev(a, b){
+    a = a.toLowerCase(); b = b.toLowerCase();
+    if (a === b) return 0;
+    var m = a.length, n = b.length;
+    if (Math.abs(m - n) > 3) return 99; // bail early; we only care up to 2
+    var prev = new Array(n + 1), curr = new Array(n + 1), j;
+    for (j = 0; j <= n; j++) prev[j] = j;
+    for (var i = 1; i <= m; i++){
+      curr[0] = i;
+      for (j = 1; j <= n; j++){
+        var cost = a.charCodeAt(i-1) === b.charCodeAt(j-1) ? 0 : 1;
+        curr[j] = Math.min(curr[j-1] + 1, prev[j] + 1, prev[j-1] + cost);
+      }
+      var t = prev; prev = curr; curr = t;
+    }
+    return prev[n];
+  }
+  function bestSpellingCorrection(q){
+    if (q.length < 4) return null;
+    var ql = q.toLowerCase();
+    var best = null, bestD = 99;
+    for (var i = 0; i < KW.length; i++){
+      var item = KW[i];
+      var candidates = [item.q].concat(item.alt || []);
+      for (var k = 0; k < candidates.length; k++){
+        var c = candidates[k];
+        var d = lev(ql, c);
+        if (d < bestD && d > 0 && d <= 2){
+          bestD = d; best = item;
+        }
+      }
+    }
+    return best;
+  }
+
+  // -------- SCORING --------
+  function score(item, q){
+    var ql = q.toLowerCase();
+    var name = item.q.toLowerCase();
+    var alts = (item.alt || []).map(function(a){ return a.toLowerCase(); });
+    if (name === ql) return -100;
+    if (name.indexOf(ql) === 0) return -50 - (1 / name.length);
+    for (var i = 0; i < alts.length; i++){
+      if (alts[i] === ql) return -90;
+      if (alts[i].indexOf(ql) === 0) return -45 - (1 / alts[i].length);
+    }
+    if (name.indexOf(ql) !== -1) return -10;
+    for (var j = 0; j < alts.length; j++){
+      if (alts[j].indexOf(ql) !== -1) return -5;
+    }
+    return null;
+  }
+  function buildResults(q){
+    if (!q) return [];
+    var scored = [];
+    for (var i = 0; i < KW.length; i++){
+      var s = score(KW[i], q);
+      if (s !== null) scored.push({ item: KW[i], score: s });
+    }
+    scored.sort(function(a, b){ return a.score - b.score; });
+    return scored.slice(0, 8).map(function(r){ return r.item; });
+  }
+
+  function feedbackUrl(q){
+    var msg = "Hi Sree, I searched the Astrology 101 Companion App for \"" + q + "\" but didn't find what I was looking for. Could you help?";
+    return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(msg);
+  }
+
+  function findByQ(q){
+    var ql = q.toLowerCase();
+    for (var i = 0; i < KW.length; i++) if (KW[i].q.toLowerCase() === ql) return KW[i];
+    return null;
+  }
+
+  // -------- RENDER --------
+  function render(q){
+    activeIdx = -1;
+    lastFlat = [];
+
+    if (!q){
+      // Empty state — recents + curated
+      var recents = getRecent();
+      var curated = KW.filter(function(k){ return k.popular; });
+      var html = '';
+      if (recents.length){
+        html += '<div class="hero-suggest-group">';
+        html +=   '<div class="hero-suggest-group-h">recent</div>';
+        recents.forEach(function(r){
+          lastFlat.push({ kind:'recent', q:r });
+          html += '<div class="hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(r) + '">';
+          html +=   '<div class="hero-suggest-name">' + escHtml(r) + '</div>';
+          html +=   '<div class="hero-suggest-cat">↩</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      if (curated.length){
+        html += '<div class="hero-suggest-group">';
+        html +=   '<div class="hero-suggest-group-h">where most learners start</div>';
+        curated.forEach(function(it){
+          lastFlat.push({ kind:'item', item:it });
+          html += '<div class="hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(it.q) + '">';
+          html +=   '<div class="hero-suggest-name">' + escHtml(it.q) + '</div>';
+          html +=   '<div class="hero-suggest-cat">' + escHtml(it.cat) + '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      html += '<div class="hero-suggest-foot">↳ press <kbd>↵</kbd> to search anything</div>';
+      box.innerHTML = html;
+      box.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    var items = buildResults(q);
+    var exact = items.length === 1 && items[0].q.toLowerCase() === q.toLowerCase() ? items[0] : findByQ(q);
+    var spell = items.length === 0 ? bestSpellingCorrection(q) : null;
+
+    if (items.length === 0 && !spell){
+      // Truly empty — show feedback CTAs
+      box.innerHTML =
+        '<div class="hero-suggest-empty">' +
+          '<p>Nothing in the Companion matches <em style="color:var(--saffron);">' + escHtml(q) + '</em> — yet.</p>' +
+          '<p style="color:var(--muted);">Search anyway, browse the Companion, or tell Sree what you wanted.</p>' +
+          '<div class="empty-actions">' +
+            '<a href="learning-companion.html?q=' + encodeURIComponent(q) + '">Search anyway →</a>' +
+            '<a href="learning-companion.html#signs">Browse LC →</a>' +
+            '<a href="' + feedbackUrl(q) + '" target="_blank" rel="noopener">Tell Sree →</a>' +
+          '</div>' +
+        '</div>';
+      box.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    var html = '';
+
+    // State 4: exact-match preview card
+    if (exact && exact.blurb){
+      lastFlat.push({ kind:'item', item:exact });
+      html += '<div class="hero-suggest-group">';
+      html +=   '<div class="hero-suggest-preview hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(exact.q) + '">';
+      html +=     '<div class="hero-suggest-preview-cat">' + escHtml(exact.cat) + '</div>';
+      html +=     '<div class="hero-suggest-preview-name">' + escHtml(exact.q) + '</div>';
+      html +=     '<div class="hero-suggest-preview-blurb">' + escHtml(exact.blurb) + '</div>';
+      html +=   '</div>';
+      html += '</div>';
+      // Other items still shown below
+      var others = items.filter(function(it){ return it !== exact; });
+      if (others.length){
+        html += renderGrouped(others, q);
+      }
+    } else {
+      // Did-you-mean card if applicable (no exact, no other matches but a close suggestion)
+      if (spell){
+        lastFlat.push({ kind:'item', item:spell });
+        html += '<div class="hero-suggest-dym" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(spell.q) + '">' +
+                  '<span class="dym-prefix">did you mean</span> <em>' + escHtml(spell.q) + '</em>' +
+                  '<span class="dym-cat">' + escHtml(spell.cat) + '</span>' +
+                '</div>';
+      }
+      if (items.length){
+        html += renderGrouped(items, q);
+      }
+    }
+
+    // Always offer "search anyway" tail when typed query has at least one matching result
+    if (items.length || spell){
+      html += '<div class="hero-suggest-foot">↳ press <kbd>↵</kbd> to search "<em style="color:var(--saffron);font-style:italic;">' + escHtml(q) + '</em>" in the deeper Companion</div>';
+    }
+
+    box.innerHTML = html;
+    box.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  function renderGrouped(items, q){
+    // Group by cat, preserve original score order within group
+    var order = [];
+    var byCat = {};
+    items.forEach(function(it){
+      if (!byCat[it.cat]){ byCat[it.cat] = []; order.push(it.cat); }
+      byCat[it.cat].push(it);
+    });
+    var html = '';
+    order.forEach(function(cat){
+      html += '<div class="hero-suggest-group">';
+      html +=   '<div class="hero-suggest-group-h">' + escHtml(cat) + '</div>';
+      byCat[cat].forEach(function(it){
+        lastFlat.push({ kind:'item', item:it });
+        html += '<div class="hero-suggest-item" role="option" data-flat="' + (lastFlat.length - 1) + '" data-q="' + escHtml(it.q) + '">';
+        html +=   '<div class="hero-suggest-name">' + highlight(it.q, q) + '</div>';
+        if (it.blurb){
+          html += '<div class="hero-suggest-name-meta">' + escHtml(it.blurb.slice(0, 60)) + (it.blurb.length > 60 ? '…' : '') + '</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    return html;
+  }
+
+  // -------- INTERACTION --------
+  function setActive(idx){
+    var nodes = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
+    activeIdx = Math.max(-1, Math.min(nodes.length - 1, idx));
+    nodes.forEach(function(el, i){ el.classList.toggle('is-active', i === activeIdx); });
+    if (activeIdx >= 0){
+      var el = nodes[activeIdx];
+      if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+    }
+  }
+  function close(){
+    box.hidden = true;
+    activeIdx = -1;
+    input.setAttribute('aria-expanded', 'false');
+  }
+  function submitWith(q){
+    pushRecent(q);
+    input.value = q;
+    if (form) form.submit();
+  }
+  function submitAnyway(){
+    var q = input.value.trim();
+    if (q) pushRecent(q);
+    if (form) form.submit();
+  }
+
+  input.addEventListener('input', function(){ render(input.value.trim()); });
+  input.addEventListener('focus', function(){ render(input.value.trim()); });
+  input.addEventListener('keydown', function(e){
+    if (box.hidden) return;
+    if (e.key === 'ArrowDown'){ e.preventDefault(); setActive(activeIdx + 1); }
+    else if (e.key === 'ArrowUp'){ e.preventDefault(); setActive(activeIdx - 1); }
+    else if (e.key === 'Enter'){
+      var nodes = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
+      if (activeIdx >= 0 && nodes[activeIdx]){
+        e.preventDefault();
+        var qv = nodes[activeIdx].getAttribute('data-q');
+        if (qv) submitWith(qv);
+      }
+      // else — native form submit fires with current input.value, plus pushRecent below
+      else if (input.value.trim()){
+        pushRecent(input.value.trim());
+      }
+    } else if (e.key === 'Escape'){ close(); }
+    else if (e.key === 'Tab'){
+      var nodes2 = box.querySelectorAll('.hero-suggest-item, .hero-suggest-dym');
+      if (activeIdx >= 0 && nodes2[activeIdx]){
+        e.preventDefault();
+        var qv2 = nodes2[activeIdx].getAttribute('data-q');
+        if (qv2){ input.value = qv2; close(); }
+      }
+    }
+  });
+  box.addEventListener('mousedown', function(e){
+    var item = e.target.closest('[data-q]');
+    if (item){
+      e.preventDefault();
+      submitWith(item.getAttribute('data-q'));
+    }
+  });
+  document.addEventListener('click', function(e){
+    if (!box.contains(e.target) && e.target !== input){ close(); }
+  });
+})();
+
+</script>
+
+<script>
+/* v4.68.2 — LC typeahead. Same logic as home but on Enter, opens the deeper LC search modal. */
+(function(){
+  // Override form submit: open the modal with the typed value (don't reload page)
+  window.lcOnHeroSubmit = function(e){
+    if (e) e.preventDefault();
+    var v = (document.getElementById('heroSearchInput') || {}).value || '';
+    if (v && window.openSearch) window.openSearch(v.trim());
+    return false;
+  };
+  window.lcTellSree = function(){
+    var v = (document.getElementById('heroSearchInput') || {}).value || '';
+    var msg = "Hi Sree, I was looking for something on the Companion App" + (v ? " (I tried: \"" + v + "\")" : "") + " but couldn't find it. Could you help?";
+    var url = 'https://wa.me/919880337337?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank', 'noopener');
+  };
+
+  // Chip clicks → fill input and open modal
+  document.addEventListener('click', function(e){
+    var chip = e.target.closest('[data-lc-chip]');
+    if (!chip) return;
+    var v = chip.getAttribute('data-lc-chip');
+    var inp = document.getElementById('heroSearchInput');
+    if (inp){ inp.value = v; }
+    if (window.openSearch) window.openSearch(v);
+  });
+
+  // Sticky pill — show when masthead leaves viewport
+  var sticky = document.getElementById('lcSearchSticky');
+  var masthead = document.querySelector('header.masthead');
+  if (sticky){
+    sticky.addEventListener('click', function(){
+      if (window.openSearch) window.openSearch('');
+      else { var i = document.getElementById('heroSearchInput'); if (i) i.focus(); }
+    });
+    if ('IntersectionObserver' in window && masthead){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          sticky.classList.toggle('is-visible', !en.isIntersecting);
+        });
+      }, { threshold: 0 });
+      io.observe(masthead);
+    } else {
+      // Fallback: scroll listener
+      window.addEventListener('scroll', function(){
+        sticky.classList.toggle('is-visible', window.scrollY > 200);
+      });
+    }
+  }
+
+  // Keyboard shortcut: `/` opens the LC search modal (unless typing in another input)
+  document.addEventListener('keydown', function(e){
+    if (e.key === '/' && document.activeElement &&
+        document.activeElement.tagName !== 'INPUT' &&
+        document.activeElement.tagName !== 'TEXTAREA' &&
+        !document.activeElement.isContentEditable){
+      e.preventDefault();
+      var inp = document.getElementById('heroSearchInput');
+      if (inp){ inp.focus(); inp.select(); }
+    }
+  });
+})();
+</script>
+
+
+<!-- v4.68.2 — Sticky search pill (appears once masthead scrolls away) -->
+<button type="button" class="lc-search-sticky" id="lcSearchSticky" aria-label="Open search">
+  <span class="lc-search-sticky-icon" aria-hidden="true">⌕</span>
+  <span>Search</span>
+  <kbd class="lc-search-sticky-kbd">/</kbd>
+</button>
 
 </body>
 </html>
