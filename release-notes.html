@@ -741,10 +741,51 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.70.3 ====================== -->
+  <section class="release" data-credits="Sree (caught the unstyled search dropdown on LC)">
+    <header>
+      <h2>v4.70.3 <em>· current</em></h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Hotfix on the LC search dropdown. Clicking the search bar showed all suggestions stacked vertically and centre-aligned because the <code>.hero-suggest-*</code> CSS rules were missing entirely (probably dropped during a much earlier merge). The JS was rendering the right HTML; the styles just weren't there. Now the dropdown panel renders as intended — group headers, two-column rows (label on the left, category pill on the right), the foot row with <kbd>↵</kbd> hint, and the "did you mean…" + exact-match preview blocks.</p>
+
+    <h3>What was missing</h3>
+    <p>Twelve rules covering <code>.hero-suggest</code>, <code>.hero-suggest-group</code>, <code>.hero-suggest-group-h</code>, <code>.hero-suggest-item</code> (the flex-row row that holds the label and the category pill), <code>.hero-suggest-name</code>, <code>.hero-suggest-cat</code>, <code>.hero-suggest-foot</code>, <code>.hero-suggest-empty</code>, <code>.hero-suggest-dym</code>, and the exact-match preview block (<code>.hero-suggest-preview</code> + name + cat + blurb).</p>
+
+    <h3>How it slipped through</h3>
+    <p>Pure CSS regression. Nothing in the JS ever surfaced an error — every class name resolved, every node rendered, the keyboard nav worked. It just looked broken. A reminder to run a manual visual check on the LC search dropdown when touching anything in the masthead area.</p>
+  </section>
+
+  <!-- ====================== v4.70.2 ====================== -->
+  <section class="release" data-credits="Sree (caught the duplicate date + asked for an Asc marker) · KB ingest of class transcripts 39–43">
+    <header>
+      <h2>v4.70.2</h2>
+      <span class="date">10 May 2026</span>
+    </header>
+    <p class="summary">Tidy on the home chart: the date was being shown twice (once above the chart, once inside the centre cell). Kept the inside one. And added the most-asked-for marker on the chart — the <strong>Lagna / Ascendant</strong>, computed live for the current moment at the centre-cell location. Plus a KB-only update: class transcripts 39–43 ingested.</p>
+
+    <h3>Cut · remove duplicate date above the chart</h3>
+    <p>The masthead used to read "10 May 2026 in the sky" while the centre cell <em>also</em> showed "10 May 2026". Now the heading is a static "today in the sky" and the date lives only in the centre cell, where it sits alongside time and location. One clear source of truth.</p>
+
+    <h3>Add · Lagna / Asc marker on today's chart</h3>
+    <ul>
+      <li>The chamber whose sign is currently rising at the location gets a small saffron <code>ASC</code> badge in the top-left and a saffron border.</li>
+      <li>Computed live using the standard formula — <code>atan2(-cos(RAMC), sin(ε)·tan(φ) + cos(ε)·sin(RAMC))</code> — then shifted into the sidereal zodiac by subtracting the current Lahiri ayanāṁśa. The whole thing runs client-side in JS, no server dependency.</li>
+      <li>Coordinates come from a small lookup of common cohort cities (Auroville, Pondicherry, Chennai, Bengaluru, Mumbai, Delhi, and a handful more). Anything else falls back to Auroville's coordinates — good enough for v1; proper geocoding can come later.</li>
+      <li>Re-renders when you change the centre-cell location, so the Asc updates correctly. It also <em>changes through the day</em> — every ~2 hours a new sign rises — which is the whole point of marking the Lagna in the first place.</li>
+    </ul>
+
+    <h3>KB · class transcripts 39–43 imported</h3>
+    <p>Five new class transcripts came in — Ether Debrief & Sun (5 April), The Moon and Houses (12 April), Improving Interpretations & 9th House (19 April), Mars (26 April), and Mercury & 10th House (3 May). Each is now a markdown file in <code>astrology-101-knowledge-base/transcripts/</code> with the established naming convention. <code>_mapping.json</code>, <code>INDEX.md</code>, and <code>HANDOFF.md</code> all updated. Caught one duplicate file in the source folder (<code>(38).docx</code> ≈ <code>(37).docx</code>) — flagged in the KB notes.</p>
+
+    <h3>Caveat for the Asc marker</h3>
+    <p>This is the <em>current</em> Lagna at this <em>location</em>, not your personal birth Lagna. To mark your own Lagna we'd need your birth time + birthplace, which is a v4.71+ piece (a tiny "set my chart" form that overlays a separate marker). For now the saffron Asc badge answers "what's rising right now" — useful for muhūrta-style reading and for getting familiar with how the wheel turns through the day.</p>
+  </section>
+
   <!-- ====================== v4.70.1 ====================== -->
   <section class="release" data-credits="Sree (caught the empty-chart bug + asked to reuse the proven LC chart layout)">
     <header>
-      <h2>v4.70.1 <em>· current</em></h2>
+      <h2>v4.70.1</h2>
       <span class="date">10 May 2026</span>
     </header>
     <p class="summary">Hotfix on Today's Sky on the home. The chart was rendering empty because the data was loaded via <code>fetch()</code>, which fails on <code>file://</code> origins (CORS). And the chart layout was a custom one rather than reusing the proven <code>.stage</code> + <code>.chamber</code> pattern from <a href="interpret.html">Interpret · beta</a>. Both fixed.</p>
@@ -4636,7 +4677,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.70.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.70.3 · updated 10 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -4859,7 +4900,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.70.1';
+  const PAGE_VERSION = '4.70.3';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

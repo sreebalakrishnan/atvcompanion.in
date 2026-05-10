@@ -218,6 +218,23 @@
     min-width: 0;
   }
   .chamber.is-empty { background: rgba(250,243,226,.55); }
+  .chamber.is-lagna { border-color: var(--saffron); box-shadow: inset 0 0 0 1px var(--saffron); }
+  .chamber-asc-badge {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    font-family: var(--display);
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    background: var(--bg);
+    border: 1px solid var(--saffron);
+    border-radius: 3px;
+    padding: 1px 4px 0;
+    line-height: 1.2;
+    font-weight: 500;
+  }
   .chamber-head {
     display: flex;
     align-items: baseline;
@@ -656,6 +673,69 @@
   function todayISO(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
   function prettyDate(iso){ try { var d = new Date(iso + 'T12:00:00'); return d.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return iso; } }
 
+  // v4.70.2 — small lookup of common locations → (lat, lon). Falls back to Auroville.
+  // We don't have a geocoder; this is a pragmatic v1 covering the cohort's likely cities.
+  var LOC_COORDS = {
+    'auroville':    [12.0049, 79.8104],
+    'pondicherry':  [11.9416, 79.8083],
+    'puducherry':   [11.9416, 79.8083],
+    'chennai':      [13.0827, 80.2707],
+    'bengaluru':    [12.9716, 77.5946],
+    'bangalore':    [12.9716, 77.5946],
+    'mumbai':       [19.0760, 72.8777],
+    'delhi':        [28.6139, 77.2090],
+    'new delhi':    [28.6139, 77.2090],
+    'hyderabad':    [17.3850, 78.4867],
+    'kolkata':      [22.5726, 88.3639],
+    'pune':         [18.5204, 73.8567],
+    'kochi':        [9.9312,  76.2673],
+    'thiruvananthapuram': [8.5241, 76.9366]
+  };
+  function coordsForLocation(loc){
+    var s = String(loc || '').toLowerCase();
+    var keys = Object.keys(LOC_COORDS);
+    for (var i = 0; i < keys.length; i++){
+      if (s.indexOf(keys[i]) !== -1) return LOC_COORDS[keys[i]];
+    }
+    return LOC_COORDS['auroville']; // sensible default
+  }
+
+  // v4.70.2 — compute current Ascendant (Lagna) sidereal sign index (0=Aries..11=Pisces).
+  // Standard formula (Meeus): Asc = atan2(-cos(RAMC), sin(ε)·tan(φ) + cos(ε)·sin(RAMC)).
+  // Then subtract Lahiri ayanāṁśa to land in the sidereal zodiac.
+  function computeLagnaSignIdx(date, lat, lon){
+    var Y = date.getUTCFullYear(), M = date.getUTCMonth() + 1, D = date.getUTCDate();
+    var H = date.getUTCHours() + date.getUTCMinutes()/60 + date.getUTCSeconds()/3600;
+    if (M <= 2){ Y -= 1; M += 12; }
+    var A = Math.floor(Y/100), B = 2 - A + Math.floor(A/4);
+    var JD = Math.floor(365.25 * (Y + 4716)) + Math.floor(30.6001 * (M + 1)) + D + H/24 + B - 1524.5;
+    var T = (JD - 2451545.0) / 36525.0;
+    var GMST = 280.46061837 + 360.98564736629 * (JD - 2451545.0) + 0.000387933 * T*T - T*T*T/38710000;
+    GMST = ((GMST % 360) + 360) % 360;
+    var RAMC = ((GMST + lon) % 360 + 360) % 360;
+    var eps = 23.4392911 - 0.0130042 * T;
+    var d2r = Math.PI/180, r2d = 180/Math.PI;
+    var ramcR = RAMC * d2r, epsR = eps * d2r, latR = lat * d2r;
+    // MC ecliptic longitude — used to put the Asc in the correct quadrant.
+    var mcTrop = Math.atan2(Math.sin(ramcR), Math.cos(ramcR) * Math.cos(epsR)) * r2d;
+    mcTrop = ((mcTrop % 360) + 360) % 360;
+    // Asc ecliptic longitude (Meeus). atan2 can land 180° off; we correct using MC.
+    var y = -Math.cos(ramcR);
+    var x = Math.sin(epsR) * Math.tan(latR) + Math.cos(epsR) * Math.sin(ramcR);
+    var ascTrop = Math.atan2(y, x) * r2d;
+    ascTrop = ((ascTrop % 360) + 360) % 360;
+    // Asc must lie ~90° "east of" the MC along the ecliptic — i.e., (asc − mc) mod 360 ∈ (0, 180).
+    var diffAsc = ((ascTrop - mcTrop) % 360 + 360) % 360;
+    if (diffAsc > 180) ascTrop = (ascTrop + 180) % 360;
+    // Lahiri ayanāṁśa, linear approximation around 2026-01-01 (≈24.10°, +50.3″/yr)
+    var calYear = date.getUTCFullYear();
+    var jan1 = Date.UTC(calYear, 0, 1);
+    var yearFrac = calYear + (date.getTime() - jan1) / (365.2425 * 86400000);
+    var ayan = 24.10 + (yearFrac - 2026) * (50.3 / 3600);
+    var ascSid = ((ascTrop - ayan) % 360 + 360) % 360;
+    return Math.floor(ascSid / 30);
+  }
+
   function renderStage(today){
     var stage = document.getElementById('tsStage');
     if (!stage) return;
@@ -669,15 +749,23 @@
         bySign[entry.sIdx].push({ key:p, deg:entry.deg });
       });
     }
+    // v4.70.2 — compute current Lagna using the centre cell's location, fallback to Auroville.
+    var locStr = (function(){ try { return localStorage.getItem('astro-mychart-loc-v1') || 'Auroville, Tamil Nadu, India'; } catch(e){ return 'Auroville, Tamil Nadu, India'; } })();
+    var coords = coordsForLocation(locStr);
+    var lagnaIdx = -1;
+    try { lagnaIdx = computeLagnaSignIdx(new Date(), coords[0], coords[1]); } catch(e){ lagnaIdx = -1; }
+
     SIGNS.forEach(function(s, idx){
       var ch = document.createElement('div');
-      ch.className = 'chamber sign-' + s.cell + (bySign[idx] ? '' : ' is-empty');
+      var isLagna = (idx === lagnaIdx);
+      ch.className = 'chamber sign-' + s.cell + (bySign[idx] ? '' : ' is-empty') + (isLagna ? ' is-lagna' : '');
       var planets = (bySign[idx] || []).map(function(p){
         var P = PLANETS[p.key];
         var code = PLANET_CODES[p.key] || p.key.slice(0,2);
         return '<span class="planet-pill" data-planet="' + p.key + '" title="' + escHtml(P.name + ' · ' + s.e + ' ' + p.deg.toFixed(1) + '°') + '">' + code + '</span>';
       }).join('');
       ch.innerHTML =
+        (isLagna ? '<span class="chamber-asc-badge" title="Ascendant (Lagna) right now at this location">Asc</span>' : '') +
         '<div class="chamber-head">' +
           '<div class="chamber-sign-block">' +
             '<span class="chamber-sign-glyph" aria-hidden="true">' + s.glyph + '</span>' +
@@ -726,7 +814,8 @@
     ul.innerHTML = html;
   }
 
-  function renderDateLabel(){ var el = document.getElementById('tsDateLabel'); if (el) el.textContent = prettyDate(todayISO()); }
+  // v4.70.2 — heading kept static ("today in the sky"); date lives only in the centre cell now.
+  function renderDateLabel(){ /* no-op: avoid duplicating the date */ }
 
   function load(){
     renderDateLabel();
@@ -849,7 +938,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.70.1';
+  var PAGE_VERSION = '4.70.3';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');

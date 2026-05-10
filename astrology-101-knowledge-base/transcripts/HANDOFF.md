@@ -13,9 +13,9 @@ This document is the canonical reference for what the call-transcript layer of t
 | **Course name** | Astrology 101 (2025) |
 | **Instructor** | Vikram (allthingsvedic.in) |
 | **Format** | Weekly online classes via Microsoft Teams |
-| **Duration** | May 4, 2025 – March 22, 2026 (38 sessions) |
+| **Duration** | May 4, 2025 – May 3, 2026 (43 sessions; 28 skipped by Vikram) |
 | **Class length** | ~2 hours each |
-| **Files** | 41 `.docx` files in `../101 call transcripts/` — 38 numbered class transcripts plus 2 intro calls and an Assignments Compendium |
+| **Files** | 46 `.docx` files in `../101 call transcripts/` — 43 numbered class transcripts (one duplicate `(38).docx` ≈ `(37).docx`) plus 2 intro calls and an Assignments Compendium |
 | **Teaching style** | Mythology first → astronomy → astrology theory. Each session begins with breathwork/grounding |
 | **Mentorship** | Small mentor groups in addition to main class |
 | **Retreats** | In-person retreats (e.g., Kancheepuram) integrated into the course |
@@ -64,6 +64,11 @@ This document is the canonical reference for what the call-transcript layer of t
 | 36 | Houses & Interpretation | February 22, 2026 | 2h 11m |
 | 37 | Sripathi Paddhathi and Houses | March 1, 2026 | 2h 14m |
 | 38 | SP Method, Houses, Starting Interpretations | March 22, 2026 | 2h 11m |
+| 39 | Ether Debrief & Sun | April 5, 2026 | 2h 11m |
+| 40 | The Moon and Houses | April 12, 2026 | 2h 10m |
+| 41 | Improving Interpretations & 9th House | April 19, 2026 | 2h 13m |
+| 42 | Mars | April 26, 2026 | 2h 11m |
+| 43 | Mercury & 10th House | May 3, 2026 | 2h 24m |
 
 Plus two `Intro Call` files and an `Astrology_101_Assignments_Compendium.docx`.
 

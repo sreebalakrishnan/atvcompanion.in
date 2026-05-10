@@ -11577,7 +11577,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.70.1';
+  const PAGE_VERSION = '4.70.3';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11751,6 +11751,116 @@ document.addEventListener('keydown', (e) => {
     cursor: pointer; transition: all .15s;
   }
   .lc-chip:hover { border-color: var(--saffron); color: var(--saffron); background: rgba(188,129,70,.04); }
+
+  /* v4.70.3 — Search dropdown (panel that appears below the masthead search bar) */
+  .hero-suggest {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0; right: 0;
+    z-index: 80;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    box-shadow: 0 18px 44px -18px rgba(40,40,38,.30);
+    padding: 6px;
+    max-height: 60vh;
+    overflow-y: auto;
+    text-align: left;
+  }
+  .hero-suggest[hidden] { display: none; }
+  .hero-suggest-group { padding: 4px 0; }
+  .hero-suggest-group + .hero-suggest-group { border-top: 1px solid var(--rule-soft); margin-top: 4px; padding-top: 8px; }
+  .hero-suggest-group-h {
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; letter-spacing: .04em;
+    color: var(--muted);
+    padding: 4px 12px 6px;
+    text-transform: lowercase;
+  }
+  .hero-suggest-item {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color .12s;
+  }
+  .hero-suggest-item:hover,
+  .hero-suggest-item.is-active { background: rgba(188,129,70,.08); }
+  .hero-suggest-name {
+    font-family: var(--body); font-size: 15px;
+    color: var(--ink);
+    flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .hero-suggest-name-meta {
+    font-family: var(--body); font-size: 12.5px; color: var(--muted);
+    margin-top: 2px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .hero-suggest-cat {
+    flex-shrink: 0;
+    font-family: var(--display); font-style: italic;
+    font-size: 12px; color: var(--muted);
+    padding: 2px 8px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+  .hero-suggest-foot {
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 6px;
+    padding: 8px 12px 4px;
+    font-family: var(--display); font-style: italic;
+    font-size: 12px; color: var(--muted);
+  }
+  .hero-suggest-foot kbd {
+    background: var(--bg); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 1px 6px; font-style: normal;
+    font-size: 11px; color: var(--ink-soft);
+  }
+  .hero-suggest-empty {
+    padding: 14px 14px 10px;
+    font-family: var(--body); font-size: 14px; color: var(--ink-soft);
+  }
+  .hero-suggest-empty p { margin: 0 0 6px; }
+  .hero-suggest-empty .empty-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .hero-suggest-empty .empty-actions a {
+    font-family: var(--display); font-style: italic; font-size: 13.5px;
+    color: var(--saffron); text-decoration: none;
+  }
+  .hero-suggest-empty .empty-actions a:hover { text-decoration: underline; }
+  /* "Did you mean…" row */
+  .hero-suggest-dym {
+    padding: 10px 12px;
+    font-family: var(--body); font-size: 14.5px; color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color .12s;
+  }
+  .hero-suggest-dym:hover,
+  .hero-suggest-dym.is-active { background: rgba(188,129,70,.08); }
+  .hero-suggest-dym em { font-style: italic; color: var(--saffron); }
+  /* Exact-match preview block (richer card with category + blurb) */
+  .hero-suggest-preview {
+    flex-direction: column; align-items: flex-start;
+    gap: 4px;
+    padding: 10px 12px 12px;
+    background: rgba(188,129,70,.05);
+  }
+  .hero-suggest-preview-cat {
+    font-family: var(--display); font-style: italic;
+    font-size: 11.5px; letter-spacing: .04em;
+    color: var(--saffron); text-transform: lowercase;
+  }
+  .hero-suggest-preview-name {
+    font-family: var(--display); font-weight: 500;
+    font-size: 17px; color: var(--ink);
+  }
+  .hero-suggest-preview-blurb {
+    font-family: var(--body); font-size: 13.5px;
+    color: var(--ink-soft); line-height: 1.5;
+  }
 
   /* Sticky search pill — appears once masthead leaves viewport */
   .lc-search-sticky {

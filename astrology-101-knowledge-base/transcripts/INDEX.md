@@ -61,8 +61,15 @@ Consequences worth knowing:
 | 36 | February 22, 2026 | Houses & Interpretation | [`36-houses-interpretation.md`](36-houses-interpretation.md) |
 | 37 | March 1, 2026 | Sripathi Paddhathi and Houses | [`37-sripathi-paddhathi-and-houses.md`](37-sripathi-paddhathi-and-houses.md) |
 | 38 | March 22, 2026 | SP Method, Houses, Starting Interpretations | [`38-sp-method-houses-starting-interpretations.md`](38-sp-method-houses-starting-interpretations.md) |
+| 39 | April 5, 2026 | Ether Debrief & Sun | [`39-ether-debrief-and-sun.md`](39-ether-debrief-and-sun.md) |
+| 40 | April 12, 2026 | The Moon and Houses | [`40-the-moon-and-houses.md`](40-the-moon-and-houses.md) |
+| 41 | April 19, 2026 | Improving Interpretations & 9th House | [`41-improving-interpretations-and-9th-house.md`](41-improving-interpretations-and-9th-house.md) |
+| 42 | April 26, 2026 | Mars | [`42-mars.md`](42-mars.md) |
+| 43 | May 3, 2026 | Mercury & 10th House | [`43-mercury-and-10th-house.md`](43-mercury-and-10th-house.md) |
 
 **Plus:** [`99-assignments-compendium.md`](99-assignments-compendium.md) — non-class document, course-wide assignments collated.
+
+**Duplicates noted:** `Astrology 101 (2025) (38).docx` is a near-identical duplicate of `(37).docx` (same body header "38. SP Method…", file sizes 1,046,607 vs 1,046,603 bytes). Only `(37).docx` was imported as Session 38.
 
 ## Two-layer KB
 
@@ -81,7 +88,9 @@ These point at the obvious concept overlaps. Use them as a starting frame, not a
 - Mahāśakti shlokas: 11 (Mahasaraswathi), 13 (Mahalakshmi), 17 (Mahakali), 18b (Maheshwari) ↔ `../shlokas.json`.
 - Planetary cabinet & relationships: 23, 24, 25 ↔ `../planets-classical.json`.
 - Case studies: 10 (Case Study 1), 26 (Vajpayee) ↔ `../decks/48-case-study-abv.md` and related deck notes.
-- House systems & interpretation: 30, 33–38 ↔ `../houses-classical.json` and the SP / Equal House walkthroughs preserved in `HANDOFF.md`.
+- House systems & interpretation: 30, 33–38, 40 (Moon & Houses), 41 (9th House), 43 (10th House) ↔ `../houses-classical.json` and the SP / Equal House walkthroughs preserved in `HANDOFF.md`.
+- Planet walks (the spring-2026 arc): 39 (Sun), 40 (Moon), 42 (Mars), 43 (Mercury) ↔ `../planets-classical.json`. Mercury also pairs with `../decks/` Mercury entries and the `mercury-spectrum.html` peer page.
+- Ether retreat debrief: 39 ↔ `../../ether.html` peer page and the original retreat write-up.
 - Foundations layered through the year: 6 (Orange), 7 (Samudra Manthan), 8 (Temples & Dualities), 9 (Dualities & Modalities), 22 (Elements & Nodes) ↔ `../THEMES.md` and `../decks/42-elements.md` etc.
 
 ## Stub files in this folder

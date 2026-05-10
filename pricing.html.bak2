@@ -43,7 +43,7 @@
     --display: 'Cormorant Garamond', 'Times New Roman', serif;
     --body: 'Spectral', Georgia, serif;
   }
-  /* v4.70.3 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
+  /* v4.70.1 — dark-mode audit: force light scheme + bg colour at the html element so iOS Safari doesn't bleed system dark through */
   html { color-scheme: light; background-color: var(--bg); }
 
   *, *::before, *::after { box-sizing: border-box; }
