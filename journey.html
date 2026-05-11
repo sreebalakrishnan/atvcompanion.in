@@ -169,6 +169,82 @@
   body.preview-mode .topic.topic-locked { opacity: .95; }
   .topic.topic-locked .topic-locked-note { display: block; }
 
+  /* v4.74.19 — Collapsible topics: only one open at a time */
+  .topic-header {
+    cursor: pointer;
+    padding-right: 96px;     /* room for the absolute-positioned share button */
+    user-select: none;
+  }
+  .topic-header:hover { background: linear-gradient(180deg, rgba(188,129,70,.07) 0%, transparent 100%); }
+  .topic-chevron {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-left: 8px;
+    transition: transform .25s ease-out;
+    vertical-align: middle;
+  }
+  .topic.is-collapsed .topic-chevron { transform: rotate(-90deg); }
+  .topic.is-collapsed .layer { display: none; }
+  /* When collapsed, a faint footer cue: "click to expand" */
+  .topic.is-collapsed .topic-header::after {
+    content: 'click to open';
+    display: block;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--rule-soft);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+  /* Open topics get a slight saffron left-edge accent so the eye knows what's active */
+  .topic:not(.is-collapsed):not(.topic-locked) {
+    border-left: 3px solid var(--saffron);
+  }
+
+  /* v4.74.18 — Share-this-section button + deep-link flash */
+  .topic-header { position: relative; }
+  .share-section-btn {
+    position: absolute;
+    top: 16px; right: 18px;
+    appearance: none; -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 5px 12px 5px 10px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    line-height: 1.2;
+  }
+  .share-section-btn:hover {
+    color: var(--saffron);
+    border-color: var(--saffron);
+    background: rgba(188,129,70,.06);
+  }
+  .share-section-btn.is-copied {
+    color: var(--green);
+    border-color: var(--green);
+    background: rgba(106, 141, 110, .08);
+  }
+  .topic.is-deeplinked { animation: deeplinkFlash 1.8s ease-out; }
+  @keyframes deeplinkFlash {
+    0%   { box-shadow: 0 0 0 0 rgba(188,129,70, .35); }
+    20%  { box-shadow: 0 0 0 6px rgba(188,129,70, .22); }
+    100% { box-shadow: 0 0 0 0 rgba(188,129,70, 0); }
+  }
+  @media (max-width: 520px) {
+    .share-section-btn { top: 12px; right: 12px; font-size: 11px; padding: 4px 10px 4px 8px; }
+  }
+
   .topic-header {
     padding: 18px 24px 12px;
     border-bottom: 1px solid var(--rule-soft);
@@ -615,7 +691,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">a prototype · for the workbook team <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.17</div>
+    <div class="eyebrow">a prototype · for the workbook team <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.19</div>
     <h1>A new way to <em>learn</em></h1>
     <p class="lede">A workbook-team framework, made tangible. Each topic unfolds in four layers — <em>Watch</em> the class, <em>Revise</em> what was covered, <em>Reflect</em> on one prompt, <em>Integrate</em> by bringing it into your week. The next topic only unlocks once you've recorded your integration of this one.</p>
   </header>
@@ -634,9 +710,10 @@
   </section>
 
   <!-- ====================== TOPIC 1 · SIGNS ====================== -->
-  <article class="topic" data-topic="signs">
+  <article class="topic" data-topic="signs" id="topic-signs">
     <div class="topic-header">
-      <div class="topic-eyebrow">topic one · the building block</div>
+      <button type="button" class="share-section-btn" data-share-section="topic-signs" title="Copy link to this section"><span class="ico" aria-hidden="true">🔗</span> share</button>
+      <div class="topic-eyebrow">topic one · the building block <span class="topic-chevron" aria-hidden="true">▾</span></div>
       <h2 class="topic-h">The twelve <em>signs</em></h2>
       <p class="topic-sub">Twelve chambers of the wheel. Each carries an element, a modality, a duality.</p>
       <div class="progress" id="prog-signs" aria-label="Your progress through Signs"></div>
@@ -775,9 +852,10 @@
   </article>
 
   <!-- ====================== TOPIC 2 · ELEMENTS (locked initially) ====================== -->
-  <article class="topic topic-locked" data-topic="elements">
+  <article class="topic topic-locked" data-topic="elements" id="topic-elements">
     <div class="topic-header">
-      <div class="topic-eyebrow">topic two · the texture beneath</div>
+      <button type="button" class="share-section-btn" data-share-section="topic-elements" title="Copy link to this section"><span class="ico" aria-hidden="true">🔗</span> share</button>
+      <div class="topic-eyebrow">topic two · the texture beneath <span class="topic-chevron" aria-hidden="true">▾</span></div>
       <h2 class="topic-h"><em>Elements</em>, Modalities &amp; Duality</h2>
       <p class="topic-sub">Earth · Water · Fire · Air — paired with how each moves (cardinal · fixed · mutable) and what charge it carries (yin · yang).</p>
       <div class="progress" id="prog-elements"></div>
@@ -875,9 +953,10 @@
   </article>
 
   <!-- ====================== TOPIC 3 · AVATARS — starting with Matsya (locked initially) ====================== -->
-  <article class="topic topic-locked" data-topic="avatars">
+  <article class="topic topic-locked" data-topic="avatars" id="topic-avatars">
     <div class="topic-header">
-      <div class="topic-eyebrow">topic three · the nine and what they carry</div>
+      <button type="button" class="share-section-btn" data-share-section="topic-avatars" title="Copy link to this section"><span class="ico" aria-hidden="true">🔗</span> share</button>
+      <div class="topic-eyebrow">topic three · the nine and what they carry <span class="topic-chevron" aria-hidden="true">▾</span></div>
       <h2 class="topic-h">The <em>Avatars</em> · starting with <em>Matsya</em></h2>
       <p class="topic-sub">Nine planets, nine of Vishnu's incarnations. <strong>Matsya</strong> is the first complete module — full Loom recording, Marie's gold-standard reflection prompt, the "clean out your attic" integration. <em>Sun · Rama and the others land as the workbook team finishes them.</em></p>
       <div class="progress" id="prog-avatars"></div>
@@ -1002,7 +1081,7 @@
   <!-- ====================== FOOTER ====================== -->
   <footer class="footer">
     <p>← <a href="learning-companion.html">Back to the Learning Companion</a></p>
-    <p style="margin-top:8px;">v4.74.17 · 11 May 2026 · prototype, not in nav</p>
+    <p style="margin-top:8px;">v4.74.19 · 11 May 2026 · prototype, not in nav</p>
     <p style="font-size:11.5px;opacity:.8;">Framework: the workbook team (initially proposed by Marie) — the pedagogy Vikram has chosen. Built by <em>Sree &amp; Sanchi</em> for Wednesday's working session.</p>
   </footer>
 
@@ -1286,6 +1365,121 @@
     }
   });
 
+  // v4.74.18 — Share-this-section: click the "🔗 share" button on any topic
+  // to copy a deep-link URL. Loading the URL with a topic hash scrolls + flashes.
+  function copyToClipboard(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    // Fallback for older browsers / non-https contexts
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.share-section-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    var targetId = btn.dataset.shareSection;
+    if (!targetId) return;
+    var url = location.origin + location.pathname + '#' + targetId;
+    copyToClipboard(url).then(function(){
+      var orig = btn.innerHTML;
+      btn.classList.add('is-copied');
+      btn.innerHTML = '<span class="ico" aria-hidden="true">✓</span> link copied';
+      setTimeout(function(){
+        btn.classList.remove('is-copied');
+        btn.innerHTML = orig;
+      }, 1800);
+    });
+  });
+  function scrollToHashTarget(){
+    var hash = (location.hash || '').replace(/^#/, '');
+    if (!hash) return;
+    var el = document.getElementById(hash);
+    if (!el) return;
+    // If the target is a topic, expand it (collapsing the others)
+    if (el.classList && el.classList.contains('topic')) {
+      document.querySelectorAll('.topic').forEach(function(t){
+        if (t !== el) t.classList.add('is-collapsed');
+      });
+      el.classList.remove('is-collapsed');
+    }
+    setTimeout(function(){
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      el.classList.add('is-deeplinked');
+      setTimeout(function(){ el.classList.remove('is-deeplinked'); }, 1900);
+    }, 120);
+  }
+  if (location.hash) scrollToHashTarget();
+  window.addEventListener('hashchange', scrollToHashTarget);
+
+  // v4.74.19 — Accordion: only one topic open at a time.
+  // Toggle by clicking the topic-header (anywhere except the share button).
+  // On page load: auto-expand the first non-completed topic (or the
+  // deep-linked one if URL has a #topic-X hash).
+  function expandTopic(topicEl){
+    if (!topicEl) return;
+    document.querySelectorAll('.topic').forEach(function(t){
+      if (t !== topicEl) t.classList.add('is-collapsed');
+    });
+    topicEl.classList.remove('is-collapsed');
+  }
+  document.addEventListener('click', function(e){
+    // Share button has its own handler with stopPropagation; this guard is
+    // belt-and-suspenders in case stopPropagation order changes
+    if (e.target.closest && e.target.closest('.share-section-btn')) return;
+    var header = e.target.closest && e.target.closest('.topic-header');
+    if (!header) return;
+    var topic = header.closest('.topic');
+    if (!topic) return;
+    if (topic.classList.contains('is-collapsed')) {
+      expandTopic(topic);
+    } else {
+      topic.classList.add('is-collapsed');
+    }
+  });
+
+  // Auto-expand on load: deep-linked topic wins, else first non-completed,
+  // else last topic (everything done).
+  function autoExpandOnLoad(){
+    // Start by collapsing all topics
+    document.querySelectorAll('.topic').forEach(function(t){
+      t.classList.add('is-collapsed');
+    });
+    // If URL hash points to a topic, expand that one
+    var hash = (location.hash || '').replace(/^#/, '');
+    if (hash) {
+      var deepLinked = document.getElementById(hash);
+      if (deepLinked && deepLinked.classList.contains('topic')) {
+        expandTopic(deepLinked);
+        return;
+      }
+    }
+    // Otherwise, find the first non-completed topic (uses isTopicComplete from earlier in this IIFE)
+    var firstOpen = null;
+    TOPICS.forEach(function(topicName){
+      if (firstOpen) return;
+      if (!isTopicComplete(topicName)) {
+        firstOpen = document.querySelector('.topic[data-topic="' + topicName + '"]');
+      }
+    });
+    if (firstOpen) {
+      expandTopic(firstOpen);
+    } else {
+      // All complete — open the last one
+      var topics = document.querySelectorAll('.topic');
+      if (topics.length) expandTopic(topics[topics.length - 1]);
+    }
+  }
+  autoExpandOnLoad();
+
   // v4.74.17 — Restored to the v4.74.9 first-implementation pattern.
   // On chapter click, rewrite iframe.src with ?t=<seconds> (raw integer).
   // The Loom embed reloads in-place. Console may show Loom-internal warnings
@@ -1363,7 +1557,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.17';
+  const PAGE_VERSION = '4.74.19';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
