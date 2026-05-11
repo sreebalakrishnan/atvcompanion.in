@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F4EEDA">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="Signature module — birth details in, dominant element, modality, duality out. Vikram's technique, applied to one chart at a time. No interpretation.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Signature · for one — Astrology 101 Companion App</title>
+<script>/* v4.74.6 — gate hide-before-paint */(function(){try{if(localStorage.getItem('atv-gate-v1')!=='1')document.documentElement.style.visibility='hidden';}catch(e){}})();</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F4EEDA;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #7C7B78;
+    --rule:      #CAC6BB;
+    --rule-soft: #E0DCCD;
+    --saffron:   #BC8146;
+    --indigo:    #6E7D85;
+    --earth:    #6B5430;
+    --water:    #3A5C73;
+    --fire:     #B5471F;
+    --air:      #79788C;
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+
+  .masthead { padding: 48px 0 24px; text-align: center; border-bottom: 1px solid var(--rule); }
+  .masthead .eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 13px;
+    letter-spacing: .14em; color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  .masthead h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(34px, 7vw, 50px); line-height: 1.05;
+    margin: 0 0 12px; letter-spacing: -.012em;
+  }
+  .masthead h1 em { color: var(--saffron); font-style: italic; }
+  .masthead .lede {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(15.5px, 2vw, 17.5px);
+    color: var(--ink-soft); max-width: 640px;
+    margin: 0 auto; line-height: 1.55;
+  }
+  .ornament { margin: 18px auto 0; width: 22px; color: var(--saffron); opacity: .55; }
+  .ornament svg { width: 100%; height: auto; display: block; }
+
+  .pull {
+    margin: 28px auto 0; max-width: 700px;
+    border-left: 3px solid var(--saffron);
+    padding: 14px 18px;
+    background: rgba(188,129,70,.05); border-radius: 0 8px 8px 0;
+  }
+  .pull p { margin: 0 0 6px; font-family: var(--display); font-style: italic; font-size: 15.5px; color: var(--ink-soft); line-height: 1.55; }
+  .pull .pull-attr { font-size: 12.5px; color: var(--muted); font-style: italic; }
+
+  section.s { margin: 36px 0; }
+  .s-eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 11.5px;
+    letter-spacing: .14em; color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 6px;
+  }
+  section.s h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(22px, 3.8vw, 28px); margin: 0 0 12px;
+    letter-spacing: -.005em; line-height: 1.18;
+  }
+  section.s h2 em { color: var(--saffron); font-style: italic; }
+  section.s p { margin: 0 0 12px; color: var(--ink-soft); }
+
+  /* ---------- FORM ---------- */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .form-row { margin-bottom: 16px; }
+  .form-row:last-child { margin-bottom: 0; }
+  .form-row label {
+    display: block;
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 6px; letter-spacing: .03em;
+  }
+  .form-row input, .form-row select {
+    width: 100%;
+    padding: 10px 13px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color .15s;
+  }
+  .form-row input:focus, .form-row select:focus {
+    outline: none;
+    border-color: var(--saffron);
+    box-shadow: 0 0 0 3px rgba(188,129,70,.1);
+  }
+  .form-row.custom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .form-row.custom-grid label { grid-column: 1 / -1; }
+  @media (max-width: 540px) {
+    .form-row.custom-grid { grid-template-columns: 1fr; }
+  }
+
+  .btn {
+    appearance: none; -webkit-appearance: none;
+    background: var(--ink); color: var(--surface);
+    border: 0; border-radius: 999px;
+    padding: 12px 28px;
+    font-family: var(--display); font-style: italic;
+    font-size: 15px; font-weight: 500;
+    cursor: pointer;
+    transition: transform .15s, background .15s;
+    margin-top: 8px;
+  }
+  .btn:hover { background: var(--saffron); transform: translateY(-1px); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; background: var(--ink); }
+
+  .form-error {
+    margin: 10px 0 0;
+    padding: 10px 14px;
+    background: rgba(180, 60, 60, .08);
+    border-left: 3px solid #a63636;
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: #a63636;
+  }
+  .form-error[hidden] { display: none; }
+
+  /* ---------- OUTPUT ---------- */
+  .output-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 8px;
+  }
+  .output-card .output-eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 11.5px;
+    letter-spacing: .14em; color: var(--saffron); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .output-card h3 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 24px; margin: 0 0 4px;
+    color: var(--ink); letter-spacing: -.005em;
+  }
+  .output-card .output-sub {
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--muted);
+    margin: 0 0 18px;
+  }
+
+  .placements-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .placement-row {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 12px;
+    padding: 9px 12px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+    font-size: 14.5px;
+    align-items: baseline;
+  }
+  .placement-row .body {
+    font-family: var(--display); font-style: italic;
+    color: var(--saffron); font-weight: 500;
+  }
+  .placement-row .sign {
+    font-family: var(--body);
+    color: var(--ink);
+  }
+  .placement-row .deg {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+
+  .counts {
+    margin: 14px 0;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+  }
+  .counts-label {
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; letter-spacing: .1em;
+    color: var(--muted); text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .counts-row {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    align-items: baseline;
+    font-family: var(--display);
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .count-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .count-item .name { font-style: italic; }
+  .count-item .num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .count-item.is-dominant .name { color: var(--saffron); font-weight: 500; }
+  .count-item.is-dominant .num { color: var(--saffron); }
+  .dominant {
+    margin-top: 10px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .dominant strong {
+    color: var(--saffron); font-weight: 500; font-style: normal;
+  }
+
+  .signature-box {
+    margin-top: 20px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(188,129,70,.10) 0%, rgba(188,129,70,.04) 100%);
+    border: 1.5px solid var(--saffron);
+    border-radius: 10px;
+    text-align: center;
+  }
+  .signature-box .sig-label {
+    font-family: var(--display); font-style: italic;
+    font-size: 12px; letter-spacing: .18em;
+    color: var(--saffron); text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .signature-box .sig-value {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(26px, 4.5vw, 34px);
+    color: var(--ink); letter-spacing: -.005em;
+    line-height: 1.2;
+  }
+  .signature-box .sig-value em {
+    color: var(--saffron); font-style: italic;
+    font-weight: 500;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    margin-top: 50px; padding: 22px 0 6px;
+    text-align: center;
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--muted);
+  }
+  .footer p { margin: 6px 0; }
+  .footer a { color: var(--saffron); }
+
+  .scope-note {
+    margin-top: 28px;
+    padding: 14px 18px;
+    background: rgba(110, 125, 133, .08);
+    border-left: 3px solid var(--indigo);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .scope-note strong { color: var(--indigo); font-weight: 500; font-style: normal; }
+
+  @media (max-width: 540px) {
+    .placement-row { grid-template-columns: 90px 1fr auto; font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div id="siteNavMount"></div>
+  <script src="assets/site-nav.js"></script>
+
+  <header class="masthead">
+    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.20</div>
+    <h1>Signature <em>· for one</em></h1>
+    <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique, applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+  </header>
+
+  <aside class="pull">
+    <p>"This module does one thing: it computes the signature. What that signature <em>means</em> in a relationship, in a body, in a moment of stress — that's the therapist's work, not the tool's."</p>
+    <p class="pull-attr">— scope of v0.2, signature module</p>
+  </aside>
+
+  <section class="s">
+    <div class="s-eyebrow">step 1 · enter birth details</div>
+    <h2>One chart at a time</h2>
+
+    <div class="form-card">
+      <div class="form-row">
+        <label for="personName">Name <span style="opacity:.6;">(optional — for the label only)</span></label>
+        <input type="text" id="personName" placeholder="e.g. Client" maxlength="60" autocomplete="off">
+      </div>
+
+      <div class="form-row">
+        <label for="dob">Date of birth</label>
+        <input type="date" id="dob" min="1900-01-01" max="2030-12-31">
+      </div>
+
+      <div class="form-row">
+        <label for="tob">Time of birth <span style="opacity:.6;">(24-hour, local time at the place of birth)</span></label>
+        <input type="time" id="tob" step="60">
+      </div>
+
+      <div class="form-row">
+        <label for="placePreset">Place of birth</label>
+        <select id="placePreset">
+          <option value="">— Pick a city —</option>
+          <option value="bangalore">Bangalore, India (IST · UTC+5:30)</option>
+          <option value="chennai">Chennai, India (IST · UTC+5:30)</option>
+          <option value="mumbai">Mumbai, India (IST · UTC+5:30)</option>
+          <option value="delhi">Delhi, India (IST · UTC+5:30)</option>
+          <option value="kolkata">Kolkata, India (IST · UTC+5:30)</option>
+          <option value="hyderabad">Hyderabad, India (IST · UTC+5:30)</option>
+          <option value="pune">Pune, India (IST · UTC+5:30)</option>
+          <option value="auroville">Auroville · Puducherry, India (IST · UTC+5:30)</option>
+          <option value="ahmedabad">Ahmedabad, India (IST · UTC+5:30)</option>
+          <option value="kochi">Kochi, India (IST · UTC+5:30)</option>
+          <option value="london">London, UK (UTC+0 / +1 DST)</option>
+          <option value="newyork">New York, USA (EST · UTC−5 / −4 DST)</option>
+          <option value="sanfrancisco">San Francisco, USA (PST · UTC−8 / −7 DST)</option>
+          <option value="sydney">Sydney, Australia (AEST · UTC+10 / +11 DST)</option>
+          <option value="melbourne">Melbourne, Australia (AEST · UTC+10 / +11 DST)</option>
+          <option value="dubai">Dubai, UAE (UTC+4)</option>
+          <option value="singapore">Singapore (UTC+8)</option>
+          <option value="custom">Custom — enter coordinates</option>
+        </select>
+      </div>
+
+      <div class="form-row custom-grid" id="customFields" hidden>
+        <label>Custom: latitude · longitude · UTC offset (hours)</label>
+        <input type="number" id="customLat" placeholder="lat (e.g. 12.97)" step="0.0001" min="-90" max="90">
+        <input type="number" id="customLng" placeholder="long (e.g. 77.59)" step="0.0001" min="-180" max="180">
+        <input type="number" id="customTz" placeholder="UTC offset (e.g. 5.5)" step="0.25" min="-12" max="14">
+      </div>
+
+      <button class="btn" id="computeBtn" type="button">Compute signature</button>
+
+      <div class="form-error" id="formError" hidden></div>
+    </div>
+
+    <p class="scope-note"><strong>A note on dates around DST.</strong> The UTC offsets above are the standard ones. If the birth date falls in daylight-saving time for that location, choose <em>Custom</em> and enter the offset that was in effect that day (e.g. UTC−4 for New York in summer instead of −5). Computing this from a calendar would be a v2 step.</p>
+  </section>
+
+  <section class="s" id="outputSection" hidden>
+    <div class="s-eyebrow">step 2 · the signature</div>
+    <h2>Raw output · <em>no interpretation</em></h2>
+
+    <div class="output-card" id="outputCard">
+      <!-- filled by JS -->
+    </div>
+
+    <p class="scope-note" style="margin-top:24px;"><strong>What this does not do.</strong> Does not interpret what the signature means. Does not suggest what is compatible, healthy, or incompatible. Does not generate recommendations. <em>All of that is the therapist's domain.</em></p>
+  </section>
+
+  <footer class="footer">
+    <p>v4.74.20 · 11 May 2026 · signature module v0.2 · for one</p>
+    <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Sidereal zodiac (Lahiri ayanamsha). Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
+  </footer>
+
+</div>
+
+<!-- ====================== ASTRONOMY ENGINE ====================== -->
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
+
+<!-- ====================== SIGNATURE MODULE ====================== -->
+<script>
+(function(){
+  'use strict';
+
+  // ---- DATA ----
+  var SIGNS = [
+    { name: 'Aries',       element: 'Fire',  modality: 'Cardinal', duality: 'Yang' },
+    { name: 'Taurus',      element: 'Earth', modality: 'Fixed',    duality: 'Yin'  },
+    { name: 'Gemini',      element: 'Air',   modality: 'Mutable',  duality: 'Yang' },
+    { name: 'Cancer',      element: 'Water', modality: 'Cardinal', duality: 'Yin'  },
+    { name: 'Leo',         element: 'Fire',  modality: 'Fixed',    duality: 'Yang' },
+    { name: 'Virgo',       element: 'Earth', modality: 'Mutable',  duality: 'Yin'  },
+    { name: 'Libra',       element: 'Air',   modality: 'Cardinal', duality: 'Yang' },
+    { name: 'Scorpio',     element: 'Water', modality: 'Fixed',    duality: 'Yin'  },
+    { name: 'Sagittarius', element: 'Fire',  modality: 'Mutable',  duality: 'Yang' },
+    { name: 'Capricorn',   element: 'Earth', modality: 'Cardinal', duality: 'Yin'  },
+    { name: 'Aquarius',    element: 'Air',   modality: 'Fixed',    duality: 'Yang' },
+    { name: 'Pisces',      element: 'Water', modality: 'Mutable',  duality: 'Yin'  }
+  ];
+
+  var CITIES = {
+    bangalore:    { lat: 12.9716, lng: 77.5946, tz: 5.5,  name: 'Bangalore' },
+    chennai:      { lat: 13.0827, lng: 80.2707, tz: 5.5,  name: 'Chennai' },
+    mumbai:       { lat: 19.0760, lng: 72.8777, tz: 5.5,  name: 'Mumbai' },
+    delhi:        { lat: 28.6139, lng: 77.2090, tz: 5.5,  name: 'Delhi' },
+    kolkata:      { lat: 22.5726, lng: 88.3639, tz: 5.5,  name: 'Kolkata' },
+    hyderabad:    { lat: 17.3850, lng: 78.4867, tz: 5.5,  name: 'Hyderabad' },
+    pune:         { lat: 18.5204, lng: 73.8567, tz: 5.5,  name: 'Pune' },
+    auroville:    { lat: 12.0058, lng: 79.8094, tz: 5.5,  name: 'Auroville' },
+    ahmedabad:    { lat: 23.0225, lng: 72.5714, tz: 5.5,  name: 'Ahmedabad' },
+    kochi:        { lat: 9.9312,  lng: 76.2673, tz: 5.5,  name: 'Kochi' },
+    london:       { lat: 51.5074, lng: -0.1278, tz: 0,    name: 'London' },
+    newyork:      { lat: 40.7128, lng: -74.0060, tz: -5,  name: 'New York' },
+    sanfrancisco: { lat: 37.7749, lng: -122.4194,tz: -8,  name: 'San Francisco' },
+    sydney:       { lat: -33.8688, lng: 151.2093,tz: 10,  name: 'Sydney' },
+    melbourne:    { lat: -37.8136, lng: 144.9631,tz: 10,  name: 'Melbourne' },
+    dubai:        { lat: 25.2048, lng: 55.2708, tz: 4,    name: 'Dubai' },
+    singapore:    { lat: 1.3521,  lng: 103.8198,tz: 8,    name: 'Singapore' }
+  };
+
+  var BODIES = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'];
+
+  // ---- DOM ----
+  var $name = document.getElementById('personName');
+  var $dob = document.getElementById('dob');
+  var $tob = document.getElementById('tob');
+  var $preset = document.getElementById('placePreset');
+  var $customFields = document.getElementById('customFields');
+  var $customLat = document.getElementById('customLat');
+  var $customLng = document.getElementById('customLng');
+  var $customTz = document.getElementById('customTz');
+  var $btn = document.getElementById('computeBtn');
+  var $err = document.getElementById('formError');
+  var $outSection = document.getElementById('outputSection');
+  var $outCard = document.getElementById('outputCard');
+
+  // ---- HANDLERS ----
+  $preset.addEventListener('change', function(){
+    $customFields.hidden = ($preset.value !== 'custom');
+  });
+
+  $btn.addEventListener('click', function(){
+    $err.hidden = true;
+    try {
+      var data = collectInputs();
+      var result = compute(data);
+      renderOutput(data, result);
+      $outSection.hidden = false;
+      $outSection.scrollIntoView({behavior:'smooth', block:'start'});
+    } catch (e) {
+      $err.hidden = false;
+      $err.textContent = e.message || String(e);
+    }
+  });
+
+  function collectInputs(){
+    var name = ($name.value || '').trim() || 'Person';
+    var dob = $dob.value;
+    var tob = $tob.value;
+    if (!dob) throw new Error('Enter date of birth.');
+    if (!tob) throw new Error('Enter time of birth.');
+
+    var lat, lng, tz, placeName;
+    if ($preset.value === 'custom') {
+      lat = parseFloat($customLat.value);
+      lng = parseFloat($customLng.value);
+      tz  = parseFloat($customTz.value);
+      if (isNaN(lat) || isNaN(lng) || isNaN(tz)) {
+        throw new Error('Custom: enter latitude, longitude, and UTC offset.');
+      }
+      placeName = 'Custom (' + lat.toFixed(2) + '°, ' + lng.toFixed(2) + '°)';
+    } else if ($preset.value && CITIES[$preset.value]) {
+      var c = CITIES[$preset.value];
+      lat = c.lat; lng = c.lng; tz = c.tz;
+      placeName = c.name;
+    } else {
+      throw new Error('Pick a place of birth.');
+    }
+    return { name: name, dob: dob, tob: tob, lat: lat, lng: lng, tz: tz, placeName: placeName };
+  }
+
+  // ---- COMPUTATION ----
+  // Lahiri ayanamsha at J2000: 23.853°. We work entirely in the J2000 ecliptic
+  // frame (returned by astronomy-engine's Ecliptic helper) and subtract this
+  // single constant to land in sidereal Lahiri coordinates. For Ascendant we
+  // use a separate path (LST → spherical trig → ayanamsha-of-date).
+  var LAHIRI_AT_J2000 = 23.853;
+
+  function lahiriAtJD(jd){
+    return LAHIRI_AT_J2000 + (jd - 2451545.0) / 365.25 * (50.29 / 3600);
+  }
+
+  function compute(data){
+    // 1. Local birth time → UTC
+    var parts = data.dob.split('-').map(Number);
+    var hm = data.tob.split(':').map(Number);
+    // Build local time as if it were UTC, then subtract the UTC offset
+    var localAsUTC = Date.UTC(parts[0], parts[1]-1, parts[2], hm[0], hm[1], 0);
+    var utcMs = localAsUTC - data.tz * 3600000;
+    var utcDate = new Date(utcMs);
+    var aTime = Astronomy.MakeTime(utcDate);
+    var jd = aTime.tt + 2451545.0;
+
+    // 2. Planets — J2000 ecliptic longitude → sidereal (subtract Lahiri at J2000)
+    var placements = [];
+    BODIES.forEach(function(body){
+      var vec = Astronomy.GeoVector(body, aTime, false);
+      var ecl = Astronomy.Ecliptic(vec);
+      var lon = ecl.elon;
+      var sidereal = ((lon - LAHIRI_AT_J2000) % 360 + 360) % 360;
+      var signIdx = Math.floor(sidereal / 30);
+      var degInSign = sidereal - signIdx * 30;
+      placements.push({ body: body, longitude: sidereal, signIdx: signIdx, deg: degInSign });
+    });
+
+    // 3. Ascendant — date-of-birth approach using LST + obliquity
+    var rad = Math.PI / 180;
+    // GMST in degrees (Meeus simplified)
+    var T = (jd - 2451545.0) / 36525;
+    var gmst = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * T * T - (T * T * T) / 38710000;
+    gmst = ((gmst % 360) + 360) % 360;
+    var lst = ((gmst + data.lng) % 360 + 360) % 360;
+    var ramcDeg = lst;                 // RAMC and LST are the same angle on the equator
+    var eps = 23.4393 * rad;           // mean obliquity of ecliptic
+    var phi = data.lat * rad;
+    var ramc = ramcDeg * rad;
+    // Ascendant in tropical (of-date) ecliptic
+    var ascRad = Math.atan2(-Math.cos(ramc), Math.sin(eps) * Math.tan(phi) + Math.cos(eps) * Math.sin(ramc));
+    var ascDeg = (ascRad / rad + 360) % 360;
+    // atan2 can give the descendant — fix with quadrant check against MC
+    // MC ecliptic longitude ≈ atan2(sin(RAMC), cos(RAMC)*cos(eps))
+    var mcRad = Math.atan2(Math.sin(ramc), Math.cos(ramc) * Math.cos(eps));
+    var mcDeg = (mcRad / rad + 360) % 360;
+    var diff = ((ascDeg - mcDeg) % 360 + 360) % 360;
+    if (diff < 180) ascDeg = (ascDeg + 180) % 360;
+    // Tropical → sidereal (Lahiri at date)
+    var ascSidereal = ((ascDeg - lahiriAtJD(jd)) % 360 + 360) % 360;
+    var ascSignIdx = Math.floor(ascSidereal / 30);
+    var ascDegInSign = ascSidereal - ascSignIdx * 30;
+    placements.push({ body: 'Ascendant', longitude: ascSidereal, signIdx: ascSignIdx, deg: ascDegInSign });
+
+    // 4. Counts
+    var elementCount = { Fire: 0, Earth: 0, Air: 0, Water: 0 };
+    var modalityCount = { Cardinal: 0, Fixed: 0, Mutable: 0 };
+    var dualityCount = { Yang: 0, Yin: 0 };
+    placements.forEach(function(p){
+      var sign = SIGNS[p.signIdx];
+      elementCount[sign.element]++;
+      modalityCount[sign.modality]++;
+      dualityCount[sign.duality]++;
+    });
+
+    function dominant(counts){
+      var maxN = Math.max.apply(null, Object.values(counts));
+      return Object.keys(counts).filter(function(k){ return counts[k] === maxN; });
+    }
+    return {
+      placements: placements,
+      elementCount: elementCount,
+      modalityCount: modalityCount,
+      dualityCount: dualityCount,
+      domElement: dominant(elementCount),
+      domModality: dominant(modalityCount),
+      domDuality: dominant(dualityCount)
+    };
+  }
+
+  // ---- RENDER ----
+  function fmtDeg(d){
+    var whole = Math.floor(d);
+    var frac = (d - whole) * 60;
+    var min = Math.floor(frac);
+    return whole + '° ' + (min < 10 ? '0' : '') + min + '′';
+  }
+
+  function renderCounts(counts, dominantList, labelText){
+    var keys = Object.keys(counts);
+    var html = '<div class="counts">';
+    html += '<div class="counts-label">' + labelText + '</div>';
+    html += '<div class="counts-row">';
+    keys.forEach(function(k){
+      var isDom = dominantList.indexOf(k) !== -1;
+      html += '<span class="count-item' + (isDom ? ' is-dominant' : '') + '">'
+            +   '<span class="name">' + k + ':</span> <span class="num">' + counts[k] + '</span>'
+            + '</span>';
+    });
+    html += '</div>';
+    html += '<p class="dominant">→ Dominant: <strong>' + dominantList.join(' &amp; ') + '</strong>' + (dominantList.length > 1 ? ' <em>(tied)</em>' : '') + '</p>';
+    html += '</div>';
+    return html;
+  }
+
+  function renderOutput(data, result){
+    var html = '';
+    html += '<div class="output-eyebrow">' + escapeHtml(data.placeName) + ' · ' + escapeHtml(data.dob) + ' · ' + escapeHtml(data.tob) + '</div>';
+    html += '<h3>' + escapeHtml(data.name) + '</h3>';
+    html += '<p class="output-sub">11 placements · sidereal zodiac (Lahiri)</p>';
+
+    html += '<div class="placements-grid">';
+    result.placements.forEach(function(p){
+      var sign = SIGNS[p.signIdx];
+      html += '<div class="placement-row">'
+            +   '<span class="body">' + p.body + '</span>'
+            +   '<span class="sign">' + sign.name + '</span>'
+            +   '<span class="deg">' + fmtDeg(p.deg) + '</span>'
+            + '</div>';
+    });
+    html += '</div>';
+
+    html += renderCounts(result.elementCount, result.domElement, 'Element count');
+    html += renderCounts(result.modalityCount, result.domModality, 'Modality count');
+    html += renderCounts(result.dualityCount, result.domDuality, 'Duality count');
+
+    // Signature
+    var sig = result.domDuality.join('/') + ' ' + result.domElement.join('/') + ' ' + result.domModality.join('/');
+    html += '<div class="signature-box">'
+          + '<div class="sig-label">Signature</div>'
+          + '<div class="sig-value">' + escapeHtml(sig) + '</div>'
+          + '</div>';
+
+    $outCard.innerHTML = html;
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+})();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.74.20';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  setTimeout(() => check(true), 1500);
+  window.addEventListener('focus', () => check(true));
+  window.__pageVersion = PAGE_VERSION;
+})();
+</script>
+<script src="assets/gate.js"></script>
+</body>
+</html>
