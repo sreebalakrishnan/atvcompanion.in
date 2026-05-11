@@ -9,6 +9,8 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Release Notes — Astrology 101 Companion App</title>
+<script>/* v4.74.6 — gate hide-before-paint */(function(){try{if(localStorage.getItem('atv-gate-v1')!=='1')document.documentElement.style.visibility='hidden';}catch(e){}})();</script>
+
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -706,10 +708,193 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.7 ====================== -->
+  <section class="release" data-credits="Sree (asked for an explicit 'we are in early beta, restricted access, reach out to Vikram / Sree / workbook team' note on the gate — replacing the friendlier-but-vaguer 'don't have one? read the manifesto' line)">
+    <header>
+      <h2>v4.74.7 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Gate copy update. The passcode overlay now carries an explicit beta-stage note directly below the Enter button — telling first-time visitors who lands on a gated URL exactly what to do: <em>reach out to Vikram, Sree, or the workbook team for the passcode.</em> The manifesto / feedback links remain as a smaller footnote for browsers from the outside.</p>
+
+    <h3>The new note, verbatim</h3>
+    <blockquote style="font-style:italic;color:var(--ink-soft);border-left:3px solid var(--saffron);padding:8px 14px;background:rgba(188,129,70,.06);border-radius:0 6px 6px 0;margin:12px 0;">
+      "We're in <em>early beta</em> — still experimenting, and access is restricted while we figure out what works. If you'd like the passcode, reach out to <strong>Vikram</strong>, <strong>Sree</strong>, or the <strong>workbook team</strong>."
+    </blockquote>
+
+    <h3>Why the change</h3>
+    <p>The v4.74.6 gate landed yesterday with a friendly but vague footnote: <em>"Don't have one? Read the manifesto or send us a note."</em> The problem with that copy is it doesn't tell anyone <em>how</em> to actually get the passcode. A prospective cohort member would have to read the manifesto, then send a note, then wait — a three-step funnel before they even know who to ask.</p>
+    <p>The new note collapses the funnel to one step: <strong>here are the three people who can give you the passcode</strong>. It also sets the right expectation by naming the stage out loud — <em>early beta, experimenting, restricted</em> — so no one feels like they've been wrongly locked out of a polished product.</p>
+
+    <h3>Visual treatment</h3>
+    <p>The note sits in a saffron-bordered box directly below the Enter button. The three named contacts (Vikram, Sree, workbook team) are bolded so the eye lands on them. The phrase <em>"early beta"</em> is saffron-italicized for matching emphasis. The original manifesto / feedback line drops below into a smaller, less prominent footnote — relabelled as <em>"Curious from the outside?"</em> for anyone who isn't actively trying to enter.</p>
+
+    <h3>What changed in code</h3>
+    <ul>
+      <li><code>assets/gate.js</code> — added a new <code>.gate-note</code> paragraph between the form and the existing <code>.gate-footnote</code>. Three new CSS rules for the note (border, background, em, strong).</li>
+      <li>The footnote copy was softened from <em>"Don't have one? ..."</em> to <em>"Curious from the outside? Read the manifesto..."</em> — addresses the different audience: external readers who aren't trying to enter, just exploring what this is.</li>
+      <li>No HTML on the 18 gated pages needed to change. One file edit. Smoke-tested with <code>node --check</code> + content greps.</li>
+      <li><code>version.json</code> bumped to 4.74.7.</li>
+    </ul>
+
+    <h3>Cohort impact</h3>
+    <p>Anyone who already entered the passcode yesterday sees nothing different — they're past the gate. The new note only appears for first-time visitors and for testers who've cleared their localStorage. The named contacts answer the most likely first question on the page: <em>"who do I ask?"</em></p>
+  </section>
+
+  <!-- ====================== v4.74.6 ====================== -->
+  <section class="release" data-credits="Vikram (the trigger — concern about content being consumed out of context and the predictive-engine student from year two scraping freely-available material); Sree (chose Option (ii) — gate everything except Home, Feedback, Collaborate, About, so prospective cohort members can still find their way in)">
+    <header>
+      <h2>v4.74.6</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Cohort-only passcode gate added across 18 pages. Passcode: <code>groundfirst</code>. The four "front door" pages — Home, Feedback, Collaborate, About — stay open so prospective cohort members can read the manifesto and reach out. Once a learner enters the passcode anywhere, the rest of the site opens to them and stays open on this device.</p>
+
+    <h3>Why this exists</h3>
+    <p>Two threads from Vikram's call this morning converged into the need. <strong>Thread one — the predictive-engine student.</strong> A second-year learner has been building an astrology prediction tool by scraping freely-available content, decks and recordings included. Without context, the work Vikram has sequenced over four years gets compressed into a feature pipeline. <strong>Thread two — context-or-bust.</strong> Vikram is uncomfortable with cohort material being consumed out of sequence: the Mercury Spectrum, the Jupiter activity, the Cabinet — all of these depend on the live experience that preceded them. A scrolled visit doesn't equal an attended one.</p>
+    <p>The gate is the smallest move that addresses both. It says, in effect: <em>this is the cohort's pocket reference. Land here only after you've sat in the room.</em></p>
+
+    <h3>What the gate actually does</h3>
+    <p>An overlay on first visit asks for the passcode. Correct entry sets a local flag (<code>atv-gate-v1</code> in <code>localStorage</code>). Once set, the gate is silent on every subsequent visit from the same browser. No new login per page, no per-session friction.</p>
+    <p>Visually: cream overlay, card-style passcode prompt with the same typography as the rest of the app. Wrong passcode shakes the input, clears it, says <em>"that's not it — try again, or send us a note via Feedback."</em></p>
+
+    <h3>The honest framing — soft gate, not hard security</h3>
+    <p>The page is rendered client-side; the HTML is still served. Anyone with browser developer tools can bypass the gate in seconds — the passcode string is visible in <code>assets/gate.js</code> if you look. We're not pretending otherwise.</p>
+    <p>What the gate <em>does</em> reliably block:</p>
+    <ul>
+      <li><strong>Bots and scrapers</strong> — they don't fill forms. The predictive-engine student's scraper will hit the gate and stop.</li>
+      <li><strong>Casual URL-sharing</strong> — a forwarded link still needs the passcode. The recipient has to come to you to ask.</li>
+      <li><strong>Search engine indexing</strong> — already had <code>noindex</code> meta tags from earlier releases; now the visible content requires interaction to render.</li>
+    </ul>
+    <p>What it does <em>not</em> stop: a determined adversary with browser knowledge. For that we need real server-side auth — planned for the Firebase phase. The gate buys us weeks to plan that without losing the trust of Vikram's cohort in the meantime.</p>
+
+    <h3>The scope split — open vs. gated</h3>
+    <p><strong>Open (no gate)</strong> — four pages stay accessible to anyone landing on the site:</p>
+    <ul>
+      <li><code>index.html</code> — Home. The front door, the introduction.</li>
+      <li><code>feedback.html</code> — How to give us feedback. With the WhatsApp number.</li>
+      <li><code>collaborate.html</code> — The manifesto. What we're building, why, how to be part of it.</li>
+      <li><code>about.html</code> — How this came to be. The longer story.</li>
+    </ul>
+    <p>The intent: a prospective learner can land on Home, read About to understand the project, read Collaborate to see the philosophy, and Feedback to know how to reach out. They can't read the actual class content. That's by design.</p>
+    <p><strong>Gated</strong> — 18 pages. The full pocket-reference (Learning Companion), the focused study pages (Aspects, Elements, Kaalapurusha, Mercury Spectrum, Jupiter Tracker, Astronomy, Sripati, Ether), the cohort tools (Interpret, Reflect, Catch up, Where am I, Layers, Stats), and the meta pages that reference cohort-specific content (Release Notes, Interactive, Journey prototype).</p>
+
+    <h3>Implementation, briefly</h3>
+    <ul>
+      <li><strong>New file:</strong> <code>assets/gate.js</code> (~135 lines). Single source of truth for gate UI + logic + storage. Idempotent style injection, matches the site's design language (Cormorant + Libre Caslon, saffron / cream / ink palette).</li>
+      <li><strong>Per-gated-page additions:</strong> two tiny scripts. (1) a 1-line inline pre-paint hider in <code>&lt;head&gt;</code> right after <code>&lt;/title&gt;</code> — runs synchronously before render, hides the document if not yet verified, so no flash of unstyled content. (2) <code>&lt;script src="assets/gate.js"&gt;&lt;/script&gt;</code> before <code>&lt;/body&gt;</code>.</li>
+      <li><strong>Wired via batch script</strong> — 18 pages edited in a single pass, no per-file copy-paste. Open pages confirmed clean afterwards.</li>
+      <li><strong>Fail-open on localStorage block</strong> — if localStorage is disabled (private browsing, embedded contexts), the gate doesn't appear. Accessibility / kiosk scenarios aren't locked out by browser config.</li>
+      <li><strong>Debug hook:</strong> <code>window.AtvGate.forget()</code> in the console clears the flag and reloads — useful for testing.</li>
+    </ul>
+
+    <h3>The passcode</h3>
+    <p>One word: <code>groundfirst</code> — referencing the grounding that opens every class. Case-insensitive on entry. Sree shares it with cohort members directly via WhatsApp.</p>
+
+    <h3>What's next on this track</h3>
+    <ul>
+      <li><strong>Attendance-based revocation</strong> (Vikram's idea from this morning): once we have SharePoint attendance data, the gate can revoke access for anyone who misses three consecutive classes. Out of scope for v4.74.6; queued for Firebase phase.</li>
+      <li><strong>Per-user accounts</strong>: instead of one shared passcode, individual sign-ins so Vikram can see exactly who's accessed what. Also Firebase-phase work.</li>
+      <li><strong>Server-side gate</strong>: static.app supports HTTP Basic Auth on paid plans; if the soft gate proves insufficient, we upgrade. For now, this defeats the realistic threat.</li>
+    </ul>
+
+    <h3>What didn't break</h3>
+    <p>The four open pages are untouched and still work for anyone. Every gated page now opens with the passcode prompt before rendering — and once entered, the rest of the experience is unchanged. The site-nav, search, settings band, all behave identically. The only new behaviour is "the first time you visit, prove you belong."</p>
+  </section>
+
+  <!-- ====================== v4.74.5 ====================== -->
+  <section class="release" data-credits="Sree (caught the misattribution before Wednesday — flagged that the framework is the workbook team's, initially proposed by Marie, and the pedagogy Vikram has chosen, not Marie's alone)">
+    <header>
+      <h2>v4.74.5</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Reattribution fix on the journey.html prototype. <strong>"Marie's framework"</strong> across the page becomes <strong>"the workbook team's framework — initially proposed by Marie, the pedagogy Vikram has chosen for the workbook."</strong> Honors the team as origin, Marie as the proposer, and adds Vikram's endorsement weight in the right place. Specific Marie credits (Matsya prompt, Matsya gold-standard) stay unchanged — those are accurately hers.</p>
+
+    <h3>Why this mattered to ship before Wednesday</h3>
+    <p>The workbook team will read this page during the working session. <em>"Marie's framework"</em> in the eyebrow would have been a quiet error — Marie proposed the four-layer arc, but the team is shaping it together, and Vikram is the one who chose it for the workbook. Three different roles, all worth naming. The fix threads them in one sentence in the framework card.</p>
+
+    <h3>The exact rewording</h3>
+    <ul>
+      <li><strong>Eyebrow on the framework card:</strong> <em>"marie's framework"</em> → <em>"workbook team · pedagogy vikram has chosen"</em></li>
+      <li><strong>Opening sentence of the framework paragraph:</strong> <em>"From the working session with Vikram and Marie:"</em> → <em>"The framework the workbook team is building the curriculum around — initially proposed by Marie, now being shaped by the whole team. This is the architecture Vikram has chosen for the workbook, and we're testing whether the same shape works for the companion app."</em></li>
+      <li><strong>Page lede:</strong> <em>"Marie's framework, made tangible"</em> → <em>"A workbook-team framework, made tangible"</em></li>
+      <li><strong>Footer:</strong> <em>"Framework: Marie, with the workbook team"</em> → <em>"Framework: the workbook team (initially proposed by Marie) — the pedagogy Vikram has chosen"</em></li>
+      <li><strong>Meta description:</strong> updated similarly for anyone who shares the link with a preview card.</li>
+      <li><strong>Prototype banner:</strong> minor — adds "— the pedagogy Vikram has chosen for the workbook" after the model name.</li>
+    </ul>
+
+    <h3>What stays unchanged</h3>
+    <ul>
+      <li><em>"Today's reflection borrows Matsya — Marie's gold-standard avatar module"</em> on the Avatars topic header.</li>
+      <li><em>"The Matsya prompt, as Marie wrote it"</em> on the Avatars · Reflect layer.</li>
+      <li>The <em>"Marie's alternative — try Matsyasana"</em> reference on the Avatars · Integrate layer.</li>
+    </ul>
+    <p>These three credits are accurate — Marie did write Matsya. They stay.</p>
+
+    <h3>The three-credit pattern</h3>
+    <p>For future workbook-related copy, the pattern is: <strong>workbook team (origin) → Marie or other contributors (specific contributions where due) → Vikram (the authority who chose / endorses).</strong> Reading the new copy, everyone sees themselves accurately. That's the test.</p>
+  </section>
+
+  <!-- ====================== v4.74.4 ====================== -->
+  <section class="release" data-credits="Vikram (the pedagogy — sequence, unveiling, context-or-bust); Marie (the four-layer Watch · Revise · Reflect · Integrate framework, initially proposed; the wider workbook team is now shaping it); Sree (called for an ASCII-first prototype shareable with the workbook team before Wednesday's working session)">
+    <header>
+      <h2>v4.74.4</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">A prototype landed: <code>journey.html</code> — a standalone, share-by-URL page that demonstrates Marie's four-layer pedagogy (<em>Watch · Revise · Reflect · Integrate</em>) across three sample topics (Signs, Elements, Avatars). <strong>Not added to the menu.</strong> Existing pages untouched. Built specifically as input to the workbook team's working call on Wednesday.</p>
+
+    <h3>Why this exists</h3>
+    <p>Vikram and Sree had a working session this morning where the pedagogy crystallised. Vikram's deepest concern: the app currently exposes everything at once, which collapses the year-long sequence of unveiling he's spent four years refining. Marie's workbook framework — three buckets (Revision · Reflection · Integration), already piloted on the Matsya avatar Google Doc — offered the structure. We added a fourth step at the front: <em>Watch</em>, because all the other steps assume the live class (or its recording) has happened first.</p>
+    <p>The four-word arc: <em>watch the class</em> → <em>jog the memory</em> (no new material) → <em>sit with one question</em> → <em>bring it into your week</em>. The next topic only unlocks once Integration is recorded.</p>
+
+    <h3>What's on the prototype</h3>
+    <ul>
+      <li><strong>Three sample topics, in sequence</strong>: Signs → Elements (modalities + duality together) → Avatars. Each shows the full four-layer arc.</li>
+      <li><strong>Loom video placeholders</strong> in every Watch layer — clearly marked, ready for Sree to paste actual embed links.</li>
+      <li><strong>Three-question revision quizzes</strong> per topic. Passing threshold: 2 of 3. Tap an option, submit, see green/red, retry if needed.</li>
+      <li><strong>Single reflection prompt</strong> per topic. Free text. Auto-saves on blur. The Avatars topic borrows <em>Matsya's</em> prompt directly from Marie's Google Doc — "the flood is coming; what goes in the boat?"</li>
+      <li><strong>Integration step</strong>: on the Signs topic, <em>three integration methods</em> are mocked side-by-side so the workbook team can debate which feels right — A) honor + text, B) text + photo upload (diet-app pattern), C) buddy review (Auroville pattern, generates a share link). On Elements and Avatars, only the simpler text + optional photo is shown.</li>
+      <li><strong>Locking mechanic</strong>: within a topic, each layer is locked until the previous one is complete. Across topics, the next topic is locked until the current one's Integration is recorded.</li>
+      <li><strong>Preview mode toggle</strong> in the page banner, plus a URL parameter <code>?preview=1</code> for the workbook team. Flips all locks visually so reviewers see the whole pedagogy in a single scroll without faking completion.</li>
+      <li><strong>Progress dots</strong> per topic — four small dots, three connecting bars, fills green as you complete each layer.</li>
+      <li><strong>localStorage state</strong> under key <code>astro-journey-v1</code> — all responses persist across reloads. (Future: Firebase sync.)</li>
+    </ul>
+
+    <h3>The open question we want the workbook team to answer Wednesday</h3>
+    <p>Vikram raised it in the call and we didn't land on it: <em>"how do we know they have done it [the integration]?"</em></p>
+    <p>The three integration methods on the Signs topic exist precisely to give the team shapes to react to:</p>
+    <ul>
+      <li><strong>Method A — Honor + text:</strong> learner writes what they did. We trust the recording. Lightest touch.</li>
+      <li><strong>Method B — Text + photo:</strong> upload a photograph as evidence (journal page, the thing let go of, themselves in the pose). The diet-app pattern Vikram mentioned.</li>
+      <li><strong>Method C — Buddy review:</strong> integration is reviewed by a peer buddy. Generates a shareable URL the buddy opens to confirm. The Auroville two-year buddy model that Sree proposed during the call — so Vikram isn't drowning in 40+ Google Docs a week.</li>
+    </ul>
+    <p>Different topics may want different methods. <em>Matsyasana</em> (the fish pose) almost demands a photo. "What did you let go of from your attic" can be honor-system text. A Karaka-prediction integration might genuinely need a buddy to check the logic.</p>
+
+    <h3>What's deliberately not on the prototype</h3>
+    <ul>
+      <li><strong>Not in the More menu.</strong> Share-by-URL only. The live site is unchanged.</li>
+      <li><strong>No password gate yet.</strong> Per Vikram's call, the whole site is moving behind a password — that's a separate task on the queue (the predictive-engine student concern surfaced it; <code>noindex</code> is already in place on the prototype but a real auth gate is coming).</li>
+      <li><strong>No backend sync.</strong> All state is local. Firebase sync is the next layer once we agree on the model.</li>
+      <li><strong>No attendance-based gating.</strong> Vikram's idea of "miss 2 classes, access revoked" needs the SharePoint attendance feed wired up. Out of scope for the prototype.</li>
+      <li><strong>No AI checker on the reflection text.</strong> Sree's idea of "as you type, the system nudges if you've mixed predictive command with X" — that's a v4.75+ piece, requires careful prompt engineering against Vikram's review logic.</li>
+    </ul>
+
+    <h3>Implementation notes</h3>
+    <ul>
+      <li>Single file, ~52 KB. Inline CSS + inline JS, matching the other peer-page pattern.</li>
+      <li>Reuses the project's design language — Libre Caslon Text / Cormorant for display, Switzer for body, saffron / cream / indigo palette.</li>
+      <li>17/17 smoke-check assertions pass: JS parses, all three topics rendered, four layers per topic, three integration methods on Signs only, lock state initial, preview mode toggle wired, URL param parser present, state persistence functions defined, all version stamps correct.</li>
+    </ul>
+
+    <h3>For Wednesday</h3>
+    <p>The team can land on this URL with <code>?preview=1</code> and see the entire pedagogy in one scroll. The decisions we'd like to walk out with: (1) is the four-layer model the right architecture, or do we collapse Watch into the prerequisite check; (2) which integration method becomes the default — A, B, C, or a per-topic choice; (3) what specific Loom recordings get pasted into the three Watch slots; (4) revision question quality — are the three we've drafted at the right level, or should they be tougher.</p>
+
+    <h3>Anti-impact</h3>
+    <p>Zero. Existing pages are untouched. The site nav doesn't know this page exists. Any cohort member happening to land here via direct URL will get a clearly-labelled <em>"prototype"</em> banner at the top.</p>
+  </section>
+
   <!-- ====================== v4.74.3 ====================== -->
   <section class="release" data-credits="Sree (voice-noted a build brief for a 'how to give us feedback' page — separate from the Collaborate manifesto, focused on the actual loop: WhatsApp in, build, ship, credit)">
     <header>
-      <h2>v4.74.3 <em>· current</em></h2>
+      <h2>v4.74.3</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">New page: <code>feedback.html</code>. Distinct from Collaborate (which is the philosophy). This one is the practical loop — <em>"feedback is a gift, here's how to give it, here's what happens next."</em> A prominent WhatsApp CTA opens a chat to +91 98803 37337 (Sree's assistant), examples of the kind of feedback that lands, the Ayesha story as live proof, and a four-step "what happens after you send" diagram.</p>
@@ -5407,7 +5592,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.74.3 · updated 11 May 2026</span>
+      <span style="color:var(--muted);">v4.74.7 · updated 11 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
@@ -6093,5 +6278,6 @@
 
 <!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
+<script src="assets/gate.js"></script>
 </body>
 </html>
