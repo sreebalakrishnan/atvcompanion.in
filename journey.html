@@ -319,6 +319,87 @@
   }
   .video-slot.has-link { border-style: solid; border-color: var(--saffron); background: rgba(188,129,70,.04); }
 
+  /* ---------- v4.74.9 — LOOM VIDEO EMBED + CHAPTERS ---------- */
+  .video-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;  /* 16:9 ratio */
+    background: #000;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 8px 0 14px;
+  }
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .chapters {
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 0 0 14px;
+  }
+  .chapters-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .chapters ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .chapters li {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 10px;
+    padding: 7px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .12s;
+    font-family: var(--body);
+    font-size: 14px;
+    color: var(--ink-soft);
+    align-items: baseline;
+  }
+  .chapters li:hover { background: rgba(188,129,70,.06); }
+  .chapters li.is-active { background: rgba(188,129,70,.14); }
+  .chapters li.is-active .arrow { color: var(--saffron); }
+  .chapters .time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    color: var(--saffron);
+    font-weight: 500;
+    letter-spacing: .02em;
+  }
+  .chapters .title { line-height: 1.45; }
+  .chapters .arrow { color: var(--muted); margin-right: 5px; transition: color .12s; }
+  .chapters-foot {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 480px) {
+    .chapters li { grid-template-columns: 48px 1fr; gap: 8px; padding: 8px 6px; font-size: 13.5px; }
+    .chapters .time { font-size: 11.5px; }
+  }
+
   /* ---------- BUTTONS ---------- */
   .btn {
     appearance: none; -webkit-appearance: none;
@@ -518,7 +599,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">a prototype · for the workbook team <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.5</div>
+    <div class="eyebrow">a prototype · for the workbook team <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.9</div>
     <h1>A new way to <em>learn</em></h1>
     <p class="lede">A workbook-team framework, made tangible. Each topic unfolds in four layers — <em>Watch</em> the class, <em>Revise</em> what was covered, <em>Reflect</em> on one prompt, <em>Integrate</em> by bringing it into your week. The next topic only unlocks once you've recorded your integration of this one.</p>
   </header>
@@ -777,29 +858,50 @@
     </div>
   </article>
 
-  <!-- ====================== TOPIC 3 · AVATARS (locked initially) ====================== -->
+  <!-- ====================== TOPIC 3 · AVATARS — starting with Matsya (locked initially) ====================== -->
   <article class="topic topic-locked" data-topic="avatars">
     <div class="topic-header">
       <div class="topic-eyebrow">topic three · the nine and what they carry</div>
-      <h2 class="topic-h">The <em>Avatars</em></h2>
-      <p class="topic-sub">Nine planets, nine of Vishnu's incarnations. Today's reflection borrows Matsya — Marie's gold-standard avatar module.</p>
+      <h2 class="topic-h">The <em>Avatars</em> · starting with <em>Matsya</em></h2>
+      <p class="topic-sub">Nine planets, nine of Vishnu's incarnations. <strong>Matsya</strong> is the first complete module — full Loom recording, Marie's gold-standard reflection prompt, the "clean out your attic" integration. <em>Sun · Rama and the others land as the workbook team finishes them.</em></p>
       <div class="progress" id="prog-avatars"></div>
       <div class="topic-locked-note">🔒 Unlocks once you've integrated <em>Elements</em>.</div>
     </div>
 
-    <!-- ===== Watch ===== -->
+    <!-- ===== Watch · Matsya (real Loom embed shipped in v4.74.9) ===== -->
     <div class="layer" data-layer="watch" data-required="">
       <div class="layer-head">
         <span class="layer-num">step 1</span>
-        <h3 class="layer-h"><em>Watch</em> the avatar class</h3>
+        <h3 class="layer-h"><em>Watch</em> Vikram on Matsya</h3>
         <span class="layer-status" data-status="watch-avatars">to do</span>
       </div>
-      <p class="layer-intro">Vikram on the nine avatars. Matsya through Kalki, planet by planet.</p>
-      <div class="video-slot">
-        <span class="play" aria-hidden="true">▶</span>
-        <p class="v-title">The nine avatars — class recording</p>
-        <p class="v-meta">Loom embed slot</p>
+      <p class="layer-intro">Matsya — the first avatar, the fish that pulled the boat through the flood. Vikram's class recording. Chapters below let you jump straight to the moment you want — useful if you attended live and just need revision, or if you missed and want to start from the top.</p>
+
+      <div class="video-embed">
+        <iframe id="loomMatsya"
+                src="https://www.loom.com/embed/8c6d121a7a7441d68e8565b2e6e2fc6d"
+                frameborder="0"
+                webkitallowfullscreen
+                mozallowfullscreen
+                allowfullscreen
+                title="Matsya — Vikram, class recording"></iframe>
       </div>
+
+      <div class="chapters" data-chapters-for="loomMatsya">
+        <div class="chapters-eyebrow">chapters · click to jump · <em style="text-transform:none; letter-spacing:0; font-style:italic;">draft, Vikram &amp; workbook team to refine</em></div>
+        <ol>
+          <li data-time="0"><span class="time">0:00</span><span class="title"><span class="arrow">▸</span>Opening — Matsya, the first incarnation</span></li>
+          <li data-time="90"><span class="time">1:30</span><span class="title"><span class="arrow">▸</span>The flood myth — Manu and the boat</span></li>
+          <li data-time="300"><span class="time">5:00</span><span class="title"><span class="arrow">▸</span>Why Matsya is connected to Ketu</span></li>
+          <li data-time="540"><span class="time">9:00</span><span class="title"><span class="arrow">▸</span>Light and shadow — what Matsya holds</span></li>
+          <li data-time="780"><span class="time">13:00</span><span class="title"><span class="arrow">▸</span>The reflection — "what goes in the boat?"</span></li>
+          <li data-time="1080"><span class="time">18:00</span><span class="title"><span class="arrow">▸</span>Integration — clean out your attic</span></li>
+        </ol>
+        <p class="chapters-foot">Timestamps are placeholders. Vikram and the workbook team will refine them once the recording's reviewed. <em>The chaptering architecture is what we're showing the team Wednesday — chapter content trails the shape.</em></p>
+      </div>
+
+      <p style="font-family:var(--display); font-style:italic; font-size:13.5px; color:var(--muted); margin:0 0 14px;">Attended live? Jump to <strong style="font-style:normal;font-weight:500;color:var(--saffron);">13:00</strong> for the reflection prompt. Missed class? Start at <strong style="font-style:normal;font-weight:500;color:var(--saffron);">0:00</strong>.</p>
+
       <div class="actions">
         <button class="btn" type="button" data-action="mark-watched" data-topic="avatars">✓ I've watched / attended</button>
       </div>
@@ -880,7 +982,7 @@
   <!-- ====================== FOOTER ====================== -->
   <footer class="footer">
     <p>← <a href="learning-companion.html">Back to the Learning Companion</a></p>
-    <p style="margin-top:8px;">v4.74.5 · 11 May 2026 · prototype, not in nav</p>
+    <p style="margin-top:8px;">v4.74.9 · 11 May 2026 · prototype, not in nav</p>
     <p style="font-size:11.5px;opacity:.8;">Framework: the workbook team (initially proposed by Marie) — the pedagogy Vikram has chosen. Built by <em>Sree &amp; Sanchi</em> for Wednesday's working session.</p>
   </footer>
 
@@ -1164,6 +1266,26 @@
     }
   });
 
+  // v4.74.9 — Loom chapter navigation: click a chapter row, rewrite the iframe src with ?t=<seconds>
+  document.addEventListener('click', function(e){
+    var li = e.target.closest && e.target.closest('.chapters li[data-time]');
+    if (!li) return;
+    var time = parseInt(li.dataset.time, 10);
+    if (isNaN(time)) return;
+    var chaptersBlock = li.closest('.chapters');
+    var targetId = chaptersBlock ? chaptersBlock.dataset.chaptersFor : null;
+    var iframe = targetId ? document.getElementById(targetId) : (li.closest('.layer') && li.closest('.layer').querySelector('iframe'));
+    if (!iframe) return;
+    var baseSrc = iframe.src.split('?')[0];
+    iframe.src = baseSrc + '?t=' + time;
+    // Highlight active chapter
+    chaptersBlock.querySelectorAll('li').forEach(function(x){ x.classList.remove('is-active'); });
+    li.classList.add('is-active');
+    // Scroll the player into view if needed
+    var ve = li.closest('.layer') && li.closest('.layer').querySelector('.video-embed');
+    if (ve && ve.getBoundingClientRect().top < 0) ve.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
   // Photo upload preview
   document.addEventListener('change', function(e){
     if (e.target.matches && e.target.matches('input[type="file"][data-photo]')) {
@@ -1211,7 +1333,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.5';
+  const PAGE_VERSION = '4.74.9';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

@@ -711,10 +711,57 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.9 ====================== -->
+  <section class="release" data-credits="Vikram (demoed Loom chaptering during the morning call — 'I can actually say watch 0:20 to 10, and it can auto-generate all this'); Sree (shared the Matsya Loom recording 8c6d121a7a7441d68e8565b2e6e2fc6d and called for it embedded into journey.html before Wednesday's workbook team review)">
+    <header>
+      <h2>v4.74.9 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">The journey prototype's Watch layer just got real. <strong>Sree's Matsya Loom recording</strong> is now embedded into <code>journey.html</code>'s Avatars · Watch step, with a click-to-jump chapter list underneath. Each chapter row rewrites the iframe's <code>?t=</code> parameter, sending Loom straight to that timestamp. The Avatars topic header is updated to lead with Matsya, since it's the first complete module — others land as the workbook team finishes them.</p>
+
+    <h3>Why Wednesday needed this</h3>
+    <p>Vikram demoed Loom chaptering during this morning's call — pasting a recording, marking <em>"watch 0:20 to 10"</em>, turning a passive video into a directed experience. The workbook team's review on Wednesday is far more compelling if they can <strong>actually click chapters and watch the video jump</strong> rather than imagine the wireframe. The Watch step is the bridge between attending live and doing the workbook — making it concrete locks in the rest of the pedagogy.</p>
+
+    <h3>What's in the Avatars · Watch layer now</h3>
+    <ul>
+      <li><strong>Real Loom embed</strong> — Vikram on Matsya, 16:9 responsive iframe, full Loom controls (play, scrub, fullscreen).</li>
+      <li><strong>Chapter list</strong> with six entries (draft timestamps): opening, the flood myth, Matsya↔Ketu, light and shadow, the reflection prompt, the integration practice.</li>
+      <li><strong>Click any chapter</strong> → the iframe <code>src</code> gets rewritten with <code>?t=&lt;seconds&gt;</code>, Loom respects this and jumps to the timestamp. The active chapter highlights saffron.</li>
+      <li><strong>Smart scroll</strong> — clicking a chapter while scrolled below the player scrolls the player back into view smoothly. (Avoids confusion when the chapter list is on screen but the video isn't.)</li>
+      <li><strong>Footer reminder</strong> — chapters are flagged as draft, to be refined by Vikram and the workbook team based on the actual content.</li>
+      <li><strong>Suggested entry points</strong> — a small line beneath the chapters: <em>"Attended live? Jump to 13:00 for the reflection prompt. Missed class? Start at 0:00."</em> This is the Vikram-style direction-of-attention that the chat window in live class normally provides — now replicated in the page.</li>
+    </ul>
+
+    <h3>Topic header updated</h3>
+    <p>The Avatars topic was previously labelled simply <em>"The Avatars"</em>. It now reads <em>"The Avatars · starting with Matsya"</em> with a subtitle that names Matsya as the first complete module (full Loom recording, Marie's gold-standard prompt, the attic-clearing integration), and explicitly notes that Sun/Rama and the others land as the workbook team finishes them. Honest framing — the team will see one fully built topic and seven placeholders, which matches Vikram's call.</p>
+
+    <h3>Implementation notes</h3>
+    <ul>
+      <li><strong>Embed pattern:</strong> <code>https://www.loom.com/embed/&lt;id&gt;</code> in an iframe inside a 16:9 aspect-ratio wrapper. Loom supports <code>?t=&lt;seconds&gt;</code> on the embed URL to set start time — this is the lever the chapter clicks pull.</li>
+      <li><strong>Chapter data structure:</strong> each <code>&lt;li data-time="N"&gt;</code> carries its timestamp in seconds. Markup is HTML-only; the JS handler picks up clicks by event delegation and reads the <code>data-time</code> attribute. Adding new chapters or whole new videos is purely declarative — no JS changes needed.</li>
+      <li><strong>Multi-video ready:</strong> the chapter block uses <code>data-chapters-for="&lt;iframe-id&gt;"</code> to target a specific iframe by ID. When Sree shares the Sun/Rama Loom and Signs/Elements Looms, each gets its own <code>id</code> + chapter block; the same JS handler routes correctly.</li>
+      <li><strong>JS handler:</strong> ~15 lines, added inside the existing journey IIFE. Parses <code>data-time</code>, rewrites iframe <code>src</code> with the new <code>?t=</code> param (stripping any existing query string), updates the active-chapter highlight, smooth-scrolls the player into view if it's off screen.</li>
+      <li><strong>No new dependencies.</strong> Vanilla event delegation + iframe src manipulation. No Loom SDK needed.</li>
+    </ul>
+
+    <h3>What this doesn't do (yet)</h3>
+    <ul>
+      <li><strong>Watch-progress detection.</strong> Loom doesn't expose play/position events to embedded pages without their paid analytics API. The "✓ I've watched" button is currently honor-system — Vikram's note from the call about checking attendance via SharePoint is the real solution; deferred to Firebase phase.</li>
+      <li><strong>Auto-generated chapters from transcript.</strong> Loom can do this on their paid plan (the demo Vikram showed). Until that's set up, chapter timestamps are hand-curated and clearly marked as draft.</li>
+      <li><strong>Player-driven highlight.</strong> The active chapter highlights on click, but doesn't auto-update as the video plays past timestamps. That needs Loom's postMessage API; v4.75+ work.</li>
+    </ul>
+
+    <h3>The pattern for Wednesday's discussion</h3>
+    <p>Sree said: <em>"others I will keep sharing loom link as it's getting ready."</em> The architecture now in place handles that. Each new recording slots into its corresponding Watch layer with a 3-step process: (1) paste the iframe with the new Loom ID and a unique <code>id</code> attribute, (2) write 4–7 chapter entries with timestamps, (3) optionally add a suggested-entry-points hint line. No JS changes per video. The workbook team can see this pattern in action on Matsya and propose chapters / entry points for the other topics from the same template.</p>
+
+    <h3>Cohort impact</h3>
+    <p>For Wednesday's review: the workbook team lands on a real video they can click around. The pedagogy stops being theoretical. For eventual cohort use: when a learner misses Vikram's class on Matsya, they don't just get told "watch the recording" — they get pointed to a specific chapter that matches what they need (revision vs. catching up vs. landing the reflection). <em>The chat window's directing-of-attention is now in the page.</em></p>
+  </section>
+
   <!-- ====================== v4.74.8 ====================== -->
   <section class="release" data-credits="Sree (called for a comprehensive noindex / no-crawl posture — the cohort-only gate from v4.74.6 stops humans, but search engines and AI crawlers needed an explicit 'do not index' signal in every page's head plus a strict robots.txt at the site root)">
     <header>
-      <h2>v4.74.8 <em>· current</em></h2>
+      <h2>v4.74.8</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">Comprehensive noindex / no-crawl posture across all 27 HTML pages plus a strict <code>robots.txt</code> at the site root. The gate from v4.74.6 stops humans without the passcode; this layer tells search engines and AI training crawlers explicitly: <em>don't index, don't archive, don't snippet, don't follow.</em> Quietly, before the cohort gets the URL.</p>
@@ -5650,7 +5697,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.74.8 · updated 11 May 2026</span>
+      <span style="color:var(--muted);">v4.74.9 · updated 11 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>
