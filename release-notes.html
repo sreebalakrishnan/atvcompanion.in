@@ -7,6 +7,9 @@
 <meta name="theme-color" content="#F4EEDA">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0"><meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta http-equiv="Expires" content="0"><meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta http-equiv="Expires" content="0"><meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta http-equiv="Expires" content="0">
 <title>Release Notes — Astrology 101 Companion App</title>
 <script>/* v4.74.6 — gate hide-before-paint */(function(){try{if(localStorage.getItem('atv-gate-v1')!=='1')document.documentElement.style.visibility='hidden';}catch(e){}})();</script>
@@ -708,10 +711,65 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.8 ====================== -->
+  <section class="release" data-credits="Sree (called for a comprehensive noindex / no-crawl posture — the cohort-only gate from v4.74.6 stops humans, but search engines and AI crawlers needed an explicit 'do not index' signal in every page's head plus a strict robots.txt at the site root)">
+    <header>
+      <h2>v4.74.8 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Comprehensive noindex / no-crawl posture across all 27 HTML pages plus a strict <code>robots.txt</code> at the site root. The gate from v4.74.6 stops humans without the passcode; this layer tells search engines and AI training crawlers explicitly: <em>don't index, don't archive, don't snippet, don't follow.</em> Quietly, before the cohort gets the URL.</p>
+
+    <h3>What was added in the page heads</h3>
+    <p>Every HTML file — gated and open alike — now carries three meta tags immediately before <code>&lt;title&gt;</code>:</p>
+    <pre style="background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;overflow-x:auto;">&lt;meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex"&gt;
+&lt;meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex"&gt;
+&lt;meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex"&gt;</pre>
+    <p>Five directives in each:</p>
+    <ul>
+      <li><strong>noindex</strong> — don't add this page to search results.</li>
+      <li><strong>nofollow</strong> — don't crawl any links on this page.</li>
+      <li><strong>noarchive</strong> — don't keep a cached copy.</li>
+      <li><strong>nosnippet</strong> — don't show preview text in results.</li>
+      <li><strong>noimageindex</strong> — don't index images on this page.</li>
+    </ul>
+    <p>The googlebot and bingbot tags are belt-and-suspenders — both engines respect the generic <code>robots</code> directive, but explicit per-bot tags eliminate any ambiguity about precedence.</p>
+
+    <h3>The new robots.txt</h3>
+    <p>At <code>/robots.txt</code> on the site root, a strict deny-all plus explicit blocks for the named AI training crawlers we know about:</p>
+    <ul>
+      <li><code>User-agent: * / Disallow: /</code> — the broad signal to every crawler.</li>
+      <li>Explicit blocks for <strong>GPTBot</strong>, <strong>ChatGPT-User</strong>, <strong>CCBot</strong> (Common Crawl, a major training dataset feed), <strong>anthropic-ai</strong>, <strong>Claude-Web</strong>, <strong>ClaudeBot</strong>, <strong>Google-Extended</strong> (Google's separate AI-training crawler), <strong>PerplexityBot</strong>, <strong>Bytespider</strong> (ByteDance/TikTok), <strong>facebookexternalhit</strong>, <strong>Amazonbot</strong>.</li>
+      <li>A short preamble at the top explaining <em>why</em> — "this is a pocket reference for active learners in Vikram Devatha's Jyotish program at All Things Vedic. It is not intended for public indexing and the content depends on context that the live class provides. Please do not crawl, scrape, or train models on this site."</li>
+    </ul>
+    <p>Polite humans-and-bots respect robots.txt. The named AI crawlers above publicly honour it. None of this binds anyone hostile — for that we'd need server-side blocks at the static.app or Cloudflare level. But for honest crawlers, the signal is now unambiguous across multiple layers.</p>
+
+    <h3>The defense-in-depth picture</h3>
+    <p>Stacked top to bottom:</p>
+    <ol>
+      <li><strong>robots.txt</strong> at the root — blocks well-behaved crawlers from the entire site.</li>
+      <li><strong>per-page meta robots</strong> — tells anyone who reaches a page (despite robots.txt) not to index it.</li>
+      <li><strong>passcode gate</strong> (v4.74.6) on 18 of 22 pages — blocks any human or bot that doesn't have the passcode from seeing rendered content.</li>
+      <li><strong>noindex on the four open pages</strong> (Home, Feedback, Collaborate, About) — these stay accessible without a passcode for prospective cohort members, but they still tell crawlers <em>don't index this either</em>. So nothing on the site shows up in search results.</li>
+    </ol>
+
+    <h3>What this fixes that v4.74.6 alone didn't</h3>
+    <p>The gate stops scrapers that don't fill forms. But Google, Bing, and the AI training crawlers don't scrape — they crawl politely, following the same rules a librarian would. Until v4.74.8, nothing told them <em>don't add atv-companion.sreebalakrishnan.in to your index</em>. They might have indexed the Home page (always reachable), and the snippets in search results would have made the site discoverable to the wider internet. Now the answer is no, in writing, in every place it needs to be.</p>
+
+    <h3>Build mechanics</h3>
+    <ul>
+      <li>First-pass bulk-injection had a regex bug that concatenated the new meta tags onto the line preceding <code>&lt;title&gt;</code>, instead of adding fresh lines. Caught by smoke-check: many files showed multiple <code>&lt;meta name="description"&gt;</code> lines. Repaired by a second-pass script that strips all robots/googlebot/bingbot lines (clean or damaged), dedupes consecutive description duplicates, and inserts clean meta tags on their own lines before <code>&lt;title&gt;</code>.</li>
+      <li>Final smoke check: every HTML file has exactly 1 <code>robots</code>, 1 <code>googlebot</code>, and 1 <code>bingbot</code> meta — and exactly 0 or 1 <code>description</code> meta (some pages don't have a description; that's pre-existing and intentional).</li>
+      <li>Open pages (Home, Feedback, Collaborate, About) get the noindex tags too — being open for humans doesn't mean we want them indexed.</li>
+    </ul>
+
+    <h3>Cohort impact</h3>
+    <p>None visible. The change is invisible to anyone using the app. It only matters for what doesn't appear in search results — which, for a still-shaping cohort tool, is exactly the point.</p>
+  </section>
+
   <!-- ====================== v4.74.7 ====================== -->
   <section class="release" data-credits="Sree (asked for an explicit 'we are in early beta, restricted access, reach out to Vikram / Sree / workbook team' note on the gate — replacing the friendlier-but-vaguer 'don't have one? read the manifesto' line)">
     <header>
-      <h2>v4.74.7 <em>· current</em></h2>
+      <h2>v4.74.7</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">Gate copy update. The passcode overlay now carries an explicit beta-stage note directly below the Enter button — telling first-time visitors who lands on a gated URL exactly what to do: <em>reach out to Vikram, Sree, or the workbook team for the passcode.</em> The manifesto / feedback links remain as a smaller footnote for browsers from the outside.</p>
@@ -5592,7 +5650,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.74.7 · updated 11 May 2026</span>
+      <span style="color:var(--muted);">v4.74.8 · updated 11 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>

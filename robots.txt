@@ -1,0 +1,42 @@
+# Astrology 101 Companion App — early beta, cohort-only.
+# This is a pocket reference for active learners in Vikram Devatha's
+# Jyotish program at All Things Vedic. It is not intended for public
+# indexing and the content depends on context that the live class
+# provides. Please do not crawl, scrape, or train models on this site.
+
+User-agent: *
+Disallow: /
+
+# AI training crawlers — also blocked
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
