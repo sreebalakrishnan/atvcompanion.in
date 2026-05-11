@@ -478,7 +478,7 @@
 
   <!-- HERO -->
   <header class="hero">
-    <div class="hero-eyebrow">all things vedic · the companion app · v4.70.1</div>
+    <div class="hero-eyebrow">all things vedic · the companion app · v4.74.28 · build <code style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:11px;letter-spacing:.03em;color:var(--saffron);background:rgba(188,129,70,.10);padding:1px 5px;border-radius:3px;cursor:pointer;" class="build-id-chip" id="buildIdEyebrow">simha-m4r7</code></div>
     <h1>Astrology <em>101</em></h1>
     <p class="hero-sub">A companion to Vikram Devatha's class at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a> — built alongside the cohort, in service to anyone walking the same path.</p>
     <p class="hero-name"
@@ -577,11 +577,11 @@
     </div>
     <p>Wondering where this came from? <a href="about.html">How this came to be →</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.70.1 · updated 10 May 2026</span>
+      <span style="color:var(--muted);">v4.74.28 · updated 11 May 2026 · build <code class="build-id-chip" id="buildIdFooter" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:12px;color:var(--saffron);background:rgba(188,129,70,.10);padding:1px 6px;border-radius:3px;letter-spacing:.03em;cursor:pointer;" title="Click to verify you're on the latest build">simha-m4r7</code></span>
       &nbsp;·&nbsp;
       <a href="release-notes.html">Release notes</a>
       &nbsp;·&nbsp;
-      <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
+      <a href="javascript:void(0)" onclick="(window.__verifyBuild||function(){})()" style="color:var(--saffron);">Verify build</a>
     </p>
   </footer>
 
@@ -1416,7 +1416,7 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.73.1';
+  var PAGE_VERSION = '4.74.28';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');
@@ -1527,5 +1527,78 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 
 <!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
+
+<!-- ====================== BUILD FINGERPRINT ====================== -->
+<script>
+(function(){
+  var PAGE_VERSION = '4.74.28';
+  var BUILD_ID     = 'simha-m4r7';
+  window.__pageVersion = PAGE_VERSION;
+  window.__buildId = BUILD_ID;
+
+  function forceFresh(){
+    var sep = location.search ? '&' : '?';
+    var clean = (location.search || '').replace(/[?&]_v=\d+/g, '').replace(/^&/, '?');
+    location.replace(location.pathname + clean + sep + '_v=' + Date.now() + (location.hash || ''));
+  }
+
+  function toast(msg, ms){
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1001;background:#282826;color:#F8F4E1;padding:10px 22px;border-radius:100px;font-family:"Libre Caslon Text","Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:92%;text-align:center;line-height:1.4;';
+    t.innerHTML = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .25s'; t.style.opacity='0'; }, (ms||2400));
+    setTimeout(function(){ t.remove(); }, (ms||2400)+400);
+  }
+
+  function showUpdateBanner(latestVer){
+    if (document.getElementById('upd-banner')) return;
+    var b = document.createElement('div');
+    b.id = 'upd-banner';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
+      + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;">What changed?</a>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
+    document.body.appendChild(b);
+    document.getElementById('upd-refresh').onclick = forceFresh;
+    document.getElementById('upd-dismiss').onclick = function(){ b.remove(); };
+  }
+
+  function verify(silent){
+    return fetch('version.json?_=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !data.version) { if (!silent) toast('Could not reach version manifest', 3000); return; }
+        if (data.version !== PAGE_VERSION) {
+          showUpdateBanner(data.version);
+        } else if (data.build && data.build !== BUILD_ID) {
+          if (!silent) toast('⚠ <strong style="font-style:normal;">Stale HTML</strong> · server build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + data.build + '</code>, you have <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code> — forcing reload…', 4000);
+          setTimeout(forceFresh, silent ? 800 : 1800);
+        } else if (!silent) {
+          toast('✓ <strong style="font-style:normal;">Latest build</strong> · v' + PAGE_VERSION + ' · build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code>', 3500);
+        }
+      })
+      .catch(function(){ if (!silent) toast('Verify unavailable on file:// — open via http(s)://', 3000); });
+  }
+
+  window.__verifyBuild = function(){ verify(false); };
+  window.__checkForUpdates = function(){ verify(false); };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ verify(true); }, 1500); });
+  } else {
+    setTimeout(function(){ verify(true); }, 1500);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    ['buildIdFooter','buildIdEyebrow'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function(){ verify(false); });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
