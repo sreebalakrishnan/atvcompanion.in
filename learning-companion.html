@@ -5302,6 +5302,63 @@
     gap: 10px;
   }
   .lc-settings-section .a11y-toggle-row .a11y-toggle { margin: 0; }
+
+  /* ---------- v4.74.1 — VISIBLE SETTINGS BAND ---------- */
+  /* Mode + Level chips surfaced directly under the masthead so they're
+     discoverable without having to find a cog. Asked for by Ayesha. */
+  .lc-band {
+    max-width: 760px;
+    margin: 14px auto 6px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+  }
+  .lc-band .band-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+  }
+  .lc-band .band-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: var(--muted);
+    text-transform: lowercase;
+  }
+  .lc-band .band-spacer { flex: 1 1 auto; min-width: 4px; }
+  .lc-band .band-more {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 4px 8px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 999px;
+    transition: color .15s, background .15s;
+  }
+  .lc-band .band-more:hover { color: var(--saffron); background: rgba(188,129,70,.06); }
+  /* The band's pills inherit existing .mode-pill / .level-pill styling above —
+     same buttons, same JS handlers, just rendered in a second location. */
+  .lc-band .mode-pills,
+  .lc-band .level-pills {
+    margin: 0;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 540px) {
+    .lc-band { padding: 10px 12px; gap: 8px 10px; }
+    .lc-band .band-row { width: 100%; }
+    .lc-band .band-spacer { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -5322,7 +5379,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.70.1</div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.1</div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5337,12 +5394,32 @@
 
   </header>
 
-  <!-- ====================== v4.61.0 — LC TOOLBAR (Settings + Search) ====================== -->
-  <div class="lc-toolbar" aria-label="Page filters and search">
-    <button type="button" class="lc-toolbar-btn" id="lcSettingsBtn" aria-haspopup="dialog" aria-expanded="false">
-      <span class="lc-toolbar-icon" aria-hidden="true">⚙</span>
-      <span class="lc-toolbar-label">Settings</span>
-      <span class="lc-toolbar-summary" id="lcToolbarSummary">Reference · All</span>
+  <!-- ====================== v4.74.1 — VISIBLE SETTINGS BAND ====================== -->
+  <!-- Mode + Level chips surfaced directly under the masthead so they're
+       discoverable without having to hunt for a cog. Asked for by Ayesha after
+       a screenshot review: "settings would be best as one of the headlines."
+       The cog now opens to "More settings" (Accessibility, name, theme). -->
+  <div class="lc-band" aria-label="Page view filters">
+    <div class="band-row" role="group" aria-label="Mode">
+      <span class="band-label">view:</span>
+      <div class="mode-pills" role="tablist">
+        <button class="mode-pill" data-mode-pill="learning" role="tab" aria-selected="true">◉ Learning</button>
+        <button class="mode-pill" data-mode-pill="reference" role="tab" aria-selected="false">○ Reference</button>
+      </div>
+    </div>
+    <div class="band-row" role="group" aria-label="Level">
+      <span class="band-label">show:</span>
+      <div class="level-pills" role="tablist">
+        <button class="level-pill" data-level-pill="foundations" role="tab">Foundations</button>
+        <button class="level-pill" data-level-pill="beginner" role="tab">Beginner</button>
+        <button class="level-pill" data-level-pill="intermediate" role="tab">Intermediate</button>
+        <button class="level-pill" data-level-pill="advanced" role="tab">Advanced</button>
+        <button class="level-pill" data-level-pill="all" role="tab">All</button>
+      </div>
+    </div>
+    <span class="band-spacer"></span>
+    <button type="button" class="band-more" id="lcSettingsBtn" aria-haspopup="dialog" aria-expanded="false" title="Accessibility &amp; more">
+      ⚙ More
     </button>
     <button class="srch-pill" type="button" aria-label="Open search">
       <span class="srch-pill-icon" aria-hidden="true">⌕</span> Search
@@ -11993,41 +12070,11 @@ document.addEventListener('keydown', (e) => {
   .lc-bottom-cta-btn.is-primary:hover { background: var(--saffron); border-color: var(--saffron); color: var(--surface); }
 
   </style>
-<script>
-(function() {
-  var PAGE_KEY = 'quickref';
-  var TIP_TEXT = 'Tap any tile — sign, planet, house, avatar — and a drawer opens. The toggle in the top-right switches Learning ↔ Reference.';
-  var KEY = 'astro-tip-seen-' + PAGE_KEY;
-  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
-  function build() {
-    var card = document.createElement('div');
-    card.className = 'first-visit-tip';
-    card.setAttribute('role', 'note');
-    card.innerHTML = '<div class="fvt-eyebrow">A note before you start</div>'
-                   + '<p class="fvt-text">' + TIP_TEXT + '</p>'
-                   + '<button class="fvt-dismiss" type="button">Got it</button>';
-    card.querySelector('.fvt-dismiss').addEventListener('click', function() {
-      try { localStorage.setItem(KEY, '1'); } catch (e) {}
-      card.style.transition = 'opacity .25s, transform .25s';
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(-6px)';
-      setTimeout(function(){ card.remove(); }, 280);
-    });
-    var firstHeader = document.querySelector('header');
-    if (firstHeader && firstHeader.parentElement) {
-      firstHeader.parentElement.insertBefore(card, firstHeader.nextSibling);
-      return;
-    }
-    var target = document.querySelector('.page, main') || document.body;
-    target.insertBefore(card, target.firstChild);
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', build);
-  } else {
-    build();
-  }
-})();
-</script>
+<!-- v4.74.1 — quickref first-visit tip removed. Its only job was to point at
+     the hidden Learning ↔ Reference toggle. With Mode + Level chips now
+     permanently visible on the masthead band (asked for by Ayesha), the tip
+     became redundant. The .first-visit-tip CSS above is kept because other
+     pages (interpret, reflect, etc.) still use the same pattern. -->
 
 <!-- v4.60.0 Personalisation popover (sitewide) -->
 <div class="name-popover-backdrop" id="namePopoverBackdrop" hidden></div>
@@ -12191,36 +12238,17 @@ document.addEventListener('keydown', (e) => {
 })();
 </script>
 
-<!-- ====================== v4.61.0 — LC SETTINGS POPOVER ====================== -->
-<!-- Mode + Level + Aa, all in one place. Triggered by the Settings button in
-     the toolbar. The original mode-switcher and level-switcher rows are gone
-     from the top of the page; their pills live here now. Existing JS handlers
-     (setMode, setLevel, a11y toggle) find these elements unchanged. -->
+<!-- ====================== v4.74.1 — LC "MORE SETTINGS" POPOVER ====================== -->
+<!-- Mode and Level moved out of this popover and onto the always-visible band
+     under the masthead (asked for by Ayesha). What's left here: Accessibility,
+     and a hint pointing users back at the band. The hidden #modeHint span is
+     kept (now styled invisible) so the existing setMode() handler doesn't
+     break when it tries to update hint text. -->
 <div class="lc-settings-backdrop" id="lcSettingsBackdrop" hidden></div>
 <div class="lc-settings-popover" id="lcSettingsPopover" hidden role="dialog" aria-modal="true" aria-labelledby="lcSettingsTitle">
-  <div class="lc-settings-eyebrow">Page filters</div>
+  <div class="lc-settings-eyebrow">More settings</div>
   <h3 class="lc-settings-h" id="lcSettingsTitle">Settings</h3>
-  <p class="lc-settings-intro">Tune what the page shows. Choices stay on this device.</p>
-
-  <div class="lc-settings-section">
-    <div class="lc-settings-label">Mode</div>
-    <div class="mode-pills" role="tablist">
-      <button class="mode-pill" data-mode-pill="learning" role="tab" aria-selected="true">◉ Learning</button>
-      <button class="mode-pill" data-mode-pill="reference" role="tab" aria-selected="false">○ Reference</button>
-    </div>
-    <p class="lc-settings-hint" id="modeHint">— quizzes unlock as you go.</p>
-  </div>
-
-  <div class="lc-settings-section">
-    <div class="lc-settings-label">Level — show content for</div>
-    <div class="level-pills" role="tablist">
-      <button class="level-pill" data-level-pill="foundations" role="tab">Foundations</button>
-      <button class="level-pill" data-level-pill="beginner" role="tab">Beginner</button>
-      <button class="level-pill" data-level-pill="intermediate" role="tab">Intermediate</button>
-      <button class="level-pill" data-level-pill="advanced" role="tab">Advanced</button>
-      <button class="level-pill" data-level-pill="all" role="tab">All</button>
-    </div>
-  </div>
+  <p class="lc-settings-intro">Mode and Level live on the band under the masthead — change them there. This panel holds the rest.</p>
 
   <div class="lc-settings-section">
     <div class="lc-settings-label">Accessibility</div>
@@ -12230,31 +12258,27 @@ document.addEventListener('keydown', (e) => {
     </div>
   </div>
 
+  <!-- Hint element preserved (hidden) so setMode() can still target it without throwing. -->
+  <span id="modeHint" hidden></span>
+
   <div class="lc-settings-buttons">
     <button type="button" class="done" id="lcSettingsDone">Done</button>
   </div>
 </div>
 
 <script>
-/* v4.61.0 — Settings popover open/close + toolbar summary updater. */
+/* v4.74.1 — "More" popover open/close. The old toolbar-summary updater
+   (which wrote the Mode · Level summary text into the cog button) is gone —
+   the band makes the current state visible at all times, so no summary
+   string is needed. */
 (function(){
   var btn = document.getElementById('lcSettingsBtn');
   var pop = document.getElementById('lcSettingsPopover');
   var bd  = document.getElementById('lcSettingsBackdrop');
-  var summary = document.getElementById('lcToolbarSummary');
   function open(o){
     if(pop) pop.hidden = !o;
     if(bd) bd.hidden = !o;
     if(btn) btn.setAttribute('aria-expanded', String(o));
-  }
-  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
-  function updateSummary(){
-    if(!summary) return;
-    var modeBtn = document.querySelector('.mode-pill.active');
-    var levelBtn = document.querySelector('.level-pill.active');
-    var modeText = cap(modeBtn ? modeBtn.dataset.modePill : 'reference');
-    var levelText = cap(levelBtn ? levelBtn.dataset.levelPill : 'all');
-    summary.textContent = modeText + ' · ' + levelText;
   }
   if(btn) btn.addEventListener('click', function(e){
     e.stopPropagation();
@@ -12263,14 +12287,6 @@ document.addEventListener('keydown', (e) => {
   document.getElementById('lcSettingsDone')?.addEventListener('click', function(){ open(false); });
   if(bd) bd.addEventListener('click', function(){ open(false); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') open(false); });
-  // Update summary whenever Mode or Level pills change
-  document.addEventListener('click', function(e){
-    if(e.target.closest('.mode-pill') || e.target.closest('.level-pill')){
-      setTimeout(updateSummary, 0);
-    }
-  });
-  // Initial summary — wait for setLevel/setMode to apply stored choices
-  setTimeout(updateSummary, 200);
 })();
 </script>
 
