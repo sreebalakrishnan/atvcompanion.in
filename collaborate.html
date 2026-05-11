@@ -396,7 +396,7 @@
 
   <!-- ====================== FOOTER ====================== -->
   <footer class="footer">
-    <p>v4.72.9 · 10 May 2026</p>
+    <p>v4.74.1 · 11 May 2026 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a></p>
     <p style="font-size:12px; opacity:.85;">Built with Vikram's class as the source of truth, by <em>Sree &amp; Sanchi</em> alongside the cohort.</p>
     <p style="font-size:11px; margin-top:14px; opacity:.7;">If you've landed here — welcome. The page is in the More menu of every other section, and gets shared by URL when an answer needs more than a paragraph.</p>
   </footer>
@@ -405,5 +405,44 @@
 
 <!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
+
+<!-- v4.74.1 — Update checker (was missing; flagged in regression audit). -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.74.1';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  setTimeout(() => check(true), 1500);
+  window.addEventListener('focus', () => check(true));
+  window.__pageVersion = PAGE_VERSION;
+})();
+</script>
 </body>
 </html>
