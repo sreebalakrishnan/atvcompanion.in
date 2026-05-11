@@ -58,6 +58,7 @@
     { href: 'layers.html',             label: 'Layers',                     group: 'meta' },
     { href: 'stats.html',              label: 'Stats',                      group: 'meta' },
     { href: 'about.html',              label: 'About · how this came to be', group: 'meta' },
+    { href: 'feedback.html',           label: 'Feedback · send us a note',  group: 'meta' },
     { href: 'collaborate.html',        label: 'Collaborate',                group: 'meta' },
     { href: 'release-notes.html',      label: 'Release Notes',              group: 'meta' }
   ];
