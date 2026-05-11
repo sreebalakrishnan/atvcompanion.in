@@ -5303,26 +5303,28 @@
   }
   .lc-settings-section .a11y-toggle-row .a11y-toggle { margin: 0; }
 
-  /* ---------- v4.74.1 — VISIBLE SETTINGS BAND ---------- */
-  /* Mode + Level chips surfaced directly under the masthead so they're
-     discoverable without having to find a cog. Asked for by Ayesha. */
+  /* ---------- v4.74.2 — VISIBLE SETTINGS BAND (Option B1) ---------- */
+  /* Moved above the masthead to sit at the same level as the site-nav.
+     Stripped of card styling (no border, no fill) so the masthead remains
+     the page's visual anchor. The band recedes until you reach for it. */
   .lc-band {
     max-width: 760px;
-    margin: 14px auto 6px;
-    padding: 12px 14px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
+    margin: 6px auto 0;
+    padding: 6px 4px 10px;
+    background: transparent;
+    border: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px 14px;
+    justify-content: center;
+    gap: 8px 14px;
+    border-bottom: 1px solid var(--rule-soft);
   }
   .lc-band .band-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px 10px;
+    gap: 6px 8px;
   }
   .lc-band .band-label {
     font-family: var(--display);
@@ -5348,14 +5350,22 @@
   }
   .lc-band .band-more:hover { color: var(--saffron); background: rgba(188,129,70,.06); }
   /* The band's pills inherit existing .mode-pill / .level-pill styling above —
-     same buttons, same JS handlers, just rendered in a second location. */
+     same buttons, same JS handlers, just rendered above the masthead now. */
   .lc-band .mode-pills,
   .lc-band .level-pills {
     margin: 0;
     flex-wrap: wrap;
   }
-  @media (max-width: 540px) {
-    .lc-band { padding: 10px 12px; gap: 8px 10px; }
+  /* Slightly smaller chips up here so the band doesn't dominate the nav line. */
+  .lc-band .mode-pill { font-size: 11.5px; padding: 4px 12px; }
+  .lc-band .level-pill { font-size: 12px; padding: 4px 10px; }
+  .lc-band .srch-pill { padding: 4px 12px; font-size: 12.5px; }
+  @media (max-width: 720px) {
+    .lc-band { gap: 6px 10px; padding-bottom: 8px; }
+    .lc-band .band-row { gap: 5px 8px; }
+  }
+  @media (max-width: 480px) {
+    .lc-band { justify-content: flex-start; padding: 4px 4px 8px; }
     .lc-band .band-row { width: 100%; }
     .lc-band .band-spacer { display: none; }
   }
@@ -5374,31 +5384,11 @@
   <div id="siteNavMount"></div>
   <script src="assets/site-nav.js"></script>
 
-  <!-- ====================== FRONTIER STRIP (Learning mode hint) ====================== -->
-  <div class="frontier-strip" id="frontierStrip" hidden></div>
-
-  <!-- ====================== MASTHEAD ====================== -->
-  <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.1</div>
-    <h1>Astrology <em>101</em></h1>
-    <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
-    <div class="ornament" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
-    </div>
-  
-
-    <!-- v4.71.6 — Masthead search bar removed. The single search surface is now
-         the modal — opened from the always-visible Search pill (top right),
-         the / keyboard shortcut, or the bottom-of-page "Search again" CTA.
-         The example chips moved into the modal's empty state. -->
-
-  </header>
-
-  <!-- ====================== v4.74.1 — VISIBLE SETTINGS BAND ====================== -->
-  <!-- Mode + Level chips surfaced directly under the masthead so they're
-       discoverable without having to hunt for a cog. Asked for by Ayesha after
-       a screenshot review: "settings would be best as one of the headlines."
-       The cog now opens to "More settings" (Accessibility, name, theme). -->
+  <!-- ====================== v4.74.2 — SETTINGS BAND (Option B1) ====================== -->
+  <!-- Sits directly under the site-nav, above the masthead — same vertical
+       level as the nav, treating settings as "headline" controls. Light
+       styling (no card border, transparent) so the masthead stays the visual
+       anchor. Scrolls away with the rest of the header (not sticky). -->
   <div class="lc-band" aria-label="Page view filters">
     <div class="band-row" role="group" aria-label="Mode">
       <span class="band-label">view:</span>
@@ -5426,6 +5416,26 @@
       <span class="srch-pill-key">/</span>
     </button>
   </div>
+
+  <!-- ====================== FRONTIER STRIP (Learning mode hint) ====================== -->
+  <div class="frontier-strip" id="frontierStrip" hidden></div>
+
+  <!-- ====================== MASTHEAD ====================== -->
+  <header class="masthead">
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.2</div>
+    <h1>Astrology <em>101</em></h1>
+    <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+
+
+    <!-- v4.71.6 — Masthead search bar removed. The single search surface is now
+         the modal — opened from the always-visible Search pill (top right),
+         the / keyboard shortcut, or the bottom-of-page "Search again" CTA.
+         The example chips moved into the modal's empty state. -->
+
+  </header>
 
   <!-- ====================== WELCOME CARD (v4.33.0) ====================== -->
   <!-- Shown once on first visit; dismissed permanently via localStorage. -->
@@ -11676,7 +11686,7 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.1';
+  const PAGE_VERSION = '4.74.2';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;

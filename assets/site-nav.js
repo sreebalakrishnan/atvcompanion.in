@@ -32,28 +32,34 @@
   // -------- CANONICAL NAV DATA --------
   // primary: shows in the always-visible row.
   // Everything else: in the More dropdown.
+  // v4.74.2 — More menu is split into two groups by a divider:
+  //   group: 'learning'  → technical content pages (the subject matter)
+  //   group: 'meta'      → orientation + about-the-project pages
+  // Order within a group preserved. To insert a divider, the builder
+  // watches for the first 'meta' item after 'learning' items.
   const PAGES = [
     { href: 'index.html',              label: 'Home',                       primary: true },
     { href: 'learning-companion.html', label: 'Learning Companion',         primary: true },
     { href: 'interpret.html',          label: 'Interpret · beta',           primary: true },
     { href: 'reflect.html',            label: 'Reflect',                    primary: true },
-    // ----- More menu -----
-    { href: 'catch-up.html',           label: 'Catch up · missed a class?' },
-    { href: 'where-am-i.html',         label: 'Where am I' },
-    { href: 'elements.html',           label: 'Elements' },
-    { href: 'interactive.html',        label: 'Interactive · beta' },
-    { href: 'aspects.html',            label: 'Aspects · drishti' },
-    { href: 'kaalapurusha.html',       label: 'Kaalapurusha' },
-    { href: 'mercury-spectrum.html',   label: 'Mercury Spectrum' },
-    { href: 'jupiter-tracker.html',    label: 'Jupiter Tracker' },
-    { href: 'astronomy.html',          label: 'Astronomy' },
-    { href: 'sripati.html',            label: 'Sripati Paddhati' },
-    { href: 'ether.html',              label: 'Ether' },
-    { href: 'layers.html',             label: 'Layers' },
-    { href: 'stats.html',              label: 'Stats' },
-    { href: 'about.html',              label: 'About · how this came to be' },
-    { href: 'collaborate.html',        label: 'Collaborate' },
-    { href: 'release-notes.html',      label: 'Release Notes' }
+    // ----- More menu · learning content -----
+    { href: 'catch-up.html',           label: 'Catch up · missed a class?', group: 'learning' },
+    { href: 'elements.html',           label: 'Elements',                   group: 'learning' },
+    { href: 'interactive.html',        label: 'Interactive · beta',         group: 'learning' },
+    { href: 'aspects.html',            label: 'Aspects · drishti',          group: 'learning' },
+    { href: 'kaalapurusha.html',       label: 'Kaalapurusha',               group: 'learning' },
+    { href: 'mercury-spectrum.html',   label: 'Mercury Spectrum',           group: 'learning' },
+    { href: 'jupiter-tracker.html',    label: 'Jupiter Tracker',            group: 'learning' },
+    { href: 'astronomy.html',          label: 'Astronomy',                  group: 'learning' },
+    { href: 'sripati.html',            label: 'Sripati Paddhati',           group: 'learning' },
+    { href: 'ether.html',              label: 'Ether',                      group: 'learning' },
+    // ----- More menu · orientation + meta -----
+    { href: 'where-am-i.html',         label: 'Where am I',                 group: 'meta' },
+    { href: 'layers.html',             label: 'Layers',                     group: 'meta' },
+    { href: 'stats.html',              label: 'Stats',                      group: 'meta' },
+    { href: 'about.html',              label: 'About · how this came to be', group: 'meta' },
+    { href: 'collaborate.html',        label: 'Collaborate',                group: 'meta' },
+    { href: 'release-notes.html',      label: 'Release Notes',              group: 'meta' }
   ];
 
   // -------- HELPERS --------
@@ -113,7 +119,14 @@
             (moreActive ? ' aria-current="page"' : '') +
             ' aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>';
     html += '<div class="more-menu" id="atvNavMoreMenu" hidden role="menu">';
+    // v4.74.2 — Insert a divider when group flips from 'learning' to 'meta'.
+    var lastGroup = null;
     more.forEach(function(p){
+      var thisGroup = p.group || 'learning';
+      if (lastGroup === 'learning' && thisGroup === 'meta'){
+        html += '<div class="more-menu-divider" role="separator" aria-hidden="true"></div>';
+      }
+      lastGroup = thisGroup;
       var isActive = p.href === active;
       var attrs = isActive ? ' aria-current="page"' : '';
       html += '<a href="' + escHtml(p.href) + '" role="menuitem"' + attrs + '>' + escHtml(p.label) + '</a>';
