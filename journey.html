@@ -385,6 +385,22 @@
   }
   .chapters .title { line-height: 1.45; }
   .chapters .arrow { color: var(--muted); margin-right: 5px; transition: color .12s; }
+  .chapters .chap-external {
+    margin-left: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all .12s;
+    display: inline-block;
+  }
+  .chapters .chap-external:hover {
+    color: var(--saffron);
+    border-color: var(--saffron);
+    background: rgba(188,129,70,.06);
+  }
   .chapters-foot {
     margin-top: 10px;
     padding-top: 8px;
@@ -599,7 +615,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">a prototype · for the workbook team <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.11</div>
+    <div class="eyebrow">a prototype · for the workbook team <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.13</div>
     <h1>A new way to <em>learn</em></h1>
     <p class="lede">A workbook-team framework, made tangible. Each topic unfolds in four layers — <em>Watch</em> the class, <em>Revise</em> what was covered, <em>Reflect</em> on one prompt, <em>Integrate</em> by bringing it into your week. The next topic only unlocks once you've recorded your integration of this one.</p>
   </header>
@@ -888,24 +904,23 @@
       </div>
 
       <div class="chapters" data-chapters-for="loomMatsya">
-        <div class="chapters-eyebrow">chapters · click to jump · <em style="text-transform:none; letter-spacing:0; font-style:italic;">titles from Loom's auto-generated summary; timestamps approximate</em></div>
+        <div class="chapters-eyebrow">chapters · ten beats across two hours · <em style="text-transform:none; letter-spacing:0; font-style:italic;">click ↗ to open on Loom at that timestamp</em></div>
         <ol>
-          <li data-time="0"><span class="time">0:00</span><span class="title"><span class="arrow">▸</span>Opening — Vedic astrology as <em>self-discovery, not puzzle-solving</em></span></li>
-          <li data-time="300"><span class="time">5:00</span><span class="title"><span class="arrow">▸</span>Morning pages — no analysis, no rereading</span></li>
-          <li data-time="720"><span class="time">12:00</span><span class="title"><span class="arrow">▸</span>The three pillars — Sunday sessions, retreats, 20 min/day</span></li>
-          <li data-time="1200"><span class="time">20:00</span><span class="title"><span class="arrow">▸</span>Q&amp;A — astrology as a tool for self-knowledge</span></li>
-          <li data-time="1800"><span class="time">30:00</span><span class="title"><span class="arrow">▸</span>The Matsya story — the fish, the flood, the boat</span></li>
-          <li data-time="2520"><span class="time">42:00</span><span class="title"><span class="arrow">▸</span>Matsya → Ketu — knowledge, transformation, faith, surrender, protection</span></li>
-          <li data-time="3600"><span class="time">60:00</span><span class="title"><span class="arrow">▸</span>Astronomy — degrees and time</span></li>
-          <li data-time="4500"><span class="time">75:00</span><span class="title"><span class="arrow">▸</span>Latitude and longitude</span></li>
-          <li data-time="5400"><span class="time">90:00</span><span class="title"><span class="arrow">▸</span>Equator and solstices</span></li>
-          <li data-time="6300"><span class="time">105:00</span><span class="title"><span class="arrow">▸</span>Longitude → local mean time, zonal time, IST</span></li>
-          <li data-time="6900"><span class="time">115:00</span><span class="title"><span class="arrow">▸</span>Earth rotates 360° in 24 hours — 1° every 4 minutes</span></li>
+          <li data-time="0"><span class="time">0:00</span><span class="title"><span class="arrow">▸</span>Welcome and planning <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=0s" target="_blank" rel="noopener" title="Open on Loom at 0:00">↗</a></span></li>
+          <li data-time="696"><span class="time">11:36</span><span class="title"><span class="arrow">▸</span>Breathing and grounding <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=696s" target="_blank" rel="noopener" title="Open on Loom at 11:36">↗</a></span></li>
+          <li data-time="1008"><span class="time">16:48</span><span class="title"><span class="arrow">▸</span>Morning pages reflections <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=1008s" target="_blank" rel="noopener" title="Open on Loom at 16:48">↗</a></span></li>
+          <li data-time="1237"><span class="time">20:37</span><span class="title"><span class="arrow">▸</span>How to study stories <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=1237s" target="_blank" rel="noopener" title="Open on Loom at 20:37">↗</a></span></li>
+          <li data-time="2065"><span class="time">34:25</span><span class="title"><span class="arrow">▸</span><em>Matsya</em> — the flood story <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=2065s" target="_blank" rel="noopener" title="Open on Loom at 34:25">↗</a></span></li>
+          <li data-time="2667"><span class="time">44:27</span><span class="title"><span class="arrow">▸</span>Themes and <em>Ketu</em> hints <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=2667s" target="_blank" rel="noopener" title="Open on Loom at 44:27">↗</a></span></li>
+          <li data-time="3822"><span class="time">1:03:42</span><span class="title"><span class="arrow">▸</span>Grounding through Ketu themes <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=3822s" target="_blank" rel="noopener" title="Open on Loom at 1:03:42">↗</a></span></li>
+          <li data-time="4612"><span class="time">1:16:52</span><span class="title"><span class="arrow">▸</span>Degrees and grid basics <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=4612s" target="_blank" rel="noopener" title="Open on Loom at 1:16:52">↗</a></span></li>
+          <li data-time="5310"><span class="time">1:28:30</span><span class="title"><span class="arrow">▸</span>Seasons and sky paths <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=5310s" target="_blank" rel="noopener" title="Open on Loom at 1:28:30">↗</a></span></li>
+          <li data-time="6590"><span class="time">1:49:50</span><span class="title"><span class="arrow">▸</span>Time zones and wrap up <a class="chap-external" href="https://www.loom.com/share/8c6d121a7a7441d68e8565b2e6e2fc6d?t=6590s" target="_blank" rel="noopener" title="Open on Loom at 1:49:50">↗</a></span></li>
         </ol>
-        <p class="chapters-foot"><strong>Titles</strong> mirror Loom's auto-summary of the recording (accurate). <strong>Timestamps</strong> are rough estimates spread across a ~2-hour duration — Sree to paste the exact Loom chapter timestamps when he gets a moment, and they'll click-jump to the right second.</p>
+        <p class="chapters-foot">Loom's embedded player doesn't expose a public seek API to other pages, so in-place jumping is best-effort (we send the seek command in several formats — newer Loom players will respect one). The <strong>↗ icons</strong> are the guaranteed path — they open Loom's full page at that exact second in a new tab. <em>Engineering trade-off shipped honestly while we wait for Loom to expose a real embed-control API.</em></p>
       </div>
 
-      <p style="font-family:var(--display); font-style:italic; font-size:13.5px; color:var(--muted); margin:0 0 14px;">Missed the live class? Start at <strong style="font-style:normal;font-weight:500;color:var(--saffron);">0:00</strong>. Attended and need revision of the Matsya story specifically? Jump to <strong style="font-style:normal;font-weight:500;color:var(--saffron);">30:00</strong>. After astronomy basics? <strong style="font-style:normal;font-weight:500;color:var(--saffron);">60:00</strong>.</p>
+      <p style="font-family:var(--display); font-style:italic; font-size:13.5px; color:var(--muted); margin:0 0 14px;">Missed the live class? Start at <strong style="font-style:normal;font-weight:500;color:var(--saffron);">0:00</strong>. Want the <em>Matsya</em> story specifically? Jump to <strong style="font-style:normal;font-weight:500;color:var(--saffron);">34:25</strong>. After astronomy basics? <strong style="font-style:normal;font-weight:500;color:var(--saffron);">1:16:52</strong>.</p>
 
       <div class="actions">
         <button class="btn" type="button" data-action="mark-watched" data-topic="avatars">✓ I've watched / attended</button>
@@ -987,7 +1002,7 @@
   <!-- ====================== FOOTER ====================== -->
   <footer class="footer">
     <p>← <a href="learning-companion.html">Back to the Learning Companion</a></p>
-    <p style="margin-top:8px;">v4.74.11 · 11 May 2026 · prototype, not in nav</p>
+    <p style="margin-top:8px;">v4.74.13 · 11 May 2026 · prototype, not in nav</p>
     <p style="font-size:11.5px;opacity:.8;">Framework: the workbook team (initially proposed by Marie) — the pedagogy Vikram has chosen. Built by <em>Sree &amp; Sanchi</em> for Wednesday's working session.</p>
   </footer>
 
@@ -1271,49 +1286,52 @@
     }
   });
 
-  // v4.74.10 — Loom chapter navigation. Bug fix: Loom embed URLs ignore "?t=<int>"
-  // and only respect "?t=XmYs" format (e.g. 90s → "1m30s"). Also fires a postMessage
-  // seek as a secondary attempt so newer Loom players seek smoothly without reload.
-  function formatLoomTime(seconds){
-    var m = Math.floor(seconds / 60);
-    var s = seconds % 60;
-    if (m > 0 && s > 0) return m + 'm' + s + 's';
-    if (m > 0) return m + 'm';
-    return s + 's';
-  }
+  // v4.74.13 — Loom chapter navigation. Important caveat learned the hard way:
+  // Loom's embed iframe does NOT have a reliable public seek API. URL param ?t=
+  // is honoured inconsistently across player versions (often ignored, restarting
+  // playback at 0:00 on every click — that's the bug Sree caught). Their
+  // postMessage protocol is undocumented and varies by player version.
+  //
+  // So we do best-effort + guaranteed fallback:
+  //   1. Try postMessage in several known format variants. If one of them works,
+  //      the player seeks smoothly without reload.
+  //   2. Do NOT modify iframe.src — that caused the 0:00 reset.
+  //   3. Provide a small "↗ open at this point on Loom" link per chapter as the
+  //      guaranteed-working escape hatch (opens the share URL with ?t=Xs in a
+  //      new tab — Loom's share URLs DO respect timestamp params reliably).
   document.addEventListener('click', function(e){
+    // The external ↗ link handles itself — let the browser open the new tab
+    if (e.target.closest && e.target.closest('.chap-external')) return;
+
     var li = e.target.closest && e.target.closest('.chapters li[data-time]');
     if (!li) return;
     var time = parseInt(li.dataset.time, 10);
     if (isNaN(time)) return;
+
     var chaptersBlock = li.closest('.chapters');
     var targetId = chaptersBlock ? chaptersBlock.dataset.chaptersFor : null;
     var iframe = targetId ? document.getElementById(targetId) : (li.closest('.layer') && li.closest('.layer').querySelector('iframe'));
-    if (!iframe) return;
-    // Try postMessage first — multiple format variants because Loom's player has
-    // shipped different protocols across versions. If the player understands one,
-    // it'll seek smoothly. If none, the iframe reload below catches the case.
-    try {
-      var msgs = [
-        { type: 'loomPlayerAction', action: 'seek', time: time },
-        { type: 'loom_internal_post_message', data: { command: 'seek', args: { time: time } } },
-        { command: 'seek', data: { seconds: time } }
-      ];
-      msgs.forEach(function(m){
-        try { iframe.contentWindow.postMessage(m, 'https://www.loom.com'); } catch(e){}
-        try { iframe.contentWindow.postMessage(JSON.stringify(m), 'https://www.loom.com'); } catch(e){}
-      });
-    } catch (err) {}
-    // URL-reload fallback — Loom embeds reliably respect "?t=XmYs"
-    var timeStr = formatLoomTime(time);
-    var baseSrc = iframe.src.split('?')[0];
-    iframe.src = baseSrc + '?t=' + timeStr;
+    if (!iframe || !iframe.contentWindow) return;
+
+    // Best-effort postMessage seek — try every known Loom protocol variant.
+    // If one is right for this player version, it'll seek without reload.
+    var formats = [
+      { type: 'loom-action', action: 'seek', data: { time: time } },
+      { type: 'loomPlayerAction', action: 'seek', time: time },
+      { type: 'loom_internal_post_message', data: { command: 'seek', args: { time: time } } },
+      { event: 'seek', data: { time: time } },
+      { command: 'seek', data: { seconds: time } },
+      { type: 'CONTROL_VIDEO', payload: { action: 'SEEK_TO', time: time * 1000 } }
+    ];
+    formats.forEach(function(m){
+      try { iframe.contentWindow.postMessage(m, 'https://www.loom.com'); } catch(e){}
+      try { iframe.contentWindow.postMessage(JSON.stringify(m), 'https://www.loom.com'); } catch(e){}
+      try { iframe.contentWindow.postMessage(m, '*'); } catch(e){}
+    });
+
     // Highlight active chapter
     chaptersBlock.querySelectorAll('li').forEach(function(x){ x.classList.remove('is-active'); });
     li.classList.add('is-active');
-    // Scroll the player into view if needed
-    var ve = li.closest('.layer') && li.closest('.layer').querySelector('.video-embed');
-    if (ve && ve.getBoundingClientRect().top < 0) ve.scrollIntoView({behavior:'smooth', block:'start'});
   });
 
   // Photo upload preview
@@ -1363,7 +1381,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.11';
+  const PAGE_VERSION = '4.74.13';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
