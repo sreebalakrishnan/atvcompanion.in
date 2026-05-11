@@ -544,6 +544,91 @@
     cursor: pointer;
   }
   .how-tour-link:hover { text-decoration-color: var(--saffron); }
+
+  /* v4.74.27 — fold the math walkthrough behind a teaser question */
+  .how-fold {
+    margin: 12px 0 0;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .how-fold:hover { border-color: var(--saffron); box-shadow: 0 4px 14px rgba(188,129,70,.08); }
+  .how-fold[open] {
+    border-color: var(--rule);
+    box-shadow: none;
+    background: var(--bg);
+  }
+  .how-fold summary {
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    padding: 24px 26px 22px 58px;
+    border-radius: 12px;
+    transition: background .15s;
+  }
+  .how-fold summary:hover { background: rgba(188,129,70,.04); }
+  .how-fold summary::-webkit-details-marker { display: none; }
+  .how-fold summary::marker { content: ''; }
+  .how-fold summary::before {
+    content: '▸';
+    position: absolute;
+    left: 28px;
+    top: 30px;
+    color: var(--saffron);
+    font-size: 14px;
+    line-height: 1;
+    transition: transform .25s ease;
+    transform-origin: 50% 50%;
+  }
+  .how-fold[open] summary::before { transform: rotate(90deg); }
+  .how-fold-q {
+    display: block;
+    font-family: var(--display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(18px, 3.2vw, 23px);
+    color: var(--ink);
+    letter-spacing: -.005em;
+    line-height: 1.32;
+    margin-bottom: 8px;
+  }
+  .how-fold-q em { color: var(--saffron); font-style: italic; }
+  .how-fold-sub {
+    display: block;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .how-fold-sub .pill {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 9px;
+    background: rgba(188,129,70,.12);
+    color: var(--saffron);
+    border-radius: 999px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .how-fold[open] .how-fold-sub .pill::before { content: 'tap to collapse'; }
+  .how-fold:not([open]) .how-fold-sub .pill::before { content: 'tap to expand'; }
+  .how-fold-body {
+    padding: 4px 26px 24px;
+    border-top: 1px solid var(--rule-soft);
+    padding-top: 22px;
+  }
+  @media (max-width: 540px) {
+    .how-fold summary { padding: 20px 18px 18px 46px; }
+    .how-fold summary::before { left: 20px; top: 26px; }
+    .how-fold-body { padding-left: 18px; padding-right: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -553,7 +638,7 @@
   <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
-    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.26</div>
+    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.27</div>
     <h1>Signature <em>· for one</em></h1>
     <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique — Vedic, sidereal, <em>Navagraha</em> + Lagna — applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
     <div class="ornament" aria-hidden="true">
@@ -639,10 +724,16 @@
 
   <section class="s" id="howSection">
     <div class="s-eyebrow">step 3 · how this is computed</div>
-    <h2>The math, <em>step by step</em></h2>
-    <p>Everything in the chart above is computed in your browser, from first principles — birth time, location, and the laws of celestial mechanics. No server, no API, no cached predictions. Here is the full pipeline, in the order the code runs.</p>
 
-    <div class="how-steps">
+    <details class="how-fold">
+      <summary>
+        <span class="how-fold-q">How does a date, a time, and a city become a <em>sidereal Lagna</em>?</span>
+        <span class="how-fold-sub">Eight steps of celestial mechanics, computed entirely in your browser — no server, no API, no cached predictions. <span class="pill"></span></span>
+      </summary>
+      <div class="how-fold-body">
+        <p>Everything in the chart above is computed from first principles — birth time, location, and the laws of celestial mechanics. Here is the full pipeline, in the order the code runs.</p>
+
+        <div class="how-steps">
 
       <article class="how-step">
         <div class="how-num">01</div>
@@ -764,13 +855,15 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 
     </div>
 
-    <p class="scope-note" style="margin-top: 28px;">
-      <strong>Sources &amp; honest limitations.</strong> Ephemerides: VSOP87 + ELP-2000/82 via <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine</a>. Sidereal time, Ascendant, MC, and lunar-node formulae: Meeus, <em>Astronomical Algorithms</em>, 2nd ed., chapters 12, 22, 47. Ayanamsha: Lahiri (Calendar Reform Committee, 1955) with linear drift — adequate to ~0.01° over a century. <strong>What this does not include:</strong> nutation, aberration, proper motion of stars, topocentric parallax for the Moon, true (osculating) node. For the Element/Modality/Duality signature these omissions are well below the noise floor; for high-precision muhūrta or rectification, use a dedicated ephemeris such as Swiss Ephemeris.
-    </p>
+        <p class="scope-note" style="margin-top: 28px;">
+          <strong>Sources &amp; honest limitations.</strong> Ephemerides: VSOP87 + ELP-2000/82 via <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine</a>. Sidereal time, Ascendant, MC, and lunar-node formulae: Meeus, <em>Astronomical Algorithms</em>, 2nd ed., chapters 12, 22, 47. Ayanamsha: Lahiri (Calendar Reform Committee, 1955) with linear drift — adequate to ~0.01° over a century. <strong>What this does not include:</strong> nutation, aberration, proper motion of stars, topocentric parallax for the Moon, true (osculating) node. For the Element/Modality/Duality signature these omissions are well below the noise floor; for high-precision muhūrta or rectification, use a dedicated ephemeris such as Swiss Ephemeris.
+        </p>
+      </div>
+    </details>
   </section>
 
   <footer class="footer">
-    <p>v4.74.26 · 11 May 2026 · signature module v0.3 · for one</p>
+    <p>v4.74.27 · 11 May 2026 · signature module v0.3 · for one</p>
     <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Vedic · sidereal zodiac (Lahiri ayanamsha) · Navagraha + Lagna. Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
   </footer>
 
@@ -1231,6 +1324,15 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 
     $outCard.innerHTML = html;
 
+    // v4.74.27 — auto-open the "How this is computed" fold when the in-card link is tapped
+    var howLink = $outCard.querySelector('.how-tour-link');
+    if (howLink) {
+      howLink.addEventListener('click', function(){
+        var det = document.querySelector('#howSection .how-fold');
+        if (det) det.open = true;
+      });
+    }
+
     // Wire copy button
     var copyBtn = document.getElementById('copyResultsBtn');
     if (copyBtn) {
@@ -1313,7 +1415,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.26';
+  const PAGE_VERSION = '4.74.27';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
