@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F4EEDA">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="Drishti — the planet's gaze. Place any planet in any sign and see which chambers it aspects. Mars, Jupiter and Saturn each reach further than the 7th — this is the page to feel that.">
+<title>Aspects · Drishti — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F4EEDA;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #7C7B78;
+    --rule:      #CAC6BB;
+    --rule-soft: #E0DCCD;
+    --saffron:   #BC8146;
+    --indigo:    #6E7D85;
+    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+    --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 8px 28px -10px rgba(40,40,38,.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 200;
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 820px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead { padding: 40px 0 22px; text-align: center; }
+  .masthead .eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 13px;
+    letter-spacing: .14em; color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  .masthead h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(34px, 7vw, 50px); line-height: 1.05;
+    margin: 0 0 12px; letter-spacing: -.012em;
+  }
+  .masthead h1 em { color: var(--saffron); font-style: italic; }
+  .masthead .lede {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(16px, 2vw, 18.5px);
+    color: var(--ink-soft); max-width: 640px;
+    margin: 0 auto; line-height: 1.55;
+  }
+  .ornament { margin: 16px auto 0; width: 24px; color: var(--saffron); opacity: .55; }
+  .ornament svg { width: 100%; height: auto; display: block; }
+
+  /* ---------- VIKRAM PULL ---------- */
+  .pull {
+    margin: 28px auto 0; max-width: 700px;
+    border-left: 3px solid var(--saffron); padding: 14px 18px;
+    background: rgba(188,129,70,.05); border-radius: 0 8px 8px 0;
+  }
+  .pull-eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 11.5px;
+    letter-spacing: .12em; color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 6px;
+  }
+  .pull p { margin: 0 0 6px; font-family: var(--display); font-style: italic; font-size: 16px; color: var(--ink-soft); line-height: 1.55; }
+  .pull .pull-attr { font-size: 12.5px; color: var(--muted); font-style: italic; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.s { margin: 40px 0; }
+  .s-eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 11.5px;
+    letter-spacing: .14em; color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 6px;
+  }
+  section.s h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(24px, 4vw, 30px); margin: 0 0 12px;
+    letter-spacing: -.005em; line-height: 1.18;
+  }
+  section.s h2 em { color: var(--saffron); font-style: italic; }
+  section.s p { margin: 0 0 10px; }
+  .s-lede {
+    font-family: var(--display); font-style: italic;
+    font-size: 15.5px; color: var(--ink-soft); margin-bottom: 16px;
+  }
+
+  /* ---------- CONTROLS ---------- */
+  .ctrls {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+  .ctrls-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    align-items: center; margin-bottom: 10px;
+  }
+  .ctrls-label {
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; letter-spacing: .08em;
+    color: var(--muted); text-transform: lowercase;
+    margin-right: 4px;
+  }
+  .planet-chip {
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--rule);
+    font-family: var(--display); font-size: 14px;
+    color: var(--ink-soft); cursor: pointer;
+    transition: all .15s; font-style: italic;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .planet-chip:hover { border-color: var(--saffron); color: var(--saffron); }
+  .planet-chip.is-active {
+    background: var(--saffron); color: var(--surface);
+    border-color: var(--saffron); font-weight: 400;
+  }
+  .planet-chip .special-mark {
+    font-size: 9px; color: inherit; opacity: .55;
+    font-family: var(--body); font-style: normal;
+  }
+
+  .toggle {
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--rule);
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--ink-soft);
+    cursor: pointer; transition: all .15s;
+  }
+  .toggle.is-active { background: var(--indigo); color: var(--surface); border-color: var(--indigo); }
+  .toggle:hover:not(.is-active) { border-color: var(--indigo); color: var(--indigo); }
+
+  /* ---------- CHART ---------- */
+  .chart-wrap {
+    position: relative; max-width: 540px; margin: 8px auto 4px;
+  }
+  .stage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "pi ar ta ge"
+      "aq cc cc ca"
+      "cp cc cc le"
+      "sa sc li vi";
+    gap: 6px;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    position: relative;
+  }
+  @media (max-width: 720px) { .stage { gap: 5px; } }
+  @media (max-width: 420px) { .stage { gap: 4px; } }
+
+  .chamber.sign-pisces      { grid-area: pi; }
+  .chamber.sign-aries       { grid-area: ar; }
+  .chamber.sign-taurus      { grid-area: ta; }
+  .chamber.sign-gemini      { grid-area: ge; }
+  .chamber.sign-cancer      { grid-area: ca; }
+  .chamber.sign-leo         { grid-area: le; }
+  .chamber.sign-virgo       { grid-area: vi; }
+  .chamber.sign-libra       { grid-area: li; }
+  .chamber.sign-scorpio     { grid-area: sc; }
+  .chamber.sign-sagittarius { grid-area: sa; }
+  .chamber.sign-capricorn   { grid-area: cp; }
+  .chamber.sign-aquarius    { grid-area: aq; }
+  .stage-center { grid-area: cc; }
+
+  .chamber {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 7px 8px 6px;
+    position: relative;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .12s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+  .chamber:hover {
+    border-color: var(--saffron);
+    transform: translateY(-1px);
+  }
+  .chamber-num {
+    font-family: var(--display); font-style: italic;
+    font-size: 10px; color: var(--muted); letter-spacing: .04em;
+  }
+  .chamber-sign {
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; color: var(--ink-soft); letter-spacing: .01em;
+    line-height: 1.1;
+  }
+  .chamber-glyph {
+    font-family: var(--display);
+    font-size: 18px; color: var(--saffron); opacity: 0;
+    transition: opacity .15s, transform .15s;
+    text-align: center; line-height: 1; margin: 2px 0;
+  }
+  .chamber.is-source {
+    background: rgba(188,129,70,.18);
+    border-color: var(--saffron); border-width: 2px;
+    padding: 6px 7px 5px;
+  }
+  .chamber.is-source .chamber-glyph { opacity: 1; font-size: 24px; transform: scale(1); }
+  .chamber.is-source .chamber-sign { color: var(--saffron); font-weight: 500; font-style: normal; }
+  .chamber.is-aspected {
+    background: rgba(188,129,70,.06);
+    border-color: rgba(188,129,70,.55);
+  }
+  .chamber.is-aspected .chamber-num { color: var(--saffron); font-weight: 500; }
+  .aspect-badge {
+    position: absolute; top: 4px; right: 5px;
+    font-family: var(--display); font-style: italic;
+    font-size: 10.5px; color: var(--saffron); font-weight: 500;
+    background: var(--surface); padding: 1px 5px;
+    border: 1px solid var(--saffron); border-radius: 999px;
+    line-height: 1.3;
+  }
+
+  /* Center placeholder + caption */
+  .stage-center {
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px dashed var(--rule-soft);
+    border-radius: 8px;
+    padding: 10px; text-align: center;
+  }
+  .center-caption {
+    font-family: var(--display); font-style: italic;
+    font-size: 12.5px; color: var(--muted); line-height: 1.4;
+  }
+  .center-caption strong {
+    color: var(--saffron); font-weight: 500; font-style: normal;
+    display: block; font-size: 13.5px; margin-bottom: 2px;
+  }
+
+  /* SVG arrow overlay */
+  .arrows-svg {
+    position: absolute; inset: 0; pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  .arrow-line {
+    stroke: var(--saffron); stroke-width: 1.4;
+    fill: none; opacity: .55;
+    stroke-dasharray: 3 3;
+  }
+  .arrow-head {
+    fill: var(--saffron); opacity: .75;
+  }
+
+  /* ---------- CAPTION CARD ---------- */
+  .caption-card {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 16px 20px;
+    margin: 18px 0 8px;
+  }
+  .caption-card .cap-eyebrow {
+    font-family: var(--display); font-style: italic; font-size: 11.5px;
+    letter-spacing: .12em; color: var(--saffron); text-transform: lowercase;
+    margin-bottom: 4px;
+  }
+  .caption-card .cap-main {
+    font-family: var(--display); font-size: 17px;
+    color: var(--ink); line-height: 1.45; margin: 0 0 8px;
+  }
+  .caption-card .cap-main em { color: var(--saffron); font-style: italic; }
+  .caption-card .cap-mnem {
+    font-family: var(--display); font-style: italic;
+    font-size: 15px; color: var(--ink-soft); line-height: 1.5;
+    margin: 0; padding-top: 8px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  /* ---------- MNEMONIC TABLE ---------- */
+  .mnem-card {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .mnem-card h3 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 18px; margin: 0 0 12px;
+    letter-spacing: -.005em;
+  }
+  .mnem-card h3 em { color: var(--saffron); font-style: italic; }
+  .mnem-row {
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 14px; padding: 10px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .mnem-row:last-child { border-bottom: 0; }
+  .mnem-row .planet {
+    font-family: var(--display); font-style: italic;
+    font-size: 15px; color: var(--saffron); font-weight: 500;
+  }
+  .mnem-row .nums {
+    font-family: var(--body); font-size: 11.5px;
+    color: var(--muted); display: block; margin-top: 2px;
+    letter-spacing: .04em;
+  }
+  .mnem-row .line {
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px; color: var(--ink-soft); line-height: 1.5;
+  }
+  @media (max-width: 520px) {
+    .mnem-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+    .mnem-row .planet { font-size: 14.5px; }
+  }
+
+  /* ---------- CROSS-LINK ---------- */
+  .xref {
+    text-align: center; margin: 28px 0 8px;
+    font-family: var(--display); font-style: italic;
+    font-size: 14.5px; color: var(--ink-soft);
+  }
+  .xref a { color: var(--saffron); }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    margin-top: 60px; padding: 24px 0 20px; text-align: center;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .footer .ornament { color: var(--saffron); opacity: .5; margin: 0 auto 10px; }
+  .footer p { margin: 6px 0; font-family: var(--display); font-style: italic; font-size: 14px; color: var(--ink-soft); }
+  .footer .meta { font-family: var(--body); font-style: normal; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ====================== SITE NAV ====================== -->
+  <div id="siteNavMount"></div>
+  <script src="assets/site-nav.js"></script>
+
+  <!-- ====================== MASTHEAD ====================== -->
+  <header class="masthead">
+    <div class="eyebrow">a peer page · drishti · the planet's gaze</div>
+    <h1>Aspects <em>· the gaze</em></h1>
+    <p class="lede">Place any planet in any chamber. Watch where it looks. Mars reaches further than the 7th. So does Jupiter. So does Saturn. <em>Drishti</em> is the act of looking — and looking transfers energy.</p>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+  </header>
+
+  <!-- ====================== VIKRAM'S FRAMING ====================== -->
+  <aside class="pull">
+    <div class="pull-eyebrow">Vikram's intent</div>
+    <p>"By the act of looking, energy is transferred to whatever is in that region. The aspect can be benefic or malefic — it depends on what is doing the looking."</p>
+    <p class="pull-attr">— Vikram · Aspects · the principle</p>
+  </aside>
+
+  <!-- ====================== INSTRUCTIONS ====================== -->
+  <section class="s">
+    <div class="s-eyebrow">how to play</div>
+    <h2>Pick a planet · tap a sign · see the gaze</h2>
+    <p class="s-lede">Every planet aspects the 7th chamber from itself — straight across. Three planets — <em>Mars, Jupiter, Saturn</em> — also reach further. The chamber count starts from the planet's own sign as 1; move forward in the zodiac.</p>
+  </section>
+
+  <!-- ====================== CONTROLS ====================== -->
+  <div class="ctrls">
+    <div class="ctrls-row" id="planetRow" role="group" aria-label="Pick a planet">
+      <span class="ctrls-label">planet:</span>
+      <!-- planet chips injected by JS -->
+    </div>
+    <div class="ctrls-row" role="group" aria-label="View options">
+      <span class="ctrls-label">view:</span>
+      <button class="toggle is-active" type="button" id="toggleSpecial" data-mode="special">all aspects</button>
+      <button class="toggle" type="button" id="toggleUniversal" data-mode="universal">universal (7th) only</button>
+      <button class="toggle" type="button" id="resetBtn" style="margin-left:auto;">reset</button>
+    </div>
+  </div>
+
+  <!-- ====================== CHART + CAPTION ====================== -->
+  <div class="chart-wrap">
+    <div class="stage" id="stage" role="grid" aria-label="South Indian chart — tap a sign to place the selected planet">
+      <!-- chambers injected by JS -->
+    </div>
+    <svg class="arrows-svg" id="arrowsSvg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+
+  <div class="caption-card" id="captionCard">
+    <div class="cap-eyebrow">what's happening</div>
+    <p class="cap-main" id="capMain">Pick a planet above, then tap any sign on the chart to place it.</p>
+    <p class="cap-mnem" id="capMnem" hidden></p>
+  </div>
+
+  <!-- ====================== MNEMONIC TABLE ====================== -->
+  <div class="mnem-card">
+    <h3>The three planets that <em>reach further</em></h3>
+    <div class="mnem-row">
+      <div>
+        <div class="planet">Mars</div>
+        <span class="nums">4 · 7 · 8</span>
+      </div>
+      <div class="line">The warrior strikes at <em>home</em> (4th), at his <em>enemy</em> (7th), and at the <em>weak flank</em> (8th).</div>
+    </div>
+    <div class="mnem-row">
+      <div>
+        <div class="planet">Jupiter</div>
+        <span class="nums">5 · 7 · 9</span>
+      </div>
+      <div class="line">The priest blesses <em>children</em> (5th), <em>spouse</em> (7th), and <em>dharma</em> (9th).</div>
+    </div>
+    <div class="mnem-row">
+      <div>
+        <div class="planet">Saturn</div>
+        <span class="nums">3 · 7 · 10</span>
+      </div>
+      <div class="line">The old servant looks <em>ahead</em> (3rd), <em>across</em> (7th), and at <em>duty unfinished</em> (10th).</div>
+    </div>
+    <p style="font-family:var(--display); font-style:italic; font-size:13.5px; color:var(--muted); margin:14px 0 0; padding-top:10px; border-top:1px solid var(--rule-soft);">Sun, Moon, Mercury, Venus, Rahu &amp; Ketu — only the 7th. Straight across, full glance. <em>Rahu and Ketu do not aspect each other.</em></p>
+  </div>
+
+  <!-- ====================== CROSS-LINK ====================== -->
+  <p class="xref">Reading the rules in long form? <a href="learning-companion.html#aspects">Open § Eight · Aspects in the Learning Companion</a>.</p>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+    <p>← <a href="learning-companion.html">Back to the reference</a> · or <a href="interactive.html">the interactive lab</a></p>
+    <p class="meta">v4.74.0 · shipped 11 May 2026</p>
+    <p class="meta" style="font-size:11.5px;opacity:.85;">Asked for by <em>Ayesha</em>. Aspect rules: BPHS 26:2–5. Built by <em>Sree &amp; Sanchi</em> alongside the class.</p>
+  </footer>
+
+</div>
+
+<!-- ====================== JS ====================== -->
+<script>
+(function(){
+  'use strict';
+
+  // ----- DATA -----
+  // Zodiac signs in order (1=Aries through 12=Pisces).
+  var SIGNS = [
+    { key: 'aries',       name: 'Aries',       num: 1  },
+    { key: 'taurus',      name: 'Taurus',      num: 2  },
+    { key: 'gemini',      name: 'Gemini',      num: 3  },
+    { key: 'cancer',      name: 'Cancer',      num: 4  },
+    { key: 'leo',         name: 'Leo',         num: 5  },
+    { key: 'virgo',       name: 'Virgo',       num: 6  },
+    { key: 'libra',       name: 'Libra',       num: 7  },
+    { key: 'scorpio',     name: 'Scorpio',     num: 8  },
+    { key: 'sagittarius', name: 'Sagittarius', num: 9  },
+    { key: 'capricorn',   name: 'Capricorn',   num: 10 },
+    { key: 'aquarius',    name: 'Aquarius',    num: 11 },
+    { key: 'pisces',      name: 'Pisces',      num: 12 }
+  ];
+  var SIGN_BY_KEY = {};
+  SIGNS.forEach(function(s){ SIGN_BY_KEY[s.key] = s; });
+
+  // Planets — special aspects encoded as forward-counts including self as 1.
+  // So Mars [4,7,8] means the 4th, 7th, and 8th sign counting forward from Mars's sign.
+  var PLANETS = [
+    { key: 'sun',     name: 'Sun',     glyph: '☉', aspects: [7],          special: false, mnemonic: null },
+    { key: 'moon',    name: 'Moon',    glyph: '☽', aspects: [7],          special: false, mnemonic: null },
+    { key: 'mercury', name: 'Mercury', glyph: '☿', aspects: [7],          special: false, mnemonic: null },
+    { key: 'venus',   name: 'Venus',   glyph: '♀', aspects: [7],          special: false, mnemonic: null },
+    { key: 'mars',    name: 'Mars',    glyph: '♂', aspects: [4, 7, 8],    special: true,
+      mnemonic: 'The warrior strikes at home (4th), at his enemy (7th), and at the weak flank (8th).' },
+    { key: 'jupiter', name: 'Jupiter', glyph: '♃', aspects: [5, 7, 9],    special: true,
+      mnemonic: 'The priest blesses children (5th), spouse (7th), and dharma (9th).' },
+    { key: 'saturn',  name: 'Saturn',  glyph: '♄', aspects: [3, 7, 10],   special: true,
+      mnemonic: 'The old servant looks ahead (3rd), across (7th), and at duty unfinished (10th).' },
+    { key: 'rahu',    name: 'Rahu',    glyph: '☊', aspects: [7],          special: false,
+      mnemonic: 'Rahu and Ketu aspect the 7th — but never each other.' },
+    { key: 'ketu',    name: 'Ketu',    glyph: '☋', aspects: [7],          special: false,
+      mnemonic: 'Rahu and Ketu aspect the 7th — but never each other.' }
+  ];
+  var PLANET_BY_KEY = {};
+  PLANETS.forEach(function(p){ PLANET_BY_KEY[p.key] = p; });
+
+  // ----- STATE -----
+  var state = {
+    planet: 'saturn',     // sensible default — Saturn is the asker's pain point
+    placedSign: null,     // sign key where the planet is currently placed
+    mode: 'special'       // 'special' or 'universal'
+  };
+
+  // ----- DOM -----
+  var stageEl    = document.getElementById('stage');
+  var arrowsSvg  = document.getElementById('arrowsSvg');
+  var planetRow  = document.getElementById('planetRow');
+  var capMainEl  = document.getElementById('capMain');
+  var capMnemEl  = document.getElementById('capMnem');
+  var togSpecial = document.getElementById('toggleSpecial');
+  var togUniv    = document.getElementById('toggleUniversal');
+  var resetBtn   = document.getElementById('resetBtn');
+
+  // ----- PLANET CHIPS -----
+  function renderPlanetChips(){
+    var html = '';
+    PLANETS.forEach(function(p){
+      var active = (p.key === state.planet);
+      html += '<button class="planet-chip' + (active ? ' is-active' : '') + '" type="button"' +
+              ' data-planet="' + p.key + '" aria-pressed="' + active + '">' +
+              '<span aria-hidden="true">' + p.glyph + '</span> ' + p.name +
+              (p.special ? ' <span class="special-mark">+special</span>' : '') +
+              '</button>';
+    });
+    planetRow.querySelectorAll('.planet-chip').forEach(function(c){ c.remove(); });
+    planetRow.insertAdjacentHTML('beforeend', html);
+    planetRow.querySelectorAll('.planet-chip').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        state.planet = btn.dataset.planet;
+        renderPlanetChips();
+        renderStage();
+        renderCaption();
+        renderArrows();
+      });
+    });
+  }
+
+  // ----- STAGE / CHAMBERS -----
+  // Each chamber knows its sign. Center is a caption placeholder.
+  function renderStage(){
+    var html = '';
+    SIGNS.forEach(function(s){
+      var placedHere = (state.placedSign === s.key);
+      var aspectN    = aspectNumberFor(s.key);          // null or 1..12
+      var isAspected = aspectN !== null && !placedHere;
+      var planet     = PLANET_BY_KEY[state.planet];
+      var classes    = 'chamber sign-' + s.key +
+                       (placedHere ? ' is-source' : '') +
+                       (isAspected ? ' is-aspected' : '');
+      html += '<div class="' + classes + '" role="gridcell" tabindex="0"' +
+              ' data-sign="' + s.key + '" data-num="' + s.num + '"' +
+              ' aria-label="' + s.name + (placedHere ? ' — ' + planet.name + ' placed here' :
+                (isAspected ? ' — aspected (' + ordinal(aspectN) + ')' : '')) + '">';
+      html += '<div class="chamber-num">' + s.num + '</div>';
+      if (placedHere){
+        html += '<div class="chamber-glyph">' + planet.glyph + '</div>';
+      }
+      html += '<div class="chamber-sign">' + s.name + '</div>';
+      if (isAspected){
+        html += '<div class="aspect-badge">' + ordinal(aspectN) + '</div>';
+      }
+      html += '</div>';
+    });
+    // center placeholder
+    html += '<div class="stage-center"><div class="center-caption" id="centerCaption">' +
+            centerCaptionHtml() + '</div></div>';
+    stageEl.innerHTML = html;
+
+    stageEl.querySelectorAll('.chamber').forEach(function(ch){
+      ch.addEventListener('click', function(){
+        state.placedSign = ch.dataset.sign;
+        renderStage();
+        renderCaption();
+        renderArrows();
+      });
+      ch.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          ch.click();
+        }
+      });
+    });
+  }
+
+  function centerCaptionHtml(){
+    if (!state.placedSign){
+      return '<strong>tap a sign</strong>to place ' + PLANET_BY_KEY[state.planet].name;
+    }
+    var s = SIGN_BY_KEY[state.placedSign];
+    var p = PLANET_BY_KEY[state.planet];
+    return '<strong>' + p.glyph + ' ' + p.name + '</strong>in ' + s.name;
+  }
+
+  // Returns the aspect ordinal (3/4/5/7/8/9/10) if the given sign is aspected
+  // by the placed planet, otherwise null.
+  function aspectNumberFor(signKey){
+    if (!state.placedSign) return null;
+    var srcNum = SIGN_BY_KEY[state.placedSign].num;
+    var tgtNum = SIGN_BY_KEY[signKey].num;
+    // forward count from src to tgt, where src counts as 1
+    var forward = ((tgtNum - srcNum + 12) % 12) + 1;
+    var aspects = activeAspects();
+    // Don't badge the source chamber itself
+    if (forward === 1) return null;
+    if (aspects.indexOf(forward) !== -1) return forward;
+    return null;
+  }
+
+  function activeAspects(){
+    var p = PLANET_BY_KEY[state.planet];
+    if (state.mode === 'universal') return [7];
+    return p.aspects;
+  }
+
+  function ordinal(n){
+    var s = ['th','st','nd','rd'], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  // ----- CAPTION -----
+  function renderCaption(){
+    if (!state.placedSign){
+      capMainEl.innerHTML = 'Pick a planet above, then tap any sign on the chart to place it.';
+      capMnemEl.hidden = true;
+      return;
+    }
+    var p = PLANET_BY_KEY[state.planet];
+    var srcSign = SIGN_BY_KEY[state.placedSign];
+    var aspects = activeAspects();
+    var srcNum = srcSign.num;
+    var parts = aspects.map(function(n){
+      var tgtNum = ((srcNum - 1 + (n - 1)) % 12) + 1;
+      var tgt = SIGNS.find(function(x){ return x.num === tgtNum; });
+      return '<em>' + tgt.name + '</em> (' + ordinal(n) + ')';
+    });
+    var lead = p.name + ' in ' + srcSign.name + ' &nbsp;→&nbsp; aspects ';
+    capMainEl.innerHTML = lead + parts.join(', ') + '.';
+
+    if (p.mnemonic && state.mode !== 'universal'){
+      capMnemEl.innerHTML = p.mnemonic;
+      capMnemEl.hidden = false;
+    } else if (state.mode === 'universal'){
+      capMnemEl.innerHTML = 'Universal aspect — every planet glances at the 7th, straight across the chart.';
+      capMnemEl.hidden = false;
+    } else {
+      capMnemEl.hidden = true;
+    }
+  }
+
+  // ----- ARROWS -----
+  // Compute chamber centres in normalized 0–100 viewBox space and draw lines.
+  function renderArrows(){
+    arrowsSvg.innerHTML = '';
+    if (!state.placedSign) return;
+    var stageRect = stageEl.getBoundingClientRect();
+    if (stageRect.width === 0) return;
+
+    var srcEl = stageEl.querySelector('.chamber[data-sign="' + state.placedSign + '"]');
+    if (!srcEl) return;
+    var srcRect = srcEl.getBoundingClientRect();
+    var sx = ((srcRect.left + srcRect.width/2)  - stageRect.left) / stageRect.width  * 100;
+    var sy = ((srcRect.top  + srcRect.height/2) - stageRect.top)  / stageRect.height * 100;
+
+    // For each aspected chamber, draw line + arrowhead
+    var aspects = activeAspects();
+    aspects.forEach(function(n){
+      if (n === 1) return;
+      var srcNum = SIGN_BY_KEY[state.placedSign].num;
+      var tgtNum = ((srcNum - 1 + (n - 1)) % 12) + 1;
+      var tgtSign = SIGNS.find(function(x){ return x.num === tgtNum; });
+      var tgtEl = stageEl.querySelector('.chamber[data-sign="' + tgtSign.key + '"]');
+      if (!tgtEl) return;
+      var tr = tgtEl.getBoundingClientRect();
+      var tx = ((tr.left + tr.width/2)  - stageRect.left) / stageRect.width  * 100;
+      var ty = ((tr.top  + tr.height/2) - stageRect.top)  / stageRect.height * 100;
+
+      // Shorten line slightly to leave room for arrowhead
+      var dx = tx - sx, dy = ty - sy;
+      var len = Math.sqrt(dx*dx + dy*dy);
+      if (len < 1) return;
+      var ux = dx/len, uy = dy/len;
+      var startX = sx + ux * 6;   // start away from source centre
+      var startY = sy + uy * 6;
+      var endX   = tx - ux * 6;   // end before target centre (room for arrowhead)
+      var endY   = ty - uy * 6;
+
+      // Line
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', startX);
+      line.setAttribute('y1', startY);
+      line.setAttribute('x2', endX);
+      line.setAttribute('y2', endY);
+      line.setAttribute('class', 'arrow-line');
+      arrowsSvg.appendChild(line);
+
+      // Arrowhead — small triangle at end
+      var head = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      var hSize = 1.6;
+      // perpendicular vector
+      var px = -uy, py = ux;
+      var p1x = endX, p1y = endY;
+      var p2x = endX - ux * hSize + px * hSize * 0.6;
+      var p2y = endY - uy * hSize + py * hSize * 0.6;
+      var p3x = endX - ux * hSize - px * hSize * 0.6;
+      var p3y = endY - uy * hSize - py * hSize * 0.6;
+      head.setAttribute('points', p1x+','+p1y+' '+p2x+','+p2y+' '+p3x+','+p3y);
+      head.setAttribute('class', 'arrow-head');
+      arrowsSvg.appendChild(head);
+    });
+  }
+
+  // ----- MODE TOGGLES -----
+  togSpecial.addEventListener('click', function(){
+    state.mode = 'special';
+    togSpecial.classList.add('is-active');
+    togUniv.classList.remove('is-active');
+    renderStage(); renderCaption(); renderArrows();
+  });
+  togUniv.addEventListener('click', function(){
+    state.mode = 'universal';
+    togUniv.classList.add('is-active');
+    togSpecial.classList.remove('is-active');
+    renderStage(); renderCaption(); renderArrows();
+  });
+  resetBtn.addEventListener('click', function(){
+    state.placedSign = null;
+    renderStage(); renderCaption(); renderArrows();
+  });
+
+  // Re-render arrows on resize (viewBox is normalized, so usually fine, but the
+  // SVG viewBox uses preserveAspectRatio="none" so it scales with grid)
+  window.addEventListener('resize', function(){ renderArrows(); });
+
+  // ----- INIT -----
+  renderPlanetChips();
+  renderStage();
+  renderCaption();
+  // No arrows on first paint (no planet placed yet)
+})();
+</script>
+
+<!-- ====================== UPDATE CHECKER ====================== -->
+<script>
+(function() {
+  const PAGE_VERSION = '4.74.0';
+  const VERSION_URL = 'version.json';
+  const FOCUS_THROTTLE_MS = 30000;
+  let lastChecked = 0;
+  function showToast(msg) {
+    let t = document.getElementById('versionToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'versionToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+  }
+  async function check(silent) {
+    const now = Date.now();
+    if (silent && now - lastChecked < FOCUS_THROTTLE_MS) return;
+    lastChecked = now;
+    try {
+      const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const data = await r.json();
+      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
+    } catch {}
+  }
+  window.__checkForUpdates = () => check(false);
+  setTimeout(() => check(true), 1500);
+  window.addEventListener('focus', () => check(true));
+  window.__pageVersion = PAGE_VERSION;
+})();
+</script>
+
+</body>
+</html>

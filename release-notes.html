@@ -706,10 +706,62 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.0 ====================== -->
+  <section class="release" data-credits="Ayesha (asked in the same voice-note for a way to remember the special aspects of Mars, Jupiter, Saturn — and said 'the interactive parts are my favourite parts', which made the direction obvious)">
+    <header>
+      <h2>v4.74.0 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">A new peer page — <code>aspects.html</code> — turns the hardest beginner concept (special aspects: Mars 4/8, Jupiter 5/9, Saturn 3/10) into something you can <em>feel</em>. Pick a planet, tap a sign, watch the chart light up with arrows. Filed against the second half of Ayesha's voice-note this morning.</p>
+
+    <h3>What you can do on the page</h3>
+    <ul>
+      <li>Pick from nine planet chips at the top (Sun · Moon · Mercury · Venus · Mars · Jupiter · Saturn · Rahu · Ketu). The three planets with special aspects carry a small <em>+special</em> mark — visual cue that not all planets reach equally far.</li>
+      <li>Tap any of the twelve chambers on a South Indian chart to place the selected planet there.</li>
+      <li>The source chamber lights saffron (with the planet's glyph). Every chamber the planet aspects gets a faint saffron tint, a small ordinal badge (<em>3rd, 7th, 10th</em>) and a dashed arrow drawn from the source to the target.</li>
+      <li>A caption card below the chart spells it out in words: <em>"Saturn in Aries → aspects Gemini (3rd), Libra (7th), Capricorn (10th)"</em> plus a Vikram-style mnemonic line.</li>
+      <li>A toggle: <em>all aspects</em> (default) vs. <em>universal (7th) only</em> — so you can isolate what's shared across all planets versus what makes Mars / Jupiter / Saturn distinct.</li>
+      <li>A reset button to clear the chart and try a different placement.</li>
+    </ul>
+
+    <h3>The mnemonics, baked in</h3>
+    <p>Below the chart, a small card carries the three lines worth remembering:</p>
+    <ul>
+      <li><strong>Mars · 4 · 7 · 8</strong> — <em>the warrior strikes at home (4th), at his enemy (7th), and at the weak flank (8th).</em></li>
+      <li><strong>Jupiter · 5 · 7 · 9</strong> — <em>the priest blesses children (5th), spouse (7th), and dharma (9th).</em></li>
+      <li><strong>Saturn · 3 · 7 · 10</strong> — <em>the old servant looks ahead (3rd), across (7th), and at duty unfinished (10th).</em></li>
+    </ul>
+    <p>The other six — Sun, Moon, Mercury, Venus, Rahu, Ketu — only have the universal 7th. The Rahu/Ketu exception (they aspect the 7th but never each other) is noted.</p>
+
+    <h3>Why a peer page, not a tab</h3>
+    <p>Initial brief said "new stage inside <code>interactive.html</code>". On building, a standalone page won — three reasons. <strong>One:</strong> it's the cleanest single URL to share on WhatsApp during a class, which is how the cohort actually uses these tools live. <strong>Two:</strong> it slots into the More menu by name, alongside the other single-purpose peer pages (Elements, Kaalapurusha, Ether). <strong>Three:</strong> when v4.74.1+ adds a quiz or a "your-chart" mode, those naturally extend the same page rather than fragmenting across multiple tabs.</p>
+
+    <h3>How it's wired into the rest</h3>
+    <ul>
+      <li><strong>More menu</strong> — <code>assets/site-nav.js</code> now has an <em>Aspects · drishti</em> entry between Interactive and Kaalapurusha. One edit propagates to all 20 pages (thank you v4.73.0).</li>
+      <li><strong>LC § Eight</strong> — the Aspects section in the Learning Companion now has a saffron callout: <em>"See drishti in motion — place any planet in any sign and watch its gaze light up the chart."</em> Direct link into <code>aspects.html</code>. Reading the rules in long form happens in LC; feeling them happens here.</li>
+      <li><strong>Footer</strong> — the new page's footer credits Ayesha as the asker. Sourced to BPHS 26:2–5 for the special-aspect rule.</li>
+    </ul>
+
+    <h3>Implementation notes</h3>
+    <ul>
+      <li><strong>Vanilla JS, no dependencies.</strong> ~12 KB of JS in the file. The grid layout reuses the proven <code>.stage</code> + <code>.chamber</code> grid-template-areas pattern from <code>index.html</code> and <code>interpret.html</code>.</li>
+      <li><strong>Arrows</strong> are SVG lines + polygons drawn from each chamber's bounding-rect centre, normalized to a 0–100 viewBox with <code>preserveAspectRatio="none"</code>. They re-render on resize.</li>
+      <li><strong>Aspect formula</strong> — <code>((tgtNum − srcNum + 12) % 12) + 1</code> gives the forward count with the source's own sign as 1. Hand-verified against three placements (Saturn/Aries, Jupiter/Cancer, Mars/Capricorn).</li>
+      <li><strong>Mobile</strong> — same responsive behaviour as the home chart. The mnemonic card collapses to a single column under 520px.</li>
+    </ul>
+
+    <h3>What's deferred to v4.74.1+</h3>
+    <p>Multi-planet stacking (see Mars and Saturn aspecting overlap on the same chart); a <em>your chart</em> mode that pulls saved placements; an aspects flash-deck quiz. Aspect <em>strength</em> rules (Vimshopaka, partial vs. full glance) stay out until Vikram formally covers them — the 101 syllabus deliberately doesn't go there yet.</p>
+
+    <h3>Cohort impact</h3>
+    <p>Ayesha is the named asker — and was credited in the footer of the new page. Soft-launch is via direct WhatsApp share to beta users; the More menu surface ensures everyone else finds it naturally.</p>
+  </section>
+
   <!-- ====================== v4.73.2 ====================== -->
   <section class="release" data-credits="Ayesha (voice-note feedback flagged the dense exalt/debil paragraph in the Cabinet — Cancer mentioned twice in one breath, easy to mis-read which planet exalts and which debilitates)">
     <header>
-      <h2>v4.73.2 <em>· current</em></h2>
+      <h2>v4.73.2</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">Split the Cabinet's <em>"How exaltation and debilitation work"</em> block into four clearly separated per-planet scene cards — one each for <strong>Sun, Mars, Jupiter, Saturn</strong>. Every word is still Vikram's; the structural change makes it impossible to cross-wire planets the way the old single paragraph invited.</p>
@@ -5236,7 +5288,7 @@
     </div>
     <p>← <a href="learning-companion.html">Back to the reference</a></p>
     <p style="margin-top:10px;">
-      <span style="color:var(--muted);">v4.73.2 · updated 11 May 2026</span>
+      <span style="color:var(--muted);">v4.74.0 · updated 11 May 2026</span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:var(--saffron);">Check for updates</a>
     </p>

@@ -42,6 +42,7 @@
     { href: 'where-am-i.html',         label: 'Where am I' },
     { href: 'elements.html',           label: 'Elements' },
     { href: 'interactive.html',        label: 'Interactive · beta' },
+    { href: 'aspects.html',            label: 'Aspects · drishti' },
     { href: 'kaalapurusha.html',       label: 'Kaalapurusha' },
     { href: 'mercury-spectrum.html',   label: 'Mercury Spectrum' },
     { href: 'jupiter-tracker.html',    label: 'Jupiter Tracker' },
