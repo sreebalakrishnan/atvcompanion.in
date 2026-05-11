@@ -689,7 +689,7 @@ renderSessions('');
 
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.27';
+  const PAGE_VERSION = '4.74.28';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -723,6 +723,77 @@ renderSessions('');
   document.addEventListener('visibilitychange', () => { if (!document.hidden) check(true); });
 })();
 </script>
+
+<!-- ====================== BUILD FINGERPRINT ====================== -->
+<!-- Cache-verification fingerprint (v4.74.28). BUILD_ID rotates on every
+     deploy. If it differs from version.json's `build` while PAGE_VERSION
+     matches, the CDN is serving stale HTML and we force a clean reload. -->
+<script>
+(function(){
+  var BUILD_ID = 'simha-m4r7';
+  window.__buildId = BUILD_ID;
+
+  function forceFresh(){
+    var sep = location.search ? '&' : '?';
+    var clean = (location.search || '').replace(/[?&]_v=\d+/g, '').replace(/^&/, '?');
+    location.replace(location.pathname + clean + sep + '_v=' + Date.now() + (location.hash || ''));
+  }
+
+  function toast(msg, ms){
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1001;background:#282826;color:#F8F4E1;padding:10px 22px;border-radius:100px;font-family:"Libre Caslon Text","Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:92%;text-align:center;line-height:1.4;';
+    t.innerHTML = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .25s'; t.style.opacity='0'; }, (ms||2400));
+    setTimeout(function(){ t.remove(); }, (ms||2400)+400);
+  }
+
+  function verify(silent){
+    return fetch('version.json?_=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !data.version) {
+          if (!silent) toast('Could not reach version manifest', 3000);
+          return;
+        }
+        var pv = window.__pageVersion || '';
+        var versionMatch = (data.version === pv) || !pv;
+        var buildMatch   = (!data.build) || (data.build === BUILD_ID);
+        if (versionMatch && buildMatch) {
+          if (!silent) toast('✓ <strong style="font-style:normal;">Latest build</strong> · v' + (pv||data.version) + ' · build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code>', 3500);
+        } else if (versionMatch && !buildMatch) {
+          if (!silent) toast('⚠ <strong style="font-style:normal;">Stale HTML</strong> · server build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + data.build + '</code>, you have <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code> — forcing reload…', 4000);
+          setTimeout(forceFresh, silent ? 800 : 1800);
+        }
+        // else: version mismatch — the page's own update-checker handles the banner
+      })
+      .catch(function(){ if (!silent) toast('Verify unavailable on file:// — open via http(s)://', 3000); });
+  }
+
+  window.__verifyBuild = function(){ verify(false); };
+
+  // Silent verification on load — after a small delay so the page's own
+  // update-checker (which fires on DOMContentLoaded) has time to claim the
+  // version-mismatch banner first.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ verify(true); }, 1800); });
+  } else {
+    setTimeout(function(){ verify(true); }, 1800);
+  }
+
+  // Wire clicks on visible build chips (each page adds its own chip HTML)
+  document.addEventListener('DOMContentLoaded', function(){
+    ['buildIdFooter','buildIdEyebrow'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function(){ verify(false); });
+    });
+    document.querySelectorAll('.build-id-chip').forEach(function(el){
+      el.addEventListener('click', function(){ verify(false); });
+    });
+  });
+})();
+</script>
+
 
 <script>
 (function() {

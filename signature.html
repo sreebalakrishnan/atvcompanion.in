@@ -545,7 +545,7 @@
   }
   .how-tour-link:hover { text-decoration-color: var(--saffron); }
 
-  /* v4.74.27 — fold the math walkthrough behind a teaser question */
+  /* v4.74.28 — fold the math walkthrough behind a teaser question */
   .how-fold {
     margin: 12px 0 0;
     border: 1px solid var(--rule);
@@ -638,7 +638,7 @@
   <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
-    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.27</div>
+    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.28</div>
     <h1>Signature <em>· for one</em></h1>
     <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique — Vedic, sidereal, <em>Navagraha</em> + Lagna — applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
     <div class="ornament" aria-hidden="true">
@@ -863,7 +863,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
   </section>
 
   <footer class="footer">
-    <p>v4.74.27 · 11 May 2026 · signature module v0.3 · for one</p>
+    <p>v4.74.28 · 11 May 2026 · signature module v0.3 · for one</p>
     <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Vedic · sidereal zodiac (Lahiri ayanamsha) · Navagraha + Lagna. Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
   </footer>
 
@@ -1324,7 +1324,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 
     $outCard.innerHTML = html;
 
-    // v4.74.27 — auto-open the "How this is computed" fold when the in-card link is tapped
+    // v4.74.28 — auto-open the "How this is computed" fold when the in-card link is tapped
     var howLink = $outCard.querySelector('.how-tour-link');
     if (howLink) {
       howLink.addEventListener('click', function(){
@@ -1415,7 +1415,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.27';
+  const PAGE_VERSION = '4.74.28';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1457,6 +1457,77 @@ degInSign = λ_sidereal − signIndex × 30</pre>
   window.__pageVersion = PAGE_VERSION;
 })();
 </script>
+
+<!-- ====================== BUILD FINGERPRINT ====================== -->
+<!-- Cache-verification fingerprint (v4.74.28). BUILD_ID rotates on every
+     deploy. If it differs from version.json's `build` while PAGE_VERSION
+     matches, the CDN is serving stale HTML and we force a clean reload. -->
+<script>
+(function(){
+  var BUILD_ID = 'simha-m4r7';
+  window.__buildId = BUILD_ID;
+
+  function forceFresh(){
+    var sep = location.search ? '&' : '?';
+    var clean = (location.search || '').replace(/[?&]_v=\d+/g, '').replace(/^&/, '?');
+    location.replace(location.pathname + clean + sep + '_v=' + Date.now() + (location.hash || ''));
+  }
+
+  function toast(msg, ms){
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1001;background:#282826;color:#F8F4E1;padding:10px 22px;border-radius:100px;font-family:"Libre Caslon Text","Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:92%;text-align:center;line-height:1.4;';
+    t.innerHTML = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .25s'; t.style.opacity='0'; }, (ms||2400));
+    setTimeout(function(){ t.remove(); }, (ms||2400)+400);
+  }
+
+  function verify(silent){
+    return fetch('version.json?_=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !data.version) {
+          if (!silent) toast('Could not reach version manifest', 3000);
+          return;
+        }
+        var pv = window.__pageVersion || '';
+        var versionMatch = (data.version === pv) || !pv;
+        var buildMatch   = (!data.build) || (data.build === BUILD_ID);
+        if (versionMatch && buildMatch) {
+          if (!silent) toast('✓ <strong style="font-style:normal;">Latest build</strong> · v' + (pv||data.version) + ' · build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code>', 3500);
+        } else if (versionMatch && !buildMatch) {
+          if (!silent) toast('⚠ <strong style="font-style:normal;">Stale HTML</strong> · server build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + data.build + '</code>, you have <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code> — forcing reload…', 4000);
+          setTimeout(forceFresh, silent ? 800 : 1800);
+        }
+        // else: version mismatch — the page's own update-checker handles the banner
+      })
+      .catch(function(){ if (!silent) toast('Verify unavailable on file:// — open via http(s)://', 3000); });
+  }
+
+  window.__verifyBuild = function(){ verify(false); };
+
+  // Silent verification on load — after a small delay so the page's own
+  // update-checker (which fires on DOMContentLoaded) has time to claim the
+  // version-mismatch banner first.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ verify(true); }, 1800); });
+  } else {
+    setTimeout(function(){ verify(true); }, 1800);
+  }
+
+  // Wire clicks on visible build chips (each page adds its own chip HTML)
+  document.addEventListener('DOMContentLoaded', function(){
+    ['buildIdFooter','buildIdEyebrow'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function(){ verify(false); });
+    });
+    document.querySelectorAll('.build-id-chip').forEach(function(el){
+      el.addEventListener('click', function(){ verify(false); });
+    });
+  });
+})();
+</script>
+
 <script src="assets/gate.js"></script>
 </body>
 </html>

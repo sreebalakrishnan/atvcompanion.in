@@ -40,9 +40,11 @@
   const PAGES = [
     { href: 'index.html',              label: 'Home',                       primary: true },
     { href: 'learning-companion.html', label: 'Learning Companion',         primary: true },
-    { href: 'interpret.html',          label: 'Interpret · beta',           primary: true },
+    // v4.74.28 — Journey promoted to top nav, Interpret moved into More (still beta)
+    { href: 'journey.html',            label: 'Journey · beta',             primary: true },
     { href: 'reflect.html',            label: 'Reflect',                    primary: true },
     // ----- More menu · learning content -----
+    { href: 'interpret.html',          label: 'Interpret · beta',           group: 'learning' },
     { href: 'catch-up.html',           label: 'Catch up · missed a class?', group: 'learning' },
     { href: 'elements.html',           label: 'Elements',                   group: 'learning' },
     { href: 'interactive.html',        label: 'Interactive · beta',         group: 'learning' },

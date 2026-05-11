@@ -711,10 +711,34 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.28 ====================== -->
+  <section class="release" data-credits="Sree (asked for a build fingerprint to verify CDN cache freshness, then for site-wide rollout; called for Journey to move to the top nav while Interpret · beta drops into More — Journey is the workbook team's Wednesday focus)">
+    <header>
+      <h2>v4.74.28 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Three things in one push: <strong>(1)</strong> a <strong>build fingerprint</strong> baked into every page that lets you verify, in one tap, whether you're on the latest deployed copy or stuck on a stale CDN cache; <strong>(2)</strong> a long-overdue <strong>version-stamp cleanup</strong> — 20 pages were on PAGE_VERSION 4.73.1 while the manifest was at 4.74.27, which is why the update banner kept firing everywhere; <strong>(3)</strong> a <strong>nav swap</strong> — Journey · beta moves up to the top nav, Interpret · beta drops into More, ahead of Wednesday's workbook team review where Journey is the focus.</p>
+
+    <h3>The build fingerprint</h3>
+    <p>Every page now bakes a short <code>BUILD_ID</code> (this build: <code>simha-m4r7</code>) and silently compares it against <code>version.json</code>'s <code>build</code> field on load. If the semver matches but the build differs, the CDN is serving stale HTML and we force-reload with a cache-bust query parameter. On <strong>LC</strong> there's also a visible chip in the eyebrow and footer — tap it (or the "Verify build" link) to get an explicit toast:</p>
+    <ul>
+      <li><strong>✓ Latest build</strong> · v4.74.28 · build <code>simha-m4r7</code></li>
+      <li><strong>⚠ Stale HTML</strong> · server: <code>simha-m4r7</code>, you have an older build — forcing reload…</li>
+      <li>Version mismatch → existing update banner</li>
+    </ul>
+    <p>The diagnostic power matters because Ayesha's repeated "Refresh now didn't update" reports turned out to be CDN-side caching. With the fingerprint in place, any user can confirm <em>which side the stale copy is on</em> in two seconds. Future deploys rotate BUILD_ID — when the rotation is correct, this becomes a hard tripwire for cache misbehaviour.</p>
+
+    <h3>The version-stamp cleanup</h3>
+    <p>Audit found three layers of drift: release-notes.html was 18 patches behind manifest (no entries for the signature.html sprint); 15 peer pages stuck on PAGE_VERSION 4.73.1 while version.json was at 4.74.27 (this is what was triggering "newer version available" banners everywhere); three pages internally inconsistent (eyebrow said one version, footer another). Fixed all three: release notes filled in for v4.74.10 – v4.74.27; PAGE_VERSION bulk-bumped to current across 20 pages; visible eyebrow/footer stamps on jupiter-tracker, stats, kaalapurusha aligned by hand.</p>
+
+    <h3>The nav swap</h3>
+    <p>Journey · beta moves to the top nav (replacing Interpret), where it's accessible in one tap. Interpret · beta moves into the More menu under "learning content" — still reachable, still flagged beta, but no longer occupying primary real estate. The reasoning: Journey is the prototype the workbook team is reviewing on Wednesday; it deserves the visibility while interpretation work is being rebuilt against sessions 39–43 material. Single edit in <code>assets/site-nav.js</code> — all 22 pages pick up the change on next load.</p>
+  </section>
+
   <!-- ====================== v4.74.27 ====================== -->
   <section class="release" data-credits="Sree (asked for the math walkthrough to be folded behind a teaser question so the page's first impression stays calm and the technical detail rewards curiosity)">
     <header>
-      <h2>v4.74.27 <em>· current</em></h2>
+      <h2>v4.74.27</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">The new "How this is computed" section on <code>signature.html</code> is now folded behind a teaser question: <em>"How does a date, a time, and a city become a sidereal Lagna?"</em> Tap to expand the full 8-step walkthrough. Pure CSS toggle via native <code>&lt;details&gt;</code> — keyboard accessible, screen-reader friendly, zero JS for the core toggle. The in-card link below the chart auto-opens the fold when tapped, so one tap from the result lands you in the math.</p>
@@ -6019,7 +6043,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.27';
+  const PAGE_VERSION = '4.74.28';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -6071,6 +6095,77 @@
   window.__pageVersion = PAGE_VERSION;
 })();
 </script>
+
+<!-- ====================== BUILD FINGERPRINT ====================== -->
+<!-- Cache-verification fingerprint (v4.74.28). BUILD_ID rotates on every
+     deploy. If it differs from version.json's `build` while PAGE_VERSION
+     matches, the CDN is serving stale HTML and we force a clean reload. -->
+<script>
+(function(){
+  var BUILD_ID = 'simha-m4r7';
+  window.__buildId = BUILD_ID;
+
+  function forceFresh(){
+    var sep = location.search ? '&' : '?';
+    var clean = (location.search || '').replace(/[?&]_v=\d+/g, '').replace(/^&/, '?');
+    location.replace(location.pathname + clean + sep + '_v=' + Date.now() + (location.hash || ''));
+  }
+
+  function toast(msg, ms){
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1001;background:#282826;color:#F8F4E1;padding:10px 22px;border-radius:100px;font-family:"Libre Caslon Text","Cormorant Garamond",serif;font-style:italic;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:92%;text-align:center;line-height:1.4;';
+    t.innerHTML = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .25s'; t.style.opacity='0'; }, (ms||2400));
+    setTimeout(function(){ t.remove(); }, (ms||2400)+400);
+  }
+
+  function verify(silent){
+    return fetch('version.json?_=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !data.version) {
+          if (!silent) toast('Could not reach version manifest', 3000);
+          return;
+        }
+        var pv = window.__pageVersion || '';
+        var versionMatch = (data.version === pv) || !pv;
+        var buildMatch   = (!data.build) || (data.build === BUILD_ID);
+        if (versionMatch && buildMatch) {
+          if (!silent) toast('✓ <strong style="font-style:normal;">Latest build</strong> · v' + (pv||data.version) + ' · build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code>', 3500);
+        } else if (versionMatch && !buildMatch) {
+          if (!silent) toast('⚠ <strong style="font-style:normal;">Stale HTML</strong> · server build <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + data.build + '</code>, you have <code style="font-family:ui-monospace,Menlo,monospace;font-style:normal;background:rgba(255,255,255,.18);padding:0 5px;border-radius:3px;">' + BUILD_ID + '</code> — forcing reload…', 4000);
+          setTimeout(forceFresh, silent ? 800 : 1800);
+        }
+        // else: version mismatch — the page's own update-checker handles the banner
+      })
+      .catch(function(){ if (!silent) toast('Verify unavailable on file:// — open via http(s)://', 3000); });
+  }
+
+  window.__verifyBuild = function(){ verify(false); };
+
+  // Silent verification on load — after a small delay so the page's own
+  // update-checker (which fires on DOMContentLoaded) has time to claim the
+  // version-mismatch banner first.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ verify(true); }, 1800); });
+  } else {
+    setTimeout(function(){ verify(true); }, 1800);
+  }
+
+  // Wire clicks on visible build chips (each page adds its own chip HTML)
+  document.addEventListener('DOMContentLoaded', function(){
+    ['buildIdFooter','buildIdEyebrow'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function(){ verify(false); });
+    });
+    document.querySelectorAll('.build-id-chip').forEach(function(el){
+      el.addEventListener('click', function(){ verify(false); });
+    });
+  });
+})();
+</script>
+
 
 
 <!-- ====================== WHATSAPP FEEDBACK FAB (v4.42.0 — site-wide) ====================== -->
