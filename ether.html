@@ -938,7 +938,14 @@
       const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) return;
       const data = await r.json();
-      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      if (data.version !== PAGE_VERSION) {
+        showToast('A newer version (' + data.version + ') is available — refreshing…');
+        setTimeout(function(){
+          var sep = location.search ? '&' : '?';
+          var clean = (location.search || '').replace(/[?&]_v=\d+/g, '').replace(/^&/, '?');
+          location.replace(location.pathname + clean + sep + '_v=' + Date.now() + (location.hash || ''));
+        }, 1200);
+      }
       else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
     } catch {}
   }

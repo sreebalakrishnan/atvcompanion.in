@@ -193,35 +193,153 @@
     margin: 0 0 18px;
   }
 
-  .placements-grid {
+  /* v4.74.22 — South Indian chart visualization replaces the row-wise list */
+  .chart-stage {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "pi ar ta ge"
+      "aq cc cc ca"
+      "cp cc cc le"
+      "sa sc li vi";
     gap: 6px;
-    margin-bottom: 22px;
+    aspect-ratio: 1 / 1;
+    max-width: 520px;
+    margin: 4px auto 22px;
   }
-  .placement-row {
-    display: grid;
-    grid-template-columns: 110px 1fr auto;
-    gap: 12px;
-    padding: 9px 12px;
+  @media (max-width: 540px) { .chart-stage { gap: 5px; max-width: 100%; } }
+  .chart-cell.sign-pisces      { grid-area: pi; }
+  .chart-cell.sign-aries       { grid-area: ar; }
+  .chart-cell.sign-taurus      { grid-area: ta; }
+  .chart-cell.sign-gemini      { grid-area: ge; }
+  .chart-cell.sign-cancer      { grid-area: ca; }
+  .chart-cell.sign-leo         { grid-area: le; }
+  .chart-cell.sign-virgo       { grid-area: vi; }
+  .chart-cell.sign-libra       { grid-area: li; }
+  .chart-cell.sign-scorpio     { grid-area: sc; }
+  .chart-cell.sign-sagittarius { grid-area: sa; }
+  .chart-cell.sign-capricorn   { grid-area: cp; }
+  .chart-cell.sign-aquarius    { grid-area: aq; }
+  .chart-cell.chart-center     { grid-area: cc; }
+
+  .chart-cell {
     background: var(--bg);
-    border: 1px solid var(--rule-soft);
+    border: 1px solid var(--rule);
     border-radius: 8px;
-    font-size: 14.5px;
-    align-items: baseline;
+    padding: 6px 7px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
   }
-  .placement-row .body {
-    font-family: var(--display); font-style: italic;
-    color: var(--saffron); font-weight: 500;
+  .chart-cell .cell-sign {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: .02em;
+    line-height: 1.2;
+    margin-bottom: 2px;
   }
-  .placement-row .sign {
-    font-family: var(--body);
-    color: var(--ink);
+  /* v4.74.26 — element · modality · duality per cell */
+  .chart-cell .cell-meta {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 9px;
+    line-height: 1.25;
+    margin-bottom: 4px;
+    letter-spacing: .015em;
+    opacity: .85;
+    color: var(--muted);
   }
-  .placement-row .deg {
+  .chart-cell.elem-fire  { background: rgba(181, 71, 31, .045); }
+  .chart-cell.elem-earth { background: rgba(107, 84, 48, .055); }
+  .chart-cell.elem-air   { background: rgba(121, 120, 140, .055); }
+  .chart-cell.elem-water { background: rgba(58,  92, 115, .055); }
+  .chart-cell.elem-fire  .cell-meta { color: var(--fire);  opacity: .8; }
+  .chart-cell.elem-earth .cell-meta { color: var(--earth); opacity: .8; }
+  .chart-cell.elem-air   .cell-meta { color: var(--air);   opacity: .95; }
+  .chart-cell.elem-water .cell-meta { color: var(--water); opacity: .85; }
+  /* Ascendant keeps its saffron tint regardless of element */
+  .chart-cell.is-ascendant { background: rgba(188,129,70,.07); }
+  @media (max-width: 540px) {
+    .chart-cell .cell-meta { font-size: 8px; letter-spacing: 0; }
+  }
+  .chart-cell .cell-planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 4px;
+    align-content: flex-start;
+  }
+  .chart-cell .planet {
+    display: inline-block;
+    background: rgba(188,129,70,.13);
+    color: var(--saffron);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 4px;
+    letter-spacing: .03em;
+    cursor: help;
+  }
+  .chart-cell .planet.is-asc {
+    background: var(--saffron);
+    color: var(--surface);
+  }
+  .chart-cell.is-ascendant {
+    border-color: var(--saffron);
+    border-width: 2px;
+    padding: 5px 6px;
+    background: rgba(188,129,70,.05);
+  }
+  .chart-cell.is-ascendant .cell-sign {
+    color: var(--saffron);
+    font-weight: 500;
+    font-style: normal;
+  }
+  .chart-cell.chart-center {
+    background: transparent;
+    border: 1px dashed var(--rule-soft);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+  }
+  .chart-cell.chart-center .center-text {
+    font-family: var(--display);
+    font-style: italic;
     font-size: 11.5px;
     color: var(--muted);
+    line-height: 1.4;
+  }
+  .chart-legend {
+    margin: -8px auto 18px;
+    max-width: 520px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    justify-content: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .chart-legend .lg-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .chart-legend code {
+    background: rgba(188,129,70,.10);
+    color: var(--saffron);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10.5px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 600;
   }
 
   .counts {
@@ -318,6 +436,114 @@
   @media (max-width: 540px) {
     .placement-row { grid-template-columns: 90px 1fr auto; font-size: 13.5px; }
   }
+
+  /* v4.74.25 — How this is computed · technical walkthrough */
+  .how-steps {
+    margin: 18px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .how-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .how-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--saffron);
+    line-height: 1;
+    letter-spacing: -.02em;
+    opacity: .85;
+  }
+  .how-body h3 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 19px;
+    margin: 0 0 6px;
+    color: var(--ink);
+    line-height: 1.25;
+    letter-spacing: -.003em;
+  }
+  .how-body h3 em {
+    color: var(--saffron);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .how-body p {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .how-body p:last-child { margin-bottom: 0; }
+  .how-body strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .how-body em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .how-body code {
+    background: rgba(188,129,70,.10);
+    color: var(--saffron);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-style: normal;
+  }
+  .how-formula {
+    margin: 8px 0 12px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border: 1px solid var(--rule-soft);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.65;
+    white-space: pre;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .how-formula .c { color: var(--muted); font-style: italic; }
+  .how-formula .k { color: var(--saffron); }
+  .how-body a {
+    color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+  }
+  .how-body a:hover { text-decoration-color: var(--saffron); }
+  @media (max-width: 540px) {
+    .how-step { grid-template-columns: 44px 1fr; gap: 12px; padding: 14px 16px; }
+    .how-num { font-size: 26px; }
+    .how-body h3 { font-size: 17px; }
+    .how-formula { font-size: 11.5px; padding: 10px 12px; }
+  }
+  .how-tour-link {
+    display: inline-block;
+    margin: -4px auto 18px;
+    padding: 4px 12px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--saffron);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .how-tour-link:hover { text-decoration-color: var(--saffron); }
 </style>
 </head>
 <body>
@@ -327,9 +553,9 @@
   <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
-    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.20</div>
+    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.26</div>
     <h1>Signature <em>· for one</em></h1>
-    <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique, applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
+    <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique — Vedic, sidereal, <em>Navagraha</em> + Lagna — applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
     <div class="ornament" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
     </div>
@@ -351,8 +577,8 @@
       </div>
 
       <div class="form-row">
-        <label for="dob">Date of birth</label>
-        <input type="date" id="dob" min="1900-01-01" max="2030-12-31">
+        <label for="dob">Date of birth <span style="opacity:.6;">(DD/MM/YYYY)</span></label>
+        <input type="text" id="dob" placeholder="DD/MM/YYYY · e.g. 15/03/1985" pattern="\d{1,2}/\d{1,2}/\d{4}" maxlength="10" inputmode="numeric" autocomplete="off">
       </div>
 
       <div class="form-row">
@@ -397,7 +623,7 @@
       <div class="form-error" id="formError" hidden></div>
     </div>
 
-    <p class="scope-note"><strong>A note on dates around DST.</strong> The UTC offsets above are the standard ones. If the birth date falls in daylight-saving time for that location, choose <em>Custom</em> and enter the offset that was in effect that day (e.g. UTC−4 for New York in summer instead of −5). Computing this from a calendar would be a v2 step.</p>
+    <p class="scope-note"><strong>DST is handled automatically.</strong> For preset cities, the UTC offset is computed from the location's IANA timezone (e.g. <code>America/New_York</code>) honouring historical DST transitions on the date of birth. The actual offset applied appears at the bottom of the output. For <em>Custom</em>, enter the offset manually.</p>
   </section>
 
   <section class="s" id="outputSection" hidden>
@@ -411,9 +637,141 @@
     <p class="scope-note" style="margin-top:24px;"><strong>What this does not do.</strong> Does not interpret what the signature means. Does not suggest what is compatible, healthy, or incompatible. Does not generate recommendations. <em>All of that is the therapist's domain.</em></p>
   </section>
 
+  <section class="s" id="howSection">
+    <div class="s-eyebrow">step 3 · how this is computed</div>
+    <h2>The math, <em>step by step</em></h2>
+    <p>Everything in the chart above is computed in your browser, from first principles — birth time, location, and the laws of celestial mechanics. No server, no API, no cached predictions. Here is the full pipeline, in the order the code runs.</p>
+
+    <div class="how-steps">
+
+      <article class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-body">
+          <h3>Local civil time → <em>UTC</em></h3>
+          <p>Birth time is entered in the local clock time at the place of birth. We convert to UTC using the location's <strong>IANA timezone</strong> (e.g. <code>Asia/Kolkata</code>, <code>America/New_York</code>) through the browser's <code>Intl.DateTimeFormat</code> API. This honours <strong>historical DST transitions</strong>: a Bangalore birth before 1945 will see a different offset than after; a New York birth in July uses EDT, in January EST. The actual offset applied is shown beneath every output.</p>
+          <pre class="how-formula"><span class="c">// Two-pass iteration to converge through DST seams</span>
+dtf  = Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', … })
+off1 = offsetMinutes( assumedUtc )
+real = assumedUtc − off1
+off2 = offsetMinutes( real )
+<span class="k">if</span> ( off2 ≠ off1 ) real = assumedUtc − off2</pre>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-body">
+          <h3>UTC → <em>Julian Date</em></h3>
+          <p>The Julian Date (JD) counts days continuously from 1 January 4713 BCE — the universal currency of positional astronomy. The reference epoch <strong>J2000.0</strong> is JD <code>2451545.0</code> (1 Jan 2000, 12:00 UTC). All ephemeris polynomials are expressed in centuries from this epoch.</p>
+          <pre class="how-formula">aTime = Astronomy.MakeTime( utcDate )
+JD    = aTime.tt + 2451545.0    <span class="c">// tt = days since J2000.0</span>
+T     = (JD − 2451545.0) / 36525  <span class="c">// Julian centuries</span></pre>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-body">
+          <h3>Planetary positions — <em>geocentric ecliptic</em></h3>
+          <p>The seven classical graha — Sūrya, Chandra, Maṅgala, Budha, Guru, Śukra, Śani — are computed by <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine v2.1.19</a>, a JavaScript port of the IAU-recommended <strong>VSOP87</strong> planetary theory (Bretagnon &amp; Francou, 1988) and <strong>ELP-2000/82</strong> lunar theory (Chapront-Touzé &amp; Chapront, 1983). Accuracy: better than 1 arcminute for our era — well below sign-boundary precision. Positions are returned in the J2000 ecliptic frame (the mean ecliptic of 1 Jan 2000).</p>
+          <pre class="how-formula"><span class="k">for</span> body <span class="k">in</span> [Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn]:
+   vec   = Astronomy.GeoVector( body, aTime, false )
+   ecl   = Astronomy.Ecliptic( vec )
+   λ_tropical = ecl.elon              <span class="c">// ecliptic longitude, J2000</span></pre>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">04</div>
+        <div class="how-body">
+          <h3>Tropical → <em>Sidereal</em> (Lahiri ayanamsha)</h3>
+          <p>Vedic astrology is sidereal — measured against the fixed stars, not the moving vernal equinox. The two zodiacs drift apart by roughly <strong>50.29 arcseconds per year</strong> due to the precession of the equinoxes. The <strong>Lahiri ayanamsha</strong> — adopted by the Government of India's Rashtriya Panchang Reform Committee in 1955 — is the standard offset, with the equinoxes coinciding in 285 CE. At J2000.0 it equals <code>23.853°</code>.</p>
+          <pre class="how-formula"><span class="c">// Linear drift model — adequate to ~0.01° over a century</span>
+ayanamsha(JD) = 23.853 + (JD − 2451545.0) / 365.25 × (50.29 / 3600)
+λ_sidereal    = ( λ_tropical − ayanamsha ) mod 360</pre>
+          <p>Since astronomy-engine returns J2000-frame coordinates, planets use the constant <code>23.853°</code> directly. The Lagna and the lunar nodes — computed in the equator/ecliptic of date — use the drifted value <code>ayanamsha(JD)</code>.</p>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">05</div>
+        <div class="how-body">
+          <h3>Lagna — the <em>rising sign</em></h3>
+          <p>The Lagna is the point of the ecliptic intersecting the eastern horizon at birth. It needs three inputs: <strong>Local Sidereal Time</strong> (LST — the right ascension currently transiting the meridian, also written RAMC), the <strong>obliquity of the ecliptic</strong> (ε ≈ 23.4393°), and the <strong>geographic latitude</strong> (φ).</p>
+          <pre class="how-formula"><span class="c">// 5.1 — Greenwich Mean Sidereal Time (Meeus, simplified)</span>
+GMST = 280.46061837
+     + 360.98564736629 × (JD − 2451545.0)
+     + 0.000387933 × T²
+     − T³ / 38710000
+
+<span class="c">// 5.2 — Local Sidereal Time (≡ RAMC)</span>
+LST  = ( GMST + longitude ) mod 360
+
+<span class="c">// 5.3 — Tropical Ascendant, of date</span>
+λ_asc = atan2( −cos(LST),
+               sin(ε)·tan(φ) + cos(ε)·sin(LST) )
+
+<span class="c">// 5.4 — Tropical Mid-Heaven, of date</span>
+λ_mc  = atan2( sin(LST), cos(LST)·cos(ε) )
+
+<span class="c">// 5.5 — Quadrant fix — atan2 may return the Descendant.</span>
+<span class="c">//       Asc must lie east of MC: (Asc − MC) mod 360 ∈ (0°, 180°)</span>
+<span class="k">if</span> ( (λ_asc − λ_mc + 360) mod 360 &gt; 180 )
+    λ_asc = (λ_asc + 180) mod 360
+
+<span class="c">// 5.6 — Subtract Lahiri-of-date for the sidereal Lagna</span>
+λ_lagna = ( λ_asc − ayanamsha(JD) ) mod 360</pre>
+          <p>Step 5.5 was the bug fixed in v4.74.24 — the inequality was reversed, which silently put every chart's Lagna on its Descendant. We now verify against published charts (deva.guru, jhora) as part of regression.</p>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">06</div>
+        <div class="how-body">
+          <h3>Rāhu &amp; Ketu — the <em>lunar nodes</em></h3>
+          <p>The two remaining Navagraha are not physical bodies — they are the intersection points of the Moon's orbit with the ecliptic. The ascending node is Rāhu; the descending node, Ketu, is exactly 180° opposite. Vedic tradition (Vimśottari daśā in particular) uses the <strong>mean</strong> node — a smooth orbital average — rather than the true (osculating) node, which oscillates by ±1.5° on a 173-day cycle.</p>
+          <pre class="how-formula"><span class="c">// Mean ascending node of the Moon (Meeus 47.7), tropical</span>
+Ω = 125.04452
+   − 1934.136261 × T
+   + 0.0020708   × T²
+   + T³ / 450000
+
+λ_rahu_tropical = Ω mod 360
+λ_rahu_sidereal = ( λ_rahu_tropical − ayanamsha(JD) ) mod 360
+λ_ketu_sidereal = ( λ_rahu_sidereal + 180 ) mod 360</pre>
+          <p>The node retrogrades through the zodiac — Ω decreases at ~19.34° per year — making one full circuit in roughly <strong>18.6 years</strong>. This is the rhythm of the eclipse seasons.</p>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">07</div>
+        <div class="how-body">
+          <h3>Sign &amp; degree</h3>
+          <p>The sidereal zodiac is divided into twelve 30° arcs starting from Meṣa (sidereal Aries) at 0°. The signIndex is a simple floor; the degree-within-sign is the remainder.</p>
+          <pre class="how-formula">signIndex = ⌊ λ_sidereal / 30 ⌋     <span class="c">// 0 = Aries … 11 = Pisces</span>
+degInSign = λ_sidereal − signIndex × 30</pre>
+        </div>
+      </article>
+
+      <article class="how-step">
+        <div class="how-num">08</div>
+        <div class="how-body">
+          <h3>Counting the signature</h3>
+          <p>For each of the ten placements (9 Navagraha + Lagna) we read the Element, Modality, and Duality of the sign it occupies. We tally three tables: <code>{Fire, Earth, Air, Water}</code>, <code>{Cardinal, Fixed, Mutable}</code>, <code>{Yang, Yin}</code>. The dominant in each table is the highest count; ties are reported as ties.</p>
+          <p>Per Vikram's rule, the counted Duality is <em>informational only</em> — the duality that defines the signature is <strong>derived from the dominant Element</strong>: Fire and Air are always Yang; Earth and Water are always Yin. The final signature is the zodiac sign whose (Element × Modality) combination matches the dominant pair — for example, dominant Earth × dominant Cardinal yields <em>Capricorn</em>, regardless of whether the counted Yin was a few above or below the counted Yang.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="scope-note" style="margin-top: 28px;">
+      <strong>Sources &amp; honest limitations.</strong> Ephemerides: VSOP87 + ELP-2000/82 via <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">astronomy-engine</a>. Sidereal time, Ascendant, MC, and lunar-node formulae: Meeus, <em>Astronomical Algorithms</em>, 2nd ed., chapters 12, 22, 47. Ayanamsha: Lahiri (Calendar Reform Committee, 1955) with linear drift — adequate to ~0.01° over a century. <strong>What this does not include:</strong> nutation, aberration, proper motion of stars, topocentric parallax for the Moon, true (osculating) node. For the Element/Modality/Duality signature these omissions are well below the noise floor; for high-precision muhūrta or rectification, use a dedicated ephemeris such as Swiss Ephemeris.
+    </p>
+  </section>
+
   <footer class="footer">
-    <p>v4.74.20 · 11 May 2026 · signature module v0.2 · for one</p>
-    <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Sidereal zodiac (Lahiri ayanamsha). Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
+    <p>v4.74.26 · 11 May 2026 · signature module v0.3 · for one</p>
+    <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Vedic · sidereal zodiac (Lahiri ayanamsha) · Navagraha + Lagna. Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
   </footer>
 
 </div>
@@ -442,27 +800,110 @@
     { name: 'Pisces',      element: 'Water', modality: 'Mutable',  duality: 'Yin'  }
   ];
 
-  var CITIES = {
-    bangalore:    { lat: 12.9716, lng: 77.5946, tz: 5.5,  name: 'Bangalore' },
-    chennai:      { lat: 13.0827, lng: 80.2707, tz: 5.5,  name: 'Chennai' },
-    mumbai:       { lat: 19.0760, lng: 72.8777, tz: 5.5,  name: 'Mumbai' },
-    delhi:        { lat: 28.6139, lng: 77.2090, tz: 5.5,  name: 'Delhi' },
-    kolkata:      { lat: 22.5726, lng: 88.3639, tz: 5.5,  name: 'Kolkata' },
-    hyderabad:    { lat: 17.3850, lng: 78.4867, tz: 5.5,  name: 'Hyderabad' },
-    pune:         { lat: 18.5204, lng: 73.8567, tz: 5.5,  name: 'Pune' },
-    auroville:    { lat: 12.0058, lng: 79.8094, tz: 5.5,  name: 'Auroville' },
-    ahmedabad:    { lat: 23.0225, lng: 72.5714, tz: 5.5,  name: 'Ahmedabad' },
-    kochi:        { lat: 9.9312,  lng: 76.2673, tz: 5.5,  name: 'Kochi' },
-    london:       { lat: 51.5074, lng: -0.1278, tz: 0,    name: 'London' },
-    newyork:      { lat: 40.7128, lng: -74.0060, tz: -5,  name: 'New York' },
-    sanfrancisco: { lat: 37.7749, lng: -122.4194,tz: -8,  name: 'San Francisco' },
-    sydney:       { lat: -33.8688, lng: 151.2093,tz: 10,  name: 'Sydney' },
-    melbourne:    { lat: -37.8136, lng: 144.9631,tz: 10,  name: 'Melbourne' },
-    dubai:        { lat: 25.2048, lng: 55.2708, tz: 4,    name: 'Dubai' },
-    singapore:    { lat: 1.3521,  lng: 103.8198,tz: 8,    name: 'Singapore' }
+  // v4.74.21 — Duality is DERIVED from element, never counted.
+  // Fire & Air are always Yang. Earth & Water are always Yin.
+  // "Yin Fire" is invalid.
+  var ELEMENT_DUALITY = {
+    Fire:  'Yang',
+    Air:   'Yang',
+    Earth: 'Yin',
+    Water: 'Yin'
   };
 
-  var BODIES = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'];
+  // v4.74.21 — (Element, Modality) → exactly one zodiac sign.
+  // The signature output is this sign name. Duality is implicit.
+  var SIGN_BY_EM = {
+    'Fire-Cardinal':  'Aries',
+    'Fire-Fixed':     'Leo',
+    'Fire-Mutable':   'Sagittarius',
+    'Earth-Cardinal': 'Capricorn',
+    'Earth-Fixed':    'Taurus',
+    'Earth-Mutable':  'Virgo',
+    'Air-Cardinal':   'Libra',
+    'Air-Fixed':      'Aquarius',
+    'Air-Mutable':    'Gemini',
+    'Water-Cardinal': 'Cancer',
+    'Water-Fixed':    'Scorpio',
+    'Water-Mutable':  'Pisces'
+  };
+
+  // v4.74.21 — Each preset has an IANA timezone (e.g. 'Asia/Kolkata').
+  // The local-to-UTC conversion uses Intl.DateTimeFormat which honours
+  // historical DST transitions for that location at the date of birth.
+  var CITIES = {
+    bangalore:    { lat: 12.9716, lng: 77.5946,  iana: 'Asia/Kolkata',         name: 'Bangalore' },
+    chennai:      { lat: 13.0827, lng: 80.2707,  iana: 'Asia/Kolkata',         name: 'Chennai' },
+    mumbai:       { lat: 19.0760, lng: 72.8777,  iana: 'Asia/Kolkata',         name: 'Mumbai' },
+    delhi:        { lat: 28.6139, lng: 77.2090,  iana: 'Asia/Kolkata',         name: 'Delhi' },
+    kolkata:      { lat: 22.5726, lng: 88.3639,  iana: 'Asia/Kolkata',         name: 'Kolkata' },
+    hyderabad:    { lat: 17.3850, lng: 78.4867,  iana: 'Asia/Kolkata',         name: 'Hyderabad' },
+    pune:         { lat: 18.5204, lng: 73.8567,  iana: 'Asia/Kolkata',         name: 'Pune' },
+    auroville:    { lat: 12.0058, lng: 79.8094,  iana: 'Asia/Kolkata',         name: 'Auroville' },
+    ahmedabad:    { lat: 23.0225, lng: 72.5714,  iana: 'Asia/Kolkata',         name: 'Ahmedabad' },
+    kochi:        { lat: 9.9312,  lng: 76.2673,  iana: 'Asia/Kolkata',         name: 'Kochi' },
+    london:       { lat: 51.5074, lng: -0.1278,  iana: 'Europe/London',        name: 'London' },
+    newyork:      { lat: 40.7128, lng: -74.0060, iana: 'America/New_York',     name: 'New York' },
+    sanfrancisco: { lat: 37.7749, lng: -122.4194,iana: 'America/Los_Angeles',  name: 'San Francisco' },
+    sydney:       { lat: -33.8688,lng: 151.2093, iana: 'Australia/Sydney',     name: 'Sydney' },
+    melbourne:    { lat: -37.8136,lng: 144.9631, iana: 'Australia/Melbourne',  name: 'Melbourne' },
+    dubai:        { lat: 25.2048, lng: 55.2708,  iana: 'Asia/Dubai',           name: 'Dubai' },
+    singapore:    { lat: 1.3521,  lng: 103.8198, iana: 'Asia/Singapore',       name: 'Singapore' }
+  };
+
+  // Given a local civil date/time and an IANA timezone, return the corresponding UTC Date.
+  // Iterative correction handles DST transitions cleanly.
+  function localToUtc(year, month, day, hour, minute, ianaTz){
+    function offsetMinutes(date){
+      var dtf = new Intl.DateTimeFormat('en-US', {
+        timeZone: ianaTz, hourCycle: 'h23',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      var parts = dtf.formatToParts(date);
+      var lookup = {};
+      parts.forEach(function(p){ if (p.type !== 'literal') lookup[p.type] = p.value; });
+      var asLocalMs = Date.UTC(
+        +lookup.year, +lookup.month - 1, +lookup.day,
+        +lookup.hour, +lookup.minute, +lookup.second
+      );
+      return (asLocalMs - date.getTime()) / 60000;
+    }
+    var assumedUtcMs = Date.UTC(year, month - 1, day, hour, minute);
+    var off1 = offsetMinutes(new Date(assumedUtcMs));
+    var realUtcMs = assumedUtcMs - off1 * 60000;
+    var off2 = offsetMinutes(new Date(realUtcMs));
+    if (off2 !== off1) realUtcMs = assumedUtcMs - off2 * 60000;
+    return { date: new Date(realUtcMs), offsetHours: off2 / 60 };
+  }
+
+  // v4.74.23 — Navagraha (Vedic 9): drop Western outer planets, add Rahu/Ketu.
+  // Order follows the traditional Vedic sequence — Sūrya, Chandra, Maṅgala,
+  // Budha, Guru, Śukra, Śani, then the lunar nodes Rāhu and Ketu.
+  // astronomy-engine handles the 7 classical bodies; nodes are computed below
+  // using the mean lunar ascending-node formula.
+  var BODIES_AE = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn'];
+
+  var PLANET_ABBR = {
+    Sun: 'Su', Moon: 'Mo', Mars: 'Ma', Mercury: 'Me',
+    Jupiter: 'Ju', Venus: 'Ve', Saturn: 'Sa',
+    Rahu: 'Ra', Ketu: 'Ke',
+    Ascendant: 'La'   // Lagna in Vedic tradition
+  };
+  var PLANET_SANSKRIT = {
+    Sun: 'Sūrya', Moon: 'Chandra', Mars: 'Maṅgala', Mercury: 'Budha',
+    Jupiter: 'Guru', Venus: 'Śukra', Saturn: 'Śani',
+    Rahu: 'Rāhu', Ketu: 'Ketu',
+    Ascendant: 'Lagna'
+  };
+  var SIGN_KEYS = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
+
+  // Mean lunar ascending node (Rāhu) tropical longitude at given JD.
+  // Standard Meeus formula. Ketu is always 180° opposite.
+  function meanRahuTropical(jd){
+    var T = (jd - 2451545.0) / 36525;
+    var omega = 125.04452 - 1934.136261 * T + 0.0020708 * T * T + (T * T * T) / 450000;
+    return ((omega % 360) + 360) % 360;
+  }
 
   // ---- DOM ----
   var $name = document.getElementById('personName');
@@ -499,28 +940,75 @@
 
   function collectInputs(){
     var name = ($name.value || '').trim() || 'Person';
-    var dob = $dob.value;
+    var dobRaw = ($dob.value || '').trim();
     var tob = $tob.value;
-    if (!dob) throw new Error('Enter date of birth.');
+    if (!dobRaw) throw new Error('Enter date of birth as DD/MM/YYYY.');
     if (!tob) throw new Error('Enter time of birth.');
+    // Parse DD/MM/YYYY → ISO YYYY-MM-DD for downstream computation
+    var dm = dobRaw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (!dm) throw new Error('Date format: DD/MM/YYYY (e.g. 15/03/1985).');
+    var dd = parseInt(dm[1], 10), mm = parseInt(dm[2], 10), yyyy = parseInt(dm[3], 10);
+    if (mm < 1 || mm > 12) throw new Error('Month must be 1–12.');
+    if (dd < 1 || dd > 31) throw new Error('Day must be 1–31.');
+    if (yyyy < 1900 || yyyy > 2030) throw new Error('Year must be 1900–2030.');
+    var dob = yyyy + '-' + (mm<10?'0':'') + mm + '-' + (dd<10?'0':'') + dd;
+    var dobDisplay = (dd<10?'0':'') + dd + '/' + (mm<10?'0':'') + mm + '/' + yyyy;
 
-    var lat, lng, tz, placeName;
+    var lat, lng, tz, iana, placeName;
     if ($preset.value === 'custom') {
       lat = parseFloat($customLat.value);
       lng = parseFloat($customLng.value);
       tz  = parseFloat($customTz.value);
+      iana = null;
       if (isNaN(lat) || isNaN(lng) || isNaN(tz)) {
         throw new Error('Custom: enter latitude, longitude, and UTC offset.');
       }
       placeName = 'Custom (' + lat.toFixed(2) + '°, ' + lng.toFixed(2) + '°)';
     } else if ($preset.value && CITIES[$preset.value]) {
       var c = CITIES[$preset.value];
-      lat = c.lat; lng = c.lng; tz = c.tz;
+      lat = c.lat; lng = c.lng; iana = c.iana; tz = null;
       placeName = c.name;
     } else {
       throw new Error('Pick a place of birth.');
     }
-    return { name: name, dob: dob, tob: tob, lat: lat, lng: lng, tz: tz, placeName: placeName };
+    return { name: name, dob: dob, dobDisplay: dobDisplay, tob: tob, lat: lat, lng: lng, tz: tz, iana: iana, placeName: placeName };
+  }
+
+  // Renders the 11 placements as a South Indian chart (4x4 grid with center)
+  function renderChart(placements){
+    var bySign = {};
+    for (var i = 0; i < 12; i++) bySign[i] = [];
+    var ascSignIdx = -1;
+    placements.forEach(function(p){
+      bySign[p.signIdx].push(p);
+      if (p.body === 'Ascendant') ascSignIdx = p.signIdx;
+    });
+    var html = '<div class="chart-stage">';
+    for (var i = 0; i < 12; i++) {
+      var sign = SIGNS[i];
+      var key = SIGN_KEYS[i];
+      var isAsc = i === ascSignIdx;
+      var planets = bySign[i];
+      var planetsHtml = planets.map(function(p){
+        var cls = p.body === 'Ascendant' ? 'planet is-asc' : 'planet';
+        return '<span class="' + cls + '" title="' + p.body + ' · ' + fmtDeg(p.deg) + '">' + PLANET_ABBR[p.body] + '</span>';
+      }).join('');
+      var elemKey = sign.element.toLowerCase();
+      html += '<div class="chart-cell sign-' + key + ' elem-' + elemKey + (isAsc ? ' is-ascendant' : '') + '">'
+            +   '<div class="cell-sign">' + sign.name + (isAsc ? ' · LAGNA' : '') + '</div>'
+            +   '<div class="cell-meta">' + sign.element + ' · ' + sign.modality + ' · ' + sign.duality + '</div>'
+            +   '<div class="cell-planets">' + planetsHtml + '</div>'
+            + '</div>';
+    }
+    html += '<div class="chart-cell chart-center"><div class="center-text">South Indian<br>chart</div></div>';
+    html += '</div>';
+    // Legend
+    html += '<div class="chart-legend">';
+    Object.keys(PLANET_ABBR).forEach(function(p){
+      html += '<span class="lg-item"><code>' + PLANET_ABBR[p] + '</code> ' + p + '</span>';
+    });
+    html += '</div>';
+    return html;
   }
 
   // ---- COMPUTATION ----
@@ -535,19 +1023,27 @@
   }
 
   function compute(data){
-    // 1. Local birth time → UTC
+    // 1. Local birth time → UTC. v4.74.21: if IANA timezone is known (preset),
+    //    use it for DST-aware conversion; else use the manual UTC offset (custom).
     var parts = data.dob.split('-').map(Number);
     var hm = data.tob.split(':').map(Number);
-    // Build local time as if it were UTC, then subtract the UTC offset
-    var localAsUTC = Date.UTC(parts[0], parts[1]-1, parts[2], hm[0], hm[1], 0);
-    var utcMs = localAsUTC - data.tz * 3600000;
-    var utcDate = new Date(utcMs);
+    var utcDate, actualOffsetHours;
+    if (data.iana) {
+      var conv = localToUtc(parts[0], parts[1], parts[2], hm[0], hm[1], data.iana);
+      utcDate = conv.date;
+      actualOffsetHours = conv.offsetHours;
+    } else {
+      var localAsUTC = Date.UTC(parts[0], parts[1]-1, parts[2], hm[0], hm[1], 0);
+      utcDate = new Date(localAsUTC - data.tz * 3600000);
+      actualOffsetHours = data.tz;
+    }
     var aTime = Astronomy.MakeTime(utcDate);
     var jd = aTime.tt + 2451545.0;
 
     // 2. Planets — J2000 ecliptic longitude → sidereal (subtract Lahiri at J2000)
+    //    v4.74.23 — Navagraha (7 classical bodies via astronomy-engine, then Rāhu/Ketu by formula).
     var placements = [];
-    BODIES.forEach(function(body){
+    BODIES_AE.forEach(function(body){
       var vec = Astronomy.GeoVector(body, aTime, false);
       var ecl = Astronomy.Ecliptic(vec);
       var lon = ecl.elon;
@@ -556,6 +1052,16 @@
       var degInSign = sidereal - signIdx * 30;
       placements.push({ body: body, longitude: sidereal, signIdx: signIdx, deg: degInSign });
     });
+
+    // 2b. Rāhu — mean lunar ascending node (Vimsottari uses mean node).
+    //     Tropical → sidereal via Lahiri-of-date. Ketu is exactly 180° opposite.
+    var rahuTropical  = meanRahuTropical(jd);
+    var rahuSidereal  = ((rahuTropical - lahiriAtJD(jd)) % 360 + 360) % 360;
+    var rahuSignIdx   = Math.floor(rahuSidereal / 30);
+    placements.push({ body: 'Rahu', longitude: rahuSidereal, signIdx: rahuSignIdx, deg: rahuSidereal - rahuSignIdx * 30 });
+    var ketuSidereal  = (rahuSidereal + 180) % 360;
+    var ketuSignIdx   = Math.floor(ketuSidereal / 30);
+    placements.push({ body: 'Ketu', longitude: ketuSidereal, signIdx: ketuSignIdx, deg: ketuSidereal - ketuSignIdx * 30 });
 
     // 3. Ascendant — date-of-birth approach using LST + obliquity
     var rad = Math.PI / 180;
@@ -571,22 +1077,29 @@
     // Ascendant in tropical (of-date) ecliptic
     var ascRad = Math.atan2(-Math.cos(ramc), Math.sin(eps) * Math.tan(phi) + Math.cos(eps) * Math.sin(ramc));
     var ascDeg = (ascRad / rad + 360) % 360;
-    // atan2 can give the descendant — fix with quadrant check against MC
-    // MC ecliptic longitude ≈ atan2(sin(RAMC), cos(RAMC)*cos(eps))
+    // atan2 can give the descendant — fix with quadrant check against MC.
+    // The Ascendant must lie EAST of the MC on the ecliptic, i.e.
+    // (Asc − MC + 360) mod 360 should be in (0, 180). If it's > 180,
+    // atan2 has returned the descendant; flip by 180°.
+    // v4.74.24 — condition was inverted; that flipped every chart 180°.
     var mcRad = Math.atan2(Math.sin(ramc), Math.cos(ramc) * Math.cos(eps));
     var mcDeg = (mcRad / rad + 360) % 360;
     var diff = ((ascDeg - mcDeg) % 360 + 360) % 360;
-    if (diff < 180) ascDeg = (ascDeg + 180) % 360;
+    if (diff > 180) ascDeg = (ascDeg + 180) % 360;
     // Tropical → sidereal (Lahiri at date)
     var ascSidereal = ((ascDeg - lahiriAtJD(jd)) % 360 + 360) % 360;
     var ascSignIdx = Math.floor(ascSidereal / 30);
     var ascDegInSign = ascSidereal - ascSignIdx * 30;
     placements.push({ body: 'Ascendant', longitude: ascSidereal, signIdx: ascSignIdx, deg: ascDegInSign });
 
-    // 4. Counts
-    var elementCount = { Fire: 0, Earth: 0, Air: 0, Water: 0 };
+    // 4. Counts. v0.3 rules (Sree, 11 May 2026):
+    //    - Element, Modality, AND Duality are all counted in the chart.
+    //    - The COUNTED duality is shown for the therapist's information.
+    //    - The FINAL signature uses derived duality from dominant element,
+    //      not the counted dominant. ("Yin Fire" is invalid by rule.)
+    var elementCount  = { Fire: 0, Earth: 0, Air: 0, Water: 0 };
     var modalityCount = { Cardinal: 0, Fixed: 0, Mutable: 0 };
-    var dualityCount = { Yang: 0, Yin: 0 };
+    var dualityCount  = { Yang: 0, Yin: 0 };
     placements.forEach(function(p){
       var sign = SIGNS[p.signIdx];
       elementCount[sign.element]++;
@@ -598,14 +1111,37 @@
       var maxN = Math.max.apply(null, Object.values(counts));
       return Object.keys(counts).filter(function(k){ return counts[k] === maxN; });
     }
+    var domElement = dominant(elementCount);
+    var domModality = dominant(modalityCount);
+    var domDuality = dominant(dualityCount); // shown, not used for signature
+
+    // 5. Derived duality FOR THE SIGNATURE (from each dominant element).
+    var derivedDualities = domElement.map(function(el){ return ELEMENT_DUALITY[el]; });
+    // Dedupe while preserving order
+    var seenDual = {};
+    var uniqueDualities = [];
+    derivedDualities.forEach(function(d){ if (!seenDual[d]) { seenDual[d] = 1; uniqueDualities.push(d); } });
+
+    // 6. Final signature — sign(s) from every dominant (element × modality) combo
+    var signatureSigns = [];
+    domElement.forEach(function(el){
+      domModality.forEach(function(mod){
+        var sign = SIGN_BY_EM[el + '-' + mod];
+        if (sign && signatureSigns.indexOf(sign) === -1) signatureSigns.push(sign);
+      });
+    });
+
     return {
       placements: placements,
       elementCount: elementCount,
       modalityCount: modalityCount,
       dualityCount: dualityCount,
-      domElement: dominant(elementCount),
-      domModality: dominant(modalityCount),
-      domDuality: dominant(dualityCount)
+      domElement: domElement,
+      domModality: domModality,
+      domDuality: domDuality,
+      derivedDualities: uniqueDualities,
+      signatureSigns: signatureSigns,
+      utcOffsetUsed: actualOffsetHours
     };
   }
 
@@ -636,33 +1172,134 @@
 
   function renderOutput(data, result){
     var html = '';
-    html += '<div class="output-eyebrow">' + escapeHtml(data.placeName) + ' · ' + escapeHtml(data.dob) + ' · ' + escapeHtml(data.tob) + '</div>';
+    html += '<div class="output-eyebrow">' + escapeHtml(data.placeName) + ' · ' + escapeHtml(data.dobDisplay || data.dob) + ' · ' + escapeHtml(data.tob) + '</div>';
     html += '<h3>' + escapeHtml(data.name) + '</h3>';
-    html += '<p class="output-sub">11 placements · sidereal zodiac (Lahiri)</p>';
+    html += '<p class="output-sub">Navagraha + Lagna · 10 placements · sidereal zodiac (Lahiri ayanamsha)</p>';
 
-    html += '<div class="placements-grid">';
-    result.placements.forEach(function(p){
-      var sign = SIGNS[p.signIdx];
-      html += '<div class="placement-row">'
-            +   '<span class="body">' + p.body + '</span>'
-            +   '<span class="sign">' + sign.name + '</span>'
-            +   '<span class="deg">' + fmtDeg(p.deg) + '</span>'
-            + '</div>';
-    });
-    html += '</div>';
+    html += renderChart(result.placements);
+
+    html += '<div style="text-align:center;"><a class="how-tour-link" href="#howSection">How is this computed? ↓</a></div>';
 
     html += renderCounts(result.elementCount, result.domElement, 'Element count');
     html += renderCounts(result.modalityCount, result.domModality, 'Modality count');
-    html += renderCounts(result.dualityCount, result.domDuality, 'Duality count');
+    html += renderCounts(result.dualityCount, result.domDuality, 'Duality count <em style="font-style:italic;text-transform:none;letter-spacing:0;font-size:11px;">(informational — see note below)</em>');
 
-    // Signature
-    var sig = result.domDuality.join('/') + ' ' + result.domElement.join('/') + ' ' + result.domModality.join('/');
+    // Derived duality FOR THE SIGNATURE (per Vikram's rule)
+    var derivedNote = result.derivedDualities.join(' &amp; ');
+    var derivedExplain = result.domElement.map(function(el){
+      return el + ' → ' + ELEMENT_DUALITY[el];
+    }).join(', ');
+    var dualityMismatch = result.domDuality.length === 1
+      && result.derivedDualities.length === 1
+      && result.domDuality[0] !== result.derivedDualities[0];
+    html += '<div class="counts" style="border-color:var(--saffron);background:rgba(188,129,70,.04);">'
+          +   '<div class="counts-label">Duality for the <em style="font-style:italic;text-transform:none;letter-spacing:0;font-size:11px;color:var(--saffron);">signature</em> — derived from dominant element</div>'
+          +   '<p class="dominant" style="margin-top:0;">' + derivedExplain + ' → <strong>' + derivedNote + '</strong></p>'
+          + (dualityMismatch
+              ? '<p style="margin:6px 0 0;font-family:var(--display);font-style:italic;font-size:12.5px;color:var(--muted);line-height:1.5;">Note: the counted dominant duality (' + result.domDuality[0] + ') differs from the derived (' + result.derivedDualities[0] + '). The derived value governs the signature per Vikram\'s rule. The mismatch may be useful information for the therapist.</p>'
+              : '')
+          + '</div>';
+
+    // Final signature — the zodiac sign(s) name (Rule 2)
+    var sigName = result.signatureSigns.length === 1
+      ? result.signatureSigns[0]
+      : result.signatureSigns.join(' / ');
+    var tied = result.signatureSigns.length > 1;
     html += '<div class="signature-box">'
-          + '<div class="sig-label">Signature</div>'
-          + '<div class="sig-value">' + escapeHtml(sig) + '</div>'
+          + '<div class="sig-label">Signature' + (tied ? ' · tied' : '') + '</div>'
+          + '<div class="sig-value"><em>' + escapeHtml(sigName) + '</em></div>'
+          + '<div style="margin-top:8px;font-family:var(--display);font-style:italic;font-size:13px;color:var(--ink-soft);">'
+          +   result.domElement.join(' / ') + ' · ' + result.domModality.join(' / ') + ' · ' + derivedNote
+          + '</div>'
+          + '</div>';
+
+    // Footnote — UTC offset actually used (so DST behaviour is transparent)
+    var offStr = '';
+    if (typeof result.utcOffsetUsed === 'number') {
+      var offSign = result.utcOffsetUsed >= 0 ? '+' : '−';
+      var offAbs = Math.abs(result.utcOffsetUsed);
+      var offHours = Math.floor(offAbs);
+      var offMins = Math.round((offAbs - offHours) * 60);
+      offStr = offSign + offHours + (offMins ? ':' + (offMins < 10 ? '0' : '') + offMins : '');
+      html += '<p style="margin-top:14px;font-family:var(--display);font-style:italic;font-size:12px;color:var(--muted);">UTC offset applied: <strong style="color:var(--ink-soft);font-weight:500;font-style:normal;">' + offStr + '</strong>' + (data.iana ? ' · resolved from ' + data.iana + ' (DST-aware)' : ' · manual') + '</p>';
+    }
+
+    // v4.74.22 — Copy results
+    html += '<div style="text-align:center; margin-top:18px;">'
+          + '<button type="button" class="btn" id="copyResultsBtn" style="background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);">📋 Copy results</button>'
           + '</div>';
 
     $outCard.innerHTML = html;
+
+    // Wire copy button
+    var copyBtn = document.getElementById('copyResultsBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function(){
+        var txt = buildPlainTextReport(data, result, offStr);
+        copyText(txt).then(function(){
+          var orig = copyBtn.innerHTML;
+          copyBtn.style.background = 'rgba(106,141,110,.10)';
+          copyBtn.style.color = 'var(--green, #6a8d6e)';
+          copyBtn.style.borderColor = 'var(--green, #6a8d6e)';
+          copyBtn.innerHTML = '✓ Copied to clipboard';
+          setTimeout(function(){
+            copyBtn.style.background = 'var(--surface)';
+            copyBtn.style.color = 'var(--ink-soft)';
+            copyBtn.style.borderColor = 'var(--rule)';
+            copyBtn.innerHTML = orig;
+          }, 1800);
+        });
+      });
+    }
+  }
+
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+
+  function buildPlainTextReport(data, result, offStr){
+    var lines = [];
+    lines.push('SIGNATURE — ' + data.name);
+    lines.push(data.placeName + ' · ' + (data.dobDisplay || data.dob) + ' · ' + data.tob + (offStr ? ' (UTC ' + offStr + ')' : ''));
+    lines.push('');
+    lines.push('Placements — Navagraha + Lagna (sidereal · Lahiri):');
+    result.placements.forEach(function(p){
+      var sign = SIGNS[p.signIdx];
+      lines.push('  ' + pad(p.body, 11) + sign.name + '  ' + fmtDeg(p.deg));
+    });
+    lines.push('');
+    lines.push('Element count: ' + 'Fire ' + result.elementCount.Fire + ' · Earth ' + result.elementCount.Earth + ' · Air ' + result.elementCount.Air + ' · Water ' + result.elementCount.Water);
+    lines.push('  → Dominant: ' + result.domElement.join(' & '));
+    lines.push('');
+    lines.push('Modality count: Cardinal ' + result.modalityCount.Cardinal + ' · Fixed ' + result.modalityCount.Fixed + ' · Mutable ' + result.modalityCount.Mutable);
+    lines.push('  → Dominant: ' + result.domModality.join(' & '));
+    lines.push('');
+    lines.push('Duality count (informational): Yang ' + result.dualityCount.Yang + ' · Yin ' + result.dualityCount.Yin);
+    lines.push('  → Dominant: ' + result.domDuality.join(' & '));
+    lines.push('');
+    lines.push('Duality for signature (derived from element): ' + result.derivedDualities.join(' & '));
+    lines.push('');
+    lines.push('SIGNATURE: ' + result.signatureSigns.join(' / ') + (result.signatureSigns.length > 1 ? ' (tied)' : ''));
+    lines.push('  ' + result.domElement.join(' / ') + ' · ' + result.domModality.join(' / ') + ' · ' + result.derivedDualities.join(' / '));
+    lines.push('');
+    lines.push('— Computed by the Astrology 101 Companion App, signature module v0.3 (sidereal · Lahiri ayanamsha).');
+    lines.push('Technique: Vikram Devatha · All Things Vedic. No interpretation.');
+    return lines.join('\n');
+  }
+  function pad(s, n){
+    s = String(s);
+    while (s.length < n) s += ' ';
+    return s;
   }
 
   function escapeHtml(s){
@@ -676,7 +1313,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.20';
+  const PAGE_VERSION = '4.74.26';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -701,7 +1338,14 @@
       const r = await fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) return;
       const data = await r.json();
-      if (data.version !== PAGE_VERSION) showToast('A newer version is available — reload to update.');
+      if (data.version !== PAGE_VERSION) {
+        showToast('A newer version (' + data.version + ') is available — refreshing…');
+        setTimeout(function(){
+          var sep = location.search ? '&' : '?';
+          var clean = (location.search || '').replace(/[?&]_v=\d+/g, '').replace(/^&/, '?');
+          location.replace(location.pathname + clean + sep + '_v=' + Date.now() + (location.hash || ''));
+        }, 1200);
+      }
       else if (!silent) showToast("You're on the latest (v" + PAGE_VERSION + ')');
     } catch {}
   }
