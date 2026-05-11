@@ -711,10 +711,109 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.27 ====================== -->
+  <section class="release" data-credits="Sree (asked for the math walkthrough to be folded behind a teaser question so the page's first impression stays calm and the technical detail rewards curiosity)">
+    <header>
+      <h2>v4.74.27 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">The new "How this is computed" section on <code>signature.html</code> is now folded behind a teaser question: <em>"How does a date, a time, and a city become a sidereal Lagna?"</em> Tap to expand the full 8-step walkthrough. Pure CSS toggle via native <code>&lt;details&gt;</code> — keyboard accessible, screen-reader friendly, zero JS for the core toggle. The in-card link below the chart auto-opens the fold when tapped, so one tap from the result lands you in the math.</p>
+  </section>
+
+  <!-- ====================== v4.74.26 ====================== -->
+  <section class="release" data-credits="Sree (asked for the South Indian chart cells to also show element, modality, and duality — pedagogical depth at a glance)">
+    <header>
+      <h2>v4.74.26</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Each cell in <code>signature.html</code>'s South Indian chart now shows its sign's <strong>element · modality · duality</strong> in a small italic line, and gets a subtle elemental wash (Fire warm, Earth tan, Air cool-violet, Water cool-blue) using the page's existing colour tokens. The Lagna keeps its saffron tint overriding the elemental wash. A student looking at the chart can now see <em>why</em> the signature lands where it does — the dominant-element placements cluster visually across the chart, and you can eyeball the count before reading the tally cards below.</p>
+  </section>
+
+  <!-- ====================== v4.74.25 ====================== -->
+  <section class="release" data-credits="Sree (asked for a Sripati-style technical walkthrough of how the chart is computed — 'as a student its facinating')">
+    <header>
+      <h2>v4.74.25</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">A new section on <code>signature.html</code> — <strong>Step 3 · How this is computed</strong> — walks through the math in eight numbered cards: local→UTC (IANA + DST), UTC→Julian Date, planetary positions via VSOP87/ELP-2000, tropical→sidereal (Lahiri ayanamsha), Lagna math (GMST/LST/atan2 with quadrant fix), Rāhu/Ketu (Meeus mean node), sign assignment, and how the signature is counted. Each step has a monospace formula block, prose, and cross-links where relevant. Closes with sources (Meeus, VSOP87, Lahiri 1955) and honest limitations (no nutation, no aberration, no parallax, no true node). For the curious student.</p>
+  </section>
+
+  <!-- ====================== v4.74.24 ====================== -->
+  <section class="release" data-credits="Sree (caught the bug — own chart from deva.guru showed Lagna in Aquarius, the module said Leo; the two are exactly 180° apart)">
+    <header>
+      <h2>v4.74.24</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">The Lagna (Ascendant) on <code>signature.html</code> was silently 180° wrong on every chart — landing on the Descendant. Caught when Sree compared his own chart against deva.guru. The bug was in the quadrant-fix step: <code>atan2()</code> can return either the Ascendant or its 180° opposite (the Descendant); the code is supposed to flip when the result lies on the wrong side of the MC. The inequality was reversed (<code>&lt; 180</code> instead of <code>&gt; 180</code>) — so it flipped <em>every</em> correctly-computed Asc and kept <em>every</em> Descendant. Fix verified by hand-replicating the math for the test case: now lands at Aquarius 25°35′ sidereal, matching deva.guru.</p>
+  </section>
+
+  <!-- ====================== v4.74.23 ====================== -->
+  <section class="release" data-credits="Sree (called out that signature.html — a Vedic module — was still using Western 10 planets: 'anything I refer to south indian chart - its always indian vedic astrology and navagraha - can we review the signature page with that lens?')">
+    <header>
+      <h2>v4.74.23</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">The signature module is now Vedic-native: the planetary set is the <strong>Navagraha</strong> (Sūrya, Chandra, Maṅgala, Budha, Guru, Śukra, Śani + Rāhu + Ketu) plus Lagna — ten placements instead of the previous eleven. Uranus, Neptune, and Pluto are out. Rāhu is computed via Meeus's mean lunar-ascending-node formula (Vimśottari daśā uses the mean node); Ketu is always exactly 180° opposite. The Lagna badge on the chart now reads <em>LAGNA</em> instead of <em>ASC</em>. Sanskrit names (Sūrya, Chandra, …) bake into the placement tables. Lede, subtitle, plain-text copy and footer all reference "Navagraha + Lagna · 10 placements". The signature computation itself didn't change — only which bodies feed it.</p>
+  </section>
+
+  <!-- ====================== v4.74.22 ====================== -->
+  <section class="release" data-credits="Arpitha (asked 'can I copy the results?' for paste into her therapy notes); Ayesha (the reload-loop bug — clicking 'Refresh now' didn't actually update LC — that triggered the cache-bust audit across 13 peer pages)">
+    <header>
+      <h2>v4.74.22</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Two things: <strong>(1)</strong> A <em>Copy results</em> button on the <code>signature.html</code> output that builds a plain-text version of the chart, the counts, and the signature — ready to paste into therapy notes. <strong>(2)</strong> A cache-bust pattern shipped to 13 peer pages so the update-banner's "Refresh now" actually pulls fresh HTML instead of re-serving the cached version. The old pattern showed a toast and called a soft reload that hit CDN cache; the new one calls <code>location.replace(pathname + '?_v=' + Date.now())</code> after a 1.2s toast, which CDNs must honour as a fresh URL.</p>
+  </section>
+
+  <!-- ====================== v4.74.21 ====================== -->
+  <section class="release" data-credits="Arpitha (the build brief — 'start with one person, compute element/modality/duality signature'); Sree (defined v0.3 rules — duality derived not counted; final signature = zodiac sign name); Sanchi (co-built)">
+    <header>
+      <h2>v4.74.21</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Signature module v0.3 — proper Vedic shape. <strong>DST is now handled automatically</strong> via the location's IANA timezone (e.g. <code>Asia/Kolkata</code>, <code>America/New_York</code>) using <code>Intl.DateTimeFormat</code>, honouring historical DST transitions per place of birth. The row-wise placements table is replaced with the <strong>South Indian chart view</strong>. Date of birth uses DD/MM/YYYY (India convention). The actual UTC offset applied appears beneath every output so the DST behaviour is transparent. Seventeen preset cities ship with IANA timezones; "Custom" still takes a manual offset.</p>
+  </section>
+
+  <!-- ====================== v4.74.20 ====================== -->
+  <section class="release" data-credits="Arpitha (couples therapist, asked for a tool to compute an Element / Modality / Duality signature from a birth chart — 'start with one person, then pair'); Sree, Sanchi (built the first cut)">
+    <header>
+      <h2>v4.74.20</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">First cut of <code>signature.html</code> — a standalone peer page behind the cohort gate that takes one person's birth details and outputs their <strong>signature</strong>: dominant element, dominant modality, derived duality, and the zodiac sign that names the (element × modality) combination. Vikram's technique from the signature sessions, applied to one chart at a time. <em>No interpretation, no compatibility scoring, no matchmaking</em> — those are the therapist's domain. v0.2 shipped with manual UTC offset; DST handling lands in v4.74.21.</p>
+  </section>
+
+  <!-- ====================== v4.74.19 ====================== -->
+  <section class="release" data-credits="Sree (asked for journey topics to behave as an accordion — open one, close the others — so the workbook team's Wednesday review reads as a guided tour rather than a wall)">
+    <header>
+      <h2>v4.74.19</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">The journey prototype's topic blocks now behave as a tight accordion: opening one collapses the others. On first load, the first non-completed topic auto-expands. Helps the workbook team's Wednesday review read as a guided sequence rather than nine open sections at once. Built entirely with an <code>is-collapsed</code> class toggle — no library, no JS framework, ~25 lines added inside the existing journey IIFE.</p>
+  </section>
+
+  <!-- ====================== v4.74.18 ====================== -->
+  <section class="release" data-credits="Sree (added per-section share links to journey.html so the workbook team can paste a precise URL into Slack — 'this is the section I want feedback on' — instead of saying 'scroll halfway down')">
+    <header>
+      <h2>v4.74.18</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">Every Watch / Revise / Reflect / Integrate section in <code>journey.html</code> gets a small share-link button that copies a deep-link URL (e.g. <code>#avatars-revise</code>) to the clipboard with a "copied" toast. The workbook team can paste a precise anchor into Slack and the recipient lands exactly where the comment is about — replacing "scroll about halfway down to the second Reflect block".</p>
+  </section>
+
+  <!-- ====================== v4.74.10 – v4.74.17 ====================== -->
+  <section class="release" data-credits="Sree (Loom-chaptering iteration after v4.74.9 — solved the chapter-click reset-to-0:00 across several embed strategies before accepting Loom's API constraint and restoring the original approach)">
+    <header>
+      <h2>v4.74.10 – v4.74.17</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">An iteration arc to make the journey.html chapter-click reliably seek to the right timestamp inside the embedded Loom — explored <code>iframe.src</code> rewriting, <code>postMessage</code>, the <code>?t=XmYs</code> minutes-seconds format, and the <code>/share/</code> URL (blocked by Loom's <code>X-Frame-Options: DENY</code>). Final resolution: restored the simple <code>iframe.src = baseSrc + '?t=' + seconds</code> pattern from v4.74.9. The brief console warnings during seek are harmless; the seek itself works. Lesson logged: Loom's public embed doesn't expose a seek API — only a one-shot start-time hint via URL parameter — and that's fine.</p>
+  </section>
+
   <!-- ====================== v4.74.9 ====================== -->
   <section class="release" data-credits="Vikram (demoed Loom chaptering during the morning call — 'I can actually say watch 0:20 to 10, and it can auto-generate all this'); Sree (shared the Matsya Loom recording 8c6d121a7a7441d68e8565b2e6e2fc6d and called for it embedded into journey.html before Wednesday's workbook team review)">
     <header>
-      <h2>v4.74.9 <em>· current</em></h2>
+      <h2>v4.74.9</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">The journey prototype's Watch layer just got real. <strong>Sree's Matsya Loom recording</strong> is now embedded into <code>journey.html</code>'s Avatars · Watch step, with a click-to-jump chapter list underneath. Each chapter row rewrites the iframe's <code>?t=</code> parameter, sending Loom straight to that timestamp. The Avatars topic header is updated to lead with Matsya, since it's the first complete module — others land as the workbook team finishes them.</p>
@@ -5920,7 +6019,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.73.1';
+  const PAGE_VERSION = '4.74.27';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
