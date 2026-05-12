@@ -545,7 +545,7 @@
   }
   .how-tour-link:hover { text-decoration-color: var(--saffron); }
 
-  /* v4.74.31 — fold the math walkthrough behind a teaser question */
+  /* v4.74.32 — fold the math walkthrough behind a teaser question */
   .how-fold {
     margin: 12px 0 0;
     border: 1px solid var(--rule);
@@ -638,7 +638,7 @@
   <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
-    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.31</div>
+    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.32</div>
     <h1>Signature <em>· for one</em></h1>
     <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique — Vedic, sidereal, <em>Navagraha</em> + Lagna — applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
     <div class="ornament" aria-hidden="true">
@@ -864,7 +864,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
   </section>
 
   <footer class="footer">
-    <p>v4.74.31 · 11 May 2026 · signature module v0.3 · for one</p>
+    <p>v4.74.32 · 11 May 2026 · signature module v0.3 · for one</p>
     <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Vedic · sidereal zodiac (Lahiri ayanamsha) · Navagraha + Lagna. Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
   </footer>
 
@@ -1018,7 +1018,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
     $customFields.hidden = ($preset.value !== 'custom');
   });
 
-  // v4.74.31 — Auto-insert slashes in the DOB field as user types digits.
+  // v4.74.32 — Auto-insert slashes in the DOB field as user types digits.
   // On Android the numeric keyboard has no "/" key (Arpitha's feedback),
   // so users couldn't type DD/MM/YYYY. Now they just type 8 digits and
   // the slashes appear: 15031985 → 15/03/1985. Numeric keyboard stays put.
@@ -1356,7 +1356,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 
     $outCard.innerHTML = html;
 
-    // v4.74.31 — auto-open the "How this is computed" fold when the in-card link is tapped
+    // v4.74.32 — auto-open the "How this is computed" fold when the in-card link is tapped
     var howLink = $outCard.querySelector('.how-tour-link');
     if (howLink) {
       howLink.addEventListener('click', function(){
@@ -1447,7 +1447,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.31';
+  const PAGE_VERSION = '4.74.32';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1491,12 +1491,12 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.31). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.32). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'kanya-fffc';
+  var BUILD_ID = 'tula-z3fq';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
