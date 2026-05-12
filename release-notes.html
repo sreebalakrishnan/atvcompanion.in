@@ -711,10 +711,45 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.29 ====================== -->
+  <section class="release" data-credits="Vikram (the original matchbox exercise from Session 36 — 'get 12 matchbooks, label them one to twelve, look around you for what symbolises each house'); Sree (asked to bring the exercise into the app as a clickable 12-Bhava SI grid with per-house drawers); Sanchi (co-built); also: every classical source surfaced on each chip — BPHS, Uttara Kalamrita, Sarvartha Chintamani, Hora Sara, Brihat Jataka)">
+    <header>
+      <h2>v4.74.29 <em>· current</em></h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary">A new peer page — <code>bhavas.html</code> · <em>"The Twelve Bhavas · the Matchbox"</em>. Vikram's Session 36 exercise made digital: a 12-cell South Indian chart where each cell is a Bhava (not a Rashi), tap any cell to open a drawer with that house's classical significations, mark words that resonate, strike out what doesn't apply to your life, and keep your own running matchbox of physical objects that symbolise that house. Saved in your browser. Built for the Ether retreat where Vikram asked us to bring our matchboxes.</p>
+
+    <h3>What's on the page</h3>
+    <p>The grid mirrors the South Indian layout used elsewhere in the app — H12 at top-left of the top row, then H1, H2, H3, going clockwise around the centre. Each cell shows the Bhava number (H1 to H12), its Sanskrit name (Tanu, Dhana, Sahaja…), its primary <strong>karaka</strong> (the planet that indicates the house), and a small row of dots indicating how many items you've placed in that matchbox.</p>
+
+    <h3>What's in each drawer</h3>
+    <p>Tap a Bhava and an in-page drawer opens with five layers, in the order Vikram teaches:</p>
+    <ol>
+      <li><strong>Headline:</strong> Bhava number + Sanskrit name(s) + one-line English meaning.</li>
+      <li><strong>Karaka chip:</strong> the planet (or planets) that act as the house's "minister." Click-through to that planet's drawer is queued for a follow-up.</li>
+      <li><strong>BPHS line</strong> — the trunk. <em>"Harashara is the oldest, so subsequent works build on it,"</em> in Vikram's words. The Brihat Parashara English line is set apart in a saffron-bordered box.</li>
+      <li><strong>Vocabulary cloud</strong> — every keyword from Uttara Kalamrita, Sarvartha Chintamani, Hora Sara, and Brihat Jataka, each tagged with its source (UK, SC, HS, BJ). Tap any chip → marks it <em>resonant</em> (saffron). Shift-click or long-press → marks it <em>struck out</em> (per Vikram: <em>"I leave them. I work with what is applicable to my life."</em>). Filter row: all sources · BPHS only · your resonant only.</li>
+      <li><strong>Your matchbox</strong> — a free-text box + running list of physical objects you'd put in this house's box. <em>"What around you fits in this box?"</em></li>
+    </ol>
+
+    <h3>What this does and doesn't do</h3>
+    <p><strong>Does:</strong> teach the houses as Vikram teaches them — as zones of meaning that live all around you, not as abstract diagram regions. Builds vocabulary across five classical sources. Makes the resonance / striking-out gesture explicit. Persists everything in <code>localStorage</code> so the user's matchbox survives across sessions and is "ready for the retreat."</p>
+    <p><strong>Does NOT:</strong> require a birth chart. Compute anything. Interpret anyone's specific houses. This is the abstract 12-Bhava exercise — universal across charts. (Reading a <em>person's</em> houses lives on the LC drawers and on Interpret · beta; for the full eight-step procedure, see <code>house-planet-interpretation-guidance.md</code> in the KB.)</p>
+
+    <h3>Where it sits</h3>
+    <p>Added to the More menu under "learning content," directly below <em>Interpret · beta</em>. Single edit in <code>assets/site-nav.js</code> — every page picks up the new entry on next load.</p>
+
+    <h3>Data lineage</h3>
+    <p>Per-house data is the same canonical dataset used in LC's quick-reference drawers — <code>astrology-101-knowledge-base/houses-classical.json</code>, extracted from Deck #67 v2 (Vikram's house deck). Karakas are the traditional Vedic ministers (Sun for the 1st, Jupiter for the 2nd, Mars for the 3rd, Moon for the 4th, etc.) — same set used in the Cabinet section of LC.</p>
+
+    <h3>Tooling</h3>
+    <p>This release is the first to run end-to-end through <code>bin/stamp.py</code> — one command rotated PAGE_VERSION (4.74.28 → 4.74.29), BUILD_ID (simha-m4r7 → simha-o80e), every visible eyebrow / footer stamp, and version.json. 24 files stamped atomically. The next deploy is the same single command.</p>
+  </section>
+
   <!-- ====================== v4.74.28 ====================== -->
   <section class="release" data-credits="Sree (asked for a build fingerprint to verify CDN cache freshness, then for site-wide rollout; called for Journey to move to the top nav while Interpret · beta drops into More — Journey is the workbook team's Wednesday focus)">
     <header>
-      <h2>v4.74.28 <em>· current</em></h2>
+      <h2>v4.74.28</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">Three things in one push: <strong>(1)</strong> a <strong>build fingerprint</strong> baked into every page that lets you verify, in one tap, whether you're on the latest deployed copy or stuck on a stale CDN cache; <strong>(2)</strong> a long-overdue <strong>version-stamp cleanup</strong> — 20 pages were on PAGE_VERSION 4.73.1 while the manifest was at 4.74.27, which is why the update banner kept firing everywhere; <strong>(3)</strong> a <strong>nav swap</strong> — Journey · beta moves up to the top nav, Interpret · beta drops into More, ahead of Wednesday's workbook team review where Journey is the focus.</p>
@@ -6043,7 +6078,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.28';
+  const PAGE_VERSION = '4.74.29';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -6102,7 +6137,7 @@
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-m4r7';
+  var BUILD_ID = 'simha-o80e';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){

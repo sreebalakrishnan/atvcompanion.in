@@ -45,6 +45,7 @@
     { href: 'reflect.html',            label: 'Reflect',                    primary: true },
     // ----- More menu · learning content -----
     { href: 'interpret.html',          label: 'Interpret · beta',           group: 'learning' },
+    { href: 'bhavas.html',             label: 'Twelve Bhavas · matchbox',   group: 'learning' },
     { href: 'catch-up.html',           label: 'Catch up · missed a class?', group: 'learning' },
     { href: 'elements.html',           label: 'Elements',                   group: 'learning' },
     { href: 'interactive.html',        label: 'Interactive · beta',         group: 'learning' },
