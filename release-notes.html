@@ -711,10 +711,49 @@
     <div class="contrib-status" id="contribStatus" hidden></div>
   </section>
 
+  <!-- ====================== v4.74.31 ====================== -->
+  <section class="release" data-credits="Arpitha (couples therapist · first real user of signature.html on Android · WhatsApped Sree at 3:08 PM: 'But it is not giving me result because I am unable to add the bar in DD/MM/YYYY format … I am only able to access my numeric keyboard which doesn’t have symbols when i click on date month year space')">
+    <header>
+      <h2>v4.74.31 <em>· current</em></h2>
+      <span class="date">12 May 2026</span>
+    </header>
+    <p class="summary"><strong>signature.html · auto-insert slashes in the date-of-birth field.</strong> Arpitha was unable to compute a signature on her Android phone — the numeric keyboard the field requests does not have a <code>/</code> key, so she literally could not type <code>15/03/1985</code>. Real bug, real first-user feedback.</p>
+
+    <h3>The fix</h3>
+    <p>The DOB field now auto-inserts the slashes as digits are typed. The user types <code>15031985</code> and the field shows <code>15/03/1985</code>. The numeric keyboard stays — no symbol-keyboard switch needed. A small italic hint below the field reads: <em>"Just type the digits — the slashes appear for you."</em></p>
+    <p>Backspace behaviour is handled too: if the cursor is right after a slash, pressing Backspace removes the slash <em>plus</em> the digit before it, so the user never gets stuck deleting just the separator. Implementation is ~25 lines of vanilla JS in the existing module IIFE — no library, no input-mask dependency.</p>
+
+    <h3>Why this matters</h3>
+    <p>This is the first real-user-on-their-real-device feedback for the signature module. Arpitha is using the tool with clients; if she can't type a date, the module is dead. The fix lands in 15 minutes after the WhatsApp came in. The build fingerprint (<code>kanya-fffc</code> for this push) means she can verify on her phone in two seconds whether the patch reached her or if the CDN is still serving yesterday's HTML.</p>
+
+    <h3>Lesson logged</h3>
+    <p><code>inputmode="numeric"</code> + a separator character (slash, dash, colon) is always a trap on Android. Either auto-insert the separator (this fix), or split into multiple inputs, or accept that the user has to keyboard-switch. The first option is the cleanest UX and the right default going forward — anywhere this app asks for a date or time, the same pattern applies.</p>
+  </section>
+
+  <!-- ====================== v4.74.30 ====================== -->
+  <section class="release" data-credits="Sree (caught it — 'only use what Vikram has shared in decks or in class please'; audit + correction to strip everything I had added from general Vedic tradition and replace with Vikram-only sources from Deck #67 v2)">
+    <header>
+      <h2>v4.74.30</h2>
+      <span class="date">11 May 2026</span>
+    </header>
+    <p class="summary"><strong>bhavas.html · Vikram-only audit.</strong> The first cut of the Twelve Bhavas page had three places where I'd reached past Vikram's deck for "general Vedic tradition" defaults. Sree caught this and asked for a strict pass — every word and value on the page must come from Vikram's Deck #67 v2 or class transcripts, nothing from elsewhere.</p>
+    <h3>What changed</h3>
+    <ul>
+      <li><strong>Karakas corrected.</strong> H7 now lists <em>Venus + Jupiter</em> (was Venus only). H9 now lists <em>Jupiter only</em> (was Jupiter + Sun). Both fixes match Vikram's house-summary table in Deck #67 v2 verbatim.</li>
+      <li><strong>House groupings added.</strong> Vikram's deck lists each house's <em>groupings</em> explicitly — Kendra · Trikona · Dharma for the 1st, Maraka · Artha · Panapara for the 2nd, and so on. These now surface in the drawer sub-line, in saffron.</li>
+      <li><strong>Synthesized "title" line removed.</strong> The first cut had a one-line English summary I'd written per house ("The body · self"…). Those weren't Vikram's words. Removed — the drawer now leads with Sanskrit name(s), groupings, then BPHS line.</li>
+      <li><strong>Matchbox label rephrased to Vikram's own words.</strong> Was a paraphrase. Now: <em>"anything around you, on your desk, in your kitchen, wherever"</em> — Vikram, Session 36.</li>
+      <li><strong>Masthead lede attributed</strong> to Vikram Devatha, Session 36.</li>
+      <li><strong>Footer provenance note clarified.</strong> Explicit: every Sanskrit name, karaka, grouping, BPHS line, and keyword chip on this page comes from Deck #67 v2. Nothing added from elsewhere.</li>
+    </ul>
+    <h3>Why this matters</h3>
+    <p>The whole app's claim is "Vikram's class, faithfully surfaced." When I pulled in karaka defaults from general Vedic tradition, I broke that contract. The bhavas page is now strict about its provenance — every visible word can be pointed back to Vikram's own deck or transcript.</p>
+  </section>
+
   <!-- ====================== v4.74.29 ====================== -->
   <section class="release" data-credits="Vikram (the original matchbox exercise from Session 36 — 'get 12 matchbooks, label them one to twelve, look around you for what symbolises each house'); Sree (asked to bring the exercise into the app as a clickable 12-Bhava SI grid with per-house drawers); Sanchi (co-built); also: every classical source surfaced on each chip — BPHS, Uttara Kalamrita, Sarvartha Chintamani, Hora Sara, Brihat Jataka)">
     <header>
-      <h2>v4.74.29 <em>· current</em></h2>
+      <h2>v4.74.29</h2>
       <span class="date">11 May 2026</span>
     </header>
     <p class="summary">A new peer page — <code>bhavas.html</code> · <em>"The Twelve Bhavas · the Matchbox"</em>. Vikram's Session 36 exercise made digital: a 12-cell South Indian chart where each cell is a Bhava (not a Rashi), tap any cell to open a drawer with that house's classical significations, mark words that resonate, strike out what doesn't apply to your life, and keep your own running matchbox of physical objects that symbolise that house. Saved in your browser. Built for the Ether retreat where Vikram asked us to bring our matchboxes.</p>
@@ -6078,7 +6117,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.29';
+  const PAGE_VERSION = '4.74.31';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -6137,7 +6176,7 @@
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-o80e';
+  var BUILD_ID = 'kanya-fffc';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){

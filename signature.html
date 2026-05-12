@@ -545,7 +545,7 @@
   }
   .how-tour-link:hover { text-decoration-color: var(--saffron); }
 
-  /* v4.74.29 — fold the math walkthrough behind a teaser question */
+  /* v4.74.31 — fold the math walkthrough behind a teaser question */
   .how-fold {
     margin: 12px 0 0;
     border: 1px solid var(--rule);
@@ -638,7 +638,7 @@
   <script src="assets/site-nav.js"></script>
 
   <header class="masthead">
-    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.29</div>
+    <div class="eyebrow">a peer page · signature · for one <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.31</div>
     <h1>Signature <em>· for one</em></h1>
     <p class="lede">Birth details in. Dominant <em>element</em>, <em>modality</em>, <em>duality</em> out. Vikram's signature technique — Vedic, sidereal, <em>Navagraha</em> + Lagna — applied to one chart at a time. <em>No interpretation. No matchmaking. No prediction.</em> That's the therapist's work.</p>
     <div class="ornament" aria-hidden="true">
@@ -664,6 +664,7 @@
       <div class="form-row">
         <label for="dob">Date of birth <span style="opacity:.6;">(DD/MM/YYYY)</span></label>
         <input type="text" id="dob" placeholder="DD/MM/YYYY · e.g. 15/03/1985" pattern="\d{1,2}/\d{1,2}/\d{4}" maxlength="10" inputmode="numeric" autocomplete="off">
+        <p style="margin:6px 0 0;font-size:11.5px;color:var(--muted);font-family:var(--display);font-style:italic;">Just type the digits — the slashes appear for you.</p>
       </div>
 
       <div class="form-row">
@@ -863,7 +864,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
   </section>
 
   <footer class="footer">
-    <p>v4.74.29 · 11 May 2026 · signature module v0.3 · for one</p>
+    <p>v4.74.31 · 11 May 2026 · signature module v0.3 · for one</p>
     <p style="font-size:11.5px;opacity:.85;">Technique: Vikram Devatha · All Things Vedic, signature sessions. Vedic · sidereal zodiac (Lahiri ayanamsha) · Navagraha + Lagna. Asked for by Arpitha; built by <em>Sree &amp; Sanchi</em>.</p>
   </footer>
 
@@ -1015,6 +1016,37 @@ degInSign = λ_sidereal − signIndex × 30</pre>
   // ---- HANDLERS ----
   $preset.addEventListener('change', function(){
     $customFields.hidden = ($preset.value !== 'custom');
+  });
+
+  // v4.74.31 — Auto-insert slashes in the DOB field as user types digits.
+  // On Android the numeric keyboard has no "/" key (Arpitha's feedback),
+  // so users couldn't type DD/MM/YYYY. Now they just type 8 digits and
+  // the slashes appear: 15031985 → 15/03/1985. Numeric keyboard stays put.
+  function autoFormatDob(e){
+    var input = $dob;
+    var raw = input.value.replace(/\D/g, '').slice(0, 8); // digits only, max 8
+    var out = '';
+    if (raw.length > 0) out  = raw.slice(0, 2);
+    if (raw.length > 2) out += '/' + raw.slice(2, 4);
+    if (raw.length > 4) out += '/' + raw.slice(4, 8);
+    if (input.value !== out) {
+      input.value = out;
+      // Move cursor to end (simplest; field is short)
+      try { input.setSelectionRange(out.length, out.length); } catch(_){}
+    }
+  }
+  $dob.addEventListener('input', autoFormatDob);
+  // Backspace behaviour: if cursor is right after a "/", strip the slash + previous digit
+  $dob.addEventListener('keydown', function(e){
+    if (e.key === 'Backspace') {
+      var pos = $dob.selectionStart;
+      var val = $dob.value;
+      if (pos > 0 && val.charAt(pos - 1) === '/') {
+        e.preventDefault();
+        $dob.value = val.slice(0, pos - 2) + val.slice(pos);
+        autoFormatDob();
+      }
+    }
   });
 
   $btn.addEventListener('click', function(){
@@ -1324,7 +1356,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 
     $outCard.innerHTML = html;
 
-    // v4.74.29 — auto-open the "How this is computed" fold when the in-card link is tapped
+    // v4.74.31 — auto-open the "How this is computed" fold when the in-card link is tapped
     var howLink = $outCard.querySelector('.how-tour-link');
     if (howLink) {
       howLink.addEventListener('click', function(){
@@ -1415,7 +1447,7 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.29';
+  const PAGE_VERSION = '4.74.31';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1459,12 +1491,12 @@ degInSign = λ_sidereal − signIndex × 30</pre>
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.29). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.31). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-o80e';
+  var BUILD_ID = 'kanya-fffc';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
