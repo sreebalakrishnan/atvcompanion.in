@@ -42,7 +42,7 @@
     { href: 'learning-companion.html', label: 'Learning Companion',         primary: true },
     // v4.74.28 — Journey promoted to top nav, Interpret moved into More (still beta)
     { href: 'journey.html',            label: 'Journey · beta',             primary: true },
-    { href: 'moon-track.html',         label: 'Moon Track · pilot',         group: 'learning' },
+    { href: 'planets/moon.html',        label: 'The Moon · pilot',           group: 'learning' },
     { href: 'reflect.html',            label: 'Reflect',                    primary: true },
     // ----- More menu · learning content -----
     { href: 'interpret.html',          label: 'Interpret · beta',           group: 'learning' },

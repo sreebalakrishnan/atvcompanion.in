@@ -45,7 +45,7 @@ All content must come from this KB. Do not synthesise or add content not present
 | Page | Purpose |
 |---|---|
 | `index.html` | Homepage — Today's Sky (South Indian chart), live planet positions |
-| `moon-track.html` | **Moon Track pilot** — 12-stop learning journey (Planet Path) |
+| `planets/moon.html` | **The Moon — pilot** — 12-stop learning journey (Planet Path) |
 | `journey.html` | Workbook team prototype — 4-layer pedagogy, NOT learner-facing |
 | `learning-companion.html` | Planet/sign/house reference |
 | `reflect.html` | Reflective journalling |
@@ -81,24 +81,24 @@ Path
            ├── Traveller Meeting Spots (peer sharing)
            └── Backpack (prerequisites)
 ```
-`moon-track.html` is the **pilot implementation** — the reference file for all future track pages (Sun Track, Mars Track, etc.). The `journey.html` file is the workbook team's prototype and should remain separate.
+`planets/moon.html` is the **pilot implementation** — the reference file for all future track pages (Sun, Mars, etc.). All planet tracks live under `planets/`. The `journey.html` file is the workbook team's prototype and should remain separate.
 
-## moon-track.html — localStorage keys
+## planets/moon.html — localStorage keys
 | Key | Contents |
 |---|---|
 | `atv-moon-track-v1` | `{ completed: [1,2,...] }` — completed stop numbers |
 | `atv-moon-journal-v1` | All journal textarea values, quiz answers, phase journal, keyed by element ID |
 
 ## What is NOT in the KB yet (as of May 2026)
-- Moon-specific house descriptions (Moon in 1H, Moon in 2H, etc.) — Stop 8 of moon-track uses general house significations + prompts the learner to make the connection
+- Moon-specific house descriptions (Moon in 1H, Moon in 2H, etc.) — Stop 8 of planets/moon.html uses general house significations + prompts the learner to make the connection
 - Buddha and Kalki avatar prompts (missing from reflective-prompts.md)
 - Decks beyond 77 (Mars and Mercury are latest extractions)
-- Sun Track, Mars Track, Mercury Track content (not yet structured)
+- Sun, Mars, Mercury track content (not yet structured)
 
 ## Active work threads
 - **Phase 1 (planned):** App entry redesign — two-door entry (need-based vs. cohort-structured). Not yet built.
-- **Phase 2 (pilot complete):** `moon-track.html` — first track page, the template for all future tracks.
-- **Phase 3 (planned):** Additional tracks (Sun, Mars, etc.) following moon-track.html as the reference.
+- **Phase 2 (pilot complete):** `planets/moon.html` — "The Moon" — first track page, template for all future tracks under `planets/`.
+- **Phase 3 (planned):** Additional tracks (Sun, Mars, etc.) following planets/moon.html as the reference.
 
 ## Code conventions
 - CSS tokens defined inline per page (no shared stylesheet — deliberate for zero-build simplicity)
