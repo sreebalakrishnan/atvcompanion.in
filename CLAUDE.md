@@ -1,7 +1,7 @@
 # ATV Companion App — CLAUDE.md
 
 ## What this is
-A cohort-only companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Hosted at `atv-companion.sreebalakrishnan.in`. Deployed via Static.app from the `main` branch. Built by Sree Balakrishnan (gnuyoga@gmail.com).
+A cohort-only companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Hosted at `atvcompanion.in`. Deployed via Static.app from the `main` branch. Built by Sree Balakrishnan (gnuyoga@gmail.com).
 
 ## Architecture
 - **Zero backend.** Vanilla HTML + CSS + JS only. No build step, no framework.
