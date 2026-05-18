@@ -169,11 +169,27 @@
     });
   }
 
+  // -------- PLAUSIBLE ANALYTICS --------
+  function injectPlausible(){
+    if (document.getElementById('atv-plausible')) return;
+    var s = document.createElement('script');
+    s.id = 'atv-plausible';
+    s.async = true;
+    s.src = 'https://plausible.io/js/pa-ZOQqBwVZUolu5ieHiwN2I.js';
+    document.head.appendChild(s);
+    window.plausible = window.plausible || function(){
+      (window.plausible.q = window.plausible.q || []).push(arguments);
+    };
+    window.plausible.init = window.plausible.init || function(i){ window.plausible.o = i || {}; };
+    window.plausible.init();
+  }
+
   // -------- RENDER --------
   function render(){
     var mount = document.getElementById('siteNavMount');
     if (!mount) return;
     injectStyles();
+    injectPlausible();
     var active = currentPage();
     mount.innerHTML = buildNav(active);
     wireMoreMenu();
