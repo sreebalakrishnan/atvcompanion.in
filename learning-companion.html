@@ -10413,8 +10413,8 @@ document.addEventListener('click', function(e) {
 // the index/welcome card now buffer first-time arrivals; cohort can flip to All when they
 // want everything open). Returning users keep whatever they last picked.
 const storedLevel = (() => {
-  try { return localStorage.getItem(LEVEL_KEY) || 'foundations'; }
-  catch { return 'foundations'; }
+  try { return localStorage.getItem(LEVEL_KEY) || 'all'; }
+  catch { return 'all'; }
 })();
 setLevel(storedLevel);
 
@@ -10435,7 +10435,7 @@ let REFLECT_NOTES = {}; // {sectionId: 'user text'}
 
 (function loadModeAndQuiz() {
   try {
-    MODE = localStorage.getItem(MODE_KEY) || 'learning';
+    MODE = localStorage.getItem(MODE_KEY) || 'reference';
     QUIZ_STATE = JSON.parse(localStorage.getItem(QUIZ_STATE_KEY) || '{}');
     REFLECT_NOTES = JSON.parse(localStorage.getItem(REFLECT_NOTES_KEY) || '{}');
   } catch {}
