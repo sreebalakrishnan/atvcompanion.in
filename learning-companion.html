@@ -10429,7 +10429,7 @@ const A11Y_KEY = 'astro_a11y';
 // Default mode for first-time visitors: 'learning' (structured walk, quizzes unlock
 // as you go — matches Vikram's pedagogy). Returning users keep whatever they last chose.
 // Reverted from 'reference' in v4.33.0: index + welcome card now buffer first-time arrivals.
-let MODE = 'learning';
+let MODE = 'reference'; // default for new visitors — frontier=0 in learning mode hides all content
 let QUIZ_STATE = {}; // {sectionId: {seen:[idx...], correct:[idx...], choices:{idx:opt}, complete:bool}}
 let REFLECT_NOTES = {}; // {sectionId: 'user text'}
 
