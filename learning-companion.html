@@ -9816,7 +9816,8 @@ function answerQuiz(idx) {
     html += ` <span class="qf-link" data-link='${JSON.stringify(q.card.link)}'>↗ open in reference</span>`;
   }
   fb.innerHTML = html;
-  fb.querySelector('.qf-link')?.addEventListener('click', e => {
+  var qfLink = fb.querySelector('.qf-link');
+  if (qfLink) qfLink.addEventListener('click', function(e) {
     openLinkInDrawer(JSON.parse(e.target.dataset.link));
   });
 
@@ -10279,9 +10280,9 @@ const ALL_GEMS = buildGems();
 
 const LEVEL_RANK = { foundations: 0, beginner: 1, intermediate: 2, advanced: 3, all: 99 };
 function gemsForLevel(level) {
-  const max = LEVEL_RANK[level] ?? 0;
+  var max = (LEVEL_RANK[level] !== undefined && LEVEL_RANK[level] !== null) ? LEVEL_RANK[level] : 0;
   if (level === 'all') return ALL_GEMS;
-  return ALL_GEMS.filter(g => (LEVEL_RANK[g.level] ?? 0) <= max);
+  return ALL_GEMS.filter(function(g) { return ((LEVEL_RANK[g.level] !== undefined && LEVEL_RANK[g.level] !== null) ? LEVEL_RANK[g.level] : 0) <= max; });
 }
 
 // Date-seeded random picker (same gem all day for a given level)
@@ -11568,7 +11569,7 @@ function closeGrounding(markDone) {
     c.classList.remove('is-inhale','is-exhale','is-hidden');
     c.classList.add('is-rest');
   }
-  $('groundCue')?.classList.remove('is-on');
+  var _gc = $('groundCue'); if (_gc) _gc.classList.remove('is-on');
   if (markDone) {
     try { localStorage.setItem(GROUNDING_DONE_KEY, todayStamp()); } catch {}
     refreshGroundedStamp();
@@ -12345,7 +12346,7 @@ document.addEventListener('keydown', (e) => {
     e.stopPropagation();
     open(pop ? pop.hidden : true);
   });
-  document.getElementById('lcSettingsDone')?.addEventListener('click', function(){ open(false); });
+  var _lsd = document.getElementById('lcSettingsDone'); if (_lsd) _lsd.addEventListener('click', function(){ open(false); });
   if(bd) bd.addEventListener('click', function(){ open(false); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') open(false); });
 })();
