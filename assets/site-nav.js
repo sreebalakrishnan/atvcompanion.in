@@ -37,43 +37,46 @@
   //   group: 'meta'      → orientation + about-the-project pages
   // Order within a group preserved. To insert a divider, the builder
   // watches for the first 'meta' item after 'learning' items.
+  // v4.74.35 — all hrefs are root-relative (leading /) so nav works from any
+  // subdirectory (e.g. planets/moon.html) without producing 404s.
   const PAGES = [
-    { href: 'index.html',              label: 'Home',                       primary: true },
-    { href: 'learning-companion.html', label: 'Learning Companion',         primary: true },
+    { href: '/index.html',              label: 'Home',                       primary: true },
+    { href: '/learning-companion.html', label: 'Learning Companion',         primary: true },
     // v4.74.28 — Journey promoted to top nav, Interpret moved into More (still beta)
-    { href: 'journey.html',            label: 'Journey · beta',             primary: true },
-    { href: 'planets/moon.html',        label: 'The Moon · pilot',           group: 'learning' },
-    { href: 'reflect.html',            label: 'Reflect',                    primary: true },
+    { href: '/journey.html',            label: 'Journey · beta',             primary: true },
+    { href: '/planets/moon.html',       label: 'The Moon · pilot',           group: 'learning' },
+    { href: '/reflect.html',            label: 'Reflect',                    primary: true },
     // ----- More menu · learning content -----
-    { href: 'interpret.html',          label: 'Interpret · beta',           group: 'learning' },
-    { href: 'bhavas.html',             label: 'Twelve Bhavas · matchbox',   group: 'learning' },
-    { href: 'signature.html',          label: 'Signature · for one',        group: 'learning' },
-    { href: 'catch-up.html',           label: 'Catch up · missed a class?', group: 'learning' },
-    { href: 'elements.html',           label: 'Elements',                   group: 'learning' },
-    { href: 'interactive.html',        label: 'Interactive · beta',         group: 'learning' },
-    { href: 'aspects.html',            label: 'Aspects · drishti',          group: 'learning' },
-    { href: 'kaalapurusha.html',       label: 'Kaalapurusha',               group: 'learning' },
-    { href: 'mercury-spectrum.html',   label: 'Mercury Spectrum',           group: 'learning' },
-    { href: 'jupiter-tracker.html',    label: 'Jupiter Tracker',            group: 'learning' },
-    { href: 'astronomy.html',          label: 'Astronomy',                  group: 'learning' },
-    { href: 'sripati.html',            label: 'Sripati Paddhati',           group: 'learning' },
-    { href: 'ether.html',              label: 'Ether',                      group: 'learning' },
+    { href: '/interpret.html',          label: 'Interpret · beta',           group: 'learning' },
+    { href: '/bhavas.html',             label: 'Twelve Bhavas · matchbox',   group: 'learning' },
+    { href: '/signature.html',          label: 'Signature · for one',        group: 'learning' },
+    { href: '/catch-up.html',           label: 'Catch up · missed a class?', group: 'learning' },
+    { href: '/elements.html',           label: 'Elements',                   group: 'learning' },
+    { href: '/interactive.html',        label: 'Interactive · beta',         group: 'learning' },
+    { href: '/aspects.html',            label: 'Aspects · drishti',          group: 'learning' },
+    { href: '/kaalapurusha.html',       label: 'Kaalapurusha',               group: 'learning' },
+    { href: '/mercury-spectrum.html',   label: 'Mercury Spectrum',           group: 'learning' },
+    { href: '/jupiter-tracker.html',    label: 'Jupiter Tracker',            group: 'learning' },
+    { href: '/astronomy.html',          label: 'Astronomy',                  group: 'learning' },
+    { href: '/sripati.html',            label: 'Sripati Paddhati',           group: 'learning' },
+    { href: '/ether.html',              label: 'Ether',                      group: 'learning' },
     // ----- More menu · orientation + meta -----
-    { href: 'where-am-i.html',         label: 'Where am I',                 group: 'meta' },
-    { href: 'layers.html',             label: 'Layers',                     group: 'meta' },
-    { href: 'stats.html',              label: 'Stats',                      group: 'meta' },
-    { href: 'about.html',              label: 'About · how this came to be', group: 'meta' },
-    { href: 'feedback.html',           label: 'Feedback · send us a note',  group: 'meta' },
-    { href: 'collaborate.html',        label: 'Collaborate',                group: 'meta' },
-    { href: 'release-notes.html',      label: 'Release Notes',              group: 'meta' }
+    { href: '/where-am-i.html',         label: 'Where am I',                 group: 'meta' },
+    { href: '/layers.html',             label: 'Layers',                     group: 'meta' },
+    { href: '/stats.html',              label: 'Stats',                      group: 'meta' },
+    { href: '/about.html',              label: 'About · how this came to be', group: 'meta' },
+    { href: '/feedback.html',           label: 'Feedback · send us a note',  group: 'meta' },
+    { href: '/collaborate.html',        label: 'Collaborate',                group: 'meta' },
+    { href: '/release-notes.html',      label: 'Release Notes',              group: 'meta' }
   ];
 
   // -------- HELPERS --------
   function currentPage(){
-    var path = window.location.pathname || '';
-    var name = path.split('/').pop() || '';
-    if (!name) return 'index.html';
-    return name;
+    var path = window.location.pathname || '/';
+    // Normalize bare root to index
+    if (path === '/' || path === '') return '/index.html';
+    // Return full root-relative path — matches the leading-/ hrefs in PAGES
+    return path;
   }
 
   function escHtml(s){
