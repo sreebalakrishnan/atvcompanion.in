@@ -12902,6 +12902,180 @@ document.addEventListener('keydown', (e) => {
 
 <!-- v4.70.1 — Daily Gem moved to home; no-op on LC -->
 <script>window.renderGem = function(){ var el = document.getElementById("dailyGem"); if (el) el.innerHTML = ""; };</script>
+
+<!-- ═══ DEBUG PANEL — triggered by ?debug=1 in URL. Invisible to normal users. ═══ -->
+<script>
+(function(){
+  if (!/[?&]debug=1/.test(location.search)) return;
+
+  function runChecks() {
+    var checks = [];
+    function ok(label, val)  { checks.push({ pass: true,  label: label, note: val !== undefined ? String(val) : '' }); }
+    function bad(label, val) { checks.push({ pass: false, label: label, note: val !== undefined ? String(val) : '' }); }
+    function info(label, val){ checks.push({ pass: null,  label: label, note: val !== undefined ? String(val) : '' }); }
+
+    // 1. JS running
+    ok('JS is running');
+
+    // 2. User agent
+    info('Browser', navigator.userAgent.slice(0, 80));
+
+    // 3. localStorage
+    try {
+      localStorage.setItem('_atv_debug_test', '1');
+      localStorage.removeItem('_atv_debug_test');
+      ok('localStorage available');
+    } catch(e) {
+      bad('localStorage available', e.message);
+    }
+
+    // 4. MODE variable
+    var modeVal;
+    try { modeVal = typeof MODE !== 'undefined' ? MODE : '(undefined)'; } catch(e) { modeVal = '(error)'; }
+    if (modeVal === 'reference' || modeVal === 'learning') { ok('MODE', modeVal); }
+    else { bad('MODE', modeVal); }
+
+    // 5. Body mode class
+    var bodyClass = document.body.className;
+    var hasModeClass = bodyClass.indexOf('mode-reference') >= 0 || bodyClass.indexOf('mode-learning') >= 0;
+    if (hasModeClass) {
+      var modeClass = bodyClass.indexOf('mode-reference') >= 0 ? 'mode-reference' : 'mode-learning';
+      ok('body mode class', modeClass);
+    } else {
+      bad('body mode class', '(none set — ' + bodyClass.split(' ').filter(function(c){ return c; }).slice(0,4).join(', ') + ')');
+    }
+
+    // 6. Body level class
+    var levelMatch = bodyClass.match(/level-(\w+)/);
+    if (levelMatch) { ok('body level class', levelMatch[0]); }
+    else { bad('body level class', '(none)'); }
+
+    // 7. Frontier
+    var frontierVal;
+    try { frontierVal = typeof getFrontier === 'function' ? getFrontier() : '(getFrontier not found)'; } catch(e) { frontierVal = '(error)'; }
+    info('frontier', frontierVal);
+
+    // 8. Sections in DOM
+    var sections = document.querySelectorAll('section[id]');
+    if (sections.length > 0) { ok('sections found', sections.length); }
+    else { bad('sections found', 0); }
+
+    // 9. Locked sections
+    var locked = document.querySelectorAll('section.section-locked');
+    if (locked.length === 0) { ok('locked sections', 0); }
+    else { bad('locked sections', locked.length + ' locked'); }
+
+    // 10. Nav mount
+    var navMount = document.getElementById('siteNavMount');
+    if (navMount && navMount.innerHTML.trim()) { ok('site-nav rendered'); }
+    else { bad('site-nav rendered', navMount ? '(empty)' : '(mount el missing)'); }
+
+    // 11. Key sections exist
+    ['signs','planets','houses'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) { ok('section #' + id + ' in DOM'); }
+      else { bad('section #' + id + ' in DOM'); }
+    });
+
+    // 12. First section visible
+    var firstSection = document.querySelector('section[id]');
+    if (firstSection) {
+      var style = window.getComputedStyle(firstSection);
+      var disp = style.display;
+      var vis  = style.visibility;
+      if (disp !== 'none' && vis !== 'hidden') { ok('first section visible', '#' + firstSection.id + ' display:' + disp); }
+      else { bad('first section visible', 'display:' + disp + ' visibility:' + vis); }
+    }
+
+    // 13. localStorage MODE key
+    var storedMode;
+    try { storedMode = localStorage.getItem('atv-lc-mode-v1'); } catch(e) { storedMode = '(error)'; }
+    info('stored mode (localStorage)', storedMode === null ? '(not set — will use default)' : storedMode);
+
+    // 14. localStorage LEVEL key
+    var storedLevel;
+    try { storedLevel = localStorage.getItem('atv-lc-level-v1'); } catch(e) { storedLevel = '(error)'; }
+    info('stored level (localStorage)', storedLevel === null ? '(not set — will use default)' : storedLevel);
+
+    // 15. CSS custom properties
+    var saffron = getComputedStyle(document.documentElement).getPropertyValue('--saffron').trim();
+    if (saffron) { ok('CSS tokens loaded', '--saffron: ' + saffron); }
+    else { bad('CSS tokens loaded', '--saffron missing'); }
+
+    return checks;
+  }
+
+  function buildPanel(checks) {
+    var panel = document.createElement('div');
+    panel.id = 'atvDebugPanel';
+    panel.style.cssText = [
+      'position:fixed', 'top:0', 'left:0', 'right:0', 'bottom:0',
+      'z-index:99999', 'overflow-y:auto', '-webkit-overflow-scrolling:touch',
+      'background:rgba(20,18,14,.96)',
+      'font-family:ui-monospace,SFMono-Regular,Menlo,monospace',
+      'font-size:13px', 'color:#f0ead8', 'padding:16px 16px 80px'
+    ].join(';');
+
+    var header = document.createElement('div');
+    header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;border-bottom:1px solid #444;padding-bottom:10px;';
+    header.innerHTML = '<strong style="font-size:15px;letter-spacing:.04em;">🔍 ATV Debug · LC</strong>';
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕ close';
+    closeBtn.style.cssText = 'background:#BC8146;color:#fff;border:0;padding:6px 14px;border-radius:999px;font-size:12px;cursor:pointer;font-family:inherit;';
+    closeBtn.addEventListener('click', function(){ document.body.removeChild(panel); });
+    header.appendChild(closeBtn);
+    panel.appendChild(header);
+
+    var passCount = 0, failCount = 0;
+    checks.forEach(function(c){
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);align-items:flex-start;';
+
+      var icon = document.createElement('span');
+      icon.style.cssText = 'flex-shrink:0;width:18px;text-align:center;font-size:14px;line-height:1.4;';
+      if (c.pass === true)  { icon.textContent = '✓'; icon.style.color = '#4ade80'; passCount++; }
+      else if (c.pass === false) { icon.textContent = '✗'; icon.style.color = '#f87171'; failCount++; }
+      else                   { icon.textContent = '·'; icon.style.color = '#94a3b8'; }
+
+      var text = document.createElement('span');
+      text.style.cssText = 'flex:1;line-height:1.45;word-break:break-word;';
+      text.innerHTML = '<span style="color:#e2e8f0;">' + c.label + '</span>' +
+        (c.note ? '<span style="color:#94a3b8;margin-left:6px;">' + c.note + '</span>' : '');
+
+      row.appendChild(icon);
+      row.appendChild(text);
+      panel.appendChild(row);
+    });
+
+    // Summary bar
+    var summary = document.createElement('div');
+    summary.style.cssText = 'position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:#1e1c18;border-top:1px solid #444;display:flex;gap:16px;font-size:13px;z-index:100000;';
+    summary.innerHTML = '<span style="color:#4ade80;">✓ ' + passCount + ' passed</span>' +
+      (failCount > 0 ? '<span style="color:#f87171;">✗ ' + failCount + ' failed</span>' : '<span style="color:#94a3b8;">✗ 0 failed</span>') +
+      '<span style="color:#94a3b8;margin-left:auto;font-size:11px;">atvcompanion.in/learning-companion.html?debug=1</span>';
+    panel.appendChild(summary);
+
+    return panel;
+  }
+
+  // Wait for page to fully initialise before running checks
+  function init() {
+    // Small delay so setMode() and applyFrontier() have had time to run
+    setTimeout(function(){
+      var checks = runChecks();
+      var panel  = buildPanel(checks);
+      document.body.appendChild(panel);
+    }, 600);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 <!-- v4.72.6 — Cloudflare Web Analytics (privacy-respecting, no cookies) -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd84bafaf4904f179761051ac70ecaf4"}'></script>
 
