@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0"><meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
@@ -16,23 +16,23 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --gold:      #A3986D;
     --shadow:    0 1px 0 rgba(40,40,38,.04), 0 8px 28px -10px rgba(40,40,38,.18);
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
     --radius:  6px;
   }
@@ -44,7 +44,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
@@ -172,7 +172,7 @@
   }
   .release[id] { scroll-margin-top: 24px; }
   .release:target {
-    background: linear-gradient(180deg, rgba(188,129,70,0.05), transparent 80%);
+    background: linear-gradient(180deg, rgba(180,110,59,0.05), transparent 80%);
     border-radius: 8px;
     padding-left: 14px;
     padding-right: 14px;
@@ -189,7 +189,7 @@
     margin: 0 0 14px;
     letter-spacing: .02em;
     padding: 6px 12px;
-    background: linear-gradient(90deg, rgba(188,129,70,0.06), transparent 70%);
+    background: linear-gradient(90deg, rgba(180,110,59,0.06), transparent 70%);
     border-left: 2px solid var(--saffron);
     border-radius: 0 4px 4px 0;
     display: inline-block;
@@ -1018,7 +1018,7 @@
     <p class="summary">Gate copy update. The passcode overlay now carries an explicit beta-stage note directly below the Enter button — telling first-time visitors who lands on a gated URL exactly what to do: <em>reach out to Vikram, Sree, or the workbook team for the passcode.</em> The manifesto / feedback links remain as a smaller footnote for browsers from the outside.</p>
 
     <h3>The new note, verbatim</h3>
-    <blockquote style="font-style:italic;color:var(--ink-soft);border-left:3px solid var(--saffron);padding:8px 14px;background:rgba(188,129,70,.06);border-radius:0 6px 6px 0;margin:12px 0;">
+    <blockquote style="font-style:italic;color:var(--ink-soft);border-left:3px solid var(--saffron);padding:8px 14px;background:rgba(180,110,59,.06);border-radius:0 6px 6px 0;margin:12px 0;">
       "We're in <em>early beta</em> — still experimenting, and access is restricted while we figure out what works. If you'd like the passcode, reach out to <strong>Vikram</strong>, <strong>Sree</strong>, or the <strong>workbook team</strong>."
     </blockquote>
 
@@ -2714,10 +2714,10 @@
 
     <h3>Phase 1 · Site-wide brand cascade</h3>
     <ul>
-      <li><strong>11 pages updated</strong>: index, learning-companion, kaalapurusha, mercury-spectrum, astronomy, ether, layers, reflect, interactive, stats, release-notes. Same tokens as the v4.58.0 read.html pilot — Terracotta Ember <code>#BC8146</code> for accents, Charcoal Ash <code>#282826</code> for type, Sunlit White <code>#F8F4E1</code> family for backgrounds.</li>
+      <li><strong>11 pages updated</strong>: index, learning-companion, kaalapurusha, mercury-spectrum, astronomy, ether, layers, reflect, interactive, stats, release-notes. Same tokens as the v4.58.0 read.html pilot — Terracotta Ember <code>#B46E3B</code> for accents, Charcoal Ash <code>#282826</code> for type, Sunlit White <code>#F8F4E1</code> family for backgrounds.</li>
       <li><strong>Per-page custom tokens remapped</strong>:
         <ul>
-          <li>Avatar family colors (in Learning Companion): Map → Stormy Sky dark <code>#556168</code>, Mechanics → Deep Forest <code>#32413B</code>, Practice → Muted Mauve dark <code>#584B4B</code>, Story → Terracotta Ember <code>#BC8146</code>. Distinct enough to differentiate, all brand-aligned.</li>
+          <li>Avatar family colors (in Learning Companion): Map → Stormy Sky dark <code>#556168</code>, Mechanics → Deep Forest <code>#32413B</code>, Practice → Muted Mauve dark <code>#584B4B</code>, Story → Terracotta Ember <code>#B46E3B</code>. Distinct enough to differentiate, all brand-aligned.</li>
           <li>Sage green (Mercury Spectrum + Astronomy) <code>#5a7a5c</code> → custom Deep Forest mid <code>#3D5650</code>. Keeps the thematic green accent, brand-aligned.</li>
           <li>Gold <code>#a8843a</code> → Sunlit White tint <code>#A3986D</code>.</li>
           <li>Forest <code>#4a5d2e</code> → Deep Forest <code>#32413B</code>.</li>
@@ -2725,7 +2725,7 @@
       </li>
       <li><strong>Hardcoded values across pages</strong>: ~60 hex values and rgba tints in inline styles, JS-injected toasts, WhatsApp FAB tooltips, first-visit tip cards, SVG diagrams (astronomy ecliptic), update banners — all migrated to brand tokens via Python script that protected <code>html.theme-legacy</code> override blocks.</li>
       <li><strong>Fonts loaded site-wide</strong>: Switzer via Fontshare CDN + Libre Caslon Text via Google Fonts, with Cormorant + Spectral kept as fallbacks for graceful degradation.</li>
-      <li><strong>Favicons + theme-color metas</strong> updated to Sunlit White <code>#F4EEDA</code> + Terracotta Ember "101" on every page.</li>
+      <li><strong>Favicons + theme-color metas</strong> updated to Sunlit White <code>#F8F6EF</code> + Terracotta Ember "101" on every page.</li>
     </ul>
 
     <h3>Phase 2 · Site-level theme toggle</h3>
@@ -2817,14 +2817,14 @@
 
     <h3>Stage A · Color migration</h3>
     <ul>
-      <li><strong>Saffron <code>#b8410e</code> → Terracotta Ember <code>#BC8146</code>.</strong> The hot saffron was the app's signature — softer, less alarming Terracotta Ember from the brand mid-tones. All 27 hardcoded <code>rgba(188,129,70,...)</code> values for shadows and tints converted to <code>rgba(188,129,70,...)</code>.</li>
+      <li><strong>Saffron <code>#b8410e</code> → Terracotta Ember <code>#B46E3B</code>.</strong> The hot saffron was the app's signature — softer, less alarming Terracotta Ember from the brand mid-tones. All 27 hardcoded <code>rgba(180,110,59,...)</code> values for shadows and tints converted to <code>rgba(180,110,59,...)</code>.</li>
       <li><strong>Ink <code>#1f1a2e</code> → Charcoal Ash <code>#282826</code>.</strong> Old purple-toned dark replaced by the brand book's neutral. Six <code>rgba(40,40,38,...)</code> shadow values converted to <code>rgba(40,40,38,...)</code>.</li>
-      <li><strong>Background family migrated to Sunlit White tints.</strong> <code>--bg</code> is now <code>#F4EEDA</code> (slightly warmed Sunlit White), <code>--surface</code> is true Sunlit White <code>#F8F4E1</code>, <code>--bg-deep</code> uses tint -1 <code>#E0DCCD</code>. Cards still pop against the page bg.</li>
-      <li><strong>Borders</strong>: <code>--rule</code> = <code>#CAC6BB</code> (Sunlit tint -2), <code>--rule-soft</code> = <code>#E0DCCD</code> (tint -1).</li>
+      <li><strong>Background family migrated to Sunlit White tints.</strong> <code>--bg</code> is now <code>#F8F6EF</code> (slightly warmed Sunlit White), <code>--surface</code> is true Sunlit White <code>#F8F4E1</code>, <code>--bg-deep</code> uses tint -1 <code>#E0DCCD</code>. Cards still pop against the page bg.</li>
+      <li><strong>Borders</strong>: <code>--rule</code> = <code>#C8C5BF</code> (Sunlit tint -2), <code>--rule-soft</code> = <code>#E0DCCD</code> (tint -1).</li>
       <li><strong>Indigo <code>#2a3270</code> → Stormy Sky <code>#6E7D85</code>.</strong> The body background-image's secondary radial gradient softens; two <code>rgba(110,125,133,...)</code> values converted.</li>
       <li><strong>Hardcoded color blocks updated</strong>: the version-toast helper, the WhatsApp FAB tooltip, and the first-visit tip card all carried direct hex values for historical reasons. All converted to the new palette.</li>
       <li><strong>Favicon updated</strong> — Sunlit White bg with Terracotta Ember "101", Libre Caslon as the family hint.</li>
-      <li><strong>Theme color meta</strong> tag updated to <code>#F4EEDA</code> for browser chrome / iOS safe-area tinting.</li>
+      <li><strong>Theme color meta</strong> tag updated to <code>#F8F6EF</code> for browser chrome / iOS safe-area tinting.</li>
     </ul>
 
     <h3>Stage B · Switzer for body</h3>
@@ -2837,7 +2837,7 @@
     <h3>Stage C · Libre Caslon Text for display</h3>
     <ul>
       <li>Added <strong>Libre Caslon Text</strong> via Google Fonts as a near-match for the brand book's <em>Libre Caslon Condensed</em>. Condensed isn't on Google Fonts; we'll swap to the actual condensed file once Yash provides it.</li>
-      <li><code>--display</code> token: <code>'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif</code>. Cormorant remains fallback for graceful degradation.</li>
+      <li><code>--display</code> token: <code>'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif</code>. Cormorant remains fallback for graceful degradation.</li>
       <li>Display feels closer to the brand book's deck slides + IG creatives.</li>
     </ul>
 
@@ -6116,7 +6116,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -6130,10 +6130,10 @@
     if (document.getElementById('upd-banner')) return;
     const b = document.createElement('div');
     b.id = 'upd-banner';
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#B46E3B;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
     b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
       + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
-      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#B46E3B;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
       + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
     document.body.appendChild(b);
     document.getElementById('upd-refresh').onclick = bustCache;
@@ -6175,7 +6175,7 @@
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
@@ -6319,8 +6319,8 @@
     max-width: 640px;
     padding: 14px 92px 14px 18px;
     background: #F8F4E1;
-    border: 1px solid #CAC6BB;
-    border-left: 3px solid #BC8146;
+    border: 1px solid #C8C5BF;
+    border-left: 3px solid #B46E3B;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -6337,7 +6337,7 @@
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #BC8146;
+    color: #B46E3B;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -6351,7 +6351,7 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #CAC6BB;
+    border: 1px solid #C8C5BF;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
@@ -6362,9 +6362,9 @@
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #BC8146;
-    color: #BC8146;
-    background: rgba(188,129,70,.05);
+    border-color: #B46E3B;
+    color: #B46E3B;
+    background: rgba(180,110,59,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -6601,7 +6601,7 @@
   h2:hover .copy-anchor,
   .copy-anchor:focus,
   .copy-anchor.is-copied { opacity: 1; }
-  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(188,129,70,.05); }
+  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(180,110,59,.05); }
   .copy-anchor.is-copied { color: var(--surface); background: var(--saffron); border-color: var(--saffron); }
   @media (hover: none) { .copy-anchor { opacity: .55; } }
 </style>
@@ -6612,7 +6612,7 @@
     if (existing) return existing;
     var t = document.createElement('div');
     t.id = 'anchorToast';
-    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
     document.body.appendChild(t);
     return t;
   }

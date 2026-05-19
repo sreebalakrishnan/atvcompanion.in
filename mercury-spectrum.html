@@ -12,19 +12,19 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #F4EEDA;
+    --cream: #F8F6EF;
     --surface:   #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --sage: #3D5650;
-    --rule:      #CAC6BB;
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --rule:      #C8C5BF;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
 
@@ -134,7 +134,7 @@
     transition: border-color 0.18s, background 0.18s;
   }
   .card:hover {
-    border-color: rgba(188,129,70,0.4);
+    border-color: rgba(180,110,59,0.4);
   }
 
   .pair-labels {
@@ -196,13 +196,13 @@
     border-radius: 50%;
     background: var(--cream);
     border: 2px solid var(--saffron);
-    box-shadow: 0 0 0 1px rgba(188,129,70,0.15);
+    box-shadow: 0 0 0 1px rgba(180,110,59,0.15);
     cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s;
   }
   input[type=range]::-webkit-slider-thumb:hover {
     transform: scale(1.15);
-    box-shadow: 0 0 0 4px rgba(188,129,70,0.18);
+    box-shadow: 0 0 0 4px rgba(180,110,59,0.18);
   }
   input[type=range]::-moz-range-thumb {
     width: 18px; height: 18px;
@@ -214,8 +214,8 @@
 
   /* Summary panel */
   .summary {
-    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.6));
-    border: 1px solid rgba(188,129,70,0.32);
+    background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(243,233,210,0.6));
+    border: 1px solid rgba(180,110,59,0.32);
     border-radius: 10px;
     padding: 28px 24px 24px;
     margin-top: 36px;
@@ -821,7 +821,7 @@
   updateSummary();
 
   // ====================== UPDATE CHECKER ======================
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   function showUpdateBanner(newVer) {
     const b = document.getElementById('updateBanner');
     document.getElementById('updateText').textContent = 'New version available (v' + newVer + ').';
@@ -855,12 +855,12 @@
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.34). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.35). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
@@ -1003,8 +1003,8 @@
     max-width: 640px;
     padding: 14px 92px 14px 18px;
     background: #F8F4E1;
-    border: 1px solid #CAC6BB;
-    border-left: 3px solid #BC8146;
+    border: 1px solid #C8C5BF;
+    border-left: 3px solid #B46E3B;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -1021,7 +1021,7 @@
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #BC8146;
+    color: #B46E3B;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -1035,7 +1035,7 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #CAC6BB;
+    border: 1px solid #C8C5BF;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
@@ -1046,9 +1046,9 @@
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #BC8146;
-    color: #BC8146;
-    background: rgba(188,129,70,.05);
+    border-color: #B46E3B;
+    color: #B46E3B;
+    background: rgba(180,110,59,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -1285,7 +1285,7 @@
   h2:hover .copy-anchor,
   .copy-anchor:focus,
   .copy-anchor.is-copied { opacity: 1; }
-  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(188,129,70,.05); }
+  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(180,110,59,.05); }
   .copy-anchor.is-copied { color: var(--surface); background: var(--saffron); border-color: var(--saffron); }
   @media (hover: none) { .copy-anchor { opacity: .55; } }
 </style>
@@ -1296,7 +1296,7 @@
     if (existing) return existing;
     var t = document.createElement('div');
     t.id = 'anchorToast';
-    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
     document.body.appendChild(t);
     return t;
   }

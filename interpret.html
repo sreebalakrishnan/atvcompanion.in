@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -22,7 +22,7 @@
 <!-- v4.58.0 — Brand fonts. Display: Libre Caslon Text (near-match for ATV's Libre Caslon Condensed,
      pending Yash's font file). Body: Switzer via Fontshare (the brand book's body face). Cormorant
      and Spectral kept as fallbacks for graceful degradation if a CDN is offline. -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   /* v4.58.0 — Brand-aligned palette + typography (read.html pilot).
@@ -32,25 +32,25 @@
      until Vikram approves the new look. */
   :root {
     /* Bright tones — Sunlit White family for backgrounds. */
-    --bg:        #F4EEDA;   /* Sunlit White, slightly warmed for page bg */
+    --bg:        #F8F6EF;   /* Sunlit White, slightly warmed for page bg */
     --bg-deep:   #E0DCCD;   /* Sunlit White tint -1, for dividers/section bands */
     --surface:   #F8F4E1;   /* True Sunlit White, for cards on top of bg */
     --cream:     #F8F4E1;   /* alias for --surface (legacy compat) */
     /* Dark tones — Charcoal Ash family for type. */
     --ink:       #282826;   /* Charcoal Ash */
     --ink-soft:  #4B4B4A;   /* Charcoal Ash tint -1 */
-    --muted:     #7C7B78;   /* Neutral mid-grey from Sunlit tint -5 */
+    --muted:     #847171;   /* Neutral mid-grey from Sunlit tint -5 */
     /* Borders — light Sunlit tints. */
-    --rule:      #CAC6BB;   /* Sunlit White tint -2 */
+    --rule:      #C8C5BF;   /* Sunlit White tint -2 */
     --rule-soft: #E0DCCD;   /* Sunlit White tint -1 */
     /* Mid-tone accents — Terracotta Ember (hero) + Stormy Sky (cool). */
-    --saffron:   #BC8146;   /* Terracotta Ember (replaces #BC8146 — name kept for legacy var refs) */
+    --saffron:   #B46E3B;   /* Terracotta Ember (replaces #B46E3B — name kept for legacy var refs) */
     --indigo:    #6E7D85;   /* Stormy Sky (replaces #6E7D85 — name kept for legacy var refs) */
     /* Shadows tuned to Charcoal Ash. */
     --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
     /* Type — brand book primary + secondary, with old fallbacks. */
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
 
@@ -92,7 +92,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.05), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.05), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -236,8 +236,8 @@
   }
   .lagna-tile.is-picked {
     border-color: var(--saffron);
-    background: rgba(188,129,70,.07);
-    box-shadow: 0 0 0 2px rgba(188,129,70,.12);
+    background: rgba(180,110,59,.07);
+    box-shadow: 0 0 0 2px rgba(180,110,59,.12);
   }
   .lagna-glyph {
     font-size: 20px;
@@ -493,7 +493,7 @@
   .chamber.is-empty { background: rgba(250,243,226,.55); }
   .chamber.is-lagna {
     border-color: var(--saffron);
-    box-shadow: 0 0 0 2px rgba(188,129,70,.12);
+    box-shadow: 0 0 0 2px rgba(180,110,59,.12);
   }
   .chamber-head {
     display: flex;
@@ -598,8 +598,8 @@
     color: var(--saffron);
     line-height: 1;
     padding: 2px 5px;
-    border: 1px solid rgba(188,129,70,.15);
-    background: rgba(188,129,70,.04);
+    border: 1px solid rgba(180,110,59,.15);
+    background: rgba(180,110,59,.04);
     border-radius: 4px;
     font-variant-emoji: text;
     cursor: default;
@@ -803,7 +803,7 @@
   .anchor-card .anchor-example {
     margin-top: 10px;
     padding: 8px 10px;
-    background: rgba(188,129,70,.05);
+    background: rgba(180,110,59,.05);
     border-left: 2px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -920,7 +920,7 @@
   .path-intro-quote {
     margin: 8px 0;
     padding: 10px 14px;
-    background: rgba(188,129,70,.05);
+    background: rgba(180,110,59,.05);
     border-left: 3px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -968,7 +968,7 @@
   /* Path B planet card empty state. */
   .planet-card-empty {
     padding: 16px 18px;
-    background: rgba(188,129,70,.03);
+    background: rgba(180,110,59,.03);
     border: 1px dashed var(--rule);
     border-radius: 8px;
     font-family: var(--display);
@@ -1076,7 +1076,7 @@
     transition: border-color .15s;
   }
   .walk-pad-textarea:focus {
-    outline: 2px solid rgba(188,129,70,.25);
+    outline: 2px solid rgba(180,110,59,.25);
     outline-offset: 1px;
     border-color: var(--saffron);
   }
@@ -1097,7 +1097,7 @@
     gap: 10px;
     margin: 6px 0 8px;
     padding: 8px 10px;
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
     border-left: 3px solid var(--saffron);
     border-radius: 0 6px 6px 0;
   }
@@ -1128,8 +1128,8 @@
     display: block;
     margin: 0 0 8px;
     padding: 8px 10px;
-    background: rgba(188,129,70,.10);
-    border: 1px solid rgba(188,129,70,.35);
+    background: rgba(180,110,59,.10);
+    border: 1px solid rgba(180,110,59,.35);
     border-radius: 6px;
     font-family: var(--display);
     font-style: italic;
@@ -1171,7 +1171,7 @@
   }
   .walk-procedure-inline[open] summary::before { transform: rotate(90deg); }
   .walk-procedure-inline summary em { color: var(--saffron); font-style: italic; }
-  .walk-procedure-inline summary:hover { background: rgba(188,129,70,.04); color: var(--saffron); }
+  .walk-procedure-inline summary:hover { background: rgba(180,110,59,.04); color: var(--saffron); }
   .walk-procedure-body {
     padding: 6px 16px 14px;
     border-top: 1px solid var(--rule-soft);
@@ -1237,7 +1237,7 @@
   .walk-subject-rule {
     margin: 8px 0 0;
     padding: 10px 14px;
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
     border-left: 3px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -1252,7 +1252,7 @@
   .walk-exercise-pointer {
     margin: 12px 0 0;
     padding: 10px 14px;
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
     border: 1px dashed var(--rule);
     border-radius: 6px;
     font-family: var(--display);
@@ -1361,7 +1361,7 @@
     transition: border-color .15s, color .15s, background .15s;
   }
   .we-tab.is-active {
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
     border-color: var(--saffron);
     color: var(--saffron);
   }
@@ -1398,7 +1398,7 @@
   .we-synth {
     margin-top: 8px;
     padding: 8px 10px;
-    background: rgba(188,129,70,.05);
+    background: rgba(180,110,59,.05);
     border-left: 2px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -1493,7 +1493,7 @@
   .selfcheck-warning {
     margin: 10px 0 0;
     padding: 8px 11px;
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
     border-left: 2px solid var(--saffron);
     border-radius: 0 5px 5px 0;
     font-family: var(--display);
@@ -1511,7 +1511,7 @@
   .walk-frame {
     margin: -8px 0 14px;
     padding: 9px 14px;
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
     border-left: 3px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -1531,7 +1531,7 @@
     font-size: 12.5px;
     color: var(--saffron);
     text-decoration: none;
-    border-bottom: 1px dashed rgba(188,129,70,.4);
+    border-bottom: 1px dashed rgba(180,110,59,.4);
     line-height: 1.3;
   }
   .walk-planet-link:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
@@ -1540,7 +1540,7 @@
   .walk-pati-jump {
     color: var(--saffron);
     text-decoration: none;
-    border-bottom: 1px dashed rgba(188,129,70,.4);
+    border-bottom: 1px dashed rgba(180,110,59,.4);
     cursor: pointer;
     transition: color .15s, border-color .15s;
   }
@@ -1559,7 +1559,7 @@
     margin: 10px 0 0;
     padding: 10px 12px;
     border-left: 3px solid var(--saffron);
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
     font-style: italic;
@@ -1660,8 +1660,8 @@
   }
   .walk-ref-tile.is-relevant {
     border-color: var(--saffron);
-    background: rgba(188,129,70,.06);
-    box-shadow: 0 0 0 2px rgba(188,129,70,.10);
+    background: rgba(180,110,59,.06);
+    box-shadow: 0 0 0 2px rgba(180,110,59,.10);
   }
   .walk-ref-name {
     font-family: var(--display);
@@ -1722,7 +1722,7 @@
   .walk-ref-chip:hover {
     color: var(--saffron);
     border-color: var(--saffron);
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
   }
   .walk-ref-chip em {
     font-style: italic;
@@ -1856,8 +1856,8 @@
   .walk-exercise {
     margin: 18px 0 0;
     padding: 16px 18px;
-    background: linear-gradient(180deg, rgba(188,129,70,.04), rgba(243,233,210,.3));
-    border: 1px solid rgba(188,129,70,.18);
+    background: linear-gradient(180deg, rgba(180,110,59,.04), rgba(243,233,210,.3));
+    border: 1px solid rgba(180,110,59,.18);
     border-radius: 10px;
   }
   .walk-exercise-prompt {
@@ -1883,7 +1883,7 @@
     resize: vertical;
     transition: border-color .15s;
   }
-  .walk-textarea:focus { outline: 2px solid rgba(188,129,70,.25); outline-offset: 1px; border-color: var(--saffron); }
+  .walk-textarea:focus { outline: 2px solid rgba(180,110,59,.25); outline-offset: 1px; border-color: var(--saffron); }
   .walk-saved {
     display: inline-block;
     margin-left: 6px;
@@ -1965,7 +1965,7 @@
     max-width: 56ch;
     padding: 12px 18px;
     border-left: 3px solid var(--saffron);
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
     border-radius: 0 8px 8px 0;
     font-family: var(--display);
     font-style: italic;
@@ -4126,7 +4126,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -4136,7 +4136,7 @@
     if (!t) {
       t = document.createElement('div');
       t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
       document.body.appendChild(t);
     }
     t.textContent = msg;
@@ -4171,12 +4171,12 @@
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.34). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.35). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
@@ -4306,11 +4306,11 @@
     max-width: 640px;
     padding: 14px 92px 14px 18px;
     background: #F8F4E1;
-    border: 1px solid #CAC6BB;
-    border-left: 3px solid #BC8146;
+    border: 1px solid #C8C5BF;
+    border-left: 3px solid #B46E3B;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
-    font-family: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    font-family: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     color: #282826;
     animation: fvtIn .3s ease-out;
     z-index: 5;
@@ -4324,7 +4324,7 @@
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #BC8146;
+    color: #B46E3B;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -4338,7 +4338,7 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #CAC6BB;
+    border: 1px solid #C8C5BF;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Libre Caslon Text', 'Cormorant Garamond', serif;
@@ -4349,9 +4349,9 @@
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #BC8146;
-    color: #BC8146;
-    background: rgba(188,129,70,.05);
+    border-color: #B46E3B;
+    color: #B46E3B;
+    background: rgba(180,110,59,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }

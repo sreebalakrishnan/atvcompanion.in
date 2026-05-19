@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -17,27 +17,27 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --indigo:    #6E7D85;
     --forest:    #32413B;
     --plum:      #7a3a5e;
     --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; }
@@ -48,7 +48,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -121,7 +121,7 @@
     margin: 28px auto 36px;
     max-width: 580px;
     padding: 14px 18px;
-    background: linear-gradient(180deg, rgba(188,129,70,.05), rgba(243,233,210,.4));
+    background: linear-gradient(180deg, rgba(180,110,59,.05), rgba(243,233,210,.4));
     border: 1px solid var(--rule);
     border-left: 3px solid var(--saffron);
     border-radius: 0 8px 8px 0;
@@ -211,9 +211,9 @@
     transition: background .15s, border-color .15s;
     font-family: var(--display);
   }
-  .roster-item:hover { background: rgba(188,129,70,.05); border-color: var(--rule); }
+  .roster-item:hover { background: rgba(180,110,59,.05); border-color: var(--rule); }
   .roster-item.is-active {
-    background: rgba(188,129,70,.10);
+    background: rgba(180,110,59,.10);
     border-color: var(--saffron);
   }
   .roster-glyph {
@@ -375,7 +375,7 @@
   /* Story-mode autoplay: chart centre fills with scene title + narration. */
   .stage-center.is-playing {
     padding: 18px 22px;
-    background: linear-gradient(180deg, rgba(188,129,70,.06), rgba(243,233,210,.6));
+    background: linear-gradient(180deg, rgba(180,110,59,.06), rgba(243,233,210,.6));
     border-color: var(--saffron);
     text-align: center;
     justify-content: flex-start;
@@ -453,7 +453,7 @@
   .chamber:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
   .chamber.is-active {
     border-color: var(--saffron);
-    background: linear-gradient(180deg, rgba(188,129,70,.08), rgba(188,129,70,.02));
+    background: linear-gradient(180deg, rgba(180,110,59,.08), rgba(180,110,59,.02));
     box-shadow: var(--shadow-md);
     z-index: 2;
   }
@@ -499,7 +499,7 @@
     line-height: 1.3;
     width: max-content;
   }
-  .chamber-element.fire   { background: rgba(188,129,70,.10); color: var(--saffron); }
+  .chamber-element.fire   { background: rgba(180,110,59,.10); color: var(--saffron); }
   .chamber-element.earth  { background: rgba(74,93,46,.12);  color: var(--forest); }
   .chamber-element.air    { background: rgba(110,125,133,.10); color: var(--indigo); }
   .chamber-element.water  { background: rgba(122,58,94,.10); color: var(--plum); }
@@ -529,8 +529,8 @@
   /* Planet "pill" — glyph + role label inside the chamber. Real <button>. */
   .chamber-planet-pill {
     appearance: none;
-    background: rgba(188,129,70,.06);
-    border: 1px solid rgba(188,129,70,.20);
+    background: rgba(180,110,59,.06);
+    border: 1px solid rgba(180,110,59,.20);
     border-radius: 5px;
     padding: 2px 5px 2px 4px;
     display: flex;
@@ -547,14 +547,14 @@
   .chamber-planet-pill:nth-child(2) { animation-delay: .06s; }
   .chamber-planet-pill:nth-child(3) { animation-delay: .12s; }
   .chamber-planet-pill:hover {
-    background: rgba(188,129,70,.14);
+    background: rgba(180,110,59,.14);
     border-color: var(--saffron);
     transform: translateY(-1px);
   }
   .chamber-planet-pill.is-active {
     background: var(--saffron);
     border-color: var(--saffron);
-    box-shadow: 0 1px 6px rgba(188,129,70,.35);
+    box-shadow: 0 1px 6px rgba(180,110,59,.35);
   }
   .chamber-planet-pill.is-active .pill-glyph,
   .chamber-planet-pill.is-active .pill-role { color: var(--surface); }
@@ -624,16 +624,16 @@
     to   { opacity: 1; transform: translateY(0) scale(1); }
   }
   @keyframes chamber-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(188,129,70,.45); }
-    100% { box-shadow: 0 0 0 10px rgba(188,129,70,0); }
+    0%   { box-shadow: 0 0 0 0 rgba(180,110,59,.45); }
+    100% { box-shadow: 0 0 0 10px rgba(180,110,59,0); }
   }
   @keyframes line-draw {
     to { stroke-dashoffset: 0; }
   }
   @keyframes just-arrived {
-    0%   { box-shadow: 0 0 0 0 rgba(188,129,70,.65), inset 0 0 0 0 rgba(188,129,70,0); transform: scale(1); }
-    35%  { box-shadow: 0 0 0 8px rgba(188,129,70,.18), inset 0 0 0 1px rgba(188,129,70,.5); transform: scale(1.025); }
-    100% { box-shadow: 0 0 0 12px rgba(188,129,70,0), inset 0 0 0 0 rgba(188,129,70,0); transform: scale(1); }
+    0%   { box-shadow: 0 0 0 0 rgba(180,110,59,.65), inset 0 0 0 0 rgba(180,110,59,0); transform: scale(1); }
+    35%  { box-shadow: 0 0 0 8px rgba(180,110,59,.18), inset 0 0 0 1px rgba(180,110,59,.5); transform: scale(1.025); }
+    100% { box-shadow: 0 0 0 12px rgba(180,110,59,0), inset 0 0 0 0 rgba(180,110,59,0); transform: scale(1); }
   }
   /* Chambers that just received a planet on a story-scene change get this animation. */
   .chamber.is-just-arrived {
@@ -641,8 +641,8 @@
     z-index: 3;
   }
   @keyframes roster-glow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(188,129,70,0); }
-    50%      { box-shadow: 0 0 0 4px rgba(188,129,70,.18); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(180,110,59,0); }
+    50%      { box-shadow: 0 0 0 4px rgba(180,110,59,.18); }
   }
   @media (prefers-reduced-motion: reduce) {
     .chamber, .chamber-planet-pill, .chamber-empty-note, .stage-center {
@@ -714,7 +714,7 @@
   .info-quote {
     margin: 10px 0 4px;
     padding: 10px 14px;
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
     border-left: 2px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -2295,7 +2295,7 @@ renderInfoCard();
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -2304,7 +2304,7 @@ renderInfoCard();
     if (!t) {
       t = document.createElement('div');
       t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
       document.body.appendChild(t);
     }
     t.textContent = msg;
@@ -2339,12 +2339,12 @@ renderInfoCard();
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.34). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.35). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
@@ -2487,8 +2487,8 @@ renderInfoCard();
     max-width: 640px;
     padding: 14px 92px 14px 18px;
     background: #F8F4E1;
-    border: 1px solid #CAC6BB;
-    border-left: 3px solid #BC8146;
+    border: 1px solid #C8C5BF;
+    border-left: 3px solid #B46E3B;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -2505,7 +2505,7 @@ renderInfoCard();
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #BC8146;
+    color: #B46E3B;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -2519,7 +2519,7 @@ renderInfoCard();
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #CAC6BB;
+    border: 1px solid #C8C5BF;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
@@ -2530,9 +2530,9 @@ renderInfoCard();
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #BC8146;
-    color: #BC8146;
-    background: rgba(188,129,70,.05);
+    border-color: #B46E3B;
+    color: #B46E3B;
+    background: rgba(180,110,59,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }

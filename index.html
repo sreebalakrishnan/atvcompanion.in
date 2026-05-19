@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -16,24 +16,24 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --indigo:    #6E7D85;
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
   html.theme-legacy {
@@ -53,7 +53,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
@@ -397,13 +397,13 @@
   }
   .gem-action:hover { border-color: var(--saffron); color: var(--saffron); }
 
-  /* v4.74.34 — From the matchboxes · Did you know? */
+  /* v4.74.35 — From the matchboxes · Did you know? */
   .matchbox-card {
     margin: 36px auto 0;
     max-width: 60ch;
     padding: 22px 26px 16px;
-    background: linear-gradient(135deg, rgba(188,129,70,.07) 0%, rgba(188,129,70,.02) 100%);
-    border: 1px solid rgba(188,129,70,.35);
+    background: linear-gradient(135deg, rgba(180,110,59,.07) 0%, rgba(180,110,59,.02) 100%);
+    border: 1px solid rgba(180,110,59,.35);
     border-radius: 12px;
     text-align: center;
     position: relative;
@@ -434,7 +434,7 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-style: normal; font-size: 10.5px;
     letter-spacing: .06em; color: var(--saffron);
-    background: rgba(188,129,70,.10);
+    background: rgba(180,110,59,.10);
     padding: 1px 7px; border-radius: 3px;
     margin-right: 6px; vertical-align: middle;
   }
@@ -465,7 +465,7 @@
   .room-name { font-family: var(--display); font-weight: 500; font-size: 19px; color: var(--ink); margin: 0 0 6px; letter-spacing: -.005em; }
   .room-name em { font-style: italic; color: var(--saffron); }
   .room-detail { font-family: var(--display); font-style: italic; font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
-  .room-tag { display: inline-block; margin-left: 6px; padding: 1px 7px; background: rgba(188,129,70,.08); color: var(--saffron); border: 1px solid rgba(188,129,70,.3); border-radius: 999px; font-family: var(--display); font-style: italic; font-size: 10.5px; letter-spacing: .04em; vertical-align: middle; }
+  .room-tag { display: inline-block; margin-left: 6px; padding: 1px 7px; background: rgba(180,110,59,.08); color: var(--saffron); border: 1px solid rgba(180,110,59,.3); border-radius: 999px; font-family: var(--display); font-style: italic; font-size: 10.5px; letter-spacing: .04em; vertical-align: middle; }
 
   /* CATCH-UP STRIP */
   .catchup-strip { display: flex; align-items: center; gap: 14px; margin: 28px 0 0; padding: 16px 22px; background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--saffron); border-radius: 0 10px 10px 0; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s, box-shadow .15s, background .15s; }
@@ -536,7 +536,7 @@
 
   <!-- HERO -->
   <header class="hero">
-    <div class="hero-eyebrow">all things vedic · the companion app · v4.74.34 · build <code style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:11px;letter-spacing:.03em;color:var(--saffron);background:rgba(188,129,70,.10);padding:1px 5px;border-radius:3px;cursor:pointer;" class="build-id-chip" id="buildIdEyebrow">simha-v77l</code></div>
+    <div class="hero-eyebrow">all things vedic · the companion app · v4.74.35 · build <code style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:11px;letter-spacing:.03em;color:var(--saffron);background:rgba(180,110,59,.10);padding:1px 5px;border-radius:3px;cursor:pointer;" class="build-id-chip" id="buildIdEyebrow">meena-5sek</code></div>
     <h1>Astrology <em>101</em></h1>
     <p class="hero-sub">A companion to Vikram Devatha's class at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a> — built alongside the cohort, in service to anyone walking the same path.</p>
     <p class="hero-name"
@@ -576,7 +576,7 @@
     </p>
   </section>
 
-  <!-- v4.74.34 — FROM THE MATCHBOXES · DID YOU KNOW? -->
+  <!-- v4.74.35 — FROM THE MATCHBOXES · DID YOU KNOW? -->
   <section class="matchbox-card" aria-label="A fun fact about the twelve houses">
     <div class="matchbox-eyebrow">from the matchboxes · <em>did you know?</em></div>
     <p class="matchbox-text" id="mboxText">…</p>
@@ -645,7 +645,7 @@
     </div>
     <p>Wondering where this came from? <a href="about.html">How this came to be →</a></p>
     <p class="meta">
-      <span style="color:var(--muted);">v4.74.34 · updated 11 May 2026 · build <code class="build-id-chip" id="buildIdFooter" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:12px;color:var(--saffron);background:rgba(188,129,70,.10);padding:1px 6px;border-radius:3px;letter-spacing:.03em;cursor:pointer;" title="Click to verify you're on the latest build">simha-v77l</code></span>
+      <span style="color:var(--muted);">v4.74.35 · updated 11 May 2026 · build <code class="build-id-chip" id="buildIdFooter" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:12px;color:var(--saffron);background:rgba(180,110,59,.10);padding:1px 6px;border-radius:3px;letter-spacing:.03em;cursor:pointer;" title="Click to verify you're on the latest build">meena-5sek</code></span>
       &nbsp;·&nbsp;
       <a href="release-notes.html">Release notes</a>
       &nbsp;·&nbsp;
@@ -1107,7 +1107,7 @@
   .ts-built-sidereal-line {
     margin: 0 0 18px;
     padding: 10px 14px;
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     border-left: 3px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -1481,7 +1481,7 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 })();
 </script>
 
-<!-- v4.74.34 — From the matchboxes · Did you know? -->
+<!-- v4.74.35 — From the matchboxes · Did you know? -->
 <script>
 (function(){
   // Twenty-four fun, non-technical one-liners about the twelve houses.
@@ -1571,14 +1571,14 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  var PAGE_VERSION = '4.74.34';
+  var PAGE_VERSION = '4.74.35';
   var lastChecked = 0;
   function showVersionToast(msg) {
     var t = document.getElementById('versionToast');
     if (!t) {
       t = document.createElement('div');
       t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
       document.body.appendChild(t);
     }
     t.textContent = msg; t.style.opacity = '1';
@@ -1686,8 +1686,8 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
 <!-- ====================== BUILD FINGERPRINT ====================== -->
 <script>
 (function(){
-  var PAGE_VERSION = '4.74.34';
-  var BUILD_ID     = 'simha-v77l';
+  var PAGE_VERSION = '4.74.35';
+  var BUILD_ID     = 'meena-5sek';
   window.__pageVersion = PAGE_VERSION;
   window.__buildId = BUILD_ID;
 
@@ -1710,10 +1710,10 @@ scripts/generate_today_sky.py    ← regenerates the fallback (run monthly)
     if (document.getElementById('upd-banner')) return;
     var b = document.createElement('div');
     b.id = 'upd-banner';
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#B46E3B;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
     b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
       + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;">What changed?</a>'
-      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#B46E3B;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
       + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
     document.body.appendChild(b);
     document.getElementById('upd-refresh').onclick = forceFresh;

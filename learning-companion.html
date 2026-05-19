@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Astrology 101 Companion">
@@ -20,30 +20,30 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   /* ---------- TOKENS ---------- */
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --surface-2: #f6ecd0;
     --cream:     #F8F4E1;   /* alias for --surface — used in modal/overlay backgrounds and on-saffron text */
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --saffron-2: #d97706;
     --indigo:    #6E7D85;
     --gold:      #A3986D;
     --teal:      #1a4d4d;
     --shadow:    0 1px 0 rgba(40,40,38,.04), 0 8px 28px -10px rgba(40,40,38,.18);
     --shadow-lg: 0 2px 0 rgba(40,40,38,.05), 0 24px 60px -20px rgba(40,40,38,.28);
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
     --radius:  6px;
   }
@@ -57,7 +57,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .1 0 0 0 0 .07 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     line-height: 1.55;
@@ -197,7 +197,7 @@
      Accents land on the section eyebrow (.num) and the small-rule beneath it. */
   :root {
     --family-map:       #556168;  /* indigo — territory of the chart */
-    --family-story:     #BC8146;  /* saffron (existing) — narrative figures */
+    --family-story:     #B46E3B;  /* saffron (existing) — narrative figures */
     --family-mechanics: #32413B;  /* forest — how things relate */
     --family-practice:  #584B4B;  /* plum — embodiment & integration */
   }
@@ -485,9 +485,9 @@
     text-transform: uppercase;
     color: var(--saffron);
     padding: 2px 10px;
-    border: 1px solid rgba(188,129,70,.30);
+    border: 1px solid rgba(180,110,59,.30);
     border-radius: 999px;
-    background: rgba(188,129,70,.05);
+    background: rgba(180,110,59,.05);
     line-height: 1.3;
   }
   .vw-counter {
@@ -640,7 +640,7 @@
     font-weight: 500;
     border: 1px solid;
   }
-  .b-fire { color: #BC8146; border-color: rgba(188,129,70,.4); background: rgba(188,129,70,.06); }
+  .b-fire { color: #B46E3B; border-color: rgba(180,110,59,.4); background: rgba(180,110,59,.06); }
   .b-earth { color: #4a5d2e; border-color: rgba(74,93,46,.4); background: rgba(74,93,46,.06); }
   .b-air { color: #5a6b78; border-color: rgba(90,107,120,.4); background: rgba(90,107,120,.06); }
   .b-water { color: #2a4d6e; border-color: rgba(42,77,110,.4); background: rgba(42,77,110,.06); }
@@ -910,7 +910,7 @@
   .qt-mantra-body {
     margin-top: 8px;
     padding: 10px 12px;
-    background: rgba(188,129,70,.04);
+    background: rgba(180,110,59,.04);
     border-radius: var(--radius);
   }
   .qt-mantra-deva {
@@ -1086,7 +1086,7 @@
     aspect-ratio: 1 / 1;
     width: 100%;
     max-width: 580px;
-    background: linear-gradient(180deg, rgba(188,129,70,.08) 0%, var(--surface) 75%);
+    background: linear-gradient(180deg, rgba(180,110,59,.08) 0%, var(--surface) 75%);
     border: 1.5px solid var(--ink);
     border-radius: 6px;
     overflow: hidden;
@@ -1168,7 +1168,7 @@
   }
   @media (hover: hover) {
     .anat-cell[data-house]:hover {
-      background: rgba(188,129,70,.08);
+      background: rgba(180,110,59,.08);
       box-shadow: 0 6px 20px rgba(40,40,38,.10);
       z-index: 12;
     }
@@ -1176,7 +1176,7 @@
     .anat-cell[data-house]:hover .anat-icon { opacity: .15; }
   }
   .anat-cell.is-active {
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     box-shadow: 0 6px 20px rgba(40,40,38,.10);
     z-index: 12;
   }
@@ -1257,8 +1257,8 @@
     flex: none;
     width: 34px; height: 34px;
     border-radius: 100px;
-    background: rgba(188,129,70,.08);
-    border: 1.5px solid rgba(188,129,70,.4);
+    background: rgba(180,110,59,.08);
+    border: 1.5px solid rgba(180,110,59,.4);
     display: flex; align-items: center; justify-content: center;
     font-family: var(--display);
     font-weight: 600;
@@ -1475,18 +1475,18 @@
   /* Static (non-interactive) pill — used for nakshatra labels */
   .d-pill.d-pill-static {
     cursor: default;
-    background: rgba(188,129,70,0.04);
-    border-color: rgba(188,129,70,0.18);
+    background: rgba(180,110,59,0.04);
+    border-color: rgba(180,110,59,0.18);
     font-size: 14px;
     padding: 3px 11px;
   }
-  .d-pill.d-pill-static:hover { background: rgba(188,129,70,0.04); color: var(--ink); border-color: rgba(188,129,70,0.18); }
+  .d-pill.d-pill-static:hover { background: rgba(180,110,59,0.04); color: var(--ink); border-color: rgba(180,110,59,0.18); }
   .d-pill.d-pill-static .pill-glyph { color: var(--saffron); font-size: 13px; }
   /* Year-rhythm line — small italic pillar at the top of the sign drawer */
   .d-rhythm {
     margin: 0 0 18px;
     padding: 10px 14px;
-    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.4));
+    background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(243,233,210,0.4));
     border-left: 3px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -1658,7 +1658,7 @@
 
   /* ---------- REFLECT PANEL inside drawers ---------- */
   .reflect-panel {
-    background: linear-gradient(180deg, rgba(188,129,70,.04), rgba(188,129,70,.02));
+    background: linear-gradient(180deg, rgba(180,110,59,.04), rgba(180,110,59,.02));
     border: 1px solid var(--rule-soft);
     border-radius: 8px;
     padding: 14px 16px 12px;
@@ -1712,9 +1712,9 @@
 
   /* section pulse — saffron glow that fades after a jump */
   @keyframes sectionPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(188,129,70,.55); }
-    50%  { box-shadow: 0 0 0 8px rgba(188,129,70,.18); }
-    100% { box-shadow: 0 0 0 0 rgba(188,129,70,0); }
+    0%   { box-shadow: 0 0 0 0 rgba(180,110,59,.55); }
+    50%  { box-shadow: 0 0 0 8px rgba(180,110,59,.18); }
+    100% { box-shadow: 0 0 0 0 rgba(180,110,59,0); }
   }
   .section-pulse {
     animation: sectionPulse 1.6s ease-out 1;
@@ -2080,7 +2080,7 @@
   }
   .quiz-opt.correct .opt-letter { color: #4a5d2e; }
   .quiz-opt.wrong {
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     border-color: var(--saffron);
     color: var(--saffron);
   }
@@ -2319,7 +2319,7 @@
   .rel-grade.ok   { color: #4a5d2e; border-color: rgba(74,93,46,.4); background: rgba(74,93,46,.06); }
   .rel-grade.neu  { color: var(--muted); border-color: var(--rule); background: var(--bg); }
   .rel-grade.bad  { color: #a85a1c; border-color: rgba(168,90,28,.35); background: rgba(168,90,28,.06); }
-  .rel-grade.vbad { color: var(--saffron); border-color: rgba(188,129,70,.45); background: rgba(188,129,70,.08); }
+  .rel-grade.vbad { color: var(--saffron); border-color: rgba(180,110,59,.45); background: rgba(180,110,59,.08); }
   .rel-steps {
     margin: 0;
     padding-left: 22px;
@@ -2367,7 +2367,7 @@
   .cmp-cell.ok   { background: rgba(74,93,46,.08); color: #4a5d2e; }
   .cmp-cell.neu  { background: var(--surface); color: var(--ink-soft); }
   .cmp-cell.bad  { background: rgba(168,90,28,.08); color: #a85a1c; }
-  .cmp-cell.vbad { background: rgba(188,129,70,.10); color: var(--saffron); }
+  .cmp-cell.vbad { background: rgba(180,110,59,.10); color: var(--saffron); }
   .rel-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -2638,7 +2638,7 @@
     color: var(--ink);
     transition: background .15s;
   }
-  .chant-tray-row:hover { background: rgba(188,129,70,.06); }
+  .chant-tray-row:hover { background: rgba(180,110,59,.06); }
   .chant-tray-row strong { font-weight: 600; }
   .chant-tray-row span {
     font-style: italic;
@@ -2729,7 +2729,7 @@
 
   .chant-body {
     padding: 18px 18px 14px;
-    background: linear-gradient(180deg, rgba(188,129,70,.03), transparent 70%);
+    background: linear-gradient(180deg, rgba(180,110,59,.03), transparent 70%);
   }
   .chant-deva {
     font-family: var(--display);
@@ -2748,7 +2748,7 @@
   }
   .chant-deva-line.is-active {
     color: var(--saffron);
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     border-radius: 4px;
   }
   .chant-iast {
@@ -2840,7 +2840,7 @@
   .chant-om:active { transform: scale(.97); }
   .chant-om.is-complete {
     background: linear-gradient(135deg, var(--saffron), #d97706);
-    box-shadow: 0 0 0 4px rgba(188,129,70,.18);
+    box-shadow: 0 0 0 4px rgba(180,110,59,.18);
   }
   .chant-reset {
     font-family: var(--display);
@@ -2899,7 +2899,7 @@
     margin: 24px auto 18px;
     max-width: 640px;
     padding: 18px 22px 16px;
-    background: linear-gradient(180deg, rgba(188,129,70,.06), rgba(188,129,70,.02));
+    background: linear-gradient(180deg, rgba(180,110,59,.06), rgba(180,110,59,.02));
     border: 1px solid var(--saffron);
     border-radius: 10px;
     position: relative;
@@ -2978,7 +2978,7 @@
   .gem-card {
     margin: 22px 0 18px;
     padding: 14px 18px 12px;
-    background: linear-gradient(180deg, rgba(188,129,70,.06), rgba(188,129,70,.02));
+    background: linear-gradient(180deg, rgba(180,110,59,.06), rgba(180,110,59,.02));
     border: 1px solid var(--rule);
     border-left: 3px solid var(--saffron);
     border-radius: var(--radius);
@@ -3056,7 +3056,7 @@
   /* ---------- GLOSSARY POPOVERS ---------- */
   .gloss {
     cursor: help;
-    border-bottom: 1px dotted rgba(188,129,70,.4);
+    border-bottom: 1px dotted rgba(180,110,59,.4);
     position: relative;
   }
   .gloss::after {
@@ -3220,7 +3220,7 @@
     transition: background .12s;
   }
   .srch-result:hover, .srch-result.is-active {
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
   }
   .srch-r-main { flex: 1; min-width: 0; }
   .srch-r-label {
@@ -3263,7 +3263,7 @@
     align-self: center;
   }
   .srch-lvl-beginner { color: #4a5d2e; border-color: rgba(74,93,46,.3); }
-  .srch-lvl-intermediate { color: var(--saffron); border-color: rgba(188,129,70,.3); }
+  .srch-lvl-intermediate { color: var(--saffron); border-color: rgba(180,110,59,.3); }
   .srch-lvl-advanced { color: #6E7D85; border-color: rgba(110,125,133,.3); }
 
   .srch-more {
@@ -3444,14 +3444,14 @@
   .quiz-block {
     margin: 32px 0 8px;
     padding: 18px 18px 18px;
-    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(188,129,70,0.01));
-    border: 1px dashed rgba(188,129,70,0.32);
+    background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(180,110,59,0.01));
+    border: 1px dashed rgba(180,110,59,0.32);
     border-radius: 8px;
   }
   .quiz-block.is-complete {
     border-style: solid;
-    border-color: rgba(188,129,70,0.5);
-    background: linear-gradient(180deg, rgba(188,129,70,0.06), rgba(188,129,70,0.02));
+    border-color: rgba(180,110,59,0.5);
+    background: linear-gradient(180deg, rgba(180,110,59,0.06), rgba(180,110,59,0.02));
   }
   .quiz-summary {
     cursor: pointer;
@@ -3521,7 +3521,7 @@
   .qz-opt:hover:not(:disabled) { border-color: var(--saffron); }
   .qz-opt:disabled { cursor: default; opacity: .85; }
   .qz-opt.is-correct {
-    background: rgba(188,129,70,0.1);
+    background: rgba(180,110,59,0.1);
     border-color: var(--saffron);
     color: var(--ink);
   }
@@ -3607,8 +3607,8 @@
   body.mode-learning section.section-locked > .section-locked-poster {
     margin: 8px 0 24px;
     padding: 36px 28px 32px;
-    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.6));
-    border: 1px dashed rgba(188,129,70,0.45);
+    background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(243,233,210,0.6));
+    border: 1px dashed rgba(180,110,59,0.45);
     border-radius: 10px;
     text-align: center;
   }
@@ -3647,7 +3647,7 @@
     font-family: var(--display);
     font-style: italic;
     font-size: 14px;
-    border-bottom: 1px solid rgba(188,129,70,0.35);
+    border-bottom: 1px solid rgba(180,110,59,0.35);
     padding-bottom: 1px;
   }
   .section-locked-poster .lock-back:hover { border-bottom-color: var(--saffron); }
@@ -3671,7 +3671,7 @@
     letter-spacing: .08em;
     text-transform: uppercase;
     color: var(--saffron);
-    border: 1px solid rgba(188,129,70,0.4);
+    border: 1px solid rgba(180,110,59,0.4);
     border-radius: 4px;
     font-family: var(--display);
     font-style: italic;
@@ -3693,7 +3693,7 @@
   .ground-overlay[hidden] { display: none; }
   .ground-modal {
     background: var(--surface);
-    border: 1px solid rgba(188,129,70,0.25);
+    border: 1px solid rgba(180,110,59,0.25);
     border-radius: 14px;
     padding: 36px 28px 24px;
     width: 100%;
@@ -3741,12 +3741,12 @@
     width: 110px;
     height: 110px;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, rgba(188,129,70,.18), rgba(188,129,70,.05));
-    border: 2px solid rgba(188,129,70,.35);
+    background: radial-gradient(circle at 35% 35%, rgba(180,110,59,.18), rgba(180,110,59,.05));
+    border: 2px solid rgba(180,110,59,.35);
     transition: transform 4s cubic-bezier(.4,0,.6,1), border-color .4s, opacity .8s;
   }
-  .ground-circle.is-inhale { transform: scale(1.6); border-color: rgba(188,129,70,.6); }
-  .ground-circle.is-exhale { transform: scale(1.0); border-color: rgba(188,129,70,.35); }
+  .ground-circle.is-inhale { transform: scale(1.6); border-color: rgba(180,110,59,.6); }
+  .ground-circle.is-exhale { transform: scale(1.0); border-color: rgba(180,110,59,.35); }
   .ground-circle.is-rest   { transform: scale(1.0); border-color: rgba(212,195,154,.5); }
   .ground-circle.is-hidden { opacity: 0; }
   .ground-cue {
@@ -3803,7 +3803,7 @@
     transition: background .3s;
   }
   .ground-dot.is-active { background: var(--saffron); }
-  .ground-dot.is-done { background: rgba(188,129,70,.55); }
+  .ground-dot.is-done { background: rgba(180,110,59,.55); }
 
   /* Controls */
   .ground-controls {
@@ -3855,7 +3855,7 @@
     cursor: pointer;
   }
   .ground-preset:hover { color: var(--saffron); }
-  .ground-preset.is-active { color: var(--saffron); background: rgba(188,129,70,.08); }
+  .ground-preset.is-active { color: var(--saffron); background: rgba(180,110,59,.08); }
 
   .ground-ganesha-link {
     margin-top: 14px;
@@ -3900,11 +3900,11 @@
   }
   .cab-card:hover { border-color: var(--saffron); transform: translateY(-1px); }
   .cab-card.tier-royal {
-    background: linear-gradient(180deg, rgba(188,129,70,0.06), rgba(243,233,210,0.5));
-    border-color: rgba(188,129,70,0.35);
+    background: linear-gradient(180deg, rgba(180,110,59,0.06), rgba(243,233,210,0.5));
+    border-color: rgba(180,110,59,0.35);
   }
   .cab-card.tier-inner-circle {
-    background: linear-gradient(180deg, rgba(188,129,70,0.03), rgba(243,233,210,0.35));
+    background: linear-gradient(180deg, rgba(180,110,59,0.03), rgba(243,233,210,0.35));
   }
   .cab-card.tier-outsider {
     background: rgba(40,40,38,.04);
@@ -4036,7 +4036,7 @@
     vertical-align: top;
     color: var(--ink);
   }
-  .cab-table tbody tr:hover td { background: rgba(188,129,70,0.03); }
+  .cab-table tbody tr:hover td { background: rgba(180,110,59,0.03); }
   .cab-table tbody td:first-child {
     font-family: var(--display);
     font-weight: 500;
@@ -4055,7 +4055,7 @@
   .cab-table-wrap { overflow-x: auto; margin: 6px 0 0; }
 
   /* ---------- AVATAR TABLE 3 — companion workbook cross-cutting view ---------- */
-  .avatar-table3 thead th { background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.4)); }
+  .avatar-table3 thead th { background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(243,233,210,0.4)); }
   .avatar-table3 td:first-child {
     color: var(--saffron) !important;
     font-style: italic;
@@ -4276,7 +4276,7 @@
   }
   .court-opt.correct .opt-letter { color: #4a5d2e; }
   .court-opt.wrong {
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     border-color: var(--saffron);
     color: var(--saffron);
   }
@@ -4447,7 +4447,7 @@
     margin: 14px 0 4px;
     padding: 12px 16px 10px;
     border-left: 2px solid var(--saffron);
-    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.4));
+    background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(243,233,210,0.4));
     border-radius: 0 6px 6px 0;
   }
   .yoga-quote-context {
@@ -4594,8 +4594,8 @@
   .d-cabinet {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 4px 12px;
-    background: linear-gradient(180deg, rgba(188,129,70,0.06), rgba(243,233,210,0.5));
-    border: 1px solid rgba(188,129,70,0.35);
+    background: linear-gradient(180deg, rgba(180,110,59,0.06), rgba(243,233,210,0.5));
+    border: 1px solid rgba(180,110,59,0.35);
     border-radius: 999px;
     font-family: var(--display);
     font-style: italic;
@@ -4671,7 +4671,7 @@
     color: var(--ink);
     margin: 4px 0 8px;
     padding-left: 8px;
-    border-left: 1px solid rgba(188,129,70,0.25);
+    border-left: 1px solid rgba(180,110,59,0.25);
     quotes: '\201C' '\201D';
   }
   .workbook-prompts {
@@ -4875,7 +4875,7 @@
     margin: 14px 0 22px;
     padding: 16px 20px 14px;
     border-left: 3px solid var(--saffron);
-    background: linear-gradient(180deg, rgba(188,129,70,0.04), rgba(243,233,210,0.4));
+    background: linear-gradient(180deg, rgba(180,110,59,0.04), rgba(243,233,210,0.4));
     border-radius: 0 6px 6px 0;
   }
   .vikram-quote .vq-context {
@@ -4917,7 +4917,7 @@
     margin: 6px 0 14px;
     padding: 8px 14px;
     border-left: 3px solid var(--saffron);
-    background: rgba(188,129,70,0.05);
+    background: rgba(180,110,59,0.05);
     font-family: var(--display);
     font-style: italic;
     font-size: 13px;
@@ -5208,7 +5208,7 @@
   }
   .lc-toolbar-btn[aria-expanded="true"] {
     border-color: var(--saffron);
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
   }
   /* Settings popover */
   .lc-settings-backdrop { position: fixed; inset: 0; background: rgba(40,40,38,.4); z-index: 299; }
@@ -5352,7 +5352,7 @@
     border-radius: 999px;
     transition: color .15s, background .15s;
   }
-  .lc-band .band-more:hover { color: var(--saffron); background: rgba(188,129,70,.06); }
+  .lc-band .band-more:hover { color: var(--saffron); background: rgba(180,110,59,.06); }
   /* The band's pills inherit existing .mode-pill / .level-pill styling above —
      same buttons, same JS handlers, just rendered above the masthead now. */
   .lc-band .mode-pills,
@@ -5426,7 +5426,7 @@
 
   <!-- ====================== MASTHEAD ====================== -->
   <header class="masthead">
-    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.34 <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> build <code style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:11px;letter-spacing:.03em;color:var(--saffron);background:rgba(188,129,70,.08);padding:1px 5px;border-radius:3px;" id="buildIdEyebrow">simha-v77l</code></div>
+    <div class="eyebrow">all things vedic <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> the companion app <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.35 <span style="color:var(--rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> build <code style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:11px;letter-spacing:.03em;color:var(--saffron);background:rgba(180,110,59,.08);padding:1px 5px;border-radius:3px;" id="buildIdEyebrow">meena-5sek</code></div>
     <h1>Astrology <em>101</em></h1>
     <p class="sub">The companion app for Vikram's class. <em>New here?</em> Tap any sign, planet, or house tile — a drawer opens with how it connects to everything else.</p>
     <div class="ornament" aria-hidden="true">
@@ -5519,7 +5519,7 @@
 
     <h3 style="font-family:var(--display);font-weight:500;font-size:22px;margin:18px 0 4px;letter-spacing:-.005em;">Elements &amp; Mahāśaktis <em style="color:var(--saffron);font-weight:500">— four</em></h3>
     <p style="font-family:var(--display);font-style:italic;font-size:13px;color:var(--ink-soft);margin:0 0 12px;letter-spacing:.02em;">Pairing of the four Mahāśaktis to the four elements, per Vikram in class — drawn from Sri Aurobindo, <em>The Mother</em>.</p>
-    <p style="font-family:var(--display);font-style:italic;font-size:13.5px;color:var(--ink-soft);margin:0 0 14px;padding:8px 12px;border-left:3px solid var(--saffron);background:rgba(188,129,70,.05);border-radius:0 6px 6px 0;line-height:1.55;">→ See the cohort's break-out exercise alive on the <a href="elements.html" style="color:var(--saffron);font-weight:500;">Elements lab</a> — image, song, food, brand, animal, news per element, gathered across Sessions 11, 13, 17 &amp; 18b. Plus a "which element is showing up?" check and a personal element album.</p>
+    <p style="font-family:var(--display);font-style:italic;font-size:13.5px;color:var(--ink-soft);margin:0 0 14px;padding:8px 12px;border-left:3px solid var(--saffron);background:rgba(180,110,59,.05);border-radius:0 6px 6px 0;line-height:1.55;">→ See the cohort's break-out exercise alive on the <a href="elements.html" style="color:var(--saffron);font-weight:500;">Elements lab</a> — image, song, food, brand, animal, news per element, gathered across Sessions 11, 13, 17 &amp; 18b. Plus a "which element is showing up?" check and a personal element album.</p>
     <div class="quad" id="elementGrid"></div>
 
     <h3 style="font-family:var(--display);font-weight:500;font-size:22px;margin:24px 0 10px;letter-spacing:-.005em;">Modalities <em style="color:var(--saffron);font-weight:500">— three</em></h3>
@@ -5611,7 +5611,7 @@
 
         <div class="cab-story-scene">
           <div class="cab-story-scene-label">How exaltation and debilitation work</div>
-          <p style="margin:0 0 10px; padding:8px 12px; border-left:3px solid var(--saffron); background:rgba(188,129,70,.06); border-radius:0 6px 6px 0; font-style:italic; color:var(--ink-soft);">📐 <strong style="color:var(--saffron); font-weight:500; font-style:normal;">The shortcut.</strong> Once you know exaltation, the sign directly opposite is debilitation. <em>"Count 7 from exaltation, you'll reach debilitation"</em> — every time, every planet. <span style="color:var(--muted); font-size:12.5px;">— Vikram, Sessions 23 &amp; 24</span></p>
+          <p style="margin:0 0 10px; padding:8px 12px; border-left:3px solid var(--saffron); background:rgba(180,110,59,.06); border-radius:0 6px 6px 0; font-style:italic; color:var(--ink-soft);">📐 <strong style="color:var(--saffron); font-weight:500; font-style:normal;">The shortcut.</strong> Once you know exaltation, the sign directly opposite is debilitation. <em>"Count 7 from exaltation, you'll reach debilitation"</em> — every time, every planet. <span style="color:var(--muted); font-size:12.5px;">— Vikram, Sessions 23 &amp; 24</span></p>
           <p style="margin:0 0 4px; color:var(--ink-soft);">The trick Vikram teaches: look at where each planet <em>exalts</em>, picture who lives in that chamber, and the meaning falls out. Four planets, one scene each.</p>
         </div>
 
@@ -5640,7 +5640,7 @@
         </div>
 
         <div class="cab-story-scene">
-          <p style="margin:0; padding:10px 14px; border:1px solid var(--saffron); border-radius:6px; background:rgba(188,129,70,.04); font-style:italic; color:var(--ink-soft); font-size:14px; line-height:1.55;">⚖️ <strong style="color:var(--saffron); font-weight:500; font-style:normal;">A caveat from Vikram.</strong> "Debilitation is used as a fear-mongering tool — you have to do shanti, you have to do homa. Don't get caught in that. The cancellation rules exist; we'll see them slowly." <span style="color:var(--muted); font-size:12px; display:block; margin-top:4px;">— Vikram, Session 25 · stay tuned for <em>Neechabhanga Raja Yoga</em> in <a href="#yogas" style="color:var(--saffron);">§ Yogas</a> later.</span></p>
+          <p style="margin:0; padding:10px 14px; border:1px solid var(--saffron); border-radius:6px; background:rgba(180,110,59,.04); font-style:italic; color:var(--ink-soft); font-size:14px; line-height:1.55;">⚖️ <strong style="color:var(--saffron); font-weight:500; font-style:normal;">A caveat from Vikram.</strong> "Debilitation is used as a fear-mongering tool — you have to do shanti, you have to do homa. Don't get caught in that. The cancellation rules exist; we'll see them slowly." <span style="color:var(--muted); font-size:12px; display:block; margin-top:4px;">— Vikram, Session 25 · stay tuned for <em>Neechabhanga Raja Yoga</em> in <a href="#yogas" style="color:var(--saffron);">§ Yogas</a> later.</span></p>
         </div>
 
         <div class="cab-story-cite">— Vikram, Session 23 · Planetary Cabinet · November 9, 2025. Light edits for flow; substance verbatim.</div>
@@ -5826,7 +5826,7 @@
           <li><strong>Saturn</strong> · disciplined — aspects the <strong>3rd</strong> and <strong>10th</strong> (looking at effort and at karma)</li>
         </ul>
         <p style="margin-top:14px;"><strong>Orb of influence</strong> — the strength of an aspect peaks within ~5° of exact and weakens with distance. A planet right on the cusp of an aspected house casts the strongest gaze.</p>
-        <p style="margin:16px 0 0; padding:12px 14px; border:1px solid var(--saffron); border-radius:6px; background:rgba(188,129,70,.05); font-style:italic; color:var(--ink-soft); font-size:14px; line-height:1.55;">👁 <strong style="color:var(--saffron); font-weight:500; font-style:normal;">See drishti in motion.</strong> Place any planet in any sign and watch its gaze light up the chart — on the peer page <a href="aspects.html" style="color:var(--saffron);">Aspects · drishti</a>. Built because the special aspects of Mars, Jupiter and Saturn are the hardest beginner concept to memorise — and the easiest to <em>see</em>.</p>
+        <p style="margin:16px 0 0; padding:12px 14px; border:1px solid var(--saffron); border-radius:6px; background:rgba(180,110,59,.05); font-style:italic; color:var(--ink-soft); font-size:14px; line-height:1.55;">👁 <strong style="color:var(--saffron); font-weight:500; font-style:normal;">See drishti in motion.</strong> Place any planet in any sign and watch its gaze light up the chart — on the peer page <a href="aspects.html" style="color:var(--saffron);">Aspects · drishti</a>. Built because the special aspects of Mars, Jupiter and Saturn are the hardest beginner concept to memorise — and the easiest to <em>see</em>.</p>
       </div>
     </div>
   </section>
@@ -6142,7 +6142,7 @@
       <em>Astrology 101 Companion App</em> — a pocket reference distilled from Vikram's class, alongside the Companion Workbook.
     </p>
     <p class="footer-meta" style="margin-top:10px;">
-      <span>v4.74.34 · updated 11 May 2026 · build <code id="buildIdFooter" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:12px;color:var(--saffron);background:rgba(188,129,70,.10);padding:1px 6px;border-radius:3px;letter-spacing:.03em;cursor:pointer;" title="Click to verify you're on the latest build">simha-v77l</code></span>
+      <span>v4.74.35 · updated 11 May 2026 · build <code id="buildIdFooter" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;font-size:12px;color:var(--saffron);background:rgba(180,110,59,.10);padding:1px 6px;border-radius:3px;letter-spacing:.03em;cursor:pointer;" title="Click to verify you're on the latest build">meena-5sek</code></span>
       &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="__verifyBuild()" style="color:var(--saffron);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px;">Verify build</a>
       &nbsp;·&nbsp;
@@ -10841,7 +10841,7 @@ renderGem();
       // small confirming toast (reuses the version-toast pattern)
       setTimeout(function(){
         var t = document.createElement('div');
-        t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;';
+        t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;';
         t.textContent = toastMsg;
         document.body.appendChild(t);
         requestAnimationFrame(function(){ t.style.opacity = '1'; });
@@ -11691,13 +11691,13 @@ document.addEventListener('keydown', (e) => {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  // v4.74.34 — semver of this page
+  // v4.74.35 — semver of this page
   // BUILD_ID — short fingerprint that rotates on every deploy. When the value
   // baked here matches version.json's `build`, the browser is on the latest
   // deployed copy. When they differ but PAGE_VERSION matches, the CDN is
   // serving stale HTML — exactly the case the Verify-build flow surfaces.
-  const PAGE_VERSION = '4.74.34';
-  const BUILD_ID     = 'simha-v77l';
+  const PAGE_VERSION = '4.74.35';
+  const BUILD_ID     = 'meena-5sek';
   const VERSION_URL  = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -11711,10 +11711,10 @@ document.addEventListener('keydown', (e) => {
     if (document.getElementById('upd-banner')) return;
     const b = document.createElement('div');
     b.id = 'upd-banner';
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#B46E3B;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
     b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
       + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
-      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#B46E3B;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
       + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
     document.body.appendChild(b);
     document.getElementById('upd-refresh').onclick = bustCache;
@@ -11745,7 +11745,7 @@ document.addEventListener('keydown', (e) => {
       })
       .catch(() => { if (!silent) showToast('Update check unavailable on file:// — open via http(s)://'); });
   }
-  // v4.74.34 — explicit "Verify build" flow. Compares the BUILD_ID baked into
+  // v4.74.35 — explicit "Verify build" flow. Compares the BUILD_ID baked into
   // this HTML against version.json's `build` field. Three outcomes:
   //   match (✓)    → you are on the latest deployed copy
   //   build differ → server has a hotfix; CDN is serving you a stale HTML
@@ -11805,8 +11805,8 @@ document.addEventListener('keydown', (e) => {
     max-width: 640px;
     padding: 14px 92px 14px 18px;
     background: #F8F4E1;
-    border: 1px solid #CAC6BB;
-    border-left: 3px solid #BC8146;
+    border: 1px solid #C8C5BF;
+    border-left: 3px solid #B46E3B;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -11823,7 +11823,7 @@ document.addEventListener('keydown', (e) => {
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #BC8146;
+    color: #B46E3B;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -11837,7 +11837,7 @@ document.addEventListener('keydown', (e) => {
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #CAC6BB;
+    border: 1px solid #C8C5BF;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
@@ -11848,9 +11848,9 @@ document.addEventListener('keydown', (e) => {
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #BC8146;
-    color: #BC8146;
-    background: rgba(188,129,70,.05);
+    border-color: #B46E3B;
+    color: #B46E3B;
+    background: rgba(180,110,59,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -11935,7 +11935,7 @@ document.addEventListener('keydown', (e) => {
     font-size: 13.5px; color: var(--ink-soft);
     cursor: pointer; transition: all .15s;
   }
-  .lc-chip:hover { border-color: var(--saffron); color: var(--saffron); background: rgba(188,129,70,.04); }
+  .lc-chip:hover { border-color: var(--saffron); color: var(--saffron); background: rgba(180,110,59,.04); }
 
   /* v4.70.3 — Search dropdown (panel that appears below the masthead search bar) */
   .hero-suggest {
@@ -11971,7 +11971,7 @@ document.addEventListener('keydown', (e) => {
     transition: background-color .12s;
   }
   .hero-suggest-item:hover,
-  .hero-suggest-item.is-active { background: rgba(188,129,70,.08); }
+  .hero-suggest-item.is-active { background: rgba(180,110,59,.08); }
   .hero-suggest-name {
     font-family: var(--body); font-size: 15px;
     color: var(--ink);
@@ -12024,14 +12024,14 @@ document.addEventListener('keydown', (e) => {
     transition: background-color .12s;
   }
   .hero-suggest-dym:hover,
-  .hero-suggest-dym.is-active { background: rgba(188,129,70,.08); }
+  .hero-suggest-dym.is-active { background: rgba(180,110,59,.08); }
   .hero-suggest-dym em { font-style: italic; color: var(--saffron); }
   /* Exact-match preview block (richer card with category + blurb) */
   .hero-suggest-preview {
     flex-direction: column; align-items: flex-start;
     gap: 4px;
     padding: 10px 12px 12px;
-    background: rgba(188,129,70,.05);
+    background: rgba(180,110,59,.05);
   }
   .hero-suggest-preview-cat {
     font-family: var(--display); font-style: italic;
@@ -12852,7 +12852,7 @@ document.addEventListener('keydown', (e) => {
   h2:hover .copy-anchor,
   .copy-anchor:focus,
   .copy-anchor.is-copied { opacity: 1; }
-  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(188,129,70,.05); }
+  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(180,110,59,.05); }
   .copy-anchor.is-copied { color: var(--surface); background: var(--saffron); border-color: var(--saffron); }
   @media (hover: none) { .copy-anchor { opacity: .55; } }
 </style>
@@ -12863,7 +12863,7 @@ document.addEventListener('keydown', (e) => {
     if (existing) return existing;
     var t = document.createElement('div');
     t.id = 'anchorToast';
-    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
     document.body.appendChild(t);
     return t;
   }
@@ -13022,7 +13022,7 @@ document.addEventListener('keydown', (e) => {
 
     var closeBtn = document.createElement('button');
     closeBtn.textContent = '✕ close';
-    closeBtn.style.cssText = 'background:#BC8146;color:#fff;border:0;padding:6px 14px;border-radius:999px;font-size:12px;cursor:pointer;font-family:inherit;';
+    closeBtn.style.cssText = 'background:#B46E3B;color:#fff;border:0;padding:6px 14px;border-radius:999px;font-size:12px;cursor:pointer;font-family:inherit;';
     closeBtn.addEventListener('click', function(){ document.body.removeChild(panel); });
     header.appendChild(closeBtn);
     panel.appendChild(header);

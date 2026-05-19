@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -17,23 +17,23 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --indigo:    #6E7D85;
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 8px 28px -10px rgba(40,40,38,.18);
   }
@@ -45,7 +45,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -82,7 +82,7 @@
   .pull {
     margin: 28px auto 0; max-width: 700px;
     border-left: 3px solid var(--saffron); padding: 14px 18px;
-    background: rgba(188,129,70,.05); border-radius: 0 8px 8px 0;
+    background: rgba(180,110,59,.05); border-radius: 0 8px 8px 0;
   }
   .pull-eyebrow {
     font-family: var(--display); font-style: italic; font-size: 11.5px;
@@ -223,15 +223,15 @@
     text-align: center; line-height: 1; margin: 2px 0;
   }
   .chamber.is-source {
-    background: rgba(188,129,70,.18);
+    background: rgba(180,110,59,.18);
     border-color: var(--saffron); border-width: 2px;
     padding: 6px 7px 5px;
   }
   .chamber.is-source .chamber-glyph { opacity: 1; font-size: 24px; transform: scale(1); }
   .chamber.is-source .chamber-sign { color: var(--saffron); font-weight: 500; font-style: normal; }
   .chamber.is-aspected {
-    background: rgba(188,129,70,.06);
-    border-color: rgba(188,129,70,.55);
+    background: rgba(180,110,59,.06);
+    border-color: rgba(180,110,59,.55);
   }
   .chamber.is-aspected .chamber-num { color: var(--saffron); font-weight: 500; }
   .aspect-badge {
@@ -745,7 +745,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -754,7 +754,7 @@
     if (!t) {
       t = document.createElement('div');
       t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
       document.body.appendChild(t);
     }
     t.textContent = msg;
@@ -789,12 +789,12 @@
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.34). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.35). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){

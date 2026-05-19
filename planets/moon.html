@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -15,21 +15,21 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
 /* ——— TOKENS ——— */
 :root {
-  --bg:        #F4EEDA;
+  --bg:        #F8F6EF;
   --bg-deep:   #E0DCCD;
   --surface:   #F8F4E1;
   --ink:       #282826;
   --ink-soft:  #4B4B4A;
-  --muted:     #7C7B78;
-  --rule:      #CAC6BB;
+  --muted:     #847171;
+  --rule:      #C8C5BF;
   --rule-soft: #E0DCCD;
-  --saffron:   #BC8146;
+  --saffron:   #B46E3B;
   --indigo:    #6E7D85;
   --forest:    #32413B;
   --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
@@ -46,7 +46,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+    radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
     radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -237,7 +237,7 @@ a:hover { text-decoration-color: var(--saffron); }
 }
 /* Type-specific node colors */
 .stop[data-type="resting"]   .stop-node { border-color: var(--indigo); color: var(--indigo); background: rgba(110,125,133,.05); }
-.stop[data-type="action"]    .stop-node { border-color: var(--saffron); color: var(--saffron); background: rgba(188,129,70,.05); }
+.stop[data-type="action"]    .stop-node { border-color: var(--saffron); color: var(--saffron); background: rgba(180,110,59,.05); }
 .stop[data-type="traveller"] .stop-node { border-color: var(--forest); color: var(--forest); background: rgba(50,65,59,.05); }
 .stop[data-type="milestone"] .stop-node { background: var(--saffron); border-color: var(--saffron); color: var(--surface); font-size: 14px; }
 /* Completed */
@@ -255,9 +255,9 @@ a:hover { text-decoration-color: var(--saffron); }
 }
 .stop-card:hover { border-color: var(--rule); }
 .stop[data-type="resting"]   .stop-card { border-color: rgba(110,125,133,.22); }
-.stop[data-type="action"]    .stop-card { border-color: rgba(188,129,70,.22); }
+.stop[data-type="action"]    .stop-card { border-color: rgba(180,110,59,.22); }
 .stop[data-type="traveller"] .stop-card { border-color: rgba(50,65,59,.2); }
-.stop[data-type="milestone"] .stop-card { border-color: rgba(188,129,70,.35); background: rgba(250,243,226,.6); }
+.stop[data-type="milestone"] .stop-card { border-color: rgba(180,110,59,.35); background: rgba(250,243,226,.6); }
 .stop.is-done .stop-card { opacity: .65; }
 
 .stop-card-head {
@@ -286,9 +286,9 @@ a:hover { text-decoration-color: var(--saffron); }
 }
 .badge-learning  { background: rgba(75,75,74,.07); color: var(--ink-soft); }
 .badge-resting   { background: rgba(110,125,133,.12); color: var(--indigo); }
-.badge-action    { background: rgba(188,129,70,.12); color: var(--saffron); }
+.badge-action    { background: rgba(180,110,59,.12); color: var(--saffron); }
 .badge-traveller { background: rgba(50,65,59,.1); color: var(--forest); }
-.badge-milestone { background: rgba(188,129,70,.18); color: var(--saffron); font-weight: 600; }
+.badge-milestone { background: rgba(180,110,59,.18); color: var(--saffron); font-weight: 600; }
 
 .stop-card-titles { flex: 1; min-width: 0; }
 .stop-num { font-family: var(--display); font-style: italic; font-size: 11px; color: var(--muted); margin-bottom: 2px; }
@@ -507,12 +507,12 @@ a:hover { text-decoration-color: var(--saffron); }
 }
 .quiz-opt:hover { border-color: var(--rule); background: var(--surface); color: var(--ink); }
 .quiz-opt input { accent-color: var(--saffron); margin-top: 2px; flex-shrink: 0; }
-.quiz-opt.is-selected { border-color: rgba(188,129,70,.4); background: rgba(188,129,70,.06); color: var(--ink); }
+.quiz-opt.is-selected { border-color: rgba(180,110,59,.4); background: rgba(180,110,59,.06); color: var(--ink); }
 
 /* ——— ACTION SPOT ——— */
 .action-block {
-  background: rgba(188,129,70,.05);
-  border: 1px solid rgba(188,129,70,.2);
+  background: rgba(180,110,59,.05);
+  border: 1px solid rgba(180,110,59,.2);
   border-left: 3px solid var(--saffron);
   border-radius: 0 8px 8px 0;
   padding: 14px 16px;
@@ -642,8 +642,8 @@ a:hover { text-decoration-color: var(--saffron); }
 .milestone-banner {
   text-align: center;
   padding: 28px 20px 22px;
-  background: linear-gradient(135deg, rgba(188,129,70,.07), rgba(188,129,70,.03));
-  border: 1px solid rgba(188,129,70,.3);
+  background: linear-gradient(135deg, rgba(180,110,59,.07), rgba(180,110,59,.03));
+  border: 1px solid rgba(180,110,59,.3);
   border-radius: 10px;
   margin-top: 16px;
 }

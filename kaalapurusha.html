@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <script id="tailwind-config">
@@ -274,23 +274,23 @@
            Body silhouette imagery and tab-content structure preserved.
            ============================================================ */
         :root {
-            --qr-bg:        #F4EEDA;
+            --qr-bg:        #F8F6EF;
             --qr-bg-deep:   #E0DCCD;
             --qr-surface:   #F8F4E1;
             --qr-surface-2: #f6ecd0;
             --qr-ink:       #282826;
             --qr-ink-soft:  #4B4B4A;
-            --qr-muted:     #7C7B78;
-            --qr-rule:      #CAC6BB;
+            --qr-muted:     #847171;
+            --qr-rule:      #C8C5BF;
             --qr-rule-soft: #E0DCCD;
-            --qr-saffron:   #BC8146;
+            --qr-saffron:   #B46E3B;
             --qr-display:   'Cormorant Garamond', 'Times New Roman', serif;
             --qr-body:      'Spectral', Georgia, serif;
         }
         body {
             background: var(--qr-bg) !important;
             background-image:
-                radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+                radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
                 radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%),
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .1 0 0 0 0 .07 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") !important;
             color: var(--qr-ink) !important;
@@ -318,17 +318,17 @@
             color: var(--qr-saffron) !important;
         }
         .step-marker { border-color: var(--qr-saffron) !important; background: var(--qr-surface) !important; }
-        .ref-card-h { border-color: rgba(188,129,70,.4) !important; background: rgba(188,129,70,.08) !important; }
+        .ref-card-h { border-color: rgba(180,110,59,.4) !important; background: rgba(180,110,59,.08) !important; }
         .step-title em, .key-learning-text em, .ref-lead em { color: var(--qr-saffron) !important; }
         .key-learning {
-            background: linear-gradient(180deg, rgba(188,129,70,.05), rgba(188,129,70,.02)) !important;
+            background: linear-gradient(180deg, rgba(180,110,59,.05), rgba(180,110,59,.02)) !important;
             border-left-color: var(--qr-saffron) !important;
             border-radius: 6px !important;
         }
         .key-learning-label { color: var(--qr-saffron) !important; letter-spacing: .14em !important; }
         .key-learning-text { color: var(--qr-ink) !important; line-height: 1.65 !important; font-weight: 400 !important; }
         .timeline::before {
-            background: linear-gradient(to bottom, rgba(188,129,70,.5), rgba(212,195,154,.3)) !important;
+            background: linear-gradient(to bottom, rgba(180,110,59,.5), rgba(212,195,154,.3)) !important;
         }
         /* Ref card */
         .ref-card {
@@ -825,7 +825,7 @@
   <script src="assets/site-nav.js"></script>
 
 <header class="qr-masthead">
-  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.34</div>
+  <div class="qr-eyebrow">all things vedic <span style="color:var(--qr-rule);font-style:normal;font-size:11px;letter-spacing:0;">·</span> v4.74.35</div>
   <h1>Kāla<em>purusha</em></h1>
   <p class="qr-sub">An anatomical map of the cosmic body — the kundali laid into Vishnu's form.</p>
   <div class="qr-ornament" aria-hidden="true">
@@ -878,14 +878,14 @@
 <p class="key-learning-text">The kundali is not a chart we cast <em>about</em> a person — it <em>is</em> the cosmic body itself. Twelve houses, twelve regions of Kaalapurusha. The clearest single insight in this build came from a correction: signs and houses are not interchangeable. Once that landed, much of the rest fell into place, and a concept I'd been carrying loosely became firm.</p><p class="key-learning-text">And on the craft side: good visualizations rarely arrive whole. They emerge through subtraction. Every iteration here was <em>less</em> than the last — less colour, fewer labels, less ornament. What stayed is what mattered.</p>
 </div>
 </section>
-<p style="margin:32px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:13px;color:#7C7B78;letter-spacing:.04em;">
-  v4.74.34 · updated 11 May 2026
+<p style="margin:32px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:13px;color:#847171;letter-spacing:.04em;">
+  v4.74.35 · updated 11 May 2026
   &nbsp;·&nbsp;
-  <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:#BC8146;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Check for updates</a>
+  <a href="javascript:void(0)" onclick="__checkForUpdates()" style="color:#B46E3B;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Check for updates</a>
   &nbsp;·&nbsp;
-  <a href="release-notes.html" style="color:#BC8146;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Release notes</a>
+  <a href="release-notes.html" style="color:#B46E3B;text-decoration:underline;text-decoration-color:rgba(212,195,154,.5);text-underline-offset:3px;">Release notes</a>
 </p>
-<p style="margin:8px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:11.5px;color:#7C7B78;letter-spacing:.02em;opacity:.85;">
+<p style="margin:8px 0 0;text-align:center;font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-size:11.5px;color:#847171;letter-spacing:.02em;opacity:.85;">
   Content © <em>All Things Vedic</em> · Vikram. The page itself is built by <em>Sree &amp; Sanchi</em> alongside the class.
 </p>
 </main>
@@ -911,7 +911,7 @@ if (isTouch) {
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -925,10 +925,10 @@ if (isTouch) {
     if (document.getElementById('upd-banner')) return;
     const b = document.createElement('div');
     b.id = 'upd-banner';
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#BC8146;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:1000;background:#B46E3B;color:#F8F4E1;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:"Libre Caslon Text","Cormorant Garamond","Times New Roman",serif;font-size:14.5px;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18);';
     b.innerHTML = '<span>A newer version is available <strong style="font-style:normal;">(v' + latestVer + ')</strong>.</span>'
       + ' <a href="release-notes.html" style="color:#F8F4E1;text-decoration:underline;text-decoration-color:rgba(250,243,226,.5);text-underline-offset:3px;">What changed?</a>'
-      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#BC8146;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
+      + ' <button id="upd-refresh" style="background:#F8F4E1;color:#B46E3B;border:0;padding:6px 16px;border-radius:100px;font-family:inherit;font-size:13px;font-style:normal;font-weight:600;cursor:pointer;">Refresh now</button>'
       + ' <button id="upd-dismiss" style="background:transparent;color:#F8F4E1;border:1px solid rgba(250,243,226,.4);padding:6px 14px;border-radius:100px;font-family:inherit;font-size:13px;font-style:italic;cursor:pointer;">Later</button>';
     document.body.appendChild(b);
     document.getElementById('upd-refresh').onclick = bustCache;
@@ -965,12 +965,12 @@ if (isTouch) {
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.34). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.35). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
@@ -1114,8 +1114,8 @@ if (isTouch) {
     max-width: 640px;
     padding: 14px 92px 14px 18px;
     background: #F8F4E1;
-    border: 1px solid #CAC6BB;
-    border-left: 3px solid #BC8146;
+    border: 1px solid #C8C5BF;
+    border-left: 3px solid #B46E3B;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -1132,7 +1132,7 @@ if (isTouch) {
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #BC8146;
+    color: #B46E3B;
     margin-bottom: 4px;
   }
   .first-visit-tip .fvt-text {
@@ -1146,7 +1146,7 @@ if (isTouch) {
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #CAC6BB;
+    border: 1px solid #C8C5BF;
     border-radius: 999px;
     padding: 4px 12px;
     font-family: 'Cormorant Garamond', serif;
@@ -1157,9 +1157,9 @@ if (isTouch) {
     transition: border-color .15s, color .15s, background .15s;
   }
   .first-visit-tip .fvt-dismiss:hover {
-    border-color: #BC8146;
-    color: #BC8146;
-    background: rgba(188,129,70,.05);
+    border-color: #B46E3B;
+    color: #B46E3B;
+    background: rgba(180,110,59,.05);
   }
   @media (max-width: 480px) {
     .first-visit-tip { padding: 14px 18px 14px 18px; }
@@ -1396,7 +1396,7 @@ if (isTouch) {
   h2:hover .copy-anchor,
   .copy-anchor:focus,
   .copy-anchor.is-copied { opacity: 1; }
-  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(188,129,70,.05); }
+  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(180,110,59,.05); }
   .copy-anchor.is-copied { color: var(--surface); background: var(--saffron); border-color: var(--saffron); }
   @media (hover: none) { .copy-anchor { opacity: .55; } }
 </style>
@@ -1407,7 +1407,7 @@ if (isTouch) {
     if (existing) return existing;
     var t = document.createElement('div');
     t.id = 'anchorToast';
-    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
     document.body.appendChild(t);
     return t;
   }

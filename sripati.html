@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -17,26 +17,26 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --indigo:    #6E7D85;
     --forest:    #32413B;
     --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
     --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
   /* v4.59.0 Legacy theme override */
@@ -199,7 +199,7 @@
   h2:hover .copy-anchor,
   .copy-anchor:focus,
   .copy-anchor.is-copied { opacity: 1; }
-  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(188,129,70,.05); }
+  .copy-anchor:hover { color: var(--saffron); border-color: var(--saffron); background: rgba(180,110,59,.05); }
   .copy-anchor.is-copied {
     color: var(--surface);
     background: var(--saffron);
@@ -330,7 +330,7 @@
   .worked-step .step-math code {
     font-family: 'SF Mono', Monaco, 'Menlo', monospace;
     font-size: 13px; padding: 1px 4px;
-    background: rgba(188,129,70,.08); border-radius: 3px;
+    background: rgba(180,110,59,.08); border-radius: 3px;
     color: var(--saffron);
   }
 
@@ -393,7 +393,7 @@
   .deriv-text .step-math code {
     font-family: 'SF Mono', Monaco, 'Menlo', monospace;
     font-size: 13px; padding: 1px 5px;
-    background: rgba(188,129,70,.1); border-radius: 3px;
+    background: rgba(180,110,59,.1); border-radius: 3px;
     color: var(--saffron); font-weight: 500;
   }
   .deriv-controls {
@@ -463,7 +463,7 @@
   }
   .deriv-svg .label.hi { fill: var(--saffron); font-weight: 500; }
   .deriv-svg .arc { fill: none; stroke: var(--saffron); stroke-width: 2; }
-  .deriv-svg .extent { fill: rgba(188,129,70,.08); stroke: var(--saffron); stroke-dasharray: 3 3; stroke-width: 1; }
+  .deriv-svg .extent { fill: rgba(180,110,59,.08); stroke: var(--saffron); stroke-dasharray: 3 3; stroke-width: 1; }
 
   /* v4.62.1 — Workbook MCQs */
   .workbook {
@@ -516,7 +516,7 @@
     transition: background .15s, border-color .15s;
   }
   .workbook-q.is-revealed .workbook-options li.is-correct {
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     border-color: var(--saffron);
     color: var(--saffron);
     font-weight: 500;
@@ -556,7 +556,7 @@
   .workbook-done {
     margin-top: 14px;
     padding: 10px 14px;
-    background: rgba(188,129,70,.08);
+    background: rgba(180,110,59,.08);
     border-left: 2px solid var(--saffron);
     border-radius: 0 6px 6px 0;
     font-family: var(--display);
@@ -1144,7 +1144,7 @@
     if (existing) return existing;
     var t = document.createElement('div');
     t.id = 'anchorToast';
-    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:9px 20px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;';
     document.body.appendChild(t);
     return t;
   }

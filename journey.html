@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4EEDA">
+<meta name="theme-color" content="#F8F6EF">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -17,25 +17,25 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #F4EEDA;
+    --bg:        #F8F6EF;
     --bg-deep:   #E0DCCD;
     --surface:   #F8F4E1;
     --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
-    --muted:     #7C7B78;
-    --rule:      #CAC6BB;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
     --rule-soft: #E0DCCD;
-    --saffron:   #BC8146;
+    --saffron:   #B46E3B;
     --indigo:    #6E7D85;
     --forest:    #32413B;
     --green:     #6a8d6e;
-    --display: 'Libre Caslon Text', 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; }
@@ -46,7 +46,7 @@
     color: var(--ink);
     background: var(--bg);
     background-image:
-      radial-gradient(circle at 12% 8%, rgba(188,129,70,.04), transparent 40%),
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
       radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -174,7 +174,7 @@
     padding-right: 96px;     /* room for the absolute-positioned share button */
     user-select: none;
   }
-  .topic-header:hover { background: linear-gradient(180deg, rgba(188,129,70,.07) 0%, transparent 100%); }
+  .topic-header:hover { background: linear-gradient(180deg, rgba(180,110,59,.07) 0%, transparent 100%); }
   .topic-chevron {
     display: inline-block;
     color: var(--muted);
@@ -227,7 +227,7 @@
   .share-section-btn:hover {
     color: var(--saffron);
     border-color: var(--saffron);
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
   }
   .share-section-btn.is-copied {
     color: var(--green);
@@ -236,9 +236,9 @@
   }
   .topic.is-deeplinked { animation: deeplinkFlash 1.8s ease-out; }
   @keyframes deeplinkFlash {
-    0%   { box-shadow: 0 0 0 0 rgba(188,129,70, .35); }
-    20%  { box-shadow: 0 0 0 6px rgba(188,129,70, .22); }
-    100% { box-shadow: 0 0 0 0 rgba(188,129,70, 0); }
+    0%   { box-shadow: 0 0 0 0 rgba(180,110,59, .35); }
+    20%  { box-shadow: 0 0 0 6px rgba(180,110,59, .22); }
+    100% { box-shadow: 0 0 0 0 rgba(180,110,59, 0); }
   }
   @media (max-width: 520px) {
     .share-section-btn { top: 12px; right: 12px; font-size: 11px; padding: 4px 10px 4px 8px; }
@@ -247,7 +247,7 @@
   .topic-header {
     padding: 18px 24px 12px;
     border-bottom: 1px solid var(--rule-soft);
-    background: linear-gradient(180deg, rgba(188,129,70,.04) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(180,110,59,.04) 0%, transparent 100%);
   }
   .topic-eyebrow {
     font-family: var(--display); font-style: italic;
@@ -293,7 +293,7 @@
     flex-shrink: 0;
   }
   .progress .dot.is-done { background: var(--green); border-color: var(--green); }
-  .progress .dot.is-active { background: var(--saffron); border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(188,129,70,.15); }
+  .progress .dot.is-active { background: var(--saffron); border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(180,110,59,.15); }
   .progress .bar {
     width: 28px; height: 2px;
     background: var(--rule); flex-shrink: 0;
@@ -392,7 +392,7 @@
     font-size: 11.5px; color: var(--muted);
     letter-spacing: .04em;
   }
-  .video-slot.has-link { border-style: solid; border-color: var(--saffron); background: rgba(188,129,70,.04); }
+  .video-slot.has-link { border-style: solid; border-color: var(--saffron); background: rgba(180,110,59,.04); }
 
   /* ---------- v4.74.9 — LOOM VIDEO EMBED + CHAPTERS ---------- */
   .video-embed {
@@ -448,8 +448,8 @@
     color: var(--ink-soft);
     align-items: baseline;
   }
-  .chapters li:hover { background: rgba(188,129,70,.06); }
-  .chapters li.is-active { background: rgba(188,129,70,.14); }
+  .chapters li:hover { background: rgba(180,110,59,.06); }
+  .chapters li.is-active { background: rgba(180,110,59,.14); }
   .chapters li.is-active .arrow { color: var(--saffron); }
   .chapters .time {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -474,7 +474,7 @@
   .chapters .chap-external:hover {
     color: var(--saffron);
     border-color: var(--saffron);
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
   }
   .chapters-foot {
     margin-top: 10px;
@@ -561,7 +561,7 @@
     line-height: 1.55;
     resize: vertical;
   }
-  .write:focus { outline: none; border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(188,129,70,.1); }
+  .write:focus { outline: none; border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(180,110,59,.1); }
   .write-meta {
     margin: 6px 0 0;
     font-family: var(--display); font-style: italic;
@@ -635,7 +635,7 @@
   .buddy-link-out {
     margin: 6px 0 0;
     padding: 10px 12px;
-    background: rgba(188,129,70,.06);
+    background: rgba(180,110,59,.06);
     border: 1px solid var(--saffron);
     border-radius: 6px;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -1556,7 +1556,7 @@
 <!-- ====================== UPDATE CHECKER ====================== -->
 <script>
 (function() {
-  const PAGE_VERSION = '4.74.34';
+  const PAGE_VERSION = '4.74.35';
   const VERSION_URL = 'version.json';
   const FOCUS_THROTTLE_MS = 30000;
   let lastChecked = 0;
@@ -1565,7 +1565,7 @@
     if (!t) {
       t = document.createElement('div');
       t.id = 'versionToast';
-      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#282826;color:#F8F4E1;font-family:Libre Caslon Display,Libre Caslon Text,Cormorant Garamond,serif;font-style:italic;font-size:14px;padding:10px 22px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s;';
       document.body.appendChild(t);
     }
     t.textContent = msg;
@@ -1600,12 +1600,12 @@
 </script>
 
 <!-- ====================== BUILD FINGERPRINT ====================== -->
-<!-- Cache-verification fingerprint (v4.74.34). BUILD_ID rotates on every
+<!-- Cache-verification fingerprint (v4.74.35). BUILD_ID rotates on every
      deploy. If it differs from version.json's `build` while PAGE_VERSION
      matches, the CDN is serving stale HTML and we force a clean reload. -->
 <script>
 (function(){
-  var BUILD_ID = 'simha-v77l';
+  var BUILD_ID = 'meena-5sek';
   window.__buildId = BUILD_ID;
 
   function forceFresh(){
