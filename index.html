@@ -534,6 +534,8 @@
   <!-- SITE NAV -->
   <div id="siteNavMount"></div>
   <script src="assets/site-nav.js"></script>
+  <script src="/assets/auth.js"></script>
+  <script src="/assets/storage.js"></script>
 
   <!-- HERO -->
   <header class="hero">
@@ -972,6 +974,24 @@
   }
   if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', bootLoad); } else { bootLoad(); }
 
+  // The chart boots synchronously from localStorage so it never flashes blank.
+  // Once atvStore has hydrated, adopt the signed-in user's saved location
+  // (cross-device) and re-render the centre cell if it differs.
+  if (window.atvStore) {
+    window.atvStore.onReady(function(){
+      var saved = (window.atvStore.getChart() || {}).location;
+      if (!saved) return;
+      var current = null;
+      try { current = localStorage.getItem('astro-mychart-loc-v1'); } catch(e){}
+      if (saved !== current) {
+        try { localStorage.setItem('astro-mychart-loc-v1', saved); } catch(e){}
+        var data = window.__todaySkyData;
+        var today = data && data.days && data.days[todayISO()];
+        if (today) renderStage(today);
+      }
+    });
+  }
+
   // v4.70.1 — Location popover (click the centre cell's location to change)
   function openLocPop(){
     var pop = document.getElementById('tsLocPopover');
@@ -993,6 +1013,12 @@
     var v = (inp.value || '').trim().slice(0, 60);
     if (!v) v = 'Auroville, Tamil Nadu, India';
     try { localStorage.setItem('astro-mychart-loc-v1', v); } catch(e){}
+    // Mirror to atvStore so the chart location follows a signed-in user.
+    if (window.atvStore) {
+      var chart = window.atvStore.getChart() || {};
+      chart.location = v;
+      window.atvStore.setChart(chart);
+    }
     closeLocPop();
     // Re-render the centre cell to show the new location
     var data = window.__todaySkyData;
