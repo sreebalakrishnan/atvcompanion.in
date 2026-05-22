@@ -3,10 +3,11 @@
 ## What this is
 A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Hosted at `atvcompanion.in`. Built by Sree Balakrishnan (gnuyoga@gmail.com).
 
-**Mid-migration ("new flavour"):** moving from a zero-backend static site to an Express + Supabase app — auth, roles, and localStorage→Postgres migration. Phases 0–1 (backend + auth) are done; Phases 2–6 are pending. See "Active work threads".
+**Mid-migration ("new flavour"):** moving from a zero-backend static site to an Express + Supabase app — auth, roles, and localStorage→Postgres migration. Phases 0–6 are built (mechanisms); editorial/design rollout + deploy remain. See "Active work threads".
 
 ## Architecture
-- **Frontend.** Vanilla HTML + CSS + JS, one file per page. No build step, no framework. CSS tokens inline per page.
+- **Folder layout.** Everything the website serves lives in **`public/`** (HTML, `assets/`, `planets/`, `today-sky-data.*`, `robots.txt`, `version.json`). `server.js`, `db/`, `astrology-101-knowledge-base/`, `node_modules/` stay at the project root and are **not** web-served.
+- **Frontend.** Vanilla HTML + CSS + JS, one file per page (under `public/`). No build step, no framework. CSS tokens inline per page.
 - **Backend (`server.js`).** Express 5. Serves the static site and a JSON API under `/api`. Boots fine without env vars — the static site still works; API routes just return errors.
 - **Database.** Supabase Postgres via the `pg` Pool (`DATABASE_URL`). Schema in `db/schema.sql`, applied idempotently on every boot.
 - **Auth.** Supabase email + password. Browser signs in client-side via `assets/auth.js`; `server.js` verifies the bearer token and resolves a role. See "Auth & roles".
@@ -15,7 +16,8 @@ A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Ho
 - **Pedagogy scaffold** (`assets/scaffold.js`): drop `<div class="atv-video" data-title data-note>` for a captioned video placeholder, or `<div class="atv-reflect" data-key data-prompt>` for a reflect prompt that saves to `atvStore`. The full light scaffold per content page is orientation → video → sourced sections → reflect → next step.
 - **Persistence:** currently `localStorage`; migrating to Postgres (Phase 2) via the `apiFetch` wrapper in `auth.js`.
 - **Debug panel:** append `?debug=1` to any URL.
-- **Deployment:** Vercel (the Express backend needs Node hosting). `vercel.json` routes all requests to `server.js`; `.vercelignore` excludes the KB, `_root/`, and `node_modules`. Env vars are set in Vercel project settings. Local dev: `npm install && npm start` → `http://localhost:8000`. (Was Hostinger static — no longer viable with a backend.)
+- **Env vars** loaded by `dotenv` (`.env` locally; the host's env in production — works on any Node version). Needed: `DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `ADMIN_EMAILS`.
+- **Deployment:** any Node host — Vercel (`vercel.json`) or Hostinger's Node.js container (entry `server.js`). The Express backend needs Node hosting; the old Hostinger static plan is no longer viable. Local dev: `npm install && npm start` → `http://localhost:8000`.
 
 ## Auth & roles
 - Three roles in the `profiles` table: **guest** (default — sees the public-safe site), **student** (approved cohort member — sees Vikram's teaching in full), **admin** (manages roles).
