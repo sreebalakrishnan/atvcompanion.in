@@ -5387,6 +5387,8 @@
     <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <div id="siteNavMount"></div>
   <script src="assets/site-nav.js"></script>
+  <script src="/assets/auth.js"></script>
+  <script src="/assets/storage.js"></script>
 
   <!-- ====================== v4.74.2 — SETTINGS BAND (Option B1) ====================== -->
   <!-- Sits directly under the site-nav, above the masthead — same vertical
@@ -9374,6 +9376,7 @@ function loadStore() {
 }
 function saveStore(s) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
+  if (window.atvStore) window.atvStore.setPref(STORAGE_KEY, JSON.stringify(s));
 }
 let STORE = loadStore();
 
@@ -9986,6 +9989,7 @@ function traceLoadDone() {
 function traceSaveDone() {
   try {
     localStorage.setItem('astro-trace-done', JSON.stringify(Array.from(traceState.done)));
+    if (window.atvStore) window.atvStore.setPref('astro-trace-done', JSON.stringify(Array.from(traceState.done)));
   } catch (e) { /* quota; fine to ignore */ }
 }
 
@@ -10392,6 +10396,7 @@ function setLevel(level) {
   document.body.classList.remove('level-foundations','level-beginner','level-intermediate','level-advanced','level-all');
   document.body.classList.add('level-' + level);
   try { localStorage.setItem(LEVEL_KEY, level); } catch {}
+  if (window.atvStore) window.atvStore.setPref(LEVEL_KEY, level);
   document.querySelectorAll('.level-pill').forEach(p => {
     p.classList.toggle('active', p.dataset.levelPill === level);
   });
@@ -10419,6 +10424,26 @@ const storedLevel = (() => {
 })();
 setLevel(storedLevel);
 
+// Cross-device sync: once atvStore hydrates, adopt saved learning state.
+// localStorage stays the synchronous source (no boot flash); synced values
+// land there for the next load. Level and mode also re-apply immediately.
+window.atvStore.onReady(function () {
+  function pull(key) {
+    var v = window.atvStore.getPref(key);
+    if (v != null && v !== '') {
+      try { if (localStorage.getItem(key) !== v) localStorage.setItem(key, v); } catch (e) {}
+      return v;
+    }
+    return null;
+  }
+  var lv = pull(LEVEL_KEY); if (lv) setLevel(lv);
+  var md = pull(MODE_KEY);  if (md && typeof setMode === 'function') setMode(md);
+  pull(QUIZ_STATE_KEY);
+  pull(REFLECT_NOTES_KEY);
+  pull(STORAGE_KEY);
+  pull('astro-trace-done');
+});
+
 // ============================================================
 // MODE: Learning ↔ Reference + QUIZ engine + frontier/soft locks
 // ============================================================
@@ -10445,10 +10470,12 @@ let REFLECT_NOTES = {}; // {sectionId: 'user text'}
 
 function saveQuizState() {
   try { localStorage.setItem(QUIZ_STATE_KEY, JSON.stringify(QUIZ_STATE)); } catch {}
+  if (window.atvStore) window.atvStore.setPref(QUIZ_STATE_KEY, JSON.stringify(QUIZ_STATE));
 }
 
 function saveReflectNotes() {
   try { localStorage.setItem(REFLECT_NOTES_KEY, JSON.stringify(REFLECT_NOTES)); } catch {}
+  if (window.atvStore) window.atvStore.setPref(REFLECT_NOTES_KEY, JSON.stringify(REFLECT_NOTES));
 }
 
 function setMode(mode) {
@@ -10457,6 +10484,7 @@ function setMode(mode) {
   document.body.classList.toggle('mode-learning', mode === 'learning');
   document.body.classList.toggle('mode-reference', mode === 'reference');
   try { localStorage.setItem(MODE_KEY, mode); } catch {}
+  if (window.atvStore) window.atvStore.setPref(MODE_KEY, mode);
   document.querySelectorAll('.mode-pill').forEach(p => {
     const active = p.dataset.modePill === mode;
     p.classList.toggle('active', active);
