@@ -23,9 +23,11 @@ project `rm.sreeb.dev`.
 | First verification | Localhost first, then deploy + cut the domain over |
 
 ## Where we are today (2026-05-22)
-Phases 0–1 complete and **verified live**. Phase 2 backend complete and
-verified; page rewiring is the active task. The browser sign-in flow still
-needs an in-browser test once the Supabase "Confirm email" setting is off.
+Phases 0, 1, 2, 5 **complete**. Phases 3, 4, 6 have their **mechanisms built**
+(`gating.js`, `scaffold.js`, `dashboard.js`) — what remains in each is the
+editorial/design rollout (tagging cohort content, applying the scaffold per
+page, the cross-page consistency review). Backend verified live. Still to do:
+in-browser sign-in test (after "Confirm email" off) and the Vercel deploy.
 
 ---
 
@@ -46,19 +48,13 @@ needs an in-browser test once the Supabase "Confirm email" setting is off.
 - ⏳ In-browser sign-in test (needs "Confirm email" OFF in Supabase)
 - ⏳ "Change password" screen for signed-in users — small follow-up
 
-## Phase 2 — Data model & localStorage migration 🔄
+## Phase 2 — Data model & localStorage migration ✅
 - ✅ Tables: `track_progress`, `journal_entries`, `preferences`, `chart_data`
 - ✅ API: `/api/progress`, `/api/journal`, `/api/prefs`, `/api/chart` — all verified
 - ✅ `assets/storage.js` — `atvStore` shim + one-time legacy migration banner
-- 🔄 **Rewire pages to `atvStore`** (task #9):
-  - ✅ `moon.html` · `elements.html` · `bhavas.html` · `reflect.html` · `index.html`
-  - ⏳ `learning-companion.html` — 13 localStorage features. ~6 are genuine user
-    data (level, mode, quiz state, reflect notes, practice progress, trace-done);
-    the rest are device-local UX (welcome, did-you-know, a11y, chant, grounding,
-    recent) and stay in localStorage. The 6 gate content visibility at boot, so
-    they need the localStorage-fast-path + atvStore-sync pattern (as `index.html`).
-    Its own focused pass — first task to pick up next.
-- Pattern note: pages that read storage *synchronously at boot* (index, learning-
+- ✅ **All 6 pages rewired to `atvStore`:** `moon` · `elements` · `bhavas` ·
+  `reflect` · `index` · `learning-companion`.
+- Pattern: pages that read storage *synchronously at boot* (index, learning-
   companion) keep localStorage as the fast path and layer atvStore via dual-write
   + `onReady` reconcile. Pages without boot-critical reads (moon, elements, bhavas,
   reflect) read straight from `atvStore` after `onReady`.
@@ -74,26 +70,32 @@ journals, reflections, learning level/mode, chart, the user's name.
 **Device-local** stays in `localStorage`: theme choice (pre-paint), first-visit
 tip flags.
 
-## Phase 3 — Content gating (public-safe) ⏳
-- ⏳ Audit every page for "Vikram said…" / cohort-specific blocks
-- ⏳ Tag them `data-audience="cohort"`; add `data-audience="public"` alternatives
-- ⏳ `gating.js` — role-aware show/hide based on `window.atvUser.role`
+## Phase 3 — Content gating (public-safe) 🔄 mechanism done
+- ✅ `assets/gating.js` — `data-audience="cohort"|"public"` role-aware gating;
+  cohort hidden by default CSS, revealed only for confirmed student/admin.
+- ✅ Loaded site-wide by `site-nav.js`.
+- ⏳ **Editorial rollout:** tag the actual "Vikram said…" / cohort blocks across
+  pages and write their public-safe alternatives. Needs Sree + Vikram — it's a
+  content-access decision, not a code task.
 
-## Phase 4 — Pedagogy scaffold + video placeholders ⏳
-Light scaffold on every content page: orientation → video placeholder →
-sourced sections (`.source-line`) → reflect prompt → next step. Tracks keep
-the full Moon-style 12-stop journey on top.
-- ⏳ Build the reusable scaffold pattern + video-placeholder component
-- ⏳ Apply page by page
+## Phase 4 — Pedagogy scaffold + video placeholders 🔄 components done
+- ✅ `assets/scaffold.js` — reusable `.atv-video` (captioned placeholder) and
+  `.atv-reflect` (journal-saving reflect prompt) widgets, ATV-styled.
+- ⏳ **Rollout:** apply the full scaffold (orientation → video → sourced
+  sections → reflect → next) to each content page — editorial, page by page.
 
-## Phase 5 — Nav & IA re-look ⏳
-- ⏳ Regroup `site-nav.js`: Start · Tracks · Reference · Tools · Meta · Admin
-- ⏳ Role-aware nav (admin link for admins, etc.)
-- ⏳ Resolve unlisted pages: `read.html`, `demo.html`, `pricing.html`, `v0.html`
+## Phase 5 — Nav & IA re-look ✅
+- ✅ `site-nav.js` regrouped: Start · Tracks · Reference · Tools · Meta · Admin.
+- ✅ Role-aware: Admin group gated via `data-navrole`, revealed by gating.js.
+- ✅ `read.html` + `pricing.html` added; `demo`/`v0`/`quick-reference` left out.
+- ➡️ Shared theme + name personalisation extraction (moved here from Phase 2)
+  still pending — the duplicated 17-page blocks need consolidating.
 
-## Phase 6 — Fresh design pass ⏳
-- ⏳ Logged-in dashboard homepage (your tracks, progress, next step)
-- ⏳ Consistency review across all pages, keeping ATV design tokens
+## Phase 6 — Fresh design pass 🔄 dashboard done
+- ✅ `assets/dashboard.js` — logged-in homepage dashboard (greeting, per-track
+  progress, next step); mounted on `index.html`, hidden for guests.
+- ⏳ Cross-page consistency review (iterative design pass), Libre Caslon
+  Condensed headings, official logo/brandmark, `kaalapurusha.html` palette fix.
 
 ---
 
