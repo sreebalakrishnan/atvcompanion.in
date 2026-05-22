@@ -10,7 +10,7 @@ A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Ho
 - **Backend (`server.js`).** Express 5. Serves the static site and a JSON API under `/api`. Boots fine without env vars — the static site still works; API routes just return errors.
 - **Database.** Supabase Postgres via the `pg` Pool (`DATABASE_URL`). Schema in `db/schema.sql`, applied idempotently on every boot.
 - **Auth.** Supabase email + password. Browser signs in client-side via `assets/auth.js`; `server.js` verifies the bearer token and resolves a role. See "Auth & roles".
-- **No gate.** The old soft passcode gate is gone (`assets/gate.js` is dead code). Access is now role-based, not passcode-based.
+- **Auth gate.** The old soft passcode gate is gone (`assets/gate.js` is dead code). Every page now requires a signed-in account (`gating.js`); within a page, role decides content depth. See "Auth & roles".
 - **Nav:** `assets/site-nav.js` — single source of truth. Add pages to the `PAGES` array. Mount with `<div id="siteNavMount"></div>`. Also injects Plausible analytics and the shared script stack: `auth.js` → `storage.js` → `gating.js` → `scaffold.js` (skips any a page already includes explicitly).
 - **Pedagogy scaffold** (`assets/scaffold.js`): drop `<div class="atv-video" data-title data-note>` for a captioned video placeholder, or `<div class="atv-reflect" data-key data-prompt>` for a reflect prompt that saves to `atvStore`. The full light scaffold per content page is orientation → video → sourced sections → reflect → next step.
 - **Persistence:** currently `localStorage`; migrating to Postgres (Phase 2) via the `apiFetch` wrapper in `auth.js`.
@@ -24,7 +24,8 @@ A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Ho
 - Browser API: `window.atvAuth` (`.ready`, `.user`, `.signIn`, `.signOut`, `.apiFetch`, `.onChange`) and `window.atvUser`. Add `<script src="/assets/auth.js"></script>`; optionally `<div id="atvAuthMount"></div>` for the account chip.
 - Server: `requireAuth` guards all `/api/*` except `/api/config`; `requireRole('admin')` guards admin routes.
 - `auth.js` and `server.js` use modern JS (the ES5 constraint applies only to the legacy per-page scripts).
-- **Content gating** (`assets/gating.js`, loaded site-wide by `site-nav.js`): tag blocks `data-audience="cohort"` (students/admins) or `data-audience="public"` (guests). Cohort blocks are hidden by default CSS, revealed only for a confirmed student/admin role — so guests never see "Vikram said…" depth. Soft gate (markup stays in page source); hard gating would serve cohort fragments from the API.
+- **Auth gate** (`assets/gating.js`, site-wide): every page requires a signed-in account. Signed-out visitors on any page except the login pages (`index.html`, `account.html`) are redirected to `index.html?next=…`. `index.html` is the login — signed-out it shows only a sign-in panel (`html[data-home="out"]` hides the homepage content); signed-in it shows the dashboard + homepage.
+- **Content gating** (also `gating.js`): tag blocks `data-audience="cohort"` (students/admins) or `data-audience="public"` (signed-in guests). Cohort blocks hidden by default CSS, revealed only for a confirmed student/admin role. Soft gate — markup stays in source; the real protection is the API requiring auth.
 
 ## Design system (CSS tokens — defined in every page's `<style>`)
 Tokens map to the official **ATV Brand Guide** (`ATV Brand 20250828.pdf`) named colours.

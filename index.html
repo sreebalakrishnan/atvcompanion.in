@@ -570,12 +570,16 @@
     .signin-alt { font-family: var(--display); font-style: italic; font-size: 13.5px;
       color: var(--muted); margin: 13px 0 0; }
     .signin-alt a { color: var(--ink-soft); }
+    /* Signed out: index.html is the login — hide the homepage content. */
+    html[data-home="out"] .page > header,
+    html[data-home="out"] .page > section,
+    html[data-home="out"] .page > footer { display: none; }
   </style>
   <div id="atvSigninPanel" class="signin-panel" hidden>
     <div class="signin-panel-inner">
       <div class="signin-eyebrow">your account</div>
       <div class="signin-head">Sign in to carry your journey</div>
-      <p class="signin-sub">Reflections, journal notes and track progress save to your account and travel with you across devices. New here? Creating an account takes a moment — and the companion stays open to explore either way.</p>
+      <p class="signin-sub">The companion is yours once you sign in — reflections, journal notes and track progress save to your account and travel with you across devices. New here? Creating an account takes only a moment.</p>
       <div class="signin-row">
         <input type="email" id="siEmail" placeholder="you@example.com" autocomplete="email">
         <input type="password" id="siPassword" placeholder="password" autocomplete="current-password">
@@ -592,14 +596,20 @@
     var pw    = document.getElementById('siPassword');
     var btn   = document.getElementById('siBtn');
     var msg   = document.getElementById('siMsg');
-    function reflect(user) { panel.hidden = !!user; }
+    function reflect(user) {
+      panel.hidden = !!user;
+      document.documentElement.setAttribute('data-home', user ? 'in' : 'out');
+    }
     function signIn() {
       var e = (email.value || '').trim(), p = pw.value || '';
       if (!e || e.indexOf('@') === -1) { msg.textContent = 'Please enter a valid email address.'; msg.hidden = false; return; }
       if (p.length < 8) { msg.textContent = 'Password must be at least 8 characters.'; msg.hidden = false; return; }
       btn.disabled = true; btn.textContent = 'Signing in…';
       window.atvAuth.signIn(e, p).then(function () {
-        // window.atvAuth.onChange → reflect() hides the panel
+        // Honour ?next= (set by the auth gate when it bounced the visitor here).
+        var next = new URLSearchParams(window.location.search).get('next');
+        if (next && next.charAt(0) === '/') { window.location.replace(next); }
+        // else window.atvAuth.onChange → reflect() reveals the homepage
       }).catch(function (err) {
         msg.textContent = (err && err.message) || 'Sign-in failed. Try again.';
         msg.hidden = false; btn.disabled = false; btn.textContent = 'Sign in';
