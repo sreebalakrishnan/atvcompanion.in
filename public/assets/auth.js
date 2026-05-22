@@ -209,8 +209,14 @@
     if (u.role === 'admin') {
       html += '<a href="/admin.html">Admin</a>';
     }
+    html += '<a href="#" class="atv-signout">Sign out</a>';
     html += '</span>';
     mount.innerHTML = html;
+    var so = mount.querySelector('.atv-signout');
+    if (so) so.addEventListener('click', function (e) {
+      e.preventDefault();
+      signOut();
+    });
   }
 
   // -------- expose --------

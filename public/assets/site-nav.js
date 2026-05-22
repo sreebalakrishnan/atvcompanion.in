@@ -157,6 +157,10 @@
       });
     });
     html += '</div></div>';
+    // Account chip (auth.js fills this) — carries the email, role, Admin link
+    // and Sign out, so they're reachable from every page.
+    html += '<span class="sep">·</span>';
+    html += '<span id="atvAuthMount" class="nav-auth"></span>';
     html += '</nav>';
     return html;
   }

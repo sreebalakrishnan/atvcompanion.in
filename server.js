@@ -23,6 +23,10 @@ const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
 const fs = require('fs');
 
+// Load .env for local dev. On a host (Vercel / Hostinger) the env vars come
+// from the platform and there is no .env file — dotenv simply finds nothing.
+require('dotenv').config();
+
 const PORT = process.env.PORT || 8000;
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
   .split(',')
@@ -326,7 +330,9 @@ app.post('/api/chart', async function (req, res) {
 });
 
 // -------- STATIC SITE --------
-app.use(express.static(__dirname));
+// Only the public/ folder is web-served. server.js, db/, the knowledge
+// base and node_modules stay private at the project root.
+app.use(express.static(path.join(__dirname, 'public')));
 
 // -------- DB INIT --------
 async function initDb() {
