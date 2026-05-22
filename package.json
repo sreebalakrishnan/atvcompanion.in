@@ -1,0 +1,21 @@
+{
+  "name": "atvcompanion.in",
+  "version": "5.0.0",
+  "description": "Companion app for Vikram Devatha's Astrology 101 class — Express + Supabase flavour.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --env-file-if-exists=.env server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.1",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "pg": "^8.21.0"
+  },
+  "license": "ISC"
+}

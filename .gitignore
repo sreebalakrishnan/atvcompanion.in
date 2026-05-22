@@ -40,6 +40,10 @@ yarn-debug.log*
 .env.local
 .env.*.local
 
+# Node
+node_modules/
+.vercel/
+
 # OS thumbnails
 Thumbs.db
 ehthumbs.db

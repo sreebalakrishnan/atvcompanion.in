@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F8F6EF">
+<meta name="description" content="Sign in to the Astrology 101 Companion App.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Account — Astrology 101 Companion App</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F8F6EF;
+    --bg-deep:   #E0DCCD;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
+    --rule-soft: #E0DCCD;
+    --saffron:   #B46E3B;
+    --indigo:    #6E7D85;
+    --forest:    #32413B;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body); font-weight: 200;
+    color: var(--ink); background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.04), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+  .page { max-width: 600px; margin: 0 auto; padding: 0 22px 100px; }
+  .topbar { display: flex; justify-content: flex-end; padding-top: 14px; }
+  .masthead { padding: 48px 0 30px; text-align: center; border-bottom: 1px solid var(--rule); }
+  .eyebrow { font-family: var(--display); font-style: italic; font-size: 13px; letter-spacing: .14em; color: var(--saffron); text-transform: lowercase; margin-bottom: 8px; }
+  h1 { font-family: var(--display); font-weight: 500; font-size: clamp(34px, 6vw, 48px); line-height: 1.08; margin: 0 0 14px; }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .lede { font-family: var(--display); font-style: italic; font-size: 16px; color: var(--ink-soft); margin: 0 auto; max-width: 46ch; }
+
+  .card {
+    margin: 38px 0 0; padding: 28px 26px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+  .card h2 { font-family: var(--display); font-weight: 500; font-size: 24px; margin: 0 0 6px; }
+  .card p { font-size: 15px; color: var(--ink-soft); margin: 0 0 16px; }
+
+  label { display: block; font-family: var(--display); font-style: italic; font-size: 14px; color: var(--ink-soft); margin-bottom: 6px; }
+  input[type=email], input[type=password] {
+    width: 100%; font-family: var(--body); font-size: 15px;
+    padding: 12px 14px; border: 1px solid var(--rule);
+    border-radius: 8px; background: var(--bg); color: var(--ink);
+  }
+  input[type=email]:focus, input[type=password]:focus { outline: 2px solid var(--saffron); outline-offset: 1px; }
+
+  .btn {
+    display: inline-block; margin-top: 14px; cursor: pointer;
+    font-family: var(--display); font-style: italic; font-size: 15px;
+    padding: 11px 22px; border-radius: 8px;
+    background: var(--saffron); color: var(--surface);
+    border: 1px solid var(--saffron); text-decoration: none;
+  }
+  .btn:hover { background: #a05f2f; }
+  .btn[disabled] { opacity: .5; cursor: default; }
+  .btn-ghost { background: transparent; color: var(--ink-soft); border-color: var(--rule); }
+  .btn-ghost:hover { background: rgba(180,110,59,.06); color: var(--saffron); }
+
+  .msg { margin-top: 14px; font-size: 14px; padding: 10px 14px; border-radius: 8px; }
+  .msg.ok   { background: rgba(50,65,59,.08);  color: var(--forest); }
+  .msg.err  { background: rgba(180,110,59,.10); color: #9a4b1f; }
+  .msg[hidden] { display: none; }
+
+  .kv { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px dashed var(--rule); font-size: 15px; }
+  .kv:last-child { border-bottom: 0; }
+  .kv .k { color: var(--muted); font-family: var(--display); font-style: italic; }
+  .kv .v { color: var(--ink); }
+  .role-pill { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
+  .role-pill.student { color: var(--forest); border-color: var(--forest); }
+  .role-pill.admin { color: var(--saffron); border-color: var(--saffron); }
+
+  .note { font-size: 13.5px; color: var(--muted); font-style: italic; font-family: var(--display); margin-top: 16px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar"><div id="atvAuthMount"></div></div>
+
+  <div id="siteNavMount"></div>
+  <script src="assets/site-nav.js"></script>
+
+  <header class="masthead">
+    <div class="eyebrow">your account</div>
+    <h1>Sign in to the <em>companion</em></h1>
+    <p class="lede">The companion is open to everyone. Signing in lets your reflections and journey progress travel with you — and unlocks cohort material as Vikram shared it.</p>
+  </header>
+
+  <!-- SIGNED OUT -->
+  <div class="card" id="signedOut" hidden>
+    <h2 id="authTitle">Sign in</h2>
+    <p id="authSub">Welcome back. Enter your email and password to continue.</p>
+    <label for="email">Email address</label>
+    <input type="email" id="email" autocomplete="email" placeholder="you@example.com">
+    <label for="password" style="margin-top:14px;">Password</label>
+    <input type="password" id="password" autocomplete="current-password" placeholder="at least 8 characters">
+    <br>
+    <button class="btn" id="submitBtn">Sign in</button>
+    <div class="msg" id="signInMsg" hidden></div>
+    <p class="note">
+      <span id="togglePrompt">New to the companion?</span>
+      <a href="#" id="toggleMode">Create an account</a>
+    </p>
+    <p class="note" id="forgotRow" style="margin-top:6px;">
+      <a href="#" id="forgotLink">Forgot your password?</a>
+    </p>
+  </div>
+
+  <!-- SIGNED IN -->
+  <div class="card" id="signedIn" hidden>
+    <h2>You're signed in</h2>
+    <div class="kv"><span class="k">Email</span><span class="v" id="acctEmail"></span></div>
+    <div class="kv"><span class="k">Role</span><span class="v"><span class="role-pill" id="acctRole"></span></span></div>
+    <div class="kv"><span class="k">Joined</span><span class="v" id="acctJoined">—</span></div>
+    <p class="note" id="roleNote"></p>
+    <p style="margin-top:18px;">
+      <a class="btn" id="adminLink" href="/admin.html" hidden>Admin dashboard</a>
+      <button class="btn btn-ghost" id="signOutBtn">Sign out</button>
+    </p>
+  </div>
+
+  <!-- UNCONFIGURED -->
+  <div class="card" id="notConfigured" hidden>
+    <h2>Sign-in is not available yet</h2>
+    <p>The server hasn't been connected to Supabase. The companion still works — your reflections just save to this browser only.</p>
+  </div>
+
+</div>
+
+<script src="/assets/auth.js"></script>
+<script>
+(function () {
+  'use strict';
+  var signedOut = document.getElementById('signedOut');
+  var signedIn = document.getElementById('signedIn');
+  var notConfigured = document.getElementById('notConfigured');
+  var submitBtn = document.getElementById('submitBtn');
+  var emailInput = document.getElementById('email');
+  var passwordInput = document.getElementById('password');
+  var signInMsg = document.getElementById('signInMsg');
+  var authTitle = document.getElementById('authTitle');
+  var authSub = document.getElementById('authSub');
+  var togglePrompt = document.getElementById('togglePrompt');
+  var toggleMode = document.getElementById('toggleMode');
+  var forgotLink = document.getElementById('forgotLink');
+  var mode = 'signin';
+
+  var ROLE_NOTES = {
+    guest: 'Your account is active as a guest. You see the public-safe companion. Cohort material — content as Vikram taught it — unlocks once an admin approves you as a student.',
+    student: 'You are an approved cohort student. Vikram’s teaching is shown to you in full across the companion.',
+    admin: 'You are an admin. You can manage who is a guest, student, or admin from the dashboard.'
+  };
+
+  function showMsg(text, kind) {
+    signInMsg.textContent = text;
+    signInMsg.className = 'msg ' + kind;
+    signInMsg.hidden = false;
+  }
+
+  function setMode(next) {
+    mode = next;
+    if (mode === 'signup') {
+      authTitle.textContent = 'Create your account';
+      authSub.textContent = 'Pick an email and password — you can start exploring straight away.';
+      submitBtn.textContent = 'Create account';
+      passwordInput.setAttribute('autocomplete', 'new-password');
+      togglePrompt.textContent = 'Already have an account?';
+      toggleMode.textContent = 'Sign in';
+    } else {
+      authTitle.textContent = 'Sign in';
+      authSub.textContent = 'Welcome back. Enter your email and password to continue.';
+      submitBtn.textContent = 'Sign in';
+      passwordInput.setAttribute('autocomplete', 'current-password');
+      togglePrompt.textContent = 'New to the companion?';
+      toggleMode.textContent = 'Create an account';
+    }
+    signInMsg.hidden = true;
+  }
+
+  toggleMode.addEventListener('click', function (e) {
+    e.preventDefault();
+    setMode(mode === 'signin' ? 'signup' : 'signin');
+  });
+
+  forgotLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    var email = (emailInput.value || '').trim();
+    if (!email || email.indexOf('@') === -1) {
+      showMsg('Enter your email above first, then tap "Forgot your password?".', 'err');
+      return;
+    }
+    window.atvAuth.resetPassword(email).then(function () {
+      showMsg('Password-reset email sent to ' + email + '. Check your inbox.', 'ok');
+    }).catch(function (err) {
+      showMsg(err.message || 'Could not send the reset email.', 'err');
+    });
+  });
+
+  function submit() {
+    var email = (emailInput.value || '').trim();
+    var password = passwordInput.value || '';
+    if (!email || email.indexOf('@') === -1) {
+      showMsg('Please enter a valid email address.', 'err');
+      return;
+    }
+    if (password.length < 8) {
+      showMsg('Password must be at least 8 characters.', 'err');
+      return;
+    }
+    var label = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = (mode === 'signup') ? 'Creating…' : 'Signing in…';
+
+    var action = (mode === 'signup')
+      ? window.atvAuth.signUp(email, password)
+      : window.atvAuth.signIn(email, password);
+
+    action.then(function (result) {
+      if (mode === 'signup' && result && result.needsConfirmation) {
+        showMsg('Account created. Check your email to confirm it, then sign in.', 'ok');
+        submitBtn.disabled = false;
+        setMode('signin');
+      }
+      // On success with a live session, onChange re-renders to the signed-in card.
+    }).catch(function (err) {
+      showMsg(err.message || 'Something went wrong. Please try again.', 'err');
+      submitBtn.disabled = false;
+      submitBtn.textContent = label;
+    });
+  }
+
+  submitBtn.addEventListener('click', submit);
+  passwordInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') submit();
+  });
+
+  document.getElementById('signOutBtn').addEventListener('click', function () {
+    window.atvAuth.signOut();
+  });
+
+  function render(user) {
+    notConfigured.hidden = true;
+    if (user) {
+      signedOut.hidden = true;
+      signedIn.hidden = false;
+      document.getElementById('acctEmail').textContent = user.email;
+      var rolePill = document.getElementById('acctRole');
+      rolePill.textContent = user.role;
+      rolePill.className = 'role-pill ' + user.role;
+      document.getElementById('roleNote').textContent = ROLE_NOTES[user.role] || '';
+      document.getElementById('adminLink').hidden = (user.role !== 'admin');
+    } else {
+      signedIn.hidden = true;
+      signedOut.hidden = false;
+    }
+  }
+
+  window.atvAuth.ready.then(function (state) {
+    if (!state.configured) {
+      signedOut.hidden = true;
+      signedIn.hidden = true;
+      notConfigured.hidden = false;
+      return;
+    }
+    render(state.user);
+  });
+  window.atvAuth.onChange(render);
+})();
+</script>
+</body>
+</html>

@@ -1,21 +1,36 @@
 # ATV Companion App — CLAUDE.md
 
 ## What this is
-A cohort-only companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Hosted at `atvcompanion.in`. Deployed via Static.app from the `main` branch. Built by Sree Balakrishnan (gnuyoga@gmail.com).
+A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Hosted at `atvcompanion.in`. Built by Sree Balakrishnan (gnuyoga@gmail.com).
+
+**Mid-migration ("new flavour"):** moving from a zero-backend static site to an Express + Supabase app — auth, roles, and localStorage→Postgres migration. Phases 0–1 (backend + auth) are done; Phases 2–6 are pending. See "Active work threads".
 
 ## Architecture
-- **Zero backend.** Vanilla HTML + CSS + JS only. No build step, no framework.
-- **Gate:** `assets/gate.js` — soft passcode gate (passcode: `groundfirst`). All pages except `index.html`, `feedback.html`, `collaborate.html`, `about.html` are gated. Add gate to any new gated page: pre-paint hider in `<head>` immediately after `</title>`, then `<script src="assets/gate.js"></script>` before `</body>`.
-- **Nav:** `assets/site-nav.js` — single source of truth for site navigation. Add new pages to the `PAGES` array here. Mount with `<div id="siteNavMount"></div>`.
-- **Persistence:** `localStorage` only. No user accounts.
-- **Deployment:** push to `main` → Static.app deploys automatically. The deploy workflow excludes `astrology-101-knowledge-base/`, `_root/`, and internal scripts.
+- **Frontend.** Vanilla HTML + CSS + JS, one file per page. No build step, no framework. CSS tokens inline per page.
+- **Backend (`server.js`).** Express 5. Serves the static site and a JSON API under `/api`. Boots fine without env vars — the static site still works; API routes just return errors.
+- **Database.** Supabase Postgres via the `pg` Pool (`DATABASE_URL`). Schema in `db/schema.sql`, applied idempotently on every boot.
+- **Auth.** Supabase email + password. Browser signs in client-side via `assets/auth.js`; `server.js` verifies the bearer token and resolves a role. See "Auth & roles".
+- **No gate.** The old soft passcode gate is gone (`assets/gate.js` is dead code). Access is now role-based, not passcode-based.
+- **Nav:** `assets/site-nav.js` — single source of truth. Add pages to the `PAGES` array. Mount with `<div id="siteNavMount"></div>`. Also injects Plausible analytics.
+- **Persistence:** currently `localStorage`; migrating to Postgres (Phase 2) via the `apiFetch` wrapper in `auth.js`.
+- **Debug panel:** append `?debug=1` to any URL.
+- **Deployment:** Vercel (the Express backend needs Node hosting). `vercel.json` routes all requests to `server.js`; `.vercelignore` excludes the KB, `_root/`, and `node_modules`. Env vars are set in Vercel project settings. Local dev: `npm install && npm start` → `http://localhost:8000`. (Was Hostinger static — no longer viable with a backend.)
+
+## Auth & roles
+- Three roles in the `profiles` table: **guest** (default — sees the public-safe site), **student** (approved cohort member — sees Vikram's teaching in full), **admin** (manages roles).
+- Open signup: anyone can create an email+password account; everyone starts as guest. Admins promote students via `admin.html`.
+- `ADMIN_EMAILS` env var auto-promotes listed emails to admin on first sign-in (bootstraps the first admin).
+- Browser API: `window.atvAuth` (`.ready`, `.user`, `.signIn`, `.signOut`, `.apiFetch`, `.onChange`) and `window.atvUser`. Add `<script src="/assets/auth.js"></script>`; optionally `<div id="atvAuthMount"></div>` for the account chip.
+- Server: `requireAuth` guards all `/api/*` except `/api/config`; `requireRole('admin')` guards admin routes.
+- `auth.js` and `server.js` use modern JS (the ES5 constraint applies only to the legacy per-page scripts).
 
 ## Design system (CSS tokens — defined in every page's `<style>`)
 ```
---bg: #F4EEDA          --bg-deep: #E0DCCD     --surface: #F8F4E1
---ink: #282826         --ink-soft: #4B4B4A    --muted: #7C7B78
---rule: #CAC6BB        --rule-soft: #E0DCCD   --saffron: #BC8146
---indigo: #6E7D85      --forest: #32413B
+--bg: #F8F6EF          --bg-deep: #E0DCCD     --surface: #F8F4E1
+--cream: #F8F4E1       --ink: #282826         --ink-soft: #4B4B4A
+--muted: #847171       --rule: #C8C5BF        --rule-soft: #E0DCCD
+--saffron: #B46E3B     --indigo: #6E7D85      --forest: #32413B
+--plum: #7a3a5e
 --display: 'Libre Caslon Text', 'Cormorant Garamond', serif
 --body: 'Switzer', 'Spectral', system-ui, sans-serif
 ```
@@ -70,6 +85,12 @@ All content must come from this KB. Do not synthesise or add content not present
 | `feedback.html` | Feedback form |
 | `collaborate.html` | Manifesto (public) |
 | `release-notes.html` | Version history |
+| `demo.html` | Demo walkthrough for Vikram |
+| `pricing.html` | Pricing page |
+| `v0.html` | Vedic Astrology Explorer — earlier version, kept standalone |
+| `quick-reference.html` | Redirect stub → `learning-companion.html` (meta-refresh) |
+| `account.html` | Sign in / account — magic-link auth, shows role |
+| `admin.html` | Admin dashboard — list members, set roles (admin-only) |
 
 ## Journey architecture (Sanchi's spec — May 2026)
 ```
@@ -95,21 +116,27 @@ Path
 - Decks beyond 77 (Mars and Mercury are latest extractions)
 - Sun, Mars, Mercury track content (not yet structured)
 
-## Active work threads
-- **Phase 1 (planned):** App entry redesign — two-door entry (need-based vs. cohort-structured). Not yet built.
-- **Phase 2 (pilot complete):** `planets/moon.html` — "The Moon" — first track page, template for all future tracks under `planets/`.
-- **Phase 3 (planned):** Additional tracks (Sun, Mars, etc.) following planets/moon.html as the reference.
+## Active work threads — "new flavour" build
+- **Phase 0 (done):** Node/Express scaffold, `db/schema.sql`, Vercel config.
+- **Phase 1 (done):** Supabase magic-link auth, roles, `auth.js`, `account.html`, `admin.html`.
+- **Phase 2 (next):** localStorage → Postgres migration. `storage.js` shim; `/api/progress`, `/api/journal`, `/api/prefs`, `/api/chart` endpoints; one-time sync prompt.
+- **Phase 3:** Content gating — tag "Vikram said…" / cohort blocks `data-audience="cohort"`, public-safe alternatives, `gating.js` role-aware swap.
+- **Phase 4:** Light pedagogy scaffold on every content page (orientation → video placeholder → sourced sections → reflect prompt → next step). Tracks keep the full Moon-style 12-stop journey.
+- **Phase 5:** Nav & IA re-look — regroup `site-nav.js` (Start · Tracks · Reference · Tools · Meta · Admin), role-aware.
+- **Phase 6:** Fresh design pass — logged-in dashboard homepage, consistency review.
+
+### Earlier (pre-migration) threads
+- `planets/moon.html` — "The Moon" pilot, the template for all future tracks under `planets/`.
+- Additional tracks (Sun, Mars, etc.) following `planets/moon.html` as the reference.
 
 ## Code conventions
 - CSS tokens defined inline per page (no shared stylesheet — deliberate for zero-build simplicity)
-- JS: ES5-compatible (no arrow functions, no `const`/`let` in critical paths) for broad browser compat
-- `gate.js` must come last before `</body>` on gated pages, with the pre-paint hider in `<head>`
-- `site-nav.js` always before `gate.js`
+- JS: ES5-compatible (no arrow functions, no `const`/`let` in critical paths, explicit null checks over optional chaining) for broad browser compat
+- `site-nav.js` loaded before `</body>`; new pages added to the `PAGES` array in it
 - No external JS libraries. No CDN dependencies for functionality (fonts only).
 
 ## Important constraints
 1. All content must come from the KB (`astrology-101-knowledge-base/`). If in doubt, ask Sree before adding.
 2. Source every content block with a citation (deck number, file name).
 3. Do not predict, do not make up significations or interpretations not present in the KB.
-4. The gate passcode (`groundfirst`) appears in `gate.js` source — this is intentional (soft gate, not real auth).
-5. Vikram's pedagogical principle: "Just don't let the computer take away the human." The app scaffolds the learner's own interpretation — it never generates it for them.
+4. Vikram's pedagogical principle: "Just don't let the computer take away the human." The app scaffolds the learner's own interpretation — it never generates it for them.
