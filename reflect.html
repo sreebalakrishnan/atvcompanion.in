@@ -633,6 +633,8 @@
     <!-- ====================== SITE NAV (v4.59.0) ====================== -->
   <div id="siteNavMount"></div>
   <script src="assets/site-nav.js"></script>
+  <script src="/assets/auth.js"></script>
+  <script src="/assets/storage.js"></script>
 
   <!-- =================================================================
        LANDING — when no hash is set, show "pick an avatar"
@@ -823,27 +825,20 @@ const AVATAR_PRACTICE = {
 };
 
 /* ============================================================
-   STORAGE — per-prompt notes in localStorage
+   STORAGE — per-prompt reflection notes, persisted via atvStore
 ============================================================ */
 const STORAGE_PREFIX = 'astro-reflect-v1';
 function noteKey(aid, ci, pi) { return `${STORAGE_PREFIX}-${aid}-${ci}-${pi}`; }
-function loadNote(aid, ci, pi) { try { return localStorage.getItem(noteKey(aid, ci, pi)) || ''; } catch (e) { return ''; } }
+function loadNote(aid, ci, pi) { return window.atvStore.getJournal(noteKey(aid, ci, pi)); }
 function saveNote(aid, ci, pi, value) {
-  try {
-    if (value && value.trim()) localStorage.setItem(noteKey(aid, ci, pi), value);
-    else localStorage.removeItem(noteKey(aid, ci, pi));
-  } catch (e) {}
+  window.atvStore.setJournal(noteKey(aid, ci, pi), (value && value.trim()) ? value : '', location.pathname);
 }
 function clearAvatarNotes(aid) {
-  try {
-    const prefix = `${STORAGE_PREFIX}-${aid}-`;
-    const toRemove = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.startsWith(prefix)) toRemove.push(k);
-    }
-    toRemove.forEach(k => localStorage.removeItem(k));
-  } catch (e) {}
+  const prefix = `${STORAGE_PREFIX}-${aid}-`;
+  const all = window.atvStore.getAllJournal();
+  Object.keys(all).forEach(function (k) {
+    if (k.indexOf(prefix) === 0) window.atvStore.setJournal(k, '', location.pathname);
+  });
 }
 
 /* ============================================================
@@ -1071,7 +1066,8 @@ function route() {
 }
 
 window.addEventListener('hashchange', route);
-route();
+// First render waits for atvStore so saved notes appear immediately.
+window.atvStore.onReady(route);
 </script>
 
 <!-- ====================== UPDATE CHECKER ====================== -->

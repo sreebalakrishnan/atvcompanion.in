@@ -720,8 +720,10 @@
 </div>
 
 <!-- ====================== JS ====================== -->
+<script src="/assets/auth.js"></script>
+<script src="/assets/storage.js"></script>
 <script>
-/* v4.72.0 — Element tabs, quiz, and personal album. */
+/* v4.72.0 — Element tabs, quiz, and personal album. Persisted via atvStore. */
 (function(){
   // ===== Element tabs =====
   var tabs   = document.querySelectorAll('.el-tab');
@@ -733,11 +735,14 @@
       t.setAttribute('aria-selected', String(active));
     });
     panels.forEach(function(p){ p.classList.toggle('is-active', p.dataset.el === name); });
-    try { localStorage.setItem('elements-active-tab-v1', name); } catch(e){}
+    window.atvStore.setPref('elements-active-tab-v1', name);
   }
   tabs.forEach(function(t){ t.addEventListener('click', function(){ setEl(t.dataset.el); }); });
-  // Restore last tab on load
-  try { var last = localStorage.getItem('elements-active-tab-v1'); if (last) setEl(last); } catch(e){}
+  // Restore last tab once atvStore has hydrated
+  window.atvStore.onReady(function(){
+    var last = window.atvStore.getPref('elements-active-tab-v1');
+    if (last) setEl(last);
+  });
 
   // ===== "Which element is showing up?" quiz =====
   var QUIZ = [
@@ -821,33 +826,35 @@
   }
   renderQuiz();
 
-  // ===== Personal album (localStorage) =====
+  // ===== Personal album (persisted via atvStore) =====
   var ALBUM_KEY = 'elements-album-v1';
   function loadAlbum(){
-    try { return JSON.parse(localStorage.getItem(ALBUM_KEY) || '{}') || {}; }
+    try { return JSON.parse(window.atvStore.getPref(ALBUM_KEY) || '{}') || {}; }
     catch(e){ return {}; }
   }
   function saveAlbum(album){
-    try { localStorage.setItem(ALBUM_KEY, JSON.stringify(album)); } catch(e){}
+    window.atvStore.setPref(ALBUM_KEY, JSON.stringify(album));
   }
-  var album = loadAlbum();
-  document.querySelectorAll('.album-textarea').forEach(function(ta){
-    var key = ta.dataset.albumKey;
-    ta.value = album[key] || '';
-    var saveTimer = null;
-    ta.addEventListener('input', function(){
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(function(){
-        var current = loadAlbum();
-        if (ta.value.trim()) current[key] = ta.value;
-        else delete current[key];
-        saveAlbum(current);
-        var saved = document.querySelector('.album-saved[data-saved-for="' + key + '"]');
-        if (saved){
-          saved.classList.add('is-shown');
-          setTimeout(function(){ saved.classList.remove('is-shown'); }, 1200);
-        }
-      }, 350);
+  window.atvStore.onReady(function(){
+    var album = loadAlbum();
+    document.querySelectorAll('.album-textarea').forEach(function(ta){
+      var key = ta.dataset.albumKey;
+      ta.value = album[key] || '';
+      var saveTimer = null;
+      ta.addEventListener('input', function(){
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(function(){
+          var current = loadAlbum();
+          if (ta.value.trim()) current[key] = ta.value;
+          else delete current[key];
+          saveAlbum(current);
+          var saved = document.querySelector('.album-saved[data-saved-for="' + key + '"]');
+          if (saved){
+            saved.classList.add('is-shown');
+            setTimeout(function(){ saved.classList.remove('is-shown'); }, 1200);
+          }
+        }, 350);
+      });
     });
   });
 

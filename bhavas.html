@@ -207,6 +207,8 @@
 </div>
 
 <!-- ====================== BHAVAS MODULE ====================== -->
+<script src="/assets/auth.js"></script>
+<script src="/assets/storage.js"></script>
 <script>
 (function(){
   'use strict';
@@ -1128,13 +1130,13 @@
   var $stage  = document.getElementById('bhavaStage');
   var $drawer = document.getElementById('drawer');
 
-  // ---- STATE (localStorage) ----
+  // ---- STATE (persisted via atvStore) ----
   function lsKey(n, suffix){ return 'atv-bhava-' + n + '-' + suffix; }
   function getList(n, suffix){
-    try { return JSON.parse(localStorage.getItem(lsKey(n, suffix)) || '[]'); } catch(e){ return []; }
+    try { return JSON.parse(window.atvStore.getPref(lsKey(n, suffix)) || '[]'); } catch(e){ return []; }
   }
   function setList(n, suffix, arr){
-    try { localStorage.setItem(lsKey(n, suffix), JSON.stringify(arr)); } catch(e){}
+    window.atvStore.setPref(lsKey(n, suffix), JSON.stringify(arr));
   }
   // resonant / struck are arrays of "uk:body" style ids
   function chipId(src, word){ return src + ':' + word; }
@@ -1370,7 +1372,8 @@
   }
   function escapeAttr(s){ return escapeHtml(s); }
 
-  renderGrid();
+  // Render once atvStore has hydrated (so saved bhava state shows on load).
+  window.atvStore.onReady(renderGrid);
 })();
 </script>
 
