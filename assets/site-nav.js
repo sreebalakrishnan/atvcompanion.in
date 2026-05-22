@@ -187,8 +187,23 @@
     window.plausible.init();
   }
 
+  // -------- AUTH + GATING STACK --------
+  // Load auth.js + gating.js site-wide via the one script every page has.
+  // Pages that already include a script explicitly (the data pages include
+  // auth.js) are skipped by the src check, so nothing double-loads.
+  function injectStack(){
+    ['/assets/auth.js', '/assets/gating.js'].forEach(function(src){
+      if (document.querySelector('script[src="' + src + '"]')) return;
+      var s = document.createElement('script');
+      s.src = src;
+      s.async = false; // preserve order: auth.js before gating.js
+      document.head.appendChild(s);
+    });
+  }
+
   // -------- RENDER --------
   function render(){
+    injectStack();
     var mount = document.getElementById('siteNavMount');
     if (!mount) return;
     injectStyles();

@@ -23,6 +23,7 @@ A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Ho
 - Browser API: `window.atvAuth` (`.ready`, `.user`, `.signIn`, `.signOut`, `.apiFetch`, `.onChange`) and `window.atvUser`. Add `<script src="/assets/auth.js"></script>`; optionally `<div id="atvAuthMount"></div>` for the account chip.
 - Server: `requireAuth` guards all `/api/*` except `/api/config`; `requireRole('admin')` guards admin routes.
 - `auth.js` and `server.js` use modern JS (the ES5 constraint applies only to the legacy per-page scripts).
+- **Content gating** (`assets/gating.js`, loaded site-wide by `site-nav.js`): tag blocks `data-audience="cohort"` (students/admins) or `data-audience="public"` (guests). Cohort blocks are hidden by default CSS, revealed only for a confirmed student/admin role — so guests never see "Vikram said…" depth. Soft gate (markup stays in page source); hard gating would serve cohort fragments from the API.
 
 ## Design system (CSS tokens — defined in every page's `<style>`)
 Tokens map to the official **ATV Brand Guide** (`ATV Brand 20250828.pdf`) named colours.
