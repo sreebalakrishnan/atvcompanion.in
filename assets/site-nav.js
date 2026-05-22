@@ -192,11 +192,11 @@
   // Pages that already include a script explicitly (the data pages include
   // auth.js) are skipped by the src check, so nothing double-loads.
   function injectStack(){
-    ['/assets/auth.js', '/assets/gating.js'].forEach(function(src){
+    ['/assets/auth.js', '/assets/storage.js', '/assets/gating.js', '/assets/scaffold.js'].forEach(function(src){
       if (document.querySelector('script[src="' + src + '"]')) return;
       var s = document.createElement('script');
       s.src = src;
-      s.async = false; // preserve order: auth.js before gating.js
+      s.async = false; // preserve order: auth → storage → gating → scaffold
       document.head.appendChild(s);
     });
   }

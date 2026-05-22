@@ -11,7 +11,8 @@ A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Ho
 - **Database.** Supabase Postgres via the `pg` Pool (`DATABASE_URL`). Schema in `db/schema.sql`, applied idempotently on every boot.
 - **Auth.** Supabase email + password. Browser signs in client-side via `assets/auth.js`; `server.js` verifies the bearer token and resolves a role. See "Auth & roles".
 - **No gate.** The old soft passcode gate is gone (`assets/gate.js` is dead code). Access is now role-based, not passcode-based.
-- **Nav:** `assets/site-nav.js` — single source of truth. Add pages to the `PAGES` array. Mount with `<div id="siteNavMount"></div>`. Also injects Plausible analytics.
+- **Nav:** `assets/site-nav.js` — single source of truth. Add pages to the `PAGES` array. Mount with `<div id="siteNavMount"></div>`. Also injects Plausible analytics and the shared script stack: `auth.js` → `storage.js` → `gating.js` → `scaffold.js` (skips any a page already includes explicitly).
+- **Pedagogy scaffold** (`assets/scaffold.js`): drop `<div class="atv-video" data-title data-note>` for a captioned video placeholder, or `<div class="atv-reflect" data-key data-prompt>` for a reflect prompt that saves to `atvStore`. The full light scaffold per content page is orientation → video → sourced sections → reflect → next step.
 - **Persistence:** currently `localStorage`; migrating to Postgres (Phase 2) via the `apiFetch` wrapper in `auth.js`.
 - **Debug panel:** append `?debug=1` to any URL.
 - **Deployment:** Vercel (the Express backend needs Node hosting). `vercel.json` routes all requests to `server.js`; `.vercelignore` excludes the KB, `_root/`, and `node_modules`. Env vars are set in Vercel project settings. Local dev: `npm install && npm start` → `http://localhost:8000`. (Was Hostinger static — no longer viable with a backend.)
