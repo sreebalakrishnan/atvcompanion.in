@@ -50,9 +50,19 @@ needs an in-browser test once the Supabase "Confirm email" setting is off.
 - ✅ Tables: `track_progress`, `journal_entries`, `preferences`, `chart_data`
 - ✅ API: `/api/progress`, `/api/journal`, `/api/prefs`, `/api/chart` — all verified
 - ✅ `assets/storage.js` — `atvStore` shim + one-time legacy migration banner
-- ⏳ **Rewire pages to `atvStore`** — replace raw `localStorage` in `moon.html`,
-  `learning-companion.html`, `reflect.html`, `elements.html`, `index.html`, etc.
-  (task #9 — the active work item)
+- 🔄 **Rewire pages to `atvStore`** (task #9):
+  - ✅ `planets/moon.html` — track progress + journals (pilot pattern)
+  - ⏳ `learning-companion.html`, `reflect.html`, `elements.html`, `bhavas.html`,
+    `index.html` — genuine per-page user data
+- ➡️ **Moved to Phase 5:** the shared theme + name personalisation system
+  (duplicated across 17 pages, coupled to the nav). Extract it into one shared
+  script alongside the nav rework — avoids doing the same work twice.
+
+## Phase 2 note — what migrates
+Genuine cross-device **user data** → `atvStore`/Postgres: track progress,
+journals, reflections, learning level/mode, chart, the user's name.
+**Device-local** stays in `localStorage`: theme choice (pre-paint), first-visit
+tip flags.
 
 ## Phase 3 — Content gating (public-safe) ⏳
 - ⏳ Audit every page for "Vikram said…" / cohort-specific blocks

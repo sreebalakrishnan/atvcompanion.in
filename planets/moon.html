@@ -1354,19 +1354,22 @@ a:hover { text-decoration-color: var(--saffron); }
 </div><!-- end page -->
 
 <script src="../assets/site-nav.js"></script>
+<script src="/assets/auth.js"></script>
+<script src="/assets/storage.js"></script>
 <script>
 'use strict';
 
-/* ═══ STORAGE KEYS ═══ */
-var PROG_KEY    = 'atv-moon-track-v1';
-var JOURNAL_KEY = 'atv-moon-journal-v1';
+/* ═══ STORAGE ═══
+   Persistence goes through atvStore (Postgres when signed in, localStorage
+   otherwise). 'moon' is this track's id. Progress is kept in the original
+   { completed: [...] } shape so the rest of the page is unchanged. */
 
 /* ═══ PROGRESS ═══ */
 function getProgress() {
-  try { return JSON.parse(localStorage.getItem(PROG_KEY) || '{}'); } catch(e) { return {}; }
+  return { completed: window.atvStore.getProgress('moon') };
 }
 function saveProgress(p) {
-  try { localStorage.setItem(PROG_KEY, JSON.stringify(p)); } catch(e) {}
+  window.atvStore.setProgress('moon', (p && p.completed) || []);
 }
 
 function markStop(n) {
@@ -1411,14 +1414,9 @@ function toggleStop(head) {
   card.setAttribute('aria-expanded', String(!open));
 }
 
-/* ═══ JOURNAL STORAGE ═══ */
-function getJournals() {
-  try { return JSON.parse(localStorage.getItem(JOURNAL_KEY) || '{}'); } catch(e) { return {}; }
-}
-function saveJournals(j) {
-  try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(j)); } catch(e) {}
-}
-
+/* ═══ JOURNAL STORAGE ═══
+   atvStore handles debounced persistence; the timers below just drive the
+   "saved ✓" note and avoid a write on every keystroke. */
 var autoTimers = {};
 function autoSave(id) {
   clearTimeout(autoTimers[id]);
@@ -1427,9 +1425,7 @@ function autoSave(id) {
 function saveJournal(id) {
   var el = document.getElementById(id);
   if (!el) return;
-  var j = getJournals();
-  j[id] = el.value;
-  saveJournals(j);
+  window.atvStore.setJournal(id, el.value, location.pathname);
   var note = document.getElementById(id + '-note');
   if (note) {
     note.classList.add('show');
@@ -1438,7 +1434,7 @@ function saveJournal(id) {
 }
 
 function loadJournals() {
-  var j = getJournals();
+  var j = window.atvStore.getAllJournal();
   Object.keys(j).forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.value = j[id] || '';
@@ -1452,9 +1448,7 @@ function autoSavePhase(id) {
   phaseTimers[id] = setTimeout(function() {
     var el = document.getElementById(id);
     if (!el) return;
-    var j = getJournals();
-    j[id] = el.value;
-    saveJournals(j);
+    window.atvStore.setJournal(id, el.value, location.pathname);
   }, 1200);
 }
 
@@ -1483,9 +1477,7 @@ document.querySelectorAll('.quiz-opt').forEach(function(label) {
     });
     this.classList.add('is-selected');
     /* persist */
-    var j = getJournals();
-    j['quiz-' + name] = inp.value;
-    saveJournals(j);
+    window.atvStore.setJournal('quiz-' + name, inp.value, location.pathname);
   });
 });
 
@@ -1497,26 +1489,28 @@ document.getElementById('backpackToggle').addEventListener('click', function() {
   this.setAttribute('aria-expanded', String(!open));
 });
 
-/* ═══ INIT ═══ */
+/* ═══ INIT ═══
+   atvStore hydrates asynchronously (it resolves auth + fetches saved data),
+   so the data-restore steps wait for atvStore.onReady. */
 document.addEventListener('DOMContentLoaded', function() {
-  loadJournals();
-  refreshUI();
+  window.atvStore.onReady(function() {
+    loadJournals();
+    refreshUI();
 
-  /* Restore quiz selections */
-  var j = getJournals();
-  ['q1','q2','q3'].forEach(function(name) {
-    var val = j['quiz-' + name];
-    if (val) {
-      var inp = document.querySelector('[name="' + name + '"][value="' + val + '"]');
-      if (inp) inp.closest('.quiz-opt').classList.add('is-selected');
+    /* Restore quiz selections */
+    ['q1','q2','q3'].forEach(function(name) {
+      var val = window.atvStore.getJournal('quiz-' + name);
+      if (val) {
+        var inp = document.querySelector('[name="' + name + '"][value="' + val + '"]');
+        if (inp) inp.closest('.quiz-opt').classList.add('is-selected');
+      }
+    });
+
+    /* Restore completion message */
+    if (window.atvStore.getProgress('moon').indexOf(12) !== -1) {
+      document.getElementById('trackDoneMsg').style.display = 'block';
     }
   });
-
-  /* Restore completion message */
-  var p = getProgress();
-  if (p.completed && p.completed.indexOf(12) !== -1) {
-    document.getElementById('trackDoneMsg').style.display = 'block';
-  }
 });
 </script>
 </body>

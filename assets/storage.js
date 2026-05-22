@@ -117,6 +117,9 @@
   function getJournal(key) {
     return cache.journal[key] != null ? cache.journal[key] : '';
   }
+  function getAllJournal() {
+    return Object.assign({}, cache.journal);
+  }
   function setJournal(key, content, page) {
     cache.journal[key] = content || '';
     lsSet('journal', cache.journal);
@@ -293,6 +296,7 @@
     getProgress: getProgress,
     setProgress: setProgress,
     getJournal: getJournal,
+    getAllJournal: getAllJournal,
     setJournal: setJournal,
     getPref: getPref,
     setPref: setPref,
