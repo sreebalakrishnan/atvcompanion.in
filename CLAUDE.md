@@ -25,16 +25,19 @@ A companion app for Vikram Devatha's Astrology 101 class (allthingsvedic.in). Ho
 - `auth.js` and `server.js` use modern JS (the ES5 constraint applies only to the legacy per-page scripts).
 
 ## Design system (CSS tokens — defined in every page's `<style>`)
+Tokens map to the official **ATV Brand Guide** (`ATV Brand 20250828.pdf`) named colours.
 ```
---bg: #F8F6EF          --bg-deep: #E0DCCD     --surface: #F8F4E1
+--bg: #F8F6EF          --bg-deep: #DFDDD7     --surface: #F8F4E1
 --cream: #F8F4E1       --ink: #282826         --ink-soft: #4B4B4A
---muted: #847171       --rule: #C8C5BF        --rule-soft: #E0DCCD
---saffron: #B46E3B     --indigo: #6E7D85      --forest: #32413B
---plum: #7a3a5e
+--muted: #847171       --rule: #C8C5BF        --rule-soft: #DFDDD7
+--saffron: #B46E3B     --gold: #D2C38C        --indigo: #6E7D85
+--forest: #32413B      --umber: #453529
 --display: 'Libre Caslon Text', 'Cormorant Garamond', serif
 --body: 'Switzer', 'Spectral', system-ui, sans-serif
 ```
+Brand colour names: `--bg` Sunlit White · `--surface` Golden Light tint · `--ink` Charcoal Ash · `--muted` Muted Mauve · `--saffron` Terracotta Ember · `--gold` Golden Light · `--indigo` Stormy Sky · `--forest` Deep Forest · `--umber` Earth Umber.
 Fonts loaded via Google Fonts + Fontshare (Switzer). Max page width: `760px` (some pages use `820px`).
+**Brand gaps (Phase 6):** headings should use Libre Caslon *Condensed* (brand spec), not Caslon Text + Cormorant fallback; `kaalapurusha.html` still on an old off-brand palette; the official logo/brandmark is unused.
 
 ## Knowledge base (`astrology-101-knowledge-base/`)
 All content must come from this KB. Do not synthesise or add content not present here.
