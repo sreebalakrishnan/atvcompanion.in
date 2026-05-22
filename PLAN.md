@@ -51,9 +51,19 @@ needs an in-browser test once the Supabase "Confirm email" setting is off.
 - ✅ API: `/api/progress`, `/api/journal`, `/api/prefs`, `/api/chart` — all verified
 - ✅ `assets/storage.js` — `atvStore` shim + one-time legacy migration banner
 - 🔄 **Rewire pages to `atvStore`** (task #9):
-  - ✅ `planets/moon.html` — track progress + journals (pilot pattern)
-  - ⏳ `learning-companion.html`, `reflect.html`, `elements.html`, `bhavas.html`,
-    `index.html` — genuine per-page user data
+  - ✅ `moon.html` · `elements.html` · `bhavas.html` · `reflect.html` · `index.html`
+  - ⏳ `learning-companion.html` — 13 localStorage features. ~6 are genuine user
+    data (level, mode, quiz state, reflect notes, practice progress, trace-done);
+    the rest are device-local UX (welcome, did-you-know, a11y, chant, grounding,
+    recent) and stay in localStorage. The 6 gate content visibility at boot, so
+    they need the localStorage-fast-path + atvStore-sync pattern (as `index.html`).
+    Its own focused pass — first task to pick up next.
+- Pattern note: pages that read storage *synchronously at boot* (index, learning-
+  companion) keep localStorage as the fast path and layer atvStore via dual-write
+  + `onReady` reconcile. Pages without boot-critical reads (moon, elements, bhavas,
+  reflect) read straight from `atvStore` after `onReady`.
+- Follow-up: `storage.js` legacy migration covers fixed keys only — dynamic-key
+  data (reflect notes, bhava state) won't auto-migrate from old localStorage.
 - ➡️ **Moved to Phase 5:** the shared theme + name personalisation system
   (duplicated across 17 pages, coupled to the nav). Extract it into one shared
   script alongside the nav rework — avoids doing the same work twice.
