@@ -30,44 +30,55 @@
   'use strict';
 
   // -------- CANONICAL NAV DATA --------
-  // primary: shows in the always-visible row.
-  // Everything else: in the More dropdown.
-  // v4.74.2 — More menu is split into two groups by a divider:
-  //   group: 'learning'  → technical content pages (the subject matter)
-  //   group: 'meta'      → orientation + about-the-project pages
-  // Order within a group preserved. To insert a divider, the builder
-  // watches for the first 'meta' item after 'learning' items.
-  // v4.74.35 — all hrefs are root-relative (leading /) so nav works from any
-  // subdirectory (e.g. planets/moon.html) without producing 404s.
+  // primary: always-visible row. Everything else: the grouped "More" menu.
+  // group: 'start' | 'tracks' | 'reference' | 'tools' | 'meta' | 'admin'
+  // role: 'admin' → item shown only when html[data-role="admin"] (set by gating.js).
+  // hrefs are root-relative so the nav works from any subdirectory.
   const PAGES = [
-    { href: '/index.html',              label: 'Home',                       primary: true },
-    { href: '/learning-companion.html', label: 'Learning Companion',         primary: true },
-    // v4.74.28 — Journey promoted to top nav, Interpret moved into More (still beta)
-    { href: '/journey.html',            label: 'Journey · beta',             primary: true },
-    { href: '/planets/moon.html',       label: 'The Moon · pilot',           group: 'learning' },
-    { href: '/reflect.html',            label: 'Reflect',                    primary: true },
-    // ----- More menu · learning content -----
-    { href: '/interpret.html',          label: 'Interpret · beta',           group: 'learning' },
-    { href: '/bhavas.html',             label: 'Twelve Bhavas · matchbox',   group: 'learning' },
-    { href: '/signature.html',          label: 'Signature · for one',        group: 'learning' },
-    { href: '/catch-up.html',           label: 'Catch up · missed a class?', group: 'learning' },
-    { href: '/elements.html',           label: 'Elements',                   group: 'learning' },
-    { href: '/interactive.html',        label: 'Interactive · beta',         group: 'learning' },
-    { href: '/aspects.html',            label: 'Aspects · drishti',          group: 'learning' },
-    { href: '/kaalapurusha.html',       label: 'Kaalapurusha',               group: 'learning' },
-    { href: '/mercury-spectrum.html',   label: 'Mercury Spectrum',           group: 'learning' },
-    { href: '/jupiter-tracker.html',    label: 'Jupiter Tracker',            group: 'learning' },
-    { href: '/astronomy.html',          label: 'Astronomy',                  group: 'learning' },
-    { href: '/sripati.html',            label: 'Sripati Paddhati',           group: 'learning' },
-    { href: '/ether.html',              label: 'Ether',                      group: 'learning' },
-    // ----- More menu · orientation + meta -----
-    { href: '/where-am-i.html',         label: 'Where am I',                 group: 'meta' },
-    { href: '/layers.html',             label: 'Layers',                     group: 'meta' },
-    { href: '/stats.html',              label: 'Stats',                      group: 'meta' },
-    { href: '/about.html',              label: 'About · how this came to be', group: 'meta' },
-    { href: '/feedback.html',           label: 'Feedback · send us a note',  group: 'meta' },
+    { href: '/index.html',              label: 'Home',               primary: true },
+    { href: '/learning-companion.html', label: 'Learning Companion', primary: true },
+    { href: '/reflect.html',            label: 'Reflect',            primary: true },
+    // ----- Start -----
+    { href: '/where-am-i.html',         label: 'Where am I',                 group: 'start' },
+    { href: '/catch-up.html',           label: 'Catch up · missed a class?', group: 'start' },
+    // ----- Tracks -----
+    { href: '/planets/moon.html',       label: 'The Moon · pilot',           group: 'tracks' },
+    { href: '/journey.html',            label: 'Journey · beta',             group: 'tracks' },
+    // ----- Reference -----
+    { href: '/astronomy.html',          label: 'Astronomy',                  group: 'reference' },
+    { href: '/elements.html',           label: 'Elements',                   group: 'reference' },
+    { href: '/ether.html',              label: 'Ether',                      group: 'reference' },
+    { href: '/bhavas.html',             label: 'Twelve Bhavas · matchbox',   group: 'reference' },
+    { href: '/aspects.html',            label: 'Aspects · drishti',          group: 'reference' },
+    { href: '/kaalapurusha.html',       label: 'Kaalapurusha',               group: 'reference' },
+    { href: '/layers.html',             label: 'Layers',                     group: 'reference' },
+    { href: '/sripati.html',            label: 'Sripati Paddhati',           group: 'reference' },
+    { href: '/mercury-spectrum.html',   label: 'Mercury Spectrum',           group: 'reference' },
+    { href: '/jupiter-tracker.html',    label: 'Jupiter Tracker',            group: 'reference' },
+    // ----- Tools -----
+    { href: '/interpret.html',          label: 'Interpret · beta',           group: 'tools' },
+    { href: '/read.html',               label: 'Guided Reading',             group: 'tools' },
+    { href: '/signature.html',          label: 'Signature · for one',        group: 'tools' },
+    { href: '/interactive.html',        label: 'Interactive · beta',         group: 'tools' },
+    // ----- Meta -----
+    { href: '/about.html',              label: 'About',                      group: 'meta' },
     { href: '/collaborate.html',        label: 'Collaborate',                group: 'meta' },
-    { href: '/release-notes.html',      label: 'Release Notes',              group: 'meta' }
+    { href: '/pricing.html',            label: 'Pricing',                    group: 'meta' },
+    { href: '/feedback.html',           label: 'Feedback',                   group: 'meta' },
+    { href: '/stats.html',              label: 'Stats',                      group: 'meta' },
+    { href: '/release-notes.html',      label: 'Release Notes',              group: 'meta' },
+    // ----- Admin (shown only to admins) -----
+    { href: '/admin.html',              label: 'Admin dashboard',            group: 'admin', role: 'admin' }
+  ];
+
+  // More-menu group order + headings.
+  const GROUPS = [
+    { id: 'start',     label: 'Start' },
+    { id: 'tracks',    label: 'Tracks' },
+    { id: 'reference', label: 'Reference' },
+    { id: 'tools',     label: 'Tools' },
+    { id: 'meta',      label: 'Meta' },
+    { id: 'admin',     label: 'Admin' }
   ];
 
   // -------- HELPERS --------
@@ -102,6 +113,10 @@
       '.site-nav .more-menu a { display: block; padding: 7px 10px; border-radius: 5px; font-style: italic; }',
       '.site-nav .more-menu a:hover { background: rgba(188,129,70,.06); }',
       '.site-nav .more-menu-divider { height: 1px; background: var(--rule-soft); margin: 4px 8px; }',
+      '.site-nav .more-group-label { font-style: normal; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 10px 10px 3px; }',
+      '.site-nav .more-menu > .more-group-label:first-child { padding-top: 2px; }',
+      '.site-nav [data-navrole="admin"] { display: none; }',
+      'html[data-role="admin"] .site-nav [data-navrole="admin"] { display: block; }',
       '.site-nav .more-btn.is-current { color: var(--saffron); }',
       '.site-nav .chev { font-size: 10px; }'
     ].join('\n');
@@ -128,17 +143,18 @@
             (moreActive ? ' aria-current="page"' : '') +
             ' aria-expanded="false" aria-haspopup="true">More <span class="chev" aria-hidden="true">▾</span></button>';
     html += '<div class="more-menu" id="atvNavMoreMenu" hidden role="menu">';
-    // v4.74.2 — Insert a divider when group flips from 'learning' to 'meta'.
-    var lastGroup = null;
-    more.forEach(function(p){
-      var thisGroup = p.group || 'learning';
-      if (lastGroup === 'learning' && thisGroup === 'meta'){
-        html += '<div class="more-menu-divider" role="separator" aria-hidden="true"></div>';
-      }
-      lastGroup = thisGroup;
-      var isActive = p.href === active;
-      var attrs = isActive ? ' aria-current="page"' : '';
-      html += '<a href="' + escHtml(p.href) + '" role="menuitem"' + attrs + '>' + escHtml(p.label) + '</a>';
+    // Grouped: each group gets an uppercase heading; the Admin group is
+    // role-gated via data-navrole (revealed by gating.js's html[data-role]).
+    GROUPS.forEach(function(g){
+      var items = more.filter(function(p){ return (p.group || 'meta') === g.id; });
+      if (!items.length) return;
+      var roleAttr = (g.id === 'admin') ? ' data-navrole="admin"' : '';
+      html += '<div class="more-group-label"' + roleAttr + '>' + escHtml(g.label) + '</div>';
+      items.forEach(function(p){
+        var attrs = (p.href === active ? ' aria-current="page"' : '') +
+                    (p.role === 'admin' ? ' data-navrole="admin"' : '');
+        html += '<a href="' + escHtml(p.href) + '" role="menuitem"' + attrs + '>' + escHtml(p.label) + '</a>';
+      });
     });
     html += '</div></div>';
     html += '</nav>';
