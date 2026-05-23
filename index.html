@@ -117,6 +117,71 @@
     letter-spacing: .03em;
   }
 
+  /* ---------- THE APP CARD ---------- */
+  .app-card {
+    margin: 40px auto 0;
+    max-width: 560px;
+    padding: 28px 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+  }
+  .app-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  .app-h {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(22px, 3.8vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -.005em;
+    margin: 0 0 12px;
+  }
+  .app-h em { font-style: italic; color: var(--saffron); }
+  .app-lede {
+    font-family: var(--body);
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 auto 22px;
+  }
+  .app-lede strong {
+    color: var(--ink);
+    font-weight: 400;
+    font-family: var(--display);
+    font-style: italic;
+    letter-spacing: .01em;
+  }
+  .app-cta {
+    display: inline-block;
+    background: var(--saffron);
+    color: var(--surface);
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .01em;
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: var(--shadow-sm);
+  }
+  .app-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+  }
+
   /* ---------- HOW IT STARTED ---------- */
   .origin-story {
     margin: 40px 0 0;
@@ -225,6 +290,16 @@
     Built alongside Vikram's <em>Astrology 101</em> cohort at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a>.
     <span class="credit">&mdash; Sree &amp; Sanchi &middot; alongside the class</span>
   </p>
+
+  <!-- ====================== THE APP ====================== -->
+  <section class="app-card" aria-label="The companion app">
+    <div class="app-eyebrow">The app</div>
+    <h2 class="app-h">Where the <em>learning lives</em></h2>
+    <p class="app-lede">
+      The companion app is at <strong>app.atvcompanion.in</strong> &mdash; planet tracks, references, and reflection prompts, built alongside the cohort. Sign in to enter.
+    </p>
+    <a class="app-cta" href="https://app.atvcompanion.in">Enter the app &rarr;</a>
+  </section>
 
   <!-- ====================== HOW IT STARTED ====================== -->
   <section class="origin-story" aria-label="How it started">
