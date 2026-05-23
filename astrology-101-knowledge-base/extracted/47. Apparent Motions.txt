@@ -1,36 +1,0 @@
-Apparent Motions
-7
-
-6
-8
-
-5
-
-
-
-9
-
-1
-4
-3
-2
-Apparent motions
-Sama - planet is moving at its usual speed
-Manda - planet is slowing down
-Mandotar - planet has the slowest motion
-Vikala - planet is stationary
-Vakra - planet appears to be moving back, i.e. Retrograde
-Char - planet is moving slightly faster than usual
-Atichar - planet enters the next sign in direct motion
-Anuvakra - the planet enters the previous sign while retrograde
-
-
-
-Source: BPHS 29.21-23
-Try it out
-Illustrate retrograde motion for Mercury or Venus
-
-Which planets are retrograde at the moment? Simulate the retrograde motion in Stellarium
-
-Which planets will retrograde next?
-

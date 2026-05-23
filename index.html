@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F8F6EF">
+<meta name="description" content="atvcompanion.in — a companion to Vikram Devatha's Astrology 101 at allthingsvedic.in. The story of how this came to be, and the infamous blue file that started it.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>atvcompanion.in — How this came to be</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:        #F8F6EF;
+    --bg-deep:   #DFDDD7;
+    --surface:   #F8F4E1;
+    --cream:     #F8F4E1;
+    --ink:       #282826;
+    --ink-soft:  #4B4B4A;
+    --muted:     #847171;
+    --rule:      #C8C5BF;
+    --rule-soft: #DFDDD7;
+    --saffron:   #B46E3B;
+    --gold:      #D2C38C;
+    --indigo:    #6E7D85;
+    --forest:    #32413B;
+    --umber:     #453529;
+    --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
+    --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
+    --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    font-weight: 200;
+    color: var(--ink);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(180,110,59,.05), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(110,125,133,.05), transparent 50%);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--saffron); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 64px 0 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--saffron);
+    text-transform: lowercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(40px, 8vw, 60px);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -.01em;
+  }
+  h1 em { font-style: italic; color: var(--saffron); }
+  .hero .sub {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(17px, 2.6vw, 20px);
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 50ch;
+    line-height: 1.5;
+  }
+  .ornament {
+    color: var(--saffron);
+    margin-top: 24px;
+    opacity: .7;
+  }
+  .ornament svg { width: 14px; height: 14px; }
+
+  /* ---------- ORIGIN PARA ---------- */
+  .origin {
+    margin: 36px auto 0;
+    max-width: 58ch;
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .origin em { color: var(--ink); font-style: italic; }
+  .origin .credit {
+    display: block;
+    margin-top: 12px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: .03em;
+  }
+
+  /* ---------- HOW IT STARTED ---------- */
+  .origin-story {
+    margin: 40px 0 0;
+    padding: 36px 0 12px;
+    border-top: 1px dashed var(--rule);
+  }
+  .origin-eyebrow {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .origin-h {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(26px, 4.6vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -.005em;
+    margin: 0 0 20px;
+    text-align: center;
+  }
+  .origin-h em { font-style: italic; color: var(--saffron); }
+
+  .origin-figure {
+    margin: 0 auto 26px;
+    max-width: 560px;
+  }
+  .origin-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--rule);
+    box-shadow: var(--shadow-md);
+  }
+  .origin-figure figcaption {
+    margin-top: 10px;
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .origin-narrative {
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+  .origin-narrative p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  .origin-narrative p em {
+    color: var(--saffron);
+    font-style: italic;
+  }
+  .origin-narrative .origin-attr {
+    text-align: right;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 18px;
+    font-style: italic;
+    letter-spacing: .03em;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--rule);
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .footer a { color: var(--saffron); }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ====================== HERO ====================== -->
+  <header class="hero">
+    <div class="eyebrow">atvcompanion.in · the story</div>
+    <h1>How this <em>came to be</em></h1>
+    <p class="sub">A companion app, built alongside Vikram Devatha's Astrology 101 cohort &mdash; and the infamous blue file that started it.</p>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+    </div>
+  </header>
+
+  <!-- ====================== ORIGIN PARAGRAPH ====================== -->
+  <p class="origin">
+    Built alongside Vikram's <em>Astrology 101</em> cohort at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a>.
+    <span class="credit">&mdash; Sree &amp; Sanchi &middot; alongside the class</span>
+  </p>
+
+  <!-- ====================== HOW IT STARTED ====================== -->
+  <section class="origin-story" aria-label="How it started">
+    <div class="origin-eyebrow">How it started</div>
+    <h2 class="origin-h">The infamous <em>blue file</em></h2>
+
+    <figure class="origin-figure">
+      <img src="assets/blue-file.jpg" alt="Sree's blue binder filled with Astrology 101 printouts" loading="lazy">
+      <figcaption>The blue file. Printouts of every Astrology 101 reference I might want to find in a hurry.</figcaption>
+    </figure>
+
+    <div class="origin-narrative">
+      <p>Every time I had to refer to astrology, I'd reach for my infamous blue file &mdash; a binder of printouts &mdash; or the iPad with all the PDFs. In a jiffy, if I wanted to find a specific piece of information, <em>it was impossible</em>.</p>
+      <p>I don't learn by memory. I need a lot of references all the time. I needed something pocket-friendly and handy &mdash; something I could open up and remember, or search.</p>
+      <p>That was the genesis. But it also coincided with something deep &mdash; something touching and resonating for me. I'm still yet to understand why I have a deep calling in this path. But I am in a flow, and that's what matters, right?</p>
+      <p class="origin-attr">&mdash; Sree</p>
+    </div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    atvcompanion.in &middot; a companion to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Astrology 101</a>
+  </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,7 +1,0 @@
-{
-  "version": "4.74.35",
-  "build": "meena-5sek",
-  "released": "2026-05-11",
-  "notes_url": "release-notes.html",
-  "comment": "version = semver. build = short cache-verification fingerprint, rotated every deploy. Each HTML page (currently LC) bakes its own BUILD_ID constant. If build differs and version matches, the CDN is serving stale HTML."
-}
