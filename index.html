@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#F8F6EF">
-<meta name="description" content="atvcompanion.in — a companion to Vikram Devatha's Astrology 101 at allthingsvedic.in. The story of how this came to be, and the infamous blue file that started it.">
+<meta name="description" content="atvcompanion.in — back soon.">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
-<title>atvcompanion.in — How this came to be</title>
+<title>atvcompanion.in — back soon</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F4EEDA' rx='12'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Libre Caslon Text,Cormorant Garamond,serif' font-size='38' fill='%23BC8146' font-style='italic'%3E101%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,26 +19,16 @@
 <style>
   :root {
     --bg:        #F8F6EF;
-    --bg-deep:   #DFDDD7;
-    --surface:   #F8F4E1;
-    --cream:     #F8F4E1;
     --ink:       #282826;
     --ink-soft:  #4B4B4A;
     --muted:     #847171;
     --rule:      #C8C5BF;
-    --rule-soft: #DFDDD7;
     --saffron:   #B46E3B;
-    --gold:      #D2C38C;
-    --indigo:    #6E7D85;
-    --forest:    #32413B;
-    --umber:     #453529;
-    --shadow-sm: 0 1px 0 rgba(40,40,38,.04), 0 6px 18px -8px rgba(40,40,38,.14);
-    --shadow-md: 0 1px 0 rgba(40,40,38,.04), 0 14px 36px -14px rgba(40,40,38,.22);
     --display: 'Libre Caslon Display', 'Libre Caslon Text', 'Cormorant Garamond', serif;
     --body:    'Switzer', 'Spectral', system-ui, -apple-system, sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; height: 100%; }
   body {
     font-family: var(--body);
     font-weight: 200;
@@ -50,17 +40,15 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
   }
-  a { color: var(--saffron); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
-  a:hover { text-decoration-color: var(--saffron); }
-
-  .page { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 64px 0 32px;
+  main {
     text-align: center;
-    border-bottom: 1px solid var(--rule);
+    max-width: 540px;
   }
   .eyebrow {
     font-family: var(--display);
@@ -69,495 +57,52 @@
     letter-spacing: .14em;
     color: var(--saffron);
     text-transform: lowercase;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
   h1 {
     font-family: var(--display);
     font-weight: 500;
     font-size: clamp(40px, 8vw, 60px);
     line-height: 1.05;
-    margin: 0 0 14px;
+    margin: 0 0 22px;
     letter-spacing: -.01em;
   }
   h1 em { font-style: italic; color: var(--saffron); }
-  .hero .sub {
+  .sub {
     font-family: var(--display);
     font-style: italic;
-    font-size: clamp(17px, 2.6vw, 20px);
+    font-size: clamp(17px, 2.6vw, 19px);
     color: var(--ink-soft);
     margin: 0 auto;
-    max-width: 50ch;
-    line-height: 1.5;
+    max-width: 44ch;
+    line-height: 1.55;
   }
   .ornament {
     color: var(--saffron);
-    margin-top: 24px;
-    opacity: .7;
+    margin-top: 32px;
+    opacity: .55;
   }
   .ornament svg { width: 14px; height: 14px; }
-
-  /* ---------- ORIGIN PARA ---------- */
-  .origin {
-    margin: 36px auto 0;
-    max-width: 58ch;
-    font-family: var(--body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    text-align: center;
-  }
-  .origin em { color: var(--ink); font-style: italic; }
-  .origin .credit {
-    display: block;
-    margin-top: 12px;
+  .footnote {
+    margin-top: 36px;
     font-family: var(--display);
     font-style: italic;
     font-size: 13px;
     color: var(--muted);
     letter-spacing: .03em;
   }
-
-  /* ---------- THE APP CARD ---------- */
-  .app-card {
-    margin: 40px auto 0;
-    max-width: 560px;
-    padding: 28px 28px 24px;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
-    text-align: center;
-  }
-  .app-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 6px;
-  }
-  .app-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(22px, 3.8vw, 28px);
-    line-height: 1.15;
-    letter-spacing: -.005em;
-    margin: 0 0 12px;
-  }
-  .app-h em { font-style: italic; color: var(--saffron); }
-  .app-lede {
-    font-family: var(--body);
-    font-size: 15.5px;
-    line-height: 1.65;
-    color: var(--ink-soft);
-    max-width: 46ch;
-    margin: 0 auto 22px;
-  }
-  .app-lede strong {
-    color: var(--ink);
-    font-weight: 400;
-    font-family: var(--display);
-    font-style: italic;
-    letter-spacing: .01em;
-  }
-  .app-cta {
-    display: inline-block;
-    background: var(--saffron);
-    color: var(--surface);
-    text-decoration: none;
-    border-radius: 999px;
-    padding: 10px 22px;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: .01em;
-    transition: transform .15s, box-shadow .15s;
-    box-shadow: var(--shadow-sm);
-  }
-  .app-cta:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-    text-decoration: none;
-  }
-
-  /* ---------- HOW IT STARTED ---------- */
-  .origin-story {
-    margin: 40px 0 0;
-    padding: 36px 0 12px;
-    border-top: 1px dashed var(--rule);
-  }
-  .origin-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  .origin-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(26px, 4.6vw, 34px);
-    line-height: 1.1;
-    letter-spacing: -.005em;
-    margin: 0 0 20px;
-    text-align: center;
-  }
-  .origin-h em { font-style: italic; color: var(--saffron); }
-
-  .origin-figure {
-    margin: 0 auto 26px;
-    max-width: 560px;
-  }
-  .origin-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid var(--rule);
-    box-shadow: var(--shadow-md);
-  }
-  .origin-figure figcaption {
-    margin-top: 10px;
-    text-align: center;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .origin-narrative {
-    max-width: 56ch;
-    margin: 0 auto;
-  }
-  .origin-narrative p {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--ink);
-    margin: 0 0 14px;
-  }
-  .origin-narrative p em {
-    color: var(--saffron);
-    font-style: italic;
-  }
-  .origin-narrative .origin-attr {
-    text-align: right;
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 18px;
-    font-style: italic;
-    letter-spacing: .03em;
-  }
-
-  /* ---------- THE MAKERS ---------- */
-  .makers {
-    margin: 44px 0 0;
-    padding: 40px 0 12px;
-    border-top: 1px dashed var(--rule);
-  }
-  .makers-eyebrow,
-  .mentor-eyebrow,
-  .reflection-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  .makers-h,
-  .mentor-h,
-  .reflection-h {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(26px, 4.6vw, 34px);
-    line-height: 1.1;
-    letter-spacing: -.005em;
-    margin: 0 0 26px;
-    text-align: center;
-  }
-  .makers-h em,
-  .mentor-h em,
-  .reflection-h em { font-style: italic; color: var(--saffron); }
-  .maker-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-    max-width: 620px;
-    margin: 0 auto;
-  }
-  @media (max-width: 560px) {
-    .maker-grid { grid-template-columns: 1fr; gap: 18px; }
-  }
-  .maker-card {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-    padding: 24px 20px 22px;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-  }
-  .portrait {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    margin: 0 auto 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--bg);
-    border: 1px solid var(--rule-soft);
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--muted);
-    letter-spacing: .04em;
-  }
-  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .maker-name {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: 22px;
-    margin: 0 0 2px;
-    letter-spacing: -.005em;
-  }
-  .maker-role {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    color: var(--saffron);
-    letter-spacing: .12em;
-    text-transform: lowercase;
-    margin: 0 0 8px;
-  }
-  .maker-links {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12.5px;
-    letter-spacing: .03em;
-    color: var(--muted);
-    line-height: 1.4;
-    margin: 0 0 14px;
-  }
-  .maker-bio {
-    font-family: var(--body);
-    font-size: 14.5px;
-    line-height: 1.65;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-  .maker-bio .placeholder {
-    color: var(--muted);
-    font-family: var(--display);
-    font-style: italic;
-    opacity: .85;
-  }
-
-  /* ---------- THE MENTOR ---------- */
-  .mentor {
-    margin: 44px 0 0;
-    padding: 40px 0 12px;
-    border-top: 1px dashed var(--rule);
-  }
-  .mentor-solo {
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  /* ---------- A YEAR, IN A FEW LINES ---------- */
-  .reflection {
-    margin: 44px 0 0;
-    padding: 40px 0 12px;
-    border-top: 1px dashed var(--rule);
-  }
-  .reflection-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 36px;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-  @media (max-width: 560px) {
-    .reflection-grid { grid-template-columns: 1fr; gap: 28px; }
-  }
-  .reflection-entry {
-    max-width: 32ch;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .reflection-attr {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    color: var(--saffron);
-    letter-spacing: .12em;
-    text-transform: lowercase;
-    margin: 0 0 10px;
-  }
-  .reflection-text {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 16.5px;
-    line-height: 1.7;
-    color: var(--ink);
-    margin: 0;
-  }
-  .reflection-text .placeholder {
-    color: var(--muted);
-    opacity: .85;
-  }
-
-  /* ---------- FOOTER ---------- */
-  .footer {
-    margin-top: 56px;
-    padding-top: 24px;
-    border-top: 1px dashed var(--rule);
-    text-align: center;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-  .footer a { color: var(--saffron); }
 </style>
 </head>
 <body>
 
-<main class="page">
-
-  <!-- ====================== HERO ====================== -->
-  <header class="hero">
-    <div class="eyebrow">atvcompanion.in · the story</div>
-    <h1>How this <em>came to be</em></h1>
-    <p class="sub">A companion app, built alongside Vikram Devatha's Astrology 101 cohort &mdash; and the infamous blue file that started it.</p>
-    <div class="ornament" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
-    </div>
-  </header>
-
-  <!-- ====================== ORIGIN PARAGRAPH ====================== -->
-  <p class="origin">
-    Built alongside Vikram's <em>Astrology 101</em> cohort at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a>.
-    <span class="credit">&mdash; Sree &amp; Sanchi &middot; alongside the class</span>
-  </p>
-
-  <!-- ====================== THE APP ====================== -->
-  <section class="app-card" aria-label="The companion app">
-    <div class="app-eyebrow">The app</div>
-    <h2 class="app-h">Where the <em>learning lives</em></h2>
-    <p class="app-lede">
-      The companion app is at <strong>app.atvcompanion.in</strong> &mdash; planet tracks, references, and reflection prompts, built alongside the cohort. Sign in to enter.
-    </p>
-    <a class="app-cta" href="https://app.atvcompanion.in">Enter the app &rarr;</a>
-  </section>
-
-  <!-- ====================== HOW IT STARTED ====================== -->
-  <section class="origin-story" aria-label="How it started">
-    <div class="origin-eyebrow">How it started</div>
-    <h2 class="origin-h">The infamous <em>blue file</em></h2>
-
-    <figure class="origin-figure">
-      <img src="assets/blue-file.jpg" alt="Sree's blue binder filled with Astrology 101 printouts" loading="lazy">
-      <figcaption>The blue file. Printouts of every Astrology 101 reference I might want to find in a hurry.</figcaption>
-    </figure>
-
-    <div class="origin-narrative">
-      <p>Every time I had to refer to astrology, I'd reach for my infamous blue file &mdash; a binder of printouts &mdash; or the iPad with all the PDFs. In a jiffy, if I wanted to find a specific piece of information, <em>it was impossible</em>.</p>
-      <p>I don't learn by memory. I need a lot of references all the time. I needed something pocket-friendly and handy &mdash; something I could open up and remember, or search.</p>
-      <p>That was the genesis. But it also coincided with something deep &mdash; something touching and resonating for me. I'm still yet to understand why I have a deep calling in this path. But I am in a flow, and that's what matters, right?</p>
-      <p class="origin-attr">&mdash; Sree</p>
-    </div>
-  </section>
-
-  <!-- ====================== THE MAKERS ====================== -->
-  <!--
-    To replace a portrait placeholder with a real photo:
-      1. Drop the image into /assets (e.g. assets/sree.jpg, assets/sanchi.jpg)
-      2. Inside the matching <div class="portrait">, swap the placeholder text
-         for: <img src="assets/sree.jpg" alt="Sree">
-  -->
-  <section class="makers" aria-label="About the makers">
-    <div class="makers-eyebrow">the makers</div>
-    <h2 class="makers-h">Who <em>we are</em></h2>
-
-    <div class="maker-grid">
-      <article class="maker-card">
-        <div class="portrait"><img src="assets/sree.jpg" alt="Watercolor portrait of Sree"></div>
-        <h3 class="maker-name">Sree</h3>
-        <p class="maker-role">co-creator</p>
-        <p class="maker-links"><a href="https://www.linkedin.com/in/sreekandhbalakrishnan/" target="_blank" rel="noopener">linkedin</a></p>
-        <p class="maker-bio"><span class="placeholder">[Sree's background &mdash; a few sentences to come. Where she's from, what she does day-to-day, what drew her to Astrology 101, what she hopes unfolds.]</span></p>
-      </article>
-
-      <article class="maker-card">
-        <div class="portrait"><img src="assets/sanchi.jpg" alt="Watercolor portrait of Sanchi"></div>
-        <h3 class="maker-name">Sanchi</h3>
-        <p class="maker-role">co-creator</p>
-        <p class="maker-links"><a href="https://www.linkedin.com/in/sanchi-chandna-07100195/" target="_blank" rel="noopener">linkedin</a></p>
-        <p class="maker-bio"><span class="placeholder">[Sanchi's background &mdash; a few sentences to come. Where she's from, what she does day-to-day, what drew her to Astrology 101, what she hopes unfolds.]</span></p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ====================== THE MENTOR ====================== -->
-  <!--
-    To replace the portrait placeholder with a real photo:
-      1. Drop the image into /assets (e.g. assets/vikram.jpg)
-      2. Inside <div class="portrait">, swap the placeholder text for:
-         <img src="assets/vikram.jpg" alt="Vikram Devatha">
-  -->
-  <section class="mentor" aria-label="Our teacher">
-    <div class="mentor-eyebrow">the mentor</div>
-    <h2 class="mentor-h">Held by <em>Vikram</em></h2>
-
-    <div class="mentor-solo">
-      <article class="maker-card">
-        <div class="portrait"><img src="assets/vikram.jpg" alt="Watercolor portrait of Vikram Devatha"></div>
-        <h3 class="maker-name">Vikram Devatha</h3>
-        <p class="maker-role">teacher &middot; mentor</p>
-        <p class="maker-links">
-          <a href="https://www.linkedin.com/in/vikramdevatha/" target="_blank" rel="noopener">linkedin</a> &middot;
-          <a href="https://www.allthingsvedic.in/" target="_blank" rel="noopener">allthingsvedic.in</a>
-        </p>
-        <p class="maker-bio"><span class="placeholder">[Vikram's background &mdash; a few sentences to come. His path, his teaching, what he opens up for students. Class lives at <a href="https://allthingsvedic.in" target="_blank" rel="noopener">allthingsvedic.in</a>.]</span></p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ====================== A YEAR, IN A FEW LINES ====================== -->
-  <section class="reflection" aria-label="A year, in a few lines">
-    <div class="reflection-eyebrow">this year</div>
-    <h2 class="reflection-h">A year, in <em>a few lines</em></h2>
-
-    <div class="reflection-grid">
-      <div class="reflection-entry">
-        <p class="reflection-attr">&mdash; Sree</p>
-        <p class="reflection-text">Far from complete &mdash; but as Vikram says, we set the intention, we learn in layers, one step at a time. Know yourself, one layer at a time.</p>
-      </div>
-
-      <div class="reflection-entry">
-        <p class="reflection-attr">&mdash; Sanchi</p>
-        <p class="reflection-text"><span class="placeholder">[Sanchi's reflection on the year &mdash; a few lines in her own voice. What this year of Astrology 101 has stirred, what's still settling, where she finds herself now.]</span></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====================== FOOTER ====================== -->
-  <footer class="footer">
-    atvcompanion.in &middot; a companion to <a href="https://allthingsvedic.in" target="_blank" rel="noopener">Astrology 101</a>
-  </footer>
-
+<main>
+  <div class="eyebrow">atvcompanion.in</div>
+  <h1>Back <em>soon</em></h1>
+  <p class="sub">Stepping back to align on a few things. We&rsquo;ll be back when it&rsquo;s ready.</p>
+  <div class="ornament" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 13.5 10.5 22 12 13.5 13.5 12 22 10.5 13.5 2 12 10.5 10.5z"/></svg>
+  </div>
+  <p class="footnote">&mdash; Sree &amp; Sanchi</p>
 </main>
 
 </body>
